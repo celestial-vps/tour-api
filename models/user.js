@@ -6,12 +6,7 @@ const User = sequelize.define('User', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-    },
-    name: {
-        type: DataTypes.STRING(50),
-        unique: true,
-        allowNull: true,
-    },
+    }, 
     email: {
         type: DataTypes.STRING(100),
         unique: true,
@@ -20,12 +15,7 @@ const User = sequelize.define('User', {
     password: {
         type: DataTypes.STRING(255),
         allowNull: false,
-    },
-    memberNumber: {
-        type: DataTypes.STRING(50),
-        allowNull: true, // null allowed as per sql.NullString in Go
-        field: 'memberNumber', // maps to the 'memberNumber' column in the database
-    },
+    }, 
     androidToken: {
         type: DataTypes.STRING(255),
         allowNull: true, // null allowed
