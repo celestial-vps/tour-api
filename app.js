@@ -1,0 +1,45 @@
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
+
+const helmet = require('helmet')
+// const bankRoutes = require('./routes/bank.route');  
+// const authRoutes = require('./routes/auth.route');  
+const setupSwagger = require('./swagger'); // Adjust the path as needed
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const sequelize = require('./config/sequelize');
+const app = express();
+
+app.use(express.json());
+app.use(helmet())
+app.use(bodyParser.json());
+
+setupSwagger(app);
+// Ensure the uploads directory exists
+const uploadsDir = path.join(__dirname, 'public');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+
+const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
+console.log(`Server running on basePath ${basePath}`);
+sequelize.logging = console.log; 
+
+// app.use(`${basePath}/auth`, authRoutes); 
+// app.use(`${basePath}/bank`, bankRoutes); 
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
+module.exports = app;
