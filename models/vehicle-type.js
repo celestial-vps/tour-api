@@ -14,6 +14,25 @@ const VehicleType = sequelize.define('VehicleType', {
         allowNull: false,
         unique: true,
     },
+    createdBy: {
+        type: Sequelize.UUID,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      lastModifiedBy: {
+        type: Sequelize.UUID,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+      deletedBy: {
+        type: Sequelize.UUID,
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+      },
 }, {
     tableName: 'vehicle-types',
     timestamps: true,
@@ -22,6 +41,11 @@ const VehicleType = sequelize.define('VehicleType', {
 
 VehicleType.associate = (models) => {
     // Add associations here if needed
+    VehicleType.hasMany(models.Vehicle, {
+        foreignKey: 'vehicleOid',
+        as: 'vehicles', // Optional alias
+        onDelete: 'CASCADE',
+    });
 };
 
 module.exports = VehicleType;

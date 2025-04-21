@@ -1,27 +1,47 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+'use strict';
 
-const Country = sequelize.define('Country', {
-    oid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('countries', {
+      oid: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         unique: true,
         allowNull: false,
         primaryKey: true,
-    },
-    countryName: {
-        type: DataTypes.STRING,
+      },
+      countryName: {
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-    },
-}, {
-    tableName: 'countries',
-    timestamps: true,
-    paranoid: true, // for soft deletes using deletedAt
-});
+      }, 
+      countryCurrency: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      createdBy: {
+        type: Sequelize.UUID,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      lastModifiedBy: {
+        type: Sequelize.UUID,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+      deletedBy: {
+        type: Sequelize.UUID,
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+      },
+    });
+  },
 
-Country.associate = (models) => {
-    // Add associations here if needed
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('countries');
+  },
 };
-
-module.exports = Country;
