@@ -1,16 +1,20 @@
 'use strict';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('countries', {
       oid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
-        unique: true,
       },
       countryName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      countryCode: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -21,7 +25,7 @@ module.exports = {
       },
       createdBy: {
         type: Sequelize.UUID,
-        allowNull: true, // Allowing null in case not all records have a creator
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -29,24 +33,24 @@ module.exports = {
       },
       lastModifiedBy: {
         type: Sequelize.UUID,
-        allowNull: true, // Allowing null for records that haven't been modified
+        allowNull: true,
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: true, // Allowing null for records that haven't been updated
+        allowNull: true,
       },
       deletedBy: {
         type: Sequelize.UUID,
-        allowNull: true, // Allowing null for records that haven't been deleted
+        allowNull: true,
       },
       deletedAt: {
         type: Sequelize.DATE,
-        allowNull: true, // Allowing null for records that haven't been deleted
+        allowNull: true,
       },
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('countries');
   },
 };
