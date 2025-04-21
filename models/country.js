@@ -1,47 +1,60 @@
-'use strict';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('countries', {
-      oid: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+const Country = sequelize.define('Country', {
+    oid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         unique: true,
         allowNull: false,
         primaryKey: true,
-      },
-      countryName: {
-        type: Sequelize.STRING,
+    },
+    countryName: {
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-      }, 
-      countryCurrency: {
-        type: Sequelize.STRING,
+    },
+    countryCode: {
+        type: DataTypes.STRING,
         allowNull: false,
-      },
-      createdBy: {
+        unique: true,
+    },
+    countryCurrency: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    createdBy: {
         type: Sequelize.UUID,
-      },
-      createdAt: {
+    },
+    createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
-      },
-      lastModifiedBy: {
+    },
+    lastModifiedBy: {
         type: Sequelize.UUID,
-      },
-      updatedAt: {
+    },
+    updatedAt: {
         type: Sequelize.DATE,
-      },
-      deletedBy: {
+    },
+    deletedBy: {
         type: Sequelize.UUID,
-      },
-      deletedAt: {
+    },
+    deletedAt: {
         type: Sequelize.DATE,
-      },
-    });
-  },
+    },
+}, {
+    tableName: 'countries',
+    timestamps: true,
+    paranoid: true, // for soft deletes using deletedAt
+});
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('countries');
-  },
+Country.associate = (models) => {
+    // Add associations here if needed
+    Country.hasMany(models.Province, {
+        foreignKey: 'countryOid',
+        as: 'provinces', // Optional alias
+        onDelete: 'CASCADE',
+    });
 };
+
+module.exports = Country;
