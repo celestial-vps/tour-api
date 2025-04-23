@@ -2130,7 +2130,8 @@ module.exports = {
 
       cilegonCity, serangCity, tangerangCity, southtangerang, pandeglangCity, lebakCity,
 
-      bengkuluCity, bengkuluSelatanCity, bengkuluTengahCity, bengkuluUtaraCity, kaurCity, lebongCity,
+      bengkuluCity, bengkuluSelatanCity, bengkuluTengahCity, bengkuluUtaraCity, kaurCity, 
+      lebongCity,
       mukomuko, rajaLebong, selumaCity,
 
       gorontaloCity, boalemoCity, gorontaloUtaraCity, pohuwatoCity, boneBolangoCity,
@@ -3368,7 +3369,9 @@ module.exports = {
       wamenaDistrict, asologaimaDistrict, bolakmeDistrict, hubikosiDistrict, pelebagaDistrict,
       mulia, fawi, ilu, jigonikme, mewoluk,
       kenyam, gearek, kegayem, mbuwa, wosak,
-      timika, agimugaDistrict, jilaDistrict, mimikaBarat, mimikaTimurDistrict,
+      timika, agimugaDistrict, jilaDistrict,
+      mimikaBarat, mimikaTimurDistrict,
+
       karubaga, bokondini, kanggime, kembu, wunin,
       sumohai, anggruk, kayo, kona, suntamon,
       tanahMerah, jair, mandobo, mindiptana, waropko,
@@ -3376,6 +3379,7 @@ module.exports = {
       kigamani, diyai, dogiyai, kamuu, piyaiye,
       sugapa, agisiga, biandoga, hitadipa, wandai,
       elelim, apalapsili, abenaho, benawa, welarek,
+
       tigiDistrict, tigiTimurDistrict, tigiBaratDistrict, bowobadoDistrict, kapirayaDistrict,
       kamu, kamuSelatan, kamuTimur, kamuUtara, mapia,
       mapiaBarat, sukikai,
@@ -3386,10 +3390,12 @@ module.exports = {
       tampan, tenayanRaya, bukitKapur, dumaiBarat, dumaiKota,
       dumaiSelatan, dumaiTimur, medangKampai, sungaiSembilan, rengat,
       rengatBarat, kelayang, pasirPenyu, peranap, siberida,
+
       tembilahan, tembilahanHulu, gaungAnakSerka, kempas, kualaIndragiri,
       mandah, tempuling, bangkinang, bangkinangSeberang, kampar,
       kamparKiri, kamparKiriHilir, kamparKiriHulu, kamparKiriTengah, kamparTimur,
       kamparUtara, perhentianRaja, rumbioJaya, salo, tambang,
+
       tapung, tapungHilir, tapungHulu, xiiKotoKampar, indragiriHulu,
       indragiriHilir, pangkalanKerinci, bandarSeiKijang, bunut, kerumutan,
       kualaKampar, langgam, pangkalanKuras, pangkalanLesung, pelalawan,
@@ -3404,6 +3410,7 @@ module.exports = {
       pagaranTapahDarussalam, pendalianIVKoto, rambah, rambahHilir, rambahSamo,
       rokanIVKoto, tambusai, tambusaiUtara, tandun, ujungBatu,
       telukKuantan, benai, cerenti, gunungToar, huluKuantan,
+
       inuman, kuantanHilir, kuantanHilirSeberang, kuantanMudik, kuantanTengah,
       logasTanahDarat, pangean, pucukRantau, sentajoRaya, singingi,
       singingiHilir, siak, bungaRaya, dayun, kandis,
@@ -3441,6 +3448,7 @@ module.exports = {
       pallangga, parangloe, sombaOpu, tinggimoncong, pattallassang,
       mangaraBombang, polombangkengSelatan, polombangkengUtara, galesong,
       galesongSelatan, galesongUtara, mappakasunggu, bontosunggu,
+
       bangkala, bangkalaBarat, batang, binamu, tamalatea, tarowang,
       arungkeke, bantaeng, bissappu, eremerasasa, pajukukang, sinoa,
       tompobulu, uluere, ujungBulu, gantarang, kindang, rilauAle, ujungLoe,
@@ -3483,6 +3491,7 @@ module.exports = {
       banawa, dampelas, labuan, palolo, rioPakava, sindue,
       bungkuBarat, bungkuSelatan, bungkuTengah, menuiKepulauan, petasia, soyoJaya,
       bungkuUtara, lembo, mamosalato, petasiaTimur,
+
       ampibabo, bolanoLambunu, moutong, parigi, sausu, tinombo,
       lage, loreSelatan, loreUtara, pamonaPuselemba, posoKota, posoPesisir,
       dolo, doloSelatan, gumbasa, kinovaro, marawola, sigiBiromaru,
@@ -3503,6 +3512,7 @@ module.exports = {
       abuki, amonggedo, konaweDistrict, unaaha, wawotobi,
       andoolo, baito, landono, lainea,
       asera, oheo, wiwirano,
+
       wawoniiBarat, wawoniiSelatan, wawoniiTengah, wawoniiUtara,
       batalaiworu, kontunaga, lohia, wakorumba,
       barangka, kusambi, maginti, napanoKusambi,
@@ -3516,6 +3526,7 @@ module.exports = {
       amurang, modoinding, motoling, ranoyapo, tumpaan,
       airmadidi, dimembe, kauditan, kema, wori,
       belang, pusomaen, ratahan, tombatu,
+
       bolaang, dumoga, lolak, passi, sangtombolang,
       bintauna, kaidipang, pinogaluman, sangkub,
       bolaangUki, pinolosian, posigadan,
@@ -3527,6 +3538,7 @@ module.exports = {
       bungusTelukKabung, kotoTangah, kuranji, lubukBegalung,
       lubukKilangan, nanggalo, padangBarat, padangSelatan,
       padangTimur, padangUtara, pauh,
+
       aurBirugoTigoBaleh, gugukPanjang, mandianginKotoSelayan,
       padangPanjangBarat, padangPanjangTimur,
       pariamanSelatan, pariamanTengah, pariamanTimur, pariamanUtara,
@@ -3568,6 +3580,7 @@ module.exports = {
       batipuh, batipuhSelatan, limaKaum, lintauBuo, lintauBuoUtara, padangGanting,
       pariangan, rambatan, salimpaung, sepuluhKoto, sungaiTarab, sungayang,
       tanjungBaru, tanjungEmas, alangAlangLebar, bukitKecil, gandus, ilirBaratI,
+
       ilirBaratII, ilirTimurI, ilirTimurII, jakabaring, kalidoni, kemuning,
       kertapati, plaju, sako, seberangUluI, seberangUluII, sematangBorang, sukarami,
       sumber, lubuklinggauBaratI, lubuklinggauBaratII, lubuklinggauSelatanI,
@@ -3626,6 +3639,7 @@ module.exports = {
       tanjungbalaiTanjungbalaiSelatan, tanjungbalaiTanjungbalaiUtara, tanjungbalaiTelukNibung,
       tebingTinggiBajenis, tebingTinggiPadangHilir, tebingTinggiPadangHulu, tebingTinggiRambutan,
       tebingTinggiTebingTinggiKota, padangsidimpuanPadangsidimpuanAngkolaJulu,
+
       padangsidimpuanPadangsidimpuanBatunadua, padangsidimpuanPadangsidimpuanHutaimbaru,
       padangsidimpuanPadangsidimpuanSelatan, padangsidimpuanPadangsidimpuanTenggara,
       gunungsitoliGunungsitoli, gunungsitoliGunungsitoliAlooa, gunungsitoliGunungsitoliBarat,
@@ -3653,7 +3667,8 @@ module.exports = {
 
       kabanjahe, barusjahe, berastagi, dolatRayat, juhar, kutaBuluh,
       laubaleng, mardingding, merdeka, merek, munte,
-      namanteran, payungDistrict, simpangEmpatDistrict, tigaBinanga, tigaPanah, tiganderket,
+      namanteran, payungDistrict, simpangEmpatDistrict, tigaBinanga,
+      tigaPanah, tiganderket,
 
       rantauPrapat, bilahBarat, bilahHilir, bilahHulu, panaiHilir,
       panaiHulu, panaiTengah, pangkatan, rantauSelatan, rantauUtara,
@@ -4090,16 +4105,16 @@ module.exports = {
       { districtName: 'Bintaro', cityOid: southtangerang.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Lenteng Agung', cityOid: southtangerang.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Pandeglang', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Cimanuk', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Cigeulis', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Cinangka', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Carita', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Labuan', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Majasari', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Maja', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sukaresmi', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Panimbang', cityOid: pandeglang.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Pandeglang', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Cimanuk', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Cigeulis', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Cinangka', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Carita', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Labuan', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Majasari', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Maja', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sukaresmi', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Panimbang', cityOid: pandeglangCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Lebak', cityOid: lebakCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Bojonegara', cityOid: lebakCity.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -4164,36 +4179,36 @@ module.exports = {
       { districtName: 'Ujan Mas', cityOid: lebongCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Muara Aman', cityOid: lebongCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Ipuh', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Air Rami', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Malin Deman', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Pondok Suguh', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sungai Rumbai', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Teramang Jaya', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Teras Terunjam', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Penarik', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Selagan Raya', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kota Mukomuko', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Air Dikit', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'XIV Koto', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Lubuk Pinang', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Air Manjunto', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'V Koto', cityOid: mukoMuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Ipuh', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Air Rami', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Malin Deman', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Pondok Suguh', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sungai Rumbai', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Teramang Jaya', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Teras Terunjam', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Penarik', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Selagan Raya', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kota Mukomuko', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Air Dikit', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'XIV Koto', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Lubuk Pinang', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Air Manjunto', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'V Koto', cityOid: mukomuko.oid, createdAt: new Date(), updatedAt: new Date() },
 
       // Rejang Lebong Districts (Bengkulu Province)
-      { districtName: 'Curup', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Selupu Rejang', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Bermani Ulu', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Bermani Ulu Raya', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Binduriang', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kota Padang', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Padang Ulak Tanding', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sindang Kelingi', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sindang Dataran', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sindang Beliti Ulu', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sindang Beliti Ilir', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Air Periukan', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Taba Penanjung', cityOid: rejangLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Curup', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Selupu Rejang', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bermani Ulu', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bermani Ulu Raya', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Binduriang', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kota Padang', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Padang Ulak Tanding', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sindang Kelingi', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sindang Dataran', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sindang Beliti Ulu', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sindang Beliti Ilir', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Air Periukan', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Taba Penanjung', cityOid: rajaLebong.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Seluma', cityOid: selumaCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Seluma Selatan', cityOid: selumaCity.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -4318,17 +4333,17 @@ module.exports = {
       { districtName: 'Rawa Makmur', cityOid: jambiCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Telanaipura', cityOid: jambiCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Muara Bulian', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Mersam', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Batin XXIV', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Baung', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Rantau Pandan', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Pemayung', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Taman Rajo', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Maro Sebo', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Bahar Selatan', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Bahar Utara', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sungai Buntu', cityOid: batangHari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Muara Bulian', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Mersam', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Batin XXIV', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Baung', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Rantau Pandan', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Pemayung', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Taman Rajo', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Maro Sebo', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bahar Selatan', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bahar Utara', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sungai Buntu', cityOid: batanghari.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Muara Bungo', cityOid: bungo.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Rimbo Bujang', cityOid: bungo.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -5012,30 +5027,30 @@ module.exports = {
       { districtName: 'Sananwetan', cityOid: blitar.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Sukorejo', cityOid: blitar.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Bangsring', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Banyuwangi', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Cluring', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Gambiran', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Genteng', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Giri', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Glagah', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Glenmore', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kabat', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kalibaru', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kalipuro', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Licin', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Muncar', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Pesanggaran', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Purwoharjo', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Rogojampi', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sempu', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Siliragung', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Singojuruh', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Songgon', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Srono', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Tegaldlimo', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Tegalsari', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Wongsorejo', cityOid: banyuwangi.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bangsring', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Banyuwangi', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Cluring', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Gambiran', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Genteng', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Giri', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Glagah', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Glenmore', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kabat', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kalibaru', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kalipuro', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Licin', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Muncar', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Pesanggaran', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Purwoharjo', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Rogojampi', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sempu', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Siliragung', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Singojuruh', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Songgon', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Srono', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Tegaldlimo', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Tegalsari', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Wongsorejo', cityOid: banyuwangiCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Sidoarjo', cityOid: sidoarjoCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Buduran', cityOid: sidoarjoCity.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -5278,11 +5293,11 @@ module.exports = {
       { districtName: 'Kusan Hulu', cityOid: batuLicinCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Simpang Empat', cityOid: batuLicinCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Pahandut', cityOid: palangkaRaya.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Jekan Raya', cityOid: palangkaRaya.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Bukit Batu', cityOid: palangkaRaya.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Sebangau', cityOid: palangkaRaya.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Rakumpit', cityOid: palangkaRaya.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Pahandut', cityOid: palangkaraya.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Jekan Raya', cityOid: palangkaraya.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Bukit Batu', cityOid: palangkaraya.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Sebangau', cityOid: palangkaraya.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Rakumpit', cityOid: palangkaraya.oid, createdAt: new Date(), updatedAt: new Date() },
 
 
       { districtName: 'Basarang', cityOid: kualaKapuasCity.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -5631,15 +5646,15 @@ module.exports = {
       { districtName: 'Palmatak', cityOid: anambas.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Jemaja Barat', cityOid: anambas.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Baiturrahman', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kuta Alam', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Meuraxa', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Syiah Kuala', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Lueng Bata', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kuta Raja', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Banda Raya', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Jaya Baru', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Ulee Kareng', cityOid: bandarlampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Baiturrahman', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kuta Alam', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Meuraxa', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Syiah Kuala', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Lueng Bata', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kuta Raja', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Banda Raya', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Jaya Baru', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Ulee Kareng', cityOid: bandarLampung.oid, createdAt: new Date(), updatedAt: new Date() },
       // Add Metro districts
       { districtName: 'Metro Barat', cityOid: metro.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Metro Utara', cityOid: metro.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -5653,7 +5668,7 @@ module.exports = {
 
       { districtName: 'Lampung Timur', cityOid: lampungTimurCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Lampung Utara', cityOid: lampungUtara.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Lampung Utara', cityOid: LampungUtara.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Way Kanan', cityOid: wayKananCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
@@ -5699,11 +5714,11 @@ module.exports = {
       { districtName: 'Seram Utara Barat', cityOid: malukuTengah.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Seram Utara Timur', cityOid: malukuTengah.oid, createdAt: new Date(), updatedAt: new Date() },
 
-      { districtName: 'Piru', cityOid: City.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Kairatu', cityOid: City.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Seram Barat', cityOid: City.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Taniwel', cityOid: City.oid, createdAt: new Date(), updatedAt: new Date() },
-      { districtName: 'Huamual Belakang', cityOid: City.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Piru', cityOid: seramBaratCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Kairatu', cityOid: seramBaratCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Seram Barat', cityOid: seramBaratCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Taniwel', cityOid: seramBaratCity.oid, createdAt: new Date(), updatedAt: new Date() },
+      { districtName: 'Huamual Belakang', cityOid: seramBaratCity.oid, createdAt: new Date(), updatedAt: new Date() },
 
       { districtName: 'Dataran Hunipopu', cityOid: seramTimurCity.oid, createdAt: new Date(), updatedAt: new Date() },
       { districtName: 'Bula', cityOid: seramTimurCity.oid, createdAt: new Date(), updatedAt: new Date() },
@@ -12507,10 +12522,10 @@ module.exports = {
       // Talaga District
       { subdistrictName: 'Talaga', districtOid: talagaDistrict.oid, postalCode: '45463', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Cikandung', districtOid: talagaDistrict.oid, postalCode: '45463', createdAt: new Date(), updatedAt: new Date() },
-      { subdistrictName: 'Sindangpala', districtOid: talagaDistrict.oid, postalCode: '45463', createdAt: new Date(), updatedAt: new Date() }
+      { subdistrictName: 'Sindangpala', districtOid: talagaDistrict.oid, postalCode: '45463', createdAt: new Date(), updatedAt: new Date() },
 
-// 9. Cimerak
-{ subdistrictName: 'Cimerak', districtOid: cimerak.oid, postalCode: '46395', createdAt: new Date(), updatedAt: new Date() },
+      // 9. Cimerak
+      { subdistrictName: 'Cimerak', districtOid: cimerak.oid, postalCode: '46395', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Cimerak', districtOid: cimerak.oid, postalCode: '46395', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Kondangjajar', districtOid: cimerak.oid, postalCode: '46395', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Margacinta', districtOid: cimerak.oid, postalCode: '46395', createdAt: new Date(), updatedAt: new Date() },
@@ -12690,2721 +12705,6348 @@ module.exports = {
       { subdistrictName: 'Tegalwaru', districtOid: tegalwaru.oid, postalCode: '41165', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Cibogohilir', districtOid: tegalwaru.oid, postalCode: '41165', createdAt: new Date(), updatedAt: new Date() },
       { subdistrictName: 'Cijantung', districtOid: tegalwaru.oid, postalCode: '41165', createdAt: new Date(), updatedAt: new Date() },
-      { subdistrictName: 'Kertamanah', districtOid: tegalwaru.oid, postalCode: '41165', createdAt: new Date(), updatedAt: new Date() }
-
-        // Subang Regency Districts
-        { subdistrictName: "Subang", districtOid: subangsubangCityDistrict.oid, postalCode: "41211", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Binong", districtOid: binongDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Blanakan", districtOid: blanakanDistrict.oid, postalCode: "41259", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Ciasem", districtOid: ciasemDistrict.oid, postalCode: "41256", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Ciater", districtOid: ciaterDistrict.oid, postalCode: "41281", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cibogo", districtOid: cibogoDistrict.oid, postalCode: "41285", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cijambe", districtOid: cijambeDistrict.oid, postalCode: "41286", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cikaum", districtOid: cikaumDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cilamaya", districtOid: cilamayaDistrict.oid, postalCode: "41284", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cisalak", districtOid: cisalakDistrict.oid, postalCode: "41283", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Compreng", districtOid: comprengDistrict.oid, postalCode: "41258", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Dawuan", districtOid: dawuamDistrict.oid, postalCode: "41271", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Jalancagak", districtOid: jalancagakDistrict.oid, postalCode: "41281", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Kalijati", districtOid: kalijatiDistrict.oid, postalCode: "41271", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Kasomalang", districtOid: kasomalangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Legonkulon", districtOid: legonkulonDistrict.oid, postalCode: "41254", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pabuaran", districtOid: pabuaranDistrict.oid, postalCode: "41262", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pagaden", districtOid: pagadenDistrict.oid, postalCode: "41252", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pagaden Baru", districtOid: pagadenbaruDistrict.oid, postalCode: "41252", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Patokbeusi", districtOid: patokbeusiDistrict.oid, postalCode: "41263", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Purwadadi", districtOid: purwadadiDistrict.oid, postalCode: "41261", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pusakajaya", districtOid: pusakajayaDistrict.oid, postalCode: "41255", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pusakanagara", districtOid: pusakanagaraDistrict.oid, postalCode: "41255", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Sagalaherang", districtOid: sagalaherangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Serangpanjang", districtOid: serangpanjangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Sukasari", districtOid: sukasarisubangCityDistrict.oid, postalCode: "41254", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tambakdahan", districtOid: tambakdahanDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tanjungsiang", districtOid: tanjungsiangDistrict.oid, postalCode: "41284", createdAt: new Date(), updatedAt: new Date() },
-      
-        // Sumedang Regency Districts
-        { subdistrictName: "Sumedang", districtOid: sumedangDistrict.oid, postalCode: "45311", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Buahdua", districtOid: buahduaDistrict.oid, postalCode: "45392", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cibugel", districtOid: cibugelDistrict.oid, postalCode: "45375", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cimalaka", districtOid: cimalakaDistrict.oid, postalCode: "45353", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cimanggung", districtOid: cimanggungDistrict.oid, postalCode: "45364", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cisarua", districtOid: cisaruasubangCityDistrict.oid, postalCode: "45355", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Cisitu", districtOid: cisituDistrict.oid, postalCode: "45363", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Conggeang", districtOid: conggeangDistrict.oid, postalCode: "45391", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Darmaraja", districtOid: darmarajaDistrict.oid, postalCode: "45372", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Ganeas", districtOid: ganeasDistrict.oid, postalCode: "45356", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Jatinangor", districtOid: jatinangorDistrict.oid, postalCode: "45363", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Jatinunggal", districtOid: jatinunggalDistrict.oid, postalCode: "45376", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Pamulihan", districtOid: pamulihanDistrict.oid, postalCode: "45365", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Paseh", districtOid: pasehDistrict.oid, postalCode: "45381", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Rancakalong", districtOid: rancakalongDistrict.oid, postalCode: "45361", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Situraja", districtOid: siturajaDistrict.oid, postalCode: "45383", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Sukasari", districtOid: sukasarisumedangCityDistrict.oid, postalCode: "45366", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Surian", districtOid: surianDistrict.oid, postalCode: "45393", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tanjungkerta", districtOid: tanjungkertaDistrict.oid, postalCode: "45354", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tanjungmedar", districtOid: tanjungmedarDistrict.oid, postalCode: "45354", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tanjungsari", districtOid: tanjungsariDistrict.oid, postalCode: "45362", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Tomo", districtOid: tomoDistrict.oid, postalCode: "45382", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Ujungjaya", districtOid: ujungjayaDistrict.oid, postalCode: "45383", createdAt: new Date(), updatedAt: new Date() },
-        { subdistrictName: "Wado", districtOid: wadoDistrict.oid, postalCode: "45373", createdAt: new Date(), updatedAt: new Date() }
-      
-// Ngamprah District
-{ subdistrictName: 'Ngamprah', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bojongkoneng', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cimareme', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
-
-// Batujajar District
-{ subdistrictName: 'Batujajar', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Galanggang', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pangauban', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-
-// Cihampelas District
-{ subdistrictName: 'Cihampelas', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cipatik', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Singajaya', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-
-// Cikalongwetan District
-{ subdistrictName: 'Cikalongwetan', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
-// Cikalongwetan District (continued)
-{ subdistrictName: 'Cipada', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jambudipa', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mekarjaya', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
-
-// Cililin District
-{ subdistrictName: 'Cililin', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batulayang', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bongas', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
-
-// Cipatat District
-{ subdistrictName: 'Cipatat', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ciptaharja', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Citatah', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
-
-// Cipeundeuy District
-{ subdistrictName: 'Cipeundeuy', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bojong', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ciharashas', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
-
-// Cipongkor District
-{ subdistrictName: 'Cipongkor', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baranangsiang', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cibenda', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-
-// Cisarua District (West Bandung)
-{ subdistrictName: 'Cisarua', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cibeureum', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jambudipa', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
-
-// Gununghalu District
-{ subdistrictName: 'Gununghalu', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bunijaya', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Celak', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
-
-// Lembang District (West Bandung)
-{ subdistrictName: 'Lembang', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cibodas', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cikahuripan', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
-
-// Parongpong District
-{ subdistrictName: 'Parongpong', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cigugur Girang', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karyawangi', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
-
-// Rongga District
-{ subdistrictName: 'Rongga', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bojong', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cibedug', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
-
-// Saguling District
-{ subdistrictName: 'Saguling', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cipangeran', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jati', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
-
-// Sindangkerta District
-{ subdistrictName: 'Sindangkerta', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Buninagara', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cicadas', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() }
-
-// Banyumanik District
-{ subdistrictName: 'Banyumanik', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedawang', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Padangsari', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
-
-// Candisari District
-{ subdistrictName: 'Candisari', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatingaleh', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar Gunung', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
-
-// Gajahmungkur District
-{ subdistrictName: 'Gajahmungkur', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bendan Duwur', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bendungan', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
-
-// Gayamsari District
-{ subdistrictName: 'Gayamsari', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaligawe', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sambirejo', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
-
-// Genuk District
-{ subdistrictName: 'Genuk', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangetayu', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gebangsari', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
-
-// Gunungpati District
-{ subdistrictName: 'Gunungpati', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nongkosawit', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumurejo', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
-
-// Mijen District
-{ subdistrictName: 'Mijen', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatibarang', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedungpane', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
-
-// Ngaliyan District
-{ subdistrictName: 'Ngaliyan', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bambankerep', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwoyoso', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
-
-// Pedurungan District
-{ subdistrictName: 'Pedurungan', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gemah', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalicari', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
-
-// Semarang Barat District
-{ subdistrictName: 'Semarang Barat', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bojongsalaman', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kembangarum', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
-
-// Semarang Selatan District
-{ subdistrictName: 'Semarang Selatan', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulustalan', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lamper Kidul', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
-
-// Semarang Tengah District
-{ subdistrictName: 'Semarang Tengah', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangunharjo', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gabahan', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
-
-// Semarang Timur District
-{ subdistrictName: 'Semarang Timur', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangtempel', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rejosari', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
-
-// Semarang Utara District
-{ subdistrictName: 'Semarang Utara', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bandarharjo', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulu Lor', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
-
-// Tembalang District
-{ subdistrictName: 'Tembalang', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulusan', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mangunharjo', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
-
-// Tugu District
-{ subdistrictName: 'Tugu', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jerakah', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() }
-
-// Surakarta (Solo) City Districts
-// 1. Pasar Kliwon
-{ subdistrictName: 'Pasar Kliwon', districtOid: pasarkliwon.oid, postalCode: '57110', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedunglumbu', districtOid: pasarkliwon.oid, postalCode: '57111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sangkrah', districtOid: pasarkliwon.oid, postalCode: '57112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semanggi', districtOid: pasarkliwon.oid, postalCode: '57113', createdAt: new Date(), updatedAt: new Date() },
-
-// 2. Jebres
-{ subdistrictName: 'Jebres', districtOid: jebres.oid, postalCode: '57120', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mojosongo', districtOid: jebres.oid, postalCode: '57121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwodiningratan', districtOid: jebres.oid, postalCode: '57122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalharjo', districtOid: jebres.oid, postalCode: '57123', createdAt: new Date(), updatedAt: new Date() },
-
-// 3. Banjarsari
-{ subdistrictName: 'Banjarsari', districtOid: banjarsari.oid, postalCode: '57130', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gilingan', districtOid: banjarsari.oid, postalCode: '57131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kadipiro', districtOid: banjarsari.oid, postalCode: '57132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nusukan', districtOid: banjarsari.oid, postalCode: '57133', createdAt: new Date(), updatedAt: new Date() },
-
-// 4. Laweyan
-{ subdistrictName: 'Laweyan', districtOid: laweyan.oid, postalCode: '57140', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bumi', districtOid: laweyan.oid, postalCode: '57141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Penumping', districtOid: laweyan.oid, postalCode: '57142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pajang', districtOid: laweyan.oid, postalCode: '57143', createdAt: new Date(), updatedAt: new Date() },
-
-// 5. Serengan
-{ subdistrictName: 'Serengan', districtOid: serengan.oid, postalCode: '57150', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jayengan', districtOid: serengan.oid, postalCode: '57151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemlayan', districtOid: serengan.oid, postalCode: '57152', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sondakan', districtOid: serengan.oid, postalCode: '57153', createdAt: new Date(), updatedAt: new Date() },
-
-// Magelang City Districts
-// 6. Magelang Selatan
-{ subdistrictName: 'Magelang Selatan', districtOid: magelangselatan.oid, postalCode: '56121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jurangombo Selatan', districtOid: magelangselatan.oid, postalCode: '56122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Magersari', districtOid: magelangselatan.oid, postalCode: '56123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rejowinangun Selatan', districtOid: magelangselatan.oid, postalCode: '56124', createdAt: new Date(), updatedAt: new Date() },
-
-// 7. Magelang Tengah
-{ subdistrictName: 'Magelang Tengah', districtOid: magelangtengah.oid, postalCode: '56111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cacaban', districtOid: magelangtengah.oid, postalCode: '56112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemirirejo', districtOid: magelangtengah.oid, postalCode: '56113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Magelang', districtOid: magelangtengah.oid, postalCode: '56114', createdAt: new Date(), updatedAt: new Date() },
-
-// 8. Magelang Utara
-{ subdistrictName: 'Magelang Utara', districtOid: magelangutara.oid, postalCode: '56115', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jurangombo Utara', districtOid: magelangutara.oid, postalCode: '56116', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rejowinangun Utara', districtOid: magelangutara.oid, postalCode: '56117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tidar Utara', districtOid: magelangutara.oid, postalCode: '56118', createdAt: new Date(), updatedAt: new Date() },
-
-// Tegal City Districts
-// 9. Tegal Barat
-{ subdistrictName: 'Tegal Barat', districtOid: tegalbarat.oid, postalCode: '52111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Debong Lor', districtOid: tegalbarat.oid, postalCode: '52112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemandungan', districtOid: tegalbarat.oid, postalCode: '52113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalsari', districtOid: tegalbarat.oid, postalCode: '52114', createdAt: new Date(), updatedAt: new Date() },
-
-// 10. Tegal Selatan
-{ subdistrictName: 'Tegal Selatan', districtOid: tegalselatan.oid, postalCode: '52121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bandung', districtOid: tegalselatan.oid, postalCode: '52122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Debong Kidul', districtOid: tegalselatan.oid, postalCode: '52123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kraton', districtOid: tegalselatan.oid, postalCode: '52124', createdAt: new Date(), updatedAt: new Date() },
-
-// 11. Tegal Timur
-{ subdistrictName: 'Tegal Timur', districtOid: tegaltimur.oid, postalCode: '52131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kejambon', districtOid: tegaltimur.oid, postalCode: '52132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mintaragen', districtOid: tegaltimur.oid, postalCode: '52133', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Panggung', districtOid: tegaltimur.oid, postalCode: '52134', createdAt: new Date(), updatedAt: new Date() },
-
-// 12. Margadana
-{ subdistrictName: 'Margadana', districtOid: margadana.oid, postalCode: '52141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cabawan', districtOid: margadana.oid, postalCode: '52142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalinyamat', districtOid: margadana.oid, postalCode: '52143', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumurpanggang', districtOid: margadana.oid, postalCode: '52144', createdAt: new Date(), updatedAt: new Date() },
-
-// Salatiga City Districts
-// 13. Argomulyo
-{ subdistrictName: 'Argomulyo', districtOid: argomulyo.oid, postalCode: '50732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cebongan', districtOid: argomulyo.oid, postalCode: '50733', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kumpulrejo', districtOid: argomulyo.oid, postalCode: '50734', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalrejo', districtOid: argomulyo.oid, postalCode: '50735', createdAt: new Date(), updatedAt: new Date() },
-
-// 14. Tingkir
-{ subdistrictName: 'Tingkir', districtOid: tingkir.oid, postalCode: '50741', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kutowinangun', districtOid: tingkir.oid, postalCode: '50742', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sidorejo Lor', districtOid: tingkir.oid, postalCode: '50743', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tingkir Lor', districtOid: tingkir.oid, postalCode: '50744', createdAt: new Date(), updatedAt: new Date() },
-
-// 15. Sidomukti
-{ subdistrictName: 'Sidomukti', districtOid: sidomukti.oid, postalCode: '50721', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Blotongan', districtOid: sidomukti.oid, postalCode: '50722', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bugel', districtOid: sidomukti.oid, postalCode: '50723', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kauman Kidul', districtOid: sidomukti.oid, postalCode: '50724', createdAt: new Date(), updatedAt: new Date() },
-
-// 16. Sidorejo
-{ subdistrictName: 'Sidorejo', districtOid: sidorejo.oid, postalCode: '50711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalicacing', districtOid: sidorejo.oid, postalCode: '50712', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mangunsari', districtOid: sidorejo.oid, postalCode: '50713', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pulutan', districtOid: sidorejo.oid, postalCode: '50714', createdAt: new Date(), updatedAt: new Date() },
-
-// Pekalongan City Districts
-// 17. Pekalongan Barat
-{ subdistrictName: 'Pekalongan Barat', districtOid: pekalonganbarat.oid, postalCode: '51111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bendan', districtOid: pekalonganbarat.oid, postalCode: '51112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krapyak', districtOid: pekalonganbarat.oid, postalCode: '51113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sapuro', districtOid: pekalonganbarat.oid, postalCode: '51114', createdAt: new Date(), updatedAt: new Date() },
-
-// 18. Pekalongan Timur
-{ subdistrictName: 'Pekalongan Timur', districtOid: pekalongantimur.oid, postalCode: '51121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebulen', districtOid: pekalongantimur.oid, postalCode: '51122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Poncol', districtOid: pekalongantimur.oid, postalCode: '51123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sampangan', districtOid: pekalongantimur.oid, postalCode: '51124', createdAt: new Date(), updatedAt: new Date() },
-
-// 19. Pekalongan Selatan
-{ subdistrictName: 'Pekalongan Selatan', districtOid: pekalonganselatan.oid, postalCode: '51131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jenggot', districtOid: pekalonganselatan.oid, postalCode: '51132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kramatsari', districtOid: pekalonganselatan.oid, postalCode: '51133', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuripan Kertoharjo', districtOid: pekalonganselatan.oid, postalCode: '51134', createdAt: new Date(), updatedAt: new Date() },
-
-// 20. Pekalongan Utara
-{ subdistrictName: 'Pekalongan Utara', districtOid: pekalonganutara.oid, postalCode: '51141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bandengan', districtOid: pekalonganutara.oid, postalCode: '51142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Panjang Baru', districtOid: pekalonganutara.oid, postalCode: '51143', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Panjang Wetan', districtOid: pekalonganutara.oid, postalCode: '51144', createdAt: new Date(), updatedAt: new Date() },
-
-// Cilacap Regency Districts
-// 21. Cilacap Selatan
-{ subdistrictName: 'Cilacap Selatan', districtOid: cilacapselatan.oid, postalCode: '53211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Donan', districtOid: cilacapselatan.oid, postalCode: '53212', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kutawaru', districtOid: cilacapselatan.oid, postalCode: '53213', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tambakreja', districtOid: cilacapselatan.oid, postalCode: '53214', createdAt: new Date(), updatedAt: new Date() },
-
-// 22. Cilacap Tengah
-{ subdistrictName: 'Cilacap Tengah', districtOid: cilacaptengah.oid, postalCode: '53221', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gunungsimping', districtOid: cilacaptengah.oid, postalCode: '53222', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sidakaya', districtOid: cilacaptengah.oid, postalCode: '53223', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalkamulyan', districtOid: cilacaptengah.oid, postalCode: '53224', createdAt: new Date(), updatedAt: new Date() },
-
-// 23. Cilacap Utara
-{ subdistrictName: 'Cilacap Utara', districtOid: cilacaputara.oid, postalCode: '53231', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonmanis', districtOid: cilacaputara.oid, postalCode: '53232', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lomanis', districtOid: cilacaputara.oid, postalCode: '53233', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tambaksari', districtOid: cilacaputara.oid, postalCode: '53234', createdAt: new Date(), updatedAt: new Date() },
-
-// Purwokerto City Districts
-// 24. Purwokerto Barat
-{ subdistrictName: 'Purwokerto Barat', districtOid: purwokertobarat.oid, postalCode: '53131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bancarkembar', districtOid: purwokertobarat.oid, postalCode: '53132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangwangkal', districtOid: purwokertobarat.oid, postalCode: '53133', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pabuaran', districtOid: purwokertobarat.oid, postalCode: '53134', createdAt: new Date(), updatedAt: new Date() },
-
-// 25. Purwokerto Selatan
-{ subdistrictName: 'Purwokerto Selatan', districtOid: purwokertoselatan.oid, postalCode: '53141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Berkoh', districtOid: purwokertoselatan.oid, postalCode: '53142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangpucung', districtOid: purwokertoselatan.oid, postalCode: '53143', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwokerto Kidul', districtOid: purwokertoselatan.oid, postalCode: '53144', createdAt: new Date(), updatedAt: new Date() },
-
-// 26. Purwokerto Timur
-{ subdistrictName: 'Purwokerto Timur', districtOid: purwokertotimur.oid, postalCode: '53121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangtengah', districtOid: purwokertotimur.oid, postalCode: '53122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mersi', districtOid: purwokertotimur.oid, postalCode: '53123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwokerto Wetan', districtOid: purwokertotimur.oid, postalCode: '53124', createdAt: new Date(), updatedAt: new Date() },
-
-// 27. Purwokerto Utara
-{ subdistrictName: 'Purwokerto Utara', districtOid: purwokertoutara.oid, postalCode: '53111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bobosan', districtOid: purwokertoutara.oid, postalCode: '53112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangwangkal', districtOid: purwokertoutara.oid, postalCode: '53113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwokerto Lor', districtOid: purwokertoutara.oid, postalCode: '53114', createdAt: new Date(), updatedAt: new Date() }
-
-// Colomadu District
-{ subdistrictName: 'Colomadu', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Blulukan', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gawanan', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gladagsari', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Makamhaji', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
-
-// Gondangrejo District
-{ subdistrictName: 'Gondangrejo', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dayu', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangturi', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonan', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pucangan', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
-
-// Jaten District
-{ subdistrictName: 'Jaten', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baturan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedongan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jagalan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sroyo', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-
-// Jatipuro District
-{ subdistrictName: 'Jatipuro', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatipurwo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatiroyo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatisobo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangbangun', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
-
-// Jatiyoso District
-{ subdistrictName: 'Jatiyoso', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Beruk', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangsari', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonokeling', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonorejo', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-
-// Jenawi District
-{ subdistrictName: 'Jenawi', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Anggrasmanis', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balong', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Seloromo', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tunggur', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-
-// Jumantono District
-{ subdistrictName: 'Jumantono', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedong', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatirejo', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedawung', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tawangsari', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
-
-// Jumapolo District
-{ subdistrictName: 'Jumapolo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatiharjo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jumantoro', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebakkramat', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonorejo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
-
-// Karanganyar District
-{ subdistrictName: 'Karanganyar', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bejen', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gayamdompo', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Popongan', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalgede', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
-
-// Karangpandan District
-{ subdistrictName: 'Karangpandan', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Harjosari', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karang', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tohkuning', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tunggulrejo', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
-
-// Kebakkramat District
-{ subdistrictName: 'Kebakkramat', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Alastuwo', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banjarharjo', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemuning', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Macanan', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
-
-// Kerjo District
-{ subdistrictName: 'Kerjo', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumeng', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jenawi', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangpandan', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tawangmangu', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-
-// Matesih District
-{ subdistrictName: 'Matesih', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Girilayu', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangbangun', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pablengan', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Plosorejo', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
-
-// Mojogedang District
-{ subdistrictName: 'Mojogedang', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalibanger', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemuning', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngadirejo', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Puntukrejo', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
-
-// Ngargoyoso District
-{ subdistrictName: 'Ngargoyoso', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Berjo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Girirejo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatirejo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Segorogunung', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
-
-// Tasikmadu District
-{ subdistrictName: 'Tasikmadu', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaling', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangmojo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kartoharjo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonolopo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
-
-// Tawangmangu District
-{ subdistrictName: 'Tawangmangu', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bandardawung', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanglo', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Plumbon', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tawangsari', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
-
-// Rembang District
-{ subdistrictName: 'Rembang', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gegunung', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangasem', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pandan', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
-// { subdistrictName:
-
-// Lasem District
-{ subdistrictName: 'Lasem', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babagan', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bonang', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedongmulyo', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gowak', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
-
-// Sluke District
-{ subdistrictName: 'Sluke', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jurangjero', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Leran', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pangkalan', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Trahan', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
-
-// Pancur District
-{ subdistrictName: 'Pancur', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banyuurip', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Criwik', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Doropayung', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngulangan', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
-
-// Jepara District
-{ subdistrictName: 'Jepara', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bapangan', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Demaan', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jobokuto', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pengkol', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
-
-// Kedung District
-{ subdistrictName: 'Kedung', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bugel', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jondang', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mlati', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pecangaan', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
-
-// Mayong District
-{ subdistrictName: 'Mayong', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bandung', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Buaran', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Paren', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pelang', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
-
-// Bangsri District
-{ subdistrictName: 'Bangsri', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banjaran', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bondo', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tunggulpandean', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wedelan', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
-
-// Kudus District
-{ subdistrictName: 'Kudus', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jati', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kajeksan', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kerjasan', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mlati', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
-
-// Undaan District
-{ subdistrictName: 'Undaan', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Berugenjang', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrowo', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kutuk', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Undaan Kidul', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
-
-// Demak District
-{ subdistrictName: 'Demak', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bintoro', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kadilangu', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalicilik', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Singorejo', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
-
-// Bonang District
-{ subdistrictName: 'Bonang', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gebang', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jali', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatimulyo', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wedung', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
-
-// Dempet District
-{ subdistrictName: 'Dempet', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baleromo', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Harjowinangun', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrejo', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonagung', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
-
-// Gajah District
-{ subdistrictName: 'Gajah', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banjarejo', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedangalas', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatisono', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sari', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
-
-// Sukoharjo District
-{ subdistrictName: 'Sukoharjo', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banmati', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedangan', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kertonatan', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pondok', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
-
-// Kartasura District
-{ subdistrictName: 'Kartasura', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gonilan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kertonatan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngabeyan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pabelan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
-
-// Baki District
-// { subdistrictName: 'Baki', districtOid: bakiDistrict.oid, postalCode: '57556',
-
-// Baki District (continued)
-{ subdistrictName: 'Gentan', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kudu', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menuran', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purbayan', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
-
-// Nguter District
-{ subdistrictName: 'Nguter', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baran', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Celep', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedungwinong', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pengkol', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
-
-// Boyolali District
-{ subdistrictName: 'Boyolali', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banaran', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemiri', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mojosongo', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
-
-// Simo District
-{ subdistrictName: 'Simo', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gedangan', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Klego', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sawit', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
-
-// Teras District
-{ subdistrictName: 'Teras', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatilawang', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangmojo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedungbendo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sidomulyo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
-
-// Sawit District
-{ subdistrictName: 'Sawit', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bendungan', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gondang', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedungjambal', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjungsari', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
-
-// Jatiyoso District (additional subdistricts if needed)
-{ subdistrictName: 'Jatiyoso', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonorejo', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonokeling', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
-
-// JatikaranganyarCity District (assuming this is a typo and referring to Jaten/Karanganyar)
-{ subdistrictName: 'Jaten', districtOid: jatikaranganyarCityDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar', districtOid: jatikaranganyarCityDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() }
-
-{ subdistrictName: 'Klaten Utara', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jonggrangan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Buntalan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebondalem', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tonggalan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Sidoharjo', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jambangan', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanganyar', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangtengah', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngrombo', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Cepu', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balun', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gadon', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Getas', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nglanjuk', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Jati', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangsri', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jati', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jepang', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumur', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Randublatung', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bodeh', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kadengan', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kutukan', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wulung', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Wonogiri', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Giripurwo', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pule', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sendang', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonoboyo', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Baturetno', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batuwarno', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kismantoro', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nguntoronadi', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Selogiri', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: 'Giritontro', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banyakprodo', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dlepih', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Giriwondo', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Hargosari', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
-   
-{ subdistrictName: 'Ngadirojo', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bakalan', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Girimarto', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngadirojo Kidul', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngadirojo Lor', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
-
-// Asemrowo District
-{ subdistrictName: 'Asemrowo', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Genting', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tambak Sarioso', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
-
-// Benowo District
-{ subdistrictName: 'Benowo', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babat', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kandangan', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
-
-// Bubutan District
-{ subdistrictName: 'Bubutan', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Alun-alun Contong', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krembangan Selatan', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
-
-// Bulak District
-{ subdistrictName: 'Bulak', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedung Cowek', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sukolilo Baru', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
-
-// Dukuh Pakis District
-{ subdistrictName: 'Dukuh Pakis', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dukuh Kupang', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pradah Kalikendal', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
-
-// Gayungan District
-{ subdistrictName: 'Gayungan', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menanggal', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ketintang', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
-
-// Genteng District
-{ subdistrictName: 'Genteng', districtOid: gentengsurabayaDistrict.oid, postalCode: '60275', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ketabang', districtOid: gentengsurabayaDistrict.oid, postalCode: '60272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Peneleh', districtOid: gentengsurabayaDistrict.oid, postalCode: '60274', createdAt: new Date(), updatedAt: new Date() },
-
-// Gubeng District
-{ subdistrictName: 'Gubeng', districtOid: gubengDistrict.oid, postalCode: '60281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Airlangga', districtOid: gubengDistrict.oid, postalCode: '60281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baratajaya', districtOid: gubengDistrict.oid, postalCode: '60284', createdAt: new Date(), updatedAt: new Date() },
-
-// Gunung Anyar District
-{ subdistrictName: 'Gunung Anyar', districtOid: gununganyarDistrict.oid, postalCode: '60294', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gunung Anyar Tambak', districtOid: gununganyarDistrict.oid, postalCode: '60294', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rungkut Menanggal', districtOid: gununganyarDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
-
-// Jambangan District
-{ subdistrictName: 'Jambangan', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karang Menjangan', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonsari', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
-
-// Karang Pilang District
-{ subdistrictName: 'Karang Pilang', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kedurus', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebraon', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
-
-// Kenjeran District
-{ subdistrictName: 'Kenjeran', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulak Banteng', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sukolilo', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
-
-// Krembangan District
-{ subdistrictName: 'Krembangan', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Perak Barat', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Morokrembangan', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
-
-// Lakar Santri District
-{ subdistrictName: 'Lakar Santri', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lidah Wetan', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumput', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
-
-// Mulyorejo District
-{ subdistrictName: 'Mulyorejo', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kejawaan Putih Tamba', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Manyar Sabrangan', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
-
-// Pabean Cantian District
-{ subdistrictName: 'Pabean Cantian', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Perak Timur', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kembang Jepun', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
-
-// Pakal District
-{ subdistrictName: 'Pakal', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babatan', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babat Jerawat', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
-
-// Rungkut District
-{ subdistrictName: 'Rungkut', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kali Rungkut', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rungkut Kidul', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
-
-// Sawahan District
-{ subdistrictName: 'Sawahan', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banyu Urip', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kupang Krajan', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
-
-// Semampir District
-{ subdistrictName: 'Semampir', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krembangan Utara', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pegirian', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
-
-// Simokerto District
-{ subdistrictName: 'Simokerto', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kapasan', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Simolawang', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
-
-// Sukolilo District
-{ subdistrictName: 'Sukolilo', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Klampis Ngasem', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menur Pumpungan', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
-
-// Sukomanunggal District
-{ subdistrictName: 'Sukomanunggal', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sonokwijenan', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjungsari', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
-
-// Tambaksari District
-{ subdistrictName: 'Tambaksari', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pucang Sewu', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rangkah', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
-
-// Tenggilis Mejoyo District
-{ subdistrictName: 'Tenggilis Mejoyo', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tenggilis Mejoyo Selatan', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tenggilis Mejoyo Utara', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
-
-// Wiyung District
-{ subdistrictName: 'Wiyung', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jajar Tunggal', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wiyung', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
-
-// Wonocolo District
-{ subdistrictName: 'Wonocolo', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Darmo', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jemur Wonosari', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
-
-// Wonokromo District
-{ subdistrictName: 'Wonokromo', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dukuh Kupang', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wonokromo', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
-
-  // Malang City Districts
-  { subdistrictName: "Blimbing", districtOid: blimbingDistrict.oid, postalCode: "65121", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kedungkandang", districtOid: kedungkandangDistrict.oid, postalCode: "65136", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Lowokwaru", districtOid: lowokwaruDistrict.oid, postalCode: "65141", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Sukun", districtOid: sukunDistrict.oid, postalCode: "65147", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Klojen", districtOid: klojenDistrict.oid, postalCode: "65111", createdAt: new Date(), updatedAt: new Date() },
-
-  // Mojokerto City Districts
-  { subdistrictName: "Magersari", districtOid: magersariDistrict.oid, postalCode: "61314", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Prajurit Kulon", districtOid: prajuritKulonDistrict.oid, postalCode: "61321", createdAt: new Date(), updatedAt: new Date() },
-
-  // Kediri City Districts
-  { subdistrictName: "Kota Kediri", districtOid: kotaKediriDistrict.oid, postalCode: "64121", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Mojo", districtOid: mojoDistrict.oid, postalCode: "64142", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Pesantren", districtOid: pesantrenDistrict.oid, postalCode: "64133", createdAt: new Date(), updatedAt: new Date() },
-
-  // Probolinggo City Districts
-  { subdistrictName: "Kanigaran", districtOid: kanigaranDistrict.oid, postalCode: "67211", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kedopok", districtOid: kedopokDistrict.oid, postalCode: "67222", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Mayangan", districtOid: mayanganDistrict.oid, postalCode: "67217", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Wonoasih", districtOid: wonoasihDistrict.oid, postalCode: "67233", createdAt: new Date(), updatedAt: new Date() },
-
-  // Blitar City Districts
-  { subdistrictName: "Kepanjenkidul", districtOid: kepanjenkidulDistrict.oid, postalCode: "66111", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Sananwetan", districtOid: sananwetanDistrict.oid, postalCode: "66131", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Sukorejo", districtOid: sukorejomalangDistrict.oid, postalCode: "66121", createdAt: new Date(), updatedAt: new Date() }
-
-// Bangsring District
-{ subdistrictName: 'Bangsring', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Watu Kebo', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberagung', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-
-// Banyuwangi District (Regency Capital)
-{ subdistrictName: 'Banyuwangi', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrejo', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kertosari', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
-
-// Cluring District
-{ subdistrictName: 'Cluring', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Benculuk', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tampo', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
-
-// Gambiran District
-{ subdistrictName: 'Gambiran', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Wringinagung', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwoasri', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
-
-// Genteng District (Banyuwangi)
-{ subdistrictName: 'Genteng', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaligondo', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemiri', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
-
-// Giri District
-{ subdistrictName: 'Giri', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Boyolangu', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Grogol', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
-
-// Glagah District
-{ subdistrictName: 'Glagah', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bomo', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangdoro', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
-
-// Glenmore District
-{ subdistrictName: 'Glenmore', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bumiharjo', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sepanjang', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
-
-// Kabat District
-{ subdistrictName: 'Kabat', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gombolirang', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonrejo', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
-
-// Kalibaru District
-{ subdistrictName: 'Kalibaru', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kajar', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kalibaru Kulon', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
-
-// Kalipuro District
-{ subdistrictName: 'Kalipuro', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulusan', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kluncing', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
-
-// Licin District
-{ subdistrictName: 'Licin', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tamansari', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tamansuruh', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
-
-// Muncar District
-{ subdistrictName: 'Muncar', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Blambangan', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tembokrejo', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
-
-// Pesanggaran District
-{ subdistrictName: 'Pesanggaran', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sarongan', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberagung', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
-
-// Purwoharjo District
-{ subdistrictName: 'Purwoharjo', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Grajagan', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberasri', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
-
-// Rogojampi District
-{ subdistrictName: 'Rogojampi', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Glundengan', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pengatigan', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
-
-// Sempu District
-{ subdistrictName: 'Sempu', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangduren', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Temuireng', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
-
-// Siliragung District
-{ subdistrictName: 'Siliragung', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barurejo', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Buluan', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
-
-// Singojuruh District
-{ subdistrictName: 'Singojuruh', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumirih', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karanglo', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
-
-// Songgon District
-{ subdistrictName: 'Songgon', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bayu', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kendalrejo', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
-
-// Srono District
-{ subdistrictName: 'Srono', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kepundungan', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kepuharjo', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
-
-// Tegaldlimo District
-{ subdistrictName: 'Tegaldlimo', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kajarharjo', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kesilir', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
-
-// Tegalsari District
-{ subdistrictName: 'Tegalsari', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangmulyo', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalrejo', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
-
-// Wongsorejo District
-{ subdistrictName: 'Wongsorejo', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Alasbuluh', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banyuwangi', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() }
-
-// Sidoarjo Regency Districts
-// 1. Sidoarjo
-{ subdistrictName: 'Sidoarjo', districtOid: sidoarjo.oid, postalCode: '61211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Celep', districtOid: sidoarjo.oid, postalCode: '61212', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lemahputro', districtOid: sidoarjo.oid, postalCode: '61213', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pucang', districtOid: sidoarjo.oid, postalCode: '61214', createdAt: new Date(), updatedAt: new Date() },
-
-// 2. Buduran
-{ subdistrictName: 'Buduran', districtOid: buduran.oid, postalCode: '61252', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Damarsi', districtOid: buduran.oid, postalCode: '61253', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dukuhtengah', districtOid: buduran.oid, postalCode: '61254', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pagerwojo', districtOid: buduran.oid, postalCode: '61255', createdAt: new Date(), updatedAt: new Date() },
-
-// 3. Gedangan
-{ subdistrictName: 'Gedangan', districtOid: gedangan.oid, postalCode: '61254', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangah', districtOid: gedangan.oid, postalCode: '61255', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ganting', districtOid: gedangan.oid, postalCode: '61256', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tenggulunan', districtOid: gedangan.oid, postalCode: '61257', createdAt: new Date(), updatedAt: new Date() },
-
-// 4. Krian
-{ subdistrictName: 'Krian', districtOid: krian.oid, postalCode: '61262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gamping', districtOid: krian.oid, postalCode: '61263', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemasan', districtOid: krian.oid, postalCode: '61264', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Terik', districtOid: krian.oid, postalCode: '61265', createdAt: new Date(), updatedAt: new Date() },
-
-// Jember Regency Districts
-// 5. Jember
-{ subdistrictName: 'Jember', districtOid: jember.oid, postalCode: '68111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaliwates', districtOid: jember.oid, postalCode: '68131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Patrang', districtOid: jember.oid, postalCode: '68118', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumbersari', districtOid: jember.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
-
-// 6. Ajung
-{ subdistrictName: 'Ajung', districtOid: ajung.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Klompangan', districtOid: ajung.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mangaran', districtOid: ajung.oid, postalCode: '68177', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rowotamtu', districtOid: ajung.oid, postalCode: '68178', createdAt: new Date(), updatedAt: new Date() },
-
-// 7. Ambulu
-{ subdistrictName: 'Ambulu', districtOid: ambulu.oid, postalCode: '68172', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Andongsari', districtOid: ambulu.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pontang', districtOid: ambulu.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sabrang', districtOid: ambulu.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
-
-// 8. Arjasa
-{ subdistrictName: 'Arjasa', districtOid: arjasa.oid, postalCode: '68191', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Biting', districtOid: arjasa.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Candijati', districtOid: arjasa.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Darsono', districtOid: arjasa.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
-
-// 9. Balung
-{ subdistrictName: 'Balung', districtOid: balung.oid, postalCode: '68161', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumelar', districtOid: balung.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangduren', districtOid: balung.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tutul', districtOid: balung.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
-
-// 10. Bangsalsari
-{ subdistrictName: 'Bangsalsari', districtOid: bangsalsari.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banjarsari', districtOid: bangsalsari.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Curahkalong', districtOid: bangsalsari.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gambirono', districtOid: bangsalsari.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
-
-// 11. Gumukmas
-{ subdistrictName: 'Gumukmas', districtOid: gumukmas.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrejo', districtOid: gumukmas.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menampu', districtOid: gumukmas.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwoasri', districtOid: gumukmas.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
-
-// 12. Jelbuk
-{ subdistrictName: 'Jelbuk', districtOid: jelbuk.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Glagahwero', districtOid: jelbuk.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pancakarya', districtOid: jelbuk.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sucopangepok', districtOid: jelbuk.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
-
-// 13. Jenggawah
-{ subdistrictName: 'Jenggawah', districtOid: jenggawah.oid, postalCode: '68171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cangkring', districtOid: jenggawah.oid, postalCode: '68172', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatimulyo', districtOid: jenggawah.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemuningsari', districtOid: jenggawah.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
-
-// 14. Kalisat
-{ subdistrictName: 'Kalisat', districtOid: kalisat.oid, postalCode: '68161', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Glagahwero', districtOid: kalisat.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gumuksari', districtOid: kalisat.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Patemon', districtOid: kalisat.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
-
-// 15. Kaliwates
-{ subdistrictName: 'Kaliwates', districtOid: kaliwates.oid, postalCode: '68131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kepatihan', districtOid: kaliwates.oid, postalCode: '68132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mangli', districtOid: kaliwates.oid, postalCode: '68133', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalbesar', districtOid: kaliwates.oid, postalCode: '68134', createdAt: new Date(), updatedAt: new Date() },
-
-// 16. Kencong
-{ subdistrictName: 'Kencong', districtOid: kencong.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Cakru', districtOid: kencong.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Klatak', districtOid: kencong.oid, postalCode: '68169', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Paseban', districtOid: kencong.oid, postalCode: '68170', createdAt: new Date(), updatedAt: new Date() },
-
-// 17. Ledokombo
-{ subdistrictName: 'Ledokombo', districtOid: ledokombo.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sukogidri', districtOid: ledokombo.oid, postalCode: '68197', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberlesung', districtOid: ledokombo.oid, postalCode: '68198', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberpinang', districtOid: ledokombo.oid, postalCode: '68199', createdAt: new Date(), updatedAt: new Date() },
-
-// 18. Mayang
-{ subdistrictName: 'Mayang', districtOid: mayang.oid, postalCode: '68182', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mrawan', districtOid: mayang.oid, postalCode: '68183', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Seputih', districtOid: mayang.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalrejo', districtOid: mayang.oid, postalCode: '68185', createdAt: new Date(), updatedAt: new Date() },
-
-// 19. Mumbulsari
-{ subdistrictName: 'Mumbulsari', districtOid: mumbulsari.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangkedawung', districtOid: mumbulsari.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tamansari', districtOid: mumbulsari.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalsari', districtOid: mumbulsari.oid, postalCode: '68177', createdAt: new Date(), updatedAt: new Date() },
-
-// 20. Pakusari
-{ subdistrictName: 'Pakusari', districtOid: pakusari.oid, postalCode: '68181', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatian', districtOid: pakusari.oid, postalCode: '68182', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kertosari', districtOid: pakusari.oid, postalCode: '68183', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Subo', districtOid: pakusari.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
-
-// 21. Panti
-{ subdistrictName: 'Panti', districtOid: panti.oid, postalCode: '68153', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Glagahwero', districtOid: panti.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kemuningsari', districtOid: panti.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Suci', districtOid: panti.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
-
-// 22. Patrang
-{ subdistrictName: 'Patrang', districtOid: patrang.oid, postalCode: '68118', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baratan', districtOid: patrang.oid, postalCode: '68119', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bintoro', districtOid: patrang.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gebang', districtOid: patrang.oid, postalCode: '68122', createdAt: new Date(), updatedAt: new Date() },
-
-// 23. Puger
-{ subdistrictName: 'Puger', districtOid: puger.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bagon', districtOid: puger.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Grenden', districtOid: puger.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Puger Kulon', districtOid: puger.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
-
-// 24. Rambipuji
-{ subdistrictName: 'Rambipuji', districtOid: rambipuji.oid, postalCode: '68152', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Curahmalang', districtOid: rambipuji.oid, postalCode: '68153', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gugut', districtOid: rambipuji.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaliwining', districtOid: rambipuji.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
-
-// 25. Semboro
-{ subdistrictName: 'Semboro', districtOid: semboro.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pondokdalem', districtOid: semboro.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semboro', districtOid: semboro.oid, postalCode: '68159', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalrejo', districtOid: semboro.oid, postalCode: '68160', createdAt: new Date(), updatedAt: new Date() },
-
-// 26. Silo
-{ subdistrictName: 'Silo', districtOid: silo.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Garahan', districtOid: silo.oid, postalCode: '68185', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrejo', districtOid: silo.oid, postalCode: '68186', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sempolan', districtOid: silo.oid, postalCode: '68187', createdAt: new Date(), updatedAt: new Date() },
-
-// 27. Sukorejo
-{ subdistrictName: 'Sukorejo', districtOid: sukorejo.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bagorejo', districtOid: sukorejo.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mojomulyo', districtOid: sukorejo.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sukorejo', districtOid: sukorejo.oid, postalCode: '68197', createdAt: new Date(), updatedAt: new Date() },
-
-// 28. Sukowono
-{ subdistrictName: 'Sukowono', districtOid: sukowono.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Arjasa', districtOid: sukowono.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baletbaru', districtOid: sukowono.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dawuhanmangli', districtOid: sukowono.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
-
-// 29. Sumberbaru
-{ subdistrictName: 'Sumberbaru', districtOid: sumberbaru.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gelang', districtOid: sumberbaru.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rambigundam', districtOid: sumberbaru.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rowotengah', districtOid: sumberbaru.oid, postalCode: '68159', createdAt: new Date(), updatedAt: new Date() },
-
-// 30. Sumberjambe
-{ subdistrictName: 'Sumberjambe', districtOid: sumberjambe.oid, postalCode: '68191', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Plerean', districtOid: sumberjambe.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pringgowirawan', districtOid: sumberjambe.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sumberpakem', districtOid: sumberjambe.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
-
-// 31. Sumbersari
-{ subdistrictName: 'Sumbersari', districtOid: sumbersari.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangrejo', districtOid: sumbersari.oid, postalCode: '68122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebonsari', districtOid: sumbersari.oid, postalCode: '68123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tegalgede', districtOid: sumbersari.oid, postalCode: '68124', createdAt: new Date(), updatedAt: new Date() },
-
-// 32. Tanggul
-{ subdistrictName: 'Tanggul', districtOid: tanggul.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Darungan', districtOid: tanggul.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Klatakan', districtOid: tanggul.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Patemon', districtOid: tanggul.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
-
-// 33. Tempurejo
-{ subdistrictName: 'Tempurejo', districtOid: tempurejo.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Andongsari', districtOid: tempurejo.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mangaran', districtOid: tempurejo.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rowotamtu', districtOid: tempurejo.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
-
-// 34. Umbulsari
-{ subdistrictName: 'Umbulsari', districtOid: umbulrejo.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gadingrejo', districtOid: umbulrejo.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Paleran', districtOid: umbulrejo.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Umbulrejo', districtOid: umbulrejo.oid, postalCode: '68169', createdAt: new Date(), updatedAt: new Date() },
-
-// 35. Wuluhan
-{ subdistrictName: 'Wuluhan', districtOid: wuluhan.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dukuhmencek', districtOid: wuluhan.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kesilir', districtOid: wuluhan.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sempolan', districtOid: wuluhan.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() }
-
-  // Tulungagung Regency Districts
-  { subdistrictName: "Tulungagung", districtOid: tulungagungDistrict.oid, postalCode: "66212", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Boyolangu", districtOid: boyolanguDistrict.oid, postalCode: "66235", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kedungwaru", districtOid: kedungwaruDistrict.oid, postalCode: "66229", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kauman", districtOid: kaumanDistrict.oid, postalCode: "66261", createdAt: new Date(), updatedAt: new Date() }
-
-// Lamongan District
-{ subdistrictName: 'Lamongan', districtOid: lamonganDistrict.oid, postalCode: '62211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Plosowahyu', districtOid: lamonganDistrict.oid, postalCode: '62212', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sukomulyo', districtOid: lamonganDistrict.oid, postalCode: '62213', createdAt: new Date(), updatedAt: new Date() },
-
-// Babat District
-{ subdistrictName: 'Babat', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banaran', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebalanpelang', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
-
-// Bluluk District
-{ subdistrictName: 'Bluluk', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kembangbahu', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Modo', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
-
-// Brondong District
-{ subdistrictName: 'Brondong', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Labuhan', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lembor', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() }
-
-// Gresik District
-{ subdistrictName: 'Gresik', districtOid: gresikDistrict.oid, postalCode: '61111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kebomas', districtOid: gresikDistrict.oid, postalCode: '61121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Manyar', districtOid: gresikDistrict.oid, postalCode: '61151', createdAt: new Date(), updatedAt: new Date() },
-
-// Bungah District
-{ subdistrictName: 'Bungah', districtOid: bungahDistrict.oid, postalCode: '61152', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Duduksampeyan', districtOid: bungahDistrict.oid, postalCode: '61162', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sidayu', districtOid: bungahDistrict.oid, postalCode: '61153', createdAt: new Date(), updatedAt: new Date() },
-
-// Kebomas District
-{ subdistrictName: 'Kebomas', districtOid: kebomasDistrict.oid, postalCode: '61121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Giri', districtOid: kebomasDistrict.oid, postalCode: '61122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kembangan', districtOid: kebomasDistrict.oid, postalCode: '61123', createdAt: new Date(), updatedAt: new Date() }
-
-
-// Bugulkidul District
-{ subdistrictName: 'Bugulkidul', districtOid: bugulkidulDistrict.oid, postalCode: '67121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gadingrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Panggungrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67123', createdAt: new Date(), updatedAt: new Date() },
-
-// Purworejo District
-{ subdistrictName: 'Purworejo', districtOid: purworejoDistrict.oid, postalCode: '67131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwosari', districtOid: purworejoDistrict.oid, postalCode: '67132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pohjentrek', districtOid: purworejoDistrict.oid, postalCode: '67133', createdAt: new Date(), updatedAt: new Date() }// Bugulkidul District
-{ subdistrictName: 'Bugulkidul', districtOid: bugulkidulDistrict.oid, postalCode: '67121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gadingrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Panggungrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67123', createdAt: new Date(), updatedAt: new Date() },
-
-// Purworejo District
-{ subdistrictName: 'Purworejo', districtOid: purworejoDistrict.oid, postalCode: '67131', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Purwosari', districtOid: purworejoDistrict.oid, postalCode: '67132', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pohjentrek', districtOid: purworejoDistrict.oid, postalCode: '67133', createdAt: new Date(), updatedAt: new Date() }
-
-// Sampang District
-{ subdistrictName: 'Sampang', districtOid: sampangDistrict.oid, postalCode: '69216', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Camplong', districtOid: sampangDistrict.oid, postalCode: '69281', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jrengik', districtOid: sampangDistrict.oid, postalCode: '69272', createdAt: new Date(), updatedAt: new Date() },
-
-// Omben District
-{ subdistrictName: 'Omben', districtOid: ombenDistrict.oid, postalCode: '69291', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pangarengan', districtOid: ombenDistrict.oid, postalCode: '69292', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Raba', districtOid: ombenDistrict.oid, postalCode: '69293', createdAt: new Date(), updatedAt: new Date() }
-
-// Ponorogo District
-{ subdistrictName: 'Ponorogo', districtOid: ponorogoDistrict.oid, postalCode: '63411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Badegan', districtOid: ponorogoDistrict.oid, postalCode: '63455', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balong', districtOid: ponorogoDistrict.oid, postalCode: '63461', createdAt: new Date(), updatedAt: new Date() },
-
-// Bungkal District
-{ subdistrictName: 'Bungkal', districtOid: bungkalDistrict.oid, postalCode: '63462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nailan', districtOid: bungkalDistrict.oid, postalCode: '63463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pulung', districtOid: bungkalDistrict.oid, postalCode: '63464', createdAt: new Date(), updatedAt: new Date() }
-
-// Tuban District
-{ subdistrictName: 'Tuban', districtOid: tubanDistrict.oid, postalCode: '62311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangilan', districtOid: tubanDistrict.oid, postalCode: '62364', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jatirogo', districtOid: tubanDistrict.oid, postalCode: '62362', createdAt: new Date(), updatedAt: new Date() },
-
-// Kerek District
-{ subdistrictName: 'Kerek', districtOid: kerekDistrict.oid, postalCode: '62356', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Merakurak', districtOid: kerekDistrict.oid, postalCode: '62357', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semanding', districtOid: kerekDistrict.oid, postalCode: '62358', createdAt: new Date(), updatedAt: new Date() }
-
-// Nganjuk District
-{ subdistrictName: 'Nganjuk', districtOid: nganjukDistrict.oid, postalCode: '64411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bagor', districtOid: nganjukDistrict.oid, postalCode: '64461', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Berbek', districtOid: nganjukDistrict.oid, postalCode: '64473', createdAt: new Date(), updatedAt: new Date() },
-
-// Loceret District
-{ subdistrictName: 'Loceret', districtOid: loceretDistrict.oid, postalCode: '64471', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ngetos', districtOid: loceretDistrict.oid, postalCode: '64472', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pace', districtOid: loceretDistrict.oid, postalCode: '64473', createdAt: new Date(), updatedAt: new Date() }
-
-// Situbondo District
-{ subdistrictName: 'Situbondo', districtOid: situbondoDistrict.oid, postalCode: '68311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Arjasa', districtOid: situbondoDistrict.oid, postalCode: '68371', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banyuglugur', districtOid: situbondoDistrict.oid, postalCode: '68373', createdAt: new Date(), updatedAt: new Date() },
-
-// Besuki District
-{ subdistrictName: 'Besuki', districtOid: besukiDistrict.oid, postalCode: '68356', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bungatan', districtOid: besukiDistrict.oid, postalCode: '68357', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mlandingan', districtOid: besukiDistrict.oid, postalCode: '68358', createdAt: new Date(), updatedAt: new Date() }
-
-// Bojonegoro District
-{ subdistrictName: 'Bojonegoro', districtOid: bojonegoroDistrict.oid, postalCode: '62111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balen', districtOid: bojonegoroDistrict.oid, postalCode: '62182', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Baureno', districtOid: bojonegoroDistrict.oid, postalCode: '62192', createdAt: new Date(), updatedAt: new Date() },
-
-// Dander District
-{ subdistrictName: 'Dander', districtOid: danderDistrict.oid, postalCode: '62171', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gondang', districtOid: danderDistrict.oid, postalCode: '62172', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kanor', districtOid: danderDistrict.oid, postalCode: '62173', createdAt: new Date(), updatedAt: new Date() }
-
-// Magetan District
-{ subdistrictName: 'Magetan', districtOid: magetanDistrict.oid, postalCode: '63311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barat', districtOid: magetanDistrict.oid, postalCode: '63395', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kawedanan', districtOid: magetanDistrict.oid, postalCode: '63383', createdAt: new Date(), updatedAt: new Date() },
-
-// Nguntoronadi District
-{ subdistrictName: 'Nguntoronadi', districtOid: nguntoronadiDistrict.oid, postalCode: '63383', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Plaosan', districtOid: nguntoronadiDistrict.oid, postalCode: '63384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Poncol', districtOid: nguntoronadiDistrict.oid, postalCode: '63385', createdAt: new Date(), updatedAt: new Date() }
-
-// Ngawi District
-{ subdistrictName: 'Ngawi', districtOid: ngawiDistrict.oid, postalCode: '63211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Geneng', districtOid: ngawiDistrict.oid, postalCode: '63271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jogorogo', districtOid: ngawiDistrict.oid, postalCode: '63262', createdAt: new Date(), updatedAt: new Date() },
-
-// Kedunggalar District
-{ subdistrictName: 'Kedunggalar', districtOid: kedunggalarDistrict.oid, postalCode: '63254', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangjati', districtOid: kedunggalarDistrict.oid, postalCode: '63253', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Padas', districtOid: kedunggalarDistrict.oid, postalCode: '63255', createdAt: new Date(), updatedAt: new Date() }
-
-// Pontianak Barat District
-{ subdistrictName: 'Pontianak Barat', districtOid: pontianakBaratDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Benua Melayu Darat', districtOid: pontianakBaratDistrict.oid, postalCode: '78114', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Jawi', districtOid: pontianakBaratDistrict.oid, postalCode: '78115', createdAt: new Date(), updatedAt: new Date() },
-
-// Pontianak Kota District
-{ subdistrictName: 'Pontianak Kota', districtOid: pontianakKotaDistrict.oid, postalCode: '78111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Banjar Serasan', districtOid: pontianakKotaDistrict.oid, postalCode: '78112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tengah', districtOid: pontianakKotaDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
-
-// Pontianak Selatan District
-{ subdistrictName: 'Pontianak Selatan', districtOid: pontianakSelatanDistrict.oid, postalCode: '78121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Parit Tokaya', districtOid: pontianakSelatanDistrict.oid, postalCode: '78122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Saigon', districtOid: pontianakSelatanDistrict.oid, postalCode: '78123', createdAt: new Date(), updatedAt: new Date() },
-
-// Pontianak Tengah District
-{ subdistrictName: 'Pontianak Tengah', districtOid: pontianakTengahDistrict.oid, postalCode: '78111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Akcaia', districtOid: pontianakTengahDistrict.oid, postalCode: '78112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bansir Laut', districtOid: pontianakTengahDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
-
-// Pontianak Timur District
-{ subdistrictName: 'Pontianak Timur', districtOid: pontianakTimurDistrict.oid, postalCode: '78124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Siantan Hulu', districtOid: pontianakTimurDistrict.oid, postalCode: '78125', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Siantan Tengah', districtOid: pontianakTimurDistrict.oid, postalCode: '78126', createdAt: new Date(), updatedAt: new Date() },
-
-// Pontianak Utara District
-{ subdistrictName: 'Pontianak Utara', districtOid: pontianakUtaraDistrict.oid, postalCode: '78117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Bangkong', districtOid: pontianakUtaraDistrict.oid, postalCode: '78118', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Beliung', districtOid: pontianakUtaraDistrict.oid, postalCode: '78119', createdAt: new Date(), updatedAt: new Date() }
-
-// Singkawang Barat District
-{ subdistrictName: 'Singkawang Barat', districtOid: singkawangBaratDistrict.oid, postalCode: '79123', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasiran', districtOid: singkawangBaratDistrict.oid, postalCode: '79124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sagatani', districtOid: singkawangBaratDistrict.oid, postalCode: '79125', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkawang Selatan District
-{ subdistrictName: 'Singkawang Selatan', districtOid: singkawangSelatanDistrict.oid, postalCode: '79163', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sijangkung', districtOid: singkawangSelatanDistrict.oid, postalCode: '79164', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tiga Berkat', districtOid: singkawangSelatanDistrict.oid, postalCode: '79165', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkawang Tengah District
-{ subdistrictName: 'Singkawang Tengah', districtOid: singkawangTengahDistrict.oid, postalCode: '79113', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kota Baru', districtOid: singkawangTengahDistrict.oid, postalCode: '79114', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Melayu', districtOid: singkawangTengahDistrict.oid, postalCode: '79115', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkawang Timur District
-{ subdistrictName: 'Singkawang Timur', districtOid: singkawangTimurDistrict.oid, postalCode: '79121', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sekip Lama', districtOid: singkawangTimurDistrict.oid, postalCode: '79122', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Garam', districtOid: singkawangTimurDistrict.oid, postalCode: '79123', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkawang Utara District
-{ subdistrictName: 'Singkawang Utara', districtOid: singkawangUtaraDistrict.oid, postalCode: '79151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sedau', districtOid: singkawangUtaraDistrict.oid, postalCode: '79152', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Raya', districtOid: singkawangUtaraDistrict.oid, postalCode: '79153', createdAt: new Date(), updatedAt: new Date() }
-
-
-// Sambas Regency Districts
-// 1. Sambas
-{ subdistrictName: 'Sambas', districtOid: sambas.oid, postalCode: '79462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lubuk Dagang', districtOid: sambas.oid, postalCode: '79463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sekura', districtOid: sambas.oid, postalCode: '79464', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tengah Taman', districtOid: sambas.oid, postalCode: '79465', createdAt: new Date(), updatedAt: new Date() },
-
-// 2. Pemangkat
-{ subdistrictName: 'Pemangkat', districtOid: pemangkat.oid, postalCode: '79453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Penibung', districtOid: pemangkat.oid, postalCode: '79454', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Rasau', districtOid: pemangkat.oid, postalCode: '79455', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tebas Kuala', districtOid: pemangkat.oid, postalCode: '79456', createdAt: new Date(), updatedAt: new Date() },
-
-// 3. Tebas
-{ subdistrictName: 'Tebas', districtOid: tebas.oid, postalCode: '79461', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karang Sungai', districtOid: tebas.oid, postalCode: '79462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sejangkung', districtOid: tebas.oid, postalCode: '79463', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tekarang', districtOid: tebas.oid, postalCode: '79464', createdAt: new Date(), updatedAt: new Date() },
-
-// 4. Selakau
-{ subdistrictName: 'Selakau', districtOid: selakau.oid, postalCode: '79452', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Selakau Timur', districtOid: selakau.oid, postalCode: '79453', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Semata', districtOid: selakau.oid, postalCode: '79454', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tri Kembang', districtOid: selakau.oid, postalCode: '79455', createdAt: new Date(), updatedAt: new Date() },
-
-// Mempawah Regency Districts
-// 5. Mempawah Hilir
-{ subdistrictName: 'Mempawah Hilir', districtOid: mempawahhilir.oid, postalCode: '78911', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasir', districtOid: mempawahhilir.oid, postalCode: '78912', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pulau Pedalaman', districtOid: mempawahhilir.oid, postalCode: '78913', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Pinyuh', districtOid: mempawahhilir.oid, postalCode: '78914', createdAt: new Date(), updatedAt: new Date() },
-
-// 6. Mempawah Timur
-{ subdistrictName: 'Mempawah Timur', districtOid: mempawahtimur.oid, postalCode: '78951', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Anjungan', districtOid: mempawahtimur.oid, postalCode: '78952', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Segedong', districtOid: mempawahtimur.oid, postalCode: '78953', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Kunyit', districtOid: mempawahtimur.oid, postalCode: '78954', createdAt: new Date(), updatedAt: new Date() },
-
-// 7. Sungai Kunyit
-{ subdistrictName: 'Sungai Kunyit', districtOid: sungaikunyit.oid, postalCode: '78954', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Mandor B', districtOid: sungaikunyit.oid, postalCode: '78955', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Duri', districtOid: sungaikunyit.oid, postalCode: '78956', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Saleh', districtOid: sungaikunyit.oid, postalCode: '78957', createdAt: new Date(), updatedAt: new Date() },
-
-// 8. Sungai Pinyuh
-{ subdistrictName: 'Sungai Pinyuh', districtOid: sungaipinyuh.oid, postalCode: '78914', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Galang', districtOid: sungaipinyuh.oid, postalCode: '78915', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasir Panjang', districtOid: sungaipinyuh.oid, postalCode: '78916', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Purun', districtOid: sungaipinyuh.oid, postalCode: '78917', createdAt: new Date(), updatedAt: new Date() },
-
-// Sanggau Regency Districts
-// 9. Sanggau
-{ subdistrictName: 'Sanggau', districtOid: sanggau.oid, postalCode: '78511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balai Sebut', districtOid: sanggau.oid, postalCode: '78512', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bonti', districtOid: sanggau.oid, postalCode: '78513', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Entikong', districtOid: sanggau.oid, postalCode: '78514', createdAt: new Date(), updatedAt: new Date() },
-
-// 10. Balai
-{ subdistrictName: 'Balai', districtOid: balai.oid, postalCode: '78552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Beduai', districtOid: balai.oid, postalCode: '78553', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Meliau', districtOid: balai.oid, postalCode: '78554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tayan Hilir', districtOid: balai.oid, postalCode: '78555', createdAt: new Date(), updatedAt: new Date() },
-
-// 11. Beduai
-{ subdistrictName: 'Beduai', districtOid: beduai.oid, postalCode: '78553', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bonti', districtOid: beduai.oid, postalCode: '78554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Noyan', districtOid: beduai.oid, postalCode: '78555', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sekayam', districtOid: beduai.oid, postalCode: '78556', createdAt: new Date(), updatedAt: new Date() },
-
-// 12. Bonti
-{ subdistrictName: 'Bonti', districtOid: bonti.oid, postalCode: '78513', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Balai Sebut', districtOid: bonti.oid, postalCode: '78514', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Meliau', districtOid: bonti.oid, postalCode: '78515', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tayan Hilir', districtOid: bonti.oid, postalCode: '78516', createdAt: new Date(), updatedAt: new Date() },
-
-// Ketapang Regency Districts
-// 13. Ketapang
-{ subdistrictName: 'Ketapang', districtOid: ketapang.oid, postalCode: '78811', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Benua Kayong', districtOid: ketapang.oid, postalCode: '78812', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Delta Pawan', districtOid: ketapang.oid, postalCode: '78813', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Matan Hilir Selatan', districtOid: ketapang.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
-
-// 14. Benua Kayong
-{ subdistrictName: 'Benua Kayong', districtOid: benuakayong.oid, postalCode: '78812', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Upas', districtOid: benuakayong.oid, postalCode: '78813', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Simpang Hilir', districtOid: benuakayong.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Melayu', districtOid: benuakayong.oid, postalCode: '78815', createdAt: new Date(), updatedAt: new Date() },
-
-// 15. Manis Mata
-{ subdistrictName: 'Manis Mata', districtOid: manismata.oid, postalCode: '78863', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Marau', districtOid: manismata.oid, postalCode: '78864', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Matan Hilir Utara', districtOid: manismata.oid, postalCode: '78865', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nanga Tayap', districtOid: manismata.oid, postalCode: '78866', createdAt: new Date(), updatedAt: new Date() },
-
-// 16. Matan Hilir Selatan
-{ subdistrictName: 'Matan Hilir Selatan', districtOid: matanhiliirselatan.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kendawangan', districtOid: matanhiliirselatan.oid, postalCode: '78815', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Marau', districtOid: matanhiliirselatan.oid, postalCode: '78816', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nanga Tayap', districtOid: matanhiliirselatan.oid, postalCode: '78817', createdAt: new Date(), updatedAt: new Date() },
-
-// Landak Regency Districts
-// 17. Ngabang
-{ subdistrictName: 'Ngabang', districtOid: ngabang.oid, postalCode: '79357', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Besar', districtOid: ngabang.oid, postalCode: '79358', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menyuke', districtOid: ngabang.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebangki', districtOid: ngabang.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
-
-// 18. Air Besar
-{ subdistrictName: 'Air Besar', districtOid: airbesar.oid, postalCode: '79358', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Behe', districtOid: airbesar.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mandor', districtOid: airbesar.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menjalin', districtOid: airbesar.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
-
-// 19. Menyuke
-{ subdistrictName: 'Menyuke', districtOid: menyuke.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Meranti', districtOid: menyuke.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sengah Temila', districtOid: menyuke.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sompak', districtOid: menyuke.oid, postalCode: '79362', createdAt: new Date(), updatedAt: new Date() },
-
-// 20. Sebangki
-{ subdistrictName: 'Sebangki', districtOid: sebangki.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Behe', districtOid: sebangki.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mandor', districtOid: sebangki.oid, postalCode: '79362', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Menjalin', districtOid: sebangki.oid, postalCode: '79363', createdAt: new Date(), updatedAt: new Date() },
-
-// 21. Sungai Raya
-{ subdistrictName: 'Sungai Raya', districtOid: sungairaya.oid, postalCode: '78391', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Mandor B', districtOid: sungairaya.oid, postalCode: '78392', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Ambawang', districtOid: sungairaya.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pakedai', districtOid: sungairaya.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
-
-// 22. Kuala Mandor B
-{ subdistrictName: 'Kuala Mandor B', districtOid: kualamandorb.oid, postalCode: '78392', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Ambawang', districtOid: kualamandorb.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pakedai', districtOid: kualamandorb.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Terentang', districtOid: kualamandorb.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
-
-// 23. Sungai Ambawang
-{ subdistrictName: 'Sungai Ambawang', districtOid: sungaiambawang.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Mandor B', districtOid: sungaiambawang.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pakedai', districtOid: sungaiambawang.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Terentang', districtOid: sungaiambawang.oid, postalCode: '78396', createdAt: new Date(), updatedAt: new Date() },
-
-// 24. Teluk Pakedai
-{ subdistrictName: 'Teluk Pakedai', districtOid: telukpakedai.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Mandor B', districtOid: telukpakedai.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Ambawang', districtOid: telukpakedai.oid, postalCode: '78396', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Terentang', districtOid: telukpakedai.oid, postalCode: '78397', createdAt: new Date(), updatedAt: new Date() },
-
-// Melawi Regency Districts
-// 25. Nanga Pinoh
-// { subdistrictName: 'Nanga Pinoh', districtOid: nangapinoh.oid, postalCode: '79672', createdAt: new Date(), updatedAt: new Date() },
-// { subdistrictName: 'Belimbing', districtOid: nangapinoh.oid, postalCode: '79673', createdAt: new Date(), updatedAt: new Date() },
-// { subdistrictName: 'Ella Hilir',
-
-{ subdistrictName: 'Bengkayang', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sanggau Ledo', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lumar', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Seluas', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
-
-// Benteng Selayar District
-{ subdistrictName: 'Benteng', districtOid: bentengselayarDistrict.oid, postalCode: '92812', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bontoharu', districtOid: bontoharuselayarDistrict.oid, postalCode: '92811', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bontomanai', districtOid: bontomanaiselayarDistrict.oid, postalCode: '92814', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bontomatene', districtOid: bontomateneselayarDistrict.oid, postalCode: '92813', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bontosikuyu', districtOid: bontosikuyuselayarDistrict.oid, postalCode: '92815', createdAt: new Date(), updatedAt: new Date() },
-
-// Pasilambena District
-{ subdistrictName: 'Pasilambena', districtOid: pasilambenaselayarDistrict.oid, postalCode: '92816', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasimarannu', districtOid: pasimarannuselayarDistrict.oid, postalCode: '92817', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasimasunggu', districtOid: pasimasungguDistrict.oid, postalCode: '92818', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasimasunggu Timur', districtOid: pasimasungguTimurDistrict.oid, postalCode: '92819', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Takabonerate', districtOid: takabonerateDistrict.oid, postalCode: '92820', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarmasin Barat District
-{ subdistrictName: 'Banjarmasin Barat', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuin Selatan', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuin Utara', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarmasin Selatan District
-{ subdistrictName: 'Banjarmasin Selatan', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karang Mekar', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Bilu', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarmasin Tengah District
-{ subdistrictName: 'Banjarmasin Tengah', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pekauman', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Dalam', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarmasin Timur District
-{ subdistrictName: 'Banjarmasin Timur', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Jingah', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pemurus Luar', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarmasin Utara District
-{ subdistrictName: 'Banjarmasin Utara', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Alalak Utara', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Andai', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarbaru Selatan District
-{ subdistrictName: 'Banjarbaru Selatan', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Guntung Payung', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Landasan Ulin Timur', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
-
-// Banjarbaru Utara District
-{ subdistrictName: 'Banjarbaru Utara', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Komet', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Ulin', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
-
-// Cempaka District (Banjarbaru)
-{ subdistrictName: 'Cempaka', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bangkal', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Loktabat Utara', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
-
-// Landasan Ulin District (Banjarbaru)
-{ subdistrictName: 'Landasan Ulin', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Syamsudin Noor', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Landasan Ulin Barat', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
-
-// Liang Anggang District (Banjarbaru)
-{ subdistrictName: 'Liang Anggang', districtOid: liangAnggangDistrict.oid, postalCode: '70723', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Landasan Ulin Tengah', districtOid: liangAnggangDistrict.oid, postalCode: '70723', createdAt: new Date(), updatedAt: new Date() },
-
-// Martapura City District
-{ subdistrictName: 'Martapura', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Keraton', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Paring', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
-
-// Martapura Barat District
-{ subdistrictName: 'Martapura Barat', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Rema', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Tabuk', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
-
-// Martapura Timur District
-{ subdistrictName: 'Martapura Timur', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pasar Lama', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Rangas', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
-
-// Gambut District
-{ subdistrictName: 'Gambut', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tambak Sirang Darat', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gambut Barat', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
-
-// Karang Intan District
-{ subdistrictName: 'Karang Intan', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lok Tangga', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pingaran', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
-
-  // Barito Kuala Regency Districts
-  { subdistrictName: "Marabahan", districtOid: marabahanDistrict.oid, postalCode: "70511", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Mekar Sari", districtOid: mekarSariDistrict.oid, postalCode: "70563", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Tamban", districtOid: tambanDistrict.oid, postalCode: "70566", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Wanaraya", districtOid: wanarayaDistrict.oid, postalCode: "70562", createdAt: new Date(), updatedAt: new Date() },
-
-  // Tapin Regency Districts
-  { subdistrictName: "Rantau", districtOid: rantauDistrict.oid, postalCode: "71111", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Bakarangan", districtOid: bakaranganDistrict.oid, postalCode: "71152", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Binuang", districtOid: binuangDistrict.oid, postalCode: "71183", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Cempaka", districtOid: cempakaTapinDistrict.oid, postalCode: "71161", createdAt: new Date(), updatedAt: new Date() },
-
-  // Tanah Laut Regency Districts
-  { subdistrictName: "Pelaihari", districtOid: pelaihariDistrict.oid, postalCode: "70811", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Batu Ampar", districtOid: batuAmpartanahLautDistrict.oid, postalCode: "70882", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Jorong", districtOid: jorongDistrict.oid, postalCode: "70881", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kintap", districtOid: kintapDistrict.oid, postalCode: "70883", createdAt: new Date(), updatedAt: new Date() }
-
-  // Kandangan District
-{ subdistrictName: "Kandangan", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Jambu Hilir", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Jambu Hulu", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sungai Kupang", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
-
-// Angkinang District
-{ subdistrictName: "Angkinang", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Tawang", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Tebing Tinggi", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
-
-// Daha Barat District
-{ subdistrictName: "Baruh Jaya", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Hantakan", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Haruyan", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
-
-// Daha Selatan District
-{ subdistrictName: "Daha Selatan", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Pandawan", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Simpur", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
-
-// Barabai District
-{ subdistrictName: "Barabai", districtOid: barabaiDistrict.oid, postalCode: "71311", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Barabai Selatan", districtOid: barabaiDistrict.oid, postalCode: "71314", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Barabai Utara", districtOid: barabaiDistrict.oid, postalCode: "71315", createdAt: new Date(), updatedAt: new Date() },
-
-// Batang Alai Selatan District
-{ subdistrictName: "Batang Alai Selatan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Hantakan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Haruyan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
-
-// Batang Alai Timur District
-{ subdistrictName: "Batang Alai Timur", districtOid: batangAlaiTimurDistrict.oid, postalCode: "71382", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Limpasu", districtOid: batangAlaiTimurDistrict.oid, postalCode: "71382", createdAt: new Date(), updatedAt: new Date() },
-
-// Batang Alai Utara District
-{ subdistrictName: "Batang Alai Utara", districtOid: batangAlaiUtaraDistrict.oid, postalCode: "71383", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Pandawan", districtOid: batangAlaiUtaraDistrict.oid, postalCode: "71383", createdAt: new Date(), updatedAt: new Date() },
-
-// Amuntai District
-{ subdistrictName: "Amuntai", districtOid: amuntaiDistrict.oid, postalCode: "71411", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Amuntai Tengah", districtOid: amuntaiDistrict.oid, postalCode: "71412", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Amuntai Utara", districtOid: amuntaiDistrict.oid, postalCode: "71413", createdAt: new Date(), updatedAt: new Date() },
-
-// Amuntai Selatan District
-{ subdistrictName: "Amuntai Selatan", districtOid: amuntaiSelatanDistrict.oid, postalCode: "71414", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Banua Hanyar", districtOid: amuntaiSelatanDistrict.oid, postalCode: "71414", createdAt: new Date(), updatedAt: new Date() },
-
-// Amuntai Tengah District
-{ subdistrictName: "Amuntai Tengah", districtOid: amuntaiTengahDistrict.oid, postalCode: "71415", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Murung Panggang", districtOid: amuntaiTengahDistrict.oid, postalCode: "71415", createdAt: new Date(), updatedAt: new Date() },
-
-// Amuntai Utara District
-{ subdistrictName: "Amuntai Utara", districtOid: amuntaiUtaraDistrict.oid, postalCode: "71416", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Paminggir", districtOid: amuntaiUtaraDistrict.oid, postalCode: "71416", createdAt: new Date(), updatedAt: new Date() },
-
-// Kotabaru District
-{ subdistrictName: "Kotabaru", districtOid: kotabaruDistrict.oid, postalCode: "72111", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Stagen", districtOid: kotabaruDistrict.oid, postalCode: "72111", createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Laut Barat District
-{ subdistrictName: "Pulau Laut Barat", districtOid: pulauLautBaratDistrict.oid, postalCode: "72153", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sungai Pasir", districtOid: pulauLautBaratDistrict.oid, postalCode: "72153", createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Laut Selatan District
-{ subdistrictName: "Pulau Laut Selatan", districtOid: pulauLautSelatanDistrict.oid, postalCode: "72154", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Bati-Bati", districtOid: pulauLautSelatanDistrict.oid, postalCode: "72154", createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Laut Timur District
-{ subdistrictName: "Pulau Laut Timur", districtOid: pulauLautTimurDistrict.oid, postalCode: "72155", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Kurau", districtOid: pulauLautTimurDistrict.oid, postalCode: "72155", createdAt: new Date(), updatedAt: new Date() },
-
-// Paringin District
-{ subdistrictName: "Paringin", districtOid: paringinDistrict.oid, postalCode: "71571", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Paringin Selatan", districtOid: paringinDistrict.oid, postalCode: "71571", createdAt: new Date(), updatedAt: new Date() },
-
-// Lampihong District
-{ subdistrictName: "Lampihong", districtOid: lampihongDistrict.oid, postalCode: "71572", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Pulantan", districtOid: lampihongDistrict.oid, postalCode: "71572", createdAt: new Date(), updatedAt: new Date() },
-
-// Batumandi District
-{ subdistrictName: "Batumandi", districtOid: batumandiDistrict.oid, postalCode: "71573", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Juai", districtOid: batumandiDistrict.oid, postalCode: "71573", createdAt: new Date(), updatedAt: new Date() },
-
-// Juai District
-{ subdistrictName: "Juai", districtOid: juaiDistrict.oid, postalCode: "71574", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Halong", districtOid: juaiDistrict.oid, postalCode: "71574", createdAt: new Date(), updatedAt: new Date() }
-
-// Tanah Grogot District
-{ subdistrictName: 'Tanah Grogot', districtOid: tanahGrogotDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
-
-// Tabalong District
-{ subdistrictName: 'Banua Lawas', districtOid: tabalongDistrict.oid, postalCode: '71561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kelua', districtOid: tabalongDistrict.oid, postalCode: '71552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanta', districtOid: tabalongDistrict.oid, postalCode: '71561', createdAt: new Date(), updatedAt: new Date() },
-
-// Batu Licin District
-{ subdistrictName: 'Batu Licin', districtOid: batuLicinDistrict.oid, postalCode: '72271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kusan Hilir', districtOid: batuLicinDistrict.oid, postalCode: '72273', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kusan Hulu', districtOid: batuLicinDistrict.oid, postalCode: '72272', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Simpang Empat', districtOid: batuLicinDistrict.oid, postalCode: '72273', createdAt: new Date(), updatedAt: new Date() },
-
-// Palangka Raya District
-{ subdistrictName: 'Pahandut', districtOid: palangkaRayaDistrict.oid, postalCode: '73111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Jekan Raya', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bukit Batu', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebangau', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rakumpit', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() }
-
-// Basarang Kuala Kapuas District
-{ subdistrictName: 'Basarang', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Basarang Jaya', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Basarang Tempak', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
-
-// Bataguh Kuala Kapuas District
-{ subdistrictName: 'Bataguh', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bataguh Kota', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batanjung', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Barat District
-{ subdistrictName: 'Kapuas Barat', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Anjir Mambulau', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Anjir Serapat', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Hilir District
-{ subdistrictName: 'Kapuas Hilir', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bajuh', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bajuh Besar', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Hulu District
-{ subdistrictName: 'Kapuas Hulu', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batu Nindan', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batuah', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Kuala District
-{ subdistrictName: 'Kapuas Kuala', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batanjung', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batuah', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Murung District
-{ subdistrictName: 'Kapuas Murung', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bajayau', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bajayau Tengah', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Tengah District
-{ subdistrictName: 'Kapuas Tengah', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
-
-// Kapuas Timur District
-{ subdistrictName: 'Kapuas Timur', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barunang', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batuah', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
-
-// Mandau Talawang District
-{ subdistrictName: 'Mandau Talawang', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
-
-// Mantangai District
-{ subdistrictName: 'Mantangai', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
-
-// Pasak Talawang District
-{ subdistrictName: 'Pasak Talawang', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Petak District
-{ subdistrictName: 'Pulau Petak', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
-
-// Selat District
-{ subdistrictName: 'Selat', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
-
-// Tamban Catur District
-{ subdistrictName: 'Tamban Catur', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
-
-// Timpah District
-{ subdistrictName: 'Timpah', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
-
-// Kuala Kapuas District
-{ subdistrictName: 'Kuala Kapuas', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bantai Napar Lama', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
-
-// Buntok Barito Selatan District
-{ subdistrictName: 'Buntok', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
-
-// Dusun Selatan District
-{ subdistrictName: 'Dusun Selatan', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
-
-// Dusun Hilir District
-{ subdistrictName: 'Dusun Hilir', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
-
-// Dusun Utara District
-{ subdistrictName: 'Dusun Utara', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
-
-// Gunung Bintang Awai District
-{ subdistrictName: 'Gunung Bintang Awai', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
-
-// Tamiang Layang Barito Timur District
-{ subdistrictName: 'Tamiang Layang', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
-
-// Awang Barito Timur District
-{ subdistrictName: 'Awang', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
-
-// Patangkep Tutui District
-{ subdistrictName: 'Patangkep Tutui', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
-
-// Benua Lima District
-{ subdistrictName: 'Benua Lima', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
-
-// Dusun Timur District
-{ subdistrictName: 'Dusun Timur', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
-
-// Muara Teweh Barito Utara District
-{ subdistrictName: 'Muara Teweh', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
-
-// Gunung Purei District
-{ subdistrictName: 'Gunung Purei', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
-
-// Lahei District
-{ subdistrictName: 'Lahei', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
-
-// Lahei Barat District
-{ subdistrictName: 'Lahei Barat', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
-
-// Montallat District
-{ subdistrictName: 'Montallat', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
-
-// Puruk Cahu Murung Raya District
-{ subdistrictName: 'Puruk Cahu', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
-
-// Barito Tuhup Raya District
-{ subdistrictName: 'Barito Tuhup Raya', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
-
-// Laung Tuhup District
-{ subdistrictName: 'Laung Tuhup', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
-
-// Murung District
-{ subdistrictName: 'Murung', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
-
-// Permata Intan District
-{ subdistrictName: 'Permata Intan', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Barabai Barat', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
- 
-  // Pulang Pisau Regency
-  { subdistrictName: "Pulang Pisau", districtOid: pulangPisauDistrict.oid, postalCode: "74811", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kahayan Hilir", districtOid: kahayanHilirDistrict.oid, postalCode: "74861", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kahayan Tengah", districtOid: kahayanTengahDistrict.oid, postalCode: "74862", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Banama Tingang", districtOid: banamaTingangDistrict.oid, postalCode: "74863", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Jabiren Raya", districtOid: jabirenRayaDistrict.oid, postalCode: "74816", createdAt: new Date(), updatedAt: new Date() },
-
-  // Sukamara Regency
-  { subdistrictName: "Sukamara", districtOid: sukamaraDistrict.oid, postalCode: "74171", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Balai Riam", districtOid: balaiRiamDistrict.oid, postalCode: "74173", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Jelai", districtOid: jelaiDistrict.oid, postalCode: "74172", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Pantai Lunci", districtOid: pantaiLunciDistrict.oid, postalCode: "74174", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Permata Kecubung", districtOid: permataKecubungDistrict.oid, postalCode: "74175", createdAt: new Date(), updatedAt: new Date() },
-
-  // Lamandau Regency
-  { subdistrictName: "Nanga Bulik", districtOid: nangaBulikDistrict.oid, postalCode: "74662", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Belantikan Raya", districtOid: belantikanRayaDistrict.oid, postalCode: "74663", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Bulik", districtOid: bulikDistrict.oid, postalCode: "74661", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Bulik Timur", districtOid: bulikTimurDistrict.oid, postalCode: "74664", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Delang", districtOid: delangDistrict.oid, postalCode: "74665", createdAt: new Date(), updatedAt: new Date() },
-
-  // Seruyan Regency
-  { subdistrictName: "Kuala Pembuang", districtOid: kualaPembuangDistrict.oid, postalCode: "74211", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Danau Sembuluh", districtOid: danauSembuluhDistrict.oid, postalCode: "74261", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Hanau", districtOid: hanauDistrict.oid, postalCode: "74271", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Seruyan Hilir", districtOid: seruyanHilirDistrict.oid, postalCode: "74212", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Seruyan Tengah", districtOid: seruyanTengahDistrict.oid, postalCode: "74281", createdAt: new Date(), updatedAt: new Date() },
-
-  // Kotawaringin Regency
-  { subdistrictName: "Pangkalan Bun", districtOid: pangkalanBunDistrict.oid, postalCode: "74181", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Arut Selatan", districtOid: arutSelatanDistrict.oid, postalCode: "74181", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Arut Utara", districtOid: arutUtaraDistrict.oid, postalCode: "74182", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kumai", districtOid: kumaiDistrict.oid, postalCode: "74183", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kotawaringin Lama", districtOid: kotawaringinLamaDistrict.oid, postalCode: "74184", createdAt: new Date(), updatedAt: new Date() },
-
-  // Sampit (East Kotawaringin)
-  { subdistrictName: "Sampit", districtOid: sampitDistrict.oid, postalCode: "74311", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Baamang", districtOid: baamangDistrict.oid, postalCode: "74312", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Cempaga", districtOid: cempagaDistrict.oid, postalCode: "74353", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Cempaga Hulu", districtOid: cempagaHuluDistrict.oid, postalCode: "74354", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kota Besi", districtOid: kotaBesiDistrict.oid, postalCode: "74353", createdAt: new Date(), updatedAt: new Date() }
-
-  { subdistrictName: "Samarinda Ilir", districtOid: samarindaIlirDistrict.oid, postalCode: "75111", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Pelita", districtOid: samarindaIlirDistrict.oid, postalCode: "75112", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Sungai Dama", districtOid: samarindaIlirDistrict.oid, postalCode: "75113", createdAt: new Date(), updatedAt: new Date() },
-
-  { subdistrictName: "Samarinda Kota", districtOid: samarindaKotaDistrict.oid, postalCode: "75115", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Bugis", districtOid: samarindaKotaDistrict.oid, postalCode: "75116", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Pasar Pagi", districtOid: samarindaKotaDistrict.oid, postalCode: "75117", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Samarinda Seberang", districtOid: samarindaSeberangDistrict.oid, postalCode: "75121", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sungai Keledang", districtOid: samarindaSeberangDistrict.oid, postalCode: "75122", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Mangkupalas", districtOid: samarindaSeberangDistrict.oid, postalCode: "75123", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Samarinda Ulu", districtOid: samarindaUluDistrict.oid, postalCode: "75124", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Air Putih", districtOid: samarindaUluDistrict.oid, postalCode: "75125", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Bukuan", districtOid: samarindaUluDistrict.oid, postalCode: "75126", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Samarinda Utara", districtOid: samarindaUtaraDistrict.oid, postalCode: "75131", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Loa Bakung", districtOid: samarindaUtaraDistrict.oid, postalCode: "75132", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sempaja", districtOid: samarindaUtaraDistrict.oid, postalCode: "75133", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Sungai Kunjang", districtOid: sungaiKunjangDistrict.oid, postalCode: "75141", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Karang Anyar", districtOid: sungaiKunjangDistrict.oid, postalCode: "75142", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Loa Janan Ilir", districtOid: sungaiKunjangDistrict.oid, postalCode: "75143", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Sungai Pinang", districtOid: sungaiPinangDistrict.oid, postalCode: "75151", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sungai Pinang Dalam", districtOid: sungaiPinangDistrict.oid, postalCode: "75152", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Makroman", districtOid: sungaiPinangDistrict.oid, postalCode: "75153", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Palaran", districtOid: palaranDistrict.oid, postalCode: "75161", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Samarinda Seberang", districtOid: palaranDistrict.oid, postalCode: "75162", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Bukit Lama", districtOid: palaranDistrict.oid, postalCode: "75163", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Barat", districtOid: balikpapanBaratDistrict.oid, postalCode: "76131", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Margo Mulyo", districtOid: balikpapanBaratDistrict.oid, postalCode: "76132", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Karang Jati", districtOid: balikpapanBaratDistrict.oid, postalCode: "76133", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Kota", districtOid: balikpapanKotaDistrict.oid, postalCode: "76111", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Klandasan Ulu", districtOid: balikpapanKotaDistrict.oid, postalCode: "76112", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Damai", districtOid: balikpapanKotaDistrict.oid, postalCode: "76113", createdAt: new Date(), updatedAt: new Date() },{ subdistrictName: "Balikpapan Kota", districtOid: balikpapanKotaDistrict.oid, postalCode: "76111", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Klandasan Ulu", districtOid: balikpapanKotaDistrict.oid, postalCode: "76112", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Damai", districtOid: balikpapanKotaDistrict.oid, postalCode: "76113", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Selatan", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76114", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Klandasan Ilir", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76115", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Prapatan", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76116", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Tengah", districtOid: balikpapanTengahDistrict.oid, postalCode: "76121", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Manggar", districtOid: balikpapanTengahDistrict.oid, postalCode: "76122", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Lamaru", districtOid: balikpapanTengahDistrict.oid, postalCode: "76123", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Timur", districtOid: balikpapanTimurDistrict.oid, postalCode: "76117", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Manggar Baru", districtOid: balikpapanTimurDistrict.oid, postalCode: "76118", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Teritip", districtOid: balikpapanTimurDistrict.oid, postalCode: "76119", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Balikpapan Utara", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76124", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Kariangau", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76125", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Graha Indah", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76126", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Bontang Barat", districtOid: bontangBaratDistrict.oid, postalCode: "75311", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Bontang Kuala", districtOid: bontangBaratDistrict.oid, postalCode: "75312", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Bontang Selatan", districtOid: bontangSelatanDistrict.oid, postalCode: "75321", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Berbas Pantai", districtOid: bontangSelatanDistrict.oid, postalCode: "75322", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Bontang Utara", districtOid: bontangUtaraDistrict.oid, postalCode: "75331", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Api-Api", districtOid: bontangUtaraDistrict.oid, postalCode: "75332", createdAt: new Date(), updatedAt: new Date() },
-
-// Kutai Kartanegara District
-{ subdistrictName: 'Tenggarong', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Anggana', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75381', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kembang Janggut', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75557', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kenohan', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75564', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kota Bangun', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Loa Janan', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75391', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Loa Kulu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Marang Kayu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75385', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Badak', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75382', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Jawa', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75384', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Kaman', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75553', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Wis', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75559', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Samboja', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebulu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tabang', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75566', createdAt: new Date(), updatedAt: new Date() },
-
-// Tanah Grogot Paser District
-{ subdistrictName: 'Tanah Grogot', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Tuak', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tana Paser', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
-
-// Batu Engau District
-{ subdistrictName: 'Batu Engau', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Langon', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Rantau Layung', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
-
-// Kuaro District
-{ subdistrictName: 'Kuaro', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Komam', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sepaku', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
-
-// Long Ikis District
-{ subdistrictName: 'Long Ikis', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Kali', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Komam', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
-
-// Muara Komam District
-{ subdistrictName: 'Muara Komam', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Kali', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Langon', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
-
-// Pasir Belengkong District
-{ subdistrictName: 'Pasir Belengkong', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Kali', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Langon', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
-
-// Tanjung Harapan Paser District
-{ subdistrictName: 'Tanjung Harapan', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Kali', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Langon', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
-
-// Long Bagun District
-{ subdistrictName: 'Long Bagun', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Hubung', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Pahangai', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
-
-// Long Hubung District
-{ subdistrictName: 'Long Hubung', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Pahangai', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Apari', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
-
-// Long Pahangai District
-{ subdistrictName: 'Long Pahangai', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Apari', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Bagun', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
-
-// Long Apari District
-{ subdistrictName: 'Long Apari', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Bagun', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Hubung', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
-
-// Penajam District
-{ subdistrictName: 'Penajam', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babulu', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sepaku', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
-
-// Babulu District
-{ subdistrictName: 'Babulu', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sepaku', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Waru', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
-
-// Sepaku District
-{ subdistrictName: 'Sepaku', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babulu', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Waru', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
-
-// Waru District
-{ subdistrictName: 'Waru', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Babulu', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sepaku', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
-
-// Tanjung Redeb District
-{ subdistrictName: 'Tanjung Redeb', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Biduk-Biduk', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gunung Tabur', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
-
-// Biduk-Biduk District
-{ subdistrictName: 'Biduk-Biduk', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Gunung Tabur', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kelay', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
-
-// Gunung Tabur District
-{ subdistrictName: 'Gunung Tabur', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kelay', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Maratua', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
-
-// Kelay District
-{ subdistrictName: 'Kelay', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Maratua', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sambaliung', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
-
-// Maratua District
-{ subdistrictName: 'Maratua', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sambaliung', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Segah', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
-
-// Sambaliung District
-{ subdistrictName: 'Sambaliung', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Segah', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tabalar', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
-
-// Segah District
-{ subdistrictName: 'Segah', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tabalar', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Talisayan', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
-
-// Tabalar District
-{ subdistrictName: 'Tabalar', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Talisayan', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batu Putih', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
-
-// Talisayan District
-{ subdistrictName: 'Talisayan', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batu Putih', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Redeb', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
-
-// Batu Putih District
-{ subdistrictName: 'Batu Putih', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Redeb', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Biduk-Biduk', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
-
-
-  // Tenggarong City Districts
-  { subdistrictName: "Tenggarong", districtOid: tenggarongtenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Tenggarong Seberang", districtOid: tenggarongtenggarongCitySeberang.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Anggana", districtOid: angganatenggarongCityDistrict.oid, postalCode: "75576", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kembang Janggut", districtOid: kembangJangguttenggarongCityDistrict.oid, postalCode: "75557", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kenohan", districtOid: kenohantenggarongCityDistrict.oid, postalCode: "75564", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kota Bangun", districtOid: kotaBanguntenggarongCityDistrict.oid, postalCode: "75561", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Loa Janan", districtOid: loaJanantenggarongCityDistrict.oid, postalCode: "75391", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Loa Kulu", districtOid: loaKulutenggarongCityDistrict.oid, postalCode: "75582", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Marang Kayu", districtOid: marangKayutenggarongCityDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() }
-
-  { subdistrictName: "Muara Badak", districtOid: muaraBadakDistrict.oid, postalCode: "75382", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Muara Badak Ulu", districtOid: muaraBadakDistrict.oid, postalCode: "75383", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Suka Damai", districtOid: muaraBadakDistrict.oid, postalCode: "75384", createdAt: new Date(), updatedAt: new Date() },
-
-  { subdistrictName: "Muara Jawa", districtOid: muaraJawaDistrict.oid, postalCode: "75381", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Muara Jawa Pesisir", districtOid: muaraJawaDistrict.oid, postalCode: "75382", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Teluk Dalam", districtOid: muaraJawaDistrict.oid, postalCode: "75383", createdAt: new Date(), updatedAt: new Date() },
-
-  { subdistrictName: "Muara Kaman", districtOid: muaraKamanDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kaman Ulu", districtOid: muaraKamanDistrict.oid, postalCode: "75554", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kaman Ilir", districtOid: muaraKamanDistrict.oid, postalCode: "75555", createdAt: new Date(), updatedAt: new Date() },
-
-  { subdistrictName: "Muara Wis", districtOid: muaraWisDistrict.oid, postalCode: "75571", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Wis Ulu", districtOid: muaraWisDistrict.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Wis Ilir", districtOid: muaraWisDistrict.oid, postalCode: "75573", createdAt: new Date(), updatedAt: new Date() },
-
-  { subdistrictName: "Samboja", districtOid: sambojaDistrict.oid, postalCode: "75274", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Samboja Kuala", districtOid: sambojaDistrict.oid, postalCode: "75275", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Samboja Ilir", districtOid: sambojaDistrict.oid, postalCode: "75276", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Sebulu", districtOid: sebuluDistrict.oid, postalCode: "75552", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sebulu Modern", districtOid: sebuluDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Sebulu Ilir", districtOid: sebuluDistrict.oid, postalCode: "75554", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Tabang", districtOid: tabangDistrict.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Tabang Ulu", districtOid: tabangDistrict.oid, postalCode: "75573", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Tabang Ilir", districtOid: tabangDistrict.oid, postalCode: "75574", createdAt: new Date(), updatedAt: new Date() },
-
-{ subdistrictName: "Tenggarong", districtOid: tenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Tenggarong Seberang", districtOid: tenggarongCityDistrict.oid, postalCode: "75512", createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: "Melak", districtOid: tenggarongCityDistrict.oid, postalCode: "75513", createdAt: new Date(), updatedAt: new Date() },
-
-// Sangatta District (Kutai Timur)
-{ subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-
-// Bontang City (Separate from Kutai Timur)
-{ subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
-
-// Kutai Timur District
-{ subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-
-// Bulungan District (Tanjung Selor is the capital)
-{ subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() }
-
-// Sangatta District (Kutai Timur)
-{ subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-
-// Bontang City (Separate from Kutai Timur)
-{ subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
-
-// Kutai Timur District
-{ subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-
-// Bulungan District (Tanjung Selor is the capital)
-{ subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() }
-
-// Sangatta District (Kutai Timur)
-{ subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-
-// Bontang City (Separate from Kutai Timur)
-{ subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
-
-// Kutai Timur District
-{ subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
-
-// Bulungan District (Tanjung Selor is the capital)
-{ subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() }
-
-// Nunukan District
-{ subdistrictName: 'Nunukan', districtOid: nunukanDistrict.oid, postalCode: '77411', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nunukan Selatan', districtOid: nunukanDistrict.oid, postalCode: '77412', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik', districtOid: nunukanDistrict.oid, postalCode: '77413', createdAt: new Date(), updatedAt: new Date() },
-
-// Nunukan Selatan District
-{ subdistrictName: 'Nunukan Selatan', districtOid: nunukanSelatanDistrict.oid, postalCode: '77421', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Barat', districtOid: nunukanSelatanDistrict.oid, postalCode: '77422', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Tengah', districtOid: nunukanSelatanDistrict.oid, postalCode: '77423', createdAt: new Date(), updatedAt: new Date() },
-
-// Sebatik District
-{ subdistrictName: 'Sebatik', districtOid: sebatikDistrict.oid, postalCode: '77431', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Barat', districtOid: sebatikDistrict.oid, postalCode: '77432', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Timur', districtOid: sebatikDistrict.oid, postalCode: '77433', createdAt: new Date(), updatedAt: new Date() },
-
-// Sebatik Barat District
-{ subdistrictName: 'Sebatik Barat', districtOid: sebatikBaratDistrict.oid, postalCode: '77441', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Tengah', districtOid: sebatikBaratDistrict.oid, postalCode: '77442', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Utara', districtOid: sebatikBaratDistrict.oid, postalCode: '77443', createdAt: new Date(), updatedAt: new Date() },
-
-// Sebatik Timur District
-{ subdistrictName: 'Sebatik Timur', districtOid: sebatikTimurDistrict.oid, postalCode: '77451', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Tengah', districtOid: sebatikTimurDistrict.oid, postalCode: '77452', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Utara', districtOid: sebatikTimurDistrict.oid, postalCode: '77453', createdAt: new Date(), updatedAt: new Date() },
-
-// Sebatik Tengah District
-{ subdistrictName: 'Sebatik Tengah', districtOid: sebatikTengahDistrict.oid, postalCode: '77461', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sebatik Utara', districtOid: sebatikTengahDistrict.oid, postalCode: '77462', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krayan', districtOid: sebatikTengahDistrict.oid, postalCode: '77463', createdAt: new Date(), updatedAt: new Date() },
-
-// Sebatik Utara District
-{ subdistrictName: 'Sebatik Utara', districtOid: sebatikUtaraDistrict.oid, postalCode: '77471', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krayan', districtOid: sebatikUtaraDistrict.oid, postalCode: '77472', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krayan Selatan', districtOid: sebatikUtaraDistrict.oid, postalCode: '77473', createdAt: new Date(), updatedAt: new Date() },
-
-// Krayan District
-{ subdistrictName: 'Krayan', districtOid: krayanDistrict.oid, postalCode: '77481', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Krayan Selatan', districtOid: krayanDistrict.oid, postalCode: '77482', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sembakung', districtOid: krayanDistrict.oid, postalCode: '77483', createdAt: new Date(), updatedAt: new Date() },
-
-// Krayan Selatan District
-{ subdistrictName: 'Krayan Selatan', districtOid: krayanSelatanDistrict.oid, postalCode: '77491', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sembakung', districtOid: krayanSelatanDistrict.oid, postalCode: '77492', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sembakung Atulai', districtOid: krayanSelatanDistrict.oid, postalCode: '77493', createdAt: new Date(), updatedAt: new Date() },
-
-// Sembakung District
-{ subdistrictName: 'Sembakung', districtOid: sembakungDistrict.oid, postalCode: '77511', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sembakung Atulai', districtOid: sembakungDistrict.oid, postalCode: '77512', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lumbis', districtOid: sembakungDistrict.oid, postalCode: '77513', createdAt: new Date(), updatedAt: new Date() },
-
-// Sembakung Atulai District
-{ subdistrictName: 'Sembakung Atulai', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77521', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lumbis', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77522', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lumbis Ogong', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77523', createdAt: new Date(), updatedAt: new Date() },
-
-// Lumbis District
-{ subdistrictName: 'Lumbis', districtOid: lumbisDistrict.oid, postalCode: '77531', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lumbis Ogong', districtOid: lumbisDistrict.oid, postalCode: '77532', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Kota', districtOid: lumbisDistrict.oid, postalCode: '77533', createdAt: new Date(), updatedAt: new Date() },
-
-// Lumbis Ogong District
-{ subdistrictName: 'Lumbis Ogong', districtOid: lumbisOgongDistrict.oid, postalCode: '77541', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Kota', districtOid: lumbisOgongDistrict.oid, postalCode: '77542', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Barat', districtOid: lumbisOgongDistrict.oid, postalCode: '77543', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Kota District
-{ subdistrictName: 'Malinau Kota', districtOid: malinauKotaDistrict.oid, postalCode: '77551', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Barat', districtOid: malinauKotaDistrict.oid, postalCode: '77552', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan', districtOid: malinauKotaDistrict.oid, postalCode: '77553', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Barat District
-{ subdistrictName: 'Malinau Barat', districtOid: malinauBaratDistrict.oid, postalCode: '77561', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan', districtOid: malinauBaratDistrict.oid, postalCode: '77562', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauBaratDistrict.oid, postalCode: '77563', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Selatan District
-{ subdistrictName: 'Malinau Selatan', districtOid: malinauSelatanDistrict.oid, postalCode: '77571', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauSelatanDistrict.oid, postalCode: '77572', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanDistrict.oid, postalCode: '77573', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Selatan Hilir District
-{ subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77581', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77582', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Utara', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77583', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Selatan Hulu District
-{ subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77591', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Utara', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77592', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bahau Hulu', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77593', createdAt: new Date(), updatedAt: new Date() },
-
-// Malinau Utara District
-{ subdistrictName: 'Malinau Utara', districtOid: malinauUtaraDistrict.oid, postalCode: '77611', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bahau Hulu', districtOid: malinauUtaraDistrict.oid, postalCode: '77612', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kayan Hilir', districtOid: malinauUtaraDistrict.oid, postalCode: '77613', createdAt: new Date(), updatedAt: new Date() },
-
-// Bahau Hulu District
-{ subdistrictName: 'Bahau Hulu', districtOid: bahauHuluDistrict.oid, postalCode: '77621', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kayan Hilir', districtOid: bahauHuluDistrict.oid, postalCode: '77622', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kayan Hulu', districtOid: bahauHuluDistrict.oid, postalCode: '77623', createdAt: new Date(), updatedAt: new Date() },
-
-// Kayan Hilir District
-{ subdistrictName: 'Kayan Hilir', districtOid: kayanHilirDistrict.oid, postalCode: '77631', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kayan Hulu', districtOid: kayanHilirDistrict.oid, postalCode: '77632', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mentarang', districtOid: kayanHilirDistrict.oid, postalCode: '77633', createdAt: new Date(), updatedAt: new Date() },
-
-// Kayan Hulu District
-{ subdistrictName: 'Kayan Hulu', districtOid: kayanHuluDistrict.oid, postalCode: '77641', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mentarang', districtOid: kayanHuluDistrict.oid, postalCode: '77642', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mentarang Hulu', districtOid: kayanHuluDistrict.oid, postalCode: '77643', createdAt: new Date(), updatedAt: new Date() },
-
-// Mentarang District
-{ subdistrictName: 'Mentarang', districtOid: mentarangDistrict.oid, postalCode: '77651', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mentarang Hulu', districtOid: mentarangDistrict.oid, postalCode: '77652', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pujungan', districtOid: mentarangDistrict.oid, postalCode: '77653', createdAt: new Date(), updatedAt: new Date() },
-
-// Mentarang Hulu District
-{ subdistrictName: 'Mentarang Hulu', districtOid: mentarangHuluDistrict.oid, postalCode: '77661', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pujungan', districtOid: mentarangHuluDistrict.oid, postalCode: '77662', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Boh', districtOid: mentarangHuluDistrict.oid, postalCode: '77663', createdAt: new Date(), updatedAt: new Date() },
-
-// Pujungan District
-{ subdistrictName: 'Pujungan', districtOid: pujunganDistrict.oid, postalCode: '77671', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Boh', districtOid: pujunganDistrict.oid, postalCode: '77672', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Tubuh', districtOid: pujunganDistrict.oid, postalCode: '77673', createdAt: new Date(), updatedAt: new Date() },
-
-// Sungai Boh District
-{ subdistrictName: 'Sungai Boh', districtOid: sungaiBohDistrict.oid, postalCode: '77681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Tubuh', districtOid: sungaiBohDistrict.oid, postalCode: '77682', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Kota', districtOid: sungaiBohDistrict.oid, postalCode: '77683', createdAt: new Date(), updatedAt: new Date() },
-
-// Sungai Tubuh District
-{ subdistrictName: 'Sungai Tubuh', districtOid: sungaiTubuhDistrict.oid, postalCode: '77691', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Kota', districtOid: sungaiTubuhDistrict.oid, postalCode: '77692', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Malinau Barat', districtOid: sungaiTubuhDistrict.oid, postalCode: '77693', createdAt: new Date(), updatedAt: new Date() },
- 
-  { subdistrictName: "Tenggarong", districtOid: tenggarongtenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Tenggarong Seberang", districtOid: tenggarongtenggarongCitySeberang.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Anggana", districtOid: angganatenggarongCityDistrict.oid, postalCode: "75576", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kembang Janggut", districtOid: kembangJangguttenggarongCityDistrict.oid, postalCode: "75557", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kenohan", districtOid: kenohantenggarongCityDistrict.oid, postalCode: "75564", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Kota Bangun", districtOid: kotaBanguntenggarongCityDistrict.oid, postalCode: "75561", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Loa Janan", districtOid: loaJanantenggarongCityDistrict.oid, postalCode: "75391", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Loa Kulu", districtOid: loaKulutenggarongCityDistrict.oid, postalCode: "75582", createdAt: new Date(), updatedAt: new Date() },
-  { subdistrictName: "Marang Kayu", districtOid: marangKayutenggarongCityDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() }
- 
-// Batam City
-{ subdistrictName: 'Batam Kota', districtOid: batamDistrict.oid, postalCode: '29432', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batu Aji', districtOid: batamDistrict.oid, postalCode: '29438', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Batu Ampar', districtOid: batamDistrict.oid, postalCode: '29452', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Belakang Padang', districtOid: batamDistrict.oid, postalCode: '29451', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bengkong', districtOid: batamDistrict.oid, postalCode: '29419', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bulang', districtOid: batamDistrict.oid, postalCode: '29471', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Galang', districtOid: batamDistrict.oid, postalCode: '29485', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Lubuk Baja', districtOid: batamDistrict.oid, postalCode: '29444', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Nongsa', districtOid: batamDistrict.oid, postalCode: '29465', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sagulung', districtOid: batamDistrict.oid, postalCode: '29439', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sekupang', districtOid: batamDistrict.oid, postalCode: '29426', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Beduk', districtOid: batamDistrict.oid, postalCode: '29433', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bukit Bestari', districtOid: batamDistrict.oid, postalCode: '29439', createdAt: new Date(), updatedAt: new Date() },
-
-// Tanjung Pinang City (Bintan Island)
-{ subdistrictName: 'Tanjung Pinang Barat', districtOid: tanjungPinangDistrict.oid, postalCode: '29111', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Pinang Kota', districtOid: tanjungPinangDistrict.oid, postalCode: '29115', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung Pinang Timur', districtOid: tanjungPinangDistrict.oid, postalCode: '29125', createdAt: new Date(), updatedAt: new Date() },
-
-// Bintan Regency
-{ subdistrictName: 'Gunung Kijang', districtOid: bintanDistrict.oid, postalCode: '29151', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bintan Timur', districtOid: bintanDistrict.oid, postalCode: '29152', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bintan Utara', districtOid: bintanDistrict.oid, postalCode: '29153', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Bintan', districtOid: bintanDistrict.oid, postalCode: '29154', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Teluk Sebong', districtOid: bintanDistrict.oid, postalCode: '29155', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Toapaya', districtOid: bintanDistrict.oid, postalCode: '29156', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tambelan', districtOid: bintanDistrict.oid, postalCode: '29157', createdAt: new Date(), updatedAt: new Date() },
-
-// Karimun Regency
-{ subdistrictName: 'Karimun', districtOid: karimunDistrict.oid, postalCode: '29661', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kundur', districtOid: karimunDistrict.oid, postalCode: '29662', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kundur Utara', districtOid: karimunDistrict.oid, postalCode: '29663', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kundur Barat', districtOid: karimunDistrict.oid, postalCode: '29664', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Moro', districtOid: karimunDistrict.oid, postalCode: '29671', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Buru', districtOid: karimunDistrict.oid, postalCode: '29672', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Meral', districtOid: karimunDistrict.oid, postalCode: '29681', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Meral Barat', districtOid: karimunDistrict.oid, postalCode: '29682', createdAt: new Date(), updatedAt: new Date() }
-
-// Daik District
-{ subdistrictName: 'Daik', districtOid: daikDistrict.oid, postalCode: '29871', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kelombok', districtOid: daikDistrict.oid, postalCode: '29872', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pelanduk', districtOid: daikDistrict.oid, postalCode: '29873', createdAt: new Date(), updatedAt: new Date() },
-
-// Lingga District
-{ subdistrictName: 'Lingga', districtOid: linggaDistrict.oid, postalCode: '29881', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Bukit Langkap', districtOid: linggaDistrict.oid, postalCode: '29882', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mepar', districtOid: linggaDistrict.oid, postalCode: '29883', createdAt: new Date(), updatedAt: new Date() },
-
-// Lingga Timur District
-{ subdistrictName: 'Lingga Timur', districtOid: linggaTimurDistrict.oid, postalCode: '29891', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kelong', districtOid: linggaTimurDistrict.oid, postalCode: '29892', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Pekajang', districtOid: linggaTimurDistrict.oid, postalCode: '29893', createdAt: new Date(), updatedAt: new Date() },
-
-// Lingga Utara District
-{ subdistrictName: 'Lingga Utara', districtOid: linggaUtaraDistrict.oid, postalCode: '29861', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kuala Daik', districtOid: linggaUtaraDistrict.oid, postalCode: '29862', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mentuda', districtOid: linggaUtaraDistrict.oid, postalCode: '29863', createdAt: new Date(), updatedAt: new Date() },
-
-// Senayang District
-{ subdistrictName: 'Senayang', districtOid: senayangDistrict.oid, postalCode: '29851', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Mamut', districtOid: senayangDistrict.oid, postalCode: '29852', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Repong', districtOid: senayangDistrict.oid, postalCode: '29853', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkep District
-{ subdistrictName: 'Singkep', districtOid: singkepDistrict.oid, postalCode: '29871', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Dabo', districtOid: singkepDistrict.oid, postalCode: '29872', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sungai Buluh', districtOid: singkepDistrict.oid, postalCode: '29873', createdAt: new Date(), updatedAt: new Date() },
-
-// Singkep Barat District
-{ subdistrictName: 'Singkep Barat', districtOid: singkepBaratDistrict.oid, postalCode: '29881', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Kota Baru', districtOid: singkepBaratDistrict.oid, postalCode: '29882', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Sedamai', districtOid: singkepBaratDistrict.oid, postalCode: '29883', createdAt: new Date(), updatedAt: new Date() },
-
-// Ranai District
-{ subdistrictName: 'Ranai', districtOid: ranaiDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ranai Darat', districtOid: ranaiDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ranai Kota', districtOid: ranaiDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
-
-// Ranai Timur District
-{ subdistrictName: 'Ranai Timur', districtOid: ranaiTimurDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: ranaiTimurDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Tanjung', districtOid: ranaiTimurDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
-
-// Bunguran Barat District
-{ subdistrictName: 'Bunguran Barat', districtOid: bunguranBaratDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: bunguranBaratDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: bunguranBaratDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
-
-// Bunguran Timur District
-{ subdistrictName: 'Bunguran Timur', districtOid: bunguranTimurDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: bunguranTimurDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: bunguranTimurDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
-
-// Bunguran Utara District
-{ subdistrictName: 'Bunguran Utara', districtOid: bunguranUtaraDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: bunguranUtaraDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: bunguranUtaraDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
-
-// Bunguran Timur Laut District
-{ subdistrictName: 'Bunguran Timur Laut', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
-
-// Bunguran Tengah District
-{ subdistrictName: 'Bunguran Tengah', districtOid: bunguranTengahDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: bunguranTengahDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: bunguranTengahDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
-
-// Midai District
-{ subdistrictName: 'Midai', districtOid: midaiDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: midaiDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: midaiDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
-
-// Serasan District
-{ subdistrictName: 'Serasan', districtOid: serasanDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: serasanDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: serasanDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
-
-// Serasan Timur District
-{ subdistrictName: 'Serasan Timur', districtOid: serasanTimurDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: serasanTimurDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: serasanTimurDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
-
-// Subi District
-{ subdistrictName: 'Subi', districtOid: subiDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: subiDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: subiDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
-
-// Subi Barat District
-{ subdistrictName: 'Subi Barat', districtOid: subiBaratDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: subiBaratDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: subiBaratDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Tiga District
-{ subdistrictName: 'Pulau Tiga', districtOid: pulauTigaDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: pulauTigaDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: pulauTigaDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
-
-// Pulau Tiga Barat District
-{ subdistrictName: 'Pulau Tiga Barat', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
-
-// Tarempa District
-{ subdistrictName: 'Tarempa', districtOid: tarempaDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: tarempaDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: tarempaDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
-
-// Jemaja District
-{ subdistrictName: 'Jemaja', districtOid: jemajaDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: jemajaDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: jemajaDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
-
-// Jemaja Timur District
-{ subdistrictName: 'Jemaja Timur', districtOid: jemajaTimurDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: jemajaTimurDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: jemajaTimurDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
-
-// Siantan District
-{ subdistrictName: 'Siantan', districtOid: siantanDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: siantanDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: siantanDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
-
-// Siantan Selatan District
-{ subdistrictName: 'Siantan Selatan', districtOid: siantanSelatanDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: siantanSelatanDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: siantanSelatanDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
-
-// Palmatak District
-{ subdistrictName: 'Palmatak', districtOid: palmatakDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: palmatakDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: palmatakDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
-
-// Jemaja Barat District
-{ subdistrictName: 'Jemaja Barat', districtOid: jemajaBaratDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Air Lengit', districtOid: jemajaBaratDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
-{ subdistrictName: 'Ceruk', districtOid: jemajaBaratDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
-
-
-], { returning: true });
+      { subdistrictName: 'Kertamanah', districtOid: tegalwaru.oid, postalCode: '41165', createdAt: new Date(), updatedAt: new Date() },
+
+      // Subang Regency Districts
+      { subdistrictName: "Subang", districtOid: subangsubangCityDistrict.oid, postalCode: "41211", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Binong", districtOid: binongDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Blanakan", districtOid: blanakanDistrict.oid, postalCode: "41259", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Ciasem", districtOid: ciasemDistrict.oid, postalCode: "41256", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Ciater", districtOid: ciaterDistrict.oid, postalCode: "41281", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cibogo", districtOid: cibogoDistrict.oid, postalCode: "41285", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cijambe", districtOid: cijambeDistrict.oid, postalCode: "41286", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cikaum", districtOid: cikaumDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cilamaya", districtOid: cilamayaDistrict.oid, postalCode: "41284", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cisalak", districtOid: cisalakDistrict.oid, postalCode: "41283", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Compreng", districtOid: comprengDistrict.oid, postalCode: "41258", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Dawuan", districtOid: dawuamDistrict.oid, postalCode: "41271", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jalancagak", districtOid: jalancagakDistrict.oid, postalCode: "41281", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kalijati", districtOid: kalijatiDistrict.oid, postalCode: "41271", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kasomalang", districtOid: kasomalangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Legonkulon", districtOid: legonkulonDistrict.oid, postalCode: "41254", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pabuaran", districtOid: pabuaranDistrict.oid, postalCode: "41262", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pagaden", districtOid: pagadenDistrict.oid, postalCode: "41252", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pagaden Baru", districtOid: pagadenbaruDistrict.oid, postalCode: "41252", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Patokbeusi", districtOid: patokbeusiDistrict.oid, postalCode: "41263", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Purwadadi", districtOid: purwadadiDistrict.oid, postalCode: "41261", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pusakajaya", districtOid: pusakajayaDistrict.oid, postalCode: "41255", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pusakanagara", districtOid: pusakanagaraDistrict.oid, postalCode: "41255", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sagalaherang", districtOid: sagalaherangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Serangpanjang", districtOid: serangpanjangDistrict.oid, postalCode: "41282", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sukasari", districtOid: sukasarisubangCityDistrict.oid, postalCode: "41254", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tambakdahan", districtOid: tambakdahanDistrict.oid, postalCode: "41253", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tanjungsiang", districtOid: tanjungsiangDistrict.oid, postalCode: "41284", createdAt: new Date(), updatedAt: new Date() },
+
+      // Sumedang Regency Districts
+      { subdistrictName: "Sumedang", districtOid: sumedangDistrict.oid, postalCode: "45311", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Buahdua", districtOid: buahduaDistrict.oid, postalCode: "45392", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cibugel", districtOid: cibugelDistrict.oid, postalCode: "45375", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cimalaka", districtOid: cimalakaDistrict.oid, postalCode: "45353", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cimanggung", districtOid: cimanggungDistrict.oid, postalCode: "45364", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cisarua", districtOid: cisaruasubangCityDistrict.oid, postalCode: "45355", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cisitu", districtOid: cisituDistrict.oid, postalCode: "45363", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Conggeang", districtOid: conggeangDistrict.oid, postalCode: "45391", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Darmaraja", districtOid: darmarajaDistrict.oid, postalCode: "45372", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Ganeas", districtOid: ganeasDistrict.oid, postalCode: "45356", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jatinangor", districtOid: jatinangorDistrict.oid, postalCode: "45363", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jatinunggal", districtOid: jatinunggalDistrict.oid, postalCode: "45376", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pamulihan", districtOid: pamulihanDistrict.oid, postalCode: "45365", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Paseh", districtOid: pasehDistrict.oid, postalCode: "45381", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Rancakalong", districtOid: rancakalongDistrict.oid, postalCode: "45361", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Situraja", districtOid: siturajaDistrict.oid, postalCode: "45383", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sukasari", districtOid: sukasarisumedangCityDistrict.oid, postalCode: "45366", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Surian", districtOid: surianDistrict.oid, postalCode: "45393", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tanjungkerta", districtOid: tanjungkertaDistrict.oid, postalCode: "45354", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tanjungmedar", districtOid: tanjungmedarDistrict.oid, postalCode: "45354", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tanjungsari", districtOid: tanjungsariDistrict.oid, postalCode: "45362", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tomo", districtOid: tomoDistrict.oid, postalCode: "45382", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Ujungjaya", districtOid: ujungjayaDistrict.oid, postalCode: "45383", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Wado", districtOid: wadoDistrict.oid, postalCode: "45373", createdAt: new Date(), updatedAt: new Date() },
+
+      // Ngamprah District
+      { subdistrictName: 'Ngamprah', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bojongkoneng', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cimareme', districtOid: ngamprahDistrict.oid, postalCode: '40552', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batujajar District
+      { subdistrictName: 'Batujajar', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galanggang', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangauban', districtOid: batujajarDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cihampelas District
+      { subdistrictName: 'Cihampelas', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cipatik', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Singajaya', districtOid: cihampelasDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cikalongwetan District
+      { subdistrictName: 'Cikalongwetan', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
+      // Cikalongwetan District (continued)
+      { subdistrictName: 'Cipada', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jambudipa', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mekarjaya', districtOid: cikalongwetanDistrict.oid, postalCode: '40556', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cililin District
+      { subdistrictName: 'Cililin', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batulayang', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bongas', districtOid: cililinDistrict.oid, postalCode: '40562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cipatat District
+      { subdistrictName: 'Cipatat', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ciptaharja', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Citatah', districtOid: cipatatDistrict.oid, postalCode: '40554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cipeundeuy District
+      { subdistrictName: 'Cipeundeuy', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bojong', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ciharashas', districtOid: cipeundeuyDistrict.oid, postalCode: '40558', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cipongkor District
+      { subdistrictName: 'Cipongkor', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baranangsiang', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cibenda', districtOid: cipongkorDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cisarua District (West Bandung)
+      { subdistrictName: 'Cisarua', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cibeureum', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jambudipa', districtOid: cisaruaWestBandungDistrict.oid, postalCode: '40551', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gununghalu District
+      { subdistrictName: 'Gununghalu', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bunijaya', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Celak', districtOid: gununghaluDistrict.oid, postalCode: '40565', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lembang District (West Bandung)
+      { subdistrictName: 'Lembang', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cibodas', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cikahuripan', districtOid: lembangWestBandungDistrict.oid, postalCode: '40391', createdAt: new Date(), updatedAt: new Date() },
+
+      // Parongpong District
+      { subdistrictName: 'Parongpong', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cigugur Girang', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karyawangi', districtOid: parongpongDistrict.oid, postalCode: '40559', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rongga District
+      { subdistrictName: 'Rongga', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bojong', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cibedug', districtOid: ronggaDistrict.oid, postalCode: '40566', createdAt: new Date(), updatedAt: new Date() },
+
+      // Saguling District
+      { subdistrictName: 'Saguling', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cipangeran', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jati', districtOid: sagulingDistrict.oid, postalCode: '40561', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sindangkerta District
+      { subdistrictName: 'Sindangkerta', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buninagara', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cicadas', districtOid: sindangkertaDistrict.oid, postalCode: '40563', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banyumanik District
+      { subdistrictName: 'Banyumanik', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedawang', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padangsari', districtOid: banyumanikDistrict.oid, postalCode: '50264', createdAt: new Date(), updatedAt: new Date() },
+
+      // Candisari District
+      { subdistrictName: 'Candisari', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatingaleh', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar Gunung', districtOid: candisariDistrict.oid, postalCode: '50257', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gajahmungkur District
+      { subdistrictName: 'Gajahmungkur', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bendan Duwur', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bendungan', districtOid: gajahmungkurDistrict.oid, postalCode: '50232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gayamsari District
+      { subdistrictName: 'Gayamsari', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaligawe', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sambirejo', districtOid: gayamsariDistrict.oid, postalCode: '50166', createdAt: new Date(), updatedAt: new Date() },
+
+      // Genuk District
+      { subdistrictName: 'Genuk', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangetayu', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gebangsari', districtOid: genukDistrict.oid, postalCode: '50111', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunungpati District
+      { subdistrictName: 'Gunungpati', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nongkosawit', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumurejo', districtOid: gunungpatiDistrict.oid, postalCode: '50221', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mijen District
+      { subdistrictName: 'Mijen', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatibarang', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedungpane', districtOid: mijenDistrict.oid, postalCode: '50211', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ngaliyan District
+      { subdistrictName: 'Ngaliyan', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bambankerep', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwoyoso', districtOid: ngaliyanDistrict.oid, postalCode: '50181', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pedurungan District
+      { subdistrictName: 'Pedurungan', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gemah', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalicari', districtOid: pedurunganDistrict.oid, postalCode: '50192', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semarang Barat District
+      { subdistrictName: 'Semarang Barat', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bojongsalaman', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembangarum', districtOid: semarangBaratDistrict.oid, postalCode: '50141', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semarang Selatan District
+      { subdistrictName: 'Semarang Selatan', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulustalan', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamper Kidul', districtOid: semarangSelatanDistrict.oid, postalCode: '50241', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semarang Tengah District
+      { subdistrictName: 'Semarang Tengah', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangunharjo', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gabahan', districtOid: semarangTengahDistrict.oid, postalCode: '50131', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semarang Timur District
+      { subdistrictName: 'Semarang Timur', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangtempel', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rejosari', districtOid: semarangTimurDistrict.oid, postalCode: '50121', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semarang Utara District
+      { subdistrictName: 'Semarang Utara', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandarharjo', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulu Lor', districtOid: semarangUtaraDistrict.oid, postalCode: '50171', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tembalang District
+      { subdistrictName: 'Tembalang', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulusan', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangunharjo', districtOid: tembalangDistrict.oid, postalCode: '50271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tugu District
+      { subdistrictName: 'Tugu', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jerakah', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar', districtOid: tuguDistrict.oid, postalCode: '50151', createdAt: new Date(), updatedAt: new Date() },
+
+      // Surakarta (Solo) City Districts
+      // 1. Pasar Kliwon
+      { subdistrictName: 'Pasar Kliwon', districtOid: pasarkliwon.oid, postalCode: '57110', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedunglumbu', districtOid: pasarkliwon.oid, postalCode: '57111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangkrah', districtOid: pasarkliwon.oid, postalCode: '57112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semanggi', districtOid: pasarkliwon.oid, postalCode: '57113', createdAt: new Date(), updatedAt: new Date() },
+
+      // 2. Jebres
+      { subdistrictName: 'Jebres', districtOid: jebres.oid, postalCode: '57120', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mojosongo', districtOid: jebres.oid, postalCode: '57121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwodiningratan', districtOid: jebres.oid, postalCode: '57122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalharjo', districtOid: jebres.oid, postalCode: '57123', createdAt: new Date(), updatedAt: new Date() },
+
+      // 3. Banjarsari
+      { subdistrictName: 'Banjarsari', districtOid: banjarsari.oid, postalCode: '57130', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gilingan', districtOid: banjarsari.oid, postalCode: '57131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kadipiro', districtOid: banjarsari.oid, postalCode: '57132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nusukan', districtOid: banjarsari.oid, postalCode: '57133', createdAt: new Date(), updatedAt: new Date() },
+
+      // 4. Laweyan
+      { subdistrictName: 'Laweyan', districtOid: laweyan.oid, postalCode: '57140', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bumi', districtOid: laweyan.oid, postalCode: '57141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penumping', districtOid: laweyan.oid, postalCode: '57142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pajang', districtOid: laweyan.oid, postalCode: '57143', createdAt: new Date(), updatedAt: new Date() },
+
+      // 5. Serengan
+      { subdistrictName: 'Serengan', districtOid: serengan.oid, postalCode: '57150', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jayengan', districtOid: serengan.oid, postalCode: '57151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemlayan', districtOid: serengan.oid, postalCode: '57152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sondakan', districtOid: serengan.oid, postalCode: '57153', createdAt: new Date(), updatedAt: new Date() },
+
+      // Magelang City Districts
+      // 6. Magelang Selatan
+      { subdistrictName: 'Magelang Selatan', districtOid: magelangselatan.oid, postalCode: '56121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jurangombo Selatan', districtOid: magelangselatan.oid, postalCode: '56122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Magersari', districtOid: magelangselatan.oid, postalCode: '56123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rejowinangun Selatan', districtOid: magelangselatan.oid, postalCode: '56124', createdAt: new Date(), updatedAt: new Date() },
+
+      // 7. Magelang Tengah
+      { subdistrictName: 'Magelang Tengah', districtOid: magelangtengah.oid, postalCode: '56111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cacaban', districtOid: magelangtengah.oid, postalCode: '56112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemirirejo', districtOid: magelangtengah.oid, postalCode: '56113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Magelang', districtOid: magelangtengah.oid, postalCode: '56114', createdAt: new Date(), updatedAt: new Date() },
+
+      // 8. Magelang Utara
+      { subdistrictName: 'Magelang Utara', districtOid: magelangutara.oid, postalCode: '56115', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jurangombo Utara', districtOid: magelangutara.oid, postalCode: '56116', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rejowinangun Utara', districtOid: magelangutara.oid, postalCode: '56117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tidar Utara', districtOid: magelangutara.oid, postalCode: '56118', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tegal City Districts
+      // 9. Tegal Barat
+      { subdistrictName: 'Tegal Barat', districtOid: tegalbarat.oid, postalCode: '52111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Debong Lor', districtOid: tegalbarat.oid, postalCode: '52112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemandungan', districtOid: tegalbarat.oid, postalCode: '52113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalsari', districtOid: tegalbarat.oid, postalCode: '52114', createdAt: new Date(), updatedAt: new Date() },
+
+      // 10. Tegal Selatan
+      { subdistrictName: 'Tegal Selatan', districtOid: tegalselatan.oid, postalCode: '52121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandung', districtOid: tegalselatan.oid, postalCode: '52122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Debong Kidul', districtOid: tegalselatan.oid, postalCode: '52123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kraton', districtOid: tegalselatan.oid, postalCode: '52124', createdAt: new Date(), updatedAt: new Date() },
+
+      // 11. Tegal Timur
+      { subdistrictName: 'Tegal Timur', districtOid: tegaltimur.oid, postalCode: '52131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kejambon', districtOid: tegaltimur.oid, postalCode: '52132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mintaragen', districtOid: tegaltimur.oid, postalCode: '52133', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panggung', districtOid: tegaltimur.oid, postalCode: '52134', createdAt: new Date(), updatedAt: new Date() },
+
+      // 12. Margadana
+      { subdistrictName: 'Margadana', districtOid: margadana.oid, postalCode: '52141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cabawan', districtOid: margadana.oid, postalCode: '52142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalinyamat', districtOid: margadana.oid, postalCode: '52143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumurpanggang', districtOid: margadana.oid, postalCode: '52144', createdAt: new Date(), updatedAt: new Date() },
+
+      // Salatiga City Districts
+      // 13. Argomulyo
+      { subdistrictName: 'Argomulyo', districtOid: argomulyo.oid, postalCode: '50732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cebongan', districtOid: argomulyo.oid, postalCode: '50733', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kumpulrejo', districtOid: argomulyo.oid, postalCode: '50734', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalrejo', districtOid: argomulyo.oid, postalCode: '50735', createdAt: new Date(), updatedAt: new Date() },
+
+      // 14. Tingkir
+      { subdistrictName: 'Tingkir', districtOid: tingkir.oid, postalCode: '50741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kutowinangun', districtOid: tingkir.oid, postalCode: '50742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidorejo Lor', districtOid: tingkir.oid, postalCode: '50743', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tingkir Lor', districtOid: tingkir.oid, postalCode: '50744', createdAt: new Date(), updatedAt: new Date() },
+
+      // 15. Sidomukti
+      { subdistrictName: 'Sidomukti', districtOid: sidomukti.oid, postalCode: '50721', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Blotongan', districtOid: sidomukti.oid, postalCode: '50722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bugel', districtOid: sidomukti.oid, postalCode: '50723', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kauman Kidul', districtOid: sidomukti.oid, postalCode: '50724', createdAt: new Date(), updatedAt: new Date() },
+
+      // 16. Sidorejo
+      { subdistrictName: 'Sidorejo', districtOid: sidorejo.oid, postalCode: '50711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalicacing', districtOid: sidorejo.oid, postalCode: '50712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangunsari', districtOid: sidorejo.oid, postalCode: '50713', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulutan', districtOid: sidorejo.oid, postalCode: '50714', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pekalongan City Districts
+      // 17. Pekalongan Barat
+      { subdistrictName: 'Pekalongan Barat', districtOid: pekalonganbarat.oid, postalCode: '51111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bendan', districtOid: pekalonganbarat.oid, postalCode: '51112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krapyak', districtOid: pekalonganbarat.oid, postalCode: '51113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sapuro', districtOid: pekalonganbarat.oid, postalCode: '51114', createdAt: new Date(), updatedAt: new Date() },
+
+      // 18. Pekalongan Timur
+      { subdistrictName: 'Pekalongan Timur', districtOid: pekalongantimur.oid, postalCode: '51121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebulen', districtOid: pekalongantimur.oid, postalCode: '51122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Poncol', districtOid: pekalongantimur.oid, postalCode: '51123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sampangan', districtOid: pekalongantimur.oid, postalCode: '51124', createdAt: new Date(), updatedAt: new Date() },
+
+      // 19. Pekalongan Selatan
+      { subdistrictName: 'Pekalongan Selatan', districtOid: pekalonganselatan.oid, postalCode: '51131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jenggot', districtOid: pekalonganselatan.oid, postalCode: '51132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kramatsari', districtOid: pekalonganselatan.oid, postalCode: '51133', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuripan Kertoharjo', districtOid: pekalonganselatan.oid, postalCode: '51134', createdAt: new Date(), updatedAt: new Date() },
+
+      // 20. Pekalongan Utara
+      { subdistrictName: 'Pekalongan Utara', districtOid: pekalonganutara.oid, postalCode: '51141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandengan', districtOid: pekalonganutara.oid, postalCode: '51142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panjang Baru', districtOid: pekalonganutara.oid, postalCode: '51143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panjang Wetan', districtOid: pekalonganutara.oid, postalCode: '51144', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cilacap Regency Districts
+      // 21. Cilacap Selatan
+      { subdistrictName: 'Cilacap Selatan', districtOid: cilacapselatan.oid, postalCode: '53211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Donan', districtOid: cilacapselatan.oid, postalCode: '53212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kutawaru', districtOid: cilacapselatan.oid, postalCode: '53213', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambakreja', districtOid: cilacapselatan.oid, postalCode: '53214', createdAt: new Date(), updatedAt: new Date() },
+
+      // 22. Cilacap Tengah
+      { subdistrictName: 'Cilacap Tengah', districtOid: cilacaptengah.oid, postalCode: '53221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsimping', districtOid: cilacaptengah.oid, postalCode: '53222', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidakaya', districtOid: cilacaptengah.oid, postalCode: '53223', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalkamulyan', districtOid: cilacaptengah.oid, postalCode: '53224', createdAt: new Date(), updatedAt: new Date() },
+
+      // 23. Cilacap Utara
+      { subdistrictName: 'Cilacap Utara', districtOid: cilacaputara.oid, postalCode: '53231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonmanis', districtOid: cilacaputara.oid, postalCode: '53232', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lomanis', districtOid: cilacaputara.oid, postalCode: '53233', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambaksari', districtOid: cilacaputara.oid, postalCode: '53234', createdAt: new Date(), updatedAt: new Date() },
+
+      // Purwokerto City Districts
+      // 24. Purwokerto Barat
+      { subdistrictName: 'Purwokerto Barat', districtOid: purwokertobarat.oid, postalCode: '53131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bancarkembar', districtOid: purwokertobarat.oid, postalCode: '53132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangwangkal', districtOid: purwokertobarat.oid, postalCode: '53133', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pabuaran', districtOid: purwokertobarat.oid, postalCode: '53134', createdAt: new Date(), updatedAt: new Date() },
+
+      // 25. Purwokerto Selatan
+      { subdistrictName: 'Purwokerto Selatan', districtOid: purwokertoselatan.oid, postalCode: '53141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berkoh', districtOid: purwokertoselatan.oid, postalCode: '53142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangpucung', districtOid: purwokertoselatan.oid, postalCode: '53143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwokerto Kidul', districtOid: purwokertoselatan.oid, postalCode: '53144', createdAt: new Date(), updatedAt: new Date() },
+
+      // 26. Purwokerto Timur
+      { subdistrictName: 'Purwokerto Timur', districtOid: purwokertotimur.oid, postalCode: '53121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangtengah', districtOid: purwokertotimur.oid, postalCode: '53122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mersi', districtOid: purwokertotimur.oid, postalCode: '53123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwokerto Wetan', districtOid: purwokertotimur.oid, postalCode: '53124', createdAt: new Date(), updatedAt: new Date() },
+
+      // 27. Purwokerto Utara
+      { subdistrictName: 'Purwokerto Utara', districtOid: purwokertoutara.oid, postalCode: '53111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bobosan', districtOid: purwokertoutara.oid, postalCode: '53112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangwangkal', districtOid: purwokertoutara.oid, postalCode: '53113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwokerto Lor', districtOid: purwokertoutara.oid, postalCode: '53114', createdAt: new Date(), updatedAt: new Date() },
+
+      // Colomadu District
+      { subdistrictName: 'Colomadu', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Blulukan', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gawanan', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gladagsari', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Makamhaji', districtOid: colomaduDistrict.oid, postalCode: '57171', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gondangrejo District
+      { subdistrictName: 'Gondangrejo', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dayu', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangturi', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonan', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pucangan', districtOid: gondangrejoDistrict.oid, postalCode: '57181', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jaten District
+      { subdistrictName: 'Jaten', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baturan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedongan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jagalan', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sroyo', districtOid: jatenDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jatipuro District
+      { subdistrictName: 'Jatipuro', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatipurwo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatiroyo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatisobo', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangbangun', districtOid: jatipuroDistrict.oid, postalCode: '57784', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jatiyoso District
+      { subdistrictName: 'Jatiyoso', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Beruk', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangsari', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonokeling', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonorejo', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jenawi District
+      { subdistrictName: 'Jenawi', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anggrasmanis', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balong', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seloromo', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tunggur', districtOid: jenawiDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jumantono District
+      { subdistrictName: 'Jumantono', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedong', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatirejo', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedawung', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tawangsari', districtOid: jumantonoDistrict.oid, postalCode: '57782', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jumapolo District
+      { subdistrictName: 'Jumapolo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatiharjo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jumantoro', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebakkramat', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonorejo', districtOid: jumapoloDistrict.oid, postalCode: '57783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karanganyar District
+      { subdistrictName: 'Karanganyar', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bejen', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gayamdompo', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Popongan', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalgede', districtOid: karanganyarDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karangpandan District
+      { subdistrictName: 'Karangpandan', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Harjosari', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karang', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tohkuning', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tunggulrejo', districtOid: karangpandanDistrict.oid, postalCode: '57791', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kebakkramat District
+      { subdistrictName: 'Kebakkramat', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alastuwo', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banjarharjo', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemuning', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Macanan', districtOid: kebakkramatDistrict.oid, postalCode: '57762', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kerjo District
+      { subdistrictName: 'Kerjo', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumeng', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jenawi', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangpandan', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tawangmangu', districtOid: kerjoDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+
+      // Matesih District
+      { subdistrictName: 'Matesih', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girilayu', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangbangun', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pablengan', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plosorejo', districtOid: matesihDistrict.oid, postalCode: '57781', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mojogedang District
+      { subdistrictName: 'Mojogedang', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalibanger', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemuning', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngadirejo', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Puntukrejo', districtOid: mojogedangDistrict.oid, postalCode: '57752', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ngargoyoso District
+      { subdistrictName: 'Ngargoyoso', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berjo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girirejo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatirejo', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Segorogunung', districtOid: ngargoyosoDistrict.oid, postalCode: '57793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tasikmadu District
+      { subdistrictName: 'Tasikmadu', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaling', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangmojo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kartoharjo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonolopo', districtOid: tasikmaduDistrict.oid, postalCode: '57722', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tawangmangu District
+      { subdistrictName: 'Tawangmangu', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandardawung', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanglo', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plumbon', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tawangsari', districtOid: tawangmanguDistrict.oid, postalCode: '57792', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rembang District
+      { subdistrictName: 'Rembang', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gegunung', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangasem', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pandan', districtOid: rembangDistrict.oid, postalCode: '59211', createdAt: new Date(), updatedAt: new Date() },
+      // { subdistrictName:
+
+      // Lasem District
+      { subdistrictName: 'Lasem', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babagan', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonang', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedongmulyo', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gowak', districtOid: lasemDistrict.oid, postalCode: '59271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sluke District
+      { subdistrictName: 'Sluke', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jurangjero', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Leran', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkalan', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Trahan', districtOid: slukeDistrict.oid, postalCode: '59272', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pancur District
+      { subdistrictName: 'Pancur', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banyuurip', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Criwik', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Doropayung', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngulangan', districtOid: pancurDistrict.oid, postalCode: '59262', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jepara District
+      { subdistrictName: 'Jepara', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bapangan', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Demaan', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jobokuto', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pengkol', districtOid: jeparaDistrict.oid, postalCode: '59411', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kedung District
+      { subdistrictName: 'Kedung', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bugel', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jondang', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mlati', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pecangaan', districtOid: kedungDistrict.oid, postalCode: '59463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mayong District
+      { subdistrictName: 'Mayong', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandung', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buaran', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paren', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pelang', districtOid: mayongDistrict.oid, postalCode: '59465', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bangsri District
+      { subdistrictName: 'Bangsri', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banjaran', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bondo', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tunggulpandean', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wedelan', districtOid: bangsriDistrict.oid, postalCode: '59453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kudus District
+      { subdistrictName: 'Kudus', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jati', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kajeksan', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kerjasan', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mlati', districtOid: kudusDistrict.oid, postalCode: '59311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Undaan District
+      { subdistrictName: 'Undaan', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berugenjang', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrowo', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kutuk', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Undaan Kidul', districtOid: undaanDistrict.oid, postalCode: '59372', createdAt: new Date(), updatedAt: new Date() },
+
+      // Demak District
+      { subdistrictName: 'Demak', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bintoro', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kadilangu', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalicilik', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Singorejo', districtOid: demakDistrict.oid, postalCode: '59511', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bonang District
+      { subdistrictName: 'Bonang', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gebang', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jali', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatimulyo', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wedung', districtOid: bonangDistrict.oid, postalCode: '59552', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dempet District
+      { subdistrictName: 'Dempet', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baleromo', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Harjowinangun', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrejo', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonagung', districtOid: dempetDistrict.oid, postalCode: '59573', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gajah District
+      { subdistrictName: 'Gajah', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banjarejo', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedangalas', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatisono', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sari', districtOid: gajahDistrict.oid, postalCode: '59583', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sukoharjo District
+      { subdistrictName: 'Sukoharjo', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banmati', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedangan', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kertonatan', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pondok', districtOid: sukoharjoDistrict.oid, postalCode: '57551', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kartasura District
+      { subdistrictName: 'Kartasura', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gonilan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kertonatan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngabeyan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pabelan', districtOid: kartasuraDistrict.oid, postalCode: '57169', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baki District
+      // { subdistrictName: 'Baki', districtOid: bakiDistrict.oid, postalCode: '57556',
+
+      // Baki District (continued)
+      { subdistrictName: 'Gentan', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kudu', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menuran', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purbayan', districtOid: bakiDistrict.oid, postalCode: '57556', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nguter District
+      { subdistrictName: 'Nguter', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baran', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Celep', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedungwinong', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pengkol', districtOid: nguterDistrict.oid, postalCode: '57571', createdAt: new Date(), updatedAt: new Date() },
+
+      // Boyolali District
+      { subdistrictName: 'Boyolali', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banaran', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemiri', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mojosongo', districtOid: boyolaliDistrict.oid, postalCode: '57311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simo District
+      { subdistrictName: 'Simo', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedangan', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klego', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sawit', districtOid: simoDistrict.oid, postalCode: '57377', createdAt: new Date(), updatedAt: new Date() },
+
+      // Teras District
+      { subdistrictName: 'Teras', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatilawang', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangmojo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedungbendo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidomulyo', districtOid: terasDistrict.oid, postalCode: '57372', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sawit District
+      { subdistrictName: 'Sawit', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bendungan', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gondang', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedungjambal', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungsari', districtOid: sawitDistrict.oid, postalCode: '57374', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jatiyoso District (additional subdistricts if needed)
+      { subdistrictName: 'Jatiyoso', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonorejo', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonokeling', districtOid: jatiyosoDistrict.oid, postalCode: '57785', createdAt: new Date(), updatedAt: new Date() },
+
+      // JatikaranganyarCity District (assuming this is a typo and referring to Jaten/Karanganyar)
+      { subdistrictName: 'Jaten', districtOid: jatikaranganyarCityDistrict.oid, postalCode: '57731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar', districtOid: jatikaranganyarCityDistrict.oid, postalCode: '57711', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Utara', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jonggrangan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buntalan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebondalem', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tonggalan', districtOid: klatenUtaraDistrict.oid, postalCode: '57431', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Klaten Selatan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barengan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumulan', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semangkak', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wanglu', districtOid: klatenSelatanDistrict.oid, postalCode: '57425', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Sidoharjo', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jambangan', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanganyar', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangtengah', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngrombo', districtOid: sidoharjoDistrict.oid, postalCode: '57281', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Cepu', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balun', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gadon', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Getas', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nglanjuk', districtOid: cepuDistrict.oid, postalCode: '58311', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Jati', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangsri', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jati', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jepang', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumur', districtOid: jatiDistrict.oid, postalCode: '58384', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Randublatung', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bodeh', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kadengan', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kutukan', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wulung', districtOid: randublatungDistrict.oid, postalCode: '58382', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Wonogiri', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Giripurwo', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pule', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sendang', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonoboyo', districtOid: wonogiriDistrict.oid, postalCode: '57611', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Baturetno', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batuwarno', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kismantoro', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nguntoronadi', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Selogiri', districtOid: baturetnoDistrict.oid, postalCode: '57673', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Giritontro', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banyakprodo', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dlepih', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Giriwondo', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hargosari', districtOid: giritontroDistrict.oid, postalCode: '57678', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: 'Ngadirojo', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bakalan', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girimarto', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngadirojo Kidul', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngadirojo Lor', districtOid: ngadirojoDistrict.oid, postalCode: '57681', createdAt: new Date(), updatedAt: new Date() },
+
+      // Asemrowo District
+      { subdistrictName: 'Asemrowo', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Genting', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambak Sarioso', districtOid: asemrowoDistrict.oid, postalCode: '60182', createdAt: new Date(), updatedAt: new Date() },
+
+      // Benowo District
+      { subdistrictName: 'Benowo', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babat', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kandangan', districtOid: benowoDistrict.oid, postalCode: '60196', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bubutan District
+      { subdistrictName: 'Bubutan', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alun-alun Contong', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krembangan Selatan', districtOid: bubutanDistrict.oid, postalCode: '60172', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulak District
+      { subdistrictName: 'Bulak', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedung Cowek', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukolilo Baru', districtOid: bulakDistrict.oid, postalCode: '60124', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dukuh Pakis District
+      { subdistrictName: 'Dukuh Pakis', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dukuh Kupang', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pradah Kalikendal', districtOid: dukuhPakisDistrict.oid, postalCode: '60225', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gayungan District
+      { subdistrictName: 'Gayungan', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menanggal', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ketintang', districtOid: gayunganDistrict.oid, postalCode: '60234', createdAt: new Date(), updatedAt: new Date() },
+
+      // Genteng District
+      { subdistrictName: 'Genteng', districtOid: gentengsurabayaDistrict.oid, postalCode: '60275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ketabang', districtOid: gentengsurabayaDistrict.oid, postalCode: '60272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Peneleh', districtOid: gentengsurabayaDistrict.oid, postalCode: '60274', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gubeng District
+      { subdistrictName: 'Gubeng', districtOid: gubengDistrict.oid, postalCode: '60281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Airlangga', districtOid: gubengDistrict.oid, postalCode: '60281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baratajaya', districtOid: gubengDistrict.oid, postalCode: '60284', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunung Anyar District
+      { subdistrictName: 'Gunung Anyar', districtOid: gununganyarDistrict.oid, postalCode: '60294', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Anyar Tambak', districtOid: gununganyarDistrict.oid, postalCode: '60294', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rungkut Menanggal', districtOid: gununganyarDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jambangan District
+      { subdistrictName: 'Jambangan', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karang Menjangan', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonsari', districtOid: jambanganDistrict.oid, postalCode: '60232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karang Pilang District
+      { subdistrictName: 'Karang Pilang', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kedurus', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebraon', districtOid: karangpilangDistrict.oid, postalCode: '60221', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kenjeran District
+      { subdistrictName: 'Kenjeran', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulak Banteng', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukolilo', districtOid: kenjeranDistrict.oid, postalCode: '60127', createdAt: new Date(), updatedAt: new Date() },
+
+      // Krembangan District
+      { subdistrictName: 'Krembangan', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Perak Barat', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Morokrembangan', districtOid: krembanganDistrict.oid, postalCode: '60175', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lakar Santri District
+      { subdistrictName: 'Lakar Santri', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lidah Wetan', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumput', districtOid: lakarsantriDistrict.oid, postalCode: '60214', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mulyorejo District
+      { subdistrictName: 'Mulyorejo', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kejawaan Putih Tamba', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Manyar Sabrangan', districtOid: mulyorejoDistrict.oid, postalCode: '60112', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pabean Cantian District
+      { subdistrictName: 'Pabean Cantian', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Perak Timur', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembang Jepun', districtOid: pabeanCantianDistrict.oid, postalCode: '60161', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pakal District
+      { subdistrictName: 'Pakal', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babatan', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babat Jerawat', districtOid: pakalDistrict.oid, postalCode: '60197', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rungkut District
+      { subdistrictName: 'Rungkut', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kali Rungkut', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rungkut Kidul', districtOid: rungkutDistrict.oid, postalCode: '60293', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sawahan District
+      { subdistrictName: 'Sawahan', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banyu Urip', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kupang Krajan', districtOid: sawahanDistrict.oid, postalCode: '60251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Semampir District
+      { subdistrictName: 'Semampir', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krembangan Utara', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pegirian', districtOid: semampirDistrict.oid, postalCode: '60151', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simokerto District
+      { subdistrictName: 'Simokerto', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kapasan', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simolawang', districtOid: simokertoDistrict.oid, postalCode: '60141', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sukolilo District
+      { subdistrictName: 'Sukolilo', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klampis Ngasem', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menur Pumpungan', districtOid: sukoliloDistrict.oid, postalCode: '60117', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sukomanunggal District
+      { subdistrictName: 'Sukomanunggal', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sonokwijenan', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungsari', districtOid: sukomanunggalDistrict.oid, postalCode: '60189', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tambaksari District
+      { subdistrictName: 'Tambaksari', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pucang Sewu', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rangkah', districtOid: tambaksariDistrict.oid, postalCode: '60136', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tenggilis Mejoyo District
+      { subdistrictName: 'Tenggilis Mejoyo', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tenggilis Mejoyo Selatan', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tenggilis Mejoyo Utara', districtOid: tenggilisDistrict.oid, postalCode: '60292', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wiyung District
+      { subdistrictName: 'Wiyung', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jajar Tunggal', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wiyung', districtOid: wiyungDistrict.oid, postalCode: '60228', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wonocolo District
+      { subdistrictName: 'Wonocolo', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Darmo', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jemur Wonosari', districtOid: wonocoloDistrict.oid, postalCode: '60239', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wonokromo District
+      { subdistrictName: 'Wonokromo', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dukuh Kupang', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonokromo', districtOid: wonokromoDistrict.oid, postalCode: '60243', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malang City Districts
+      { subdistrictName: "Blimbing", districtOid: blimbingDistrict.oid, postalCode: "65121", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kedungkandang", districtOid: kedungkandangDistrict.oid, postalCode: "65136", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Lowokwaru", districtOid: lowokwaruDistrict.oid, postalCode: "65141", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sukun", districtOid: sukunDistrict.oid, postalCode: "65147", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Klojen", districtOid: klojenDistrict.oid, postalCode: "65111", createdAt: new Date(), updatedAt: new Date() },
+
+      // Mojokerto City Districts
+      { subdistrictName: "Magersari", districtOid: magersariDistrict.oid, postalCode: "61314", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Prajurit Kulon", districtOid: prajuritKulonDistrict.oid, postalCode: "61321", createdAt: new Date(), updatedAt: new Date() },
+
+      // Kediri City Districts
+      { subdistrictName: "Kota Kediri", districtOid: kotaKediriDistrict.oid, postalCode: "64121", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Mojo", districtOid: mojoDistrict.oid, postalCode: "64142", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pesantren", districtOid: pesantrenDistrict.oid, postalCode: "64133", createdAt: new Date(), updatedAt: new Date() },
+
+      // Probolinggo City Districts
+      { subdistrictName: "Kanigaran", districtOid: kanigaranDistrict.oid, postalCode: "67211", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kedopok", districtOid: kedopokDistrict.oid, postalCode: "67222", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Mayangan", districtOid: mayanganDistrict.oid, postalCode: "67217", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Wonoasih", districtOid: wonoasihDistrict.oid, postalCode: "67233", createdAt: new Date(), updatedAt: new Date() },
+
+      // Blitar City Districts
+      { subdistrictName: "Kepanjenkidul", districtOid: kepanjenkidulDistrict.oid, postalCode: "66111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sananwetan", districtOid: sananwetanDistrict.oid, postalCode: "66131", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sukorejo", districtOid: sukorejomalangDistrict.oid, postalCode: "66121", createdAt: new Date(), updatedAt: new Date() },
+
+      // Bangsring District
+      { subdistrictName: 'Bangsring', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Watu Kebo', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberagung', districtOid: bangsringDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banyuwangi District (Regency Capital)
+      { subdistrictName: 'Banyuwangi', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrejo', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kertosari', districtOid: banyuwangiDistrict.oid, postalCode: '68415', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cluring District
+      { subdistrictName: 'Cluring', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benculuk', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tampo', districtOid: cluringDistrict.oid, postalCode: '68482', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gambiran District
+      { subdistrictName: 'Gambiran', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wringinagung', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwoasri', districtOid: gambiranDistrict.oid, postalCode: '68486', createdAt: new Date(), updatedAt: new Date() },
+
+      // Genteng District (Banyuwangi)
+      { subdistrictName: 'Genteng', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaligondo', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemiri', districtOid: gentengBanyuwangiDistrict.oid, postalCode: '68465', createdAt: new Date(), updatedAt: new Date() },
+
+      // Giri District
+      { subdistrictName: 'Giri', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Boyolangu', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Grogol', districtOid: giriDistrict.oid, postalCode: '68422', createdAt: new Date(), updatedAt: new Date() },
+
+      // Glagah District
+      { subdistrictName: 'Glagah', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bomo', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangdoro', districtOid: glagahDistrict.oid, postalCode: '68431', createdAt: new Date(), updatedAt: new Date() },
+
+      // Glenmore District
+      { subdistrictName: 'Glenmore', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bumiharjo', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepanjang', districtOid: glenmoreDistrict.oid, postalCode: '68466', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kabat District
+      { subdistrictName: 'Kabat', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gombolirang', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonrejo', districtOid: kabatDistrict.oid, postalCode: '68461', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kalibaru District
+      { subdistrictName: 'Kalibaru', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kajar', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalibaru Kulon', districtOid: kalibaruDistrict.oid, postalCode: '68467', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kalipuro District
+      { subdistrictName: 'Kalipuro', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulusan', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kluncing', districtOid: kalipuroDistrict.oid, postalCode: '68421', createdAt: new Date(), updatedAt: new Date() },
+
+      // Licin District
+      { subdistrictName: 'Licin', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamansari', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamansuruh', districtOid: licinDistrict.oid, postalCode: '68454', createdAt: new Date(), updatedAt: new Date() },
+
+      // Muncar District
+      { subdistrictName: 'Muncar', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Blambangan', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tembokrejo', districtOid: muncarDistrict.oid, postalCode: '68472', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pesanggaran District
+      { subdistrictName: 'Pesanggaran', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarongan', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberagung', districtOid: pesanggaranDistrict.oid, postalCode: '68488', createdAt: new Date(), updatedAt: new Date() },
+
+      // Purwoharjo District
+      { subdistrictName: 'Purwoharjo', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Grajagan', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberasri', districtOid: purwoharjoDistrict.oid, postalCode: '68483', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rogojampi District
+      { subdistrictName: 'Rogojampi', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Glundengan', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pengatigan', districtOid: rogojampiDistrict.oid, postalCode: '68462', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sempu District
+      { subdistrictName: 'Sempu', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangduren', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Temuireng', districtOid: sempuDistrict.oid, postalCode: '68468', createdAt: new Date(), updatedAt: new Date() },
+
+      // Siliragung District
+      { subdistrictName: 'Siliragung', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barurejo', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buluan', districtOid: siliragungDistrict.oid, postalCode: '68489', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singojuruh District
+      { subdistrictName: 'Singojuruh', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumirih', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karanglo', districtOid: singojuruhDistrict.oid, postalCode: '68464', createdAt: new Date(), updatedAt: new Date() },
+
+      // Songgon District
+      { subdistrictName: 'Songgon', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bayu', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kendalrejo', districtOid: songgonDistrict.oid, postalCode: '68463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Srono District
+      { subdistrictName: 'Srono', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepundungan', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepuharjo', districtOid: sronoDistrict.oid, postalCode: '68471', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tegaldlimo District
+      { subdistrictName: 'Tegaldlimo', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kajarharjo', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kesilir', districtOid: tegaldlimoDistrict.oid, postalCode: '68484', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tegalsari District
+      { subdistrictName: 'Tegalsari', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangmulyo', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalrejo', districtOid: tegalsariDistrict.oid, postalCode: '68485', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wongsorejo District
+      { subdistrictName: 'Wongsorejo', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alasbuluh', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banyuwangi', districtOid: wongsorejoDistrict.oid, postalCode: '68453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sidoarjo Regency Districts
+      // 1. Sidoarjo
+      { subdistrictName: 'Sidoarjo', districtOid: sidoarjo.oid, postalCode: '61211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Celep', districtOid: sidoarjo.oid, postalCode: '61212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lemahputro', districtOid: sidoarjo.oid, postalCode: '61213', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pucang', districtOid: sidoarjo.oid, postalCode: '61214', createdAt: new Date(), updatedAt: new Date() },
+
+      // 2. Buduran
+      { subdistrictName: 'Buduran', districtOid: buduran.oid, postalCode: '61252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Damarsi', districtOid: buduran.oid, postalCode: '61253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dukuhtengah', districtOid: buduran.oid, postalCode: '61254', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagerwojo', districtOid: buduran.oid, postalCode: '61255', createdAt: new Date(), updatedAt: new Date() },
+
+      // 3. Gedangan
+      { subdistrictName: 'Gedangan', districtOid: gedangan.oid, postalCode: '61254', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangah', districtOid: gedangan.oid, postalCode: '61255', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ganting', districtOid: gedangan.oid, postalCode: '61256', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tenggulunan', districtOid: gedangan.oid, postalCode: '61257', createdAt: new Date(), updatedAt: new Date() },
+
+      // 4. Krian
+      { subdistrictName: 'Krian', districtOid: krian.oid, postalCode: '61262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gamping', districtOid: krian.oid, postalCode: '61263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemasan', districtOid: krian.oid, postalCode: '61264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Terik', districtOid: krian.oid, postalCode: '61265', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jember Regency Districts
+      // 5. Jember
+      { subdistrictName: 'Jember', districtOid: jember.oid, postalCode: '68111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaliwates', districtOid: jember.oid, postalCode: '68131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patrang', districtOid: jember.oid, postalCode: '68118', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumbersari', districtOid: jember.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
+
+      // 6. Ajung
+      { subdistrictName: 'Ajung', districtOid: ajung.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klompangan', districtOid: ajung.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangaran', districtOid: ajung.oid, postalCode: '68177', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rowotamtu', districtOid: ajung.oid, postalCode: '68178', createdAt: new Date(), updatedAt: new Date() },
+
+      // 7. Ambulu
+      { subdistrictName: 'Ambulu', districtOid: ambulu.oid, postalCode: '68172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Andongsari', districtOid: ambulu.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pontang', districtOid: ambulu.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sabrang', districtOid: ambulu.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
+
+      // 8. Arjasa
+      { subdistrictName: 'Arjasa', districtOid: arjasa.oid, postalCode: '68191', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biting', districtOid: arjasa.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Candijati', districtOid: arjasa.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Darsono', districtOid: arjasa.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
+
+      // 9. Balung
+      { subdistrictName: 'Balung', districtOid: balung.oid, postalCode: '68161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumelar', districtOid: balung.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangduren', districtOid: balung.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tutul', districtOid: balung.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
+
+      // 10. Bangsalsari
+      { subdistrictName: 'Bangsalsari', districtOid: bangsalsari.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banjarsari', districtOid: bangsalsari.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Curahkalong', districtOid: bangsalsari.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gambirono', districtOid: bangsalsari.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
+
+      // 11. Gumukmas
+      { subdistrictName: 'Gumukmas', districtOid: gumukmas.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrejo', districtOid: gumukmas.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menampu', districtOid: gumukmas.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwoasri', districtOid: gumukmas.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
+
+      // 12. Jelbuk
+      { subdistrictName: 'Jelbuk', districtOid: jelbuk.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Glagahwero', districtOid: jelbuk.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pancakarya', districtOid: jelbuk.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sucopangepok', districtOid: jelbuk.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
+
+      // 13. Jenggawah
+      { subdistrictName: 'Jenggawah', districtOid: jenggawah.oid, postalCode: '68171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cangkring', districtOid: jenggawah.oid, postalCode: '68172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatimulyo', districtOid: jenggawah.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemuningsari', districtOid: jenggawah.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
+
+      // 14. Kalisat
+      { subdistrictName: 'Kalisat', districtOid: kalisat.oid, postalCode: '68161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Glagahwero', districtOid: kalisat.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumuksari', districtOid: kalisat.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patemon', districtOid: kalisat.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
+
+      // 15. Kaliwates
+      { subdistrictName: 'Kaliwates', districtOid: kaliwates.oid, postalCode: '68131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepatihan', districtOid: kaliwates.oid, postalCode: '68132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangli', districtOid: kaliwates.oid, postalCode: '68133', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalbesar', districtOid: kaliwates.oid, postalCode: '68134', createdAt: new Date(), updatedAt: new Date() },
+
+      // 16. Kencong
+      { subdistrictName: 'Kencong', districtOid: kencong.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cakru', districtOid: kencong.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klatak', districtOid: kencong.oid, postalCode: '68169', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paseban', districtOid: kencong.oid, postalCode: '68170', createdAt: new Date(), updatedAt: new Date() },
+
+      // 17. Ledokombo
+      { subdistrictName: 'Ledokombo', districtOid: ledokombo.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukogidri', districtOid: ledokombo.oid, postalCode: '68197', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberlesung', districtOid: ledokombo.oid, postalCode: '68198', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberpinang', districtOid: ledokombo.oid, postalCode: '68199', createdAt: new Date(), updatedAt: new Date() },
+
+      // 18. Mayang
+      { subdistrictName: 'Mayang', districtOid: mayang.oid, postalCode: '68182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mrawan', districtOid: mayang.oid, postalCode: '68183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seputih', districtOid: mayang.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalrejo', districtOid: mayang.oid, postalCode: '68185', createdAt: new Date(), updatedAt: new Date() },
+
+      // 19. Mumbulsari
+      { subdistrictName: 'Mumbulsari', districtOid: mumbulsari.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangkedawung', districtOid: mumbulsari.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamansari', districtOid: mumbulsari.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalsari', districtOid: mumbulsari.oid, postalCode: '68177', createdAt: new Date(), updatedAt: new Date() },
+
+      // 20. Pakusari
+      { subdistrictName: 'Pakusari', districtOid: pakusari.oid, postalCode: '68181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatian', districtOid: pakusari.oid, postalCode: '68182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kertosari', districtOid: pakusari.oid, postalCode: '68183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Subo', districtOid: pakusari.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
+
+      // 21. Panti
+      { subdistrictName: 'Panti', districtOid: panti.oid, postalCode: '68153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Glagahwero', districtOid: panti.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemuningsari', districtOid: panti.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Suci', districtOid: panti.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
+
+      // 22. Patrang
+      { subdistrictName: 'Patrang', districtOid: patrang.oid, postalCode: '68118', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baratan', districtOid: patrang.oid, postalCode: '68119', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bintoro', districtOid: patrang.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gebang', districtOid: patrang.oid, postalCode: '68122', createdAt: new Date(), updatedAt: new Date() },
+
+      // 23. Puger
+      { subdistrictName: 'Puger', districtOid: puger.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagon', districtOid: puger.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Grenden', districtOid: puger.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Puger Kulon', districtOid: puger.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
+
+      // 24. Rambipuji
+      { subdistrictName: 'Rambipuji', districtOid: rambipuji.oid, postalCode: '68152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Curahmalang', districtOid: rambipuji.oid, postalCode: '68153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gugut', districtOid: rambipuji.oid, postalCode: '68154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaliwining', districtOid: rambipuji.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
+
+      // 25. Semboro
+      { subdistrictName: 'Semboro', districtOid: semboro.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pondokdalem', districtOid: semboro.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semboro', districtOid: semboro.oid, postalCode: '68159', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalrejo', districtOid: semboro.oid, postalCode: '68160', createdAt: new Date(), updatedAt: new Date() },
+
+      // 26. Silo
+      { subdistrictName: 'Silo', districtOid: silo.oid, postalCode: '68184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Garahan', districtOid: silo.oid, postalCode: '68185', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrejo', districtOid: silo.oid, postalCode: '68186', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sempolan', districtOid: silo.oid, postalCode: '68187', createdAt: new Date(), updatedAt: new Date() },
+
+      // 27. Sukorejo
+      { subdistrictName: 'Sukorejo', districtOid: sukorejo.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagorejo', districtOid: sukorejo.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mojomulyo', districtOid: sukorejo.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukorejo', districtOid: sukorejo.oid, postalCode: '68197', createdAt: new Date(), updatedAt: new Date() },
+
+      // 28. Sukowono
+      { subdistrictName: 'Sukowono', districtOid: sukowono.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Arjasa', districtOid: sukowono.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baletbaru', districtOid: sukowono.oid, postalCode: '68195', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dawuhanmangli', districtOid: sukowono.oid, postalCode: '68196', createdAt: new Date(), updatedAt: new Date() },
+
+      // 29. Sumberbaru
+      { subdistrictName: 'Sumberbaru', districtOid: sumberbaru.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gelang', districtOid: sumberbaru.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambigundam', districtOid: sumberbaru.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rowotengah', districtOid: sumberbaru.oid, postalCode: '68159', createdAt: new Date(), updatedAt: new Date() },
+
+      // 30. Sumberjambe
+      { subdistrictName: 'Sumberjambe', districtOid: sumberjambe.oid, postalCode: '68191', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plerean', districtOid: sumberjambe.oid, postalCode: '68192', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pringgowirawan', districtOid: sumberjambe.oid, postalCode: '68193', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumberpakem', districtOid: sumberjambe.oid, postalCode: '68194', createdAt: new Date(), updatedAt: new Date() },
+
+      // 31. Sumbersari
+      { subdistrictName: 'Sumbersari', districtOid: sumbersari.oid, postalCode: '68121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangrejo', districtOid: sumbersari.oid, postalCode: '68122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebonsari', districtOid: sumbersari.oid, postalCode: '68123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalgede', districtOid: sumbersari.oid, postalCode: '68124', createdAt: new Date(), updatedAt: new Date() },
+
+      // 32. Tanggul
+      { subdistrictName: 'Tanggul', districtOid: tanggul.oid, postalCode: '68155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Darungan', districtOid: tanggul.oid, postalCode: '68156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klatakan', districtOid: tanggul.oid, postalCode: '68157', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patemon', districtOid: tanggul.oid, postalCode: '68158', createdAt: new Date(), updatedAt: new Date() },
+
+      // 33. Tempurejo
+      { subdistrictName: 'Tempurejo', districtOid: tempurejo.oid, postalCode: '68173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Andongsari', districtOid: tempurejo.oid, postalCode: '68174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangaran', districtOid: tempurejo.oid, postalCode: '68175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rowotamtu', districtOid: tempurejo.oid, postalCode: '68176', createdAt: new Date(), updatedAt: new Date() },
+
+      // 34. Umbulsari
+      { subdistrictName: 'Umbulsari', districtOid: umbulrejo.oid, postalCode: '68166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gadingrejo', districtOid: umbulrejo.oid, postalCode: '68167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paleran', districtOid: umbulrejo.oid, postalCode: '68168', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Umbulrejo', districtOid: umbulrejo.oid, postalCode: '68169', createdAt: new Date(), updatedAt: new Date() },
+
+      // 35. Wuluhan
+      { subdistrictName: 'Wuluhan', districtOid: wuluhan.oid, postalCode: '68162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dukuhmencek', districtOid: wuluhan.oid, postalCode: '68163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kesilir', districtOid: wuluhan.oid, postalCode: '68164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sempolan', districtOid: wuluhan.oid, postalCode: '68165', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tulungagung Regency Districts
+      { subdistrictName: "Tulungagung", districtOid: tulungagungDistrict.oid, postalCode: "66212", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Boyolangu", districtOid: boyolanguDistrict.oid, postalCode: "66235", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kedungwaru", districtOid: kedungwaruDistrict.oid, postalCode: "66229", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kauman", districtOid: kaumanDistrict.oid, postalCode: "66261", createdAt: new Date(), updatedAt: new Date() },
+
+      // Lamongan District
+      { subdistrictName: 'Lamongan', districtOid: lamonganDistrict.oid, postalCode: '62211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plosowahyu', districtOid: lamonganDistrict.oid, postalCode: '62212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukomulyo', districtOid: lamonganDistrict.oid, postalCode: '62213', createdAt: new Date(), updatedAt: new Date() },
+
+      // Babat District
+      { subdistrictName: 'Babat', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banaran', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebalanpelang', districtOid: babatDistrict.oid, postalCode: '62271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bluluk District
+      { subdistrictName: 'Bluluk', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembangbahu', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Modo', districtOid: blulukDistrict.oid, postalCode: '62274', createdAt: new Date(), updatedAt: new Date() },
+
+      // Brondong District
+      { subdistrictName: 'Brondong', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Labuhan', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembor', districtOid: brondongDistrict.oid, postalCode: '62263', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gresik District
+      { subdistrictName: 'Gresik', districtOid: gresikDistrict.oid, postalCode: '61111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebomas', districtOid: gresikDistrict.oid, postalCode: '61121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Manyar', districtOid: gresikDistrict.oid, postalCode: '61151', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bungah District
+      { subdistrictName: 'Bungah', districtOid: bungahDistrict.oid, postalCode: '61152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Duduksampeyan', districtOid: bungahDistrict.oid, postalCode: '61162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidayu', districtOid: bungahDistrict.oid, postalCode: '61153', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kebomas District
+      { subdistrictName: 'Kebomas', districtOid: kebomasDistrict.oid, postalCode: '61121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Giri', districtOid: kebomasDistrict.oid, postalCode: '61122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembangan', districtOid: kebomasDistrict.oid, postalCode: '61123', createdAt: new Date(), updatedAt: new Date() },
+
+
+      // Bugulkidul District
+      { subdistrictName: 'Bugulkidul', districtOid: bugulkidulDistrict.oid, postalCode: '67121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gadingrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panggungrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67123', createdAt: new Date(), updatedAt: new Date() },
+
+      // Purworejo District
+      { subdistrictName: 'Purworejo', districtOid: purworejoDistrict.oid, postalCode: '67131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwosari', districtOid: purworejoDistrict.oid, postalCode: '67132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pohjentrek', districtOid: purworejoDistrict.oid, postalCode: '67133', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bugulkidul District
+      { subdistrictName: 'Bugulkidul', districtOid: bugulkidulDistrict.oid, postalCode: '67121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gadingrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panggungrejo', districtOid: bugulkidulDistrict.oid, postalCode: '67123', createdAt: new Date(), updatedAt: new Date() },
+
+      // Purworejo District
+      { subdistrictName: 'Purworejo', districtOid: purworejoDistrict.oid, postalCode: '67131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwosari', districtOid: purworejoDistrict.oid, postalCode: '67132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pohjentrek', districtOid: purworejoDistrict.oid, postalCode: '67133', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sampang District
+      { subdistrictName: 'Sampang', districtOid: sampangDistrict.oid, postalCode: '69216', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Camplong', districtOid: sampangDistrict.oid, postalCode: '69281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jrengik', districtOid: sampangDistrict.oid, postalCode: '69272', createdAt: new Date(), updatedAt: new Date() },
+
+      // Omben District
+      { subdistrictName: 'Omben', districtOid: ombenDistrict.oid, postalCode: '69291', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangarengan', districtOid: ombenDistrict.oid, postalCode: '69292', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Raba', districtOid: ombenDistrict.oid, postalCode: '69293', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ponorogo District
+      { subdistrictName: 'Ponorogo', districtOid: ponorogoDistrict.oid, postalCode: '63411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Badegan', districtOid: ponorogoDistrict.oid, postalCode: '63455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balong', districtOid: ponorogoDistrict.oid, postalCode: '63461', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bungkal District
+      { subdistrictName: 'Bungkal', districtOid: bungkalDistrict.oid, postalCode: '63462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nailan', districtOid: bungkalDistrict.oid, postalCode: '63463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulung', districtOid: bungkalDistrict.oid, postalCode: '63464', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tuban District
+      { subdistrictName: 'Tuban', districtOid: tubanDistrict.oid, postalCode: '62311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangilan', districtOid: tubanDistrict.oid, postalCode: '62364', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jatirogo', districtOid: tubanDistrict.oid, postalCode: '62362', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kerek District
+      { subdistrictName: 'Kerek', districtOid: kerekDistrict.oid, postalCode: '62356', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merakurak', districtOid: kerekDistrict.oid, postalCode: '62357', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semanding', districtOid: kerekDistrict.oid, postalCode: '62358', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nganjuk District
+      { subdistrictName: 'Nganjuk', districtOid: nganjukDistrict.oid, postalCode: '64411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagor', districtOid: nganjukDistrict.oid, postalCode: '64461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berbek', districtOid: nganjukDistrict.oid, postalCode: '64473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Loceret District
+      { subdistrictName: 'Loceret', districtOid: loceretDistrict.oid, postalCode: '64471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngetos', districtOid: loceretDistrict.oid, postalCode: '64472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pace', districtOid: loceretDistrict.oid, postalCode: '64473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Situbondo District
+      { subdistrictName: 'Situbondo', districtOid: situbondoDistrict.oid, postalCode: '68311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Arjasa', districtOid: situbondoDistrict.oid, postalCode: '68371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banyuglugur', districtOid: situbondoDistrict.oid, postalCode: '68373', createdAt: new Date(), updatedAt: new Date() },
+
+      // Besuki District
+      { subdistrictName: 'Besuki', districtOid: besukiDistrict.oid, postalCode: '68356', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bungatan', districtOid: besukiDistrict.oid, postalCode: '68357', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mlandingan', districtOid: besukiDistrict.oid, postalCode: '68358', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bojonegoro District
+      { subdistrictName: 'Bojonegoro', districtOid: bojonegoroDistrict.oid, postalCode: '62111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balen', districtOid: bojonegoroDistrict.oid, postalCode: '62182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baureno', districtOid: bojonegoroDistrict.oid, postalCode: '62192', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dander District
+      { subdistrictName: 'Dander', districtOid: danderDistrict.oid, postalCode: '62171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gondang', districtOid: danderDistrict.oid, postalCode: '62172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kanor', districtOid: danderDistrict.oid, postalCode: '62173', createdAt: new Date(), updatedAt: new Date() },
+
+      // Magetan District
+      { subdistrictName: 'Magetan', districtOid: magetanDistrict.oid, postalCode: '63311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barat', districtOid: magetanDistrict.oid, postalCode: '63395', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kawedanan', districtOid: magetanDistrict.oid, postalCode: '63383', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nguntoronadi District
+      { subdistrictName: 'Nguntoronadi', districtOid: nguntoronadiDistrict.oid, postalCode: '63383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plaosan', districtOid: nguntoronadiDistrict.oid, postalCode: '63384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Poncol', districtOid: nguntoronadiDistrict.oid, postalCode: '63385', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ngawi District
+      { subdistrictName: 'Ngawi', districtOid: ngawiDistrict.oid, postalCode: '63211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Geneng', districtOid: ngawiDistrict.oid, postalCode: '63271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jogorogo', districtOid: ngawiDistrict.oid, postalCode: '63262', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kedunggalar District
+      { subdistrictName: 'Kedunggalar', districtOid: kedunggalarDistrict.oid, postalCode: '63254', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangjati', districtOid: kedunggalarDistrict.oid, postalCode: '63253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padas', districtOid: kedunggalarDistrict.oid, postalCode: '63255', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Barat District
+      { subdistrictName: 'Pontianak Barat', districtOid: pontianakBaratDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benua Melayu Darat', districtOid: pontianakBaratDistrict.oid, postalCode: '78114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Jawi', districtOid: pontianakBaratDistrict.oid, postalCode: '78115', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Kota District
+      { subdistrictName: 'Pontianak Kota', districtOid: pontianakKotaDistrict.oid, postalCode: '78111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banjar Serasan', districtOid: pontianakKotaDistrict.oid, postalCode: '78112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tengah', districtOid: pontianakKotaDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Selatan District
+      { subdistrictName: 'Pontianak Selatan', districtOid: pontianakSelatanDistrict.oid, postalCode: '78121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Parit Tokaya', districtOid: pontianakSelatanDistrict.oid, postalCode: '78122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Saigon', districtOid: pontianakSelatanDistrict.oid, postalCode: '78123', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Tengah District
+      { subdistrictName: 'Pontianak Tengah', districtOid: pontianakTengahDistrict.oid, postalCode: '78111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Akcaia', districtOid: pontianakTengahDistrict.oid, postalCode: '78112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bansir Laut', districtOid: pontianakTengahDistrict.oid, postalCode: '78113', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Timur District
+      { subdistrictName: 'Pontianak Timur', districtOid: pontianakTimurDistrict.oid, postalCode: '78124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantan Hulu', districtOid: pontianakTimurDistrict.oid, postalCode: '78125', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantan Tengah', districtOid: pontianakTimurDistrict.oid, postalCode: '78126', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pontianak Utara District
+      { subdistrictName: 'Pontianak Utara', districtOid: pontianakUtaraDistrict.oid, postalCode: '78117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Bangkong', districtOid: pontianakUtaraDistrict.oid, postalCode: '78118', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Beliung', districtOid: pontianakUtaraDistrict.oid, postalCode: '78119', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkawang Barat District
+      { subdistrictName: 'Singkawang Barat', districtOid: singkawangBaratDistrict.oid, postalCode: '79123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasiran', districtOid: singkawangBaratDistrict.oid, postalCode: '79124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sagatani', districtOid: singkawangBaratDistrict.oid, postalCode: '79125', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkawang Selatan District
+      { subdistrictName: 'Singkawang Selatan', districtOid: singkawangSelatanDistrict.oid, postalCode: '79163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sijangkung', districtOid: singkawangSelatanDistrict.oid, postalCode: '79164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiga Berkat', districtOid: singkawangSelatanDistrict.oid, postalCode: '79165', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkawang Tengah District
+      { subdistrictName: 'Singkawang Tengah', districtOid: singkawangTengahDistrict.oid, postalCode: '79113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Baru', districtOid: singkawangTengahDistrict.oid, postalCode: '79114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Melayu', districtOid: singkawangTengahDistrict.oid, postalCode: '79115', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkawang Timur District
+      { subdistrictName: 'Singkawang Timur', districtOid: singkawangTimurDistrict.oid, postalCode: '79121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekip Lama', districtOid: singkawangTimurDistrict.oid, postalCode: '79122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Garam', districtOid: singkawangTimurDistrict.oid, postalCode: '79123', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkawang Utara District
+      { subdistrictName: 'Singkawang Utara', districtOid: singkawangUtaraDistrict.oid, postalCode: '79151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sedau', districtOid: singkawangUtaraDistrict.oid, postalCode: '79152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Raya', districtOid: singkawangUtaraDistrict.oid, postalCode: '79153', createdAt: new Date(), updatedAt: new Date() },
+
+
+      // Sambas Regency Districts
+      // 1. Sambas
+      { subdistrictName: 'Sambas', districtOid: sambas.oid, postalCode: '79462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Dagang', districtOid: sambas.oid, postalCode: '79463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekura', districtOid: sambas.oid, postalCode: '79464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tengah Taman', districtOid: sambas.oid, postalCode: '79465', createdAt: new Date(), updatedAt: new Date() },
+
+      // 2. Pemangkat
+      { subdistrictName: 'Pemangkat', districtOid: pemangkat.oid, postalCode: '79453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penibung', districtOid: pemangkat.oid, postalCode: '79454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Rasau', districtOid: pemangkat.oid, postalCode: '79455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebas Kuala', districtOid: pemangkat.oid, postalCode: '79456', createdAt: new Date(), updatedAt: new Date() },
+
+      // 3. Tebas
+      { subdistrictName: 'Tebas', districtOid: tebas.oid, postalCode: '79461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karang Sungai', districtOid: tebas.oid, postalCode: '79462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sejangkung', districtOid: tebas.oid, postalCode: '79463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tekarang', districtOid: tebas.oid, postalCode: '79464', createdAt: new Date(), updatedAt: new Date() },
+
+      // 4. Selakau
+      { subdistrictName: 'Selakau', districtOid: selakau.oid, postalCode: '79452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Selakau Timur', districtOid: selakau.oid, postalCode: '79453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semata', districtOid: selakau.oid, postalCode: '79454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tri Kembang', districtOid: selakau.oid, postalCode: '79455', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mempawah Regency Districts
+      // 5. Mempawah Hilir
+      { subdistrictName: 'Mempawah Hilir', districtOid: mempawahhilir.oid, postalCode: '78911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasir', districtOid: mempawahhilir.oid, postalCode: '78912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Pedalaman', districtOid: mempawahhilir.oid, postalCode: '78913', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Pinyuh', districtOid: mempawahhilir.oid, postalCode: '78914', createdAt: new Date(), updatedAt: new Date() },
+
+      // 6. Mempawah Timur
+      { subdistrictName: 'Mempawah Timur', districtOid: mempawahtimur.oid, postalCode: '78951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anjungan', districtOid: mempawahtimur.oid, postalCode: '78952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Segedong', districtOid: mempawahtimur.oid, postalCode: '78953', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Kunyit', districtOid: mempawahtimur.oid, postalCode: '78954', createdAt: new Date(), updatedAt: new Date() },
+
+      // 7. Sungai Kunyit
+      { subdistrictName: 'Sungai Kunyit', districtOid: sungaikunyit.oid, postalCode: '78954', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Mandor B', districtOid: sungaikunyit.oid, postalCode: '78955', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Duri', districtOid: sungaikunyit.oid, postalCode: '78956', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Saleh', districtOid: sungaikunyit.oid, postalCode: '78957', createdAt: new Date(), updatedAt: new Date() },
+
+      // 8. Sungai Pinyuh
+      { subdistrictName: 'Sungai Pinyuh', districtOid: sungaipinyuh.oid, postalCode: '78914', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galang', districtOid: sungaipinyuh.oid, postalCode: '78915', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasir Panjang', districtOid: sungaipinyuh.oid, postalCode: '78916', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Purun', districtOid: sungaipinyuh.oid, postalCode: '78917', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sanggau Regency Districts
+      // 9. Sanggau
+      { subdistrictName: 'Sanggau', districtOid: sanggau.oid, postalCode: '78511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balai Sebut', districtOid: sanggau.oid, postalCode: '78512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonti', districtOid: sanggau.oid, postalCode: '78513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Entikong', districtOid: sanggau.oid, postalCode: '78514', createdAt: new Date(), updatedAt: new Date() },
+
+      // 10. Balai
+      { subdistrictName: 'Balai', districtOid: balai.oid, postalCode: '78552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Beduai', districtOid: balai.oid, postalCode: '78553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meliau', districtOid: balai.oid, postalCode: '78554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tayan Hilir', districtOid: balai.oid, postalCode: '78555', createdAt: new Date(), updatedAt: new Date() },
+
+      // 11. Beduai
+      { subdistrictName: 'Beduai', districtOid: beduai.oid, postalCode: '78553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonti', districtOid: beduai.oid, postalCode: '78554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Noyan', districtOid: beduai.oid, postalCode: '78555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekayam', districtOid: beduai.oid, postalCode: '78556', createdAt: new Date(), updatedAt: new Date() },
+
+      // 12. Bonti
+      { subdistrictName: 'Bonti', districtOid: bonti.oid, postalCode: '78513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balai Sebut', districtOid: bonti.oid, postalCode: '78514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meliau', districtOid: bonti.oid, postalCode: '78515', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tayan Hilir', districtOid: bonti.oid, postalCode: '78516', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ketapang Regency Districts
+      // 13. Ketapang
+      { subdistrictName: 'Ketapang', districtOid: ketapang.oid, postalCode: '78811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benua Kayong', districtOid: ketapang.oid, postalCode: '78812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Delta Pawan', districtOid: ketapang.oid, postalCode: '78813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Matan Hilir Selatan', districtOid: ketapang.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
+
+      // 14. Benua Kayong
+      { subdistrictName: 'Benua Kayong', districtOid: benuakayong.oid, postalCode: '78812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Upas', districtOid: benuakayong.oid, postalCode: '78813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang Hilir', districtOid: benuakayong.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Melayu', districtOid: benuakayong.oid, postalCode: '78815', createdAt: new Date(), updatedAt: new Date() },
+
+      // 15. Manis Mata
+      { subdistrictName: 'Manis Mata', districtOid: manismata.oid, postalCode: '78863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marau', districtOid: manismata.oid, postalCode: '78864', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Matan Hilir Utara', districtOid: manismata.oid, postalCode: '78865', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanga Tayap', districtOid: manismata.oid, postalCode: '78866', createdAt: new Date(), updatedAt: new Date() },
+
+      // 16. Matan Hilir Selatan
+      { subdistrictName: 'Matan Hilir Selatan', districtOid: matanhiliirselatan.oid, postalCode: '78814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kendawangan', districtOid: matanhiliirselatan.oid, postalCode: '78815', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marau', districtOid: matanhiliirselatan.oid, postalCode: '78816', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanga Tayap', districtOid: matanhiliirselatan.oid, postalCode: '78817', createdAt: new Date(), updatedAt: new Date() },
+
+      // Landak Regency Districts
+      // 17. Ngabang
+      { subdistrictName: 'Ngabang', districtOid: ngabang.oid, postalCode: '79357', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Besar', districtOid: ngabang.oid, postalCode: '79358', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menyuke', districtOid: ngabang.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebangki', districtOid: ngabang.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
+
+      // 18. Air Besar
+      { subdistrictName: 'Air Besar', districtOid: airbesar.oid, postalCode: '79358', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Behe', districtOid: airbesar.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandor', districtOid: airbesar.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menjalin', districtOid: airbesar.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
+
+      // 19. Menyuke
+      { subdistrictName: 'Menyuke', districtOid: menyuke.oid, postalCode: '79359', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meranti', districtOid: menyuke.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sengah Temila', districtOid: menyuke.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sompak', districtOid: menyuke.oid, postalCode: '79362', createdAt: new Date(), updatedAt: new Date() },
+
+      // 20. Sebangki
+      { subdistrictName: 'Sebangki', districtOid: sebangki.oid, postalCode: '79360', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Behe', districtOid: sebangki.oid, postalCode: '79361', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandor', districtOid: sebangki.oid, postalCode: '79362', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Menjalin', districtOid: sebangki.oid, postalCode: '79363', createdAt: new Date(), updatedAt: new Date() },
+
+      // 21. Sungai Raya
+      { subdistrictName: 'Sungai Raya', districtOid: sungairaya.oid, postalCode: '78391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Mandor B', districtOid: sungairaya.oid, postalCode: '78392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Ambawang', districtOid: sungairaya.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pakedai', districtOid: sungairaya.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
+
+      // 22. Kuala Mandor B
+      { subdistrictName: 'Kuala Mandor B', districtOid: kualamandorb.oid, postalCode: '78392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Ambawang', districtOid: kualamandorb.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pakedai', districtOid: kualamandorb.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Terentang', districtOid: kualamandorb.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
+
+      // 23. Sungai Ambawang
+      { subdistrictName: 'Sungai Ambawang', districtOid: sungaiambawang.oid, postalCode: '78393', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Mandor B', districtOid: sungaiambawang.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pakedai', districtOid: sungaiambawang.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Terentang', districtOid: sungaiambawang.oid, postalCode: '78396', createdAt: new Date(), updatedAt: new Date() },
+
+      // 24. Teluk Pakedai
+      { subdistrictName: 'Teluk Pakedai', districtOid: telukpakedai.oid, postalCode: '78394', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Mandor B', districtOid: telukpakedai.oid, postalCode: '78395', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Ambawang', districtOid: telukpakedai.oid, postalCode: '78396', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Terentang', districtOid: telukpakedai.oid, postalCode: '78397', createdAt: new Date(), updatedAt: new Date() },
+
+      // Melawi Regency Districts
+      // 25. Nanga Pinoh
+      // { subdistrictName: 'Nanga Pinoh', districtOid: nangapinoh.oid, postalCode: '79672', createdAt: new Date(), updatedAt: new Date() },
+      // { subdistrictName: 'Belimbing', districtOid: nangapinoh.oid, postalCode: '79673', createdAt: new Date(), updatedAt: new Date() },
+      // { subdistrictName: 'Ella Hilir',
+
+      { subdistrictName: 'Bengkayang', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanggau Ledo', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumar', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seluas', districtOid: bengkayangDistrict.oid, postalCode: '79211', createdAt: new Date(), updatedAt: new Date() },
+
+      // Benteng Selayar District
+      { subdistrictName: 'Benteng', districtOid: bentengselayarDistrict.oid, postalCode: '92812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontoharu', districtOid: bontoharuselayarDistrict.oid, postalCode: '92811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontomanai', districtOid: bontomanaiselayarDistrict.oid, postalCode: '92814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontomatene', districtOid: bontomateneselayarDistrict.oid, postalCode: '92813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontosikuyu', districtOid: bontosikuyuselayarDistrict.oid, postalCode: '92815', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasilambena District
+      { subdistrictName: 'Pasilambena', districtOid: pasilambenaselayarDistrict.oid, postalCode: '92816', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasimarannu', districtOid: pasimarannuselayarDistrict.oid, postalCode: '92817', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasimasunggu', districtOid: pasimasungguDistrict.oid, postalCode: '92818', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasimasunggu Timur', districtOid: pasimasungguTimurDistrict.oid, postalCode: '92819', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Takabonerate', districtOid: takabonerateDistrict.oid, postalCode: '92820', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarmasin Barat District
+      { subdistrictName: 'Banjarmasin Barat', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuin Selatan', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuin Utara', districtOid: banjarmasinBaratDistrict.oid, postalCode: '70117', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarmasin Selatan District
+      { subdistrictName: 'Banjarmasin Selatan', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karang Mekar', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Bilu', districtOid: banjarmasinSelatanDistrict.oid, postalCode: '70233', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarmasin Tengah District
+      { subdistrictName: 'Banjarmasin Tengah', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pekauman', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Dalam', districtOid: banjarmasinTengahDistrict.oid, postalCode: '70114', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarmasin Timur District
+      { subdistrictName: 'Banjarmasin Timur', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Jingah', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pemurus Luar', districtOid: banjarmasinTimurDistrict.oid, postalCode: '70237', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarmasin Utara District
+      { subdistrictName: 'Banjarmasin Utara', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alalak Utara', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Andai', districtOid: banjarmasinUtaraDistrict.oid, postalCode: '70124', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarbaru Selatan District
+      { subdistrictName: 'Banjarbaru Selatan', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Guntung Payung', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Landasan Ulin Timur', districtOid: banjarbaruSelatanDistrict.oid, postalCode: '70714', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banjarbaru Utara District
+      { subdistrictName: 'Banjarbaru Utara', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Komet', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Ulin', districtOid: banjarbaruUtaraDistrict.oid, postalCode: '70713', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cempaka District (Banjarbaru)
+      { subdistrictName: 'Cempaka', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangkal', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Loktabat Utara', districtOid: cempakabanjarbaruDistrict.oid, postalCode: '70732', createdAt: new Date(), updatedAt: new Date() },
+
+      // Landasan Ulin District (Banjarbaru)
+      { subdistrictName: 'Landasan Ulin', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Syamsudin Noor', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Landasan Ulin Barat', districtOid: landasanUlinDistrict.oid, postalCode: '70724', createdAt: new Date(), updatedAt: new Date() },
+
+      // Liang Anggang District (Banjarbaru)
+      { subdistrictName: 'Liang Anggang', districtOid: liangAnggangDistrict.oid, postalCode: '70723', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Landasan Ulin Tengah', districtOid: liangAnggangDistrict.oid, postalCode: '70723', createdAt: new Date(), updatedAt: new Date() },
+
+      // Martapura City District
+      { subdistrictName: 'Martapura', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Keraton', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Paring', districtOid: martapuramartapuraCityDistrict.oid, postalCode: '70611', createdAt: new Date(), updatedAt: new Date() },
+
+      // Martapura Barat District
+      { subdistrictName: 'Martapura Barat', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Rema', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Tabuk', districtOid: martapuraBaratDistrict.oid, postalCode: '70618', createdAt: new Date(), updatedAt: new Date() },
+
+      // Martapura Timur District
+      { subdistrictName: 'Martapura Timur', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasar Lama', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Rangas', districtOid: martapuraTimurDistrict.oid, postalCode: '70617', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gambut District
+      { subdistrictName: 'Gambut', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambak Sirang Darat', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gambut Barat', districtOid: gambutDistrict.oid, postalCode: '70652', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karang Intan District
+      { subdistrictName: 'Karang Intan', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lok Tangga', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pingaran', districtOid: karangIntanDistrict.oid, postalCode: '70661', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barito Kuala Regency Districts
+      { subdistrictName: "Marabahan", districtOid: marabahanDistrict.oid, postalCode: "70511", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Mekar Sari", districtOid: mekarSariDistrict.oid, postalCode: "70563", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tamban", districtOid: tambanDistrict.oid, postalCode: "70566", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Wanaraya", districtOid: wanarayaDistrict.oid, postalCode: "70562", createdAt: new Date(), updatedAt: new Date() },
+
+      // Tapin Regency Districts
+      { subdistrictName: "Rantau", districtOid: rantauDistrict.oid, postalCode: "71111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bakarangan", districtOid: bakaranganDistrict.oid, postalCode: "71152", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Binuang", districtOid: binuangDistrict.oid, postalCode: "71183", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cempaka", districtOid: cempakaTapinDistrict.oid, postalCode: "71161", createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Laut Regency Districts
+      { subdistrictName: "Pelaihari", districtOid: pelaihariDistrict.oid, postalCode: "70811", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Batu Ampar", districtOid: batuAmpartanahLautDistrict.oid, postalCode: "70882", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jorong", districtOid: jorongDistrict.oid, postalCode: "70881", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kintap", districtOid: kintapDistrict.oid, postalCode: "70883", createdAt: new Date(), updatedAt: new Date() },
+
+      // Kandangan District
+      { subdistrictName: "Kandangan", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jambu Hilir", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jambu Hulu", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sungai Kupang", districtOid: kandanganDistrict.oid, postalCode: "71213", createdAt: new Date(), updatedAt: new Date() },
+
+      // Angkinang District
+      { subdistrictName: "Angkinang", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tawang", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tebing Tinggi", districtOid: angkinangDistrict.oid, postalCode: "71291", createdAt: new Date(), updatedAt: new Date() },
+
+      // Daha Barat District
+      { subdistrictName: "Baruh Jaya", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Hantakan", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Haruyan", districtOid: dahaBaratDistrict.oid, postalCode: "71252", createdAt: new Date(), updatedAt: new Date() },
+
+      // Daha Selatan District
+      { subdistrictName: "Daha Selatan", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pandawan", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Simpur", districtOid: dahaSelatanDistrict.oid, postalCode: "71251", createdAt: new Date(), updatedAt: new Date() },
+
+      // Barabai District
+      { subdistrictName: "Barabai", districtOid: barabaiDistrict.oid, postalCode: "71311", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Barabai Selatan", districtOid: barabaiDistrict.oid, postalCode: "71314", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Barabai Utara", districtOid: barabaiDistrict.oid, postalCode: "71315", createdAt: new Date(), updatedAt: new Date() },
+
+      // Batang Alai Selatan District
+      { subdistrictName: "Batang Alai Selatan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Hantakan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Haruyan", districtOid: batangAlaiSelatanDistrict.oid, postalCode: "71381", createdAt: new Date(), updatedAt: new Date() },
+
+      // Batang Alai Timur District
+      { subdistrictName: "Batang Alai Timur", districtOid: batangAlaiTimurDistrict.oid, postalCode: "71382", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Limpasu", districtOid: batangAlaiTimurDistrict.oid, postalCode: "71382", createdAt: new Date(), updatedAt: new Date() },
+
+      // Batang Alai Utara District
+      { subdistrictName: "Batang Alai Utara", districtOid: batangAlaiUtaraDistrict.oid, postalCode: "71383", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pandawan", districtOid: batangAlaiUtaraDistrict.oid, postalCode: "71383", createdAt: new Date(), updatedAt: new Date() },
+
+      // Amuntai District
+      { subdistrictName: "Amuntai", districtOid: amuntaiDistrict.oid, postalCode: "71411", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Amuntai Tengah", districtOid: amuntaiDistrict.oid, postalCode: "71412", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Amuntai Utara", districtOid: amuntaiDistrict.oid, postalCode: "71413", createdAt: new Date(), updatedAt: new Date() },
+
+      // Amuntai Selatan District
+      { subdistrictName: "Amuntai Selatan", districtOid: amuntaiSelatanDistrict.oid, postalCode: "71414", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Banua Hanyar", districtOid: amuntaiSelatanDistrict.oid, postalCode: "71414", createdAt: new Date(), updatedAt: new Date() },
+
+      // Amuntai Tengah District
+      { subdistrictName: "Amuntai Tengah", districtOid: amuntaiTengahDistrict.oid, postalCode: "71415", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Murung Panggang", districtOid: amuntaiTengahDistrict.oid, postalCode: "71415", createdAt: new Date(), updatedAt: new Date() },
+
+      // Amuntai Utara District
+      { subdistrictName: "Amuntai Utara", districtOid: amuntaiUtaraDistrict.oid, postalCode: "71416", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Paminggir", districtOid: amuntaiUtaraDistrict.oid, postalCode: "71416", createdAt: new Date(), updatedAt: new Date() },
+
+      // Kotabaru District
+      { subdistrictName: "Kotabaru", districtOid: kotabaruDistrict.oid, postalCode: "72111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Stagen", districtOid: kotabaruDistrict.oid, postalCode: "72111", createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Laut Barat District
+      { subdistrictName: "Pulau Laut Barat", districtOid: pulauLautBaratDistrict.oid, postalCode: "72153", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sungai Pasir", districtOid: pulauLautBaratDistrict.oid, postalCode: "72153", createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Laut Selatan District
+      { subdistrictName: "Pulau Laut Selatan", districtOid: pulauLautSelatanDistrict.oid, postalCode: "72154", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bati-Bati", districtOid: pulauLautSelatanDistrict.oid, postalCode: "72154", createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Laut Timur District
+      { subdistrictName: "Pulau Laut Timur", districtOid: pulauLautTimurDistrict.oid, postalCode: "72155", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kurau", districtOid: pulauLautTimurDistrict.oid, postalCode: "72155", createdAt: new Date(), updatedAt: new Date() },
+
+      // Paringin District
+      { subdistrictName: "Paringin", districtOid: paringinDistrict.oid, postalCode: "71571", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Paringin Selatan", districtOid: paringinDistrict.oid, postalCode: "71571", createdAt: new Date(), updatedAt: new Date() },
+
+      // Lampihong District
+      { subdistrictName: "Lampihong", districtOid: lampihongDistrict.oid, postalCode: "71572", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pulantan", districtOid: lampihongDistrict.oid, postalCode: "71572", createdAt: new Date(), updatedAt: new Date() },
+
+      // Batumandi District
+      { subdistrictName: "Batumandi", districtOid: batumandiDistrict.oid, postalCode: "71573", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Juai", districtOid: batumandiDistrict.oid, postalCode: "71573", createdAt: new Date(), updatedAt: new Date() },
+
+      // Juai District
+      { subdistrictName: "Juai", districtOid: juaiDistrict.oid, postalCode: "71574", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Halong", districtOid: juaiDistrict.oid, postalCode: "71574", createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Grogot District
+      { subdistrictName: 'Tanah Grogot', districtOid: tanahGrogotDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tabalong District
+      { subdistrictName: 'Banua Lawas', districtOid: tabalongDistrict.oid, postalCode: '71561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelua', districtOid: tabalongDistrict.oid, postalCode: '71552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanta', districtOid: tabalongDistrict.oid, postalCode: '71561', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batu Licin District
+      { subdistrictName: 'Batu Licin', districtOid: batuLicinDistrict.oid, postalCode: '72271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kusan Hilir', districtOid: batuLicinDistrict.oid, postalCode: '72273', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kusan Hulu', districtOid: batuLicinDistrict.oid, postalCode: '72272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang Empat', districtOid: batuLicinDistrict.oid, postalCode: '72273', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palangka Raya District
+      { subdistrictName: 'Pahandut', districtOid: palangkaRayaDistrict.oid, postalCode: '73111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jekan Raya', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Batu', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebangau', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rakumpit', districtOid: palangkaRayaDistrict.oid, postalCode: '73112', createdAt: new Date(), updatedAt: new Date() },
+
+      // Basarang Kuala Kapuas District
+      { subdistrictName: 'Basarang', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Basarang Jaya', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Basarang Tempak', districtOid: basarangKualaKapuasDistrict.oid, postalCode: '73516', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bataguh Kuala Kapuas District
+      { subdistrictName: 'Bataguh', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bataguh Kota', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batanjung', districtOid: bataguhKualaKapuasDistrict.oid, postalCode: '73513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Barat District
+      { subdistrictName: 'Kapuas Barat', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anjir Mambulau', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anjir Serapat', districtOid: kapuasBaratDistrict.oid, postalCode: '73552', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Hilir District
+      { subdistrictName: 'Kapuas Hilir', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bajuh', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bajuh Besar', districtOid: kapuasHilirDistrict.oid, postalCode: '73521', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Hulu District
+      { subdistrictName: 'Kapuas Hulu', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Nindan', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batuah', districtOid: kapuasHuluDistrict.oid, postalCode: '73581', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Kuala District
+      { subdistrictName: 'Kapuas Kuala', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batanjung', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batuah', districtOid: kapuasKualaDistrict.oid, postalCode: '73583', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Murung District
+      { subdistrictName: 'Kapuas Murung', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bajayau', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bajayau Tengah', districtOid: kapuasMurungDistrict.oid, postalCode: '73593', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Tengah District
+      { subdistrictName: 'Kapuas Tengah', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: kapuasTengahDistrict.oid, postalCode: '73553', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapuas Timur District
+      { subdistrictName: 'Kapuas Timur', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barunang', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batuah', districtOid: kapuasTimurDistrict.oid, postalCode: '73554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mandau Talawang District
+      { subdistrictName: 'Mandau Talawang', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: mandauTalawangDistrict.oid, postalCode: '73555', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mantangai District
+      { subdistrictName: 'Mantangai', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: mantangaiDistrict.oid, postalCode: '73514', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasak Talawang District
+      { subdistrictName: 'Pasak Talawang', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: pasakTalawangDistrict.oid, postalCode: '73556', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Petak District
+      { subdistrictName: 'Pulau Petak', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: pulauPetakDistrict.oid, postalCode: '73515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Selat District
+      { subdistrictName: 'Selat', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: selatDistrict.oid, postalCode: '73557', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tamban Catur District
+      { subdistrictName: 'Tamban Catur', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: tambanCaturDistrict.oid, postalCode: '73558', createdAt: new Date(), updatedAt: new Date() },
+
+      // Timpah District
+      { subdistrictName: 'Timpah', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: timpahDistrict.oid, postalCode: '73559', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kuala Kapuas District
+      { subdistrictName: 'Kuala Kapuas', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantai Napar Lama', districtOid: kualaKapuasDistrict.oid, postalCode: '73511', createdAt: new Date(), updatedAt: new Date() },
+
+      // Buntok Barito Selatan District
+      { subdistrictName: 'Buntok', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: buntokBaritoSelatanDistrict.oid, postalCode: '73711', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dusun Selatan District
+      { subdistrictName: 'Dusun Selatan', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: dusunSelatanDistrict.oid, postalCode: '73752', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dusun Hilir District
+      { subdistrictName: 'Dusun Hilir', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: dusunHilirDistrict.oid, postalCode: '73753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dusun Utara District
+      { subdistrictName: 'Dusun Utara', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: dusunUtaraDistrict.oid, postalCode: '73754', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunung Bintang Awai District
+      { subdistrictName: 'Gunung Bintang Awai', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: gunungBintangAwaiDistrict.oid, postalCode: '73755', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tamiang Layang Barito Timur District
+      { subdistrictName: 'Tamiang Layang', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: tamiangLayangBaritoTimurDistrict.oid, postalCode: '73671', createdAt: new Date(), updatedAt: new Date() },
+
+      // Awang Barito Timur District
+      { subdistrictName: 'Awang', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: awangBaritoTimurDistrict.oid, postalCode: '73672', createdAt: new Date(), updatedAt: new Date() },
+
+      // Patangkep Tutui District
+      { subdistrictName: 'Patangkep Tutui', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: patangkepTutuiDistrict.oid, postalCode: '73673', createdAt: new Date(), updatedAt: new Date() },
+
+      // Benua Lima District
+      { subdistrictName: 'Benua Lima', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: benuaLimaDistrict.oid, postalCode: '73674', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dusun Timur District
+      { subdistrictName: 'Dusun Timur', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: dusunTimurDistrict.oid, postalCode: '73675', createdAt: new Date(), updatedAt: new Date() },
+
+      // Muara Teweh Barito Utara District
+      { subdistrictName: 'Muara Teweh', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: muaraTewehBaritoUtaraDistrict.oid, postalCode: '73811', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunung Purei District
+      { subdistrictName: 'Gunung Purei', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: gunungPureiDistrict.oid, postalCode: '73812', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lahei District
+      { subdistrictName: 'Lahei', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: laheiDistrict.oid, postalCode: '73813', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lahei Barat District
+      { subdistrictName: 'Lahei Barat', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: laheiBaratDistrict.oid, postalCode: '73814', createdAt: new Date(), updatedAt: new Date() },
+
+      // Montallat District
+      { subdistrictName: 'Montallat', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: montallatDistrict.oid, postalCode: '73815', createdAt: new Date(), updatedAt: new Date() },
+
+      // Puruk Cahu Murung Raya District
+      { subdistrictName: 'Puruk Cahu', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: purukCahuMurungRayaDistrict.oid, postalCode: '73911', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barito Tuhup Raya District
+      { subdistrictName: 'Barito Tuhup Raya', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: baritoTuhupRayaDistrict.oid, postalCode: '73912', createdAt: new Date(), updatedAt: new Date() },
+
+      // Laung Tuhup District
+      { subdistrictName: 'Laung Tuhup', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: laungTuhupDistrict.oid, postalCode: '73913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Murung District
+      { subdistrictName: 'Murung', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: murungDistrict.oid, postalCode: '73914', createdAt: new Date(), updatedAt: new Date() },
+
+      // Permata Intan District
+      { subdistrictName: 'Permata Intan', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barabai Barat', districtOid: permataIntanDistrict.oid, postalCode: '73915', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulang Pisau Regency
+      { subdistrictName: "Pulang Pisau", districtOid: pulangPisauDistrict.oid, postalCode: "74811", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kahayan Hilir", districtOid: kahayanHilirDistrict.oid, postalCode: "74861", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kahayan Tengah", districtOid: kahayanTengahDistrict.oid, postalCode: "74862", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Banama Tingang", districtOid: banamaTingangDistrict.oid, postalCode: "74863", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jabiren Raya", districtOid: jabirenRayaDistrict.oid, postalCode: "74816", createdAt: new Date(), updatedAt: new Date() },
+
+      // Sukamara Regency
+      { subdistrictName: "Sukamara", districtOid: sukamaraDistrict.oid, postalCode: "74171", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Balai Riam", districtOid: balaiRiamDistrict.oid, postalCode: "74173", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Jelai", districtOid: jelaiDistrict.oid, postalCode: "74172", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pantai Lunci", districtOid: pantaiLunciDistrict.oid, postalCode: "74174", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Permata Kecubung", districtOid: permataKecubungDistrict.oid, postalCode: "74175", createdAt: new Date(), updatedAt: new Date() },
+
+      // Lamandau Regency
+      { subdistrictName: "Nanga Bulik", districtOid: nangaBulikDistrict.oid, postalCode: "74662", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Belantikan Raya", districtOid: belantikanRayaDistrict.oid, postalCode: "74663", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bulik", districtOid: bulikDistrict.oid, postalCode: "74661", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bulik Timur", districtOid: bulikTimurDistrict.oid, postalCode: "74664", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Delang", districtOid: delangDistrict.oid, postalCode: "74665", createdAt: new Date(), updatedAt: new Date() },
+
+      // Seruyan Regency
+      { subdistrictName: "Kuala Pembuang", districtOid: kualaPembuangDistrict.oid, postalCode: "74211", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Danau Sembuluh", districtOid: danauSembuluhDistrict.oid, postalCode: "74261", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Hanau", districtOid: hanauDistrict.oid, postalCode: "74271", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Seruyan Hilir", districtOid: seruyanHilirDistrict.oid, postalCode: "74212", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Seruyan Tengah", districtOid: seruyanTengahDistrict.oid, postalCode: "74281", createdAt: new Date(), updatedAt: new Date() },
+
+      // Kotawaringin Regency
+      { subdistrictName: "Pangkalan Bun", districtOid: pangkalanBunDistrict.oid, postalCode: "74181", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Arut Selatan", districtOid: arutSelatanDistrict.oid, postalCode: "74181", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Arut Utara", districtOid: arutUtaraDistrict.oid, postalCode: "74182", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kumai", districtOid: kumaiDistrict.oid, postalCode: "74183", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kotawaringin Lama", districtOid: kotawaringinLamaDistrict.oid, postalCode: "74184", createdAt: new Date(), updatedAt: new Date() },
+
+      // Sampit (East Kotawaringin)
+      { subdistrictName: "Sampit", districtOid: sampitDistrict.oid, postalCode: "74311", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Baamang", districtOid: baamangDistrict.oid, postalCode: "74312", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cempaga", districtOid: cempagaDistrict.oid, postalCode: "74353", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Cempaga Hulu", districtOid: cempagaHuluDistrict.oid, postalCode: "74354", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kota Besi", districtOid: kotaBesiDistrict.oid, postalCode: "74353", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samarinda Ilir", districtOid: samarindaIlirDistrict.oid, postalCode: "75111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pelita", districtOid: samarindaIlirDistrict.oid, postalCode: "75112", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sungai Dama", districtOid: samarindaIlirDistrict.oid, postalCode: "75113", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samarinda Kota", districtOid: samarindaKotaDistrict.oid, postalCode: "75115", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bugis", districtOid: samarindaKotaDistrict.oid, postalCode: "75116", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Pasar Pagi", districtOid: samarindaKotaDistrict.oid, postalCode: "75117", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samarinda Seberang", districtOid: samarindaSeberangDistrict.oid, postalCode: "75121", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sungai Keledang", districtOid: samarindaSeberangDistrict.oid, postalCode: "75122", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Mangkupalas", districtOid: samarindaSeberangDistrict.oid, postalCode: "75123", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samarinda Ulu", districtOid: samarindaUluDistrict.oid, postalCode: "75124", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Air Putih", districtOid: samarindaUluDistrict.oid, postalCode: "75125", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bukuan", districtOid: samarindaUluDistrict.oid, postalCode: "75126", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samarinda Utara", districtOid: samarindaUtaraDistrict.oid, postalCode: "75131", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Bakung", districtOid: samarindaUtaraDistrict.oid, postalCode: "75132", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sempaja", districtOid: samarindaUtaraDistrict.oid, postalCode: "75133", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Sungai Kunjang", districtOid: sungaiKunjangDistrict.oid, postalCode: "75141", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Karang Anyar", districtOid: sungaiKunjangDistrict.oid, postalCode: "75142", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Janan Ilir", districtOid: sungaiKunjangDistrict.oid, postalCode: "75143", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Sungai Pinang", districtOid: sungaiPinangDistrict.oid, postalCode: "75151", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sungai Pinang Dalam", districtOid: sungaiPinangDistrict.oid, postalCode: "75152", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Makroman", districtOid: sungaiPinangDistrict.oid, postalCode: "75153", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Palaran", districtOid: palaranDistrict.oid, postalCode: "75161", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Samarinda Seberang", districtOid: palaranDistrict.oid, postalCode: "75162", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bukit Lama", districtOid: palaranDistrict.oid, postalCode: "75163", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Barat", districtOid: balikpapanBaratDistrict.oid, postalCode: "76131", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Margo Mulyo", districtOid: balikpapanBaratDistrict.oid, postalCode: "76132", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Karang Jati", districtOid: balikpapanBaratDistrict.oid, postalCode: "76133", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Kota", districtOid: balikpapanKotaDistrict.oid, postalCode: "76111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Klandasan Ulu", districtOid: balikpapanKotaDistrict.oid, postalCode: "76112", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Damai", districtOid: balikpapanKotaDistrict.oid, postalCode: "76113", createdAt: new Date(), updatedAt: new Date() }, { subdistrictName: "Balikpapan Kota", districtOid: balikpapanKotaDistrict.oid, postalCode: "76111", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Klandasan Ulu", districtOid: balikpapanKotaDistrict.oid, postalCode: "76112", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Damai", districtOid: balikpapanKotaDistrict.oid, postalCode: "76113", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Selatan", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76114", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Klandasan Ilir", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76115", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Prapatan", districtOid: balikpapanSelatanDistrict.oid, postalCode: "76116", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Tengah", districtOid: balikpapanTengahDistrict.oid, postalCode: "76121", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Manggar", districtOid: balikpapanTengahDistrict.oid, postalCode: "76122", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Lamaru", districtOid: balikpapanTengahDistrict.oid, postalCode: "76123", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Timur", districtOid: balikpapanTimurDistrict.oid, postalCode: "76117", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Manggar Baru", districtOid: balikpapanTimurDistrict.oid, postalCode: "76118", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Teritip", districtOid: balikpapanTimurDistrict.oid, postalCode: "76119", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Balikpapan Utara", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76124", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kariangau", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76125", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Graha Indah", districtOid: balikpapanUtaraDistrict.oid, postalCode: "76126", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Bontang Barat", districtOid: bontangBaratDistrict.oid, postalCode: "75311", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Bontang Kuala", districtOid: bontangBaratDistrict.oid, postalCode: "75312", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Bontang Selatan", districtOid: bontangSelatanDistrict.oid, postalCode: "75321", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Berbas Pantai", districtOid: bontangSelatanDistrict.oid, postalCode: "75322", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Bontang Utara", districtOid: bontangUtaraDistrict.oid, postalCode: "75331", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Api-Api", districtOid: bontangUtaraDistrict.oid, postalCode: "75332", createdAt: new Date(), updatedAt: new Date() },
+
+      // Kutai Kartanegara District
+      { subdistrictName: 'Tenggarong', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anggana', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembang Janggut', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75557', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kenohan', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75564', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Bangun', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Loa Janan', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Loa Kulu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marang Kayu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75385', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Badak', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Jawa', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Kaman', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Wis', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Samboja', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebulu', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tabang', districtOid: kutaiKartanegaraDistrict.oid, postalCode: '75566', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Grogot Paser District
+      { subdistrictName: 'Tanah Grogot', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Tuak', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tana Paser', districtOid: tanahGrogotpaserDistrict.oid, postalCode: '76251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batu Engau District
+      { subdistrictName: 'Batu Engau', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Langon', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rantau Layung', districtOid: batuEngauDistrict.oid, postalCode: '76261', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kuaro District
+      { subdistrictName: 'Kuaro', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Komam', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepaku', districtOid: kuaroDistrict.oid, postalCode: '76252', createdAt: new Date(), updatedAt: new Date() },
+
+      // Long Ikis District
+      { subdistrictName: 'Long Ikis', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Kali', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Komam', districtOid: longIkisDistrict.oid, postalCode: '76262', createdAt: new Date(), updatedAt: new Date() },
+
+      // Muara Komam District
+      { subdistrictName: 'Muara Komam', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Kali', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Langon', districtOid: muaraKomamDistrict.oid, postalCode: '76263', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasir Belengkong District
+      { subdistrictName: 'Pasir Belengkong', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Kali', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Langon', districtOid: pasirBelengkongDistrict.oid, postalCode: '76264', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanjung Harapan Paser District
+      { subdistrictName: 'Tanjung Harapan', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Kali', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Langon', districtOid: tanjungHarapanpaserDistrict.oid, postalCode: '76265', createdAt: new Date(), updatedAt: new Date() },
+
+      // Long Bagun District
+      { subdistrictName: 'Long Bagun', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Hubung', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Pahangai', districtOid: longBagunDistrict.oid, postalCode: '75767', createdAt: new Date(), updatedAt: new Date() },
+
+      // Long Hubung District
+      { subdistrictName: 'Long Hubung', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Pahangai', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Apari', districtOid: longHubungDistrict.oid, postalCode: '75768', createdAt: new Date(), updatedAt: new Date() },
+
+      // Long Pahangai District
+      { subdistrictName: 'Long Pahangai', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Apari', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Bagun', districtOid: longPahangaiDistrict.oid, postalCode: '75769', createdAt: new Date(), updatedAt: new Date() },
+
+      // Long Apari District
+      { subdistrictName: 'Long Apari', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Bagun', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Hubung', districtOid: longApariDistrict.oid, postalCode: '75770', createdAt: new Date(), updatedAt: new Date() },
+
+      // Penajam District
+      { subdistrictName: 'Penajam', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babulu', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepaku', districtOid: penajamDistrict.oid, postalCode: '76141', createdAt: new Date(), updatedAt: new Date() },
+
+      // Babulu District
+      { subdistrictName: 'Babulu', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepaku', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waru', districtOid: babuluDistrict.oid, postalCode: '76142', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sepaku District
+      { subdistrictName: 'Sepaku', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babulu', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waru', districtOid: sepakuDistrict.oid, postalCode: '76143', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waru District
+      { subdistrictName: 'Waru', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babulu', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepaku', districtOid: waruDistrict.oid, postalCode: '76144', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanjung Redeb District
+      { subdistrictName: 'Tanjung Redeb', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biduk-Biduk', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Tabur', districtOid: tanjungRedebDistrict.oid, postalCode: '77311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Biduk-Biduk District
+      { subdistrictName: 'Biduk-Biduk', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Tabur', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelay', districtOid: bidukBidukDistrict.oid, postalCode: '77312', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunung Tabur District
+      { subdistrictName: 'Gunung Tabur', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelay', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maratua', districtOid: gunungTaburDistrict.oid, postalCode: '77313', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kelay District
+      { subdistrictName: 'Kelay', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maratua', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sambaliung', districtOid: kelayDistrict.oid, postalCode: '77314', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maratua District
+      { subdistrictName: 'Maratua', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sambaliung', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Segah', districtOid: maratuaDistrict.oid, postalCode: '77315', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sambaliung District
+      { subdistrictName: 'Sambaliung', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Segah', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tabalar', districtOid: sambaliungDistrict.oid, postalCode: '77316', createdAt: new Date(), updatedAt: new Date() },
+
+      // Segah District
+      { subdistrictName: 'Segah', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tabalar', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talisayan', districtOid: segahDistrict.oid, postalCode: '77317', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tabalar District
+      { subdistrictName: 'Tabalar', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talisayan', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Putih', districtOid: tabalarDistrict.oid, postalCode: '77318', createdAt: new Date(), updatedAt: new Date() },
+
+      // Talisayan District
+      { subdistrictName: 'Talisayan', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Putih', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Redeb', districtOid: talisayanDistrict.oid, postalCode: '77319', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batu Putih District
+      { subdistrictName: 'Batu Putih', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Redeb', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biduk-Biduk', districtOid: batuPutihDistrict.oid, postalCode: '77320', createdAt: new Date(), updatedAt: new Date() },
+
+
+      // Tenggarong City Districts
+      { subdistrictName: "Tenggarong", districtOid: tenggarongtenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tenggarong Seberang", districtOid: tenggarongtenggarongCitySeberang.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Anggana", districtOid: angganatenggarongCityDistrict.oid, postalCode: "75576", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kembang Janggut", districtOid: kembangJangguttenggarongCityDistrict.oid, postalCode: "75557", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kenohan", districtOid: kenohantenggarongCityDistrict.oid, postalCode: "75564", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kota Bangun", districtOid: kotaBanguntenggarongCityDistrict.oid, postalCode: "75561", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Janan", districtOid: loaJanantenggarongCityDistrict.oid, postalCode: "75391", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Kulu", districtOid: loaKulutenggarongCityDistrict.oid, postalCode: "75582", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Marang Kayu", districtOid: marangKayutenggarongCityDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Muara Badak", districtOid: muaraBadakDistrict.oid, postalCode: "75382", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Muara Badak Ulu", districtOid: muaraBadakDistrict.oid, postalCode: "75383", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Suka Damai", districtOid: muaraBadakDistrict.oid, postalCode: "75384", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Muara Jawa", districtOid: muaraJawaDistrict.oid, postalCode: "75381", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Muara Jawa Pesisir", districtOid: muaraJawaDistrict.oid, postalCode: "75382", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Teluk Dalam", districtOid: muaraJawaDistrict.oid, postalCode: "75383", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Muara Kaman", districtOid: muaraKamanDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kaman Ulu", districtOid: muaraKamanDistrict.oid, postalCode: "75554", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kaman Ilir", districtOid: muaraKamanDistrict.oid, postalCode: "75555", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Muara Wis", districtOid: muaraWisDistrict.oid, postalCode: "75571", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Wis Ulu", districtOid: muaraWisDistrict.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Wis Ilir", districtOid: muaraWisDistrict.oid, postalCode: "75573", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Samboja", districtOid: sambojaDistrict.oid, postalCode: "75274", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Samboja Kuala", districtOid: sambojaDistrict.oid, postalCode: "75275", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Samboja Ilir", districtOid: sambojaDistrict.oid, postalCode: "75276", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Sebulu", districtOid: sebuluDistrict.oid, postalCode: "75552", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sebulu Modern", districtOid: sebuluDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Sebulu Ilir", districtOid: sebuluDistrict.oid, postalCode: "75554", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Tabang", districtOid: tabangDistrict.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tabang Ulu", districtOid: tabangDistrict.oid, postalCode: "75573", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tabang Ilir", districtOid: tabangDistrict.oid, postalCode: "75574", createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Tenggarong", districtOid: tenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tenggarong Seberang", districtOid: tenggarongCityDistrict.oid, postalCode: "75512", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Melak", districtOid: tenggarongCityDistrict.oid, postalCode: "75513", createdAt: new Date(), updatedAt: new Date() },
+
+      // Sangatta District (Kutai Timur)
+      { subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontang City (Separate from Kutai Timur)
+      { subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kutai Timur District
+      { subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulungan District (Tanjung Selor is the capital)
+      { subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sangatta District (Kutai Timur)
+      { subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontang City (Separate from Kutai Timur)
+      { subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kutai Timur District
+      { subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulungan District (Tanjung Selor is the capital)
+      { subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sangatta District (Kutai Timur)
+      { subdistrictName: 'Sangatta Utara', districtOid: sangattaDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangatta Selatan', districtOid: sangattaDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontang City (Separate from Kutai Timur)
+      { subdistrictName: 'Bontang', districtOid: bontangDistrict.oid, postalCode: '75311', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kutai Timur District
+      { subdistrictName: 'Rantau Pulung', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaubun', districtOid: kutaiTimurDistrict.oid, postalCode: '75619', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangan', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kongbeng', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Long Mesangat', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Ancalong', districtOid: kutaiTimurDistrict.oid, postalCode: '75684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Bengkal', districtOid: kutaiTimurDistrict.oid, postalCode: '75614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Wahau', districtOid: kutaiTimurDistrict.oid, postalCode: '75655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sandaran', districtOid: kutaiTimurDistrict.oid, postalCode: '75685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pandaan', districtOid: kutaiTimurDistrict.oid, postalCode: '75683', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulungan District (Tanjung Selor is the capital)
+      { subdistrictName: 'Tanjung Selor', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Barat', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Timur', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Selor Utara', districtOid: bulunganDistrict.oid, postalCode: '77211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pimping', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sesayap', districtOid: bulunganDistrict.oid, postalCode: '77271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nunukan District
+      { subdistrictName: 'Nunukan', districtOid: nunukanDistrict.oid, postalCode: '77411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nunukan Selatan', districtOid: nunukanDistrict.oid, postalCode: '77412', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik', districtOid: nunukanDistrict.oid, postalCode: '77413', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nunukan Selatan District
+      { subdistrictName: 'Nunukan Selatan', districtOid: nunukanSelatanDistrict.oid, postalCode: '77421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Barat', districtOid: nunukanSelatanDistrict.oid, postalCode: '77422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Tengah', districtOid: nunukanSelatanDistrict.oid, postalCode: '77423', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sebatik District
+      { subdistrictName: 'Sebatik', districtOid: sebatikDistrict.oid, postalCode: '77431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Barat', districtOid: sebatikDistrict.oid, postalCode: '77432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Timur', districtOid: sebatikDistrict.oid, postalCode: '77433', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sebatik Barat District
+      { subdistrictName: 'Sebatik Barat', districtOid: sebatikBaratDistrict.oid, postalCode: '77441', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Tengah', districtOid: sebatikBaratDistrict.oid, postalCode: '77442', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Utara', districtOid: sebatikBaratDistrict.oid, postalCode: '77443', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sebatik Timur District
+      { subdistrictName: 'Sebatik Timur', districtOid: sebatikTimurDistrict.oid, postalCode: '77451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Tengah', districtOid: sebatikTimurDistrict.oid, postalCode: '77452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Utara', districtOid: sebatikTimurDistrict.oid, postalCode: '77453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sebatik Tengah District
+      { subdistrictName: 'Sebatik Tengah', districtOid: sebatikTengahDistrict.oid, postalCode: '77461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sebatik Utara', districtOid: sebatikTengahDistrict.oid, postalCode: '77462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krayan', districtOid: sebatikTengahDistrict.oid, postalCode: '77463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sebatik Utara District
+      { subdistrictName: 'Sebatik Utara', districtOid: sebatikUtaraDistrict.oid, postalCode: '77471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krayan', districtOid: sebatikUtaraDistrict.oid, postalCode: '77472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krayan Selatan', districtOid: sebatikUtaraDistrict.oid, postalCode: '77473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Krayan District
+      { subdistrictName: 'Krayan', districtOid: krayanDistrict.oid, postalCode: '77481', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Krayan Selatan', districtOid: krayanDistrict.oid, postalCode: '77482', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sembakung', districtOid: krayanDistrict.oid, postalCode: '77483', createdAt: new Date(), updatedAt: new Date() },
+
+      // Krayan Selatan District
+      { subdistrictName: 'Krayan Selatan', districtOid: krayanSelatanDistrict.oid, postalCode: '77491', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sembakung', districtOid: krayanSelatanDistrict.oid, postalCode: '77492', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sembakung Atulai', districtOid: krayanSelatanDistrict.oid, postalCode: '77493', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sembakung District
+      { subdistrictName: 'Sembakung', districtOid: sembakungDistrict.oid, postalCode: '77511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sembakung Atulai', districtOid: sembakungDistrict.oid, postalCode: '77512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumbis', districtOid: sembakungDistrict.oid, postalCode: '77513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sembakung Atulai District
+      { subdistrictName: 'Sembakung Atulai', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumbis', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumbis Ogong', districtOid: sembakungAtulaiDistrict.oid, postalCode: '77523', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lumbis District
+      { subdistrictName: 'Lumbis', districtOid: lumbisDistrict.oid, postalCode: '77531', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumbis Ogong', districtOid: lumbisDistrict.oid, postalCode: '77532', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Kota', districtOid: lumbisDistrict.oid, postalCode: '77533', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lumbis Ogong District
+      { subdistrictName: 'Lumbis Ogong', districtOid: lumbisOgongDistrict.oid, postalCode: '77541', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Kota', districtOid: lumbisOgongDistrict.oid, postalCode: '77542', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Barat', districtOid: lumbisOgongDistrict.oid, postalCode: '77543', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Kota District
+      { subdistrictName: 'Malinau Kota', districtOid: malinauKotaDistrict.oid, postalCode: '77551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Barat', districtOid: malinauKotaDistrict.oid, postalCode: '77552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan', districtOid: malinauKotaDistrict.oid, postalCode: '77553', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Barat District
+      { subdistrictName: 'Malinau Barat', districtOid: malinauBaratDistrict.oid, postalCode: '77561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan', districtOid: malinauBaratDistrict.oid, postalCode: '77562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauBaratDistrict.oid, postalCode: '77563', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Selatan District
+      { subdistrictName: 'Malinau Selatan', districtOid: malinauSelatanDistrict.oid, postalCode: '77571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauSelatanDistrict.oid, postalCode: '77572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanDistrict.oid, postalCode: '77573', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Selatan Hilir District
+      { subdistrictName: 'Malinau Selatan Hilir', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77582', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Utara', districtOid: malinauSelatanHilirDistrict.oid, postalCode: '77583', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Selatan Hulu District
+      { subdistrictName: 'Malinau Selatan Hulu', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77591', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Utara', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77592', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bahau Hulu', districtOid: malinauSelatanHuluDistrict.oid, postalCode: '77593', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malinau Utara District
+      { subdistrictName: 'Malinau Utara', districtOid: malinauUtaraDistrict.oid, postalCode: '77611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bahau Hulu', districtOid: malinauUtaraDistrict.oid, postalCode: '77612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayan Hilir', districtOid: malinauUtaraDistrict.oid, postalCode: '77613', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bahau Hulu District
+      { subdistrictName: 'Bahau Hulu', districtOid: bahauHuluDistrict.oid, postalCode: '77621', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayan Hilir', districtOid: bahauHuluDistrict.oid, postalCode: '77622', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayan Hulu', districtOid: bahauHuluDistrict.oid, postalCode: '77623', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kayan Hilir District
+      { subdistrictName: 'Kayan Hilir', districtOid: kayanHilirDistrict.oid, postalCode: '77631', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayan Hulu', districtOid: kayanHilirDistrict.oid, postalCode: '77632', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mentarang', districtOid: kayanHilirDistrict.oid, postalCode: '77633', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kayan Hulu District
+      { subdistrictName: 'Kayan Hulu', districtOid: kayanHuluDistrict.oid, postalCode: '77641', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mentarang', districtOid: kayanHuluDistrict.oid, postalCode: '77642', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mentarang Hulu', districtOid: kayanHuluDistrict.oid, postalCode: '77643', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mentarang District
+      { subdistrictName: 'Mentarang', districtOid: mentarangDistrict.oid, postalCode: '77651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mentarang Hulu', districtOid: mentarangDistrict.oid, postalCode: '77652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pujungan', districtOid: mentarangDistrict.oid, postalCode: '77653', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mentarang Hulu District
+      { subdistrictName: 'Mentarang Hulu', districtOid: mentarangHuluDistrict.oid, postalCode: '77661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pujungan', districtOid: mentarangHuluDistrict.oid, postalCode: '77662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Boh', districtOid: mentarangHuluDistrict.oid, postalCode: '77663', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pujungan District
+      { subdistrictName: 'Pujungan', districtOid: pujunganDistrict.oid, postalCode: '77671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Boh', districtOid: pujunganDistrict.oid, postalCode: '77672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Tubuh', districtOid: pujunganDistrict.oid, postalCode: '77673', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sungai Boh District
+      { subdistrictName: 'Sungai Boh', districtOid: sungaiBohDistrict.oid, postalCode: '77681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Tubuh', districtOid: sungaiBohDistrict.oid, postalCode: '77682', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Kota', districtOid: sungaiBohDistrict.oid, postalCode: '77683', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sungai Tubuh District
+      { subdistrictName: 'Sungai Tubuh', districtOid: sungaiTubuhDistrict.oid, postalCode: '77691', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Kota', districtOid: sungaiTubuhDistrict.oid, postalCode: '77692', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malinau Barat', districtOid: sungaiTubuhDistrict.oid, postalCode: '77693', createdAt: new Date(), updatedAt: new Date() },
+
+      { subdistrictName: "Tenggarong", districtOid: tenggarongtenggarongCityDistrict.oid, postalCode: "75511", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Tenggarong Seberang", districtOid: tenggarongtenggarongCitySeberang.oid, postalCode: "75572", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Anggana", districtOid: angganatenggarongCityDistrict.oid, postalCode: "75576", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kembang Janggut", districtOid: kembangJangguttenggarongCityDistrict.oid, postalCode: "75557", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kenohan", districtOid: kenohantenggarongCityDistrict.oid, postalCode: "75564", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Kota Bangun", districtOid: kotaBanguntenggarongCityDistrict.oid, postalCode: "75561", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Janan", districtOid: loaJanantenggarongCityDistrict.oid, postalCode: "75391", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Loa Kulu", districtOid: loaKulutenggarongCityDistrict.oid, postalCode: "75582", createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: "Marang Kayu", districtOid: marangKayutenggarongCityDistrict.oid, postalCode: "75553", createdAt: new Date(), updatedAt: new Date() },
+
+      // Batam City
+      { subdistrictName: 'Batam Kota', districtOid: batamDistrict.oid, postalCode: '29432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Aji', districtOid: batamDistrict.oid, postalCode: '29438', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Ampar', districtOid: batamDistrict.oid, postalCode: '29452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belakang Padang', districtOid: batamDistrict.oid, postalCode: '29451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bengkong', districtOid: batamDistrict.oid, postalCode: '29419', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulang', districtOid: batamDistrict.oid, postalCode: '29471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galang', districtOid: batamDistrict.oid, postalCode: '29485', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Baja', districtOid: batamDistrict.oid, postalCode: '29444', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nongsa', districtOid: batamDistrict.oid, postalCode: '29465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sagulung', districtOid: batamDistrict.oid, postalCode: '29439', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekupang', districtOid: batamDistrict.oid, postalCode: '29426', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Beduk', districtOid: batamDistrict.oid, postalCode: '29433', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Bestari', districtOid: batamDistrict.oid, postalCode: '29439', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanjung Pinang City (Bintan Island)
+      { subdistrictName: 'Tanjung Pinang Barat', districtOid: tanjungPinangDistrict.oid, postalCode: '29111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Pinang Kota', districtOid: tanjungPinangDistrict.oid, postalCode: '29115', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Pinang Timur', districtOid: tanjungPinangDistrict.oid, postalCode: '29125', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bintan Regency
+      { subdistrictName: 'Gunung Kijang', districtOid: bintanDistrict.oid, postalCode: '29151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bintan Timur', districtOid: bintanDistrict.oid, postalCode: '29152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bintan Utara', districtOid: bintanDistrict.oid, postalCode: '29153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Bintan', districtOid: bintanDistrict.oid, postalCode: '29154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Sebong', districtOid: bintanDistrict.oid, postalCode: '29155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Toapaya', districtOid: bintanDistrict.oid, postalCode: '29156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambelan', districtOid: bintanDistrict.oid, postalCode: '29157', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karimun Regency
+      { subdistrictName: 'Karimun', districtOid: karimunDistrict.oid, postalCode: '29661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kundur', districtOid: karimunDistrict.oid, postalCode: '29662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kundur Utara', districtOid: karimunDistrict.oid, postalCode: '29663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kundur Barat', districtOid: karimunDistrict.oid, postalCode: '29664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moro', districtOid: karimunDistrict.oid, postalCode: '29671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buru', districtOid: karimunDistrict.oid, postalCode: '29672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meral', districtOid: karimunDistrict.oid, postalCode: '29681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meral Barat', districtOid: karimunDistrict.oid, postalCode: '29682', createdAt: new Date(), updatedAt: new Date() },
+
+      // Daik District
+      { subdistrictName: 'Daik', districtOid: daikDistrict.oid, postalCode: '29871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelombok', districtOid: daikDistrict.oid, postalCode: '29872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pelanduk', districtOid: daikDistrict.oid, postalCode: '29873', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lingga District
+      { subdistrictName: 'Lingga', districtOid: linggaDistrict.oid, postalCode: '29881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Langkap', districtOid: linggaDistrict.oid, postalCode: '29882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mepar', districtOid: linggaDistrict.oid, postalCode: '29883', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lingga Timur District
+      { subdistrictName: 'Lingga Timur', districtOid: linggaTimurDistrict.oid, postalCode: '29891', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelong', districtOid: linggaTimurDistrict.oid, postalCode: '29892', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pekajang', districtOid: linggaTimurDistrict.oid, postalCode: '29893', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lingga Utara District
+      { subdistrictName: 'Lingga Utara', districtOid: linggaUtaraDistrict.oid, postalCode: '29861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Daik', districtOid: linggaUtaraDistrict.oid, postalCode: '29862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mentuda', districtOid: linggaUtaraDistrict.oid, postalCode: '29863', createdAt: new Date(), updatedAt: new Date() },
+
+      // Senayang District
+      { subdistrictName: 'Senayang', districtOid: senayangDistrict.oid, postalCode: '29851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mamut', districtOid: senayangDistrict.oid, postalCode: '29852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Repong', districtOid: senayangDistrict.oid, postalCode: '29853', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkep District
+      { subdistrictName: 'Singkep', districtOid: singkepDistrict.oid, postalCode: '29871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dabo', districtOid: singkepDistrict.oid, postalCode: '29872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Buluh', districtOid: singkepDistrict.oid, postalCode: '29873', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singkep Barat District
+      { subdistrictName: 'Singkep Barat', districtOid: singkepBaratDistrict.oid, postalCode: '29881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Baru', districtOid: singkepBaratDistrict.oid, postalCode: '29882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sedamai', districtOid: singkepBaratDistrict.oid, postalCode: '29883', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ranai District
+      { subdistrictName: 'Ranai', districtOid: ranaiDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranai Darat', districtOid: ranaiDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranai Kota', districtOid: ranaiDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ranai Timur District
+      { subdistrictName: 'Ranai Timur', districtOid: ranaiTimurDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: ranaiTimurDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung', districtOid: ranaiTimurDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunguran Barat District
+      { subdistrictName: 'Bunguran Barat', districtOid: bunguranBaratDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: bunguranBaratDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: bunguranBaratDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunguran Timur District
+      { subdistrictName: 'Bunguran Timur', districtOid: bunguranTimurDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: bunguranTimurDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: bunguranTimurDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunguran Utara District
+      { subdistrictName: 'Bunguran Utara', districtOid: bunguranUtaraDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: bunguranUtaraDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: bunguranUtaraDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunguran Timur Laut District
+      { subdistrictName: 'Bunguran Timur Laut', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: bunguranTimurLautDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunguran Tengah District
+      { subdistrictName: 'Bunguran Tengah', districtOid: bunguranTengahDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: bunguranTengahDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: bunguranTengahDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Midai District
+      { subdistrictName: 'Midai', districtOid: midaiDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: midaiDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: midaiDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Serasan District
+      { subdistrictName: 'Serasan', districtOid: serasanDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: serasanDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: serasanDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Serasan Timur District
+      { subdistrictName: 'Serasan Timur', districtOid: serasanTimurDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: serasanTimurDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: serasanTimurDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Subi District
+      { subdistrictName: 'Subi', districtOid: subiDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: subiDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: subiDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Subi Barat District
+      { subdistrictName: 'Subi Barat', districtOid: subiBaratDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: subiBaratDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: subiBaratDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Tiga District
+      { subdistrictName: 'Pulau Tiga', districtOid: pulauTigaDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: pulauTigaDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: pulauTigaDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Tiga Barat District
+      { subdistrictName: 'Pulau Tiga Barat', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: pulauTigaBaratDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tarempa District
+      { subdistrictName: 'Tarempa', districtOid: tarempaDistrict.oid, postalCode: '29791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: tarempaDistrict.oid, postalCode: '29792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: tarempaDistrict.oid, postalCode: '29793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jemaja District
+      { subdistrictName: 'Jemaja', districtOid: jemajaDistrict.oid, postalCode: '29781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: jemajaDistrict.oid, postalCode: '29782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: jemajaDistrict.oid, postalCode: '29783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jemaja Timur District
+      { subdistrictName: 'Jemaja Timur', districtOid: jemajaTimurDistrict.oid, postalCode: '29771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: jemajaTimurDistrict.oid, postalCode: '29772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: jemajaTimurDistrict.oid, postalCode: '29773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Siantan District
+      { subdistrictName: 'Siantan', districtOid: siantanDistrict.oid, postalCode: '29761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: siantanDistrict.oid, postalCode: '29762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: siantanDistrict.oid, postalCode: '29763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Siantan Selatan District
+      { subdistrictName: 'Siantan Selatan', districtOid: siantanSelatanDistrict.oid, postalCode: '29751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: siantanSelatanDistrict.oid, postalCode: '29752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: siantanSelatanDistrict.oid, postalCode: '29753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palmatak District
+      { subdistrictName: 'Palmatak', districtOid: palmatakDistrict.oid, postalCode: '29741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: palmatakDistrict.oid, postalCode: '29742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: palmatakDistrict.oid, postalCode: '29743', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jemaja Barat District
+      { subdistrictName: 'Jemaja Barat', districtOid: jemajaBaratDistrict.oid, postalCode: '29731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Lengit', districtOid: jemajaBaratDistrict.oid, postalCode: '29732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ceruk', districtOid: jemajaBaratDistrict.oid, postalCode: '29733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baiturrahman District
+      { subdistrictName: 'Kota Alam', districtOid: baiturrahmanDistrict.oid, postalCode: '35238', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meuraxa', districtOid: baiturrahmanDistrict.oid, postalCode: '35238', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Syiah Kuala', districtOid: baiturrahmanDistrict.oid, postalCode: '35238', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lueng Bata', districtOid: baiturrahmanDistrict.oid, postalCode: '35238', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kuta Raja District
+      { subdistrictName: 'Banda Raya', districtOid: kutaRajaDistrict.oid, postalCode: '35239', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jaya Baru', districtOid: kutaRajaDistrict.oid, postalCode: '35239', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulee Kareng', districtOid: kutaRajaDistrict.oid, postalCode: '35239', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Make', districtOid: kutaRajaDistrict.oid, postalCode: '35239', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroBarat District
+      { subdistrictName: 'MetroBarat', districtOid: metroBaratDistrict.oid, postalCode: '34111', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroUtara District
+      { subdistrictName: 'MetroUtara', districtOid: metroUtaraDistrict.oid, postalCode: '34112', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroTimur District
+      { subdistrictName: 'MetroTimur', districtOid: metroTimurDistrict.oid, postalCode: '34113', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroSelatan District
+      { subdistrictName: 'MetroSelatan', districtOid: metroSelatanDistrict.oid, postalCode: '34114', createdAt: new Date(), updatedAt: new Date() },
+
+      // KecamatanTanjungKarang District
+      { subdistrictName: 'TanjungKarang', districtOid: kecamatanTanjungKarangDistrict.oid, postalCode: '35121', createdAt: new Date(), updatedAt: new Date() },
+
+      // KecamatanMerak District
+      { subdistrictName: 'Merak', districtOid: kecamatanMerakDistrict.oid, postalCode: '42426', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungTengah District
+      { subdistrictName: 'LampungTengah', districtOid: lampungTengahDistrict.oid, postalCode: '34161', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungTimur District
+      { subdistrictName: 'LampungTimur', districtOid: lampungTimurDistrict.oid, postalCode: '34319', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungUtara District
+      { subdistrictName: 'LampungUtara', districtOid: lampungUtaraDistrict.oid, postalCode: '34516', createdAt: new Date(), updatedAt: new Date() },
+
+      // WayKanan District
+      { subdistrictName: 'WayKanan', districtOid: wayKananDistrict.oid, postalCode: '34753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanggamus District
+      { subdistrictName: 'Tanggamus', districtOid: tanggamusDistrict.oid, postalCode: '35619', createdAt: new Date(), updatedAt: new Date() },
+
+      // PesisirBarat District
+      { subdistrictName: 'PesisirBarat', districtOid: pesisirBaratDistrict.oid, postalCode: '34874', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mesuji/MesujiCity District
+      { subdistrictName: 'Mesuji', districtOid: mesujimesujiCityDistrict.oid, postalCode: '34697', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pringsewu District
+      { subdistrictName: 'Pringsewu', districtOid: pringsewuDistrict.oid, postalCode: '35373', createdAt: new Date(), updatedAt: new Date() },
+
+      // TulangBawang District
+      { subdistrictName: 'TulangBawang', districtOid: tulangBawangDistrict.oid, postalCode: '34693', createdAt: new Date(), updatedAt: new Date() },
+
+      // TulangBawangBarat District
+      { subdistrictName: 'TulangBawangBarat', districtOid: tulangBawangBaratDistrict.oid, postalCode: '34485', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baguala District
+      { subdistrictName: 'Baguala', districtOid: bagualaDistrict.oid, postalCode: '97231', createdAt: new Date(), updatedAt: new Date() },
+
+      // LeitimurSelatan District
+      { subdistrictName: 'LeitimurSelatan', districtOid: leitimurSelatanDistrict.oid, postalCode: '97232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nusaniwe District
+      { subdistrictName: 'Nusaniwe', districtOid: nusaniweDistrict.oid, postalCode: '97233', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sirimau District
+      { subdistrictName: 'Sirimau', districtOid: sirimauDistrict.oid, postalCode: '97234', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukBaguala District
+      { subdistrictName: 'TelukBaguala', districtOid: telukBagualaDistrict.oid, postalCode: '97235', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukAmbon District
+      { subdistrictName: 'TelukAmbon', districtOid: telukAmbonDistrict.oid, postalCode: '97236', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroBarat District
+      { subdistrictName: 'MetroBarat', districtOid: metroBaratDistrict.oid, postalCode: '34111', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroUtara District
+      { subdistrictName: 'MetroUtara', districtOid: metroUtaraDistrict.oid, postalCode: '34112', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroTimur District
+      { subdistrictName: 'MetroTimur', districtOid: metroTimurDistrict.oid, postalCode: '34113', createdAt: new Date(), updatedAt: new Date() },
+
+      // MetroSelatan District
+      { subdistrictName: 'MetroSelatan', districtOid: metroSelatanDistrict.oid, postalCode: '34114', createdAt: new Date(), updatedAt: new Date() },
+
+      // KecamatanTanjungKarang District
+      { subdistrictName: 'TanjungKarang', districtOid: kecamatanTanjungKarangDistrict.oid, postalCode: '35121', createdAt: new Date(), updatedAt: new Date() },
+
+      // KecamatanMerak District
+      { subdistrictName: 'Merak', districtOid: kecamatanMerakDistrict.oid, postalCode: '42426', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungTengah District
+      { subdistrictName: 'LampungTengah', districtOid: lampungTengahDistrict.oid, postalCode: '34161', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungTimur District
+      { subdistrictName: 'LampungTimur', districtOid: lampungTimurDistrict.oid, postalCode: '34319', createdAt: new Date(), updatedAt: new Date() },
+
+      // LampungUtara District
+      { subdistrictName: 'LampungUtara', districtOid: lampungUtaraDistrict.oid, postalCode: '34516', createdAt: new Date(), updatedAt: new Date() },
+
+      // WayKanan District
+      { subdistrictName: 'WayKanan', districtOid: wayKananDistrict.oid, postalCode: '34753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanggamus District
+      { subdistrictName: 'Tanggamus', districtOid: tanggamusDistrict.oid, postalCode: '35619', createdAt: new Date(), updatedAt: new Date() },
+
+      // PesisirBarat District
+      { subdistrictName: 'PesisirBarat', districtOid: pesisirBaratDistrict.oid, postalCode: '34874', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mesuji/MesujiCity District
+      { subdistrictName: 'Mesuji', districtOid: mesujimesujiCityDistrict.oid, postalCode: '34697', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pringsewu District
+      { subdistrictName: 'Pringsewu', districtOid: pringsewuDistrict.oid, postalCode: '35373', createdAt: new Date(), updatedAt: new Date() },
+
+      // TulangBawang District
+      { subdistrictName: 'TulangBawang', districtOid: tulangBawangDistrict.oid, postalCode: '34693', createdAt: new Date(), updatedAt: new Date() },
+
+      // TulangBawangBarat District
+      { subdistrictName: 'TulangBawangBarat', districtOid: tulangBawangBaratDistrict.oid, postalCode: '34485', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baguala District
+      { subdistrictName: 'Baguala', districtOid: bagualaDistrict.oid, postalCode: '97231', createdAt: new Date(), updatedAt: new Date() },
+
+      // LeitimurSelatan District
+      { subdistrictName: 'LeitimurSelatan', districtOid: leitimurSelatanDistrict.oid, postalCode: '97232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nusaniwe District
+      { subdistrictName: 'Nusaniwe', districtOid: nusaniweDistrict.oid, postalCode: '97233', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sirimau District
+      { subdistrictName: 'Sirimau', districtOid: sirimauDistrict.oid, postalCode: '97234', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukBaguala District
+      { subdistrictName: 'TelukBaguala', districtOid: telukBagualaDistrict.oid, postalCode: '97235', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukAmbon District
+      { subdistrictName: 'TelukAmbon', districtOid: telukAmbonDistrict.oid, postalCode: '97236', createdAt: new Date(), updatedAt: new Date() },
+
+      // Central Maluku Regency
+      { subdistrictName: 'Masohi', districtOid: masohi.oid, postalCode: '97511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banda', districtOid: banda.oid, postalCode: '97562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tehoru', districtOid: tehoru.oid, postalCode: '97553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Saparua', districtOid: saparua.oid, postalCode: '97592', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Haruku', districtOid: pulauHaruku.oid, postalCode: '97591', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seram Utara', districtOid: seramUtara.oid, postalCode: '97552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seram Utara Barat', districtOid: seramUtaraBarat.oid, postalCode: '97551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seram Utara Timur', districtOid: seramUtaraTimur.oid, postalCode: '97554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Piru District
+      { subdistrictName: 'Piru', districtOid: piruDistrict.oid, postalCode: '97562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kairatu District
+      { subdistrictName: 'Kairatu', districtOid: kairatuDistrict.oid, postalCode: '97592', createdAt: new Date(), updatedAt: new Date() },
+
+      // Seram Barat District
+      { subdistrictName: 'Seram Barat', districtOid: seramBaratDistrict.oid, postalCode: '97562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Taniwel District
+      { subdistrictName: 'Taniwel', districtOid: taniwelDistrict.oid, postalCode: '97553', createdAt: new Date(), updatedAt: new Date() },
+
+      // Huamual Belakang District
+      { subdistrictName: 'Huamual Belakang', districtOid: huamualBelakangDistrict.oid, postalCode: '97592', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dataran Hunipopu District
+      { subdistrictName: 'Dataran Hunipopu', districtOid: dataranHunipopuDistrict.oid, postalCode: '97554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bula District
+      { subdistrictName: 'Bula', districtOid: bulaDistrict.oid, postalCode: '97554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Werinama District
+      { subdistrictName: 'Werinama', districtOid: werinamaDistrict.oid, postalCode: '97554', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pulau Gorom District
+      { subdistrictName: 'Pulau Gorom', districtOid: pulauGoromDistrict.oid, postalCode: '97591', createdAt: new Date(), updatedAt: new Date() },
+
+      // Seram Timur District
+      { subdistrictName: 'Seram Timur', districtOid: seramTimurDistrict.oid, postalCode: '97591', createdAt: new Date(), updatedAt: new Date() },
+
+      // Namlea District
+      { subdistrictName: 'Namlea', districtOid: namleaDistrict.oid, postalCode: '97571', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waeapo District
+      { subdistrictName: 'Waeapo', districtOid: waeapoDistrict.oid, postalCode: '97574', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waplau District
+      { subdistrictName: 'Waplau', districtOid: waplauDistrict.oid, postalCode: '97574', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batabual District
+      { subdistrictName: 'Batabual', districtOid: batabualDistrict.oid, postalCode: '97574', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lilialy District
+      { subdistrictName: 'Lilialy', districtOid: lilialyDistrict.oid, postalCode: '97574', createdAt: new Date(), updatedAt: new Date() },
+
+      // Namrole District
+      { subdistrictName: 'Namrole', districtOid: namroleDistrict.oid, postalCode: '97573', createdAt: new Date(), updatedAt: new Date() },
+
+      // Leksula District
+      { subdistrictName: 'Leksula', districtOid: leksulaDistrict.oid, postalCode: '97573', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fena Fafan District
+      { subdistrictName: 'Fena Fafan', districtOid: fenaFafanDistrict.oid, postalCode: '97573', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waesama District
+      { subdistrictName: 'Waesama', districtOid: waesamaDistrict.oid, postalCode: '97572', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ambalau District
+      { subdistrictName: 'Ambalau', districtOid: ambalauDistrict.oid, postalCode: '97572', createdAt: new Date(), updatedAt: new Date() },
+
+      // Southeast Maluku District
+      { subdistrictName: 'Kei Besar', districtOid: southeastMalukuDistrict.oid, postalCode: '97611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kei Besar Selatan', districtOid: southeastMalukuDistrict.oid, postalCode: '97612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kei Besar Utara Timur', districtOid: southeastMalukuDistrict.oid, postalCode: '97613', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kei Kecil', districtOid: southeastMalukuDistrict.oid, postalCode: '97614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kei Kecil Barat', districtOid: southeastMalukuDistrict.oid, postalCode: '97615', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kei Kecil Timur', districtOid: southeastMalukuDistrict.oid, postalCode: '97616', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kur Selatan', districtOid: southeastMalukuDistrict.oid, postalCode: '97617', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Manyeuw', districtOid: southeastMalukuDistrict.oid, postalCode: '97618', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Dullah Selatan', districtOid: southeastMalukuDistrict.oid, postalCode: '97619', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Dullah Utara', districtOid: southeastMalukuDistrict.oid, postalCode: '97620', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Tayando Tam', districtOid: southeastMalukuDistrict.oid, postalCode: '97621', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanimbar Selatan', districtOid: southeastMalukuDistrict.oid, postalCode: '97622', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanimbar Utara', districtOid: southeastMalukuDistrict.oid, postalCode: '97623', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wermaktian', districtOid: southeastMalukuDistrict.oid, postalCode: '97624', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wertamrian', districtOid: southeastMalukuDistrict.oid, postalCode: '97625', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaru', districtOid: southeastMalukuDistrict.oid, postalCode: '97626', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dobo District
+      { subdistrictName: 'Dobo', districtOid: doboDistrict.oid, postalCode: '97612', createdAt: new Date(), updatedAt: new Date() },
+
+      // AruSelatan District
+      { subdistrictName: 'AruSelatan', districtOid: aruSelatanDistrict.oid, postalCode: '97651', createdAt: new Date(), updatedAt: new Date() },
+
+      // AruTengah District
+      { subdistrictName: 'AruTengah', districtOid: aruTengahDistrict.oid, postalCode: '97652', createdAt: new Date(), updatedAt: new Date() },
+
+      // AruUtara District
+      { subdistrictName: 'AruUtara', districtOid: aruUtaraDistrict.oid, postalCode: '97653', createdAt: new Date(), updatedAt: new Date() },
+
+      // AruTengahSelatan District
+      { subdistrictName: 'AruTengahSelatan', districtOid: aruTengahSelatanDistrict.oid, postalCode: '97654', createdAt: new Date(), updatedAt: new Date() },
+
+      // AruTengahTimur District
+      { subdistrictName: 'AruTengahTimur', districtOid: aruTengahTimurDistrict.oid, postalCode: '97655', createdAt: new Date(), updatedAt: new Date() },
+
+      // TernateCity District
+      { subdistrictName: 'TernateCity', districtOid: ternateCityDistrict.oid, postalCode: '97711', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tidore District
+      { subdistrictName: 'Tidore', districtOid: tidoreDistrict.oid, postalCode: '97811', createdAt: new Date(), updatedAt: new Date() },
+
+      // Oba District
+      { subdistrictName: 'Oba', districtOid: obaDistrict.oid, postalCode: '97852', createdAt: new Date(), updatedAt: new Date() },
+
+      // TidoreSelatan District
+      { subdistrictName: 'TidoreSelatan', districtOid: tidoreSelatanDistrict.oid, postalCode: '97813', createdAt: new Date(), updatedAt: new Date() },
+
+      // TidoreUtara District
+      { subdistrictName: 'TidoreUtara', districtOid: tidoreUtaraDistrict.oid, postalCode: '97814', createdAt: new Date(), updatedAt: new Date() },
+
+      // TidoreTimur District
+      { subdistrictName: 'TidoreTimur', districtOid: tidoreTimurDistrict.oid, postalCode: '97815', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jailolo District
+      { subdistrictName: 'Jailolo', districtOid: jailoloDistrict.oid, postalCode: '97752', createdAt: new Date(), updatedAt: new Date() },
+
+      // JailoloSelatan District
+      { subdistrictName: 'JailoloSelatan', districtOid: jailoloSelatanDistrict.oid, postalCode: '97753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sahu District
+      { subdistrictName: 'Sahu', districtOid: sahuDistrict.oid, postalCode: '97754', createdAt: new Date(), updatedAt: new Date() },
+
+      // SahuTimur District
+      { subdistrictName: 'SahuTimur', districtOid: sahuTimurDistrict.oid, postalCode: '97755', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wasile District
+      { subdistrictName: 'Wasile', districtOid: wasileDistrict.oid, postalCode: '97861', createdAt: new Date(), updatedAt: new Date() },
+
+      // WasileSelatan District
+      { subdistrictName: 'WasileSelatan', districtOid: wasileSelatanDistrict.oid, postalCode: '97862', createdAt: new Date(), updatedAt: new Date() },
+
+      // WasileTimur District
+      { subdistrictName: 'WasileTimur', districtOid: wasileTimurDistrict.oid, postalCode: '97863', createdAt: new Date(), updatedAt: new Date() },
+
+      // WasileUtara District
+      { subdistrictName: 'WasileUtara', districtOid: wasileUtaraDistrict.oid, postalCode: '97864', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bacan District
+      { subdistrictName: 'Bacan', districtOid: bacanDistrict.oid, postalCode: '97791', createdAt: new Date(), updatedAt: new Date() },
+
+      // BacanSelatan District
+      { subdistrictName: 'BacanSelatan', districtOid: bacanSelatanDistrict.oid, postalCode: '97792', createdAt: new Date(), updatedAt: new Date() },
+
+      // BacanTimur District
+      { subdistrictName: 'BacanTimur', districtOid: bacanTimurDistrict.oid, postalCode: '97793', createdAt: new Date(), updatedAt: new Date() },
+
+      // GaneBarat District
+      { subdistrictName: 'GaneBarat', districtOid: ganeBaratDistrict.oid, postalCode: '97781', createdAt: new Date(), updatedAt: new Date() },
+
+      // Galela District
+      { subdistrictName: 'Galela', districtOid: galelaDistrict.oid, postalCode: '97761', createdAt: new Date(), updatedAt: new Date() },
+
+      // GalelaBarat District
+      { subdistrictName: 'GalelaBarat', districtOid: galelaBaratDistrict.oid, postalCode: '97762', createdAt: new Date(), updatedAt: new Date() },
+
+      // GalelaSelatan District
+      { subdistrictName: 'GalelaSelatan', districtOid: galelaSelatanDistrict.oid, postalCode: '97763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tobolo District
+      { subdistrictName: 'Tobolo', districtOid: toboloDistrict.oid, postalCode: '97764', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sanana District
+      { subdistrictName: 'Sanana', districtOid: sananaDistrict.oid, postalCode: '97771', createdAt: new Date(), updatedAt: new Date() },
+
+      // SulabesiTimur District
+      { subdistrictName: 'SulabesiTimur', districtOid: sulabesiTimurDistrict.oid, postalCode: '97772', createdAt: new Date(), updatedAt: new Date() },
+
+      // SulabesiSelatan District
+      { subdistrictName: 'SulabesiSelatan', districtOid: sulabesiSelatanDistrict.oid, postalCode: '97773', createdAt: new Date(), updatedAt: new Date() },
+
+      // MorotaiSelatan District
+      { subdistrictName: 'MorotaiSelatan', districtOid: morotaiSelatanDistrict.oid, postalCode: '97771', createdAt: new Date(), updatedAt: new Date() },
+
+      // MorotaiUtara District
+      { subdistrictName: 'MorotaiUtara', districtOid: morotaiUtaraDistrict.oid, postalCode: '97772', createdAt: new Date(), updatedAt: new Date() },
+
+      // MorotaiTimur District
+      { subdistrictName: 'MorotaiTimur', districtOid: morotaiTimurDistrict.oid, postalCode: '97773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maba District
+      { subdistrictName: 'Maba', districtOid: mabaDistrict.oid, postalCode: '97851', createdAt: new Date(), updatedAt: new Date() },
+
+      // MabaSelatan District
+      { subdistrictName: 'MabaSelatan', districtOid: mabaSelatanDistrict.oid, postalCode: '97852', createdAt: new Date(), updatedAt: new Date() },
+
+      // MabaTengah District
+      { subdistrictName: 'MabaTengah', districtOid: mabaTengahDistrict.oid, postalCode: '97853', createdAt: new Date(), updatedAt: new Date() },
+
+      // MabaUtara District
+      { subdistrictName: 'MabaUtara', districtOid: mabaUtaraDistrict.oid, postalCode: '97854', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ampenan District
+      { subdistrictName: 'Ampenan', districtOid: ampenanDistrict.oid, postalCode: '83114', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cakranegara District
+      { subdistrictName: 'Cakranegara', districtOid: cakranegaraDistrict.oid, postalCode: '83239', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mataram District
+      { subdistrictName: 'Mataram', districtOid: mataramDistrict.oid, postalCode: '83121', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sandubaya District
+      { subdistrictName: 'Sandubaya', districtOid: sandubayaDistrict.oid, postalCode: '83233', createdAt: new Date(), updatedAt: new Date() },
+
+      // Selaparang District
+      { subdistrictName: 'Selaparang', districtOid: selaparangDistrict.oid, postalCode: '83122', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sekarbela District
+      { subdistrictName: 'Sekarbela', districtOid: sekarbelaDistrict.oid, postalCode: '83116', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bima Regency
+      { subdistrictName: 'Bolo', districtOid: bolo.oid, postalCode: '84161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mada Pangga', districtOid: madaPangga.oid, postalCode: '84171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Monta', districtOid: monta.oid, postalCode: '84172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanggar', districtOid: sanggar.oid, postalCode: '84173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Woha', districtOid: woha.oid, postalCode: '84171', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dompu Regency
+      { subdistrictName: 'Dompu', districtOid: dompu.oid, postalCode: '84211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kempo', districtOid: kempo.oid, postalCode: '84253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pekat', districtOid: pekat.oid, postalCode: '84261', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Woja', districtOid: woja.oid, postalCode: '84251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Central Lombok Regency
+      { subdistrictName: 'Batukliang', districtOid: batukliang.oid, postalCode: '83552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Janapria', districtOid: janapria.oid, postalCode: '83555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jonggat', districtOid: jonggat.oid, postalCode: '83561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kopang', districtOid: kopang.oid, postalCode: '83553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Praya', districtOid: praya.oid, postalCode: '83511', createdAt: new Date(), updatedAt: new Date() },
+
+      // East Lombok Regency
+      { subdistrictName: 'Aikmel', districtOid: aikmel.oid, postalCode: '83653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Keruak', districtOid: keruak.oid, postalCode: '83672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Masbagik', districtOid: masbagik.oid, postalCode: '83661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Selong', districtOid: selong.oid, postalCode: '83611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Suralaga', districtOid: suralaga.oid, postalCode: '83652', createdAt: new Date(), updatedAt: new Date() },
+
+      // North Lombok Regency
+      { subdistrictName: 'Bayan', districtOid: bayan.oid, postalCode: '83554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gangga', districtOid: gangga.oid, postalCode: '83571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayangan', districtOid: kayangan.oid, postalCode: '83572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pemenang', districtOid: pemenang.oid, postalCode: '83581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung', districtOid: tanjung.oid, postalCode: '83571', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sumbawa Regency
+      { subdistrictName: 'Alas', districtOid: alas.oid, postalCode: '84353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moyo Hilir', districtOid: moyoHilir.oid, postalCode: '84381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plampang', districtOid: plampang.oid, postalCode: '84383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumbawa', districtOid: sumbawa.oid, postalCode: '84314', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Utan', districtOid: utan.oid, postalCode: '84352', createdAt: new Date(), updatedAt: new Date() },
+
+      // West Sumbawa Regency
+      { subdistrictName: 'Brang Ene', districtOid: brangEne.oid, postalCode: '84455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jereweh', districtOid: jereweh.oid, postalCode: '84456', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maluk', districtOid: maluk.oid, postalCode: '84456', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Taliwang', districtOid: taliwang.oid, postalCode: '84455', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sumbawa Besar City
+      { subdistrictName: 'Jempang', districtOid: jempang.oid, postalCode: '84316', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seteluk', districtOid: seteluk.oid, postalCode: '84315', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tongo', districtOid: tongo.oid, postalCode: '84317', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bima City
+      { subdistrictName: 'Asakota', districtOid: asakota.oid, postalCode: '84119', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mpunda', districtOid: mpunda.oid, postalCode: '84117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Raba', districtOid: raba.oid, postalCode: '84116', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rasanae Barat', districtOid: rasanaeBarat.oid, postalCode: '84118', createdAt: new Date(), updatedAt: new Date() },
+
+      // Alak District
+      { subdistrictName: 'Alak', districtOid: alakDistrict.oid, postalCode: '85231', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kelapa Lima District
+      { subdistrictName: 'Kelapa Lima', districtOid: kelapaLimaDistrict.oid, postalCode: '85228', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kota Lama District
+      { subdistrictName: 'Kota Lama', districtOid: kotaLamaDistrict.oid, postalCode: '85229', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maulafa District
+      { subdistrictName: 'Maulafa', districtOid: maulafaDistrict.oid, postalCode: '85232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Oebobo District
+      { subdistrictName: 'Oebobo', districtOid: oeboboDistrict.oid, postalCode: '85227', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ende District
+      { subdistrictName: 'Ende', districtOid: endeDistrict.oid, postalCode: '86319', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ende Selatan District
+      { subdistrictName: 'Ende Selatan', districtOid: endeSelatanDistrict.oid, postalCode: '86313', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ende Timur District
+      { subdistrictName: 'Ende Timur', districtOid: endeTimurDistrict.oid, postalCode: '86312', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ndona District
+      { subdistrictName: 'Ndona', districtOid: ndonaDistrict.oid, postalCode: '86362', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wolowaru District
+      { subdistrictName: 'Wolowaru', districtOid: wolowaruDistrict.oid, postalCode: '86372', createdAt: new Date(), updatedAt: new Date() },
+
+      // Alok District
+      { subdistrictName: 'Alok Barat', districtOid: alokBaratDistrict.oid, postalCode: '86113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alok Timur', districtOid: alokTimurDistrict.oid, postalCode: '86111', createdAt: new Date(), updatedAt: new Date() },
+
+      // Other Districts in Sikka Regency
+      { subdistrictName: 'Bola', districtOid: bolamaumereDistrict.oid, postalCode: '86171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Doreng', districtOid: dorengDistrict.oid, postalCode: '86161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hewokloang', districtOid: hewokloangDistrict.oid, postalCode: '86181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kangae', districtOid: kangaeDistrict.oid, postalCode: '86153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kewapante', districtOid: kewapanteDistrict.oid, postalCode: '86152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koting', districtOid: kotingDistrict.oid, postalCode: '86116', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lela', districtOid: lelaDistrict.oid, postalCode: '86183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Magepanda', districtOid: magepandaDistrict.oid, postalCode: '86151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mapitara', districtOid: mapitaraDistrict.oid, postalCode: '86184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mego', districtOid: megoDistrict.oid, postalCode: '86154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nelle', districtOid: nelleDistrict.oid, postalCode: '86182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nita', districtOid: nitaDistrict.oid, postalCode: '86116', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paga', districtOid: pagaDistrict.oid, postalCode: '86153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palue', districtOid: palueDistrict.oid, postalCode: '86111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talibura', districtOid: taliburaDistrict.oid, postalCode: '86183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tana Wawo', districtOid: tanaWawoDistrict.oid, postalCode: '86184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waiblama', districtOid: waiblamaDistrict.oid, postalCode: '86151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waigete', districtOid: waigeteDistrict.oid, postalCode: '86152', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ruteng District
+      { subdistrictName: 'Ruteng', districtOid: rutengDistrict.oid, postalCode: '86511', createdAt: new Date(), updatedAt: new Date() },
+
+      // RutengUtara District
+      { subdistrictName: 'RutengUtara', districtOid: rutengUtaraDistrict.oid, postalCode: '86512', createdAt: new Date(), updatedAt: new Date() },
+
+      // RutengBarat District
+      { subdistrictName: 'RutengBarat', districtOid: rutengBaratDistrict.oid, postalCode: '86513', createdAt: new Date(), updatedAt: new Date() },
+
+      // WaeRii District
+      { subdistrictName: 'WaeRii', districtOid: waeRiiDistrict.oid, postalCode: '86514', createdAt: new Date(), updatedAt: new Date() },
+
+      // SatarMese District
+      { subdistrictName: 'SatarMese', districtOid: satarMeseDistrict.oid, postalCode: '86515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cibal District
+      { subdistrictName: 'Cibal', districtOid: cibalDistrict.oid, postalCode: '86516', createdAt: new Date(), updatedAt: new Date() },
+
+      // Reok District
+      { subdistrictName: 'Reok', districtOid: reokDistrict.oid, postalCode: '86517', createdAt: new Date(), updatedAt: new Date() },
+
+      // KotaSoesoe District
+      { subdistrictName: 'KotaSoesoe', districtOid: kotaSoesoeDistrict.oid, postalCode: '85511', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanubanSelatansoe District
+      { subdistrictName: 'AmanubanSelatansoe', districtOid: amanubanSelatansoeDistrict.oid, postalCode: '85512', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanubanTengah District
+      { subdistrictName: 'AmanubanTengah', districtOid: amanubanTengahDistrict.oid, postalCode: '85513', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanubanTimur District
+      { subdistrictName: 'AmanubanTimur', districtOid: amanubanTimurDistrict.oid, postalCode: '85514', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanatunSelatansoe District
+      { subdistrictName: 'AmanatunSelatansoe', districtOid: amanatunSelatansoeDistrict.oid, postalCode: '85515', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanatunUtara District
+      { subdistrictName: 'AmanatunUtara', districtOid: amanatunUtaraDistrict.oid, postalCode: '85516', createdAt: new Date(), updatedAt: new Date() },
+      // Larantuka City Districts
+      { subdistrictName: 'Larantuka', districtOid: larantukaCityDistrict.oid, postalCode: '86211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ile Mandiri', districtOid: larantukaCityDistrict.oid, postalCode: '86218', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Bunga', districtOid: larantukaCityDistrict.oid, postalCode: '86252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Solor Timur', districtOid: larantukaCityDistrict.oid, postalCode: '86271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Adonara', districtOid: larantukaCityDistrict.oid, postalCode: '86262', createdAt: new Date(), updatedAt: new Date() },
+
+      // Labuan Bajo Districts (West Manggarai)
+      { subdistrictName: 'Komodo', districtOid: labuanBajoDistrict.oid, postalCode: '86754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Boleng', districtOid: labuanBajoDistrict.oid, postalCode: '86755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sano Nggoang', districtOid: labuanBajoDistrict.oid, postalCode: '86756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Macang Pacar', districtOid: labuanBajoDistrict.oid, postalCode: '86757', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembor', districtOid: labuanBajoDistrict.oid, postalCode: '86753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Alor Regency Districts
+      { subdistrictName: 'Kalabahi', districtOid: alorDistrict.oid, postalCode: '85811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alor Barat Laut', districtOid: alorDistrict.oid, postalCode: '85851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alor Tengah Utara', districtOid: alorDistrict.oid, postalCode: '85852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantar', districtOid: alorDistrict.oid, postalCode: '85871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantar Barat', districtOid: alorDistrict.oid, postalCode: '85872', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bajawangada District
+      { subdistrictName: 'Bajawangada', districtOid: bajawangadaDistrict.oid, postalCode: '86472', createdAt: new Date(), updatedAt: new Date() },
+
+      // Golewangada District
+      { subdistrictName: 'Golewangada', districtOid: golewangadaDistrict.oid, postalCode: '86473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Riungngada District
+      { subdistrictName: 'Riungngada', districtOid: riungngadaDistrit.oid, postalCode: '86419', createdAt: new Date(), updatedAt: new Date() },
+
+      // Soangada District
+      { subdistrictName: 'Soangada', districtOid: soangadaDistrict.oid, postalCode: '86474', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jerebuungada District
+      { subdistrictName: 'Jerebuungada', districtOid: jerebuungadaDistrict.oid, postalCode: '86475', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanatunSelatan District
+      { subdistrictName: 'AmanatunSelatan', districtOid: amanatunSelatanDistrict.oid, postalCode: '85562', createdAt: new Date(), updatedAt: new Date() },
+
+      // AmanubanBarat District
+      { subdistrictName: 'AmanubanBarat', districtOid: amanubanBarat.oid, postalCode: '85551', createdAt: new Date(), updatedAt: new Date() },
+
+      // KotaSoe District
+      { subdistrictName: 'KotaSoe', districtOid: kotaSoeDistrict.oid, postalCode: '85511', createdAt: new Date(), updatedAt: new Date() },
+
+      // MolloUtara District
+      { subdistrictName: 'MolloUtara', districtOid: molloUtara.oid, postalCode: '85571', createdAt: new Date(), updatedAt: new Date() },
+
+      // BibokiSelatan District
+      { subdistrictName: 'BibokiSelatan', districtOid: bibokiSelatan.oid, postalCode: '85681', createdAt: new Date(), updatedAt: new Date() },
+
+      // Insana District
+      { subdistrictName: 'Insana', districtOid: insana.oid, postalCode: '85671', createdAt: new Date(), updatedAt: new Date() },
+
+      // MiomaffoTimur District
+      { subdistrictName: 'MiomaffoTimur', districtOid: miomaffoTimur.oid, postalCode: '85661', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kefamenanu District
+      { subdistrictName: 'Kefamenanu', districtOid: kefamenanu.oid, postalCode: '85611', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lobalain District
+      { subdistrictName: 'Lobalain', districtOid: lobalain.oid, postalCode: '85811', createdAt: new Date(), updatedAt: new Date() },
+
+      // RoteBarat District
+      { subdistrictName: 'RoteBarat', districtOid: roteBarat.oid, postalCode: '85981', createdAt: new Date(), updatedAt: new Date() },
+
+      // RoteTimur District
+      { subdistrictName: 'RoteTimur', districtOid: roteTimur.oid, postalCode: '85982', createdAt: new Date(), updatedAt: new Date() },
+
+      // PantaiBaru District
+      { subdistrictName: 'PantaiBaru', districtOid: pantaiBaru.oid, postalCode: '85983', createdAt: new Date(), updatedAt: new Date() },
+
+      // Flores Timur Regency
+      { subdistrictName: 'Ile Mandiri', districtOid: ileMandirifloresTimurDistrict.oid, postalCode: '86211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Larantuka', districtOid: larantukafloresTimurDistrict.oid, postalCode: '86212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Solor Barat', districtOid: solorBarat.oid, postalCode: '86271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Bunga', districtOid: tanjungBungafloresTimurDistrict.oid, postalCode: '86252', createdAt: new Date(), updatedAt: new Date() },
+
+      // Aesesa District
+      { subdistrictName: 'Aesesa', districtOid: aesesaDistrict.oid, postalCode: '86472', createdAt: new Date(), updatedAt: new Date() },
+
+      // Boawae District
+      { subdistrictName: 'Boawae', districtOid: boawaeDistrict.oid, postalCode: '86462', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mbay District
+      { subdistrictName: 'Mbay', districtOid: mbayDistrict.oid, postalCode: '86463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nangaroro District
+      { subdistrictName: 'Nangaroro', districtOid: nangaroroDistrict.oid, postalCode: '86471', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lamboya District
+      { subdistrictName: 'Lamboya', districtOid: lamboyaDistrict.oid, postalCode: '87271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tana Righu District
+      { subdistrictName: 'Tana Righu', districtOid: tanaRighuDistrict.oid, postalCode: '87272', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wanokaka District
+      { subdistrictName: 'Wanokaka', districtOid: wanokakaDistrict.oid, postalCode: '87273', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waikabubak District
+      { subdistrictName: 'Waikabubak', districtOid: waikabubakDistrict.oid, postalCode: '87211', createdAt: new Date(), updatedAt: new Date() },
+
+      // Haharu District
+      { subdistrictName: 'Haharu', districtOid: haharuDistrict.oid, postalCode: '87281', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kahaungu Eti District
+      { subdistrictName: 'Kahaungu Eti', districtOid: kahaunguEtiDistrict.oid, postalCode: '87282', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lewa District
+      { subdistrictName: 'Lewa', districtOid: lewaDistrict.oid, postalCode: '87283', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waingapu District
+      { subdistrictName: 'Waingapu', districtOid: waingapuDistrict.oid, postalCode: '87112', createdAt: new Date(), updatedAt: new Date() },
+
+      // Katikutana District
+      { subdistrictName: 'Katikutana', districtOid: katikutanaDistrict.oid, postalCode: '87254', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mamboro District
+      { subdistrictName: 'Mamboro', districtOid: mamboroDistrict.oid, postalCode: '87253', createdAt: new Date(), updatedAt: new Date() },
+
+      // Umbu Ratu Nggay District
+      { subdistrictName: 'Umbu Ratu Nggay', districtOid: umbuRatuNggayDistrict.oid, postalCode: '87252', createdAt: new Date(), updatedAt: new Date() },
+
+      // Waibakul District
+      { subdistrictName: 'Waibakul', districtOid: waibakulDistrict.oid, postalCode: '87251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Amanuban Selatan District
+      { subdistrictName: 'Amanuban Selatan', districtOid: amanubanSelatanDistrict.oid, postalCode: '85562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kuantana District
+      { subdistrictName: 'Kuantana', districtOid: kuantanaDistrict.oid, postalCode: '85563', createdAt: new Date(), updatedAt: new Date() },
+
+      // Noebeba District
+      { subdistrictName: 'Noebeba', districtOid: noebebaDistrict.oid, postalCode: '85564', createdAt: new Date(), updatedAt: new Date() },
+
+      // Oenino District
+      { subdistrictName: 'Oenino', districtOid: oeninoDistrict.oid, postalCode: '85565', createdAt: new Date(), updatedAt: new Date() },
+
+      // Biboki Anleu District
+      { subdistrictName: 'Biboki Anleu', districtOid: bibokiAnleuDistrict.oid, postalCode: '85681', createdAt: new Date(), updatedAt: new Date() },
+
+      // Insana Utara District
+      { subdistrictName: 'Insana Utara', districtOid: insanaUtaraDistrict.oid, postalCode: '85671', createdAt: new Date(), updatedAt: new Date() },
+
+      // Miomaffo Barat District
+      { subdistrictName: 'Miomaffo Barat', districtOid: miomaffoBaratDistrict.oid, postalCode: '85661', createdAt: new Date(), updatedAt: new Date() },
+
+      // Noemuti District
+      { subdistrictName: 'Noemuti', districtOid: noemutiDistrict.oid, postalCode: '85682', createdAt: new Date(), updatedAt: new Date() },
+
+      // Abepura District
+      { subdistrictName: 'Abepura', districtOid: abepuraDistrict.oid, postalCode: '99224', createdAt: new Date(), updatedAt: new Date() },
+
+      // Heram District
+      { subdistrictName: 'Heram', districtOid: heramDistrict.oid, postalCode: '99225', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jayapura Selatan District
+      { subdistrictName: 'Jayapura Selatan', districtOid: jayapuraSelatanDistrict.oid, postalCode: '99221', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jayapura Utara District
+      { subdistrictName: 'Jayapura Utara', districtOid: jayapuraUtaraDistrict.oid, postalCode: '99222', createdAt: new Date(), updatedAt: new Date() },
+
+      // Muara Tami District
+      { subdistrictName: 'Muara Tami', districtOid: muaraTamiDistrict.oid, postalCode: '99226', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mimika Regency (Timika City)
+      { subdistrictName: 'Mimika Baru', districtOid: mimikaCityDistrict.oid, postalCode: '99910', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Agimuga', districtOid: mimikaCityDistrict.oid, postalCode: '99911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jila', districtOid: mimikaCityDistrict.oid, postalCode: '99912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mimika Timur', districtOid: mimikaCityDistrict.oid, postalCode: '99913', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mimika Timur Jauh', districtOid: mimikaCityDistrict.oid, postalCode: '99914', createdAt: new Date(), updatedAt: new Date() },
+
+      // Biak Numfor Regency
+      { subdistrictName: 'Biak Kota', districtOid: biakDistrict.oid, postalCode: '98111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biak Utara', districtOid: biakDistrict.oid, postalCode: '98112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biak Timur', districtOid: biakDistrict.oid, postalCode: '98113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepulauan Padaido', districtOid: biakDistrict.oid, postalCode: '98114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Samofa', districtOid: biakDistrict.oid, postalCode: '98115', createdAt: new Date(), updatedAt: new Date() },
+
+      // Merauke Regency
+      { subdistrictName: 'Merauke', districtOid: meraukeDistrict.oid, postalCode: '99611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Eligobel', districtOid: meraukeDistrict.oid, postalCode: '99612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jagebob', districtOid: meraukeDistrict.oid, postalCode: '99613', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kimaam', districtOid: meraukeDistrict.oid, postalCode: '99614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muting', districtOid: meraukeDistrict.oid, postalCode: '99615', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wamenawamena City District
+      { subdistrictName: 'Wamena', districtOid: wamenawamenaCityDistrict.oid, postalCode: '99511', createdAt: new Date(), updatedAt: new Date() },
+
+      // Asologaimawamena City District
+      { subdistrictName: 'Asologaima', districtOid: asologaimawamenaCityDistrict.oid, postalCode: '99512', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolakmewamena City District
+      { subdistrictName: 'Bolakme', districtOid: bolakmewamenaCityDistrict.oid, postalCode: '99513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Hubikosiwamena City District
+      { subdistrictName: 'Hubikosi', districtOid: hubikosiwamenaCityDistrict.oid, postalCode: '99514', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pelebagawamena City District
+      { subdistrictName: 'Pelebaga', districtOid: pelebagawamenaCityDistrict.oid, postalCode: '99515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sarmi District
+      { subdistrictName: 'Sarmi', districtOid: sarmi.oid, postalCode: '99371', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bonggo District
+      { subdistrictName: 'Bonggo', districtOid: bonggo.oid, postalCode: '99372', createdAt: new Date(), updatedAt: new Date() },
+
+      // PantaiBarat District
+      { subdistrictName: 'PantaiBarat', districtOid: pantaiBarat.oid, postalCode: '99373', createdAt: new Date(), updatedAt: new Date() },
+
+      // PantaiTimur District
+      { subdistrictName: 'PantaiTimur', districtOid: pantaiTimur.oid, postalCode: '99374', createdAt: new Date(), updatedAt: new Date() },
+
+      // TorAtas District
+      { subdistrictName: 'TorAtas', districtOid: torAtas.oid, postalCode: '99375', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jayawijaya Regency & Jayapura City
+      { subdistrictName: 'Wamena', districtOid: wamenajayawijayaCityDistrict.oid, postalCode: '99511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Asolokobal', districtOid: asolokobal.oid, postalCode: '99513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Musatfak', districtOid: musatfak.oid, postalCode: '99514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pirime', districtOid: pirime.oid, postalCode: '99515', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Welesi', districtOid: welesi.oid, postalCode: '99516', createdAt: new Date(), updatedAt: new Date() },
+
+      // Paniai Regency
+      { subdistrictName: 'Enarotali', districtOid: enarotalipaniaiCityDistrict.oid, postalCode: '98761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Aradide', districtOid: aradidepaniaiCityDistrict.oid, postalCode: '98762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bogabaida', districtOid: bogabaidapaniaiCityDistrict.oid, postalCode: '98763', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paniai Barat', districtOid: paniaiBaratpaniaiCityDistrict.oid, postalCode: '98764', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paniai Timur', districtOid: paniaiTimurpaniaiCityDistrict.oid, postalCode: '98765', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigideiyai City District
+      { subdistrictName: 'Tigideiyai', districtOid: tigideiyaiCityDistrict.oid, postalCode: '98765', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bowobadodeiyai City District
+      { subdistrictName: 'Bowobado', districtOid: bowobadodeiyaiCityDistrict.oid, postalCode: '98766', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapirayadeiyai City District
+      { subdistrictName: 'Kapiraya', districtOid: kapirayadeiyaiCityDistrict.oid, postalCode: '98767', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigi Baratdeiyai City District
+      { subdistrictName: 'Tigi Barat', districtOid: tigiBaratdeiyaiCityDistrict.oid, postalCode: '98768', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigi Timurdeiyai City District
+      { subdistrictName: 'Tigi Timur', districtOid: tigiTimurdeiyaiCityDistrict.oid, postalCode: '98769', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lanny Jaya Regency
+      { subdistrictName: 'Tiom', districtOid: lannyJayaDistrict.oid, postalCode: '99511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dimba', districtOid: lannyJayaDistrict.oid, postalCode: '99512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gamelia', districtOid: lannyJayaDistrict.oid, postalCode: '99513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pirime', districtOid: lannyJayaDistrict.oid, postalCode: '99514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiomneri', districtOid: lannyJayaDistrict.oid, postalCode: '99515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mamberamo Raya Regency
+      { subdistrictName: 'Burmeso', districtOid: mamberamoRayaDistrict.oid, postalCode: '99371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mamberamo Hilir', districtOid: mamberamoRayaDistrict.oid, postalCode: '99372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mamberamo Tengah', districtOid: mamberamoRayaDistrict.oid, postalCode: '99373', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mamberamo Ulu', districtOid: mamberamoRayaDistrict.oid, postalCode: '99374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rufaer', districtOid: mamberamoRayaDistrict.oid, postalCode: '99375', createdAt: new Date(), updatedAt: new Date() },
+
+      // Yapen Islands Regency
+      { subdistrictName: 'Serui Kota', districtOid: yapenDistrict.oid, postalCode: '98211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkaisera', districtOid: yapenDistrict.oid, postalCode: '98212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kosiwo', districtOid: yapenDistrict.oid, postalCode: '98213', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Poom', districtOid: yapenDistrict.oid, postalCode: '98214', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Windesi', districtOid: yapenDistrict.oid, postalCode: '98215', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pegunungan Bintang Regency
+      { subdistrictName: 'Oksibil', districtOid: pegununganBintangDistrict.oid, postalCode: '99571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Aboy', districtOid: pegununganBintangDistrict.oid, postalCode: '99572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alemsom', districtOid: pegununganBintangDistrict.oid, postalCode: '99573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Okbibab', districtOid: pegununganBintangDistrict.oid, postalCode: '99574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Serambakon', districtOid: pegununganBintangDistrict.oid, postalCode: '99575', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nabire Regency
+      { subdistrictName: 'Nabire', districtOid: nabireDistrict.oid, postalCode: '98811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dipa', districtOid: nabireDistrict.oid, postalCode: '98812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Makimi', districtOid: nabireDistrict.oid, postalCode: '98813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nabire Barat', districtOid: nabireDistrict.oid, postalCode: '98814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Uwapa', districtOid: nabireDistrict.oid, postalCode: '98815', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kaimanakaimana City District
+      { subdistrictName: 'Kaimana', districtOid: kaimanakaimanaCityDistrict.oid, postalCode: '98113', createdAt: new Date(), updatedAt: new Date() },
+
+      // Buruwaykaimana City District
+      { subdistrictName: 'Buruway', districtOid: buruwaykaimanaCityDistrict.oid, postalCode: '98114', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukArgunikaimana City District
+      { subdistrictName: 'TelukArguni', districtOid: telukArgunikaimanaCityDistrict.oid, postalCode: '98115', createdAt: new Date(), updatedAt: new Date() },
+
+      // TelukEtnakaimana City District
+      { subdistrictName: 'TelukEtna', districtOid: telukEtnakaimanaCityDistrict.oid, postalCode: '98116', createdAt: new Date(), updatedAt: new Date() },
+
+      // Yamorkaimana City District
+      { subdistrictName: 'Yamor', districtOid: yamorkaimanaCityDistrict.oid, postalCode: '98117', createdAt: new Date(), updatedAt: new Date() },
+
+      // Asmat Regency
+      { subdistrictName: 'Agats', districtOid: agats.oid, postalCode: '99777', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Akat', districtOid: akat.oid, postalCode: '99776', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Fayit', districtOid: fayit.oid, postalCode: '99775', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantai Kasuari', districtOid: pantaiKasuari.oid, postalCode: '99774', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sawa Erma', districtOid: sawaErma.oid, postalCode: '99773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sorendiweri', districtOid: sorendiweri.oid, postalCode: '99772', createdAt: new Date(), updatedAt: new Date() },
+
+      // Supiori Regency
+      { subdistrictName: 'Kepulauan Aruri', districtOid: kepulauanAruri.oid, postalCode: '98171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Supiori Barat', districtOid: supioriBarat.oid, postalCode: '98172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Supiori Selatan', districtOid: supioriSelatan.oid, postalCode: '98173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Supiori Utara', districtOid: supioriUtara.oid, postalCode: '98174', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mappi Regency
+      { subdistrictName: 'Kepi', districtOid: kepi.oid, postalCode: '99671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Assue', districtOid: assue.oid, postalCode: '99672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Citak Mitak', districtOid: citakMitak.oid, postalCode: '99673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Edera', districtOid: edera.oid, postalCode: '99674', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Obaa', districtOid: obaa.oid, postalCode: '99675', createdAt: new Date(), updatedAt: new Date() },
+
+      // Manokwari Barat District
+      { subdistrictName: 'Manokwari Barat', districtOid: manokwariBaratDistrict.oid, postalCode: '98312', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Amban', districtOid: manokwariBaratDistrict.oid, postalCode: '98313', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sowi', districtOid: manokwariBaratDistrict.oid, postalCode: '98314', createdAt: new Date(), updatedAt: new Date() },
+
+      // Manokwari Selatan District
+      { subdistrictName: 'Manokwari Selatan', districtOid: manokwariSelatanDistrict.oid, postalCode: '98322', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Rubuh', districtOid: manokwariSelatanDistrict.oid, postalCode: '98323', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Warmare', districtOid: manokwariSelatanDistrict.oid, postalCode: '98324', createdAt: new Date(), updatedAt: new Date() },
+
+      // Manokwari Timur District
+      { subdistrictName: 'Manokwari Timur', districtOid: manokwariTimurDistrict.oid, postalCode: '98332', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nuni', districtOid: manokwariTimurDistrict.oid, postalCode: '98333', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanggeng', districtOid: manokwariTimurDistrict.oid, postalCode: '98334', createdAt: new Date(), updatedAt: new Date() },
+
+      // Manokwari Utara District
+      { subdistrictName: 'Manokwari Utara', districtOid: manokwariUtaraDistrict.oid, postalCode: '98342', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasir Putih', districtOid: manokwariUtaraDistrict.oid, postalCode: '98343', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidey', districtOid: manokwariUtaraDistrict.oid, postalCode: '98344', createdAt: new Date(), updatedAt: new Date() },
+
+      // Prafi District
+      { subdistrictName: 'Prafi', districtOid: prafiDistrict.oid, postalCode: '98352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Masni', districtOid: prafiDistrict.oid, postalCode: '98353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Merah', districtOid: prafiDistrict.oid, postalCode: '98354', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sidey District
+      { subdistrictName: 'Sidey', districtOid: sideyDistrict.oid, postalCode: '98362', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidey Baru', districtOid: sideyDistrict.oid, postalCode: '98363', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidey Jaya', districtOid: sideyDistrict.oid, postalCode: '98364', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Barat District
+      { subdistrictName: 'Sorong Barat', districtOid: sorongBaratDistrict.oid, postalCode: '98411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klagete', districtOid: sorongBaratDistrict.oid, postalCode: '98412', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malaimsimsa', districtOid: sorongBaratDistrict.oid, postalCode: '98413', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Kepulauan District
+      { subdistrictName: 'Sorong Kepulauan', districtOid: sorongKepulauanDistrict.oid, postalCode: '98421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Doom', districtOid: sorongKepulauanDistrict.oid, postalCode: '98422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Soop', districtOid: sorongKepulauanDistrict.oid, postalCode: '98423', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Manoi District
+      { subdistrictName: 'Sorong Manoi', districtOid: sorongManoiDistrict.oid, postalCode: '98431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malawele', districtOid: sorongManoiDistrict.oid, postalCode: '98432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malaingkedi', districtOid: sorongManoiDistrict.oid, postalCode: '98433', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Timur District
+      { subdistrictName: 'Sorong Timur', districtOid: sorongTimurDistrict.oid, postalCode: '98441', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klasaman', districtOid: sorongTimurDistrict.oid, postalCode: '98442', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Klasuat', districtOid: sorongTimurDistrict.oid, postalCode: '98443', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Utara District
+      { subdistrictName: 'Sorong Utara', districtOid: sorongUtaraDistrict.oid, postalCode: '98451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maladofok', districtOid: sorongUtaraDistrict.oid, postalCode: '98452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maladummes', districtOid: sorongUtaraDistrict.oid, postalCode: '98453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fakfak District
+      { subdistrictName: 'Fakfak', districtOid: fakfakDistrict.oid, postalCode: '98611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Fakfak Tengah', districtOid: fakfakDistrict.oid, postalCode: '98612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kramongmongga', districtOid: fakfakDistrict.oid, postalCode: '98613', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fakfak Barat District
+      { subdistrictName: 'Fakfak Barat', districtOid: fakfakBaratDistrict.oid, postalCode: '98621', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bomberay', districtOid: fakfakBaratDistrict.oid, postalCode: '98622', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekak', districtOid: fakfakBaratDistrict.oid, postalCode: '98623', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fakfak Tengah District
+      { subdistrictName: 'Fakfak Tengah', districtOid: fakfakTengahDistrict.oid, postalCode: '98631', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pariwari', districtOid: fakfakTengahDistrict.oid, postalCode: '98632', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wartutin', districtOid: fakfakTengahDistrict.oid, postalCode: '98633', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fakfak Timur District
+      { subdistrictName: 'Fakfak Timur', districtOid: fakfakTimurDistrict.oid, postalCode: '98641', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Arguni', districtOid: fakfakTimurDistrict.oid, postalCode: '98642', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mbahamdandara', districtOid: fakfakTimurDistrict.oid, postalCode: '98643', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karas District
+      { subdistrictName: 'Karas', districtOid: karasDistrict.oid, postalCode: '98651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Faur', districtOid: karasDistrict.oid, postalCode: '98652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Iha', districtOid: karasDistrict.oid, postalCode: '98653', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kokas District
+      { subdistrictName: 'Kokas', districtOid: kokasDistrict.oid, postalCode: '98661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kiat', districtOid: kokasDistrict.oid, postalCode: '98662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patimburak', districtOid: kokasDistrict.oid, postalCode: '98663', createdAt: new Date(), updatedAt: new Date() },
+
+      // Raja Ampat Regency
+      { subdistrictName: 'Misool', districtOid: rajaAmpatDistrict.oid, postalCode: '98481', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Salawati Utara', districtOid: rajaAmpatDistrict.oid, postalCode: '98482', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Samate', districtOid: rajaAmpatDistrict.oid, postalCode: '98483', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waigeo Barat', districtOid: rajaAmpatDistrict.oid, postalCode: '98484', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waigeo Selatan', districtOid: rajaAmpatDistrict.oid, postalCode: '98485', createdAt: new Date(), updatedAt: new Date() },
+      // Raja Ampat Regency (continued)
+      { subdistrictName: 'Waigeo Timur', districtOid: rajaAmpatDistrict.oid, postalCode: '98486', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tambrauw Regency
+      { subdistrictName: 'Fef', districtOid: tambrauwDistrict.oid, postalCode: '98491', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Miyah', districtOid: tambrauwDistrict.oid, postalCode: '98492', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sausapor', districtOid: tambrauwDistrict.oid, postalCode: '98493', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Syujak', districtOid: tambrauwDistrict.oid, postalCode: '98494', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong Regency
+      { subdistrictName: 'Aimas', districtOid: sorongDistrict.oid, postalCode: '98451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Beraur', districtOid: sorongDistrict.oid, postalCode: '98452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moraid', districtOid: sorongDistrict.oid, postalCode: '98453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seget', districtOid: sorongDistrict.oid, postalCode: '98454', createdAt: new Date(), updatedAt: new Date() },
+
+      // South Sorong Regency
+      { subdistrictName: 'Inanwatan', districtOid: southSorongDistrict.oid, postalCode: '98431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kais', districtOid: southSorongDistrict.oid, postalCode: '98432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kokoda', districtOid: southSorongDistrict.oid, postalCode: '98433', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moswaren', districtOid: southSorongDistrict.oid, postalCode: '98434', createdAt: new Date(), updatedAt: new Date() },
+
+      // Inanwatan District
+      { subdistrictName: 'Inanwatan', districtOid: inanwatan.oid, postalCode: '98462', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kais District
+      { subdistrictName: 'Kais', districtOid: kais.oid, postalCode: '98471', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kokoda District
+      { subdistrictName: 'Kokoda', districtOid: kokoda.oid, postalCode: '98481', createdAt: new Date(), updatedAt: new Date() },
+
+      // Moswaren District
+      { subdistrictName: 'Moswaren', districtOid: moswaren.oid, postalCode: '98472', createdAt: new Date(), updatedAt: new Date() },
+
+      // Teminabuan District
+      { subdistrictName: 'Teminabuan', districtOid: teminabuan.oid, postalCode: '98461', createdAt: new Date(), updatedAt: new Date() },
+
+      // Moraid District
+      { subdistrictName: 'Moraid', districtOid: moraid.oid, postalCode: '98473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Seget District
+      { subdistrictName: 'Seget', districtOid: seget.oid, postalCode: '98463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Segun District
+      { subdistrictName: 'Segun', districtOid: segun.oid, postalCode: '98474', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sorong District
+      { subdistrictName: 'Sorong', districtOid: sorong.oid, postalCode: '98411', createdAt: new Date(), updatedAt: new Date() },
+
+      // Yembun District
+      { subdistrictName: 'Yembun', districtOid: yembun.oid, postalCode: '98475', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wamena District
+      { subdistrictName: 'Wamena', districtOid: wamenaDistrict.oid, postalCode: '99511', createdAt: new Date(), updatedAt: new Date() },
+
+      // Asologaima District
+      { subdistrictName: 'Asologaima', districtOid: asologaimaDistrict.oid, postalCode: '99512', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolakme District
+      { subdistrictName: 'Bolakme', districtOid: bolakmeDistrict.oid, postalCode: '99513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Hubikosi District
+      { subdistrictName: 'Hubikosi', districtOid: hubikosiDistrict.oid, postalCode: '99514', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pelebaga District
+      { subdistrictName: 'Pelebaga', districtOid: pelebagaDistrict.oid, postalCode: '99515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mulia District
+      { subdistrictName: 'Mulia', districtOid: mulia.oid, postalCode: '98911', createdAt: new Date(), updatedAt: new Date() },
+
+      // Fawi District
+      { subdistrictName: 'Fawi', districtOid: fawi.oid, postalCode: '98912', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ilu District
+      { subdistrictName: 'Ilu', districtOid: ilu.oid, postalCode: '98913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jigonikme District
+      { subdistrictName: 'Jigonikme', districtOid: jigonikme.oid, postalCode: '98914', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mewoluk District
+      { subdistrictName: 'Mewoluk', districtOid: mewoluk.oid, postalCode: '98915', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kenyam District
+      { subdistrictName: 'Kenyam', districtOid: kenyam.oid, postalCode: '98161', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gearek District
+      { subdistrictName: 'Gearek', districtOid: gearek.oid, postalCode: '98162', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kegayem District
+      { subdistrictName: 'Kegayem', districtOid: kegayem.oid, postalCode: '98163', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mbuwa District
+      { subdistrictName: 'Mbuwa', districtOid: mbuwa.oid, postalCode: '98164', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wosak District
+      { subdistrictName: 'Wosak', districtOid: wosak.oid, postalCode: '98165', createdAt: new Date(), updatedAt: new Date() },
+
+      // Timika District
+      { subdistrictName: 'Timika', districtOid: timika.oid, postalCode: '99910', createdAt: new Date(), updatedAt: new Date() },
+
+      // Agimuga District
+      { subdistrictName: 'Agimuga', districtOid: agimugaDistrict.oid, postalCode: '99911', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jila District
+      { subdistrictName: 'Jila', districtOid: jilaDistrict.oid, postalCode: '99912', createdAt: new Date(), updatedAt: new Date() },
+
+      // MimikaBarat District
+      { subdistrictName: 'MimikaBarat', districtOid: mimikaBarat.oid, postalCode: '99913', createdAt: new Date(), updatedAt: new Date() },
+
+      // MimikaTimur District
+      { subdistrictName: 'MimikaTimur', districtOid: mimikaTimurDistrict.oid, postalCode: '99914', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tolikara Regency
+      { subdistrictName: 'Karubaga', districtOid: karubaga.oid, postalCode: '99461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bokondini', districtOid: bokondini.oid, postalCode: '99462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kanggime', districtOid: kanggime.oid, postalCode: '99463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kembu', districtOid: kembu.oid, postalCode: '99464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wunin', districtOid: wunin.oid, postalCode: '99465', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pegunungan Bintang Regency
+      { subdistrictName: 'Sumohai', districtOid: sumohai.oid, postalCode: '99571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Anggruk', districtOid: anggruk.oid, postalCode: '99572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayo', districtOid: kayo.oid, postalCode: '99573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kona', districtOid: kona.oid, postalCode: '99574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Suntamon', districtOid: suntamon.oid, postalCode: '99575', createdAt: new Date(), updatedAt: new Date() },
+
+      // Boven Digoel Regency
+      { subdistrictName: 'Tanah Merah', districtOid: tanahMerah.oid, postalCode: '99661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jair', districtOid: jair.oid, postalCode: '99662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandobo', districtOid: mandobo.oid, postalCode: '99663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mindiptana', districtOid: mindiptana.oid, postalCode: '99664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Waropko', districtOid: waropko.oid, postalCode: '99665', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mappi Regency (additional)
+      { subdistrictName: 'Wanggom', districtOid: wanggom.oid, postalCode: '99676', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Firiwage', districtOid: firiwage.oid, postalCode: '99677', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kawagit', districtOid: kawagit.oid, postalCode: '99678', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kombay', districtOid: kombay.oid, postalCode: '99679', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ninati', districtOid: ninati.oid, postalCode: '99680', createdAt: new Date(), updatedAt: new Date() },
+
+      // Deiyai Regency
+      { subdistrictName: 'Kigamani', districtOid: kigamani.oid, postalCode: '98771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Diyai', districtOid: diyai.oid, postalCode: '98772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dogiyai', districtOid: dogiyai.oid, postalCode: '98773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kamuu', districtOid: kamuu.oid, postalCode: '98774', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Piyaiye', districtOid: piyaiye.oid, postalCode: '98775', createdAt: new Date(), updatedAt: new Date() },
+
+      // Intan Jaya Regency
+      { subdistrictName: 'Sugapa', districtOid: sugapa.oid, postalCode: '98781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Agisiga', districtOid: agisiga.oid, postalCode: '98782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biandoga', districtOid: biandoga.oid, postalCode: '98783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hitadipa', districtOid: hitadipa.oid, postalCode: '98784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wandai', districtOid: wandai.oid, postalCode: '98785', createdAt: new Date(), updatedAt: new Date() },
+
+      // Yalimo Regency
+      { subdistrictName: 'Elelim', districtOid: elelim.oid, postalCode: '99581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Apalapsili', districtOid: apalapsili.oid, postalCode: '99582', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Abenaho', districtOid: abenaho.oid, postalCode: '99583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benawa', districtOid: benawa.oid, postalCode: '99584', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Welarek', districtOid: welarek.oid, postalCode: '99585', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigi District
+      { subdistrictName: 'Tigi', districtOid: tigiDistrict.oid, postalCode: '98771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai', districtOid: tigiDistrict.oid, postalCode: '98772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba', districtOid: tigiDistrict.oid, postalCode: '98773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigi Timur District
+      { subdistrictName: 'Tigi Timur', districtOid: tigiTimurDistrict.oid, postalCode: '98781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Dua', districtOid: tigiTimurDistrict.oid, postalCode: '98782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Dua', districtOid: tigiTimurDistrict.oid, postalCode: '98783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tigi Barat District
+      { subdistrictName: 'Tigi Barat', districtOid: tigiBaratDistrict.oid, postalCode: '98791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Satu', districtOid: tigiBaratDistrict.oid, postalCode: '98792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Satu', districtOid: tigiBaratDistrict.oid, postalCode: '98793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bowobado District
+      { subdistrictName: 'Bowobado', districtOid: bowobadoDistrict.oid, postalCode: '98801', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Tiga', districtOid: bowobadoDistrict.oid, postalCode: '98802', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Tiga', districtOid: bowobadoDistrict.oid, postalCode: '98803', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapiraya District
+      { subdistrictName: 'Kapiraya', districtOid: kapirayaDistrict.oid, postalCode: '98811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Empat', districtOid: kapirayaDistrict.oid, postalCode: '98812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Empat', districtOid: kapirayaDistrict.oid, postalCode: '98813', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kamu District
+      { subdistrictName: 'Kamu', districtOid: kamuDistrict.oid, postalCode: '98821', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Lima', districtOid: kamuDistrict.oid, postalCode: '98822', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Lima', districtOid: kamuDistrict.oid, postalCode: '98823', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kamu Selatan District
+      { subdistrictName: 'Kamu Selatan', districtOid: kamuSelatanDistrict.oid, postalCode: '98831', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Enam', districtOid: kamuSelatanDistrict.oid, postalCode: '98832', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Enam', districtOid: kamuSelatanDistrict.oid, postalCode: '98833', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kamu Timur District
+      { subdistrictName: 'Kamu Timur', districtOid: kamuTimurDistrict.oid, postalCode: '98841', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Tujuh', districtOid: kamuTimurDistrict.oid, postalCode: '98842', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Tujuh', districtOid: kamuTimurDistrict.oid, postalCode: '98843', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kamu Utara District
+      { subdistrictName: 'Kamu Utara', districtOid: kamuUtaraDistrict.oid, postalCode: '98851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Delapan', districtOid: kamuUtaraDistrict.oid, postalCode: '98852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Delapan', districtOid: kamuUtaraDistrict.oid, postalCode: '98853', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mapia District
+      { subdistrictName: 'Mapia', districtOid: mapiaDistrict.oid, postalCode: '98861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Sembilan', districtOid: mapiaDistrict.oid, postalCode: '98862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Sembilan', districtOid: mapiaDistrict.oid, postalCode: '98863', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mapia Barat District
+      { subdistrictName: 'Mapia Barat', districtOid: mapiaBaratDistrict.oid, postalCode: '98871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Sepuluh', districtOid: mapiaBaratDistrict.oid, postalCode: '98872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Sepuluh', districtOid: mapiaBaratDistrict.oid, postalCode: '98873', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sukikai District
+      { subdistrictName: 'Sukikai', districtOid: sukikaiDistrict.oid, postalCode: '98881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Sebelas', districtOid: sukikaiDistrict.oid, postalCode: '98882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Sebelas', districtOid: sukikaiDistrict.oid, postalCode: '98883', createdAt: new Date(), updatedAt: new Date() },
+
+      // Enarotali District
+      { subdistrictName: 'Enarotali', districtOid: enarotaliDistrict.oid, postalCode: '98711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kebo', districtOid: enarotaliDistrict.oid, postalCode: '98712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yatamo', districtOid: enarotaliDistrict.oid, postalCode: '98713', createdAt: new Date(), updatedAt: new Date() },
+
+      // Paniai Timur District
+      { subdistrictName: 'Paniai Timur', districtOid: paniaiTimurDistrict.oid, postalCode: '98721', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Agadide', districtOid: paniaiTimurDistrict.oid, postalCode: '98722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Madi', districtOid: paniaiTimurDistrict.oid, postalCode: '98723', createdAt: new Date(), updatedAt: new Date() },
+
+      // Paniai Barat District
+      { subdistrictName: 'Paniai Barat', districtOid: paniaiBaratDistrict.oid, postalCode: '98731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bibida', districtOid: paniaiBaratDistrict.oid, postalCode: '98732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumadama', districtOid: paniaiBaratDistrict.oid, postalCode: '98733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Aradide District
+      { subdistrictName: 'Aradide', districtOid: aradideDistrict.oid, postalCode: '98741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bogabaida', districtOid: aradideDistrict.oid, postalCode: '98742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ekadide', districtOid: aradideDistrict.oid, postalCode: '98743', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bogabaida District
+      { subdistrictName: 'Bogabaida', districtOid: bogabaidaDistrict.oid, postalCode: '98751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kogekotu', districtOid: bogabaidaDistrict.oid, postalCode: '98752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pugo', districtOid: bogabaidaDistrict.oid, postalCode: '98753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bibida District
+      { subdistrictName: 'Bibida', districtOid: bibidaDistrict.oid, postalCode: '98761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai', districtOid: bibidaDistrict.oid, postalCode: '98762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba', districtOid: bibidaDistrict.oid, postalCode: '98763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dumadama District
+      { subdistrictName: 'Dumadama', districtOid: dumadamaDistrict.oid, postalCode: '98771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dagai Dua', districtOid: dumadamaDistrict.oid, postalCode: '98772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Yaba Dua', districtOid: dumadamaDistrict.oid, postalCode: '98773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pekanbaru City Districts
+      { subdistrictName: 'Bukit Raya', districtOid: pekanbaruDistrict.oid, postalCode: '28284', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lima Puluh', districtOid: pekanbaruDistrict.oid, postalCode: '28133', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marpoyan Damai', districtOid: pekanbaruDistrict.oid, postalCode: '28125', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payung Sekaki', districtOid: pekanbaruDistrict.oid, postalCode: '28292', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pekanbaru Kota', districtOid: pekanbaruDistrict.oid, postalCode: '28112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rumbai', districtOid: pekanbaruDistrict.oid, postalCode: '28265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rumbai Pesisir', districtOid: pekanbaruDistrict.oid, postalCode: '28263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sail', districtOid: pekanbaruDistrict.oid, postalCode: '28131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Senapelan', districtOid: pekanbaruDistrict.oid, postalCode: '28153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukajadi', districtOid: pekanbaruDistrict.oid, postalCode: '28122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tampan', districtOid: pekanbaruDistrict.oid, postalCode: '28291', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tenayan Raya', districtOid: pekanbaruDistrict.oid, postalCode: '28286', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dumai City Districts
+      { subdistrictName: 'Bukit Kapur', districtOid: dumaiDistrict.oid, postalCode: '28882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumai Barat', districtOid: dumaiDistrict.oid, postalCode: '28811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumai Kota', districtOid: dumaiDistrict.oid, postalCode: '28821', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumai Selatan', districtOid: dumaiDistrict.oid, postalCode: '28861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumai Timur', districtOid: dumaiDistrict.oid, postalCode: '28871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medang Kampai', districtOid: dumaiDistrict.oid, postalCode: '28883', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Sembilan', districtOid: dumaiDistrict.oid, postalCode: '28881', createdAt: new Date(), updatedAt: new Date() },
+
+      // Indragiri Hulu Regency
+      { subdistrictName: 'Rengat', districtOid: indragiriHuluDistrict.oid, postalCode: '29319', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rengat Barat', districtOid: indragiriHuluDistrict.oid, postalCode: '29352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelayang', districtOid: indragiriHuluDistrict.oid, postalCode: '29353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasir Penyu', districtOid: indragiriHuluDistrict.oid, postalCode: '29351', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Peranap', districtOid: indragiriHuluDistrict.oid, postalCode: '29354', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberida', districtOid: indragiriHuluDistrict.oid, postalCode: '29355', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tembilahan District
+      { subdistrictName: 'Tembilahan', districtOid: tembilahan.oid, postalCode: '29212', createdAt: new Date(), updatedAt: new Date() },
+
+      // TembilahanHulu District
+      { subdistrictName: 'Tembilahan Hulu', districtOid: tembilahanHulu.oid, postalCode: '29213', createdAt: new Date(), updatedAt: new Date() },
+
+      // GaungAnakSerka District
+      { subdistrictName: 'Gaung Anak Serka', districtOid: gaungAnakSerka.oid, postalCode: '29253', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kempas District
+      { subdistrictName: 'Kempas', districtOid: kempas.oid, postalCode: '29261', createdAt: new Date(), updatedAt: new Date() },
+
+      // KualaIndragiri District
+      { subdistrictName: 'Kuala Indragiri', districtOid: kualaIndragiri.oid, postalCode: '29271', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mandah District
+      { subdistrictName: 'Mandah', districtOid: mandah.oid, postalCode: '29254', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tempuling District
+      { subdistrictName: 'Tempuling', districtOid: tempuling.oid, postalCode: '29214', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bangkinang District
+      { subdistrictName: 'Bangkinang', districtOid: bangkinang.oid, postalCode: '28411', createdAt: new Date(), updatedAt: new Date() },
+
+      // BangkinangSeberang District
+      { subdistrictName: 'Bangkinang Seberang', districtOid: bangkinangSeberang.oid, postalCode: '28412', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kampar District
+      { subdistrictName: 'Kampar', districtOid: kampar.oid, postalCode: '28461', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparKiri District
+      { subdistrictName: 'Kampar Kiri', districtOid: kamparKiri.oid, postalCode: '28462', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparKiriHilir District
+      { subdistrictName: 'Kampar Kiri Hilir', districtOid: kamparKiriHilir.oid, postalCode: '28463', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparKiriHulu District
+      { subdistrictName: 'Kampar Kiri Hulu', districtOid: kamparKiriHulu.oid, postalCode: '28464', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparKiriTengah District
+      { subdistrictName: 'Kampar Kiri Tengah', districtOid: kamparKiriTengah.oid, postalCode: '28465', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparTimur District
+      { subdistrictName: 'Kampar Timur', districtOid: kamparTimur.oid, postalCode: '28466', createdAt: new Date(), updatedAt: new Date() },
+
+      // KamparUtara District
+      { subdistrictName: 'Kampar Utara', districtOid: kamparUtara.oid, postalCode: '28467', createdAt: new Date(), updatedAt: new Date() },
+
+      // PerhentianRaja District
+      { subdistrictName: 'Perhentian Raja', districtOid: perhentianRaja.oid, postalCode: '28468', createdAt: new Date(), updatedAt: new Date() },
+
+      // RumbioJaya District
+      { subdistrictName: 'Rumbio Jaya', districtOid: rumbioJaya.oid, postalCode: '28469', createdAt: new Date(), updatedAt: new Date() },
+
+      // Salo District
+      { subdistrictName: 'Salo', districtOid: salo.oid, postalCode: '28471', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tambang District
+      { subdistrictName: 'Tambang', districtOid: tambang.oid, postalCode: '28472', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kampar Regency
+      { subdistrictName: 'Tapung', districtOid: tapung.oid, postalCode: '28464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapung Hilir', districtOid: tapungHilir.oid, postalCode: '28463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapung Hulu', districtOid: tapungHulu.oid, postalCode: '28462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'XII Koto Kampar', districtOid: xiiKotoKampar.oid, postalCode: '28471', createdAt: new Date(), updatedAt: new Date() },
+
+      // Indragiri Hulu Regency
+      { subdistrictName: 'Indragiri Hulu', districtOid: indragiriHulu.oid, postalCode: '29371', createdAt: new Date(), updatedAt: new Date() },
+
+      // Indragiri Hilir Regency
+      { subdistrictName: 'Indragiri Hilir', districtOid: indragiriHilir.oid, postalCode: '29281', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pelalawan Regency
+      { subdistrictName: 'Pangkalan Kerinci', districtOid: pangkalanKerinci.oid, postalCode: '28381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Sei Kijang', districtOid: bandarSeiKijang.oid, postalCode: '28383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bunut', districtOid: bunut.oid, postalCode: '28382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kerumutan', districtOid: kerumutan.oid, postalCode: '28384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Kampar', districtOid: kualaKampar.oid, postalCode: '28391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Langgam', districtOid: langgam.oid, postalCode: '28385', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkalan Kuras', districtOid: pangkalanKuras.oid, postalCode: '28386', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkalan Lesung', districtOid: pangkalanLesung.oid, postalCode: '28387', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pelalawan', districtOid: pelalawan.oid, postalCode: '28388', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Meranti', districtOid: telukMeranti.oid, postalCode: '28389', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bagan Sinembah District
+      { subdistrictName: 'Bagan Sinembah', districtOid: baganSinembahDistrict.oid, postalCode: '28992', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Batu', districtOid: baganSinembahDistrict.oid, postalCode: '28993', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Sapta Permai', districtOid: baganSinembahDistrict.oid, postalCode: '28994', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bangko District
+      { subdistrictName: 'Bangko', districtOid: bangkoDistrict.oid, postalCode: '28911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangko Kanan', districtOid: bangkoDistrict.oid, postalCode: '28912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangko Jaya', districtOid: bangkoDistrict.oid, postalCode: '28913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bangko Pusaka District
+      { subdistrictName: 'Bangko Pusaka', districtOid: bangkoPusakaDistrict.oid, postalCode: '28921', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pematang Botam', districtOid: bangkoPusakaDistrict.oid, postalCode: '28922', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Bano I', districtOid: bangkoPusakaDistrict.oid, postalCode: '28923', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batu Hampar District
+      { subdistrictName: 'Batu Hampar', districtOid: batuHamparDistrict.oid, postalCode: '28931', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Punak', districtOid: batuHamparDistrict.oid, postalCode: '28932', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Kota', districtOid: batuHamparDistrict.oid, postalCode: '28933', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kubu District
+      { subdistrictName: 'Kubu', districtOid: kubuDistrict.oid, postalCode: '28941', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kubu Babussalam', districtOid: kubuDistrict.oid, postalCode: '28942', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pekaitan', districtOid: kubuDistrict.oid, postalCode: '28943', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasir Limau Kapas District
+      { subdistrictName: 'Pasir Limau Kapas', districtOid: pasirLimauKapasDistrict.oid, postalCode: '28951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Segajah', districtOid: pasirLimauKapasDistrict.oid, postalCode: '28952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Nilap', districtOid: pasirLimauKapasDistrict.oid, postalCode: '28953', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pujud District
+      { subdistrictName: 'Pujud', districtOid: pujidDistrict.oid, postalCode: '28961', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pujud Selatan', districtOid: pujidDistrict.oid, postalCode: '28962', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sedinginan', districtOid: pujidDistrict.oid, postalCode: '28963', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rantau Kopar District
+      { subdistrictName: 'Rantau Kopar', districtOid: rantauKoparDistrict.oid, postalCode: '28971', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Kubu', districtOid: rantauKoparDistrict.oid, postalCode: '28972', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Pulai', districtOid: rantauKoparDistrict.oid, postalCode: '28973', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rimba Melintang District
+      { subdistrictName: 'Rimba Melintang', districtOid: rimbaMelintangDistrict.oid, postalCode: '28981', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Cempedak', districtOid: rimbaMelintangDistrict.oid, postalCode: '28982', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Jawa', districtOid: rimbaMelintangDistrict.oid, postalCode: '28983', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simpang Kanan District
+      { subdistrictName: 'Simpang Kanan', districtOid: simpangKananDistrict.oid, postalCode: '28991', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Punak Meranti', districtOid: simpangKananDistrict.oid, postalCode: '28992', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bagan Bakau', districtOid: simpangKananDistrict.oid, postalCode: '28993', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinaboi District
+      { subdistrictName: 'Sinaboi', districtOid: sinaboiDistrict.oid, postalCode: '28901', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinaboi Kota', districtOid: sinaboiDistrict.oid, postalCode: '28902', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Bano II', districtOid: sinaboiDistrict.oid, postalCode: '28903', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Putih District
+      { subdistrictName: 'Tanah Putih', districtOid: tanahPutihDistrict.oid, postalCode: '28911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pematang Duku', districtOid: tanahPutihDistrict.oid, postalCode: '28912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Sembilan', districtOid: tanahPutihDistrict.oid, postalCode: '28913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Putih Tanjung Melawan District
+      { subdistrictName: 'Tanjung Melawan', districtOid: tanahPutihTanjungMelawanDistrict.oid, postalCode: '28921', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Medan', districtOid: tanahPutihTanjungMelawanDistrict.oid, postalCode: '28922', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Mega', districtOid: tanahPutihTanjungMelawanDistrict.oid, postalCode: '28923', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rokan Hulu Regency
+      { subdistrictName: 'Pasir Pengaraian', districtOid: rokanHuluDistrict.oid, postalCode: '28511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangun Purba', districtOid: rokanHuluDistrict.oid, postalCode: '28557', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonai Darussalam', districtOid: rokanHuluDistrict.oid, postalCode: '28556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kabun', districtOid: rokanHuluDistrict.oid, postalCode: '28554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepenuhan', districtOid: rokanHuluDistrict.oid, postalCode: '28559', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kepenuhan Hulu', districtOid: rokanHuluDistrict.oid, postalCode: '28558', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kunto Darussalam', districtOid: rokanHuluDistrict.oid, postalCode: '28555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagaran Tapah Darussalam', districtOid: rokanHuluDistrict.oid, postalCode: '28553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pendalian IV Koto', districtOid: rokanHuluDistrict.oid, postalCode: '28552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambah', districtOid: rokanHuluDistrict.oid, postalCode: '28551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambah Hilir', districtOid: rokanHuluDistrict.oid, postalCode: '28561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambah Samo', districtOid: rokanHuluDistrict.oid, postalCode: '28562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rokan IV Koto', districtOid: rokanHuluDistrict.oid, postalCode: '28563', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambusai', districtOid: rokanHuluDistrict.oid, postalCode: '28568', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambusai Utara', districtOid: rokanHuluDistrict.oid, postalCode: '28569', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tandun', districtOid: rokanHuluDistrict.oid, postalCode: '28566', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung Batu', districtOid: rokanHuluDistrict.oid, postalCode: '28567', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kuantan Singingi Regency
+      { subdistrictName: 'Teluk Kuantan', districtOid: kuantanSingingiDistrict.oid, postalCode: '29511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benai', districtOid: kuantanSingingiDistrict.oid, postalCode: '29566', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cerenti', districtOid: kuantanSingingiDistrict.oid, postalCode: '29567', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Toar', districtOid: kuantanSingingiDistrict.oid, postalCode: '29565', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hulu Kuantan', districtOid: kuantanSingingiDistrict.oid, postalCode: '29564', createdAt: new Date(), updatedAt: new Date() },
+
+      // Inuman District
+      { subdistrictName: 'Inuman', districtOid: inuman.oid, postalCode: '29562', createdAt: new Date(), updatedAt: new Date() },
+
+      // KuantanHilir District
+      { subdistrictName: 'Kuantan Hilir', districtOid: kuantanHilir.oid, postalCode: '29561', createdAt: new Date(), updatedAt: new Date() },
+
+      // KuantanHilirSeberang District
+      { subdistrictName: 'Kuantan Hilir Seberang', districtOid: kuantanHilirSeberang.oid, postalCode: '29563', createdAt: new Date(), updatedAt: new Date() },
+
+      // KuantanMudik District
+      { subdistrictName: 'Kuantan Mudik', districtOid: kuantanMudik.oid, postalCode: '29564', createdAt: new Date(), updatedAt: new Date() },
+
+      // KuantanTengah District
+      { subdistrictName: 'Kuantan Tengah', districtOid: kuantanTengah.oid, postalCode: '29565', createdAt: new Date(), updatedAt: new Date() },
+
+      // LogasTanahDarat District
+      { subdistrictName: 'Logas Tanah Darat', districtOid: logasTanahDarat.oid, postalCode: '29566', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pangean District
+      { subdistrictName: 'Pangean', districtOid: pangean.oid, postalCode: '29567', createdAt: new Date(), updatedAt: new Date() },
+
+      // PucukRantau District
+      { subdistrictName: 'Pucuk Rantau', districtOid: pucukRantau.oid, postalCode: '29568', createdAt: new Date(), updatedAt: new Date() },
+
+      // SentajoRaya District
+      { subdistrictName: 'Sentajo Raya', districtOid: sentajoRaya.oid, postalCode: '29569', createdAt: new Date(), updatedAt: new Date() },
+
+      // Singingi District
+      { subdistrictName: 'Singingi', districtOid: singingi.oid, postalCode: '29571', createdAt: new Date(), updatedAt: new Date() },
+
+      // SingingiHilir District
+      { subdistrictName: 'Singingi Hilir', districtOid: singingiHilir.oid, postalCode: '29572', createdAt: new Date(), updatedAt: new Date() },
+
+      // Siak District
+      { subdistrictName: 'Siak', districtOid: siak.oid, postalCode: '28671', createdAt: new Date(), updatedAt: new Date() },
+
+      // BungaRaya District
+      { subdistrictName: 'Bunga Raya', districtOid: bungaRaya.oid, postalCode: '28672', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dayun District
+      { subdistrictName: 'Dayun', districtOid: dayun.oid, postalCode: '28673', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kandis District
+      { subdistrictName: 'Kandis', districtOid: kandis.oid, postalCode: '28674', createdAt: new Date(), updatedAt: new Date() },
+
+      // KerinciKanan District
+      { subdistrictName: 'Kerinci Kanan', districtOid: kerinciKanan.oid, postalCode: '28675', createdAt: new Date(), updatedAt: new Date() },
+
+      // KotoGasib District
+      { subdistrictName: 'Koto Gasib', districtOid: kotoGasib.oid, postalCode: '28676', createdAt: new Date(), updatedAt: new Date() },
+
+      // LubukDalam District
+      { subdistrictName: 'Lubuk Dalam', districtOid: lubukDalam.oid, postalCode: '28677', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mempura District
+      { subdistrictName: 'Mempura', districtOid: mempura.oid, postalCode: '28678', createdAt: new Date(), updatedAt: new Date() },
+
+      // Minas District
+      { subdistrictName: 'Minas', districtOid: minas.oid, postalCode: '28679', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pusako District
+      { subdistrictName: 'Pusako', districtOid: pusako.oid, postalCode: '28681', createdAt: new Date(), updatedAt: new Date() },
+
+      // SabakAuh District
+      { subdistrictName: 'Sabak Auh', districtOid: sabakAuh.oid, postalCode: '28682', createdAt: new Date(), updatedAt: new Date() },
+
+      // SungaiApit District
+      { subdistrictName: 'Sungai Apit', districtOid: sungaiApit.oid, postalCode: '28683', createdAt: new Date(), updatedAt: new Date() },
+
+      // SungaiMandau District
+      { subdistrictName: 'Sungai Mandau', districtOid: sungaiMandau.oid, postalCode: '28684', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tualang District
+      { subdistrictName: 'Tualang', districtOid: tualang.oid, postalCode: '28685', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kepulauan Meranti Regency
+      { subdistrictName: 'Selat Panjang', districtOid: selatPanjang.oid, postalCode: '28791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merbau', districtOid: merbau.oid, postalCode: '28752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Merbau', districtOid: pulauMerbau.oid, postalCode: '28753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rangsang', districtOid: rangsang.oid, postalCode: '28754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rangsang Barat', districtOid: rangsangBarat.oid, postalCode: '28755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rangsang Pesisir', districtOid: rangsangPesisir.oid, postalCode: '28756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi', districtOid: tebingTinggikepulauanMerantiDistrict.oid, postalCode: '28757', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Barat', districtOid: tebingTinggiBarat.oid, postalCode: '28758', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Timur', districtOid: tebingTinggiTimur.oid, postalCode: '28759', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bengkalis Regency
+      { subdistrictName: 'Bengkalis', districtOid: bengkalis.oid, postalCode: '28711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantan', districtOid: bantan.oid, postalCode: '28754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Batu', districtOid: bukitBatuDistrict.oid, postalCode: '28761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandau', districtOid: mandau.oid, postalCode: '28784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pinggir', districtOid: pinggir.oid, postalCode: '28784', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rupat', districtOid: rupat.oid, postalCode: '28781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rupat Utara', districtOid: rupatUtara.oid, postalCode: '28782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siak Kecil', districtOid: siakKecil.oid, postalCode: '28771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Laksamana', districtOid: bandarLaksamana.oid, postalCode: '28712', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simboro District
+      { subdistrictName: 'Simboro', districtOid: simboroDistrict.oid, postalCode: '91512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bambu', districtOid: simboroDistrict.oid, postalCode: '91513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalukku', districtOid: simboroDistrict.oid, postalCode: '91514', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tapalang District
+      { subdistrictName: 'Tapalang', districtOid: tapalangDistrict.oid, postalCode: '91521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapalang Barat', districtOid: tapalangDistrict.oid, postalCode: '91522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonehau', districtOid: tapalangDistrict.oid, postalCode: '91523', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tapalang Barat District
+      { subdistrictName: 'Tapalang Barat', districtOid: tapalangBaratDistrict.oid, postalCode: '91531', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Salulekbo', districtOid: tapalangBaratDistrict.oid, postalCode: '91532', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Salumakki', districtOid: tapalangBaratDistrict.oid, postalCode: '91533', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mamuju District
+      { subdistrictName: 'Mamuju', districtOid: mamujuDistrict.oid, postalCode: '91511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binanga', districtOid: mamujuDistrict.oid, postalCode: '91512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karema', districtOid: mamujuDistrict.oid, postalCode: '91513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kalukku District
+      { subdistrictName: 'Kalukku', districtOid: kalukkuDistrict.oid, postalCode: '91541', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinyonyoi', districtOid: kalukkuDistrict.oid, postalCode: '91542', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bebanga', districtOid: kalukkuDistrict.oid, postalCode: '91543', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banggae District
+      { subdistrictName: 'Banggae', districtOid: banggaeDistrict.oid, postalCode: '91411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banggae Timur', districtOid: banggaeDistrict.oid, postalCode: '91412', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pamboang', districtOid: banggaeDistrict.oid, postalCode: '91413', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banggae Timur District
+      { subdistrictName: 'Banggae Timur', districtOid: banggaeTimurDistrict.oid, postalCode: '91421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baurung', districtOid: banggaeTimurDistrict.oid, postalCode: '91422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galung', districtOid: banggaeTimurDistrict.oid, postalCode: '91423', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pambuang District
+      { subdistrictName: 'Pambuang', districtOid: pambuangDistrict.oid, postalCode: '91431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pambuang Barat', districtOid: pambuangDistrict.oid, postalCode: '91432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pambuang Selatan', districtOid: pambuangDistrict.oid, postalCode: '91433', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sendana District
+      { subdistrictName: 'Sendana', districtOid: sendanamajeneDistrict.oid, postalCode: '91441', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mosso', districtOid: sendanamajeneDistrict.oid, postalCode: '91442', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paminggalan', districtOid: sendanamajeneDistrict.oid, postalCode: '91443', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tammeredo Sendana District
+      { subdistrictName: 'Tammeredo Sendana', districtOid: tammeredoSendanaDistrict.oid, postalCode: '91451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang', districtOid: tammeredoSendanaDistrict.oid, postalCode: '91452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pamoseang', districtOid: tammeredoSendanaDistrict.oid, postalCode: '91453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tubo Sendana District
+      { subdistrictName: 'Tubo Sendana', districtOid: tuboSendanaDistrict.oid, postalCode: '91461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tubo', districtOid: tuboSendanaDistrict.oid, postalCode: '91462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamba-lamba', districtOid: tuboSendanaDistrict.oid, postalCode: '91463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Campalagian District
+      { subdistrictName: 'Campalagian', districtOid: campalagianDistrict.oid, postalCode: '91353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonde', districtOid: campalagianDistrict.oid, postalCode: '91354', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pambusuang', districtOid: campalagianDistrict.oid, postalCode: '91355', createdAt: new Date(), updatedAt: new Date() },
+
+      // Limboro District
+      { subdistrictName: 'Limboro', districtOid: limboroDistrict.oid, postalCode: '91361', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapango', districtOid: limboroDistrict.oid, postalCode: '91362', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tinambung', districtOid: limboroDistrict.oid, postalCode: '91363', createdAt: new Date(), updatedAt: new Date() },
+
+      // Polewali District
+      { subdistrictName: 'Polewali', districtOid: polewaliDistrict.oid, postalCode: '91311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wonomulyo', districtOid: polewaliDistrict.oid, postalCode: '91312', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tinambung', districtOid: polewaliDistrict.oid, postalCode: '91313', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tapango District
+      { subdistrictName: 'Tapango', districtOid: tapangoDistrict.oid, postalCode: '91371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balanipa', districtOid: tapangoDistrict.oid, postalCode: '91372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Campalagian', districtOid: tapangoDistrict.oid, postalCode: '91373', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tinambung District
+      { subdistrictName: 'Tinambung', districtOid: tinambungDistrict.oid, postalCode: '91381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balanipa', districtOid: tinambungDistrict.oid, postalCode: '91382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Campalagian', districtOid: tinambungDistrict.oid, postalCode: '91383', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wonomulyo District
+      { subdistrictName: 'Wonomulyo', districtOid: wonomulyoDistrict.oid, postalCode: '91391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balanipa', districtOid: wonomulyoDistrict.oid, postalCode: '91392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Campalagian', districtOid: wonomulyoDistrict.oid, postalCode: '91393', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mamasa District
+      { subdistrictName: 'Mamasa', districtOid: mamasaDistrict.oid, postalCode: '91362', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pana', districtOid: mamasaDistrict.oid, postalCode: '91363', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sesena Padang', districtOid: mamasaDistrict.oid, postalCode: '91364', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pana District
+      { subdistrictName: 'Pana', districtOid: panaDistrict.oid, postalCode: '91371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumarorong', districtOid: panaDistrict.oid, postalCode: '91372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tabang', districtOid: panaDistrict.oid, postalCode: '91373', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sesena Padang District
+      { subdistrictName: 'Sesena Padang', districtOid: sesenaPadangDistrict.oid, postalCode: '91381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanduk Kalua', districtOid: sesenaPadangDistrict.oid, postalCode: '91382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bambalamotu', districtOid: sesenaPadangDistrict.oid, postalCode: '91383', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sumarorong District
+      { subdistrictName: 'Sumarorong', districtOid: sumarorongDistrict.oid, postalCode: '91391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baras', districtOid: sumarorongDistrict.oid, postalCode: '91392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasangkayu', districtOid: sumarorongDistrict.oid, postalCode: '91393', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tabang District
+      { subdistrictName: 'Tabang', districtOid: tabangDistrict.oid, postalCode: '91401', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pedongga', districtOid: tabangDistrict.oid, postalCode: '91402', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarudu', districtOid: tabangDistrict.oid, postalCode: '91403', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanduk Kalua District
+      { subdistrictName: 'Tanduk Kalua', districtOid: tandukKaluaDistrict.oid, postalCode: '91411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarjo', districtOid: tandukKaluaDistrict.oid, postalCode: '91412', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Budong-Budong', districtOid: tandukKaluaDistrict.oid, postalCode: '91413', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bambalamotu District
+      { subdistrictName: 'Bambalamotu', districtOid: bambalamotuDistrict.oid, postalCode: '91421', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalumpang', districtOid: bambalamotuDistrict.oid, postalCode: '91422', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karossa', districtOid: bambalamotuDistrict.oid, postalCode: '91423', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baras District
+      { subdistrictName: 'Baras', districtOid: barasDistrict.oid, postalCode: '91431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangale', districtOid: barasDistrict.oid, postalCode: '91432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tobada', districtOid: barasDistrict.oid, postalCode: '91433', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasangkayu District
+      { subdistrictName: 'Pasangkayu', districtOid: pasangkayuDistrict.oid, postalCode: '91441', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Topoyo', districtOid: pasangkayuDistrict.oid, postalCode: '91442', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pedongga', districtOid: pasangkayuDistrict.oid, postalCode: '91443', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pedongga District
+      { subdistrictName: 'Pedongga', districtOid: pedonggaDistrict.oid, postalCode: '91451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarudu', districtOid: pedonggaDistrict.oid, postalCode: '91452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarjo', districtOid: pedonggaDistrict.oid, postalCode: '91453', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sarudu District
+      { subdistrictName: 'Sarudu', districtOid: saruduDistrict.oid, postalCode: '91461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Budong-Budong', districtOid: saruduDistrict.oid, postalCode: '91462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalumpang', districtOid: saruduDistrict.oid, postalCode: '91463', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sarjo District
+      { subdistrictName: 'Sarjo', districtOid: sarjoDistrict.oid, postalCode: '91471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karossa', districtOid: sarjoDistrict.oid, postalCode: '91472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangale', districtOid: sarjoDistrict.oid, postalCode: '91473', createdAt: new Date(), updatedAt: new Date() },
+
+      // Budong-Budong District
+      { subdistrictName: 'Budong-Budong', districtOid: budongBudongDistrict.oid, postalCode: '91481', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tobada', districtOid: budongBudongDistrict.oid, postalCode: '91482', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Topoyo', districtOid: budongBudongDistrict.oid, postalCode: '91483', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kalumpang District
+      { subdistrictName: 'Kalumpang', districtOid: kalumpangDistrict.oid, postalCode: '91491', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karossa', districtOid: kalumpangDistrict.oid, postalCode: '91492', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangale', districtOid: kalumpangDistrict.oid, postalCode: '91493', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karossa District
+      { subdistrictName: 'Karossa', districtOid: karossaDistrict.oid, postalCode: '91501', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangale', districtOid: karossaDistrict.oid, postalCode: '91502', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tobada', districtOid: karossaDistrict.oid, postalCode: '91503', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pangale District
+      { subdistrictName: 'Pangale', districtOid: pangaleDistrict.oid, postalCode: '91511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tobada', districtOid: pangaleDistrict.oid, postalCode: '91512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Topoyo', districtOid: pangaleDistrict.oid, postalCode: '91513', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tobada District
+      { subdistrictName: 'Tobada', districtOid: tobadaDistrict.oid, postalCode: '91521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Topoyo', districtOid: tobadaDistrict.oid, postalCode: '91522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pedongga', districtOid: tobadaDistrict.oid, postalCode: '91523', createdAt: new Date(), updatedAt: new Date() },
+
+      // Topoyo District
+      { subdistrictName: 'Topoyo', districtOid: topoyoDistrict.oid, postalCode: '91531', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarudu', districtOid: topoyoDistrict.oid, postalCode: '91532', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarjo', districtOid: topoyoDistrict.oid, postalCode: '91533', createdAt: new Date(), updatedAt: new Date() },
+
+      // Makassar City Districts
+      { subdistrictName: 'Biring Kanaya', districtOid: makassarDistrict.oid, postalCode: '90243', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontoala', districtOid: makassarDistrict.oid, postalCode: '90153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Makassar', districtOid: makassarDistrict.oid, postalCode: '90111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mamajang', districtOid: makassarDistrict.oid, postalCode: '90131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Manggala', districtOid: makassarDistrict.oid, postalCode: '90233', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mariso', districtOid: makassarDistrict.oid, postalCode: '90126', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panakkukang', districtOid: makassarDistrict.oid, postalCode: '90231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rappocini', districtOid: makassarDistrict.oid, postalCode: '90222', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tallo', districtOid: makassarDistrict.oid, postalCode: '90161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamalanrea', districtOid: makassarDistrict.oid, postalCode: '90244', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamalate', districtOid: makassarDistrict.oid, postalCode: '90224', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung Pandang', districtOid: makassarDistrict.oid, postalCode: '90111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung Tanah', districtOid: makassarDistrict.oid, postalCode: '90167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wajo', districtOid: makassarDistrict.oid, postalCode: '90173', createdAt: new Date(), updatedAt: new Date() },
+
+      // Parepare City Districts
+      { subdistrictName: 'Bacukiki', districtOid: parepareDistrict.oid, postalCode: '91121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bacukiki Barat', districtOid: parepareDistrict.oid, postalCode: '91122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Soreang', districtOid: parepareDistrict.oid, postalCode: '91131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung', districtOid: parepareDistrict.oid, postalCode: '91111', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bara District (Palopo City)
+      { subdistrictName: 'Bara', districtOid: bara.oid, postalCode: '91921', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mungkajang District (Palopo City)
+      { subdistrictName: 'Mungkajang', districtOid: mungkajang.oid, postalCode: '91922', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sendanapalopo District (Palopo City)
+      { subdistrictName: 'Sendana', districtOid: sendanapalopoDistrict.oid, postalCode: '91923', createdAt: new Date(), updatedAt: new Date() },
+
+      // Telluwanua District (Palopo City)
+      { subdistrictName: 'Telluwanua', districtOid: telluwanua.oid, postalCode: '91924', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wara District (Palopo City)
+      { subdistrictName: 'Wara', districtOid: wara.oid, postalCode: '91925', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palopo City Districts
+      { subdistrictName: 'Wara Barat', districtOid: palopoDistrict.oid, postalCode: '91921', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wara Selatan', districtOid: palopoDistrict.oid, postalCode: '91922', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wara Timur', districtOid: palopoDistrict.oid, postalCode: '91923', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wara Utara', districtOid: palopoDistrict.oid, postalCode: '91924', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maros Regency Districts
+      { subdistrictName: 'Maros Baru', districtOid: marosDistrict.oid, postalCode: '90511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantimurung', districtOid: marosDistrict.oid, postalCode: '90561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Camba', districtOid: marosDistrict.oid, postalCode: '90562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lau', districtOid: marosDistrict.oid, postalCode: '90563', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mallawa', districtOid: marosDistrict.oid, postalCode: '90564', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandai', districtOid: marosDistrict.oid, postalCode: '90552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marusu', districtOid: marosDistrict.oid, postalCode: '90553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moncongloe', districtOid: marosDistrict.oid, postalCode: '90554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simbang', districtOid: marosDistrict.oid, postalCode: '90555', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanralili', districtOid: marosDistrict.oid, postalCode: '90556', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tompu Bulu', districtOid: marosDistrict.oid, postalCode: '90557', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Turikale', districtOid: marosDistrict.oid, postalCode: '90514', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bajeng District (Gowa)
+      { subdistrictName: 'Bajeng', districtOid: bajeng.oid, postalCode: '92161', createdAt: new Date(), updatedAt: new Date() },
+
+      // BajengBarat District (Gowa)
+      { subdistrictName: 'Bajeng Barat', districtOid: bajengBarat.oid, postalCode: '92162', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barombong District (Gowa)
+      { subdistrictName: 'Barombong', districtOid: barombong.oid, postalCode: '92163', createdAt: new Date(), updatedAt: new Date() },
+
+      // Biringbulu District (Gowa)
+      { subdistrictName: 'Biringbulu', districtOid: biringbulu.oid, postalCode: '92164', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontolempangan District (Gowa)
+      { subdistrictName: 'Bontolempangan', districtOid: bontolempangan.oid, postalCode: '92165', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontomarannu District (Gowa)
+      { subdistrictName: 'Bontomarannu', districtOid: bontomarannu.oid, postalCode: '92166', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontonompo District (Gowa)
+      { subdistrictName: 'Bontonompo', districtOid: bontonompo.oid, postalCode: '92167', createdAt: new Date(), updatedAt: new Date() },
+
+      // BontonompoSelatan District (Gowa)
+      { subdistrictName: 'Bontonompo Selatan', districtOid: bontonompoSelatan.oid, postalCode: '92168', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bungaya District (Gowa)
+      { subdistrictName: 'Bungaya', districtOid: bungaya.oid, postalCode: '92169', createdAt: new Date(), updatedAt: new Date() },
+
+      // Manuju District (Gowa)
+      { subdistrictName: 'Manuju', districtOid: manuju.oid, postalCode: '92171', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pallangga District (Gowa)
+      { subdistrictName: 'Pallangga', districtOid: pallangga.oid, postalCode: '92172', createdAt: new Date(), updatedAt: new Date() },
+
+      // Parangloe District (Gowa)
+      { subdistrictName: 'Parangloe', districtOid: parangloe.oid, postalCode: '92173', createdAt: new Date(), updatedAt: new Date() },
+
+      // SombaOpu District (Gowa)
+      { subdistrictName: 'Somba Opu', districtOid: sombaOpu.oid, postalCode: '92174', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tinggimoncong District (Gowa)
+      { subdistrictName: 'Tinggimoncong', districtOid: tinggimoncong.oid, postalCode: '92175', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pattallassang District (Gowa)
+      { subdistrictName: 'Pattallassang', districtOid: pattallassang.oid, postalCode: '92176', createdAt: new Date(), updatedAt: new Date() },
+
+      // MangaraBombang District (Takalar)
+      { subdistrictName: 'Mangara Bombang', districtOid: mangaraBombang.oid, postalCode: '92261', createdAt: new Date(), updatedAt: new Date() },
+
+      // PolombangkengSelatan District (Takalar)
+      { subdistrictName: 'Polombangkeng Selatan', districtOid: polombangkengSelatan.oid, postalCode: '92262', createdAt: new Date(), updatedAt: new Date() },
+
+      // PolombangkengUtara District (Takalar)
+      { subdistrictName: 'Polombangkeng Utara', districtOid: polombangkengUtara.oid, postalCode: '92263', createdAt: new Date(), updatedAt: new Date() },
+
+      // Galesong District (Takalar)
+      { subdistrictName: 'Galesong', districtOid: galesong.oid, postalCode: '92264', createdAt: new Date(), updatedAt: new Date() },
+
+      // GalesongSelatan District (Takalar)
+      { subdistrictName: 'Galesong Selatan', districtOid: galesongSelatan.oid, postalCode: '92265', createdAt: new Date(), updatedAt: new Date() },
+
+      // GalesongUtara District (Takalar)
+      { subdistrictName: 'Galesong Utara', districtOid: galesongUtara.oid, postalCode: '92266', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mappakasunggu District (Takalar)
+      { subdistrictName: 'Mappakasunggu', districtOid: mappakasunggu.oid, postalCode: '92267', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bontosunggu District (Takalar)
+      { subdistrictName: 'Bontosunggu', districtOid: bontosunggu.oid, postalCode: '92268', createdAt: new Date(), updatedAt: new Date() },
+
+      // Jeneponto Regency
+      { subdistrictName: 'Bangkala', districtOid: bangkala.oid, postalCode: '92352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangkala Barat', districtOid: bangkalaBarat.oid, postalCode: '92353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang', districtOid: batang.oid, postalCode: '92351', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binamu', districtOid: binamu.oid, postalCode: '92311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamalatea', districtOid: tamalatea.oid, postalCode: '92354', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tarowang', districtOid: tarowang.oid, postalCode: '92355', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bantaeng Regency
+      { subdistrictName: 'Arungkeke', districtOid: arungkeke.oid, postalCode: '92461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bantaeng', districtOid: bantaeng.oid, postalCode: '92411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bissappu', districtOid: bissappu.oid, postalCode: '92451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Eremerasa', districtOid: eremerasasa.oid, postalCode: '92452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pajukukang', districtOid: pajukukang.oid, postalCode: '92453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinoa', districtOid: sinoa.oid, postalCode: '92454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tompobulu', districtOid: tompobulu.oid, postalCode: '92455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Uluere', districtOid: uluere.oid, postalCode: '92456', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulukumba Regency
+      { subdistrictName: 'Ujung Bulu', districtOid: ujungBulu.oid, postalCode: '92511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gantarang', districtOid: gantarang.oid, postalCode: '92552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kindang', districtOid: kindang.oid, postalCode: '92553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rilau Ale', districtOid: rilauAle.oid, postalCode: '92554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung Loe', districtOid: ujungLoe.oid, postalCode: '92555', createdAt: new Date(), updatedAt: new Date() },
+
+      // Selayar Islands Regency
+      { subdistrictName: 'Bonto Bahari', districtOid: bontoBahari.oid, postalCode: '92811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Tiro', districtOid: bontoTiro.oid, postalCode: '92851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kajang', districtOid: kajang.oid, postalCode: '92852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: bentengDistrict.oid, postalCode: '92812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontoharu', districtOid: bontoharuDistrict.oid, postalCode: '92813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontomanai', districtOid: bontomanaiDistrict.oid, postalCode: '92814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontomatene', districtOid: bontomateneDistrict.oid, postalCode: '92815', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bontosikuyu', districtOid: bontosikuyuDistrict.oid, postalCode: '92816', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasilambena', districtOid: pasilambenaDistrict.oid, postalCode: '92817', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasimarannu', districtOid: pasimarannuDistrict.oid, postalCode: '92818', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Taka Bonerate', districtOid: takaBonerate.oid, postalCode: '92819', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai District
+      { subdistrictName: 'Sinjai', districtOid: sinjaiDistrict.oid, postalCode: '92611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Biringere', districtOid: sinjaiDistrict.oid, postalCode: '92612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa', districtOid: sinjaiDistrict.oid, postalCode: '92613', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Barat District
+      { subdistrictName: 'Sinjai Barat', districtOid: sinjaiBaratDistrict.oid, postalCode: '92621', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balangnipa', districtOid: sinjaiBaratDistrict.oid, postalCode: '92622', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamatti Rilau', districtOid: sinjaiBaratDistrict.oid, postalCode: '92623', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Borong District
+      { subdistrictName: 'Sinjai Borong', districtOid: sinjaiBorongDistrict.oid, postalCode: '92631', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bongki', districtOid: sinjaiBorongDistrict.oid, postalCode: '92632', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Erelembang', districtOid: sinjaiBorongDistrict.oid, postalCode: '92633', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Selatan District
+      { subdistrictName: 'Sinjai Selatan', districtOid: sinjaiSelatanDistrict.oid, postalCode: '92641', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto', districtOid: sinjaiSelatanDistrict.oid, postalCode: '92642', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Lappang', districtOid: sinjaiSelatanDistrict.oid, postalCode: '92643', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Tengah District
+      { subdistrictName: 'Sinjai Tengah', districtOid: sinjaiTengahDistrict.oid, postalCode: '92651', createdAt: new Date(), updatedAt: new Date() },
+      {
+        subdistrictName: 'Bonto Matene', districtOid: sinjaiTengahDistrict.oid, postalCode: '92652', createdAt: new Date(), updatedAt: new Date()
+      },
+      { subdistrictName: 'Bontosunggu', districtOid: sinjaiTengahDistrict.oid, postalCode: '92653', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Timur District
+      { subdistrictName: 'Sinjai Timur', districtOid: sinjaiTimurDistrict.oid, postalCode: '92661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: sinjaiTimurDistrict.oid, postalCode: '92662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: sinjaiTimurDistrict.oid, postalCode: '92663', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sinjai Utara District
+      { subdistrictName: 'Sinjai Utara', districtOid: sinjaiUtaraDistrict.oid, postalCode: '92671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: sinjaiUtaraDistrict.oid, postalCode: '92672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: sinjaiUtaraDistrict.oid, postalCode: '92673', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulupoddo District
+      { subdistrictName: 'Bulupoddo', districtOid: bulupoddoDistrict.oid, postalCode: '92681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulo Bulo', districtOid: bulupoddoDistrict.oid, postalCode: '92682', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamatti Riattang', districtOid: bulupoddoDistrict.oid, postalCode: '92683', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tellu Limpoe District
+      { subdistrictName: 'Tellu Limpoe', districtOid: telluLimpoeDistrict.oid, postalCode: '92691', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Putih', districtOid: telluLimpoeDistrict.oid, postalCode: '92692', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Tasi', districtOid: telluLimpoeDistrict.oid, postalCode: '92693', createdAt: new Date(), updatedAt: new Date() },
+
+      // Watampone District (Capital)
+      { subdistrictName: 'Watampone', districtOid: watamponeDistrict.oid, postalCode: '92711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Macanang', districtOid: watamponeDistrict.oid, postalCode: '92712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mappesangka', districtOid: watamponeDistrict.oid, postalCode: '92713', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barebbo District
+      { subdistrictName: 'Barebbo', districtOid: barebboDistrict.oid, postalCode: '92721', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cempaniga', districtOid: barebboDistrict.oid, postalCode: '92722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lalepo', districtOid: barebboDistrict.oid, postalCode: '92723', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bengo District
+      { subdistrictName: 'Bengo', districtOid: bengoDistrict.oid, postalCode: '92731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Cani', districtOid: bengoDistrict.oid, postalCode: '92732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Tiro', districtOid: bengoDistrict.oid, postalCode: '92733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cina District
+      { subdistrictName: 'Cina', districtOid: cinaDistrict.oid, postalCode: '92741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: cinaDistrict.oid, postalCode: '92742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: cinaDistrict.oid, postalCode: '92743', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dua Boccoe District
+      { subdistrictName: 'Dua Boccoe', districtOid: duaBoccoeDistrict.oid, postalCode: '92751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: duaBoccoeDistrict.oid, postalCode: '92752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: duaBoccoeDistrict.oid, postalCode: '92753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kahu District
+      { subdistrictName: 'Kahu', districtOid: kahuDistrict.oid, postalCode: '92761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: kahuDistrict.oid, postalCode: '92762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: kahuDistrict.oid, postalCode: '92763', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kajuara District
+      { subdistrictName: 'Kajuara', districtOid: kajuaraDistrict.oid, postalCode: '92771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: kajuaraDistrict.oid, postalCode: '92772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: kajuaraDistrict.oid, postalCode: '92773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lamuru District
+      { subdistrictName: 'Lamuru', districtOid: lamuruDistrict.oid, postalCode: '92781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: lamuruDistrict.oid, postalCode: '92782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: lamuruDistrict.oid, postalCode: '92783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lappariaja District
+      { subdistrictName: 'Lappariaja', districtOid: lappariajaDistrict.oid, postalCode: '92791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: lappariajaDistrict.oid, postalCode: '92792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: lappariajaDistrict.oid, postalCode: '92793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Libureng District
+      { subdistrictName: 'Libureng', districtOid: liburengDistrict.oid, postalCode: '92801', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: liburengDistrict.oid, postalCode: '92802', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: liburengDistrict.oid, postalCode: '92803', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mare District
+      { subdistrictName: 'Mare', districtOid: mareDistrict.oid, postalCode: '92811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: mareDistrict.oid, postalCode: '92812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: mareDistrict.oid, postalCode: '92813', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palakka District
+      { subdistrictName: 'Palakka', districtOid: palakkaDistrict.oid, postalCode: '92821', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: palakkaDistrict.oid, postalCode: '92822', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: palakkaDistrict.oid, postalCode: '92823', createdAt: new Date(), updatedAt: new Date() },
+
+      // Patimpeng District
+      { subdistrictName: 'Patimpeng', districtOid: patimpengDistrict.oid, postalCode: '92831', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: patimpengDistrict.oid, postalCode: '92832', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: patimpengDistrict.oid, postalCode: '92833', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ponre District
+      { subdistrictName: 'Ponre', districtOid: ponreDistrict.oid, postalCode: '92841', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: ponreDistrict.oid, postalCode: '92842', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: ponreDistrict.oid, postalCode: '92843', createdAt: new Date(), updatedAt: new Date() },
+
+      // Salomekko District
+      { subdistrictName: 'Salomekko', districtOid: salomekkoDistrict.oid, postalCode: '92851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: salomekkoDistrict.oid, postalCode: '92852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: salomekkoDistrict.oid, postalCode: '92853', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sibulue District
+      { subdistrictName: 'Sibulue', districtOid: sibulueDistrict.oid, postalCode: '92861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: sibulueDistrict.oid, postalCode: '92862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: sibulueDistrict.oid, postalCode: '92863', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanete Riattang District
+      { subdistrictName: 'Tanete Riattang', districtOid: taneteRiattangDistrict.oid, postalCode: '92871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: taneteRiattangDistrict.oid, postalCode: '92872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: taneteRiattangDistrict.oid, postalCode: '92873', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanete Riattang Barat District
+      { subdistrictName: 'Tanete Riattang Barat', districtOid: taneteRiattangBaratDistrict.oid, postalCode: '92881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: taneteRiattangBaratDistrict.oid, postalCode: '92882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: taneteRiattangBaratDistrict.oid, postalCode: '92883', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanete Riattang Timur District
+      { subdistrictName: 'Tanete Riattang Timur', districtOid: taneteRiattangTimurDistrict.oid, postalCode: '92891', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: taneteRiattangTimurDistrict.oid, postalCode: '92892', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: taneteRiattangTimurDistrict.oid, postalCode: '92893', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tellu Limpoe Bone District
+      { subdistrictName: 'Tellu Limpoe', districtOid: telluLimpoeBoneDistrict.oid, postalCode: '92901', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: telluLimpoeBoneDistrict.oid, postalCode: '92902', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: telluLimpoeBoneDistrict.oid, postalCode: '92903', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tellu Siattinge District
+      { subdistrictName: 'Tellu Siattinge', districtOid: telluSiattingeDistrict.oid, postalCode: '92911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: telluSiattingeDistrict.oid, postalCode: '92912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: telluSiattingeDistrict.oid, postalCode: '92913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tonra District
+      { subdistrictName: 'Tonra', districtOid: tonraDistrict.oid, postalCode: '92921', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Manai', districtOid: tonraDistrict.oid, postalCode: '92922', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Awe', districtOid: tonraDistrict.oid, postalCode: '92923', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ulaweng District
+      { subdistrictName: 'Ulaweng', districtOid: ulawengDistrict.oid, postalCode: '92931', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonto Matene', districtOid: ulawengDistrict.oid, postalCode: '92932', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lappa Riaja', districtOid: ulawengDistrict.oid, postalCode: '92933', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sengkang District (Capital)
+      { subdistrictName: 'Sengkang', districtOid: sengkangDistrict.oid, postalCode: '92911', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Assorajang', districtOid: sengkangDistrict.oid, postalCode: '92912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Limpomajang', districtOid: sengkangDistrict.oid, postalCode: '92913', createdAt: new Date(), updatedAt: new Date() },
+
+      // Belawa District
+      { subdistrictName: 'Belawa', districtOid: belawaDistrict.oid, postalCode: '92921', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: belawaDistrict.oid, postalCode: '92922', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lautang', districtOid: belawaDistrict.oid, postalCode: '92923', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bola District
+      { subdistrictName: 'Bola', districtOid: bolaDistrict.oid, postalCode: '92931', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bola Ujung', districtOid: bolaDistrict.oid, postalCode: '92932', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bulupabbulu', districtOid: bolaDistrict.oid, postalCode: '92933', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gilireng District
+      { subdistrictName: 'Gilireng', districtOid: gilirengDistrict.oid, postalCode: '92941', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Abbanderangnge', districtOid: gilirengDistrict.oid, postalCode: '92942', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamata', districtOid: gilirengDistrict.oid, postalCode: '92943', createdAt: new Date(), updatedAt: new Date() },
+
+      // Keera District
+      { subdistrictName: 'Keera', districtOid: keeraDistrict.oid, postalCode: '92951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Awo', districtOid: keeraDistrict.oid, postalCode: '92952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompo Battang', districtOid: keeraDistrict.oid, postalCode: '92953', createdAt: new Date(), updatedAt: new Date() },
+
+      // Majauleng District
+      { subdistrictName: 'Majauleng', districtOid: majaulengDistrict.oid, postalCode: '92961', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cina', districtOid: majaulengDistrict.oid, postalCode: '92962', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lapaukke', districtOid: majaulengDistrict.oid, postalCode: '92963', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maniang Pajo District
+      { subdistrictName: 'Maniang Pajo', districtOid: maniangPajoDistrict.oid, postalCode: '92971', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng Lompoe', districtOid: maniangPajoDistrict.oid, postalCode: '92972', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompoloang', districtOid: maniangPajoDistrict.oid, postalCode: '92973', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pammana District
+      { subdistrictName: 'Pammana', districtOid: pammanaDistrict.oid, postalCode: '92981', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: pammanaDistrict.oid, postalCode: '92982', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: pammanaDistrict.oid, postalCode: '92983', createdAt: new Date(), updatedAt: new Date() },
+
+      // Penrang District
+      { subdistrictName: 'Penrang', districtOid: penrangDistrict.oid, postalCode: '92991', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: penrangDistrict.oid, postalCode: '92992', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: penrangDistrict.oid, postalCode: '92993', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pitumpanua District
+      { subdistrictName: 'Pitumpanua', districtOid: pitumpanuaDistrict.oid, postalCode: '93001', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: pitumpanuaDistrict.oid, postalCode: '93002', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: pitumpanuaDistrict.oid, postalCode: '93003', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sabbang Paru District
+      { subdistrictName: 'Sabbang Paru', districtOid: sabbangParuDistrict.oid, postalCode: '93011', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: sabbangParuDistrict.oid, postalCode: '93012', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: sabbangParuDistrict.oid, postalCode: '93013', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sajoanging District
+      { subdistrictName: 'Sajoanging', districtOid: sajoangingDistrict.oid, postalCode: '93021', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: sajoangingDistrict.oid, postalCode: '93022', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: sajoangingDistrict.oid, postalCode: '93023', createdAt: new Date(), updatedAt: new Date() },
+
+      // Takkallala District
+      { subdistrictName: 'Takkallala', districtOid: takkallalaDistrict.oid, postalCode: '93031', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: takkallalaDistrict.oid, postalCode: '93032', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: takkallalaDistrict.oid, postalCode: '93033', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tana Sitolo District
+      { subdistrictName: 'Tana Sitolo', districtOid: tanaSitoloDistrict.oid, postalCode: '93041', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: tanaSitoloDistrict.oid, postalCode: '93042', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: tanaSitoloDistrict.oid, postalCode: '93043', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tempe District
+      { subdistrictName: 'Tempe', districtOid: tempeDistrict.oid, postalCode: '93051', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Benteng', districtOid: tempeDistrict.oid, postalCode: '93052', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lompobattang', districtOid: tempeDistrict.oid, postalCode: '93053', createdAt: new Date(), updatedAt: new Date() },
+
+      // Soppeng Regency
+      { subdistrictName: 'Watan Soppeng', districtOid: soppengDistrict.oid, postalCode: '90811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Donri Donri', districtOid: soppengDistrict.oid, postalCode: '90861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ganra', districtOid: soppengDistrict.oid, postalCode: '90862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lalabata', districtOid: soppengDistrict.oid, postalCode: '90812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lili Rilau', districtOid: soppengDistrict.oid, postalCode: '90863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marioriwawo', districtOid: soppengDistrict.oid, postalCode: '90864', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marioriawa', districtOid: soppengDistrict.oid, postalCode: '90865', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barru Regency
+      { subdistrictName: 'Barru', districtOid: barruDistrict.oid, postalCode: '90711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balusu', districtOid: barruDistrict.oid, postalCode: '90752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mallusetasi', districtOid: barruDistrict.oid, postalCode: '90753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pujananting', districtOid: barruDistrict.oid, postalCode: '90754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Soppeng Riaja', districtOid: barruDistrict.oid, postalCode: '90755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanete Riaja', districtOid: barruDistrict.oid, postalCode: '90756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanete Rilau', districtOid: barruDistrict.oid, postalCode: '90757', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pangkajene Kepulauan (Pangkep) Regency
+      { subdistrictName: 'Pangkajene', districtOid: pangkepDistrict.oid, postalCode: '90611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balocci', districtOid: pangkepDistrict.oid, postalCode: '90651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bungoro', districtOid: pangkepDistrict.oid, postalCode: '90652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Labakkang', districtOid: pangkepDistrict.oid, postalCode: '90653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Liukang Tangaya', districtOid: pangkepDistrict.oid, postalCode: '90654', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Liukang Kalmas', districtOid: pangkepDistrict.oid, postalCode: '90655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandalle', districtOid: pangkepDistrict.oid, postalCode: '90656', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marang', districtOid: pangkepDistrict.oid, postalCode: '90657', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Segeri', districtOid: pangkepDistrict.oid, postalCode: '90658', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Minasa Tene', districtOid: pangkepDistrict.oid, postalCode: '90659', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sidenreng Rappang (Sidrap) Regency
+      { subdistrictName: 'Pangkajene', districtOid: sidrapDistrict.oid, postalCode: '91611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baranti', districtOid: sidrapDistrict.oid, postalCode: '91651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dua Pitue', districtOid: sidrapDistrict.oid, postalCode: '91652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kulo', districtOid: sidrapDistrict.oid, postalCode: '91653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maritengngae', districtOid: sidrapDistrict.oid, postalCode: '91654', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panca Lautang', districtOid: sidrapDistrict.oid, postalCode: '91655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panca Rijang', districtOid: sidrapDistrict.oid, postalCode: '91656', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tellu Limpoe', districtOid: sidrapDistrict.oid, postalCode: '91657', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Watang Pulu', districtOid: sidrapDistrict.oid, postalCode: '91658', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wattang Sidenreng', districtOid: sidrapDistrict.oid, postalCode: '91659', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pinrang District
+      { subdistrictName: 'Pinrang', districtOid: pinrang.oid, postalCode: '91211', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cempa District
+      { subdistrictName: 'Cempa', districtOid: cempa.oid, postalCode: '91251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Duampanua District
+      { subdistrictName: 'Duampanua', districtOid: duampanua.oid, postalCode: '91252', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lembang District
+      { subdistrictName: 'Lembang', districtOid: lembangDistrict.oid, postalCode: '91253', createdAt: new Date(), updatedAt: new Date() },
+
+      // MattiroBulu District
+      { subdistrictName: 'Mattiroli Bulu', districtOid: mattiroBulu.oid, postalCode: '91254', createdAt: new Date(), updatedAt: new Date() },
+
+      // MattiroSompe District
+      { subdistrictName: 'Mattiroli Sompe', districtOid: mattiroSompe.oid, postalCode: '91255', createdAt: new Date(), updatedAt: new Date() },
+
+      // Paleteang District
+      { subdistrictName: 'Paleteang', districtOid: paleteang.oid, postalCode: '91256', createdAt: new Date(), updatedAt: new Date() },
+
+      // Patampanua District
+      { subdistrictName: 'Patampanua', districtOid: patampanua.oid, postalCode: '91257', createdAt: new Date(), updatedAt: new Date() },
+
+      // Suppa District
+      { subdistrictName: 'Suppa', districtOid: suppa.oid, postalCode: '91258', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tiroang District
+      { subdistrictName: 'Tiroang', districtOid: tiroang.oid, postalCode: '91259', createdAt: new Date(), updatedAt: new Date() },
+
+      // WatangSawitto District
+      { subdistrictName: 'Watang Sawitto', districtOid: watangSawitto.oid, postalCode: '91261', createdAt: new Date(), updatedAt: new Date() },
+
+      // Enrekang District
+      { subdistrictName: 'Enrekang', districtOid: enrekang.oid, postalCode: '91711', createdAt: new Date(), updatedAt: new Date() },
+
+      // Alla District
+      { subdistrictName: 'Alla', districtOid: alla.oid, postalCode: '91752', createdAt: new Date(), updatedAt: new Date() },
+
+      // Anggeraja District
+      { subdistrictName: 'Anggeraja', districtOid: anggeraja.oid, postalCode: '91753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Baraka District
+      { subdistrictName: 'Baraka', districtOid: baraka.oid, postalCode: '91754', createdAt: new Date(), updatedAt: new Date() },
+
+      // BuntuBatu District
+      { subdistrictName: 'Buntu Batu', districtOid: buntuBatu.oid, postalCode: '91755', createdAt: new Date(), updatedAt: new Date() },
+
+      // Cendana District
+      { subdistrictName: 'Cendana', districtOid: cendana.oid, postalCode: '91756', createdAt: new Date(), updatedAt: new Date() },
+
+      // Curio District
+      { subdistrictName: 'Curio', districtOid: curio.oid, postalCode: '91757', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maiwa District
+      { subdistrictName: 'Maiwa', districtOid: maiwa.oid, postalCode: '91758', createdAt: new Date(), updatedAt: new Date() },
+
+      // Masalle District
+      { subdistrictName: 'Masalle', districtOid: masalle.oid, postalCode: '91759', createdAt: new Date(), updatedAt: new Date() },
+
+      // Makale District (Tana Toraja)
+      { subdistrictName: 'Makale', districtOid: makale.oid, postalCode: '91811', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bonggakaradeng District
+      { subdistrictName: 'Bonggakaradeng', districtOid: bonggakaradeng.oid, postalCode: '91852', createdAt: new Date(), updatedAt: new Date() },
+
+      // GandangBatuSilanan District
+      { subdistrictName: 'Gandang Batu Silanan', districtOid: gandangBatuSilanan.oid, postalCode: '91853', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kurra District
+      { subdistrictName: 'Kurra', districtOid: kurra.oid, postalCode: '91854', createdAt: new Date(), updatedAt: new Date() },
+
+      // MakaleSelatan District
+      { subdistrictName: 'Makale Selatan', districtOid: makaleSelatan.oid, postalCode: '91855', createdAt: new Date(), updatedAt: new Date() },
+
+      // MakaleUtara District
+      { subdistrictName: 'Makale Utara', districtOid: makaleUtara.oid, postalCode: '91856', createdAt: new Date(), updatedAt: new Date() },
+
+      // MalimbongBalepe District
+      { subdistrictName: 'Malimbong Balepe', districtOid: malimbongBalepe.oid, postalCode: '91857', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rano District
+      { subdistrictName: 'Rano', districtOid: rano.oid, postalCode: '91858', createdAt: new Date(), updatedAt: new Date() },
+
+      // Rembon District
+      { subdistrictName: 'Rembon', districtOid: rembon.oid, postalCode: '91859', createdAt: new Date(), updatedAt: new Date() },
+
+      // Saluputti District
+      { subdistrictName: 'Saluputti', districtOid: saluputti.oid, postalCode: '91861', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sangalla District
+      { subdistrictName: 'Sangalla', districtOid: sangalla.oid, postalCode: '91862', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simbuang District
+      { subdistrictName: 'Simbuang', districtOid: simbuang.oid, postalCode: '91863', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tana Toraja Regency
+      { subdistrictName: 'Rantepao', districtOid: rantepao.oid, postalCode: '91831', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Awan Rante Karua', districtOid: awanRanteKarua.oid, postalCode: '91832', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Balusu', districtOid: balusutorajaUtaraDistrict.oid, postalCode: '91833', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangkelekila', districtOid: bangkelekila.oid, postalCode: '91834', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baruppu', districtOid: baruppu.oid, postalCode: '91835', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buntao', districtOid: buntao.oid, postalCode: '91836', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buntu Pepasan', districtOid: buntuPepasan.oid, postalCode: '91837', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dende Piongan Napo', districtOid: dendePionganNapo.oid, postalCode: '91838', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kapala Pitu', districtOid: kapalaPitu.oid, postalCode: '91839', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kesu', districtOid: kesu.oid, postalCode: '91841', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanggala', districtOid: nanggala.oid, postalCode: '91842', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rindingallo', districtOid: rindingallo.oid, postalCode: '91843', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sa\'dan', districtOid: saDan.oid, postalCode: '91844', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanggalangi', districtOid: sanggalangi.oid, postalCode: '91845', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sesean', districtOid: sesean.oid, postalCode: '91846', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sopai', districtOid: sopai.oid, postalCode: '91847', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tallunglipu', districtOid: tallunglipu.oid, postalCode: '91848', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tikala', districtOid: tikalaDistrict.oid, postalCode: '91849', createdAt: new Date(), updatedAt: new Date() },
+
+      // Luwu Regency
+      { subdistrictName: 'Luwu', districtOid: luwu.oid, postalCode: '91951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belopa', districtOid: belopa.oid, postalCode: '91952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bajo', districtOid: bajo.oid, postalCode: '91953', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bassesangtempe', districtOid: bassesangtempe.oid, postalCode: '91954', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bua', districtOid: bua.oid, postalCode: '91955', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bua Ponrang', districtOid: buaPonrang.oid, postalCode: '91956', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kamanre', districtOid: kamanre.oid, postalCode: '91957', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamasi', districtOid: lamasi.oid, postalCode: '91958', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Larompong', districtOid: larompong.oid, postalCode: '91959', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Larompong Selatan', districtOid: larompongSelatan.oid, postalCode: '91961', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Latimojong', districtOid: latimojong.oid, postalCode: '91962', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ponrang', districtOid: ponrang.oid, postalCode: '91963', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Suli', districtOid: suli.oid, postalCode: '91964', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Walenrang', districtOid: walenrang.oid, postalCode: '91965', createdAt: new Date(), updatedAt: new Date() },
+
+      // Luwu Timur Regency
+      { subdistrictName: 'Malili', districtOid: luwuTimurDistrict.oid, postalCode: '92981', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkona', districtOid: luwuTimurDistrict.oid, postalCode: '92982', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Burau', districtOid: luwuTimurDistrict.oid, postalCode: '92983', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mangkutana', districtOid: luwuTimurDistrict.oid, postalCode: '92984', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nuha', districtOid: luwuTimurDistrict.oid, postalCode: '92985', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomoni', districtOid: luwuTimurDistrict.oid, postalCode: '92986', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomoni Timur', districtOid: luwuTimurDistrict.oid, postalCode: '92987', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Towuti', districtOid: luwuTimurDistrict.oid, postalCode: '92988', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wasuponda', districtOid: luwuTimurDistrict.oid, postalCode: '92989', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wotu', districtOid: luwuTimurDistrict.oid, postalCode: '92991', createdAt: new Date(), updatedAt: new Date() },
+
+      // Luwu Utara Regency
+      { subdistrictName: 'Masamba', districtOid: luwuUtaraDistrict.oid, postalCode: '92951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baebunta', districtOid: luwuUtaraDistrict.oid, postalCode: '92952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bone Bone', districtOid: luwuUtaraDistrict.oid, postalCode: '92953', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Limbong', districtOid: luwuUtaraDistrict.oid, postalCode: '92954', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malangke', districtOid: luwuUtaraDistrict.oid, postalCode: '92955', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malangke Barat', districtOid: luwuUtaraDistrict.oid, postalCode: '92956', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mappedeceng', districtOid: luwuUtaraDistrict.oid, postalCode: '92957', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rampi', districtOid: luwuUtaraDistrict.oid, postalCode: '92958', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sabbang', districtOid: luwuUtaraDistrict.oid, postalCode: '92959', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seko', districtOid: luwuUtaraDistrict.oid, postalCode: '92961', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukamaju', districtOid: luwuUtaraDistrict.oid, postalCode: '92962', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tana Lili', districtOid: luwuUtaraDistrict.oid, postalCode: '92963', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palu City
+      { subdistrictName: 'Palu Barat', districtOid: paluCityDistrict.oid, postalCode: '94221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palu Selatan', districtOid: paluCityDistrict.oid, postalCode: '94231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palu Timur', districtOid: paluCityDistrict.oid, postalCode: '94211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palu Utara', districtOid: paluCityDistrict.oid, postalCode: '94241', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tatanga', districtOid: paluCityDistrict.oid, postalCode: '94251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulujadi', districtOid: paluCityDistrict.oid, postalCode: '94252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mantikulore', districtOid: paluCityDistrict.oid, postalCode: '94261', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banggai Regency
+      { subdistrictName: 'Banggai', districtOid: banggaiDistrict.oid, postalCode: '94711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batui', districtOid: banggaiDistrict.oid, postalCode: '94753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bunta', districtOid: banggaiDistrict.oid, postalCode: '94754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kintom', districtOid: banggaiDistrict.oid, postalCode: '94755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Luwuk', districtOid: banggaiDistrict.oid, postalCode: '94712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lamala', districtOid: banggaiDistrict.oid, postalCode: '94756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagimana', districtOid: banggaiDistrict.oid, postalCode: '94757', createdAt: new Date(), updatedAt: new Date() },
+
+      // Buko District (Banggai Islands)
+      { subdistrictName: 'Buko', districtOid: buko.oid, postalCode: '94881', createdAt: new Date(), updatedAt: new Date() },
+
+      // BukoSelatan District (Banggai Islands)
+      { subdistrictName: 'Buko Selatan', districtOid: bukoSelatan.oid, postalCode: '94882', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bulagi District (Banggai Islands)
+      { subdistrictName: 'Bulagi', districtOid: bulagi.oid, postalCode: '94883', createdAt: new Date(), updatedAt: new Date() },
+
+      // Liang District (Banggai Islands)
+      { subdistrictName: 'Liang', districtOid: liang.oid, postalCode: '94884', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tinangkung District (Banggai Islands)
+      { subdistrictName: 'Tinangkung', districtOid: tinangkung.oid, postalCode: '94885', createdAt: new Date(), updatedAt: new Date() },
+
+      // Totikum District (Banggai Islands)
+      { subdistrictName: 'Totikum', districtOid: totikum.oid, postalCode: '94886', createdAt: new Date(), updatedAt: new Date() },
+
+      // BanggaibanggaiLaut City District
+      { subdistrictName: 'Banggai Laut', districtOid: banggaibanggaiLautCityDistrict.oid, postalCode: '94891', createdAt: new Date(), updatedAt: new Date() },
+
+      // BanggaiSelatan District
+      { subdistrictName: 'Banggai Selatan', districtOid: banggaiSelatan.oid, postalCode: '94771', createdAt: new Date(), updatedAt: new Date() },
+
+      // BanggaiTengah District
+      { subdistrictName: 'Banggai Tengah', districtOid: banggaiTengah.oid, postalCode: '94772', createdAt: new Date(), updatedAt: new Date() },
+
+      // BanggaiUtara District
+      { subdistrictName: 'Banggai Utara', districtOid: banggaiUtara.oid, postalCode: '94773', createdAt: new Date(), updatedAt: new Date() },
+
+      // BokanKepulauan District
+      { subdistrictName: 'Bokan Kepulauan', districtOid: bokanKepulauan.oid, postalCode: '94774', createdAt: new Date(), updatedAt: new Date() },
+
+      // Buol District
+      { subdistrictName: 'Buol', districtOid: buol.oid, postalCode: '94563', createdAt: new Date(), updatedAt: new Date() },
+
+      // Biau District (Buol)
+      { subdistrictName: 'Biau', districtOid: biau.oid, postalCode: '94561', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bukal District (Buol)
+      { subdistrictName: 'Bukal', districtOid: bukal.oid, postalCode: '94562', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunobogu District (Buol)
+      { subdistrictName: 'Bunobogu', districtOid: bunobogu.oid, postalCode: '94564', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gadung District (Buol)
+      { subdistrictName: 'Gadung', districtOid: gadung.oid, postalCode: '94565', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karamat District (Buol)
+      { subdistrictName: 'Karamat', districtOid: karamat.oid, postalCode: '94566', createdAt: new Date(), updatedAt: new Date() },
+
+      // Momunu District (Buol)
+      { subdistrictName: 'Momunu', districtOid: momunu.oid, postalCode: '94567', createdAt: new Date(), updatedAt: new Date() },
+
+      // Banawa District (Donggala)
+      { subdistrictName: 'Banawa', districtOid: banawa.oid, postalCode: '94351', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dampelas District (Donggala)
+      { subdistrictName: 'Dampelas', districtOid: dampelas.oid, postalCode: '94352', createdAt: new Date(), updatedAt: new Date() },
+
+      // Labuan District (Donggala)
+      { subdistrictName: 'Labuan', districtOid: labuan.oid, postalCode: '94353', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palolo District (Donggala)
+      { subdistrictName: 'Palolo', districtOid: palolo.oid, postalCode: '94354', createdAt: new Date(), updatedAt: new Date() },
+
+      // RioPakava District (Donggala)
+      { subdistrictName: 'Rio Pakava', districtOid: rioPakava.oid, postalCode: '94355', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sindue District (Donggala)
+      { subdistrictName: 'Sindue', districtOid: sindue.oid, postalCode: '94356', createdAt: new Date(), updatedAt: new Date() },
+
+      // BungkuBarat District (Morowali)
+      { subdistrictName: 'Bungku Barat', districtOid: bungkuBarat.oid, postalCode: '94971', createdAt: new Date(), updatedAt: new Date() },
+
+      // BungkuSelatan District (Morowali)
+      { subdistrictName: 'Bungku Selatan', districtOid: bungkuSelatan.oid, postalCode: '94972', createdAt: new Date(), updatedAt: new Date() },
+
+      // BungkuTengah District (Morowali)
+      { subdistrictName: 'Bungku Tengah', districtOid: bungkuTengah.oid, postalCode: '94973', createdAt: new Date(), updatedAt: new Date() },
+
+      // MenuiKepulauan District (Morowali)
+      { subdistrictName: 'Menui Kepulauan', districtOid: menuiKepulauan.oid, postalCode: '94974', createdAt: new Date(), updatedAt: new Date() },
+
+      // Petasia District (Morowali)
+      { subdistrictName: 'Petasia', districtOid: petasia.oid, postalCode: '94975', createdAt: new Date(), updatedAt: new Date() },
+
+      // SoyoJaya District (Morowali)
+      { subdistrictName: 'Soyo Jaya', districtOid: soyoJaya.oid, postalCode: '94976', createdAt: new Date(), updatedAt: new Date() },
+
+      // BungkuUtara District (Morowali Utara)
+      { subdistrictName: 'Bungku Utara', districtOid: bungkuUtara.oid, postalCode: '94977', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lembo District (Morowali Utara)
+      { subdistrictName: 'Lembo', districtOid: lembo.oid, postalCode: '94978', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mamosalato District (Morowali Utara)
+      { subdistrictName: 'Mamosalato', districtOid: mamosalato.oid, postalCode: '94979', createdAt: new Date(), updatedAt: new Date() },
+
+      // PetasiaTimur District (Morowali Utara)
+      { subdistrictName: 'Petasia Timur', districtOid: petasiaTimur.oid, postalCode: '94981', createdAt: new Date(), updatedAt: new Date() },
+
+      // Parigi Moutong Regency
+      { subdistrictName: 'Ampibabo', districtOid: ampibabo.oid, postalCode: '94474', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bolano Lambunu', districtOid: bolanoLambunu.oid, postalCode: '94472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moutong', districtOid: moutong.oid, postalCode: '94476', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Parigi', districtOid: parigi.oid, postalCode: '94471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sausu', districtOid: sausu.oid, postalCode: '94473', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tinombo', districtOid: tinombo.oid, postalCode: '94475', createdAt: new Date(), updatedAt: new Date() },
+
+      // Poso Regency
+      { subdistrictName: 'Lage', districtOid: lage.oid, postalCode: '94661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lore Selatan', districtOid: loreSelatan.oid, postalCode: '94662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lore Utara', districtOid: loreUtara.oid, postalCode: '94663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pamona Puselemba', districtOid: pamonaPuselemba.oid, postalCode: '94664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Poso Kota', districtOid: posoKota.oid, postalCode: '94611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Poso Pesisir', districtOid: posoPesisir.oid, postalCode: '94665', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sigi Regency
+      { subdistrictName: 'Dolo', districtOid: dolo.oid, postalCode: '94363', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolo Selatan', districtOid: doloSelatan.oid, postalCode: '94364', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gumbasa', districtOid: gumbasa.oid, postalCode: '94365', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kinovaro', districtOid: kinovaro.oid, postalCode: '94366', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marawola', districtOid: marawola.oid, postalCode: '94367', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sigi Biromaru', districtOid: sigiBiromaru.oid, postalCode: '94368', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tojo Una-Una Regency
+      { subdistrictName: 'Ampana Kota', districtOid: ampanaKota.oid, postalCode: '94683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Togean', districtOid: togean.oid, postalCode: '94684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tojo', districtOid: tojo.oid, postalCode: '94682', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Una-Una', districtOid: unaUna.oid, postalCode: '94681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Walea Kepulauan', districtOid: waleaKepulauan.oid, postalCode: '94685', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tolitoli Regency
+      { subdistrictName: 'Baolan', districtOid: baolan.oid, postalCode: '94513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dampal Selatan', districtOid: dampalSelatan.oid, postalCode: '94554', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dampal Utara', districtOid: dampalUtara.oid, postalCode: '94553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galang', districtOid: galangtolitoliCityDistrict.oid, postalCode: '94552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tolitoli Utara', districtOid: tolitoliUtara.oid, postalCode: '94551', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kapontori District
+      { subdistrictName: 'Kapontori', districtOid: kapontori.oid, postalCode: '93751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lasalimu', districtOid: kapontori.oid, postalCode: '93752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasarwajo', districtOid: kapontori.oid, postalCode: '93753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siotapina', districtOid: kapontori.oid, postalCode: '93754', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batauga District
+      { subdistrictName: 'Batauga', districtOid: batauga.oid, postalCode: '93755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kadatua', districtOid: batauga.oid, postalCode: '93756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sampolawa', districtOid: batauga.oid, postalCode: '93757', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siompu', districtOid: batauga.oid, postalCode: '93758', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gu District
+      { subdistrictName: 'Gu', districtOid: gu.oid, postalCode: '93761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lakudo', districtOid: gu.oid, postalCode: '93762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mawasangka', districtOid: gu.oid, postalCode: '93763', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangia Wambulu', districtOid: gu.oid, postalCode: '93764', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kulisusu District
+      { subdistrictName: 'Kulisusu', districtOid: kulisusu.oid, postalCode: '93771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kulisusu Barat', districtOid: kulisusu.oid, postalCode: '93772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kulisusu Utara', districtOid: kulisusu.oid, postalCode: '93773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kolaka Regency
+      { subdistrictName: 'Baula', districtOid: kolakaDistrict.oid, postalCode: '93511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kolaka', districtOid: kolakaDistrict.oid, postalCode: '93512', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Latambaga', districtOid: kolakaDistrict.oid, postalCode: '93513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pomalaa', districtOid: kolakaDistrict.oid, postalCode: '93514', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wundulako', districtOid: kolakaDistrict.oid, postalCode: '93515', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kolaka Timur Regency
+      { subdistrictName: 'Aere', districtOid: kolakaTimurDistrict.oid, postalCode: '93571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ladongi', districtOid: kolakaTimurDistrict.oid, postalCode: '93572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lambandia', districtOid: kolakaTimurDistrict.oid, postalCode: '93573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tirawuta', districtOid: kolakaTimurDistrict.oid, postalCode: '93574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batu Putih', districtOid: kolakaTimurDistrict.oid, postalCode: '93575', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kodeoha', districtOid: kolakaTimurDistrict.oid, postalCode: '93576', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lasusua', districtOid: kolakaTimurDistrict.oid, postalCode: '93577', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngapa', districtOid: kolakaTimurDistrict.oid, postalCode: '93578', createdAt: new Date(), updatedAt: new Date() },
+
+      // Konawe Regency
+      { subdistrictName: 'Abuki', districtOid: konaweDistrict.oid, postalCode: '93461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Amonggedo', districtOid: konaweDistrict.oid, postalCode: '93462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Konawe', districtOid: konaweDistrict.oid, postalCode: '93411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Unaaha', districtOid: konaweDistrict.oid, postalCode: '93412', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wawotobi', districtOid: konaweDistrict.oid, postalCode: '93463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Andoolo', districtOid: konaweDistrict.oid, postalCode: '93464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baito', districtOid: konaweDistrict.oid, postalCode: '93465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Landono', districtOid: konaweDistrict.oid, postalCode: '93466', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lainea', districtOid: konaweDistrict.oid, postalCode: '93467', createdAt: new Date(), updatedAt: new Date() },
+
+      // Konawe Utara Regency
+      { subdistrictName: 'Asera', districtOid: konaweUtaraDistrict.oid, postalCode: '93355', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Oheo', districtOid: konaweUtaraDistrict.oid, postalCode: '93356', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wiwirano', districtOid: konaweUtaraDistrict.oid, postalCode: '93357', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wawonii Barat District (Konawe Islands)
+      { subdistrictName: 'Wawonii Barat', districtOid: wawoniiBarat.oid, postalCode: '93391', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wawonii Selatan District (Konawe Islands)
+      { subdistrictName: 'Wawonii Selatan', districtOid: wawoniiSelatan.oid, postalCode: '93392', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wawonii Tengah District (Konawe Islands)
+      { subdistrictName: 'Wawonii Tengah', districtOid: wawoniiTengah.oid, postalCode: '93393', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wawonii Utara District (Konawe Islands)
+      { subdistrictName: 'Wawonii Utara', districtOid: wawoniiUtara.oid, postalCode: '93394', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batalaiworu District (Muna)
+      { subdistrictName: 'Batalaiworu', districtOid: batalaiworu.oid, postalCode: '93611', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kontunaga District (Muna)
+      { subdistrictName: 'Kontunaga', districtOid: kontunaga.oid, postalCode: '93612', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lohia District (Muna)
+      { subdistrictName: 'Lohia', districtOid: lohia.oid, postalCode: '93613', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wakorumba District (Muna)
+      { subdistrictName: 'Wakorumba', districtOid: wakorumba.oid, postalCode: '93614', createdAt: new Date(), updatedAt: new Date() },
+
+      // Barangka District (Buton)
+      { subdistrictName: 'Barangka', districtOid: barangka.oid, postalCode: '93751', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kusambi District (Buton)
+      { subdistrictName: 'Kusambi', districtOid: kusambi.oid, postalCode: '93752', createdAt: new Date(), updatedAt: new Date() },
+
+      // Maginti District (Buton)
+      { subdistrictName: 'Maginti', districtOid: maginti.oid, postalCode: '93753', createdAt: new Date(), updatedAt: new Date() },
+
+      // Napano Kusambi District (Buton)
+      { subdistrictName: 'Napano Kusambi', districtOid: napanoKusambi.oid, postalCode: '93754', createdAt: new Date(), updatedAt: new Date() },
+
+      // Binongko District (Wakatobi)
+      { subdistrictName: 'Binongko', districtOid: binongko.oid, postalCode: '93791', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kaledupa District (Wakatobi)
+      { subdistrictName: 'Kaledupa', districtOid: kaledupa.oid, postalCode: '93792', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tomia District (Wakatobi)
+      { subdistrictName: 'Tomia', districtOid: tomia.oid, postalCode: '93793', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wangi-Wangi District (Wakatobi)
+      { subdistrictName: 'Wangi-Wangi', districtOid: wangiWangi.oid, postalCode: '93794', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wangi-Wangi Selatan District (Wakatobi)
+      { subdistrictName: 'Wangi-Wangi Selatan', districtOid: wangiWangiSelatan.oid, postalCode: '93795', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bunaken District (Manado)
+      { subdistrictName: 'Bunaken', districtOid: bunaken.oid, postalCode: '95231', createdAt: new Date(), updatedAt: new Date() },
+
+      // Malalayang District (Manado)
+      { subdistrictName: 'Malalayang', districtOid: malalayang.oid, postalCode: '95232', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mapanget District (Manado)
+      { subdistrictName: 'Mapanget', districtOid: mapanget.oid, postalCode: '95233', createdAt: new Date(), updatedAt: new Date() },
+
+      // Paal Dua District (Manado)
+      { subdistrictName: 'Paal Dua', districtOid: paalDua.oid, postalCode: '95234', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sario District (Manado)
+      { subdistrictName: 'Sario', districtOid: sario.oid, postalCode: '95235', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tikala Bitung City District
+      { subdistrictName: 'Tikala', districtOid: tikalabitungCityDistrict.oid, postalCode: '95521', createdAt: new Date(), updatedAt: new Date() },
+
+      // Wenang District (Manado)
+      { subdistrictName: 'Wenang', districtOid: wenang.oid, postalCode: '95236', createdAt: new Date(), updatedAt: new Date() },
+
+      // Aertembaga District (Bitung)
+      { subdistrictName: 'Aertembaga', districtOid: aertembaga.oid, postalCode: '95522', createdAt: new Date(), updatedAt: new Date() },
+
+      // Girian District (Bitung)
+      { subdistrictName: 'Girian', districtOid: girian.oid, postalCode: '95523', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lembeh Selatan District (Bitung)
+      { subdistrictName: 'Lembeh Selatan', districtOid: lembehSelatan.oid, postalCode: '95524', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lembeh Utara District (Bitung)
+      { subdistrictName: 'Lembeh Utara', districtOid: lembehUtara.oid, postalCode: '95525', createdAt: new Date(), updatedAt: new Date() },
+
+      // Madidir District (Bitung)
+      { subdistrictName: 'Madidir', districtOid: madidir.oid, postalCode: '95526', createdAt: new Date(), updatedAt: new Date() },
+
+      // Matuari District (Bitung)
+      { subdistrictName: 'Matuari', districtOid: matuari.oid, postalCode: '95527', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ranowulu District (Bitung)
+      { subdistrictName: 'Ranowulu', districtOid: ranowulu.oid, postalCode: '95528', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tomohon City
+      { subdistrictName: 'Tomohon Barat', districtOid: tomohonBarat.oid, postalCode: '95431', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomohon Selatan', districtOid: tomohonSelatan.oid, postalCode: '95432', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomohon Tengah', districtOid: tomohonTengah.oid, postalCode: '95433', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomohon Timur', districtOid: tomohonTimur.oid, postalCode: '95434', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tomohon Utara', districtOid: tomohonUtara.oid, postalCode: '95435', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kotamobagu City
+      { subdistrictName: 'Kotamobagu Barat', districtOid: kotamobaguBarat.oid, postalCode: '95711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kotamobagu Selatan', districtOid: kotamobaguSelatan.oid, postalCode: '95712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kotamobagu Timur', districtOid: kotamobaguTimur.oid, postalCode: '95713', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kotamobagu Utara', districtOid: kotamobaguUtara.oid, postalCode: '95714', createdAt: new Date(), updatedAt: new Date() },
+
+      // Minahasa Regency
+      { subdistrictName: 'Kakas', districtOid: kakas.oid, postalCode: '95682', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kawangkoan', districtOid: kawangkoan.oid, postalCode: '95683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Langoan', districtOid: langowan.oid, postalCode: '95684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tombariri', districtOid: tombariri.oid, postalCode: '95681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tondano', districtOid: tondano.oid, postalCode: '95611', createdAt: new Date(), updatedAt: new Date() },
+
+      // South Minahasa Regency
+      { subdistrictName: 'Amurang', districtOid: amurang.oid, postalCode: '95951', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Modoinding', districtOid: modoinding.oid, postalCode: '95952', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Motoling', districtOid: motoling.oid, postalCode: '95953', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranoyapo', districtOid: ranoyapo.oid, postalCode: '95954', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tumpaan', districtOid: tumpaan.oid, postalCode: '95955', createdAt: new Date(), updatedAt: new Date() },
+
+      // North Minahasa Regency
+      { subdistrictName: 'Airmadidi', districtOid: airmadidi.oid, postalCode: '95371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dimembe', districtOid: dimembe.oid, postalCode: '95372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kauditan', districtOid: kauditan.oid, postalCode: '95373', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kema', districtOid: kema.oid, postalCode: '95374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wori', districtOid: wori.oid, postalCode: '95375', createdAt: new Date(), updatedAt: new Date() },
+
+      // Southeast Minahasa Regency
+      { subdistrictName: 'Belang', districtOid: belang.oid, postalCode: '95995', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pusomaen', districtOid: pusomaen.oid, postalCode: '95996', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ratahan', districtOid: ratahan.oid, postalCode: '95997', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tombatu', districtOid: tombatu.oid, postalCode: '95998', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolaang Mongondow Regency
+      { subdistrictName: 'Bolaang', districtOid: bolaangMongondowDistrict.oid, postalCode: '95751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dumoga', districtOid: bolaangMongondowDistrict.oid, postalCode: '95752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lolak', districtOid: bolaangMongondowDistrict.oid, postalCode: '95753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Passi', districtOid: bolaangMongondowDistrict.oid, postalCode: '95754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangtombolang', districtOid: bolaangMongondowDistrict.oid, postalCode: '95755', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolaang Mongondow Utara Regency
+      { subdistrictName: 'Bintauna', districtOid: bolaangMongondowUtaraDistrict.oid, postalCode: '95761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kaidipang', districtOid: bolaangMongondowUtaraDistrict.oid, postalCode: '95762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pinogaluman', districtOid: bolaangMongondowUtaraDistrict.oid, postalCode: '95763', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangkub', districtOid: bolaangMongondowUtaraDistrict.oid, postalCode: '95764', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolaang Mongondow Timur Regency
+      { subdistrictName: 'Bolaang Uki', districtOid: bolaangMongondowTimurDistrict.oid, postalCode: '95781', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pinolosian', districtOid: bolaangMongondowTimurDistrict.oid, postalCode: '95782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Posigadan', districtOid: bolaangMongondowTimurDistrict.oid, postalCode: '95783', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bolaang Mongondow Selatan Regency
+      { subdistrictName: 'Kotabunan', districtOid: bolaangMongondowSelatanDistrict.oid, postalCode: '95771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Modayag', districtOid: bolaangMongondowSelatanDistrict.oid, postalCode: '95772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nuangan', districtOid: bolaangMongondowSelatanDistrict.oid, postalCode: '95773', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sangihe Islands Regency (North Sulawesi)
+      { subdistrictName: 'Manganitu', districtOid: manganitu.oid, postalCode: '95853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nusa Tabukan', districtOid: nusaTabukan.oid, postalCode: '95854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tahuna', districtOid: tahuna.oid, postalCode: '95811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tamako', districtOid: tamako.oid, postalCode: '95855', createdAt: new Date(), updatedAt: new Date() },
+
+      // Talaud Islands Regency (North Sulawesi)
+      { subdistrictName: 'Beo', districtOid: beo.oid, postalCode: '95881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Essang', districtOid: essang.oid, postalCode: '95882', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Melonguane', districtOid: melonguane.oid, postalCode: '95883', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanusa', districtOid: nanusa.oid, postalCode: '95884', createdAt: new Date(), updatedAt: new Date() },
+
+      // Siau Tagulandang Biaro (Sitaro) Regency (North Sulawesi)
+      { subdistrictName: 'Biaro', districtOid: biaro.oid, postalCode: '95861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siau Barat', districtOid: siauBarat.oid, postalCode: '95862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siau Timur', districtOid: siauTimur.oid, postalCode: '95863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tagulandang', districtOid: tagulandang.oid, postalCode: '95864', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padang City (West Sumatra)
+      { subdistrictName: 'Bungus Teluk Kabung', districtOid: bungusTelukKabung.oid, postalCode: '25237', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto Tangah', districtOid: kotoTangah.oid, postalCode: '25171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuranji', districtOid: kuranji.oid, postalCode: '25152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Begalung', districtOid: lubukBegalung.oid, postalCode: '25221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Kilangan', districtOid: lubukKilangan.oid, postalCode: '25231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanggalo', districtOid: nanggalo.oid, postalCode: '25145', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Barat', districtOid: padangBarat.oid, postalCode: '25112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Selatan', districtOid: padangSelatan.oid, postalCode: '25121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Timur', districtOid: padangTimur.oid, postalCode: '25125', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Utara', districtOid: padangUtara.oid, postalCode: '25113', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pauh', districtOid: pauh.oid, postalCode: '25161', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bukittinggi City
+      { subdistrictName: 'Aur Birugo Tigo Baleh', districtOid: aurBirugoTigoBaleh.oid, postalCode: '26131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Guguk Panjang', districtOid: gugukPanjang.oid, postalCode: '26136', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandiangin Koto Selayan', districtOid: mandianginKotoSelayan.oid, postalCode: '26137', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padang Panjang City
+      { subdistrictName: 'Padang Panjang Barat', districtOid: padangPanjangBarat.oid, postalCode: '27111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Panjang Timur', districtOid: padangPanjangTimur.oid, postalCode: '27122', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pariaman City
+      { subdistrictName: 'Pariaman Selatan', districtOid: pariamanSelatan.oid, postalCode: '25522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pariaman Tengah', districtOid: pariamanTengah.oid, postalCode: '25511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pariaman Timur', districtOid: pariamanTimur.oid, postalCode: '25531', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pariaman Utara', districtOid: pariamanUtara.oid, postalCode: '25521', createdAt: new Date(), updatedAt: new Date() },
+
+      // Payakumbuh City
+      { subdistrictName: 'Lamposi Tigo Nagori', districtOid: lamposiTigoNagori.oid, postalCode: '26218', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payakumbuh Barat', districtOid: payakumbuhBarat.oid, postalCode: '26221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payakumbuh Selatan', districtOid: payakumbuhSelatan.oid, postalCode: '26226', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payakumbuh Timur', districtOid: payakumbuhTimur.oid, postalCode: '26227', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payakumbuh Utara', districtOid: payakumbuhUtara.oid, postalCode: '26213', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sawahlunto District
+      { subdistrictName: 'Barangin', districtOid: sawahluntoDistrict.oid, postalCode: '27438', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembah Segar', districtOid: sawahluntoDistrict.oid, postalCode: '27419', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silungkang', districtOid: sawahluntoDistrict.oid, postalCode: '27428', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talawi', districtOid: sawahluntoDistrict.oid, postalCode: '27435', createdAt: new Date(), updatedAt: new Date() },
+
+      // Solok City
+      { subdistrictName: 'Lubuk Sikarah', districtOid: solokCityDistrict.oid, postalCode: '27311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Harapan', districtOid: solokCityDistrict.oid, postalCode: '27312', createdAt: new Date(), updatedAt: new Date() },
+
+      // Agam Regency
+      { subdistrictName: 'Banuhampu', districtOid: agamDistrict.oid, postalCode: '26171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baso', districtOid: agamDistrict.oid, postalCode: '26172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Candung', districtOid: agamDistrict.oid, postalCode: '26173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'IV Angkat Candung', districtOid: agamDistrict.oid, postalCode: '26174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'IV Koto', districtOid: agamDistrict.oid, postalCode: '26175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kamang Magek', districtOid: agamDistrict.oid, postalCode: '26176', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Basung', districtOid: agamDistrict.oid, postalCode: '26151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Malalak', districtOid: agamDistrict.oid, postalCode: '26177', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Matur', districtOid: agamDistrict.oid, postalCode: '26178', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palembayan', districtOid: agamDistrict.oid, postalCode: '26179', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palupuh', districtOid: agamDistrict.oid, postalCode: '26181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Pua', districtOid: agamDistrict.oid, postalCode: '26182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Mutiara', districtOid: agamDistrict.oid, postalCode: '26183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Raya', districtOid: agamDistrict.oid, postalCode: '26184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tilatang Kamang', districtOid: agamDistrict.oid, postalCode: '26185', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dharmasraya Regency
+      { subdistrictName: 'Asam Jujuhan', districtOid: dharmasrayaDistrict.oid, postalCode: '27681', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto Baru', districtOid: dharmasrayaDistrict.oid, postalCode: '27682', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto Besar', districtOid: dharmasrayaDistrict.oid, postalCode: '27683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Punjung', districtOid: dharmasrayaDistrict.oid, postalCode: '27684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sembilan Koto', districtOid: dharmasrayaDistrict.oid, postalCode: '27685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitiung', districtOid: dharmasrayaDistrict.oid, postalCode: '27686', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Rumbai', districtOid: dharmasrayaDistrict.oid, postalCode: '27687', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Timpeh', districtOid: dharmasrayaDistrict.oid, postalCode: '27688', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mentawai Islands Regency
+      { subdistrictName: 'Pagai Selatan', districtOid: mentawaiDistrict.oid, postalCode: '25391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagai Utara', districtOid: mentawaiDistrict.oid, postalCode: '25392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberut Barat', districtOid: mentawaiDistrict.oid, postalCode: '25393', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberut Barat Daya', districtOid: mentawaiDistrict.oid, postalCode: '25394', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberut Selatan', districtOid: mentawaiDistrict.oid, postalCode: '25395', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberut Tengah', districtOid: mentawaiDistrict.oid, postalCode: '25396', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siberut Utara', districtOid: mentawaiDistrict.oid, postalCode: '25397', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sikakap', districtOid: mentawaiDistrict.oid, postalCode: '25398', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sipora Selatan', districtOid: mentawaiDistrict.oid, postalCode: '25399', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sipora Utara', districtOid: mentawaiDistrict.oid, postalCode: '25390', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lima Puluh Kota Regency
+      { subdistrictName: 'Akabiluru', districtOid: limapuluhKotaDistrict.oid, postalCode: '26252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukik Barisan', districtOid: limapuluhKotaDistrict.oid, postalCode: '26253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Guguk', districtOid: limapuluhKotaDistrict.oid, postalCode: '26254', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunuang Omeh', districtOid: limapuluhKotaDistrict.oid, postalCode: '26255', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Harau', districtOid: limapuluhKotaDistrict.oid, postalCode: '26271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kapur IX', districtOid: limapuluhKotaDistrict.oid, postalCode: '26272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lareh Sago Halaban', districtOid: limapuluhKotaDistrict.oid, postalCode: '26273', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Luak', districtOid: limapuluhKotaDistrict.oid, postalCode: '26274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mungka', districtOid: limapuluhKotaDistrict.oid, postalCode: '26275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkalan Koto Baru', districtOid: limapuluhKotaDistrict.oid, postalCode: '26276', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payakumbuh', districtOid: limapuluhKotaDistrict.oid, postalCode: '26211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Situjuah Limo Nagari', districtOid: limapuluhKotaDistrict.oid, postalCode: '26277', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Suliki', districtOid: limapuluhKotaDistrict.oid, postalCode: '26278', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padang Pariaman Regency
+      { subdistrictName: 'Batang Gasan', districtOid: padangPariamanDistrict.oid, postalCode: '25573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Enam Lingkung', districtOid: padangPariamanDistrict.oid, postalCode: '25574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'II Koto Sungai Lasi', districtOid: padangPariamanDistrict.oid, postalCode: '25575', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Alung', districtOid: padangPariamanDistrict.oid, postalCode: '25581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nan Sabaris', districtOid: padangPariamanDistrict.oid, postalCode: '25576', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Sago', districtOid: padangPariamanDistrict.oid, postalCode: '25577', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patamuan', districtOid: padangPariamanDistrict.oid, postalCode: '25578', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sintuk Toboh Gadang', districtOid: padangPariamanDistrict.oid, postalCode: '25579', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Geringging', districtOid: padangPariamanDistrict.oid, postalCode: '25571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Limau', districtOid: padangPariamanDistrict.oid, postalCode: '25572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulakan Tapakis', districtOid: padangPariamanDistrict.oid, postalCode: '25582', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'V Koto Kampung Dalam', districtOid: padangPariamanDistrict.oid, postalCode: '25583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'V Koto Timur', districtOid: padangPariamanDistrict.oid, postalCode: '25584', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'VII Koto Sungai Sarik', districtOid: padangPariamanDistrict.oid, postalCode: '25585', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasaman Regency
+      { subdistrictName: 'Bonjol', districtOid: pasamanDistrict.oid, postalCode: '26381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Duo Koto', districtOid: pasamanDistrict.oid, postalCode: '26382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Sikaping', districtOid: pasamanDistrict.oid, postalCode: '26318', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mapat Tunggul', districtOid: pasamanDistrict.oid, postalCode: '26383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mapat Tunggul Selatan', districtOid: pasamanDistrict.oid, postalCode: '26384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panti', districtOid: pasamanDistrict.oid, postalCode: '26385', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rao', districtOid: pasamanDistrict.oid, postalCode: '26386', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rao Selatan', districtOid: pasamanDistrict.oid, postalCode: '26387', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rao Utara', districtOid: pasamanDistrict.oid, postalCode: '26388', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang Alahan Mati', districtOid: pasamanDistrict.oid, postalCode: '26389', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tigo Nagari', districtOid: pasamanDistrict.oid, postalCode: '26391', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pasaman Barat Regency
+      { subdistrictName: 'Gunung Tuleh', districtOid: pasamanBaratDistrict.oid, postalCode: '26571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kinali', districtOid: pasamanBaratDistrict.oid, postalCode: '26572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto Balingka', districtOid: pasamanBaratDistrict.oid, postalCode: '26573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembah Melintang', districtOid: pasamanBaratDistrict.oid, postalCode: '26574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Luhak Nan Duo', districtOid: pasamanBaratDistrict.oid, postalCode: '26575', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasaman', districtOid: pasamanBaratDistrict.oid, postalCode: '26518', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranah Batahan', districtOid: pasamanBaratDistrict.oid, postalCode: '26576', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sasak Ranah Pasisie', districtOid: pasamanBaratDistrict.oid, postalCode: '26577', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Beremas', districtOid: pasamanBaratDistrict.oid, postalCode: '26578', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Aur', districtOid: pasamanBaratDistrict.oid, postalCode: '26579', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talamau', districtOid: pasamanBaratDistrict.oid, postalCode: '26581', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pesisir Selatan Regency
+      { subdistrictName: 'Batang Kapas', districtOid: pesisirSelatanDistrict.oid, postalCode: '25661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bayang', districtOid: pesisirSelatanDistrict.oid, postalCode: '25662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'IV Jurai', districtOid: pesisirSelatanDistrict.oid, postalCode: '25663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'IV Nagari Bayang Utara', districtOid: pesisirSelatanDistrict.oid, postalCode: '25664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto XI Tarusan', districtOid: pesisirSelatanDistrict.oid, postalCode: '25665', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lengayang', districtOid: pesisirSelatanDistrict.oid, postalCode: '25666', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Linggo Sari Baganti', districtOid: pesisirSelatanDistrict.oid, postalCode: '25667', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lunang', districtOid: pesisirSelatanDistrict.oid, postalCode: '25668', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pancung Soal', districtOid: pesisirSelatanDistrict.oid, postalCode: '25669', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranah Pesisir', districtOid: pesisirSelatanDistrict.oid, postalCode: '25671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sutera', districtOid: pesisirSelatanDistrict.oid, postalCode: '25672', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sijunjung Regency
+      { subdistrictName: 'IV Nagari', districtOid: sijunjungDistrict.oid, postalCode: '27571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kamang Baru', districtOid: sijunjungDistrict.oid, postalCode: '27572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Koto VII', districtOid: sijunjungDistrict.oid, postalCode: '27573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kupitan', districtOid: sijunjungDistrict.oid, postalCode: '27574', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Tarok', districtOid: sijunjungDistrict.oid, postalCode: '27575', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sijunjung', districtOid: sijunjungDistrict.oid, postalCode: '27511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumpur Kudus', districtOid: sijunjungDistrict.oid, postalCode: '27576', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Gadang', districtOid: sijunjungDistrict.oid, postalCode: '27577', createdAt: new Date(), updatedAt: new Date() },
+
+      // Solok Regency (West Sumatra)
+      { subdistrictName: 'Koto Parik Gadang Diateh', districtOid: kotoParikGadangDiateh.oid, postalCode: '27778', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pauh Duo', districtOid: pauhDuo.oid, postalCode: '27779', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangir', districtOid: sangir.oid, postalCode: '27771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangir Balai Janggo', districtOid: sangirBalaiJanggo.oid, postalCode: '27772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangir Batang Hari', districtOid: sangirBatangHari.oid, postalCode: '27773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sangir Jujuan', districtOid: sangirJujuan.oid, postalCode: '27774', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Pagu', districtOid: sungaiPagu.oid, postalCode: '27775', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'IX Koto Sungai Lasi', districtOid: ixKotoSungaiLasi.oid, postalCode: '27776', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'X Koto Diatas', districtOid: xKotoDiatas.oid, postalCode: '27777', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'X Koto Singkarak', districtOid: xKotoSingkarak.oid, postalCode: '27770', createdAt: new Date(), updatedAt: new Date() },
+
+      // Solok Regency (West Sumatra)
+      { subdistrictName: 'Bukit Sundi', districtOid: bukitSundi.oid, postalCode: '27365', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Danau Kembar', districtOid: danauKembar.oid, postalCode: '27366', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Talang', districtOid: gunungTalang.oid, postalCode: '27367', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hiliran Gumanti', districtOid: hiliranGumanti.oid, postalCode: '27368', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Junjung Sirih', districtOid: junjungSirih.oid, postalCode: '27369', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kubung', districtOid: kubung.oid, postalCode: '27370', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembah Gumanti', districtOid: lembahGumanti.oid, postalCode: '27371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembang Jaya', districtOid: lembangJaya.oid, postalCode: '27372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantai Cermin', districtOid: pantaiCerminDistrict.oid, postalCode: '27373', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payung Sekaki', districtOid: payungSekakiDistrict.oid, postalCode: '27374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tigo Lurah', districtOid: tigoLurah.oid, postalCode: '27375', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'X Koto', districtOid: xKoto.oid, postalCode: '27376', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanah Datar Regency (West Sumatra)
+      { subdistrictName: 'Batipuh', districtOid: batipuh.oid, postalCode: '27265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batipuh Selatan', districtOid: batipuhSelatan.oid, postalCode: '27266', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lima Kaum', districtOid: limaKaum.oid, postalCode: '27211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lintau Buo', districtOid: lintauBuo.oid, postalCode: '27267', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lintau Buo Utara', districtOid: lintauBuoUtara.oid, postalCode: '27268', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Ganting', districtOid: padangGanting.oid, postalCode: '27269', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pariangan', districtOid: pariangan.oid, postalCode: '27270', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambatan', districtOid: rambatan.oid, postalCode: '27271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Salimpaung', districtOid: salimpaung.oid, postalCode: '27272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sepuluh Koto', districtOid: sepuluhKoto.oid, postalCode: '27273', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Tarab', districtOid: sungaiTarab.oid, postalCode: '27274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungayang', districtOid: sungayang.oid, postalCode: '27275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Baru', districtOid: tanjungBaru.oid, postalCode: '27276', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Emas', districtOid: tanjungEmas.oid, postalCode: '27277', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palembang City (South Sumatra)
+      { subdistrictName: 'Alang-Alang Lebar', districtOid: alangAlangLebar.oid, postalCode: '30154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Kecil', districtOid: bukitKecil.oid, postalCode: '30131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gandus', districtOid: gandus.oid, postalCode: '30148', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ilir Barat I', districtOid: ilirBaratI.oid, postalCode: '30136', createdAt: new Date(), updatedAt: new Date() },
+
+      // Palembang City
+      { subdistrictName: 'Ilir Barat II', districtOid: ilirBaratII.oid, postalCode: '30114', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ilir Timur I', districtOid: ilirTimurI.oid, postalCode: '30115', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ilir Timur II', districtOid: ilirTimurII.oid, postalCode: '30116', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jakabaring', districtOid: jakabaring.oid, postalCode: '30257', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalidoni', districtOid: kalidoni.oid, postalCode: '30118', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kemuning', districtOid: kemuning.oid, postalCode: '30119', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kertapati', districtOid: kertapati.oid, postalCode: '30258', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plaju', districtOid: plaju.oid, postalCode: '30259', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sako', districtOid: sako.oid, postalCode: '30117', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seberang Ulu I', districtOid: seberangUluI.oid, postalCode: '30252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seberang Ulu II', districtOid: seberangUluII.oid, postalCode: '30253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sematang Borang', districtOid: sematangBorang.oid, postalCode: '30122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukarami', districtOid: sukarami.oid, postalCode: '30123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumber', districtOid: sumber.oid, postalCode: '30124', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lubuklinggau City
+      { subdistrictName: 'Lubuklinggau Barat I', districtOid: lubuklinggauBaratI.oid, postalCode: '31611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Barat II', districtOid: lubuklinggauBaratII.oid, postalCode: '31612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Selatan I', districtOid: lubuklinggauSelatanI.oid, postalCode: '31621', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Selatan II', districtOid: lubuklinggauSelatanII.oid, postalCode: '31622', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Timur I', districtOid: lubuklinggauTimurI.oid, postalCode: '31625', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Timur II', districtOid: lubuklinggauTimurII.oid, postalCode: '31626', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Utara I', districtOid: lubuklinggauUtaraI.oid, postalCode: '31613', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuklinggau Utara II', districtOid: lubuklinggauUtaraII.oid, postalCode: '31614', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pagar Alam City
+      { subdistrictName: 'Dempo Selatan', districtOid: dempoSelatan.oid, postalCode: '31521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dempo Tengah', districtOid: dempoTengah.oid, postalCode: '31522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dempo Utara', districtOid: dempoUtara.oid, postalCode: '31523', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagar Alam Selatan', districtOid: pagarAlamSelatan.oid, postalCode: '31511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagar Alam Utara', districtOid: pagarAlamUtara.oid, postalCode: '31512', createdAt: new Date(), updatedAt: new Date() },
+
+      // Prabumulih City
+      { subdistrictName: 'Cambai', districtOid: cambai.oid, postalCode: '31141', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Prabumulih Barat', districtOid: prabumulihBarat.oid, postalCode: '31121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Prabumulih Selatan', districtOid: prabumulihSelatan.oid, postalCode: '31122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Prabumulih Timur', districtOid: prabumulihTimur.oid, postalCode: '31123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Prabumulih Utara', districtOid: prabumulihUtara.oid, postalCode: '31124', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambang Kapak Tengah', districtOid: rambangKapakTengah.oid, postalCode: '31125', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tebing Tinggi District
+      { subdistrictName: 'Lintang Kanan', districtOid: tebingTinggiDistrict.oid, postalCode: '31453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Pinang', districtOid: tebingTinggiDistrict.oid, postalCode: '31462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasemah Air Keruh', districtOid: tebingTinggiDistrict.oid, postalCode: '31452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pendopo', districtOid: tebingTinggiDistrict.oid, postalCode: '31461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pendopo Barat', districtOid: tebingTinggiDistrict.oid, postalCode: '31461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Saling', districtOid: tebingTinggiDistrict.oid, postalCode: '31454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sikap Dalam', districtOid: tebingTinggiDistrict.oid, postalCode: '31455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talang Padang', districtOid: tebingTinggiDistrict.oid, postalCode: '31456', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Musi', districtOid: tebingTinggiDistrict.oid, postalCode: '31457', createdAt: new Date(), updatedAt: new Date() },
+
+      // Lahat District
+      { subdistrictName: 'Gumay Talang', districtOid: lahat.oid, postalCode: '31419', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jarai', districtOid: lahat.oid, postalCode: '31461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kikim Barat', districtOid: lahat.oid, postalCode: '31452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kikim Selatan', districtOid: lahat.oid, postalCode: '31453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kikim Tengah', districtOid: lahat.oid, postalCode: '31454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kikim Timur', districtOid: lahat.oid, postalCode: '31455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Agung', districtOid: lahat.oid, postalCode: '31462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merapi Barat', districtOid: lahat.oid, postalCode: '31471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merapi Timur', districtOid: lahat.oid, postalCode: '31472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mulak Ulu', districtOid: lahat.oid, postalCode: '31473', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagar Gunung', districtOid: lahat.oid, postalCode: '31474', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pajar Bulan', districtOid: lahat.oid, postalCode: '31475', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pseksu', districtOid: lahat.oid, postalCode: '31476', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Pinang', districtOid: lahat.oid, postalCode: '31477', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Sakti Pumi', districtOid: lahat.oid, postalCode: '31478', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Sakti Pumu', districtOid: lahat.oid, postalCode: '31479', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Tebat', districtOid: lahat.oid, postalCode: '31480', createdAt: new Date(), updatedAt: new Date() },
+
+      // Muara Enim District
+      { subdistrictName: 'Gelumbang', districtOid: muaraEnim.oid, postalCode: '31171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Megang', districtOid: muaraEnim.oid, postalCode: '31172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kelekar', districtOid: muaraEnim.oid, postalCode: '31173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lawang Kidul', districtOid: muaraEnim.oid, postalCode: '31111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembak', districtOid: muaraEnim.oid, postalCode: '31174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubai', districtOid: muaraEnim.oid, postalCode: '31175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Belida', districtOid: muaraEnim.oid, postalCode: '31176', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Enim', districtOid: muaraEnim.oid, postalCode: '31112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penukal (Muara Enim City District)', districtOid: penukalmuaraEnimCityDistrict.oid, postalCode: '31315', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penukal Utara (Muara Enim City District)', districtOid: penukalUtaramuaraEnimCityDistrict.oid, postalCode: '31316', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambang', districtOid: muaraEnim.oid, postalCode: '31177', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambang Dangku', districtOid: muaraEnim.oid, postalCode: '31178', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendo Darat Laut', districtOid: muaraEnim.oid, postalCode: '31179', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendo Darat Tengah', districtOid: muaraEnim.oid, postalCode: '31180', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendo Darat Ulu', districtOid: muaraEnim.oid, postalCode: '31181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Rotan', districtOid: muaraEnim.oid, postalCode: '31182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talang Ubi (Muara Enim City District)', districtOid: talangUbimuaraEnimCityDistrict.oid, postalCode: '31314', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Abang (Muara Enim City District)', districtOid: tanahAbangmuaraEnimCityDistrict.oid, postalCode: '31313', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Agung', districtOid: muaraEnim.oid, postalCode: '31183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujan Mas', districtOid: muaraEnim.oid, postalCode: '31184', createdAt: new Date(), updatedAt: new Date() },
+
+      // Musi Banyuasin Regency
+      { subdistrictName: 'Babat Supat', districtOid: musiBanyuasinDistrict.oid, postalCode: '30711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babat Toman', districtOid: musiBanyuasinDistrict.oid, postalCode: '30712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Hari Leko', districtOid: musiBanyuasinDistrict.oid, postalCode: '30713', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bayung Lencir', districtOid: musiBanyuasinDistrict.oid, postalCode: '30714', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Keluang', districtOid: musiBanyuasinDistrict.oid, postalCode: '30715', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lais', districtOid: musiBanyuasinDistrict.oid, postalCode: '30716', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lalan', districtOid: musiBanyuasinDistrict.oid, postalCode: '30717', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Plakat Tinggi', districtOid: musiBanyuasinDistrict.oid, postalCode: '30718', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanga Desa', districtOid: musiBanyuasinDistrict.oid, postalCode: '30719', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sekayu', districtOid: musiBanyuasinDistrict.oid, postalCode: '30721', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Keruh', districtOid: musiBanyuasinDistrict.oid, postalCode: '30722', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Lilin', districtOid: musiBanyuasinDistrict.oid, postalCode: '30723', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tungkal Jaya', districtOid: musiBanyuasinDistrict.oid, postalCode: '30724', createdAt: new Date(), updatedAt: new Date() },
+
+      // Musi Rawas Regency (South Sumatra)
+      { subdistrictName: 'Karang Dapo', districtOid: karangDapo.oid, postalCode: '31683', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karang Jaya', districtOid: karangJayamusiRawasDistrict.oid, postalCode: '31684', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nibung', districtOid: nibung.oid, postalCode: '31685', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rawas Ilir', districtOid: rawasIlirmusiRawasDistrict.oid, postalCode: '31686', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rawas Ulu', districtOid: rawasUlu.oid, postalCode: '31687', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Selangit', districtOid: selangit.oid, postalCode: '31688', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'STL Ulu Terawas', districtOid: stlUluTerawas.oid, postalCode: '31689', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sukakarya', districtOid: sukakarya.oid, postalCode: '31691', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumber Harta', districtOid: sumberHarta.oid, postalCode: '31692', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiang Pumpung Kepungut', districtOid: tiangPumpungKepungut.oid, postalCode: '31693', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Rawas', districtOid: uluRawasmusiRawasDistrict.oid, postalCode: '31694', createdAt: new Date(), updatedAt: new Date() },
+
+      // North Musi Rawas Regency
+      { subdistrictName: 'Karang Jaya', districtOid: karangJayaDistrict.oid, postalCode: '31665', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rawas Ilir', districtOid: rawasIlirDistrict.oid, postalCode: '31666', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rupit', districtOid: rupit.oid, postalCode: '31667', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Rawas', districtOid: uluRawasDistrict.oid, postalCode: '31668', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ogan Ilir District (Sungai Pinang as main district)
+      { subdistrictName: 'Indralaya', districtOid: sungaiPinangDistrict.oid, postalCode: '30862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Indralaya Selatan', districtOid: sungaiPinangDistrict.oid, postalCode: '30863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Indralaya Utara', districtOid: sungaiPinangDistrict.oid, postalCode: '30864', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payaraman', districtOid: sungaiPinangDistrict.oid, postalCode: '30865', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pemulutan', districtOid: sungaiPinangDistrict.oid, postalCode: '30653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pemulutan Barat', districtOid: sungaiPinangDistrict.oid, postalCode: '30654', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pemulutan Selatan', districtOid: sungaiPinangDistrict.oid, postalCode: '30655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rambang Kuang', districtOid: sungaiPinangDistrict.oid, postalCode: '30866', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rantau Alai', districtOid: sungaiPinangDistrict.oid, postalCode: '30867', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rantau Panjang', districtOid: sungaiPinangDistrict.oid, postalCode: '30868', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Batu', districtOid: sungaiPinangDistrict.oid, postalCode: '30656', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Raja', districtOid: sungaiPinangDistrict.oid, postalCode: '30657', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ogan Komering Ilir (OKI) Regency
+      { subdistrictName: 'Air Sugihan', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30658', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cengal', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30657', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jejawi', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kayu Agung', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Kayu Agung', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30612', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lempuing', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30656', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lempuing Jaya', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mesuji', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30654', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pampangan', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pedamaran', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pedamaran Timur', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30659', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sirah Pulau Padang', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Menang', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Lubuk', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Gelam', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tulung Selapan', districtOid: oganKomeringIlirDistrict.oid, postalCode: '30665', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ogan Komering Ulu (OKU) Regency
+      { subdistrictName: 'Baturaja Barat', districtOid: oganKomeringUluDistrict.oid, postalCode: '32111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baturaja Timur', districtOid: oganKomeringUluDistrict.oid, postalCode: '32112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lengkiti', districtOid: oganKomeringUluDistrict.oid, postalCode: '32161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Batang', districtOid: oganKomeringUluDistrict.oid, postalCode: '32162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Raja', districtOid: oganKomeringUluDistrict.oid, postalCode: '32163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pengandonan', districtOid: oganKomeringUluDistrict.oid, postalCode: '32164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Peninjauan', districtOid: oganKomeringUluDistrict.oid, postalCode: '32165', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semidang Aji', districtOid: oganKomeringUluDistrict.oid, postalCode: '32166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinar Peninjauan', districtOid: oganKomeringUluDistrict.oid, postalCode: '32167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sosoh Buay Rayap', districtOid: oganKomeringUluDistrict.oid, postalCode: '32168', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Ogan', districtOid: oganKomeringUluDistrict.oid, postalCode: '32169', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ogan Komering Ulu Selatan (OKU Selatan) Regency
+      { subdistrictName: 'Banding Agung', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Pemaca', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Pematang Ribu Ranau Tengah', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32276', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Rawan', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32277', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kisam Tinggi', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32278', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mekakau Ilir', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32279', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muaradua', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Beringin', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Runjung Agung', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32282', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32283', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sindang Danau', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32284', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sungai Are', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32285', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiga Dihaji', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32286', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Warkuk Ranau Selatan', districtOid: oganKomeringUluSelatanDistrict.oid, postalCode: '32287', createdAt: new Date(), updatedAt: new Date() },
+
+      // Ogan Komering Ulu (OKU) Timur Regency
+      { subdistrictName: 'Belitang', districtOid: belitangDistrict.oid, postalCode: '32382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belitang II', districtOid: belitangII.oid, postalCode: '32383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belitang III', districtOid: belitangIII.oid, postalCode: '32384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belitang Jaya', districtOid: belitangJaya.oid, postalCode: '32385', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Belitang Madang Raya', districtOid: belitangMadangRaya.oid, postalCode: '32386', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Madang', districtOid: buayMadang.oid, postalCode: '32361', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Madang Timur', districtOid: buayMadangTimur.oid, postalCode: '32362', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buay Pemuka Bangsa Raja', districtOid: buayPemukaBangsaRaja.oid, postalCode: '32363', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bunga Mayang', districtOid: bungaMayang.oid, postalCode: '32364', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cempaka', districtOid: cempakaDistrict.oid, postalCode: '32365', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jayapura', districtOid: jayapura.oid, postalCode: '32366', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Madang Suku I', districtOid: madangSukuI.oid, postalCode: '32367', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Madang Suku II', districtOid: madangSukuII.oid, postalCode: '32368', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Madang Suku III', districtOid: madangSukuIII.oid, postalCode: '32369', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Martapura', districtOid: martapuraDistrict.oid, postalCode: '32311', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendawai Barat', districtOid: semendawaiBarat.oid, postalCode: '32371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendawai Suku III', districtOid: semendawaiSukuIII.oid, postalCode: '32372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semendawai Timur', districtOid: semendawaiTimur.oid, postalCode: '32373', createdAt: new Date(), updatedAt: new Date() },
+
+      // Penukal Abab Lematang Ilir (PALI) Regency
+      { subdistrictName: 'Abab', districtOid: abab.oid, postalCode: '31351', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penukal', districtOid: penukalDistrict.oid, postalCode: '31352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Penukal Utara', districtOid: penukalUtaraDistrict.oid, postalCode: '31353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talang Ubi', districtOid: talangUbiDistrict.oid, postalCode: '31354', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Abang', districtOid: tanahAbangDistrict.oid, postalCode: '31355', createdAt: new Date(), updatedAt: new Date() },
+
+      // Medan City
+      { subdistrictName: 'Medan Amplas', districtOid: medanAmplas.oid, postalCode: '20147', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Area', districtOid: medanArea.oid, postalCode: '20211', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Barat', districtOid: medanBarat.oid, postalCode: '20111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Baru', districtOid: medanBaru.oid, postalCode: '20154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Belawan', districtOid: medanBelawan.oid, postalCode: '20411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Deli', districtOid: medanDeli.oid, postalCode: '20241', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Denai', districtOid: medanDenai.oid, postalCode: '20226', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Helvetia', districtOid: medanHelvetia.oid, postalCode: '20123', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Johor', districtOid: medanJohor.oid, postalCode: '20144', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Kota', districtOid: medanKota.oid, postalCode: '20212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Labuhan', districtOid: medanLabuhan.oid, postalCode: '20251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Maimun', districtOid: medanMaimun.oid, postalCode: '20151', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Marelan', districtOid: medanMarelan.oid, postalCode: '20252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Perjuangan', districtOid: medanPerjuangan.oid, postalCode: '20233', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Petisah', districtOid: medanPetisah.oid, postalCode: '20112', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Polonia', districtOid: medanPolonia.oid, postalCode: '20157', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Selayang', districtOid: medanSelayang.oid, postalCode: '20131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Sunggal', districtOid: medanSunggal.oid, postalCode: '20121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Tembung', districtOid: medanTembung.oid, postalCode: '20221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Timur', districtOid: medanTimur.oid, postalCode: '20231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medan Tuntungan', districtOid: medanTuntungan.oid, postalCode: '20136', createdAt: new Date(), updatedAt: new Date() },
+
+      // Binjai City
+      { subdistrictName: 'Binjai Barat', districtOid: binjaiBarat.oid, postalCode: '20711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binjai Kota', districtOid: binjaiKota.oid, postalCode: '20712', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binjai Selatan', districtOid: binjaiSelatan.oid, postalCode: '20719', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binjai Timur', districtOid: binjaiTimur.oid, postalCode: '20717', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binjai Utara', districtOid: binjaiUtara.oid, postalCode: '20718', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pematangsiantar City
+      { subdistrictName: 'Siantar Barat', districtOid: siantarBarat.oid, postalCode: '21111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Marihat', districtOid: siantarMarihat.oid, postalCode: '21122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Marimbun', districtOid: siantarMarimbun.oid, postalCode: '21126', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Martoba', districtOid: siantarMartoba.oid, postalCode: '21137', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Selatan', districtOid: siantarSelatan.oid, postalCode: '21121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Sitalasari', districtOid: siantarSitalasari.oid, postalCode: '21139', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Timur', districtOid: siantarTimur.oid, postalCode: '21131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Utara', districtOid: siantarUtara.oid, postalCode: '21142', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sibolga City District
+      { subdistrictName: 'Sibolga Kota', districtOid: sibolgaKota.oid, postalCode: '22521', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sibolga Sambas', districtOid: sibolgaKota.oid, postalCode: '22522', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sibolga Selatan', districtOid: sibolgaKota.oid, postalCode: '22523', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sibolga Utara', districtOid: sibolgaKota.oid, postalCode: '22524', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tanjungbalai City District
+      { subdistrictName: 'Tanjungbalai Datuk Bandar', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungbalai Datuk Bandar Timur', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungbalai Sei Tualang Raso', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21354', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungbalai Tanjungbalai Selatan', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21355', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungbalai Tanjungbalai Utara', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21356', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungbalai Teluk Nibung', districtOid: tanjungbalaiDatukBandar.oid, postalCode: '21357', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tebing Tinggi City District
+      { subdistrictName: 'Tebing Tinggi Bajenis', districtOid: tebingTinggiBajenis.oid, postalCode: '20615', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Padang Hilir', districtOid: tebingTinggiBajenis.oid, postalCode: '20616', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Padang Hulu', districtOid: tebingTinggiBajenis.oid, postalCode: '20617', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Rambutan', districtOid: tebingTinggiBajenis.oid, postalCode: '20618', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi Tebing Tinggi Kota', districtOid: tebingTinggiBajenis.oid, postalCode: '20619', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padangsidimpuan City District
+      { subdistrictName: 'Padangsidimpuan Angkola Julu', districtOid: padangsidimpuanPadangsidimpuanAngkolaJulu.oid, postalCode: '22735', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padangsidimpuan City Districts
+      { subdistrictName: 'Padangsidimpuan Batunadua', districtOid: padangsidimpuanCityDistrict.oid, postalCode: '22731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padangsidimpuan Hutaimbaru', districtOid: padangsidimpuanCityDistrict.oid, postalCode: '22732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padangsidimpuan Selatan', districtOid: padangsidimpuanCityDistrict.oid, postalCode: '22721', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padangsidimpuan Tenggara', districtOid: padangsidimpuanCityDistrict.oid, postalCode: '22733', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunungsitoli City Districts
+      { subdistrictName: 'Gunungsitoli', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsitoli Alooa', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22812', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsitoli Barat', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22813', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsitoli Idanoi', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22814', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsitoli Selatan', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22815', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunungsitoli Utara', districtOid: gunungsitoliCityDistrict.oid, postalCode: '22816', createdAt: new Date(), updatedAt: new Date() },
+
+      // Asahan Regency (North Sumatra)
+      { subdistrictName: 'Kisaran', districtOid: kisaran.oid, postalCode: '21221', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Aek Kuasan', districtOid: aekKuasan.oid, postalCode: '21274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Batu', districtOid: airBatu.oid, postalCode: '21272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Joman', districtOid: airJoman.oid, postalCode: '21273', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Pasir Mandoge', districtOid: bandarPasirMandoge.oid, postalCode: '21261', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Pulau', districtOid: bandarPulau.oid, postalCode: '21271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Buntu Pane', districtOid: buntuPane.oid, postalCode: '21262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Meranti', districtOid: meranti.oid, postalCode: '21264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau Rakyat', districtOid: pulauRakyat.oid, postalCode: '21275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Dadap', districtOid: seiDadap.oid, postalCode: '21263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Kepayang', districtOid: seiKepayang.oid, postalCode: '21265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang Empat', districtOid: simpangEmpatasahanDistrict.oid, postalCode: '21269', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Balai', districtOid: tanjungBalai.oid, postalCode: '21352', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Dalam', districtOid: telukasahanDalam.oid, postalCode: '21268', createdAt: new Date(), updatedAt: new Date() },
+
+      // Batu Bara Regency
+      { subdistrictName: 'Lima Puluh', districtOid: limapuluh.oid, postalCode: '21255', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Air Putih', districtOid: airPutih.oid, postalCode: '21256', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Datuk Lima Puluh', districtOid: datukLimaPuluh.oid, postalCode: '21257', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Datuk Tanah Datar', districtOid: datukTanahDatar.oid, postalCode: '21258', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Laut Tador', districtOid: lautTador.oid, postalCode: '21259', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Medang Deras', districtOid: medangDeras.oid, postalCode: '21254', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Balai', districtOid: seiBalai.oid, postalCode: '21251', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Suka', districtOid: seiSuka.oid, postalCode: '21252', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Talawi', districtOid: talawiDistrict.oid, postalCode: '21253', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Tiram', districtOid: tanjungTiram.oid, postalCode: '21250', createdAt: new Date(), updatedAt: new Date() },
+
+      // Dairi Regency
+      { subdistrictName: 'Sidikalang', districtOid: sidikalang.oid, postalCode: '22212', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berampu', districtOid: sidikalang.oid, postalCode: '22262', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Sitember', districtOid: sidikalang.oid, postalCode: '22263', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lae Parira', districtOid: sidikalang.oid, postalCode: '22264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Parbuluan', districtOid: sidikalang.oid, postalCode: '22265', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pegagan Hilir', districtOid: sidikalang.oid, postalCode: '22266', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siempat Nempu', districtOid: sidikalang.oid, postalCode: '22267', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siempat Nempu Hilir', districtOid: sidikalang.oid, postalCode: '22268', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siempat Nempu Hulu', districtOid: sidikalang.oid, postalCode: '22269', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silahi Sabungan', districtOid: sidikalang.oid, postalCode: '22213', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silima Pungga-Pungga', districtOid: sidikalang.oid, postalCode: '22214', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sumbul', districtOid: sidikalang.oid, postalCode: '22271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Pinem', districtOid: sidikalang.oid, postalCode: '22272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiga Lingga', districtOid: sidikalang.oid, postalCode: '22273', createdAt: new Date(), updatedAt: new Date() },
+
+      // Deli Serdang Regency
+      { subdistrictName: 'Lubuk Pakam', districtOid: deliSerdangDistrict.oid, postalCode: '20511', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bangun Purba', districtOid: deliSerdangDistrict.oid, postalCode: '20581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Kuis', districtOid: deliSerdangDistrict.oid, postalCode: '20552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Beringin', districtOid: deliSerdangDistrict.oid, postalCode: '20562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Masihul', districtOid: deliSerdangDistrict.oid, postalCode: '20991', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Merawan', districtOid: deliSerdangDistrict.oid, postalCode: '20992', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galang', districtOid: deliSerdangDistrict.oid, postalCode: '20585', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Meriah', districtOid: deliSerdangDistrict.oid, postalCode: '20583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hamparan Perak', districtOid: deliSerdangDistrict.oid, postalCode: '20374', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuta Limbaru', districtOid: deliSerdangDistrict.oid, postalCode: '20584', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Labuhan Deli', districtOid: deliSerdangDistrict.oid, postalCode: '20372', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Namo Rambe', districtOid: deliSerdangDistrict.oid, postalCode: '20586', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagar Merbau', districtOid: deliSerdangDistrict.oid, postalCode: '20551', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pancur Batu', districtOid: deliSerdangDistrict.oid, postalCode: '20353', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantai Labu', districtOid: deliSerdangDistrict.oid, postalCode: '20553', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patumbak', districtOid: deliSerdangDistrict.oid, postalCode: '20361', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Percut Sei Tuan', districtOid: deliSerdangDistrict.oid, postalCode: '20371', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sibolangit', districtOid: deliSerdangDistrict.oid, postalCode: '20357', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinembah Tanjung Muda Hilir', districtOid: deliSerdangDistrict.oid, postalCode: '20582', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinembah Tanjung Muda Hulu', districtOid: deliSerdangDistrict.oid, postalCode: '20587', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sunggal', districtOid: deliSerdangDistrict.oid, postalCode: '20351', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Morawa', districtOid: deliSerdangDistrict.oid, postalCode: '20362', createdAt: new Date(), updatedAt: new Date() },
+
+      // Humbang Hasundutan Regency (North Sumatra)
+      { subdistrictName: 'Dolok Sanggul', districtOid: dolokSanggul.oid, postalCode: '22457', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Baktiraja', districtOid: baktiraja.oid, postalCode: '22456', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lintong Nihuta', districtOid: lintongNihuta.oid, postalCode: '22455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Onan Ganjang', districtOid: onanGanjang.oid, postalCode: '22454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pakkat', districtOid: pakkat.oid, postalCode: '22453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paranginan', districtOid: paranginan.oid, postalCode: '22452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Parlilitan', districtOid: parlilitan.oid, postalCode: '22451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pollung', districtOid: pollung.oid, postalCode: '22458', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sijamapolang', districtOid: sijamapolang.oid, postalCode: '22459', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tarabintang', districtOid: tarabintang.oid, postalCode: '22450', createdAt: new Date(), updatedAt: new Date() },
+
+      // Karo Regency
+      { subdistrictName: 'Kabanjahe', districtOid: kabanjahe.oid, postalCode: '22111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barusjahe', districtOid: barusjahe.oid, postalCode: '22172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berastagi', districtOid: berastagi.oid, postalCode: '22152', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolat Rayat', districtOid: dolatRayat.oid, postalCode: '22171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Juhar', districtOid: juhar.oid, postalCode: '22163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuta Buluh', districtOid: kutaBuluh.oid, postalCode: '22155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Laubaleng', districtOid: laubaleng.oid, postalCode: '22164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mardingding', districtOid: mardingding.oid, postalCode: '22165', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merdeka', districtOid: merdeka.oid, postalCode: '22153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Merek', districtOid: merek.oid, postalCode: '22173', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Munte', districtOid: munte.oid, postalCode: '22161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Naman Teran', districtOid: namanteran.oid, postalCode: '22154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Payung', districtOid: payungDistrict.oid, postalCode: '22156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simpang Empat', districtOid: simpangEmpatDistrict.oid, postalCode: '22162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiga Binanga', districtOid: tigaBinanga.oid, postalCode: '22166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiga Panah', districtOid: tigaPanah.oid, postalCode: '22167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tiganderket', districtOid: tiganderket.oid, postalCode: '22168', createdAt: new Date(), updatedAt: new Date() },
+
+      // Labuhan Batu Regency
+      { subdistrictName: 'Rantau Prapat', districtOid: rantauPrapat.oid, postalCode: '21411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bilah Barat', districtOid: rantauPrapat.oid, postalCode: '21451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bilah Hilir', districtOid: rantauPrapat.oid, postalCode: '21452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bilah Hulu', districtOid: rantauPrapat.oid, postalCode: '21453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panai Hilir', districtOid: rantauPrapat.oid, postalCode: '21461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panai Hulu', districtOid: rantauPrapat.oid, postalCode: '21462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panai Tengah', districtOid: rantauPrapat.oid, postalCode: '21463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkatan', districtOid: rantauPrapat.oid, postalCode: '21454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rantau Selatan', districtOid: rantauPrapat.oid, postalCode: '21414', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rantau Utara', districtOid: rantauPrapat.oid, postalCode: '21413', createdAt: new Date(), updatedAt: new Date() },
+
+      // Labuhan Batu Regency
+      { subdistrictName: 'Kota Pinang', districtOid: labuhanBatuDistrict.oid, postalCode: '21464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kampung Rakyat', districtOid: labuhanBatuDistrict.oid, postalCode: '21463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Kanan', districtOid: labuhanBatuDistrict.oid, postalCode: '21462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silangkitang', districtOid: labuhanBatuDistrict.oid, postalCode: '21461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Torgamba', districtOid: labuhanBatuDistrict.oid, postalCode: '21460', createdAt: new Date(), updatedAt: new Date() },
+
+      // Labuhan Batu Utara Regency
+      { subdistrictName: 'Aek Kanopan', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21455', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Aek Kuo', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21454', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Aek Natas', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21453', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala Ledong', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21452', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuta Raja', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21451', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Na IX-X', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21456', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marbau', districtOid: labuhanBatuUtaraDistrict.oid, postalCode: '21457', createdAt: new Date(), updatedAt: new Date() },
+
+
+      // Langkat Regency (North Sumatra)
+      { subdistrictName: 'Stabat', districtOid: stabat.oid, postalCode: '20811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Babalan', districtOid: babalan.oid, postalCode: '20857', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bahorok', districtOid: bahorok.oid, postalCode: '20774', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Serangan', districtOid: batangSerangan.oid, postalCode: '20852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Besitang', districtOid: besitang.oid, postalCode: '20859', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Binjai', districtOid: binjai.oid, postalCode: '20719', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Brandan Barat', districtOid: brandanBarat.oid, postalCode: '20881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gebang', districtOid: gebang.oid, postalCode: '20856', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hinai', districtOid: hinai.oid, postalCode: '20858', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kuala', districtOid: kuala.oid, postalCode: '20861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kutambaru', districtOid: kutambaru.oid, postalCode: '20772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Tualang', districtOid: padangTualang.oid, postalCode: '20853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangkalan Susu', districtOid: pangkalanSusu.oid, postalCode: '20855', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pematang Jaya', districtOid: pematangJaya.oid, postalCode: '20858', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Salapian', districtOid: salapian.oid, postalCode: '20773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sawit Seberang', districtOid: sawitSeberang.oid, postalCode: '20854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Secanggang', districtOid: secanggang.oid, postalCode: '20857', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Bingai', districtOid: seiBingai.oid, postalCode: '20771', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Lepan', districtOid: seiLepan.oid, postalCode: '20777', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Selesai', districtOid: selesai.oid, postalCode: '20776', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sirapit', districtOid: sirapit.oid, postalCode: '20775', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Pura', districtOid: tanjungPura.oid, postalCode: '20853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wampu', districtOid: wampu.oid, postalCode: '20852', createdAt: new Date(), updatedAt: new Date() },
+
+      // Mandailing Natal Regency
+      { subdistrictName: 'Panyabungan', districtOid: panyabungan.oid, postalCode: '22912', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batahan', districtOid: batahan.oid, postalCode: '22988', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Natal', districtOid: batangNatal.oid, postalCode: '22983', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bukit Malintang', districtOid: bukitMalintang.oid, postalCode: '22977', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Huta Bargot', districtOid: hutaBargot.oid, postalCode: '22978', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kotanopan', districtOid: kotanopan.oid, postalCode: '22994', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lembah Sorik Marapi', districtOid: lembahSorikMarapi.oid, postalCode: '22979', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lingga Bayu', districtOid: linggaBayu.oid, postalCode: '22981', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Batang Gadis', districtOid: muaraBatangGadis.oid, postalCode: '22982', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara Sipongi', districtOid: muaraSipongi.oid, postalCode: '22998', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Naga Juang', districtOid: nagaJuang.oid, postalCode: '22984', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Natal', districtOid: natal.oid, postalCode: '22986', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pakantan', districtOid: pakantan.oid, postalCode: '22998', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panyabungan Barat', districtOid: panyabunganBarat.oid, postalCode: '22915', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panyabungan Selatan', districtOid: panyabunganSelatan.oid, postalCode: '22916', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panyabungan Timur', districtOid: panyabunganTimur.oid, postalCode: '22917', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panyabungan Utara', districtOid: panyabunganUtara.oid, postalCode: '22918', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Puncak Sorik Marapi', districtOid: puncakSorikMarapi.oid, postalCode: '22985', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ranto Baek', districtOid: rantoBaek.oid, postalCode: '22987', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siabu', districtOid: siabu.oid, postalCode: '22995', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sinunukan', districtOid: sinunukan.oid, postalCode: '22989', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tambangan', districtOid: tambangan.oid, postalCode: '22996', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Pungkut', districtOid: uluPungkut.oid, postalCode: '22997', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nias Regency (Gido District)
+      { subdistrictName: 'Gido', districtOid: gido.oid, postalCode: '22871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bawolato', districtOid: gido.oid, postalCode: '22872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hili Serangkai', districtOid: gido.oid, postalCode: '22873', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hiliduho', districtOid: gido.oid, postalCode: '22874', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Idano Gawo', districtOid: gido.oid, postalCode: '22875', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ma\'u', districtOid: gido.oid, postalCode: '22876', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sogae Adu', districtOid: gido.oid, postalCode: '22877', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Somolo-Molo', districtOid: gido.oid, postalCode: '22878', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulugawo', districtOid: gido.oid, postalCode: '22879', createdAt: new Date(), updatedAt: new Date() },
+
+      // West Nias Regency (Lahomi District)
+      { subdistrictName: 'Lahomi', districtOid: lahomi.oid, postalCode: '22865', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lolofitu Moi', districtOid: lahomi.oid, postalCode: '22866', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandrehe', districtOid: lahomi.oid, postalCode: '22867', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandrehe Barat', districtOid: lahomi.oid, postalCode: '22868', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mandrehe Utara', districtOid: lahomi.oid, postalCode: '22869', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moroo', districtOid: lahomi.oid, postalCode: '22851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sirombu', districtOid: lahomi.oid, postalCode: '22852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Moroo', districtOid: lahomi.oid, postalCode: '22853', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nias Selatan Regency
+      { subdistrictName: 'Teluk Dalam', districtOid: niasSelatanDistrict.oid, postalCode: '22863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Amandraya', districtOid: niasSelatanDistrict.oid, postalCode: '22862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Fanayama', districtOid: niasSelatanDistrict.oid, postalCode: '22861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gomo', districtOid: niasSelatanDistrict.oid, postalCode: '22860', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hibala', districtOid: niasSelatanDistrict.oid, postalCode: '22859', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lahusa', districtOid: niasSelatanDistrict.oid, postalCode: '22858', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lolomatua', districtOid: niasSelatanDistrict.oid, postalCode: '22857', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lolowau', districtOid: niasSelatanDistrict.oid, postalCode: '22856', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Maniamolo', districtOid: niasSelatanDistrict.oid, postalCode: '22855', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mazino', districtOid: niasSelatanDistrict.oid, postalCode: '22854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau-Pulau Batu', districtOid: niasSelatanDistrict.oid, postalCode: '22853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau-Pulau Batu Barat', districtOid: niasSelatanDistrict.oid, postalCode: '22852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau-Pulau Batu Timur', districtOid: niasSelatanDistrict.oid, postalCode: '22851', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pulau-Pulau Batu Utara', districtOid: niasSelatanDistrict.oid, postalCode: '22850', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Susua', districtOid: niasSelatanDistrict.oid, postalCode: '22849', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Masa', districtOid: niasSelatanDistrict.oid, postalCode: '22848', createdAt: new Date(), updatedAt: new Date() },
+
+      // Nias Regency (North Sumatra)
+      { subdistrictName: 'Lotu', districtOid: lotu.oid, postalCode: '22867', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alasa', districtOid: alasa.oid, postalCode: '22861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Alasa Talumuzoi', districtOid: alasaTalumuzoi.oid, postalCode: '22862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lahewa', districtOid: lahewa.oid, postalCode: '22853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lahewa Timur', districtOid: lahewaTimur.oid, postalCode: '22854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Namohalu Esiwa', districtOid: namohaluEsiwa.oid, postalCode: '22865', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sawo', districtOid: sawo.oid, postalCode: '22866', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitolu Ori', districtOid: sitoluOri.oid, postalCode: '22863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tugala Oyo', districtOid: tugalaOyo.oid, postalCode: '22864', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tuhemberua', districtOid: tuhemberua.oid, postalCode: '22868', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padang Lawas Regency
+      { subdistrictName: 'Sibuhuan', districtOid: padangLawasDistrict.oid, postalCode: '22766', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barumun', districtOid: padangLawasDistrict.oid, postalCode: '22755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barumun Selatan', districtOid: padangLawasDistrict.oid, postalCode: '22756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barumun Tengah', districtOid: padangLawasDistrict.oid, postalCode: '22757', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Lubu Sutam', districtOid: padangLawasDistrict.oid, postalCode: '22758', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Huristak', districtOid: padangLawasDistrict.oid, postalCode: '22765', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lubuk Barumun', districtOid: padangLawasDistrict.oid, postalCode: '22763', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sosa', districtOid: padangLawasDistrict.oid, postalCode: '22762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sosopan', districtOid: padangLawasDistrict.oid, postalCode: '22761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ulu Barumun', districtOid: padangLawasDistrict.oid, postalCode: '22764', createdAt: new Date(), updatedAt: new Date() },
+
+      // Padang Lawas Regency (North Sumatra)
+      { subdistrictName: 'Gunung Tua', districtOid: gunungTuaDistrict.oid, postalCode: '22753', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Onang', districtOid: batangOnangDistrict.oid, postalCode: '22762', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok', districtOid: dolokDistrict.oid, postalCode: '22763', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Sigompulon', districtOid: dolokSigompulonDistrict.oid, postalCode: '22754', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Halongonan', districtOid: halongonanDistrict.oid, postalCode: '22755', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hulu Sihapas', districtOid: huluSihapasDistrict.oid, postalCode: '22756', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Bolak', districtOid: padangBolakDistrict.oid, postalCode: '22752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Padang Bolak Julu', districtOid: padangBolakJuluDistrict.oid, postalCode: '22757', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Portibi', districtOid: portibiDistrict.oid, postalCode: '22758', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simangambat', districtOid: simangambatDistrict.oid, postalCode: '22759', createdAt: new Date(), updatedAt: new Date() },
+
+      // Pakpak Bharat Regency
+      { subdistrictName: 'Salak', districtOid: salakDistrict.oid, postalCode: '22272', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kerajaan', districtOid: kerajaanDistrict.oid, postalCode: '22271', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagindar', districtOid: pagindarDistrict.oid, postalCode: '22273', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pergetteng Getteng Sengkut', districtOid: pergettengGettengSengkutDistrict.oid, postalCode: '22274', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siempat Rube', districtOid: siempatRubeDistrict.oid, postalCode: '22275', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitellu Tali Urang Jehe', districtOid: sitelluTaliUrangJeheDistrict.oid, postalCode: '22276', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitellu Tali Urang Julu', districtOid: sitelluTaliUrangJuluDistrict.oid, postalCode: '22277', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tinada', districtOid: tinadaDistrict.oid, postalCode: '22278', createdAt: new Date(), updatedAt: new Date() },
+
+      // Samosir Regency Districts
+      { subdistrictName: 'Pangururan', districtOid: pangururanDistrict.oid, postalCode: '22392', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Harian', districtOid: harianDistrict.oid, postalCode: '22391', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nainggolan', districtOid: nainggolanDistrict.oid, postalCode: '22394', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Palipi', districtOid: palipiDistrict.oid, postalCode: '22393', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ronggur Nihuta', districtOid: ronggurNihutaDistrict.oid, postalCode: '22395', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sianjur Mula-Mula', districtOid: sianjurMulaMulaDistrict.oid, postalCode: '22396', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simanindo', districtOid: simanindoDistrict.oid, postalCode: '22397', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitio-Tio', districtOid: sitioTioDistrict.oid, postalCode: '22398', createdAt: new Date(), updatedAt: new Date() },
+
+      // Serdang Bedagai Regency
+      { subdistrictName: 'Sei Rampah', districtOid: serdangBedagaiDistrict.oid, postalCode: '20995', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Khalipah', districtOid: serdangBedagaiDistrict.oid, postalCode: '20996', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Masihul', districtOid: serdangBedagaiDistrict.oid, postalCode: '20991', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Merawan', districtOid: serdangBedagaiDistrict.oid, postalCode: '20992', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kota Rih', districtOid: serdangBedagaiDistrict.oid, postalCode: '20993', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pantai Cermin', districtOid: serdangBedagaiDistrict.oid, postalCode: '20997', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Perbaungan', districtOid: serdangBedagaiDistrict.oid, postalCode: '20998', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sei Bamban', districtOid: serdangBedagaiDistrict.oid, postalCode: '20994', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Serba Jadi', districtOid: serdangBedagaiDistrict.oid, postalCode: '20999', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silinda', districtOid: serdangBedagaiDistrict.oid, postalCode: '20980', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sipispis', districtOid: serdangBedagaiDistrict.oid, postalCode: '20981', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjung Beringin', districtOid: serdangBedagaiDistrict.oid, postalCode: '20982', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Syahbandar', districtOid: serdangBedagaiDistrict.oid, postalCode: '20983', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tebing Tinggi', districtOid: serdangBedagaiDistrict.oid, postalCode: '20984', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Teluk Mengkudu', districtOid: serdangBedagaiDistrict.oid, postalCode: '20985', createdAt: new Date(), updatedAt: new Date() },
+
+      // Simalungun Regency (North Sumatra)
+      { subdistrictName: 'Raya', districtOid: raya.oid, postalCode: '21162', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar', districtOid: bandar.oid, postalCode: '21184', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Huluan', districtOid: bandarHuluan.oid, postalCode: '21186', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bandar Masilam', districtOid: bandarMasilam.oid, postalCode: '21185', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Besar Maligas', districtOid: bosarMaligas.oid, postalCode: '21174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Batu Nanggar', districtOid: dolokBatuNanggar.oid, postalCode: '21155', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Panribuan', districtOid: dolokPanribuan.oid, postalCode: '21163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Pardamean', districtOid: dolokPardamean.oid, postalCode: '21156', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dolok Silau', districtOid: dolokSilau.oid, postalCode: '21157', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girsang Sipangan Bolon', districtOid: girsangSipanganBolon.oid, postalCode: '21174', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Malela', districtOid: gunungMalela.oid, postalCode: '21175', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gunung Maligas', districtOid: gunungMaligas.oid, postalCode: '21176', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Haranggaol Horison', districtOid: haranggaolHorison.oid, postalCode: '21177', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Hatonduhan', districtOid: hatonduhan.oid, postalCode: '21158', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Huta Bayu Raja', districtOid: hutaBayuRaja.oid, postalCode: '21159', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jawa Maraja Bah Jambi', districtOid: jawaMarajaBahJambi.oid, postalCode: '21182', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jorlang Hataran', districtOid: jorlangHataran.oid, postalCode: '21183', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panei', districtOid: panei.oid, postalCode: '21161', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pematang Bandar', districtOid: pematangBandar.oid, postalCode: '21187', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pematang Sidamanik', districtOid: pematangSidamanik.oid, postalCode: '21168', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purba', districtOid: purba.oid, postalCode: '21165', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Raya Kahean', districtOid: rayaKahean.oid, postalCode: '21164', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar', districtOid: siantar.oid, postalCode: '21126', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sidamanik', districtOid: sidamanik.oid, postalCode: '21171', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silimakuta', districtOid: silimakuta.oid, postalCode: '21166', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silou Kahean', districtOid: silouKahean.oid, postalCode: '21167', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanah Jawa', districtOid: tanahJawa.oid, postalCode: '21181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapian Dolok', districtOid: tapianDolok.oid, postalCode: '21154', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ujung Padang', districtOid: ujungPadang.oid, postalCode: '21187', createdAt: new Date(), updatedAt: new Date() },
+
+      // South Tapanuli Regency
+      { subdistrictName: 'Sipirok', districtOid: sipirok.oid, postalCode: '22742', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkola Barat', districtOid: angkolaBarat.oid, postalCode: '22735', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkola Sangkunur', districtOid: angkolaSangkunur.oid, postalCode: '22733', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkola Selatan', districtOid: angkolaSelatan.oid, postalCode: '22732', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Angkola Timur', districtOid: angkolaTimur.oid, postalCode: '22731', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Arse', districtOid: arse.oid, postalCode: '22741', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Angkola', districtOid: batangAngkola.oid, postalCode: '22773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Batang Toru', districtOid: batangToru.oid, postalCode: '22738', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Marancar', districtOid: marancar.oid, postalCode: '22737', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Saipar Dolok Hole', districtOid: saiparDolokHole.oid, postalCode: '22734', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sayur Matinggi', districtOid: sayurMatinggi.oid, postalCode: '22736', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siais', districtOid: siais.oid, postalCode: '22739', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tano Tombangan Angkola', districtOid: tanoTombanganAngkola.oid, postalCode: '22772', createdAt: new Date(), updatedAt: new Date() },
+
+      // Central Tapanuli Regency
+      { subdistrictName: 'Pandan', districtOid: pandan.oid, postalCode: '22611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Andam Dewi', districtOid: pandan.oid, postalCode: '22651', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Badiri', districtOid: pandan.oid, postalCode: '22652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barus', districtOid: pandan.oid, postalCode: '22564', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Barus Utara', districtOid: pandan.oid, postalCode: '22565', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kolang', districtOid: pandan.oid, postalCode: '22653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumut', districtOid: pandan.oid, postalCode: '22654', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Manduamas', districtOid: pandan.oid, postalCode: '22655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pasaribu Tobing', districtOid: pandan.oid, postalCode: '22656', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pinangsori', districtOid: pandan.oid, postalCode: '22657', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sarudik', districtOid: pandan.oid, postalCode: '22614', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sibabangun', districtOid: pandan.oid, postalCode: '22658', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sirandorung', districtOid: pandan.oid, postalCode: '22659', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sitahuis', districtOid: pandan.oid, postalCode: '22616', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sorkam', districtOid: pandan.oid, postalCode: '22662', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sorkam Barat', districtOid: pandan.oid, postalCode: '22663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sosor Gadong', districtOid: pandan.oid, postalCode: '22664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tukka', districtOid: pandan.oid, postalCode: '22665', createdAt: new Date(), updatedAt: new Date() },
+
+      // Tapanuli Utara Regency
+      { subdistrictName: 'Tarutung', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22411', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Adian Koting', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22461', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Garoga', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22462', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Muara', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22463', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pagaran', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22464', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pahae Jae', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22465', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pahae Julu', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22466', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pangaribuan', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22467', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Parmonangan', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22468', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purbatua', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22469', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siatas Barita', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22470', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siborong-borong', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22471', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Simangumban', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22472', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sipahutar', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22473', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sipoholon', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22474', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tapian Nauli', districtOid: tapanuliUtaraDistrict.oid, postalCode: '22475', createdAt: new Date(), updatedAt: new Date() },
+
+      // Toba Regency (North Sumatra)
+      { subdistrictName: 'Balige', districtOid: balige.oid, postalCode: '22312', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ajibata', districtOid: ajibata.oid, postalCode: '22386', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bonatua Lunasi', districtOid: bonatuaLunasi.oid, postalCode: '22385', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bor-bor', districtOid: borBor.oid, postalCode: '22383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Habinsaran', districtOid: habinsaran.oid, postalCode: '22382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Laguboti', districtOid: laguboti.oid, postalCode: '22381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lumban Julu', districtOid: lumbanJulu.oid, postalCode: '22387', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nassau', districtOid: nassau.oid, postalCode: '22384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pintu Pohan Meranti', districtOid: pintuPohanMeranti.oid, postalCode: '22388', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Porsea', districtOid: porsea.oid, postalCode: '22384', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Siantar Narumonda', districtOid: siantarNarumonda.oid, postalCode: '22389', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sigumpar', districtOid: sigumpar.oid, postalCode: '22381', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Silaen', districtOid: silaen.oid, postalCode: '22382', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tampahan', districtOid: tampahan.oid, postalCode: '22383', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Uluan', districtOid: uluan.oid, postalCode: '22385', createdAt: new Date(), updatedAt: new Date() },
+
+      // Yogyakarta City
+      { subdistrictName: 'Gondomanan', districtOid: gondomanan.oid, postalCode: '55122', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gondokusuman', districtOid: gondokusuman.oid, postalCode: '55121', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jetis', districtOid: jetisDistrict.oid, postalCode: '55231', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kotagede', districtOid: kotagede.oid, postalCode: '55172', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kraton', districtOid: kraton.oid, postalCode: '55132', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mantrijeron', districtOid: mantrijeron.oid, postalCode: '55143', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mergangsan', districtOid: mergangsan.oid, postalCode: '55153', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngampilan', districtOid: ngampilan.oid, postalCode: '55261', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pakualaman', districtOid: pakualaman.oid, postalCode: '55111', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tegalrejo', districtOid: tegalrejo.oid, postalCode: '55241', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Umbulharjo', districtOid: umbulharjo.oid, postalCode: '55163', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Wirobrajan', districtOid: wirobrajan.oid, postalCode: '55251', createdAt: new Date(), updatedAt: new Date() },
+
+      // Bantul Regency
+      { subdistrictName: 'Bantul', districtOid: bantul.oid, postalCode: '55711', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Bambang Lipuro', districtOid: bantul.oid, postalCode: '55764', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Banguntapan', districtOid: bantul.oid, postalCode: '55191', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Dlingo', districtOid: bantul.oid, postalCode: '55783', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Imogiri', districtOid: bantul.oid, postalCode: '55782', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Jetis (Bantul City District)', districtOid: jetisbantulCityDistrict.oid, postalCode: '55131', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kasihan', districtOid: bantul.oid, postalCode: '55181', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kretek', districtOid: bantul.oid, postalCode: '55772', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pajangan', districtOid: bantul.oid, postalCode: '55751', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pandak', districtOid: bantul.oid, postalCode: '55761', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Piyungan', districtOid: bantul.oid, postalCode: '55792', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pleret', districtOid: bantul.oid, postalCode: '55791', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sanden', districtOid: bantul.oid, postalCode: '55773', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sedayu', districtOid: bantul.oid, postalCode: '55752', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sewon', districtOid: bantul.oid, postalCode: '55186', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Srandakan', districtOid: bantul.oid, postalCode: '55762', createdAt: new Date(), updatedAt: new Date() },
+
+      // Gunung Kidul Regency
+      { subdistrictName: 'Wonosari', districtOid: gunungKidulDistrict.oid, postalCode: '55811', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gedang Sari', districtOid: gunungKidulDistrict.oid, postalCode: '55863', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girisubo', districtOid: gunungKidulDistrict.oid, postalCode: '55883', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Karangmojo', districtOid: gunungKidulDistrict.oid, postalCode: '55891', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngawen', districtOid: gunungKidulDistrict.oid, postalCode: '55853', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nglipar', districtOid: gunungKidulDistrict.oid, postalCode: '55852', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Paliyan', districtOid: gunungKidulDistrict.oid, postalCode: '55871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panggang', districtOid: gunungKidulDistrict.oid, postalCode: '55872', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Patuk', districtOid: gunungKidulDistrict.oid, postalCode: '55862', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Playen', districtOid: gunungKidulDistrict.oid, postalCode: '55861', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ponjong', districtOid: gunungKidulDistrict.oid, postalCode: '55892', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Purwosari', districtOid: gunungKidulDistrict.oid, postalCode: '55873', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Rongkop', districtOid: gunungKidulDistrict.oid, postalCode: '55884', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sapto Sari', districtOid: gunungKidulDistrict.oid, postalCode: '55871', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semanu', districtOid: gunungKidulDistrict.oid, postalCode: '55854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Semin', districtOid: gunungKidulDistrict.oid, postalCode: '55854', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tanjungsari', districtOid: gunungKidulDistrict.oid, postalCode: '55881', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tepus', districtOid: gunungKidulDistrict.oid, postalCode: '55882', createdAt: new Date(), updatedAt: new Date() },
+
+      // Kulon Progo Regency (Yogyakarta Special Region)
+      { subdistrictName: 'Wates', districtOid: wates.oid, postalCode: '55611', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Galur', districtOid: galur.oid, postalCode: '55661', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Girimulyo', districtOid: girimulyo.oid, postalCode: '55674', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalibawang', districtOid: kalibawang.oid, postalCode: '55672', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kokap', districtOid: kokap.oid, postalCode: '55653', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Lendah', districtOid: lendah.oid, postalCode: '55663', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Nanggulan', districtOid: nanggulan.oid, postalCode: '55671', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Panjatan', districtOid: panjatan.oid, postalCode: '55655', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pengasih', districtOid: pengasih.oid, postalCode: '55652', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Samigaluh', districtOid: samigaluh.oid, postalCode: '55673', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Sentolo', districtOid: sentolo.oid, postalCode: '55664', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Temon', districtOid: temon.oid, postalCode: '55654', createdAt: new Date(), updatedAt: new Date() },
+
+      // Sleman Regency
+      { subdistrictName: 'Sleman', districtOid: sleman.oid, postalCode: '55513', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Berbah', districtOid: berbah.oid, postalCode: '55573', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Cangkringan', districtOid: cangkringan.oid, postalCode: '55583', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Depok', districtOid: depok.oid, postalCode: '55281', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Gamping', districtOid: gamping.oid, postalCode: '55291', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Godean', districtOid: godean.oid, postalCode: '55264', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Kalasan', districtOid: kalasan.oid, postalCode: '55571', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Minggir', districtOid: minggir.oid, postalCode: '55562', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Mlati', districtOid: mlati.oid, postalCode: '55284', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Moyudan', districtOid: moyudan.oid, postalCode: '55563', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngaglik', districtOid: ngaglik.oid, postalCode: '55581', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Ngemplak', districtOid: ngemplak.oid, postalCode: '55584', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Pakem', districtOid: pakem.oid, postalCode: '55582', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Prambanan', districtOid: prambanan.oid, postalCode: '55572', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Seyegan', districtOid: seyegan.oid, postalCode: '55561', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Tempel', districtOid: tempel.oid, postalCode: '55552', createdAt: new Date(), updatedAt: new Date() },
+      { subdistrictName: 'Turi', districtOid: turi.oid, postalCode: '55551', createdAt: new Date(), updatedAt: new Date() }
+
+
+
+    ], { returning: true });
   },
 
   async down(queryInterface, Sequelize) {
