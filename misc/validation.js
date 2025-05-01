@@ -1,58 +1,40 @@
 const Joi = require('joi');
 
 /**
- * Function to validate request parameters, body, and query parameters.
- * @param {Joi.Schema} paramsSchema - Joi schema for route parameters.
- * @param {Joi.Schema} bodySchema - Joi schema for request body.
- * @param {Joi.Schema} querySchema - Joi schema for query parameters.
- * @param {Object} req - The request object.
- * @param {Joi.Schema} tokenSchema - Joi schema for token validation.
- * @returns {Object} - Returns an object with isValid and message properties.
+ * Returns Express middleware to validate request using a Joi schema.
+ * @param {Joi.ObjectSchema} schema - Joi schema with optional keys: body, query, params, headers.
+ * @returns {Function} - Express middleware
  */
-const validateRequest = (paramsSchema, bodySchema, querySchema, req, tokenSchema) => {
-    let message = '';
+function validateRequest(schema) {
+    return (req, res, next) => {
+        // Use keys from schema to build the object to validate
+        const schemaKeys = Object.keys(schema.describe().keys);
+        const dataToValidate = {};
 
-    // Validate route parameters
-    if (paramsSchema) {
-        const { error: paramError } = paramsSchema.validate(req.params, { abortEarly: false });
-        if (paramError) {
-            message += `Parameter validation error: ${paramError.details.map(detail => detail.message).join(', ')}. `;
+        for (const key of schemaKeys) {
+            if (req[key] !== undefined) {
+                dataToValidate[key] = req[key];
+            }
         }
-    }
 
-    // Validate request body
-    if (bodySchema) {
-        const { error: bodyError } = bodySchema.validate(req.body, { abortEarly: false });
-        if (bodyError) {
-            message += `Body validation error: ${bodyError.details.map(detail => detail.message).join(', ')}. `;
+        const { error, value } = schema.validate(dataToValidate, {
+            allowUnknown: true,
+            abortEarly: false
+        });
+
+        if (error) {
+            return res.status(400).json({
+                message: 'Validation error',
+                details: error.details.map(detail => detail.message)
+            });
         }
-    }
 
-    // Validate query parameters
-    if (querySchema) {
-        const { error: queryError } = querySchema.validate(req.query, { abortEarly: false });
-        if (queryError) {
-            message += `Query validation error: ${queryError.details.map(detail => detail.message).join(', ')}. `;
-        }
-    }
+        // Attach validated values to req.validated
+        req.validated = value;
+        next();
+    };
+}
 
-    // Validate Bearer token
-    if (tokenSchema) {
-        const authHeader = req.headers.authorization;
-        if (!authHeader) {
-            message += 'Authorization header missing. ';
-        } 
-        // Uncomment to validate token if needed
-        // else {
-        //     const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
-        //     const { error: tokenError } = tokenSchema.validate(token);
-        //     if (tokenError) {
-        //         message += `Bearer token validation error: ${tokenError.details.map(detail => detail.message).join(', ')}. `;
-        //     }
-        // }
-    }
-
-    return { isValid: !message, message: message.trim() };
+module.exports = {
+    validateRequest
 };
-
-module.exports = validateRequest;

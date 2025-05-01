@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 
 // Default response format
 class DefaultResponse {
-    constructor(resultCode, httpStatus, message, total, data) {
+    constructor(resultCode, httpStatus, message, total, data, paggination) {
         this.resultCode = resultCode;
         this.httpStatus = httpStatus;
         this.message = message;
@@ -10,6 +10,23 @@ class DefaultResponse {
         this.data = data;
     }
 }
+
+class DefaultPaginantionResponse {
+    constructor(resultCode, httpStatus, message, total, data, pageIndex,pageSize) {
+        this.resultCode = resultCode;
+        this.httpStatus = httpStatus;
+        this.message = message;
+        this.pagging = {
+            page: pageIndex,
+            size: pageSize,
+            total: total,
+            totalPage: Math.floor((total + pageSize - 1) / pageSize)
+        };
+        this.data = data;
+    }
+}
+
+
 
 // Utility functions
 const responseOk = (data, total) => new DefaultResponse("200", "200", "success", total, data);
@@ -24,6 +41,7 @@ const responseErrorInserted = (error) => new DefaultResponse("500", "500", "erro
 const responseErrorUpdate = (error) => new DefaultResponse("500", "500", "error query", 1, error);
 const responseErrorDelete = (error) => new DefaultResponse("500", "500", "error query", 1, error);
 const responseErrorGet = (error) => new DefaultResponse("500", "500", "error query", 1, error);
+const responsePaggination = (data, total, pageIndex, pageSize) => new DefaultPaginantionResponse("200", "200", "success", total, data, pageIndex,pageSize);
 
 // Handle validation errors
 const getErrorMsg = (fieldError) => {
@@ -60,6 +78,7 @@ module.exports = {
     responseErrorUpdate,
     responseErrorDelete,
     responseErrorGet,
+    responsePaggination,
     getErrorMsg,
     panicIfError
 };

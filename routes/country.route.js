@@ -1,6 +1,8 @@
 const express = require('express');
 const roleGuard = require('../middleware/role-guard');
 const countryController = require('../controllers/country.controller'); // Adjust the path
+const { validateRequest } = require('../misc/validation');
+const { createCountryDto, updateCountryDto, filterCountryDto, params, querySchema } = require('../dtos/payload-country-dto');
 
 const router = express.Router();
 
@@ -344,7 +346,8 @@ router.get('/', roleGuard('Admin'), countryController.findAll);
  *                         format: date-time
  *                         example: "2024-09-17T02:59:57.000Z"
  */
-router.post('/q', roleGuard('Admin'), countryController.find);
+router.post('/q', validateRequest(filterCountryDto), roleGuard('Admin'), countryController.find);
+// router.post('/q', roleGuard('Admin'),validateRequest(null, filterCountryDto,querySchema,  true), countryController.find);
 
 /**
  * @swagger

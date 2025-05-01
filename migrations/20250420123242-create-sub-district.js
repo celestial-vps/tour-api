@@ -18,8 +18,14 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
-      subdistrictName: {
+      subDistrictName: {
         type: Sequelize.STRING,
+        field: 'subDistrictName',
+        allowNull: false,
+      },
+      postalCode: {
+        type: Sequelize.STRING,
+        field: 'postalCode', // 👈 this maps the JS name to DB column
         allowNull: false,
       },
       createdBy: {

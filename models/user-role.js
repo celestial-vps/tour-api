@@ -13,9 +13,33 @@ const UserRole = sequelize.define('UserRole', {
         unique: true,
         allowNull: false,
     },
+    targetType: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
     isAdministrative: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+    },
+    readState: {
+        type: DataTypes.BOOLEAN,
+        field: 'readState',
+    },
+    writeState: {
+        type: DataTypes.BOOLEAN,
+        field: 'writeState',
+    },
+    createState: {
+        type: DataTypes.BOOLEAN,
+        field: 'createState',
+    },
+    deleteState: {
+        type: DataTypes.BOOLEAN,
+        field: 'deleteState',
+    },
+    navigateState: {
+        type: DataTypes.BOOLEAN,
+        field: 'navigateState',
     },
     createdAt: {
         type: DataTypes.DATE,

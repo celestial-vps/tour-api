@@ -15,9 +15,28 @@ module.exports = {
         unique: true,
         allowNull: false,
       },
+      targetType: {
+        type: Sequelize.STRING(50),        
+        allowNull: false,
+      },
       isAdministrative: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+      },
+      readState: {
+        type: Sequelize.BOOLEAN,
+      },
+      writeState: {
+        type: Sequelize.BOOLEAN,
+      },
+      createState: {
+        type: Sequelize.BOOLEAN,
+      },
+      deleteState: {
+        type: Sequelize.BOOLEAN,
+      },
+      navigateState: {
+        type: Sequelize.BOOLEAN,
       },
       createdBy: {
         type: Sequelize.UUID,

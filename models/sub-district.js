@@ -12,8 +12,14 @@ const Subdistrict = sequelize.define('Subdistrict', {
         type: DataTypes.UUID,
         allowNull: false,
     },
-    subdistrictName: {
+    subDistrictName: {
         type: DataTypes.STRING,
+        field: 'subDistrictName', // 👈 this maps the JS name to DB column
+        allowNull: false,
+    },
+    postalCode: {
+        type: DataTypes.STRING,
+        field: 'postalCode', // 👈 this maps the JS name to DB column
         allowNull: false,
     },
     createdBy: {
@@ -34,26 +40,26 @@ const Subdistrict = sequelize.define('Subdistrict', {
 // Associations
 Subdistrict.associate = (models) => {
     Subdistrict.belongsTo(models.District, {
-        foreignKey: 'districtOid', 
+        foreignKey: 'districtOid',
         targetKey: 'oid',
-        as: 'district', 
+        as: 'district',
     });
 
     Subdistrict.hasMany(models.Hotel, {
         foreignKey: 'subDistrictOid',
-        as: 'hotels', 
+        as: 'hotels',
         onDelete: 'CASCADE',
     });
 
     Subdistrict.hasMany(models.Customer, {
-        foreignKey: 'subDistrictOid', 
-        as: 'customers', 
+        foreignKey: 'subDistrictOid',
+        as: 'customers',
         onDelete: 'CASCADE',
     });
 
     Subdistrict.hasMany(models.Owner, {
-        foreignKey: 'subDistrictOid', 
-        as: 'owners', 
+        foreignKey: 'subDistrictOid',
+        as: 'owners',
         onDelete: 'CASCADE',
     });
 };

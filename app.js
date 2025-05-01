@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
-
+const cors = require('cors');
 const helmet = require('helmet')
 // const bankRoutes = require('./routes/bank.route');  
-// const authRoutes = require('./routes/auth.route');  
+const authRoutes = require('./routes/auth.route');  
+const countryRoutes = require('./routes/country.route');  
+
 const setupSwagger = require('./swagger'); // Adjust the path as needed
 const multer = require('multer');
 const path = require('path');
@@ -16,6 +18,12 @@ const app = express();
 app.use(express.json());
 app.use(helmet())
 app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:4200', // Replace with your Angular app URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 setupSwagger(app);
 // Ensure the uploads directory exists
@@ -33,8 +41,8 @@ const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if 
 console.log(`Server running on basePath ${basePath}`);
 sequelize.logging = console.log; 
 
-// app.use(`${basePath}/auth`, authRoutes); 
-// app.use(`${basePath}/bank`, bankRoutes); 
+app.use(`${basePath}/auth`, authRoutes); 
+app.use(`${basePath}/country`, countryRoutes); 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
