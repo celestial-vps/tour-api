@@ -1,8 +1,8 @@
 const express = require('express');
-const roleGuard = require('../middleware/role-guard');
+const {roleGuard} = require('../middleware/role-guard');
 const countryController = require('../controllers/country.controller'); // Adjust the path
 const { validateRequest } = require('../misc/validation');
-const { createCountryDto, updateCountryDto, filterCountryDto, params, querySchema } = require('../dtos/payload-country-dto');
+const { createCountryDto,deleteCountryDto, updateCountryDto, filterCountryDto,getCountryDto } = require('../dtos/payload-country-dto');
 
 const router = express.Router();
 
@@ -75,7 +75,7 @@ const router = express.Router();
  *                       format: date-time
  *                       example: "2024-09-18T11:42:10Z"
  */
-router.post('/create', roleGuard('Admin'), countryController.create);
+router.post('/create',validateRequest(createCountryDto), roleGuard('Admin'), countryController.create);
 
 /**
  * @swagger
@@ -139,7 +139,7 @@ router.post('/create', roleGuard('Admin'), countryController.create);
  *                       format: date-time
  *                       example: "2024-09-18T11:56:36Z"
  */
-router.put('/:oid', roleGuard('Admin'), countryController.update);
+router.put('/:oid', validateRequest(updateCountryDto), roleGuard('Admin'), countryController.update);
 
 /**
  * @swagger
@@ -220,7 +220,7 @@ router.put('/:oid', roleGuard('Admin'), countryController.update);
  *                   type: string
  *                   example: "Country not found"
  */
-router.delete('/delete/:oid', roleGuard('Admin'), countryController.deleted);
+router.delete('/delete/:oid', validateRequest(deleteCountryDto), roleGuard('Admin'), countryController.deleted);
 
 /**
  * @swagger
@@ -270,7 +270,7 @@ router.delete('/delete/:oid', roleGuard('Admin'), countryController.deleted);
  *                         format: date-time
  *                         example: "2024-09-17T02:58:52.000Z"
  */
-router.get('/', roleGuard('Admin'), countryController.findAll);
+router.get('/', validateRequest(filterCountryDto), roleGuard('Admin'), countryController.findAll);
 
 /**
  * @swagger
@@ -404,6 +404,6 @@ router.post('/q', validateRequest(filterCountryDto), roleGuard('Admin'), country
  *                       format: date-time
  *                       example: "2024-09-17T02:59:57.000Z"
  */
-router.get('/:oid', roleGuard('Admin'), countryController.findById);
+router.get('/:oid',validateRequest(getCountryDto), roleGuard('Admin'), countryController.findById);
 
 module.exports = router;

@@ -1,117 +1,87 @@
-// repositories/countryRepository.js
-// const { result } = require('lodash');
-const Country = require('../models/country'); // Import the default export
+const Country = require('../models/country');
 const { Op } = require('sequelize');
-const models = require('../models'); // Ensure you're importing the models correctly
-const { paginate } = require('../misc/paggination')
+const { paginate } = require('../misc/pagination');
 
-
+// Save a new country
 const save = async (data, options) => {
     try {
-        const result = await models.Country.create(data, options);
-        return { result, err: null }
+        const result = await Country.create(data, options);
+        return { result, err: null };
+    } catch (err) {
+        return { result: null, err };
     }
-    catch (err) {
-        return { result: null, err }
-    }
-
 };
 
+// Update an existing country
 const update = async (oid, data, options) => {
     try {
-        const result = await models.Country.update(data, {
-            where: { oid } // Assuming 'id' is the primary key or identifier
-        }, options);
-
-        return { result, err: null }
+        const result = await Country.update(data, {
+            where: { oid },
+            ...options,
+        });
+        return { result, err: null };
     } catch (err) {
-        return { result: null, err }
+        return { result: null, err };
     }
 };
 
-const deleted = async (oid, options) => {
+// Delete a country by ID
+const deleted = async (id) => {
     try {
-        const deleteResult = await models.Country.destroy({
-            where: {
-                oid: oid // Replace 'id' with the actual primary key field if different
-            }
-        }, options);
-        if (deleteResult !== 0) {
-            return { result: deleteResult, err: null }; // Return the deleted product
-        } else {
-            return {
-                result: null,
-                err: {
-                    message: "Failed to delete record"
-                }
-            };
+        const result = await Country.destroy({ where: { oid: id } });
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
         }
-        // const result = await Country.findByPk(oid);
-        // if (result) {
-        //     await result.destroy();
-        //     return { result, err: null }
-        // } else {
-        //     return {
-        //         err: {
-        //             message: "Data Not Found"
-        //         }
-        //     }
-        // }
-
-    } catch (err) {
-        return { result: null, err }
+        return { result, err: null };
+    } catch (error) {
+        return { result: null, err: error?.message ?? String(error) };
     }
-
 };
 
+// Get all countries
 const findAll = async () => {
     try {
-        const result = await models.Country.findAll();
-        return { result, err: null }
+        const result = await Country.findAll();
+        return { result, err: null };
     } catch (err) {
-        return { result: null, err }
+        return { result: null, err };
     }
-
 };
 
+// Find country by ID
 const findById = async (oid) => {
     try {
-        const result = await models.Country.findByPk(oid);
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
+        const result = await Country.findByPk(oid);
+        return { result, err: null };
+    } catch (err) {
+        return { result: null, err };
     }
 };
 
+// Placeholder for advanced filtering (currently same as findAll)
 const advanceFlter = async () => {
     try {
-        const result = await models.Country.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
+        const result = await Country.findAll();
+        return { result, err: null };
+    } catch (err) {
+        return { result: null, err };
     }
 };
 
+// Count countries by criteria
 const findCountByCriteria = async (where = {}) => {
-    try {
-        const count = await Country.count({ where });
-        return { count, error: null };
-
-    } catch (error) {
-        console.error('Error counting countries:', error);
-        return { count: 0, error: error.message };
-    }
+  try {
+    const count = await Country.count({ where });
+    return { count, error: null };
+  } catch (error) {
+    return { count: 0, error: error };
+  }
 };
 
-const findByCriteria = async (where = {}, page, pageSize) => {
-    try {
-        const whereConditions = Object.entries(filterCondition).reduce((acc, [key, value]) => {
-            if (value) acc[key] = { [Op.like]: `%${value}%` };
-            return acc;
-        }, {});
 
+// Find countries by criteria with pagination
+const findByCriteria = async (where = {}, page = 1, pageSize = 10) => {
+    try {
         const countries = await Country.findAll({
             where,
             limit: pageSize,
@@ -121,27 +91,31 @@ const findByCriteria = async (where = {}, page, pageSize) => {
 
         return { countries, error: null };
     } catch (error) {
-        console.error('Error retrieving countries:', error);
         return { countries: [], error };
     }
 };
 
+// Find and count all with pagination
 const findAndCountAll = async (filter, options, attribut = {}) => {
     try {
-        const countries = await paginate(Country, filter, options.pageIndex, options.pageSize, {
-            ...options,
-            limit: -1,
-            sortBy: 'countryName:asc',
-            attributes: attribut,
-        });
+        const countries = await paginate(
+            Country,
+            filter,
+            options.pageIndex,
+            options.pageSize,
+            {
+                ...options,
+                limit: -1,
+                sortBy: 'countryName:asc',
+                attributes: attribut,
+            }
+        );
 
         return { countries: countries.rows, count: countries.count, err: null };
     } catch (err) {
-        console.error('Error retrieving countries:', err);
         return { countries: [], count: 0, err };
     }
 };
-
 
 module.exports = {
     save,

@@ -78,14 +78,7 @@ const register = async (dto) => {
 };
 
 const login = async (condition) => {
-    try {
-        // dto.createdBy = 'test'
-        // const data = {
-        //     userCode: dto.userCode,
-        //     userName: dto.userName,
-        //     shortName: dto.shortName,
-        //     createdBy: dto.createdBy
-        // };
+    try { 
 
         const { result, err } = await userRepository.advanceFlter(condition);
         if (err !== null) {

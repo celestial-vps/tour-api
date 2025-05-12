@@ -87,7 +87,7 @@ const advanceFlter = async (filterCondition) => {
                 {
                     model: UserRole,
                     as: 'userRole', // This should match the alias in the User model's associate method
-                    attributes: ['roleName', 'isAdministrative'],
+                    attributes: ['roleName', 'isAdministrative','readState','writeState','createState','deleteState','navigateState'],
                 }
             ],
             where: whereConditions,

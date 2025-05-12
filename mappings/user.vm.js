@@ -37,6 +37,7 @@ async function toUserTokenResponse(user, token, refreshToken) {
     email: user.email,
     token,
     refreshToken,
+    userRole :user.userRole ,
     isActive: user.isActive,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt

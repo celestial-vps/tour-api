@@ -8,7 +8,7 @@ const authorizationTypeBearer = 'bearer';
 const authorizationPayloadKey = 'authorization_payload';
 
 // Middleware function to check if the user has the required role
-const RoleGuard = (role) => {
+const roleGuard = (role) => {
     return async (req, res, next) => {
         const authHeader = req.headers[authorizationHeaderKey];
 
@@ -68,4 +68,4 @@ const RoleGuard = (role) => {
     };
 };
 
-module.exports = RoleGuard;
+module.exports = { roleGuard };

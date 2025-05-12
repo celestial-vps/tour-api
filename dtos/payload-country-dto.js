@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
+const { param } = require('../routes/country.route');
 
 // Define the schema for FilterCountryDto
 const filterDto = Joi.object({
@@ -16,14 +17,14 @@ const pageCountryDto = Joi.object({
 });
 
 // Define the schema for CreateCountryDto
-const createCountryDto = Joi.object({
+const createDto = Joi.object({
     countryCode: Joi.string().required(),
     countryName: Joi.string().required(),
     countryCurrency: Joi.string().required()
 });
 
 // Define the schema for UpdateCountryDto
-const updateCountryDto = Joi.object({
+const updateDto = Joi.object({
     countryCode: Joi.string().required(),
     countryName: Joi.string().required(),
     countryCurrency: Joi.string().required()
@@ -44,14 +45,34 @@ const filterCountryDto = Joi.object({
     body: filterDto
 });
 
+const getCountryDto = Joi.object({
+    headers: authSchema,
+    params:params,        
+});
+
+const deleteCountryDto = Joi.object({
+    headers: authSchema,
+    params:params,        
+});
+
+
+const updateCountryDto = Joi.object({
+    headers: authSchema,
+    params:params,        
+    body: updateDto
+});
+
+const createCountryDto = Joi.object({
+    headers: authSchema,   
+    body: createDto
+});
+
 
 
 module.exports = {
-    filterCountryDto,
-    pageCountryDto,
     createCountryDto,
     updateCountryDto,
-    query,
-    filterDto,
-    params
+    deleteCountryDto,
+    filterCountryDto,
+    getCountryDto, 
 };

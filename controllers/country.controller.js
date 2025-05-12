@@ -12,44 +12,29 @@ const DEFAULT_PAGE_SIZE = 10;
 const MAX_PAGE_SIZE = 100;
 
 const create = async (req, res) => {
-	try {
-		const token = req.headers['authorization'];
-		const accessToken = token.split(' ')[1]; // Assuming "Bearer <token>" 
-		const userJwt = await jwtMaker.getClaimsByOid(accessToken); // Await the promise
+    try {
+        const userJwt = req.authorization_payload;
+        const { country, err } = await countryService.create(req.body, userJwt.userOid);
 
+        let response;
 
-		const { isValid, message } = validateRequest(null, createCountryDto, null, req, true);
-		if (!isValid) {
-			const response = buildBesponse.responseFinValidatorError(message);
-			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-		}
+        if (err !== null) {
+            response = buildBesponse.responseErrorInserted(err.message);
+            return res.status(400).json(response); // ✅ Proper status code for validation error
+        }
 
-		const { country, err } = await countryService.create(req.body, userJwt.userOid);
-		if (err !== null) {
-			response = buildBesponse.responseErrorInserted(err.message)
-		} else {
-			response = buildBesponse.responseOk(country, 1)
-		}
-
-		res.status(201).json(response);
-	} catch (err) {
-		response = buildBesponse.responseInternalServerError(err.message)
-		res.status(500).json(response);
-	}
+        response = buildBesponse.responseOk(country, 1);
+        return res.status(201).json(response); // ✅ Proper status code for success
+    } catch (err) {
+        const response = buildBesponse.responseInternalServerError(err.message);
+        return res.status(500).json(response); // ✅ Keep this as is
+    }
 };
+
 
 const update = async (req, res) => {
 	try {
-		const token = req.headers['authorization'];
-		const accessToken = token.split(' ')[1]; // Assuming "Bearer <token>" 
-		const userJwt = await jwtMaker.getClaimsByOid(accessToken); // Await the promise
-
-
-		const { isValid, message } = validateRequest(params, updateCountryDto, null, req, true);
-		if (!isValid) {
-			const response = buildBesponse.responseFinValidatorError(message);
-			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-		}
+		const userJwt = req.authorization_payload;
 
 		const { country, err } = await countryService.update(req.params.oid, req.body, userJwt.userOid);
 		if (err !== null) {
@@ -66,13 +51,7 @@ const update = async (req, res) => {
 
 const deleted = async (req, res) => {
 	try {
-		const { isValid, message } = validateRequest(params, null, null, req, true);
-		if (!isValid) {
-			const response = buildBesponse.responseFinValidatorError(message);
-			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-		}
-
-		const { country, err } = await countryService.deleted(req.params.oid);
+ 		const { country, err } = await countryService.deleted(req.params.oid);
 		if (err !== null) {
 			response = buildBesponse.responseErrorDelete(err.message === undefined ? err : err.message)
 		} else {
@@ -123,12 +102,7 @@ const find = async (req, res) => {
 
 const findById = async (req, res) => {
 	try {
-		const { isValid, message } = validateRequest(params, null, null, req, true);
-		if (!isValid) {
-			const response = buildBesponse.responseFinValidatorError(message);
-			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-		}
-
+ 
 		const { country, err } = await countryService.findById(req.params.oid);
 		if (err !== null) {
 			response = buildBesponse.responseErrorGet(err.message)
@@ -148,20 +122,20 @@ const findById = async (req, res) => {
 	}
 };
 
-// Helper functions
-function parsePositiveInteger(value, defaultValue) {
-	const parsed = parseInt(value, 10);
-	return isNaN(parsed) || parsed < 1 ? defaultValue : parsed;
-}
+// // Helper functions
+// function parsePositiveInteger(value, defaultValue) {
+// 	const parsed = parseInt(value, 10);
+// 	return isNaN(parsed) || parsed < 1 ? defaultValue : parsed;
+// }
 
-function buildFilterConditions(body, allowedFields) {
-	return allowedFields.reduce((acc, field) => {
-		if (body[field] !== undefined && body[field] !== null && body[field] !== '') {
-			acc[field] = body[field];
-		}
-		return acc;
-	}, {});
-}
+// function buildFilterConditions(body, allowedFields) {
+// 	return allowedFields.reduce((acc, field) => {
+// 		if (body[field] !== undefined && body[field] !== null && body[field] !== '') {
+// 			acc[field] = body[field];
+// 		}
+// 		return acc;
+// 	}, {});
+// }
 
 
 module.exports = {
