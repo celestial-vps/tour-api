@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -193,14 +193,28 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -209,25 +223,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -278,6 +279,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -364,9 +366,9 @@ const deleted = async (id) =&gt; {
 };
 &nbsp;
 // Get all countries
-const findAll = async () =&gt; {
+const findAll = async (include = []) =&gt; {
     try {
-        const result = await Country.findAll();
+        const result = await Country.findAll({ include });
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
@@ -374,9 +376,9 @@ const findAll = async () =&gt; {
 };
 &nbsp;
 // Find country by ID
-const findById = async (oid) =&gt; {
+const findById = async (oid, include = []) =&gt; {
     try {
-        const result = await Country.findByPk(oid);
+        const result = await Country.findByPk(oid, { include });
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
@@ -384,9 +386,9 @@ const findById = async (oid) =&gt; {
 };
 &nbsp;
 // Placeholder for advanced filtering (currently same as findAll)
-const advanceFlter = async () =&gt; {
+const advanceFlter = async (include = []) =&gt; {
     try {
-        const result = await Country.findAll();
+        const result = await Country.findAll({ include });
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
@@ -395,20 +397,21 @@ const advanceFlter = async () =&gt; {
 &nbsp;
 // Count countries by criteria
 const findCountByCriteria = async (where = {}) =&gt; {
-  try {
-    const count = await Country.count({ where });
-    return { count, error: null };
-  } catch (error) {
-    return { count: 0, error: error };
-  }
+    try {
+        const count = await Country.count({ where });
+        return { count, error: null };
+    } catch (error) {
+        return { count: 0, error: error };
+    }
 };
 &nbsp;
 &nbsp;
 // Find countries by criteria with pagination
-const findByCriteria = async (where = {}, page = 1, pageSize = 10) =&gt; {
+const findByCriteria = async (where = {}, page = 1, pageSize = 10, include = []) =&gt; {
     try {
         const countries = await Country.findAll({
             where,
+            include,
             limit: pageSize,
             offset: (page - 1) * pageSize,
             order: [['countryName', 'ASC']],
@@ -460,7 +463,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-12T11:28:01.590Z
+                at 2025-06-03T07:54:30.407Z
             </div>
         <script src="../prettify.js"></script>
         <script>

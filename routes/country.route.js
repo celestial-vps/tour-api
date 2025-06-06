@@ -1,10 +1,15 @@
 const express = require('express');
-const {roleGuard} = require('../middleware/role-guard');
+const { roleGuard } = require('../middleware/role-guard');
 const countryController = require('../controllers/country.controller'); // Adjust the path
 const { validateRequest } = require('../misc/validation');
-const { createCountryDto,deleteCountryDto, updateCountryDto, filterCountryDto,getCountryDto } = require('../dtos/payload-country-dto');
+const { createCountryDto, deleteCountryDto, updateCountryDto, filterCountryDto, getCountryDto } = require('../dtos/payload-country-dto');
 
 const router = express.Router();
+
+// console.log('validateRequest(createCountryDto):', typeof validateRequest(createCountryDto));
+// console.log('roleGuard("Admin"):', typeof roleGuard('Admin'));
+// console.log('countryController.create:', typeof countryController.create);
+
 
 /**
  * @swagger
@@ -75,7 +80,7 @@ const router = express.Router();
  *                       format: date-time
  *                       example: "2024-09-18T11:42:10Z"
  */
-router.post('/create',validateRequest(createCountryDto), roleGuard('Admin'), countryController.create);
+router.post('/create', validateRequest(createCountryDto), roleGuard('Admin'), countryController.create);
 
 /**
  * @swagger
@@ -404,6 +409,6 @@ router.post('/q', validateRequest(filterCountryDto), roleGuard('Admin'), country
  *                       format: date-time
  *                       example: "2024-09-17T02:59:57.000Z"
  */
-router.get('/:oid',validateRequest(getCountryDto), roleGuard('Admin'), countryController.findById);
+router.get('/:oid', validateRequest(getCountryDto), roleGuard('Admin'), countryController.findById);
 
 module.exports = router;

@@ -4,8 +4,7 @@ const sequelize = require('../config/database');
 const Country = sequelize.define('countries', {
     oid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        unique: true,
+        defaultValue: DataTypes.UUIDV4, 
         allowNull: false,
         primaryKey: true,
     },
@@ -49,6 +48,7 @@ const Country = sequelize.define('countries', {
     paranoid: true, // for soft deletes using deletedAt
 });
 
+// @ts-ignore
 Country.associate = (models) => {
     // Add associations here if needed
     Country.hasMany(models.Province, {

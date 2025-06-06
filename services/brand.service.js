@@ -5,16 +5,18 @@ const sequelize = require('../config/sequelize');
 const moment = require('moment');
 
 const create = async (dto, userOid) => {
-  now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  let transaction;
+
   try {
-    const data = {      
-      brandName: dto.brandName,      
+    const data = {
+      brandName: dto.brandName,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
       updatedAt: now,
     };
-    const transaction = await sequelize.transaction();
+    transaction = await sequelize.transaction();
     const { result, err } = await brandRepository.save(data, { transaction });
     if (err !== null) {
       await transaction.rollback();
@@ -38,7 +40,7 @@ const create = async (dto, userOid) => {
 };
 
 const update = async (oid, dto, userOid) => {
-  now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   const transaction = await sequelize.transaction();
   try {
     const { result: resultFind, err: errBrand } = await brandRepository.findById(oid);
@@ -52,13 +54,13 @@ const update = async (oid, dto, userOid) => {
           message: "Data Not Found"
         }
       }
-    }    
+    }
     resultFind.brandName = dto.brandName ?? resultFind.brandName
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
     const transaction = await sequelize.transaction();
-    const { result: result, err: err } = await brandRepository.update(oid, resultFind,transaction);
+    const { result: result, err: err } = await brandRepository.update(oid, resultFind, transaction);
     if (err !== null) {
       await transaction.rollback();
       return { result: null, err }
@@ -81,8 +83,9 @@ const update = async (oid, dto, userOid) => {
 };
 
 const deleted = async (oid) => {
+  let transaction;
   try {
-    const transaction = await sequelize.transaction();
+    transaction = await sequelize.transaction();
     const { result: resultFind, err: errBrand } = await brandRepository.findById(oid);
     if (errBrand != null) {
       return { brand: {}, err: errBrand }
@@ -108,7 +111,7 @@ const deleted = async (oid) => {
       return { brand, err: null };
     } else {
       return { brand: {}, err: { message: "Transaction Failed" } };
-    }    
+    }
   } catch (err) {
     await transaction.rollback();
     return { brand: null, err }

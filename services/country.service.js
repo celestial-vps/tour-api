@@ -4,7 +4,8 @@ const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions } = require('../misc/sequelizeFilterBuilder');
-
+const buildResponse = require('../common/build.response');
+const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields');
 const attribut = ['oid', 'countryCode', 'countryName', 'countryCurrency'];
 
 const create = async (dto, userOid) => {
@@ -26,20 +27,11 @@ const create = async (dto, userOid) => {
 
     const { result, err } = await countryRepository.save(data, { transaction });
 
-    if (err) {
-      await transaction.rollback();
-      return { country: null, err };
-    }
-
-    if (!result) {
+    if (err || !result) {
       await transaction.rollback();
       return {
         country: null,
-        err: {
-          message: 'Internal server error',
-          details: 'Transaction Failed',
-          status: 500,
-        },
+        err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
@@ -56,15 +48,10 @@ const create = async (dto, userOid) => {
 
     return {
       country: null,
-      err: {
-        message: 'Internal server error',
-        details: error.message || 'Unknown error',
-        status: 500,
-      },
+      err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
 };
-
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
@@ -72,32 +59,31 @@ const update = async (oid, dto, userOid, options = {}) => {
   let localTransaction = null;
 
   try {
-    // If transaction is required but not passed, create a new transaction
     if (useTransaction && !transaction) {
       localTransaction = await sequelize.transaction();
     }
 
     const currentTransaction = transaction || localTransaction;
 
-    // Find the existing country by ID
-    const { result: existingCountry, err: findError } = await countryRepository.findById(
-      oid,
-      currentTransaction ? { transaction: currentTransaction } : {}
-    );
+    // Siapkan opsi untuk findById, termasuk transaksi dan include relasi jika diperlukan
+    const findOptions = {
+      transaction: currentTransaction,
+      include: ['provinces'],  // ubah sesuai kebutuhan, bisa [] atau diambil dari dto misal
+    };
 
-    // Handle error when finding the country
+    // Panggil findById dengan options yang benar
+    const { result: existingCountry, err: findError } = await countryRepository.findById(oid, findOptions);
+
     if (findError) {
       if (localTransaction) await localTransaction.rollback();
       return { country: null, err: findError };
     }
 
-    // Handle the case where country is not found
     if (!existingCountry) {
       if (localTransaction) await localTransaction.rollback();
       return { country: null, err: { message: "Country not found", status: 404 } };
     }
 
-    // Prepare the update data, falling back to existing country data if not provided
     const updateData = {
       countryCode: dto.countryCode ?? existingCountry.countryCode,
       countryName: dto.countryName ?? existingCountry.countryName,
@@ -106,38 +92,32 @@ const update = async (oid, dto, userOid, options = {}) => {
       updatedAt: now,
     };
 
-    // Perform the update operation
+    // Update data dengan transaksi yang sama
     const { result: updateResult, err: updateError } = await countryRepository.update(
       oid,
       updateData,
       currentTransaction ? { transaction: currentTransaction } : {}
     );
 
-    // Handle error during update
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
       return { country: null, err: updateError };
     }
 
-    // Commit transaction if using a local transaction
     if (localTransaction) {
       await localTransaction.commit();
     }
 
-    // Prepare response message
+    // Buat response message dari data yang sudah diupdate
     const msgData = { value: existingCountry.oid, name: existingCountry.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
 
     return { country, err: null };
 
   } catch (err) {
-    // Rollback transaction if there's any error
     if (localTransaction) await localTransaction.rollback();
-
-    // Log the error
     console.error('Update failed:', err);
 
-    // Return error response
     return {
       country: null,
       err: {
@@ -149,32 +129,49 @@ const update = async (oid, dto, userOid, options = {}) => {
   }
 };
 
+
 const deleted = async (oid) => {
   let transaction;
+
   try {
     transaction = await sequelize.transaction();
-    const { result: resultFind, err: errCountry } = await countryRepository.findById(oid);
-    if (errCountry) return { country: null, err: errCountry };
-    if (!resultFind) return { country: null, err: { message: 'Data Not Found', status: 404 } };
 
-    const { result, err } = await countryRepository.deleted(oid, transaction);
+    const { result: resultFind, err: errFind } = await countryRepository.findById(oid, { transaction });
+    if (errFind) {
+      await transaction.rollback();
+      return { country: null, err: errFind };
+    }
+
+    if (!resultFind) {
+      await transaction.rollback();
+      return {
+        country: null,
+        err: { message: 'Data Not Found', status: 404 }
+      };
+    }
+
+    const { result, err } = await countryRepository.deleted(oid, { transaction });
     if (err) {
       await transaction.rollback();
       return { country: null, err };
     }
 
     await transaction.commit();
+
     const msgData = { value: resultFind.oid, name: resultFind.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
+
     return { country, err: null };
+
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
+
     return {
       country: null,
       err: {
         message: 'Internal server error',
-        details: err.message || 'Transaction Failed',
+        details: err.message ?? String(err),
         status: 500
       }
     };
@@ -183,62 +180,64 @@ const deleted = async (oid) => {
 
 const findAll = async () => {
   try {
-    const { result, err } = await countryRepository.findAll();
+    const { result, err } = await countryRepository.findAll({
+      include: [],
+      order: [['createdAt', 'DESC']],
+      attributes: COUNTRY_BASIC_FIELDS
+    });
+
+    if (err) return { countries: [], err };
+
     const countries = await mappings.toCountryResponses(result);
     return { countries, err: null };
   } catch (err) {
-    return { countries: [], err: { message: 'Internal server error', details: err.message, status: 500 } };
-
+    return {
+      countries: [],
+      err: {
+        message: 'Internal server error',
+        details: err.message,
+        status: 500,
+      },
+    };
   }
 };
 
-const findById = async (oid) => {
+const findById = async (oid, options = {}) => {
   try {
-    // Try to find the country by its ID
-    const { result, err } = await countryRepository.findById(oid);
+    const { result, err } = await countryRepository.findById(oid, options);
 
-    // If there is an error when fetching the country, return that error
     if (err) {
       return {
         country: null,
         err: {
           message: 'Internal server error',
           details: err.message || 'An error occurred while retrieving the country',
-          status: 500
-        }
+          status: 500,
+        },
       };
     }
 
-    // If no country is found, return a 'not found' error
     if (!result) {
-      return {
-        country: null,
-        err: {
-          message: 'Data Not Found',
-          details: `No country found with ID: ${oid}`,
-          status: 404
-        }
-      };
+      // Data not found, no error, just empty result
+      return { country: null, err: null };
     }
 
-    // Successfully found the country, map it to the response format
     const country = await mappings.toCountryResponse(result);
 
     return { country, err: null };
-
   } catch (err) {
-    // Handle unexpected errors and return them
     console.error('Error finding country:', err);
     return {
       country: null,
       err: {
         message: 'Internal server error',
         details: err.message || 'An unexpected error occurred while finding the country',
-        status: 500
-      }
+        status: 500,
+      },
     };
   }
 };
+
 
 
 

@@ -20,16 +20,16 @@ const validate = (schema) => (req, res, next) => {
 
 module.exports = validate;
 //=================
-const httpStatus = require('http-status');
-const validateRequest = require('./validateRequest');
-const ApiError = require('../utils/ApiError'); // Or wherever your custom error class is
+// const httpStatus = require('http-status');
+// const validateRequest = require('./validateRequest');
+// const ApiError = require('../utils/ApiError'); // Or wherever your custom error class is
 
-const validate = (schemas) => (req, res, next) => {
-  const { isValid, message } = validateRequest(schemas, req);
-  if (!isValid) {
-    return next(new ApiError(httpStatus.BAD_REQUEST, message));
-  }
-  next();
-};
+// const validate = (schemas) => (req, res, next) => {
+//   const { isValid, message } = validateRequest(schemas, req);
+//   if (!isValid) {
+//     return next(new ApiError(httpStatus.BAD_REQUEST, message));
+//   }
+//   next();
+// };
 
-module.exports = validate;
+// module.exports = validate;

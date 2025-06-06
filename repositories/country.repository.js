@@ -8,6 +8,7 @@ const save = async (data, options) => {
         const result = await Country.create(data, options);
         return { result, err: null };
     } catch (err) {
+        console.error('Repository Save Error:', err); // Log for debugging
         return { result: null, err };
     }
 };
@@ -15,53 +16,71 @@ const save = async (data, options) => {
 // Update an existing country
 const update = async (oid, data, options) => {
     try {
-        const result = await Country.update(data, {
+        const [affectedCount] = await Country.update(data, {
             where: { oid },
             ...options,
         });
-        return { result, err: null };
+
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+
+        return { result: affectedCount, err: null };
     } catch (err) {
         return { result: null, err };
     }
 };
 
 // Delete a country by ID
-const deleted = async (id) => {
+const deleted = async (id, options = {}) => {
     try {
-        const result = await Country.destroy({ where: { oid: id } });
+        const result = await Country.destroy({
+            where: { oid: id },
+            transaction: options.transaction,
+        });
+
         if (result <= 0) {
             return { result: null, err: new Error('Failed to delete record') };
         }
+
         return { result, err: null };
     } catch (error) {
-        return { result: null, err: error?.message ?? String(error) };
+        return { result: null, err: error };
     }
 };
 
 // Get all countries
-const findAll = async () => {
-    try {
-        const result = await Country.findAll();
-        return { result, err: null };
-    } catch (err) {
-        return { result: null, err };
-    }
+const findAll = async (options = {}) => {
+  const { include = [], order = [], attributes = null } = options;
+
+  try {
+    const result = await Country.findAll({
+      include,
+      order,
+      attributes,
+    });
+    return { result, err: null };
+  } catch (err) {
+    return { result: null, err };
+  }
 };
 
 // Find country by ID
-const findById = async (oid) => {
+const findById = async (oid, options = {}) => {
     try {
-        const result = await Country.findByPk(oid);
+        // options bisa berisi { include, transaction, ... }
+        const result = await Country.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
     }
 };
 
+
 // Placeholder for advanced filtering (currently same as findAll)
-const advanceFlter = async () => {
+const advanceFlter = async (include = []) => {
     try {
-        const result = await Country.findAll();
+        const result = await Country.findAll({ include });
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
@@ -70,20 +89,21 @@ const advanceFlter = async () => {
 
 // Count countries by criteria
 const findCountByCriteria = async (where = {}) => {
-  try {
-    const count = await Country.count({ where });
-    return { count, error: null };
-  } catch (error) {
-    return { count: 0, error: error };
-  }
+    try {
+        const count = await Country.count({ where });
+        return { count, error: null };
+    } catch (error) {
+        return { count: 0, error: error };
+    }
 };
 
 
 // Find countries by criteria with pagination
-const findByCriteria = async (where = {}, page = 1, pageSize = 10) => {
+const findByCriteria = async (where = {}, page = 1, pageSize = 10, include = []) => {
     try {
         const countries = await Country.findAll({
             where,
+            include,
             limit: pageSize,
             offset: (page - 1) * pageSize,
             order: [['countryName', 'ASC']],
