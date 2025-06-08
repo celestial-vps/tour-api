@@ -64,7 +64,25 @@ const buildFilterConditions = (sequelize, filterCondition = {}, caseSensitive = 
   });
 };
 
+const buildFindOptions = (filters = {}, options = {}, attributes = {}) => {
+  const pageIndex = parseInt(options.pageIndex, 10) || 1;
+  const pageSize = parseInt(options.pageSize, 10) || 10;
+  const limit = options.limit === -1 ? undefined : pageSize;
+  const offset = options.limit === -1 ? undefined : (pageIndex - 1) * pageSize;
+  const sortOrder = (options.sortOrder || 'ASC').toUpperCase();
+
+  return {
+    where: filters,
+    limit,
+    offset,
+    order: options.sortBy ? [[options.sortBy, sortOrder]] : undefined,
+    attributes,
+    distinct: true,
+  };
+};
+
 module.exports = {
   buildWhereConditions,
-  buildFilterConditions
+  buildFilterConditions,
+  buildFindOptions
 };

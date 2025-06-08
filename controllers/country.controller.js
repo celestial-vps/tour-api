@@ -32,11 +32,12 @@ const update = async (req, res) => {
 		}
 		return buildResponse.updateOk(res, country, 1);
 	} catch (err) {
+		console.error('Controller Update Error:', err); 
 		return buildResponse.sendInternalServerError(res, err.message);
 	}
 };
 
-const deleted = async (req, res) => {
+const remove  = async (req, res) => {
 	try {
 		const { country, err } = await countryService.deleted(req.params.oid);
 
@@ -46,6 +47,7 @@ const deleted = async (req, res) => {
 
 		return buildResponse.sendDeleteOk(res, country);
 	} catch (err) {
+		console.error('Controller Delete Error:', err); 
 		return buildResponse.sendInternalServerError(res, err.message);
 	}
 };
@@ -65,19 +67,27 @@ const findAll = async (req, res) => {
 };
 
 const find = async (req, res) => {
-	try {
-		const options = pick(req.query, ['sortBy', 'fieldName', 'sortOrder', 'pageSize', 'pageIndex']);
-		const filters = pick(req.body, ['countryCode', 'countryName']);
+  try {
+    const filters = pick(req.body, ['countryCode', 'countryName']);
 
-		const pageIndex = parseInt(options.pageIndex) || 1;
-		const pageSize = parseInt(options.pageSize) || 10;
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-		const { countries, count } = await countryService.findPage(filters, options);
+    const result = await countryService.findPage(filters, options);
 
-		return buildResponse.sendPagination(res, countries, count, pageIndex, pageSize);
-	} catch (err) {
-		return buildResponse.sendInternalServerError(res, err.message);
-	}
+    if (result.err) {
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+
+    return buildResponse.sendPagination(res, result.countries, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    console.error('Controller error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
 };
 
 const findById = async (req, res) => {
@@ -92,9 +102,7 @@ const findById = async (req, res) => {
 			return buildResponse.sendQueryError(res, err.message, "get by id");
 		}
 
-		if (!country) {
-			return buildResponse.sendDataNotFound(res);
-		}
+		if (!country) return buildResponse.sendDataNotFound(res);
 
 		return buildResponse.findOk(res, country);
 	} catch (err) {
@@ -105,7 +113,7 @@ const findById = async (req, res) => {
 module.exports = {
 	create,
 	update,
-	deleted,
+	remove ,
 	findAll,
 	find,
 	findById,

@@ -80,6 +80,7 @@ const router = express.Router();
  *                       format: date-time
  *                       example: "2024-09-18T11:42:10Z"
  */
+// @ts-ignore
 router.post('/create', validateRequest(createCountryDto), roleGuard('Admin'), countryController.create);
 
 /**
@@ -144,6 +145,7 @@ router.post('/create', validateRequest(createCountryDto), roleGuard('Admin'), co
  *                       format: date-time
  *                       example: "2024-09-18T11:56:36Z"
  */
+// @ts-ignore
 router.put('/:oid', validateRequest(updateCountryDto), roleGuard('Admin'), countryController.update);
 
 /**
@@ -225,7 +227,8 @@ router.put('/:oid', validateRequest(updateCountryDto), roleGuard('Admin'), count
  *                   type: string
  *                   example: "Country not found"
  */
-router.delete('/delete/:oid', validateRequest(deleteCountryDto), roleGuard('Admin'), countryController.deleted);
+// @ts-ignore
+router.delete('/delete/:oid', validateRequest(deleteCountryDto), roleGuard('Admin'), countryController.remove);
 
 /**
  * @swagger
@@ -275,6 +278,7 @@ router.delete('/delete/:oid', validateRequest(deleteCountryDto), roleGuard('Admi
  *                         format: date-time
  *                         example: "2024-09-17T02:58:52.000Z"
  */
+// @ts-ignore
 router.get('/', validateRequest(filterCountryDto), roleGuard('Admin'), countryController.findAll);
 
 /**
@@ -351,6 +355,7 @@ router.get('/', validateRequest(filterCountryDto), roleGuard('Admin'), countryCo
  *                         format: date-time
  *                         example: "2024-09-17T02:59:57.000Z"
  */
+// @ts-ignore
 router.post('/q', validateRequest(filterCountryDto), roleGuard('Admin'), countryController.find);
 // router.post('/q', roleGuard('Admin'),validateRequest(null, filterCountryDto,querySchema,  true), countryController.find);
 
@@ -409,6 +414,7 @@ router.post('/q', validateRequest(filterCountryDto), roleGuard('Admin'), country
  *                       format: date-time
  *                       example: "2024-09-17T02:59:57.000Z"
  */
+// @ts-ignore
 router.get('/:oid', validateRequest(getCountryDto), roleGuard('Admin'), countryController.findById);
 
 module.exports = router;

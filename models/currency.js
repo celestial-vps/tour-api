@@ -20,23 +20,16 @@ const Currency = sequelize.define('Currency', {
     unique: true,
   },
   createdBy: {
-    type: Sequelize.UUID,
-  },
-  createdAt: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
+    type: DataTypes.UUID,
   },
   lastModifiedBy: {
-    type: Sequelize.UUID,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
+    type: DataTypes.UUID,
   },
   deletedBy: {
-    type: Sequelize.UUID,
+    type: DataTypes.UUID,
   },
   deletedAt: {
-    type: Sequelize.DATE,
+    type: DataTypes.DATE,
   },
 }, {
   tableName: 'brands',
@@ -44,6 +37,7 @@ const Currency = sequelize.define('Currency', {
   paranoid: true, // for soft deletes using deletedAt
 });
 
+// @ts-ignore
 Currency.associate = (models) => {
   // Add associations here if needed
 };

@@ -33,17 +33,10 @@ const Owner = sequelize.define('Owner', {
   },
   createdBy: {
     type: DataTypes.UUID,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.NOW,
-  },
+  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
+  }, 
   deletedBy: {
     type: DataTypes.UUID,
   },
@@ -57,6 +50,7 @@ const Owner = sequelize.define('Owner', {
 });
 
 // Associations
+// @ts-ignore
 Owner.associate = (models) => {
   Owner.belongsTo(models.Subdistrict, {
     foreignKey: 'subDistrictOid', // Corrected to match the field in the Owner model

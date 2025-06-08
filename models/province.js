@@ -20,16 +20,16 @@ const Province = sequelize.define('Province', {
     createdBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW, // Use DataTypes.DATE instead of Sequelize.DATE
-    },
+    // createdAt: {
+    //     type: DataTypes.DATE,
+    //     defaultValue: DataTypes.NOW, // Use DataTypes.DATE instead of Sequelize.DATE
+    // },
     lastModifiedBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
     },
-    updatedAt: {
-        type: DataTypes.DATE, // Use DataTypes.DATE instead of Sequelize.DATE
-    },
+    // updatedAt: {
+    //     type: DataTypes.DATE, // Use DataTypes.DATE instead of Sequelize.DATE
+    // },
     deletedBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
     },
@@ -43,6 +43,7 @@ const Province = sequelize.define('Province', {
 });
 
 // Associations
+// @ts-ignore
 Province.associate = (models) => {
     // Province belongs to Country model
     Province.belongsTo(models.Country, {
@@ -52,11 +53,11 @@ Province.associate = (models) => {
     });
 
     // Province has many District models
-    Province.hasMany(models.District, {
-        foreignKey: 'provinceOid',
-        as: 'districts', // Optional alias
-        onDelete: 'CASCADE',
-    });
+    // Province.hasMany(models.District, {
+    //     foreignKey: 'provinceOid',
+    //     as: 'districts', // Optional alias
+    //     onDelete: 'CASCADE',
+    // });
 };
 
 module.exports = Province;

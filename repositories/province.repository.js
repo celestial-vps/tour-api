@@ -1,138 +1,122 @@
-// repositories/ProvinceRepository.js
-// const { result } = require('lodash');
-const Province = require('../models/Province'); // Import the default export
+const Province = require('../models/province');
 const { Op } = require('sequelize');
-const models = require('../models'); // Ensure you're importing the models correctly
-const { paginate } = require('../misc/pagination')
+const { paginate } = require('../misc/pagination');
 
-
+// Save a new province
 const save = async (data, options) => {
     try {
         const result = await Province.create(data, options);
-        return { result, err: null }
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Save Error:', err); // Log for debugging
+        return { result: null, err };
     }
-    catch (err) {
-        return { result: null, err }
-    }
-
 };
 
+// Update an existing province
 const update = async (oid, data, options) => {
     try {
-        console.log("start", oid);
-        const result = await Province.update(data, {
+        const [affectedCount] = await Province.update(data, {
             where: { oid },
-            ...options,            
+            ...options,
         });
 
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+
+        const findOptions = { ...options };
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+
+        const updated = await Province.findByPk(oid, findOptions);
+        return { result: updated, err: null };
+    } catch (err) {
+        return { result: null, err };
+    }
+};
+
+// Delete a province by ID
+const deleted = async (id, options = {}) => {
+    try {
+        const result = await Province.destroy({
+            where: { oid: id },
+            transaction: options.transaction,
+        });
+
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
+        }
+
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Get all provinces
+const findAll = async (options = {}) => {
+    try {
+        const result = await Province.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository findAll Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Find province by ID
+const findById = async (oid, options = {}) => {
+    try {
+        // options bisa berisi { include, transaction, ... }
+        const result = await Province.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
         return { result: null, err };
     }
 };
 
-const deleted = async (oid, options) => {
-    try {
-        const deleteResult = await Province.destroy({
-            where: {
-                oid: oid // Replace 'id' with the actual primary key field if different
-            }
-        }, options);
-        if (deleteResult !== 0) {
-            return { result: deleteResult, err: null }; // Return the deleted product
-        } else {
-            return {
-                result: null,
-                err: {
-                    message: "Failed to delete record"
-                }
-            };
-        } 
-
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findAll = async () => {
-    try {
-        const result = await Province.findAll();
-        return { result, err: null }
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findById = async (oid) => {
-    try {
-        const result = await Province.findByPk(oid);
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
-const advanceFlter = async () => {
-    try {
-        const result = await Province.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
+// Count provinces by criteria
 const findCountByCriteria = async (where = {}) => {
     try {
         const count = await Province.count({ where });
-        return { count, error: null };
-
-    } catch (error) {
-        console.error('Error counting provinces:', error);
-        return { count: 0, error: error.message };
-    }
-};
-
-const findByCriteria = async (where = {}, page, pageSize) => {
-    try {
-        const whereConditions = Object.entries(filterCondition).reduce((acc, [key, value]) => {
-            if (value) acc[key] = { [Op.like]: `%${value}%` };
-            return acc;
-        }, {});
-
-        const provinces = await Province.findAll({
-            where,
-            limit: pageSize,
-            offset: (page - 1) * pageSize,
-            order: [['ProvinceName', 'ASC']],
-        });
-
-        return { provinces, error: null };
-    } catch (error) {
-        console.error('Error retrieving provinces:', error);
-        return { provinces: [], error };
-    }
-};
-
-const findAndCountAll = async (filter, options, attribut = {}) => {
-    try {
-        const provinces = await paginate(Province, filter, options.pageIndex, options.pageSize, {
-            ...options,
-            limit: -1,
-            sortBy: 'ProvinceName:asc',
-            attributes: attribut,
-        });
-
-        return { provinces: provinces.rows, count: provinces.count, err: null };
+        return { count, err: null };
     } catch (err) {
-        console.error('Error retrieving provinces:', err);
-        return { provinces: [], count: 0, err };
+        console.error('Repository findCountByCriteria Error:', err);
+        return { count: 0, err };
     }
 };
 
+// Find provinces by criteria
+const findByCriteria = async (options = {}) => {
+    try {
+        const provinces = await Province.findAll(options);
+        return { provinces, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { provinces: [], err };
+    }
+};
+
+// Find and count all with pagination
+const findAndCountAll = async (findOptions) => {
+    try {
+        const result = await Province.findAndCountAll(findOptions);
+
+        return {
+            data: result.rows,
+            count: result.count,
+            err: null,
+        };
+    } catch (err) {
+        console.error('findAndCountWithOptions error:', err);
+        return {
+            data: [],
+            count: 0,
+            err,
+        };
+    }
+};
 
 module.exports = {
     save,
@@ -140,8 +124,7 @@ module.exports = {
     deleted,
     findAll,
     findById,
-    advanceFlter,
     findCountByCriteria,
     findByCriteria,
-    findAndCountAll
+    findAndCountAll,
 };

@@ -31,17 +31,10 @@ const Vehicle = sequelize.define('Vehicle', {
   },
   createdBy: {
     type: DataTypes.UUID, // Corrected to DataTypes.UUID
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW, // Corrected to DataTypes.NOW
-  },
+  }, 
   lastModifiedBy: {
     type: DataTypes.UUID, // Corrected to DataTypes.UUID
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
+  }, 
   deletedBy: {
     type: DataTypes.UUID, // Corrected to DataTypes.UUID
   },
@@ -55,6 +48,7 @@ const Vehicle = sequelize.define('Vehicle', {
 });
 
 // Associations
+// @ts-ignore
 Vehicle.associate = (models) => {
   // A vehicle belongs to a VehicleType
   Vehicle.belongsTo(models.VehicleType, {

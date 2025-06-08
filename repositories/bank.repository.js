@@ -1,155 +1,135 @@
-// repositories/bankRepository.js
-// const { result } = require('lodash');
-const Bank = require('../models/Bank'); // Import the default export
+const Bank = require('../models/bank');
 const { Op } = require('sequelize');
-const models = require('../models'); // Ensure you're importing the models correctly
+const { paginate } = require('../misc/pagination');
 
+// Save a new bank
 const save = async (data, options) => {
     try {
-        const result = await models.Bank.create(data, options);
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const update = async (oid, data,options) => {
-    try {
-        const result = await models.Bank.update(data, {
-            where: { oid } // Assuming 'id' is the primary key or identifier
-        },options);
-
-        return { result, err: null }
+        const result = await Bank.create(data, options);
+        return { result, err: null };
     } catch (err) {
-        return { result: null, err }
+        console.error('Repository Save Error:', err); // Log for debugging
+        return { result: null, err };
     }
 };
 
-const deleted = async ( oid,options) => {
+// Update an existing bank
+const update = async (oid, data, options) => {
     try {
-        const deleteResult = await models.Bank.destroy({
-            where: {
-                oid: oid // Replace 'id' with the actual primary key field if different
-            }
-        },options);
-        if (deleteResult !== 0) {
-            return { result: deleteResult, err: null }; // Return the deleted product
-        } else {
-            return {
-                result: null,
-                err: {
-                    message: "Failed to delete record"
-                }
-            };
-        }
-        // const result = await Bank.findByPk(oid);
-        // if (result) {
-        //     await result.destroy();
-        //     return { result, err: null }
-        // } else {
-        //     return {
-        //         err: {
-        //             message: "Data Not Found"
-        //         }
-        //     }
-        // }
-
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findAll = async () => {
-    try {
-        const result = await models.Bank.findAll();
-        return { result, err: null }
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findById = async (oid) => {
-    try {
-        const result = await models.Bank.findByPk(oid);
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
-const advanceFlter = async () => {
-    try {
-        const result = await models.Bank.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
-const findCountByCriteria = async (filterCondition) => {
-    try {
-        // Initialize the query with conditions
-        const whereConditions = {};
-
-        if (filterCondition.bankCode) {
-            whereConditions.bankCode = {
-                [Op.like]: `%${filterCondition.bankCode}%`
-            };
-        }
-        if (filterCondition.bankName) {
-            whereConditions.bankName = {
-                [Op.like]: `%${filterCondition.bankName}%`
-            };
-        }
-
-        // Retrieve the paginated records
-        const count = await models.Bank.count({
-            where: whereConditions
+        const [affectedCount] = await Bank.update(data, {
+            where: { oid },
+            ...options,
         });
 
-        return { count, error: null };
-    } catch (error) {
-        console.error('Error retrieving banks:', error);
-        return { count: 0, error };
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+        const findOptions = { ...options };
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        const updated = await Bank.findByPk(oid, findOptions);
+        return { result: updated, err: null };
+    } catch (err) {
+        return { result: null, err };
     }
 };
 
-const findByCriteria = async (filterCondition, page, pageSize) => {
+// Delete a bank by ID
+const deleted = async (id, options = {}) => {
     try {
-        // Initialize the query with conditions
-        const whereConditions = {};
-
-        if (filterCondition.bankCode) {
-            whereConditions.bankCode = {
-                [Op.like]: `%${filterCondition.bankCode}%`
-            };
-        }
-        if (filterCondition.bankName) {
-            whereConditions.bankName = {
-                [Op.like]: `%${filterCondition.bankName}%`
-            };
-        }
-
-        // Retrieve the paginated records
-        const banks = await models.Bank.findAll({
-            where: whereConditions,
-            limit: pageSize,
-            offset: (page - 1) * pageSize
+        const result = await Bank.destroy({
+            where: { oid: id },
+            transaction: options.transaction,
         });
 
-        return { banks, error: null };
-    } catch (error) {
-        console.error('Error retrieving banks:', error);
-        return { banks: [], error };
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
+        }
+
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
     }
 };
 
+// Get all countries
+const findAll = async (options = {}) => {
+    try {
+        const result = await Bank.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository findAll Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Find bank by ID
+const findById = async (oid, options = {}) => {
+    try {
+        // options bisa berisi { include, transaction, ... }
+        const result = await Bank.findByPk(oid, options);
+        return { result, err: null };
+    } catch (err) {
+        return { result: null, err };
+    }
+};
+
+
+// // Placeholder for advanced filtering (currently same as findAll)
+// const advanceFilter = async (include = []) => {
+//     try {
+//         const result = await Bank.findAll({ include });
+//         return { result, err: null };
+//     } catch (err) {
+//         console.error('Repository advancedFilter Error:', err);
+//         return { result: null, err };
+//     }
+// };
+
+// Count countries by criteria
+const findCountByCriteria = async (where = {}) => {
+    try {
+        const count = await Bank.count({ where });
+        return { count, err: null };
+    } catch (err) {
+        console.error('Repository findCountByCriteria Error:', err);
+        return { count: 0, err };
+    }
+};
+
+
+// Find countries by criteria with pagination
+const findByCriteria = async (options = {}) => {
+    try {
+        const countries = await Bank.findAll(options);
+        return { countries, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { countries: [], err };
+    }
+};
+
+
+// Find and count all with pagination
+const findAndCountAll = async (findOptions) => {
+    try {
+        // @ts-ignore
+        const result = await Bank.findAndCountAll(findOptions);
+
+        return {
+            data: result.rows,
+            count: result.count,
+            err: null,
+        };
+    } catch (err) {
+        console.error('findAndCountWithOptions error:', err);
+        return {
+            data: [],
+            count: 0,
+            err,
+        };
+    }
+};
 
 
 module.exports = {
@@ -157,8 +137,8 @@ module.exports = {
     update,
     deleted,
     findAll,
-    findById,
-    advanceFlter,
+    findById, 
     findCountByCriteria,
-    findByCriteria,    
+    findByCriteria,
+    findAndCountAll
 };

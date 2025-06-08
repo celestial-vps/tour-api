@@ -24,8 +24,10 @@ const update = async (oid, data, options) => {
         if (affectedCount === 0) {
             return { result: null, err: new Error("No rows updated") };
         }
-
-        return { result: affectedCount, err: null };
+        const findOptions = { ...options };
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        const updated = await Country.findByPk(oid, findOptions);
+        return { result: updated, err: null };
     } catch (err) {
         return { result: null, err };
     }
@@ -44,25 +46,21 @@ const deleted = async (id, options = {}) => {
         }
 
         return { result, err: null };
-    } catch (error) {
-        return { result: null, err: error };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
     }
 };
 
 // Get all countries
 const findAll = async (options = {}) => {
-  const { include = [], order = [], attributes = null } = options;
-
-  try {
-    const result = await Country.findAll({
-      include,
-      order,
-      attributes,
-    });
-    return { result, err: null };
-  } catch (err) {
-    return { result: null, err };
-  }
+    try {
+        const result = await Country.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository findAll Error:', err);
+        return { result: null, err };
+    }
 };
 
 // Find country by ID
@@ -77,65 +75,62 @@ const findById = async (oid, options = {}) => {
 };
 
 
-// Placeholder for advanced filtering (currently same as findAll)
-const advanceFlter = async (include = []) => {
-    try {
-        const result = await Country.findAll({ include });
-        return { result, err: null };
-    } catch (err) {
-        return { result: null, err };
-    }
-};
+// // Placeholder for advanced filtering (currently same as findAll)
+// const advanceFilter = async (include = []) => {
+//     try {
+//         const result = await Country.findAll({ include });
+//         return { result, err: null };
+//     } catch (err) {
+//         console.error('Repository advancedFilter Error:', err);
+//         return { result: null, err };
+//     }
+// };
 
 // Count countries by criteria
 const findCountByCriteria = async (where = {}) => {
     try {
         const count = await Country.count({ where });
-        return { count, error: null };
-    } catch (error) {
-        return { count: 0, error: error };
+        return { count, err: null };
+    } catch (err) {
+        console.error('Repository findCountByCriteria Error:', err);
+        return { count: 0, err };
     }
 };
 
 
 // Find countries by criteria with pagination
-const findByCriteria = async (where = {}, page = 1, pageSize = 10, include = []) => {
+const findByCriteria = async (options = {}) => {
     try {
-        const countries = await Country.findAll({
-            where,
-            include,
-            limit: pageSize,
-            offset: (page - 1) * pageSize,
-            order: [['countryName', 'ASC']],
-        });
-
-        return { countries, error: null };
-    } catch (error) {
-        return { countries: [], error };
+        const countries = await Country.findAll(options);
+        return { countries, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { countries: [], err };
     }
 };
+
 
 // Find and count all with pagination
-const findAndCountAll = async (filter, options, attribut = {}) => {
+const findAndCountAll = async (findOptions) => {
     try {
-        const countries = await paginate(
-            Country,
-            filter,
-            options.pageIndex,
-            options.pageSize,
-            {
-                ...options,
-                limit: -1,
-                sortBy: 'countryName:asc',
-                attributes: attribut,
-            }
-        );
+        // @ts-ignore
+        const result = await Country.findAndCountAll(findOptions);
 
-        return { countries: countries.rows, count: countries.count, err: null };
+        return {
+            data: result.rows,
+            count: result.count,
+            err: null,
+        };
     } catch (err) {
-        return { countries: [], count: 0, err };
+        console.error('findAndCountWithOptions error:', err);
+        return {
+            data: [],
+            count: 0,
+            err,
+        };
     }
 };
+
 
 module.exports = {
     save,
@@ -143,7 +138,7 @@ module.exports = {
     deleted,
     findAll,
     findById,
-    advanceFlter,
+    // advanceFilter,
     findCountByCriteria,
     findByCriteria,
     findAndCountAll

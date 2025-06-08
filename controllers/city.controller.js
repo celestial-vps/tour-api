@@ -1,132 +1,119 @@
 const cityService = require('../services/city.service');
 const buildResponse = require('../common/build.response');
-const { JwtMaker } = require('../middleware/jwt');
-const jwtMaker = new JwtMaker();
 const pick = require('../misc/pick');
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
-
 const create = async (req, res) => {
-    try {
-        const userJwt = req.authorization_payload;
-        const { city, err } = await cityService.create(req.body, userJwt.userOid);
+  try {
+    const userJwt = req.authorization_payload;
+    const { city, err } = await cityService.create(req.body, userJwt.userOid);
 
-        let response;
-        if (err !== null) {
-            response = buildResponse.responseErrorInserted(err.message);
-            return res.status(400).json(response);
-        }
-
-        response = buildResponse.responseOk(city, 1);
-        return res.status(201).json(response);
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        return res.status(500).json(response);
+    if (err) {
+      return buildResponse.sendQueryError(res, err.message, 'insert');
     }
+
+    return buildResponse.createOk(res, city, 1);
+  } catch (err) {
+    console.error('Controller Create Error:', err);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
 };
 
 const update = async (req, res) => {
-    try {
-        const userJwt = req.authorization_payload;
-        const { city, err } = await cityService.update(req.params.oid, req.body, userJwt.userOid);
+  try {
+    const userJwt = req.authorization_payload;
+    const { city, err } = await cityService.update(req.params.oid, req.body, userJwt.userOid);
 
-        let response;
-        if (err !== null) {
-            response = buildResponse.responseErrorUpdate(err.message);
-        } else {
-            response = buildResponse.responseOk(city, 1);
-        }
-
-        res.status(200).json(response);
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        res.status(500).json(response);
+    if (err) {
+      return buildResponse.sendQueryError(res, err.message, 'update');
     }
+
+    return buildResponse.updateOk(res, city, 1);
+  } catch (err) {
+    console.error('Controller Update Error:', err);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
 };
 
-const deleted = async (req, res) => {
-    try {
-        const { city, err } = await cityService.deleted(req.params.oid);
+const remove = async (req, res) => {
+  try {
+    const { city, err } = await cityService.deleted(req.params.oid);
 
-        let response;
-        if (err !== null) {
-            response = buildResponse.responseErrorDelete(err.message || err);
-        } else {
-            response = buildResponse.responseDeleteOk(city);
-        }
-
-        res.status(200).json(response);
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        res.status(500).json(response);
+    if (err) {
+      return buildResponse.sendQueryError(res, err.message || err, 'delete');
     }
+
+    return buildResponse.sendDeleteOk(res, city);
+  } catch (err) {
+    console.error('Controller Delete Error:', err);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
 };
 
 const findAll = async (req, res) => {
-    try {
-        const { cities, err } = await cityService.findAll();
+  try {
+    const { cities, err } = await cityService.findAll();
 
-        let response;
-        if (err !== null) {
-            response = buildResponse.responseErrorGet(err.message);
-        } else {
-            response = buildResponse.responseOk(cities, cities.length);
-        }
-
-        res.status(200).json(response);
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        res.status(500).json(response);
+    if (err) {
+      return buildResponse.sendQueryError(res, err.message, 'get all');
     }
+
+    return buildResponse.findOk(res, cities, cities.length);
+  } catch (err) {
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
 };
 
 const find = async (req, res) => {
-    try {
-        const options = pick(req.query, ['sortBy', 'fieldName', 'sortOrder', 'pageSize', 'pageIndex']);
-        const filters = pick(req.body, ['provinceOid', 'cityName']);
+  try {
+    const filters = pick(req.body, ['provinceOid', 'cityName']);
 
-        const pageIndex = parseInt(options.pageIndex) || DEFAULT_PAGE;
-        const pageSize = parseInt(options.pageSize) || DEFAULT_PAGE_SIZE;
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-        const { cities, count } = await cityService.findPage(filters, options);
+    const result = await cityService.findPage(filters, options);
 
-        const response = buildResponse.responsePaggination(cities, count, pageIndex, pageSize);
-        res.status(200).json(response);
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        res.status(500).json(response);
+    if (result.err) {
+      return buildResponse.sendInternalServerError(res, result.err.message);
     }
+
+    return buildResponse.sendPagination(res, result.cities, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    console.error('Controller Find Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
 };
 
 const findById = async (req, res) => {
-    try {
-        const { city, err } = await cityService.findById(req.params.oid);
+  try {
+    const options = {
+      include: ['province', 'districts'], // sesuaikan include kalau perlu
+    };
 
-        let response;
-        if (err !== null) {
-            response = buildResponse.responseErrorGet(err.message);
-            return res.status(400).json(response);
-        }
+    const { city, err } = await cityService.findById(req.params.oid, options);
 
-        if (city) {
-            response = buildResponse.responseOk(city, 1);
-            return res.status(200).json(response);
-        } else {
-            response = buildResponse.responseDataNotFound("City not found.");
-            return res.status(404).json(response);
-        }
-    } catch (err) {
-        const response = buildResponse.responseInternalServerError(err.message);
-        res.status(500).json(response);
+    if (err) {
+      return buildResponse.sendQueryError(res, err.message, 'get by id');
     }
+
+    if (!city) {
+      return buildResponse.sendDataNotFound(res);
+    }
+
+    return buildResponse.findOk(res, city);
+  } catch (err) {
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
 };
 
 module.exports = {
-    create,
-    update,
-    deleted,
-    findAll,
-    findById,
-    find,
+  create,
+  update,
+  remove,
+  findAll,
+  find,
+  findById,
 };

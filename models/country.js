@@ -22,16 +22,8 @@ const Country = sequelize.define('countries', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
     lastModifiedBy: {
         type: DataTypes.UUID,
-        allowNull: true, // Adjust based on your requirements
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
         allowNull: true, // Adjust based on your requirements
     },
     deletedBy: {

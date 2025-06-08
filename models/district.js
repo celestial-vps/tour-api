@@ -18,17 +18,10 @@ const District = sequelize.define('District', {
   },
   createdBy: {
     type: DataTypes.UUID,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
+  }, 
   deletedBy: {
     type: DataTypes.UUID,
   },
@@ -41,6 +34,7 @@ const District = sequelize.define('District', {
   paranoid: true,
 });
 
+// @ts-ignore
 District.associate = (models) => {
     District.belongsTo(models.City, {
         foreignKey: 'cityOid',

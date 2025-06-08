@@ -5,16 +5,14 @@ const { param } = require('../routes/country.route');
 // Define the schema for FilterCountryDto
 const filterDto = Joi.object({
     countryCode: Joi.string().optional().allow(null, ''),
-    countryName: Joi.string().optional().allow(null, ''),
-    fieldName: Joi.string().optional().allow(null, ''),
-    sortOrder: Joi.number().integer().valid(-1, 0, 1).optional().allow(null, 0)
+    countryName: Joi.string().optional().allow(null, ''), 
 });
 
-// Define the schema for PageCountryDto
-const pageCountryDto = Joi.object({
-    countryCode: Joi.string().optional().allow(null, ''),
-    countryName: Joi.string().optional().allow(null, '')
-});
+// // Define the schema for PageCountryDto
+// const pageCountryDto = Joi.object({
+//     countryCode: Joi.string().optional().allow(null, ''),
+//     countryName: Joi.string().optional().allow(null, '')
+// });
 
 // Define the schema for CreateCountryDto
 const createDto = Joi.object({
@@ -37,33 +35,35 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required(),
     pageSize: Joi.number().integer().min(1).max(100).required(),
+    sortBy: Joi.string().valid('countryCode', 'countryName').optional().default('countryName'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterCountryDto = Joi.object({
     headers: authSchema,
-    query: query,
+    query,
     body: filterDto
 });
 
 const getCountryDto = Joi.object({
     headers: authSchema,
-    params:params,        
+    params: params,
 });
 
 const deleteCountryDto = Joi.object({
     headers: authSchema,
-    params:params,        
+    params: params,
 });
 
 
 const updateCountryDto = Joi.object({
     headers: authSchema,
-    params:params,        
+    params: params,
     body: updateDto
 });
 
 const createCountryDto = Joi.object({
-    headers: authSchema,   
+    headers: authSchema,
     body: createDto
 });
 
@@ -74,5 +74,5 @@ module.exports = {
     updateCountryDto,
     deleteCountryDto,
     filterCountryDto,
-    getCountryDto, 
+    getCountryDto,
 };

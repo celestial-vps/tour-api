@@ -38,6 +38,7 @@ const Subdistrict = sequelize.define('Subdistrict', {
 });
 
 // Associations
+// @ts-ignore
 Subdistrict.associate = (models) => {
     Subdistrict.belongsTo(models.District, {
         foreignKey: 'districtOid',

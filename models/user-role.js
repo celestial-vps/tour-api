@@ -41,14 +41,14 @@ const UserRole = sequelize.define('UserRole', {
         type: DataTypes.BOOLEAN,
         field: 'navigateState',
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
+    // createdAt: {
+    //     type: DataTypes.DATE,
+    //     defaultValue: DataTypes.NOW,
+    // },
+    // updatedAt: {
+    //     type: DataTypes.DATE,
+    //     allowNull: true,
+    // },
 }, {
     tableName: 'user_roles',
     timestamps: true,
@@ -56,6 +56,7 @@ const UserRole = sequelize.define('UserRole', {
 });
 
 // Define associations
+// @ts-ignore
 UserRole.associate = (models) => {
     UserRole.hasMany(models.User, {
         foreignKey: 'roleOid', // Ensure this matches User's foreign key

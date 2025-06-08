@@ -1,29 +1,16 @@
-// controllers/provinceController.js
-
 const provinceService = require('../services/province.service');
 const buildResponse = require('../common/build.response');
-const { JwtMaker } = require('../middleware/jwt');
-const jwtMaker = new JwtMaker();
 const pick = require('../misc/pick');
-
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
 
 const create = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
     const { province, err } = await provinceService.create(req.body, userJwt.userOid);
 
-    if (err !== null) {
-      const response = buildResponse.responseErrorInserted(err.message);
-      return res.status(400).json(response);
-    }
-
-    const response = buildResponse.responseOk(province, 1);
-    return res.status(201).json(response);
+    if (err) return buildResponse.sendQueryError(res, err.message, "insert");
+    return buildResponse.createOk(res, province, 1);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    return res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
@@ -32,101 +19,71 @@ const update = async (req, res) => {
     const userJwt = req.authorization_payload;
     const { province, err } = await provinceService.update(req.params.oid, req.body, userJwt.userOid);
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorUpdate(err.message);
-    } else {
-      response = buildResponse.responseOk(province, 1);
-    }
-
-    res.status(200).json(response);
+    if (err) return buildResponse.sendQueryError(res, err.message, "update");
+    return buildResponse.updateOk(res, province, 1);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
-const deleted = async (req, res) => {
+const remove = async (req, res) => {
   try {
     const { province, err } = await provinceService.deleted(req.params.oid);
+    if (err) return buildResponse.sendQueryError(res, err.message || err, "delete");
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorDelete(err.message || err);
-    } else {
-      response = buildResponse.responseDeleteOk(province);
-    }
-
-    res.status(200).json(response);
+    return buildResponse.sendDeleteOk(res, province);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
     const { provinces, err } = await provinceService.findAll();
+    if (err) return buildResponse.sendQueryError(res, err.message, "get all");
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorGet(err.message);
-    } else {
-      response = buildResponse.responseOk(provinces, provinces.length);
-    }
-
-    res.status(200).json(response);
+    return buildResponse.findOk(res, provinces, provinces.length);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const find = async (req, res) => {
   try {
-    const options = pick(req.query, ['sortBy', 'fieldName', 'sortOrder', 'pageSize', 'pageIndex']);
-    const filters = pick(req.body, ['countryOid', 'provinceName']);
+    const filters = pick(req.body, ['provinceName', 'countryOid']);
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-    const pageIndex = parseInt(options.pageIndex) || DEFAULT_PAGE;
-    const pageSize = parseInt(options.pageSize) || DEFAULT_PAGE_SIZE;
+    const result = await provinceService.findPage(filters, options);
+    if (result.err) return buildResponse.sendInternalServerError(res, result.err.message);
 
-    const { provinces, count } = await provinceService.findPage(filters, options);
-
-    const response = buildResponse.responsePaggination(provinces, count, pageIndex, pageSize);
-    res.status(200).json(response);
+    return buildResponse.sendPagination(res, result.provinces, result.count, options.pageIndex, options.pageSize);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const findById = async (req, res) => {
   try {
     const { province, err } = await provinceService.findById(req.params.oid);
+    if (err) return buildResponse.sendQueryError(res, err.message, "get by id");
+    if (!province) return buildResponse.sendDataNotFound(res);
 
-    if (err !== null) {
-      const response = buildResponse.responseErrorGet(err.message);
-      return res.status(400).json(response);
-    }
-
-    if (province) {
-      const response = buildResponse.responseOk(province, 1);
-      return res.status(200).json(response);
-    } else {
-      const response = buildResponse.responseDataNotFound("Province not found.");
-      return res.status(404).json(response);
-    }
+    return buildResponse.findOk(res, province);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 module.exports = {
   create,
   update,
-  deleted,
+  remove,
   findAll,
-  findById,
   find,
+  findById,
 };

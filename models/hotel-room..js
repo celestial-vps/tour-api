@@ -34,23 +34,16 @@ const HotelRoom = sequelize.define('HotelRoom', {
         defaultValue: 'available',
     },
     createdBy: {
-        type: Sequelize.UUID,
-    },
-    createdAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        type: DataTypes.UUID,
     },
     lastModifiedBy: {
-        type: Sequelize.UUID,
-    },
-    updatedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.UUID,
     },
     deletedBy: {
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
     },
     deletedAt: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
     },
 }, {
     tableName: 'rooms',
@@ -59,6 +52,7 @@ const HotelRoom = sequelize.define('HotelRoom', {
 });
 
 // Associations
+// @ts-ignore
 HotelRoom.associate = (models) => {
     HotelRoom.belongsTo(models.Hotel, {  // Use HotelRoom.belongsTo to associate with the Hotel model
         foreignKey: 'hotelOid',

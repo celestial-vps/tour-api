@@ -3,12 +3,12 @@ const { roleGuard } = require('../middleware/role-guard');
 const provinceController = require('../controllers/province.controller');
 const { validateRequest } = require('../misc/validation');
 const {
-  createProvinceRequestDto,
-  updateProvinceRequestDto,
-  deleteProvinceDto,
-  getProvinceDto,
-  filterProvinceDto
-} = require('../dtos/province-dto');
+    createProvinceRequestDto,
+    updateProvinceRequestDto,
+    deleteProvinceDto,
+    getProvinceDto,
+    filterProvinceDto
+} = require('../dtos/payload-province-dto');
 
 const router = express.Router();
 
@@ -44,10 +44,10 @@ const router = express.Router();
  *         description: Province created successfully
  */
 router.post(
-  '/create',
-  validateRequest(createProvinceRequestDto),
-  roleGuard('Admin'),
-  provinceController.create
+    '/create',
+    validateRequest(createProvinceRequestDto),
+    roleGuard('Admin'),
+    provinceController.create
 );
 
 /**
@@ -83,10 +83,10 @@ router.post(
  *         description: Province updated successfully
  */
 router.put(
-  '/:oid',
-  validateRequest(updateProvinceRequestDto),
-  roleGuard('Admin'),
-  provinceController.update
+    '/:oid',
+    validateRequest(updateProvinceRequestDto),
+    roleGuard('Admin'),
+    provinceController.update
 );
 
 /**
@@ -108,10 +108,10 @@ router.put(
  *         description: Province deleted successfully
  */
 router.delete(
-  '/delete/:oid',
-  validateRequest(deleteProvinceDto),
-  roleGuard('Admin'),
-  provinceController.deleted
+    '/delete/:oid',
+    validateRequest(deleteProvinceDto),
+    roleGuard('Admin'),
+    provinceController.remove
 );
 
 /**
@@ -158,10 +158,10 @@ router.delete(
  *         description: List of provinces
  */
 router.post(
-  '/q',
-  validateRequest(filterProvinceDto),
-  roleGuard('Admin'),
-  provinceController.find
+    '/q',
+    validateRequest(filterProvinceDto),
+    roleGuard('Admin'),
+    provinceController.find
 );
 
 /**
@@ -183,10 +183,10 @@ router.post(
  *         description: Province retrieved successfully
  */
 router.get(
-  '/:oid',
-  validateRequest(getProvinceDto),
-  roleGuard('Admin'),
-  provinceController.findById
+    '/:oid',
+    validateRequest(getProvinceDto),
+    roleGuard('Admin'),
+    provinceController.findById
 );
 
 module.exports = router;

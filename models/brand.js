@@ -14,14 +14,31 @@ const Brand = sequelize.define('Brand', {
         allowNull: false,
         unique: true,
     },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    logoUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+            isUrl: true,
+        },
+    },
+    isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    }
 }, {
     tableName: 'brands',
-    timestamps: true,
-    paranoid: true, // for soft deletes using deletedAt
+    timestamps: true,      // adds createdAt and updatedAt
+    paranoid: true,        // adds deletedAt (for soft deletes)
 });
 
+// @ts-ignore
 Brand.associate = (models) => {
-    // Add associations here if needed
+    // Define associations here if necessary, for example:
+    // Brand.hasMany(models.Product, { foreignKey: 'brandId' });
 };
 
 module.exports = Brand;

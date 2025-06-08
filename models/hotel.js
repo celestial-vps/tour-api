@@ -31,17 +31,10 @@ const Hotel = sequelize.define('Hotel', {
   },
   createdBy: {
     type: DataTypes.UUID,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.NOW,
-  },
+  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
+  }, 
   deletedBy: {
     type: DataTypes.UUID,
   },
@@ -55,6 +48,7 @@ const Hotel = sequelize.define('Hotel', {
 });
 
 // Associations
+// @ts-ignore
 Hotel.associate = (models) => {
   Hotel.hasMany(models.HotelRoom, {
     foreignKey: 'hotelOid',

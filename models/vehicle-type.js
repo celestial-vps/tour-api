@@ -15,23 +15,16 @@ const VehicleType = sequelize.define('VehicleType', {
     unique: true,
   },
   createdBy: {
-    type: Sequelize.UUID,
-  },
-  createdAt: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
-  },
+    type: DataTypes.UUID,
+  }, 
   lastModifiedBy: {
-    type: Sequelize.UUID,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-  },
+    type: DataTypes.UUID,
+  }, 
   deletedBy: {
-    type: Sequelize.UUID,
+    type: DataTypes.UUID,
   },
   deletedAt: {
-    type: Sequelize.DATE,
+    type: DataTypes.DATE,
   },
 }, {
   tableName: 'vehicle-types',
@@ -39,6 +32,7 @@ const VehicleType = sequelize.define('VehicleType', {
   paranoid: true, // for soft deletes using deletedAt
 });
 
+// @ts-ignore
 VehicleType.associate = (models) => {
   // Add associations here if needed
   VehicleType.hasMany(models.Vehicle, {

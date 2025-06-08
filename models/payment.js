@@ -40,23 +40,16 @@ const Payment = sequelize.define('Payment', {
     defaultValue: 'pending',
   },
   createdBy: {
-    type: Sequelize.UUID,
-  },
-  createdAt: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW,
-  },
+    type: DataTypes.UUID,
+  }, 
   lastModifiedBy: {
-    type: Sequelize.UUID,
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-  },
+    type: DataTypes.UUID,
+  }, 
   deletedBy: {
-    type: Sequelize.UUID,
+    type: DataTypes.UUID,
   },
   deletedAt: {
-    type: Sequelize.DATE,
+    type: DataTypes.DATE,
   },
 }, {
   tableName: 'payments',

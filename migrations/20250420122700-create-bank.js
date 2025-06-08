@@ -10,6 +10,11 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
+      bankCode: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
       bankName: {
         type: Sequelize.STRING,
         allowNull: false,

@@ -3,13 +3,12 @@ const mappings = require('../mappings/country.vm');
 const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
 const moment = require('moment');
-const { buildFilterConditions } = require('../misc/sequelizeFilterBuilder');
+const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
-const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields');
-const attribut = ['oid', 'countryCode', 'countryName', 'countryCurrency'];
+const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields'); 
 
 const create = async (dto, userOid) => {
-  const now = moment().format('YYYY-MM-DD HH:mm:ss');
+  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
   let transaction;
 
   try {
@@ -55,7 +54,7 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
-  const now = moment().format('YYYY-MM-DD HH:mm:ss');
+  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
   let localTransaction = null;
 
   try {
@@ -120,11 +119,7 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     return {
       country: null,
-      err: {
-        message: 'Internal server error',
-        details: err.message || 'Unknown error',
-        status: 500,
-      },
+      err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
@@ -169,11 +164,7 @@ const deleted = async (oid) => {
 
     return {
       country: null,
-      err: {
-        message: 'Internal server error',
-        details: err.message ?? String(err),
-        status: 500
-      }
+      err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
@@ -193,11 +184,7 @@ const findAll = async () => {
   } catch (err) {
     return {
       countries: [],
-      err: {
-        message: 'Internal server error',
-        details: err.message,
-        status: 500,
-      },
+      err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
@@ -209,11 +196,7 @@ const findById = async (oid, options = {}) => {
     if (err) {
       return {
         country: null,
-        err: {
-          message: 'Internal server error',
-          details: err.message || 'An error occurred while retrieving the country',
-          status: 500,
-        },
+        err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
@@ -229,39 +212,39 @@ const findById = async (oid, options = {}) => {
     console.error('Error finding country:', err);
     return {
       country: null,
-      err: {
-        message: 'Internal server error',
-        details: err.message || 'An unexpected error occurred while finding the country',
-        status: 500,
-      },
+      err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
 
 
 
-
-async function findPage(filters, options) {
+const findPage = async (filters, options) => {
   try {
-    const where = buildFilterConditions(sequelize, filters, false);
+    const where = buildFilterConditions(sequelize, filters, false); // case-insensitive
+    const findOptions = buildFindOptions(where, options);
 
-    const { countries, count, err } = await countryRepository.findAndCountAll(where, options);
-    if (err) throw err;
+    const result = await countryRepository.findAndCountAll(findOptions);
 
-    return { countries, count, err: null };
+    if (result.err) throw result.err;
+
+    return {
+      countries: result.data,
+      count: result.count,
+      err: null,
+    };
   } catch (error) {
-    console.error('Find page failed:', error);
+    console.error('CountryService findPage error:', error);
     return {
       countries: [],
       count: 0,
-      err: {
-        message: 'Internal server error',
-        details: error.message,
-        status: 500,
-      },
+      err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
-}
+};
+
+
+
 
 
 module.exports = {

@@ -20,15 +20,8 @@ const City = sequelize.define('City', {
     createdBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW, // Use DataTypes.DATE instead of Sequelize.DATE
-    },
     lastModifiedBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
-    },
-    updatedAt: {
-        type: DataTypes.DATE, // Use DataTypes.DATE instead of Sequelize.DATE
     },
     deletedBy: {
         type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
@@ -43,6 +36,7 @@ const City = sequelize.define('City', {
 });
 
 // Associations
+// @ts-ignore
 City.associate = (models) => {
     // City belongs to Country model
     City.belongsTo(models.Province, {

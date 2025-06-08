@@ -1,4 +1,32 @@
 # tour-api
+# base-node-express
+1. npm init -y
+2. npm install express mssql body-parser   
+3. npm install moment lodash
+4. npm install express express-validator
+5. npm install axios joi
+6. npm install nodemailer
+7. npm i dotenv
+8. npm install express jsonwebtoken mysql2 dotenv (npm update mysql2)
+9. npm install --save-dev nodemon -->> first when setup new computer / nodejs
+10. npm install jsonwebtoken bcryptjs
+11. npm install swagger-jsdoc swagger-ui-express
+12. npm install dotenv
+13. npm i uuidv7
+14. npm install multer
+15. npm install sharp
+npm i express-rate-limit
+npm install lodash
+
+# MIGRATION
+npm install umzug mysql2
+npm install fast-glob
+node runMigrations.js migrate up
+node runMigrations.js migrate down
+
+
+
+POWERSHELL => New-Item -Path .\migrations\20250409-create-users-table.js -ItemType File
 
 
 1 run this in db for handle case sensitife in postgree  CREATE EXTENSION IF NOT EXISTS citext;
@@ -25,3 +53,5 @@ so g
 npx jest --clearCache
 
 
+# SOCKET IO
+npm install socket.io

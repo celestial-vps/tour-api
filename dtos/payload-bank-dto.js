@@ -1,45 +1,69 @@
 const Joi = require('joi');
+const { authSchema } = require('./base-dto');
 
 // Define the schema for FilterBankDto
-const filterBankDto = Joi.object({
+const filterDto = Joi.object({
     bankCode: Joi.string().optional().allow(null, ''),
-    bankName: Joi.string().optional().allow(null, '')
-});
-
-// Define the schema for PageBankDto
-const pageBankDto = Joi.object({
-    bankCode: Joi.string().optional().allow(null, ''),
-    bankName: Joi.string().optional().allow(null, '')
+    bankName: Joi.string().optional().allow(null, ''), 
+    bankCurrency: Joi.string().optional().allow(null, '')
 });
 
 // Define the schema for CreateBankDto
-const createBankDto = Joi.object({
+const createDto = Joi.object({
     bankCode: Joi.string().required(),
     bankName: Joi.string().required(),
-    shortName: Joi.string().required()
+    bankCurrency: Joi.string().required()
 });
 
 // Define the schema for UpdateBankDto
-const updateBankDto = Joi.object({
+const updateDto = Joi.object({
     bankCode: Joi.string().required(),
     bankName: Joi.string().required(),
-    shortName: Joi.string().required()
+    bankCurrency: Joi.string().required()
 });
 
 const params = Joi.object({
     oid: Joi.string().uuid().required()
 });
 
-const querySchema = Joi.object({
+const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required(),
     pageSize: Joi.number().integer().min(1).max(100).required(),
+    sortBy: Joi.string().valid('bankCode', 'bankName', 'bankCurrency').optional().default('bankName'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
+});
+
+const filterBankDto = Joi.object({
+    headers: authSchema,
+    query,
+    body: filterDto
+});
+
+const getBankDto = Joi.object({
+    headers: authSchema,
+    params: params,
+});
+
+const deleteBankDto = Joi.object({
+    headers: authSchema,
+    params: params,
+});
+
+const updateBankDto = Joi.object({
+    headers: authSchema,
+    params: params,
+    body: updateDto
+});
+
+const createBankDto = Joi.object({
+    headers: authSchema,
+    body: createDto
 });
 
 module.exports = {
-    filterBankDto,
-    pageBankDto,
     createBankDto,
     updateBankDto,
-    querySchema,
-    params
+    deleteBankDto,
+    filterBankDto,
+    getBankDto,
 };

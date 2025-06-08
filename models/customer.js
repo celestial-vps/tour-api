@@ -30,19 +30,11 @@ const Customer = sequelize.define('Customer', {
   createdBy: {
     type: DataTypes.UUID,
     allowNull: true,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
     allowNull: true,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
+  }, 
   deletedBy: {
     type: DataTypes.UUID,
     allowNull: true,
@@ -58,6 +50,7 @@ const Customer = sequelize.define('Customer', {
 });
 
 // Associations
+// @ts-ignore
 Customer.associate = (models) => {
   // Associate with the Bank model
   Customer.belongsTo(models.Bank, {

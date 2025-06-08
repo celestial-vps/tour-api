@@ -2,35 +2,37 @@ const Joi = require('joi');
 
 /**
  * Returns Express middleware to validate request using a Joi schema.
- * @param {Joi.ObjectSchema} schema - Joi schema with optional keys: body, query, params, headers.
- * @returns {Function} - Express middleware
+ * @param {Joi.ObjectSchema} schema - Joi schema with optional keys: body, query, params, headers
  */
 function validateRequest(schema) {
     return (req, res, next) => {
-        // Use keys from schema to build the object to validate
-        const schemaKeys = Object.keys(schema.describe().keys);
-        const dataToValidate = {};
-
-        for (const key of schemaKeys) {
-            if (req[key] !== undefined) {
-                dataToValidate[key] = req[key];
-            }
-        }
-
-        const { error, value } = schema.validate(dataToValidate, {
-            allowUnknown: true,
-            abortEarly: false
+        const { error, value } = schema.validate({
+            body: req.body,
+            query: req.query,
+            params: req.params,
+            headers: req.headers,
+        }, {
+            abortEarly: false,
+            allowUnknown: false, // prevent unknown keys
+            stripUnknown: true   // remove unknown keys
         });
 
         if (error) {
             return res.status(400).json({
                 message: 'Validation error',
-                details: error.details.map(detail => detail.message)
+                details: error.details.map(d => d.message),
             });
         }
 
-        // Attach validated values to req.validated
+        // Override validated values (optional: helpful if validation mutates them)
+        req.body = value.body || {};
+        req.query = value.query || {};
+        req.params = value.params || {};
+        req.headers = value.headers || {};
+
+        // Optional: also assign to validated (for consistency if needed)
         req.validated = value;
+
         next();
     };
 }

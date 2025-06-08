@@ -8,7 +8,7 @@ const {
   deleteCityDto,
   getCityDto,
   filterCityDto
-} = require('../dtos/city.dto');
+} = require('../dtos/payload-city-dto');
 
 const router = express.Router();
 
@@ -174,7 +174,7 @@ router.put('/:oid', validateRequest(updateCityRequestDto), roleGuard('Admin'), c
  *                   type: string
  *                   example: "success"
  */
-router.delete('/delete/:oid', validateRequest(deleteCityDto), roleGuard('Admin'), cityController.delete);
+router.delete('/delete/:oid', validateRequest(deleteCityDto), roleGuard('Admin'), cityController.remove);
 
 /**
  * @swagger
