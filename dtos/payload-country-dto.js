@@ -7,13 +7,7 @@ const filterDto = Joi.object({
     countryCode: Joi.string().optional().allow(null, ''),
     countryName: Joi.string().optional().allow(null, ''), 
 });
-
-// // Define the schema for PageCountryDto
-// const pageCountryDto = Joi.object({
-//     countryCode: Joi.string().optional().allow(null, ''),
-//     countryName: Joi.string().optional().allow(null, '')
-// });
-
+ 
 // Define the schema for CreateCountryDto
 const createDto = Joi.object({
     countryCode: Joi.string().required(),

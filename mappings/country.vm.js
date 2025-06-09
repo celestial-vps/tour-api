@@ -3,8 +3,7 @@ async function toCountryResponse(country) {
         oid: country.oid,        
         countryCode: country.countryCode,        
         countryName: country.countryName,        
-        countryCurrency: country.countryCurrency,                
-        countryCurrency: country.countryCurrency,        
+        countryCurrency: country.countryCurrency,         
         createdBy: country.createdBy,
         updatedAt: country.updatedAt
       };

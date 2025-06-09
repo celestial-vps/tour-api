@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "checkJs": true,
     "module": "commonjs",
     "target": "es2020"

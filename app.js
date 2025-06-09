@@ -35,6 +35,7 @@ const path = require('path');
 const fs = require('fs');
 const sequelize = require('./config/sequelize');
 const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 // @ts-ignore
@@ -90,10 +91,10 @@ app.use(`${basePath}/province`, provinceRoutes);
 // app.use(`${basePath}/vehicle`, vehicleRoutes);
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 
 module.exports = app;

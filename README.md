@@ -27,7 +27,10 @@ node runMigrations.js migrate down
 
 
 POWERSHELL => New-Item -Path .\migrations\20250409-create-users-table.js -ItemType File
-
+npm install --save-dev sequelize-cli
+npx sequelize-cli migration:generate --name create-conversations
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate:undo
 
 1 run this in db for handle case sensitife in postgree  CREATE EXTENSION IF NOT EXISTS citext;
 
