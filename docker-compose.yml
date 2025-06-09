@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  big-project:
+    build: ./big-project
+    ports:
+      - "4000:4000"  # contoh port big project
+    env_file:
+      - ./big-project/.env
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3001:3000"
+    env_file:
+      - ./auth-service/.env
+
+  chat-service:
+    build: ./chat-service
+    ports:
+      - "3002:3000"
+    env_file:
+      - ./chat-service/.env
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "3003:3000"
+    env_file:
+      - ./payment-service/.env
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "3004:3000"
+    env_file:
+      - ./notification-service/.env

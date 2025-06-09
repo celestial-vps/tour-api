@@ -1,4 +1,4 @@
-const countryService = require('../gateway/services/country.service');
+const countryService = require('../services/country.service');
 const buildResponse = require('../common/build.response');
 const { createCountryDto, updateCountryDto, filterCountryDto } = require('../dtos/payload-country-dto');
 const { JwtMaker } = require('../middleware/jwt');
