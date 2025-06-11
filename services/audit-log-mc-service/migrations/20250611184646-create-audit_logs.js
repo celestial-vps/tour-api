@@ -9,11 +9,11 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
-      table_name: {
+      tableName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      record_oid: {
+      recordOid: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -41,39 +41,53 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      previous_data: {
+      previousData: {
         type: Sequelize.JSON,
         allowNull: true,
       },
-      new_data: {
+      newData: {
         type: Sequelize.JSON,
         allowNull: true,
       },
-      changed_fields: {
+      changedFields: {
         type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: true,
       },
-      user_oid: {
+      userOid: {
         type: Sequelize.UUID,
         allowNull: true,
       },
-      ip_address: {
+      ipAddress: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      user_agent: {
+      userAgent: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
+      createdBy: {
+        type: Sequelize.UUID,
+        allowNull: true,
       },
-      updated_at: {
-        allowNull: false,
+      createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
+        defaultValue: Sequelize.NOW,
+      },
+      lastModifiedBy: {
+        type: Sequelize.UUID,
+        allowNull: true,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      deletedBy: {
+        type: Sequelize.UUID,
+        allowNull: true,
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },

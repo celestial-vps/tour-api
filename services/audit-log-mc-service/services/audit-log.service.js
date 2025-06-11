@@ -15,9 +15,9 @@ const create = async (dto, userOid) => {
     transaction = await sequelize.transaction();
 
     const data = {
-      auditLogCode: dto.auditLogCode,
-      auditLogName: dto.auditLogName,
-      auditLogCurrency: dto.auditLogCurrency,
+      tableName: dto.tableName,
+      recordOid: dto.recordOid,
+      action: dto.action,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -36,7 +36,7 @@ const create = async (dto, userOid) => {
 
     await transaction.commit();
 
-    const msgData = { value: result.oid, name: result.auditLogName };
+    const msgData = { value: result.oid, name: result.tableName };
     const auditLog = await messageMaps.toMessageResponse(msgData);
 
     return { auditLog, err: null };
@@ -84,8 +84,8 @@ const update = async (oid, dto, userOid, options = {}) => {
     }
 
     const updateData = {
-      auditLogCode: dto.auditLogCode ?? existingAuditLog.auditLogCode,
-      auditLogName: dto.auditLogName ?? existingAuditLog.auditLogName,
+      tableName: dto.tableName ?? existingAuditLog.tableName,
+      recordOid: dto.recordOid ?? existingAuditLog.recordOid,
       auditLogCurrency: dto.auditLogCurrency ?? existingAuditLog.auditLogCurrency,
       lastModifiedBy: userOid ?? existingAuditLog.lastModifiedBy,
       updatedAt: now,
@@ -108,7 +108,7 @@ const update = async (oid, dto, userOid, options = {}) => {
     }
 
     // Buat response message dari data yang sudah diupdate
-    const msgData = { value: existingAuditLog.oid, name: existingAuditLog.auditLogName };
+    const msgData = { value: existingAuditLog.oid, name: existingAuditLog.tableName };
     const auditLog = await messageMaps.toMessageResponse(msgData);
 
     return { auditLog, err: null };
@@ -153,7 +153,7 @@ const deleted = async (oid) => {
 
     await transaction.commit();
 
-    const msgData = { value: resultFind.oid, name: resultFind.auditLogName };
+    const msgData = { value: resultFind.oid, name: resultFind.tableName };
     const auditLog = await messageMaps.toMessageResponse(msgData);
 
     return { auditLog, err: null };
@@ -225,7 +225,7 @@ const findPage = async (filters, options) => {
   try {
 
     const { search, ...restFilters } = filters;
-    const normalizedFilters = search ? { ...restFilters, auditLogName: search } : filters;
+    const normalizedFilters = search ? { ...restFilters, tableName: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false); // case-insensitive
     const findOptions = buildFindOptions(where, options);

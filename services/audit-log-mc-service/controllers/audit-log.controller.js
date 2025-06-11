@@ -68,7 +68,7 @@ const findAll = async (req, res) => {
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['auditLogCode', 'auditLogName','search' ]);
+    const filters = pick(req.body, ['tableName']);
 
     const options = {
       sortBy: req.query.sortBy,

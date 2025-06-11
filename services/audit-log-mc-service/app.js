@@ -45,6 +45,6 @@ console.log(`Server running on basePath ${basePath}`);
 // @ts-ignore
 sequelize.logging = console.log; 
 
-app.use(`${basePath}/audit-trail`, auditTrail);  
+app.use(`${basePath}/audit-log`, auditTrail);  
 
 module.exports = app;
