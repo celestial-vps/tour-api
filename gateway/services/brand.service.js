@@ -97,7 +97,7 @@ const deleted = async (oid) => {
         }
       }
     }
-    const { result, err } = await brandRepository.deleted(oid, transaction);
+    const { result, err } = await brandRepository.remove(oid, transaction);
     if (err !== null) {
       await transaction.rollback();
     }
@@ -150,11 +150,11 @@ const findById = async (oid) => {
 
 const findPage = async (condition, page, pageSize) => {
   try {
-    const { count, errCount } = await brandRepository.findCountByCriteria(condition);
+    const { count, errCount } = await brandRepository.findAndCountByCriteria(condition);
     if (errCount) {
       return { brands: [], count: 0, errCount }
     }
-    const { brands, err } = await brandRepository.findByCriteria(condition, page, pageSize);
+    const { brands, err } = await brandRepository.findByCriteria(condition);
     const brandResponses = await mappings.toBrandResponses(brands)
     return { brands: brandResponses, count, err: err };
   } catch (err) {

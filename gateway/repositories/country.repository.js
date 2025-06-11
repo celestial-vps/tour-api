@@ -1,6 +1,4 @@
 const Country = require('../models/country');
-const { Op } = require('sequelize');
-const { paginate } = require('../misc/pagination');
 
 // Save a new country
 const save = async (data, options) => {

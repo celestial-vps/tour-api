@@ -58,3 +58,8 @@ npx jest --clearCache
 
 # SOCKET IO
 npm install socket.io
+
+
+# CHECK BROKER LINK
+madge --extensions js,ts --summary ./controllers
+madge --extensions js,ts --summary ./routes

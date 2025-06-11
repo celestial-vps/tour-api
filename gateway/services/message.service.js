@@ -2,11 +2,11 @@ const messageRepository = require('../repositories/message.repository');
 const mappings = require('../mappings/message.vm');
 
 const messageMaps = require('../mappings/message.vm');
-const buildResponse = require('../../common/build.response');
-const sequelize = require('../../config/sequelize');
+const buildResponse = require('../common/build.response');
+const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
-const { MESSAGE_BASIC_FIELDS } = require('../../constants/message.fields'); // kamu bisa define sendiri
+const { MESSAGE_BASIC_FIELDS } = require('../constants/message.fields'); // kamu bisa define sendiri
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');

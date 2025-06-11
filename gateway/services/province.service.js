@@ -114,7 +114,7 @@ const deleted = async (oid) => {
             };
         }
 
-        const { result, err } = await provinceRepository.deleted(oid, { transaction });
+        const { result, err } = await provinceRepository.remove(oid, { transaction });
         if (err) {
             await transaction.rollback();
             return { province: null, err };
@@ -189,7 +189,7 @@ const findPage = async (filters, options) => {
         // Jangan overwrite lagi findOptions.include dengan undefined atau variabel lain
         // findOptions.include = include; // <-- hapus baris ini
 
-        const result = await provinceRepository.findAndCountAll(findOptions);
+        const result = await provinceRepository.findAndCountByCriteria(findOptions);
         if (result.err) throw result.err;
 
         const provinces = await mappings.toProvinceResponses(result.data);

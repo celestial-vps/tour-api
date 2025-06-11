@@ -1,11 +1,11 @@
 const countryRepository = require('../repositories/country.repository');
 const mappings = require('../mappings/country.vm');
 const messageMaps = require('../mappings/message.vm');
-const sequelize = require('../../config/sequelize');
+const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
-const buildResponse = require('../../common/build.response');
-const { COUNTRY_BASIC_FIELDS } = require('../../constants/country.fields'); 
+const buildResponse = require('../common/build.response');
+const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields'); 
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');

@@ -113,7 +113,7 @@ const deleted = async (oid) => {
       return { district: null, err: { message: 'Data Not Found', status: 404 } };
     }
 
-    const { result, err } = await districtRepository.deleted(oid, { transaction });
+    const { result, err } = await districtRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
       return { district: null, err };
@@ -165,7 +165,7 @@ const findPage = async (filters, options) => {
     const where = buildFilterConditions(sequelize, filters, false);
     const findOptions = buildFindOptions(where, options);
 
-    const result = await districtRepository.findAndCountAll(findOptions);
+    const result = await districtRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
 

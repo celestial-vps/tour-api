@@ -68,7 +68,7 @@ const findAll = async (req, res) => {
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['bankCode', 'bankName', 'bankCurrency']);
+    const filters = pick(req.body, ['bankCode', 'bankName','search' ]);
 
     const options = {
       sortBy: req.query.sortBy,

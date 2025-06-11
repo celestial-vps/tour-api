@@ -1,11 +1,11 @@
 const bankRepository = require('../repositories/bank.repository');
 const mappings = require('../mappings/bank.vm');
 const messageMaps = require('../mappings/message.vm');
-const sequelize = require('../../config/sequelize');
+const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
-const buildResponse = require('../../common/build.response');
-const { BANK_BASIC_FIELDS } = require('../../constants/bank.fields'); 
+const buildResponse = require('../common/build.response');
+const { BANK_BASIC_FIELDS } = require('../constants/bank.fields');
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
@@ -67,7 +67,7 @@ const update = async (oid, dto, userOid, options = {}) => {
     // Siapkan opsi untuk findById, termasuk transaksi dan include relasi jika diperlukan
     const findOptions = {
       transaction: currentTransaction,
-      include: ['provinces'],  // ubah sesuai kebutuhan, bisa [] atau diambil dari dto misal
+      include: [],  // ubah sesuai kebutuhan, bisa [] atau diambil dari dto misal
     };
 
     // Panggil findById dengan options yang benar
@@ -145,7 +145,7 @@ const deleted = async (oid) => {
       };
     }
 
-    const { result, err } = await bankRepository.deleted(oid, { transaction });
+    const { result, err } = await bankRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
       return { bank: null, err };
@@ -221,10 +221,14 @@ const findById = async (oid, options = {}) => {
 
 const findPage = async (filters, options) => {
   try {
-    const where = buildFilterConditions(sequelize, filters, false); // case-insensitive
+
+    const { search, ...restFilters } = filters;
+    const normalizedFilters = search ? { ...restFilters, bankName: search } : filters;
+
+    const where = buildFilterConditions(sequelize, normalizedFilters, false); // case-insensitive
     const findOptions = buildFindOptions(where, options);
 
-    const result = await bankRepository.findAndCountAll(findOptions);
+    const result = await bankRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
 

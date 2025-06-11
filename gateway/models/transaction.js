@@ -49,6 +49,7 @@ const Transaction = sequelize.define('Transaction', {
     paranoid: true, // for soft deletes using deletedAt
 });
 
+// @ts-ignore
 Transaction.associate = (models) => {
     // Add associations here if needed
 };

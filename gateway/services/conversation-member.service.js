@@ -1,11 +1,10 @@
 const conversationMemberRepository = require('../repositories/conversation-member.repository');
 const mappings = require('../mappings/conversation-member.vm');
-const buildResponse = require('../../common/build.response');
-const sequelize = require('../../config/sequelize');
+const buildResponse = require('../common/build.response');
+const sequelize = require('../config/sequelize');
 const messageMaps = require('../mappings/message.vm');
-const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
-const { CONVERSATION_MEMBER_BASIC_FIELDS } = require('../../constants/conversation-member.fields');
+const { CONVERSATION_MEMBER_BASIC_FIELDS } = require('../constants/conversation-member.fields');
 
 const create = async (dto) => {
   let transaction;

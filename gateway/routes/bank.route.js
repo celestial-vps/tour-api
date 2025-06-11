@@ -1,6 +1,6 @@
 const express = require('express');
 const { roleGuard } = require('../middleware/role-guard');
-const bankController = require('../../controllers/bank.controller'); // Pastikan path-nya sesuai
+const bankController = require('../controllers/bank.controller'); // Pastikan path-nya sesuai
 const { validateRequest } = require('../misc/validation');
 const {
   filterBankDto,

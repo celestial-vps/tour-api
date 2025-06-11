@@ -1,25 +1,24 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
+const { search } = require('../app');
 
 // Define the schema for FilterBankDto
 const filterDto = Joi.object({
-    bankCode: Joi.string().optional().allow(null, ''),
-    bankName: Joi.string().optional().allow(null, ''), 
-    bankCurrency: Joi.string().optional().allow(null, '')
+    search: Joi.string().optional().allow(null, ''),
+    bankCode: Joi.string().optional().allow(null, ''),  
+    bankName: Joi.string().optional().allow(null, ''),  
 });
 
 // Define the schema for CreateBankDto
 const createDto = Joi.object({
     bankCode: Joi.string().required(),
-    bankName: Joi.string().required(),
-    bankCurrency: Joi.string().required()
+    bankName: Joi.string().required(), 
 });
 
 // Define the schema for UpdateBankDto
 const updateDto = Joi.object({
     bankCode: Joi.string().required(),
-    bankName: Joi.string().required(),
-    bankCurrency: Joi.string().required()
+    bankName: Joi.string().required(), 
 });
 
 const params = Joi.object({

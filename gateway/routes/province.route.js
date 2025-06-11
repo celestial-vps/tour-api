@@ -1,6 +1,6 @@
 const express = require('express');
 const { roleGuard } = require('../middleware/role-guard');
-const provinceController = require('../../controllers/province.controller');
+const provinceController = require('../controllers/province.controller');
 const { validateRequest } = require('../misc/validation');
 const {
     createProvinceRequestDto,

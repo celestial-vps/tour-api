@@ -1,15 +1,19 @@
 const User = require('./user');
 const UserRole = require('./user-role');
+const Bank = require('./bank');
 const Country = require('./country');
 const Province = require('./province');
 const Conversation = require('./conversation');
 const Message = require('./message');
 const ConversationMember = require('./conversation-member');
+const HotelRoom = require('./hotel-room');
 
 const models = {
     User,
     UserRole,Country,Province,
-    Message,ConversationMember,Conversation
+    Bank,
+    // Message,ConversationMember,Conversation,
+    // HotelRoom
     // Bank,
 };
 

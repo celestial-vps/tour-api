@@ -1,6 +1,6 @@
 const express = require('express');
 const { roleGuard } = require('../middleware/role-guard');
-const countryController = require('../../controllers/country.controller'); // Adjust the path
+const countryController = require('../controllers/country.controller'); // Adjust the path
 const { validateRequest } = require('../misc/validation');
 const { createCountryDto, deleteCountryDto, updateCountryDto, filterCountryDto, getCountryDto } = require('../dtos/payload-country-dto');
 

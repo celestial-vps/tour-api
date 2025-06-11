@@ -1,154 +1,119 @@
+const UserRole = require('../models/user-role');
 
-// const { result } = require('lodash');
-const UserRole = require('../models/user-role'); // Import the default export
-const { Op } = require('sequelize');
-const models = require('../models'); // Ensure you're importing the models correctly
-
+// Save a new userRole
 const save = async (data, options) => {
     try {
-        const result = await models.UserRole.create(data, options);
-        return { result, err: null }
+        const result = await UserRole.create(data, options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Save Error:', err); // Log for debugging
+        return { result: null, err };
     }
-    catch (err) {
-        return { result: null, err }
-    }
-
 };
 
+// Update an existing userRole
 const update = async (oid, data, options) => {
     try {
-        const result = await models.UserRole.update(data, {
-            where: { oid } // Assuming 'id' is the primary key or identifier
-        }, options);
-
-        return { result, err: null }
-    } catch (err) {
-        return { result: null, err }
-    }
-};
-
-const deleted = async (oid, options) => {
-    try {
-        const deleteResult = await models.UserRole.destroy({
-            where: {
-                oid: oid // Replace 'id' with the actual primary key field if different
-            }
-        }, options);
-        if (deleteResult !== 0) {
-            return { result: deleteResult, err: null }; // Return the deleted product
-        } else {
-            return {
-                result: null,
-                err: {
-                    message: "Failed to delete record"
-                }
-            };
-        }
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findAll = async () => {
-    try {
-        const result = await models.UserRole.findAll();
-        return { result, err: null }
-    } catch (err) {
-        return { result: null, err }
-    }
-
-};
-
-const findById = async (oid) => {
-    try {
-        const result = await models.UserRole.findByPk(oid);
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
-
-const advanceFlter = async () => {
-    try {
-        const result = await models.UserRole.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
-        return { result: null, err }
-    }
-};
-
-const findCountByCriteria = async (filterCondition) => {
-    try {
-        // Initialize the query with conditions
-        const whereConditions = {};
-
-        if (filterCondition.userRoleCode) {
-            whereConditions.userRoleCode = {
-                [Op.like]: `%${filterCondition.userRoleCode}%`
-            };
-        }
-        if (filterCondition.userRoleName) {
-            whereConditions.userRoleName = {
-                [Op.like]: `%${filterCondition.userRoleName}%`
-            };
-        }
-
-        // Retrieve the paginated records
-        const count = await models.UserRole.count({
-            where: whereConditions
+        const [affectedCount] = await UserRole.update(data, {
+            where: { oid },
+            ...options,
         });
 
-        return { count, error: null };
-    } catch (error) {
-        console.error('Error retrieving userRoles:', error);
-        return { count: 0, error };
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+        const findOptions = { ...options };
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        const updated = await UserRole.findByPk(oid, findOptions);
+        return { result: updated, err: null };
+    } catch (err) {
+        return { result: null, err };
     }
 };
 
-const findByCriteria = async (filterCondition, page, pageSize) => {
+// Delete a userRole by ID
+const remove = async (id, options = {}) => {
     try {
-        // Initialize the query with conditions
-        const whereConditions = {};
-
-        if (filterCondition.userRoleCode) {
-            whereConditions.userRoleCode = {
-                [Op.like]: `%${filterCondition.userRoleCode}%`
-            };
-        }
-        if (filterCondition.userRoleName) {
-            whereConditions.userRoleName = {
-                [Op.like]: `%${filterCondition.userRoleName}%`
-            };
-        }
-
-        // Retrieve the paginated records
-        const userRoles = await models.UserRole.findAll({
-            where: whereConditions,
-            limit: pageSize,
-            offset: (page - 1) * pageSize
+        const result = await UserRole.destroy({
+            where: { oid: id },
+            transaction: options.transaction,
         });
 
-        return { userRoles, error: null };
-    } catch (error) {
-        console.error('Error retrieving userRoles:', error);
-        return { userRoles: [], error };
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
+        }
+
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Get all userRoles
+const findAll = async (options = {}) => {
+    try {
+        const result = await UserRole.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository findAll Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Find userRole by ID
+const findById = async (oid, options = {}) => {
+    try {
+        // options bisa berisi { include, transaction, ... }
+        const result = await UserRole.findByPk(oid, options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Error in findById:', err.message || err);
+        return { result: null, err };
+    }
+}; 
+
+
+// Find userRoles by criteria with pagination
+const findByCriteria = async (options = {}) => {
+    try {
+        const result = await UserRole.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { result: [], err };
     }
 };
 
 
+// Find and count all with pagination 
+const findAndCountByCriteria = async (findOptions) => {
+    try {
+        // @ts-ignore
+        const result = await UserRole.findAndCountAll(findOptions);
+
+        return {
+            data: result.rows,
+            count: result.count,
+            err: null,
+        };
+    } catch (err) {
+        console.error('findAndCountWithOptions error:', err);
+        return {
+            data: [],
+            count: 0,
+            err,
+        };
+    }
+};
 
 
 module.exports = {
     save,
     update,
-    deleted,
+    remove,
     findAll,
     findById,
-    advanceFlter,
-    findCountByCriteria,
-    findByCriteria,   
+    findAndCountByCriteria,
+    findByCriteria,
 };

@@ -5,13 +5,14 @@ const messageMaps = require('../mappings/message.vm');
 const { hashPassword, checkPassword } = require('../misc/password');
 const { JwtMaker } = require('../middleware/jwt'); // Adjust the path accordingly
 const jwtMaker = new JwtMaker();
-const sequelize = require('../../config/sequelize');
+const sequelize = require('../config/sequelize');
 const moment = require('moment');
 
 const create = async (dto, userOid) => {
     const transaction = await sequelize.transaction();
-    now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-    try {        
+    const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    try {
+        const hashedPassword = await hashPassword(dto.password);
         const data = {
             name: dto.name ?? null,
             email: dto.email,
@@ -30,20 +31,20 @@ const create = async (dto, userOid) => {
             updatedAt: now,
         };
 
-        const { result, err } = await userRepository.save(data,transaction);
+        const { result, err } = await userRepository.save(data, transaction);
         if (err !== null) {
             return { result: null, err }
         }
         if (result) {
             const msgData = {
-              value: result.oid,
-              name: result.email
+                value: result.oid,
+                name: result.email
             }
             const user = await messageMaps.toMessageResponse(msgData);
             return { user, err: null };
-          } else {
+        } else {
             return { user: {}, err: { message: "Transaction Failed" } };
-          }
+        }
         // const user = await mappings.toUserResponse(result)
         // return { user, err: err }
     } catch (err) {
@@ -66,7 +67,7 @@ const register = async (dto) => {
             createdBy: dto.createdBy
         };
 
-        const { result, err } = await userRepository.save(data,transaction);
+        const { result, err } = await userRepository.save(data, transaction);
         if (err !== null) {
             return { result: null, err }
         }
@@ -78,7 +79,7 @@ const register = async (dto) => {
 };
 
 const login = async (condition) => {
-    try { 
+    try {
 
         const { result, err } = await userRepository.advanceFlter(condition);
         if (err !== null) {
@@ -93,7 +94,7 @@ const login = async (condition) => {
         }
         const status = await checkPassword(condition.password, result[0].password);
         if (!status) {
-            return { result: [], err:{message:"password not match"} }
+            return { result: [], err: { message: "password not match" } }
         }
         const oid = result[0].oid
         const token = await jwtMaker.createToken(oid, condition.email);
@@ -107,13 +108,13 @@ const login = async (condition) => {
 };
 
 const update = async (oid, dto, userOid) => {
-    now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
     const transaction = await sequelize.transaction();
     try {
         const { result: fresult, err: ferr } = await userRepository.findById(oid);
 
         if (ferr !== null) {
-            return { result: null, err }
+            return { result: null, ferr }
         }
         if (fresult == null) {
             return {
@@ -122,23 +123,23 @@ const update = async (oid, dto, userOid) => {
                 }
             }
         }
-        const hashedPassword = await hashPassword(dto.password ?? resultFind.password);
-        resultFind.name = dto.name ?? resultFind.name
-        resultFind.email = dto.email ?? resultFind.email
-        resultFind.password =   hashedPassword
-        resultFind.birthday = dto.birthday ?? resultFind.birthday
-        resultFind.memberNumber = dto.memberNumber ?? resultFind.memberNumber
-        resultFind.androidToken = dto.androidToken ?? resultFind.androidToken
-        resultFind.expiredTime = dto.expiredTime ?? resultFind.expiredTime
-        resultFind.isActive = dto.isActive ?? resultFind.isActive
-        resultFind.activatedAt = dto.activatedAt ?? resultFind.activatedAt
-        resultFind.roleOid = dto.roleOid ?? resultFind.roleOid
-        resultFind.description = dto.description ?? resultFind.description
-        resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
-        resultFind.updatedAt = now ?? resultFind.updatedAt
-    
+        const hashedPassword = await hashPassword(dto.password ?? fresult.password);
+        fresult.name = dto.name ?? fresult.name
+        fresult.email = dto.email ?? fresult.email
+        fresult.password = hashedPassword
+        fresult.birthday = dto.birthday ?? fresult.birthday
+        fresult.memberNumber = dto.memberNumber ?? fresult.memberNumber
+        fresult.androidToken = dto.androidToken ?? fresult.androidToken
+        fresult.expiredTime = dto.expiredTime ?? fresult.expiredTime
+        fresult.isActive = dto.isActive ?? fresult.isActive
+        fresult.activatedAt = dto.activatedAt ?? fresult.activatedAt
+        fresult.roleOid = dto.roleOid ?? fresult.roleOid
+        fresult.description = dto.description ?? fresult.description
+        fresult.lastModifiedBy = userOid ?? fresult.lastModifiedBy
+        fresult.updatedAt = now ?? fresult.updatedAt
 
-        const { result: result, err: err } = await userRepository.update(id, resultFind,transaction);
+
+        const { result: result, err: err } = await userRepository.update(oid, fresult, transaction);
         const user = await mappings.toUserResponse(result)
         return { user, err: err }
     } catch (err) {
@@ -151,26 +152,26 @@ const deleted = async (oid) => {
     try {
         const { result: resultFind, err: errUser } = await userRepository.findById(oid);
         if (errUser != null) {
-          return { user: {}, err: errUser }
+            return { user: {}, err: errUser }
         }
         if (resultFind == null) {
-          return {
-            user: {}, err: {
-              message: "Data Not Found"
+            return {
+                user: {}, err: {
+                    message: "Data Not Found"
+                }
             }
-          }
         }
-        const { err } = await userRepository.deleted(oid,transaction,transaction);
-        if (result) {
+        const { result, err } = await userRepository.deleted(oid, transaction);
+        if (err) {
             const msgData = {
-              value: resultFind.oid,
-              name: resultFind.userName
+                value: result.oid,
+                name: result.userName
             }
             const user = await messageMaps.toMessageResponse(msgData);
             return { user, err: null };
-          } else {
+        } else {
             return { user: {}, err: { message: "Transaction Failed" } };
-          }
+        }
     } catch (err) {
         return { user: null, err }
     }
@@ -179,6 +180,9 @@ const deleted = async (oid) => {
 const findAll = async () => {
     try {
         const { result, err } = await userRepository.findAll();
+        if (err) {
+            return { users: [], err: null }
+        }
         const users = await mappings.toUserResponses(result)
         return { users, err: null }
     } catch (err) {

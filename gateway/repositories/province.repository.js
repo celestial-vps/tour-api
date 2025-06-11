@@ -1,6 +1,4 @@
 const Province = require('../models/province');
-const { Op } = require('sequelize');
-const { paginate } = require('../misc/pagination');
 
 // Save a new province
 const save = async (data, options) => {
@@ -24,10 +22,8 @@ const update = async (oid, data, options) => {
         if (affectedCount === 0) {
             return { result: null, err: new Error("No rows updated") };
         }
-
         const findOptions = { ...options };
         delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
-
         const updated = await Province.findByPk(oid, findOptions);
         return { result: updated, err: null };
     } catch (err) {
@@ -36,7 +32,7 @@ const update = async (oid, data, options) => {
 };
 
 // Delete a province by ID
-const deleted = async (id, options = {}) => {
+const remove = async (id, options = {}) => {
     try {
         const result = await Province.destroy({
             where: { oid: id },
@@ -72,35 +68,28 @@ const findById = async (oid, options = {}) => {
         const result = await Province.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
+        console.error('Error in findById:', err.message || err);
         return { result: null, err };
     }
-};
+}; 
 
-// Count provinces by criteria
-const findCountByCriteria = async (where = {}) => {
-    try {
-        const count = await Province.count({ where });
-        return { count, err: null };
-    } catch (err) {
-        console.error('Repository findCountByCriteria Error:', err);
-        return { count: 0, err };
-    }
-};
 
-// Find provinces by criteria
+// Find provinces by criteria with pagination
 const findByCriteria = async (options = {}) => {
     try {
-        const provinces = await Province.findAll(options);
-        return { provinces, err: null };
+        const result = await Province.findAll(options);
+        return { result, err: null };
     } catch (err) {
         console.error('findByCriteria error:', err);
-        return { provinces: [], err };
+        return { result: [], err };
     }
 };
 
-// Find and count all with pagination
-const findAndCountAll = async (findOptions) => {
+
+// Find and count all with pagination 
+const findAndCountByCriteria = async (findOptions) => {
     try {
+        // @ts-ignore
         const result = await Province.findAndCountAll(findOptions);
 
         return {
@@ -118,13 +107,13 @@ const findAndCountAll = async (findOptions) => {
     }
 };
 
+
 module.exports = {
     save,
     update,
-    deleted,
+    remove,
     findAll,
     findById,
-    findCountByCriteria,
+    findAndCountByCriteria,
     findByCriteria,
-    findAndCountAll,
 };

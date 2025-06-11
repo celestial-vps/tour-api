@@ -1,6 +1,4 @@
 const Bank = require('../models/bank');
-const { Op } = require('sequelize');
-const { paginate } = require('../misc/pagination');
 
 // Save a new bank
 const save = async (data, options) => {
@@ -34,7 +32,7 @@ const update = async (oid, data, options) => {
 };
 
 // Delete a bank by ID
-const deleted = async (id, options = {}) => {
+const remove = async (id, options = {}) => {
     try {
         const result = await Bank.destroy({
             where: { oid: id },
@@ -52,7 +50,7 @@ const deleted = async (id, options = {}) => {
     }
 };
 
-// Get all countries
+// Get all banks
 const findAll = async (options = {}) => {
     try {
         const result = await Bank.findAll(options);
@@ -70,48 +68,38 @@ const findById = async (oid, options = {}) => {
         const result = await Bank.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
+        console.error('Error in findById:', err.message || err);
         return { result: null, err };
     }
 };
 
 
-// // Placeholder for advanced filtering (currently same as findAll)
-// const advanceFilter = async (include = []) => {
+// // Count banks by criteria
+// const findCountByCriteria = async (where = {}) => {
 //     try {
-//         const result = await Bank.findAll({ include });
-//         return { result, err: null };
+//         const count = await Bank.count({ where });
+//         return { count, err: null };
 //     } catch (err) {
-//         console.error('Repository advancedFilter Error:', err);
-//         return { result: null, err };
+//         console.error('Repository findCountByCriteria Error:', err);
+//         return { count: 0, err };
 //     }
 // };
 
-// Count countries by criteria
-const findCountByCriteria = async (where = {}) => {
-    try {
-        const count = await Bank.count({ where });
-        return { count, err: null };
-    } catch (err) {
-        console.error('Repository findCountByCriteria Error:', err);
-        return { count: 0, err };
-    }
-};
 
-
-// Find countries by criteria with pagination
+// Find banks by criteria with pagination
 const findByCriteria = async (options = {}) => {
     try {
-        const countries = await Bank.findAll(options);
-        return { countries, err: null };
+        const result = await Bank.findAll(options);
+        return { result, err: null };
     } catch (err) {
         console.error('findByCriteria error:', err);
-        return { countries: [], err };
+        return { result: [], err };
     }
 };
 
 
-// Find and count all with pagination
-const findAndCountAll = async (findOptions) => {
+// Find and count all with pagination 
+const findAndCountByCriteria = async (findOptions) => {
     try {
         // @ts-ignore
         const result = await Bank.findAndCountAll(findOptions);
@@ -135,10 +123,9 @@ const findAndCountAll = async (findOptions) => {
 module.exports = {
     save,
     update,
-    deleted,
+    remove,
     findAll,
-    findById, 
-    findCountByCriteria,
+    findById,
+    findAndCountByCriteria,
     findByCriteria,
-    findAndCountAll
 };

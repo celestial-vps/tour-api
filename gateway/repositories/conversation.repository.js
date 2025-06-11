@@ -1,7 +1,4 @@
 const Conversation = require('../models/conversation');
-const { Op } = require('sequelize');
-const { paginate } = require('../misc/pagination');
-
 
 const create = async (payload, transaction = null) => {
     return await Conversation.create(payload, { transaction });

@@ -1,7 +1,7 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Owner = sequelize.define('Owner', {
+const Provider = sequelize.define('Provider', {
   oid: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -44,25 +44,25 @@ const Owner = sequelize.define('Owner', {
     type: DataTypes.DATE,
   },
 }, {
-  tableName: 'owners',
+  tableName: 'providers',
   timestamps: true,
   paranoid: true, // For soft deletes using deletedAt
 });
 
 // Associations
 // @ts-ignore
-Owner.associate = (models) => {
-  Owner.belongsTo(models.Subdistrict, {
-    foreignKey: 'subDistrictOid', // Corrected to match the field in the Owner model
+Provider.associate = (models) => {
+  Provider.belongsTo(models.Subdistrict, {
+    foreignKey: 'subDistrictOid', // Corrected to match the field in the Provider model
     targetKey: 'oid',
     as: 'subDistrict', // Alias for the association
   });
 
-  Owner.belongsTo(models.Bank, {
-    foreignKey: 'bankOid', // Corrected to match the field in the Owner model
-    targetKey: 'oid',
-    as: 'bank', // Alias for the association
-  });
+  // Provider.belongsTo(models.Bank, {
+  //   foreignKey: 'bankOid', // Corrected to match the field in the Provider model
+  //   targetKey: 'oid',
+  //   as: 'bank', // Alias for the association
+  // });
 };
 
-module.exports = Owner;
+module.exports = Provider;

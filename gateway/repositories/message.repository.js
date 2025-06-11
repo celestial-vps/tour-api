@@ -1,6 +1,4 @@
 const Message = require('../models/message');
-const { Op } = require('sequelize');
-const { paginate } = require('../misc/pagination');
 
 const save = async (data, options) => {
     try {

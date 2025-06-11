@@ -95,7 +95,7 @@ const deleted = async (oid) => {
       return { city: null, err: findErr || { message: 'City not found', status: 404 } };
     }
 
-    const { result, err } = await cityRepository.deleted(oid, { transaction });
+    const { result, err } = await cityRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
       return { city: null, err };
@@ -146,7 +146,7 @@ const findPage = async (filters, options) => {
     const where = buildFilterConditions(sequelize, filters, false);
     const findOptions = buildFindOptions(where, options);
 
-    const result = await cityRepository.findAndCountAll(findOptions);
+    const result = await cityRepository.findAndCountByCriteria(findOptions);
     if (result.err) throw result.err;
 
     return {

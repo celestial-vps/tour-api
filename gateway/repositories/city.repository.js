@@ -1,32 +1,29 @@
 const City = require('../models/city');
-const { Op } = require('sequelize');
 
 // Save a new city
-const save = async (data, options = {}) => {
+const save = async (data, options) => {
     try {
         const result = await City.create(data, options);
         return { result, err: null };
     } catch (err) {
-        console.error('CityRepository Save Error:', err);
+        console.error('Repository Save Error:', err); // Log for debugging
         return { result: null, err };
     }
 };
 
-// Update existing city
+// Update an existing city
 const update = async (oid, data, options) => {
     try {
-        const [affected] = await City.update(data, {
+        const [affectedCount] = await City.update(data, {
             where: { oid },
             ...options,
         });
 
-        if (affected === 0) {
-            return { result: null, err: new Error('No rows updated') };
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
         }
-
         const findOptions = { ...options };
-        delete findOptions.transaction;
-
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
         const updated = await City.findByPk(oid, findOptions);
         return { result: updated, err: null };
     } catch (err) {
@@ -34,11 +31,11 @@ const update = async (oid, data, options) => {
     }
 };
 
-// Delete city (soft delete supported)
-const deleted = async (oid, options = {}) => {
+// Delete a city by ID
+const remove = async (id, options = {}) => {
     try {
         const result = await City.destroy({
-            where: { oid },
+            where: { oid: id },
             transaction: options.transaction,
         });
 
@@ -48,38 +45,60 @@ const deleted = async (oid, options = {}) => {
 
         return { result, err: null };
     } catch (err) {
-        console.error('CityRepository Delete Error:', err);
+        console.error('Repository Delete Error:', err);
         return { result: null, err };
     }
 };
 
+// Get all citys
 const findAll = async (options = {}) => {
     try {
         const result = await City.findAll(options);
         return { result, err: null };
     } catch (err) {
+        console.error('Repository findAll Error:', err);
         return { result: null, err };
     }
 };
 
+// Find city by ID
 const findById = async (oid, options = {}) => {
     try {
+        // options bisa berisi { include, transaction, ... }
         const result = await City.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
+        console.error('Error in findById:', err.message || err);
         return { result: null, err };
+    }
+}; 
+
+
+// Find citys by criteria with pagination
+const findByCriteria = async (options = {}) => {
+    try {
+        const result = await City.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { result: [], err };
     }
 };
 
-const findAndCountAll = async (findOptions) => {
+
+// Find and count all with pagination 
+const findAndCountByCriteria = async (findOptions) => {
     try {
+        // @ts-ignore
         const result = await City.findAndCountAll(findOptions);
+
         return {
             data: result.rows,
             count: result.count,
             err: null,
         };
     } catch (err) {
+        console.error('findAndCountWithOptions error:', err);
         return {
             data: [],
             count: 0,
@@ -88,11 +107,13 @@ const findAndCountAll = async (findOptions) => {
     }
 };
 
+
 module.exports = {
     save,
     update,
-    deleted,
+    remove,
     findAll,
     findById,
-    findAndCountAll,
+    findAndCountByCriteria,
+    findByCriteria,
 };
