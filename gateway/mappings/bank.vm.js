@@ -3,8 +3,7 @@ async function toBankResponse(bank) {
     const response = {
         oid: bank.oid,
         bankCode: bank.bankCode,
-        bankName: bank.bankName,
-        shortName: bank.shortName,
+        bankName: bank.bankName,        
         createdBy: bank.createdBy,
         updatedAt: bank.updatedAt
       };

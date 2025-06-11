@@ -1,7 +1,5 @@
 const app = require('./app'); // Express app
 const http = require('http');
-const { Server } = require('socket.io');
-const chatGateway = require('../chat/chat.gateway');
 
 const server = http.createServer(app); 
 
