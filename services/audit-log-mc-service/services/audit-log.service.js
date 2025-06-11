@@ -189,8 +189,12 @@ const findAll = async () => {
   }
 };
 
-const findById = async (oid, options = {}) => {
+const findById = async (oid) => {
   try {
+
+    const options = {
+      include: [], // bisa ditambahkan jika ada relasi
+    };
     const { result, err } = await auditLogRepository.findById(oid, options);
 
     if (err) {
