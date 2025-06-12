@@ -7,8 +7,10 @@ const jwtMaker = new JwtMaker();
 
 const create = async (req, res) => {
   try {
-    const userJwt = req.authorization_payload;
-    const { auditLog, err } = await auditLogService.create(req.body, userJwt.userOid);
+    // const userJwt = req.authorization_payload;
+     console.log('📥 Received audit log request:', req.body);
+
+    const { auditLog, err } = await auditLogService.create(req.body );
 
     if (err) {
       return buildResponse.sendQueryError(res, err.message, "insert");

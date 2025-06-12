@@ -12,7 +12,10 @@ const filterDto = Joi.object({
 // Define the schema for CreateAuditLogDto
 const createDto = Joi.object({
     tableName: Joi.string().required(),
-    recordOid: Joi.string().required(),
+    recordOid: Joi.string()
+        .guid({ version: ['uuidv4'] })
+        .allow(null)
+        .optional(),
     action: Joi.string()
         .valid(
             'CREATE',
@@ -31,7 +34,7 @@ const createDto = Joi.object({
         .valid('SUCCESS', 'FAILED', 'ERROR')
         .default('SUCCESS'),
     message: Joi.string().required(),
-    previousData: Joi.object().optional(), // bisa null / undefined
+    previousData: Joi.object().allow(null).optional(),
     newData: Joi.object().optional(),
     changedFields: Joi.array().items(Joi.string()).optional(),
     userOid: Joi.string()
@@ -46,7 +49,10 @@ const createDto = Joi.object({
 // Define the schema for UpdateAuditLogDto
 const updateDto = Joi.object({
     tableName: Joi.string().required(),
-    recordOid: Joi.string().required(),
+    recordOid: Joi.string()
+        .guid({ version: ['uuidv4'] })
+        .allow(null)
+        .optional(),
     action: Joi.string()
         .valid(
             'CREATE',
@@ -111,7 +117,7 @@ const updateAuditLogDto = Joi.object({
 });
 
 const createAuditLogDto = Joi.object({
-    headers: authSchema,
+    // headers: authSchema,
     body: createDto
 });
 

@@ -1,6 +1,5 @@
 const Joi = require('joi');
-const { authSchema } = require('./base-dto');
-const { param } = require('../routes/country.route');
+const { authSchema } = require('./base-dto'); 
 
 // Define the schema for FilterCountryDto
 const filterDto = Joi.object({

@@ -14,8 +14,8 @@ module.exports = {
         allowNull: false,
       },
       recordOid: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        type: Sequelize.UUID,
+        allowNull: true,
       },
       action: {
         type: Sequelize.ENUM(

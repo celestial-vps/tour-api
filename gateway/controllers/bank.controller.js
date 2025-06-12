@@ -2,20 +2,26 @@ const bankService = require('../services/bank.service');
 const buildResponse = require('../common/build.response');
 const { JwtMaker } = require('../middleware/jwt');
 const pick = require('../misc/pick');
+const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
+
 
 const jwtMaker = new JwtMaker();
 
 const create = async (req, res) => {
+  console.log('🟢 [CREATE] Original create controller dipanggil');
   try {
     const userJwt = req.authorization_payload;
     const { bank, err } = await bankService.create(req.body, userJwt.userOid);
 
     if (err) {
+      await recordAuditTrail("CREATE", "BANK", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-
+    await recordAuditTrail("CREATE", "BANK", bank, req, 'SUCCESS', 'Create bank success');
     return buildResponse.createOk(res, bank, 1);
+
   } catch (err) {
+    await recordAuditTrail("CREATE", "BANK", err, req, 'ERROR', err.message);
     console.error('Controller Create Error:', err);
     return buildResponse.sendInternalServerError(res, err.message);
   }
@@ -68,7 +74,7 @@ const findAll = async (req, res) => {
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['bankCode', 'bankName','search' ]);
+    const filters = pick(req.body, ['bankCode', 'bankName', 'search']);
 
     const options = {
       sortBy: req.query.sortBy,

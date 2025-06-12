@@ -22,7 +22,7 @@ const io = new Server(server, {
 //   // Terima pesan chat, kirim ke room tertentu
 //   socket.on('chat message', ({ roomId, sender, message }) => {
 //     console.log(`Message from ${sender} in room ${roomId}: ${message}`);
-    
+
 //     // Kirim pesan ke semua yang di room (termasuk sender)
 //     io.to(roomId).emit('chat message', { sender, message });
 //   });
@@ -37,4 +37,5 @@ chatGateway(io);
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
+  // require('./middleware/audit-trail/schedule-resend-audit'); // Mulai cron job untuk resend audit log
 });

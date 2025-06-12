@@ -63,3 +63,30 @@ npm install socket.io
 # CHECK BROKER LINK
 madge --extensions js,ts --summary ./controllers
 madge --extensions js,ts --summary ./routes
+
+
+# KAFKA
+    Download dan install OpenJDK 8+ dari Adoptium atau Oracle
+    https://kafka.apache.org/downloads
+    JALANKAN INI DI POWERSHELL ATAU CMD 
+    C:\kafka\bin\windows\zookeeper-server-start.bat C:\kafka\config\zookeeper.properties
+    BUKA PowerShell/CMD BARU 
+    C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
+
+untuk restart 
+    .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+    
+npm install kafkajs
+
+JALAN KAN INI DULU SEBELUM RUN 
+# Start Zookeeper
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+# Start Kafka broker
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+INI UNTUK STOP KAFKA 
+CTR + C  aja
+
+ini kalo bikin service nya
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties

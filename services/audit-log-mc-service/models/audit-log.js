@@ -14,8 +14,8 @@ const AuditLog = sequelize.define('AuditLog', {
         allowNull: false
     },
     recordOid: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+        type: DataTypes.UUID,
+        allowNull: true
     },
     action: {
         type: DataTypes.ENUM('CREATE',

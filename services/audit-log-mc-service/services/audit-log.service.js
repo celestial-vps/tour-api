@@ -18,9 +18,15 @@ const create = async (dto, userOid) => {
       tableName: dto.tableName,
       recordOid: dto.recordOid,
       action: dto.action,
-      createdBy: userOid,
+      status: dto.status,
+      message: dto.message,
+      userOid: dto.userOid,      
+      ipAddress: dto.ipAddress,      
+      userAgent: dto.userAgent,      
+      newData: dto.newData,
+      createdBy: dto.userOid,
       createdAt: now,
-      lastModifiedBy: userOid,
+      lastModifiedBy: dto.userOid,
       updatedAt: now,
     };
 
