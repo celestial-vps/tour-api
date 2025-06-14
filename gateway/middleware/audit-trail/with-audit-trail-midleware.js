@@ -48,7 +48,7 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
       return;
     }
 
-    await auditTrailService.record(value);
+    await auditTrailService.recordPost(value);
   } catch (err) {
     console.error('Failed to record audit trail:', err.message);
   }

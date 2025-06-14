@@ -5,7 +5,7 @@ const path = require('path');
 const failedAuditLogPath = path.join(__dirname, 'failed-audit-log.jsonl');
 
 const auditTrailService = {
-  record: async (auditData) => {
+  recordPost: async (auditData) => {
     try {
       const auditServiceUrl = process.env.AUDIT_TRAIL_SERVICE_URL + '/create';
 
@@ -27,6 +27,32 @@ const auditTrailService = {
         console.error('❌ Failed to save audit trail to file:', fileError.message);
       }
     }
+  },
+
+  recordGet: async (params) => {
+    const auditData = {
+      event: 'fetch_data',
+      method: 'GET',
+      endpoint: params.endpoint || '',
+      userId: params.userId || null,
+      timestamp: new Date().toISOString(),
+      query: params.query || null,
+      additionalInfo: params.additionalInfo || null,
+    };
+    return auditTrailService.record(auditData);
+  },
+
+  recordPut: async (params) => {
+    const auditData = {
+      event: 'update_data',
+      method: 'PUT',
+      endpoint: params.endpoint || '',
+      userId: params.userId || null,
+      timestamp: new Date().toISOString(),
+      payload: params.payload || null, // data yang diupdate
+      additionalInfo: params.additionalInfo || null,
+    };
+    return auditTrailService.record(auditData);
   }
 };
 
