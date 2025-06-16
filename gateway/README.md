@@ -15,6 +15,8 @@
 13. npm i uuidv7
 14. npm install multer
 15. npm install sharp
+16. npm install express-rate-limit
+
 npm i express-rate-limit
 npm install lodash
 

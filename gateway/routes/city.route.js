@@ -1,13 +1,13 @@
 const express = require('express');
+const { roleGuard } = require('../middleware/role-guard');
 const cityController = require('../controllers/city.controller');
 const { validateRequest } = require('../misc/validation');
-const { roleGuard } = require('../middleware/role-guard');
 const {
-  createCityRequestDto,
-  updateCityRequestDto,
+  filterCityDto,
+  createCityDto,
+  updateCityDto,
   deleteCityDto,
-  getCityDto,
-  filterCityDto
+  getCityDto
 } = require('../dtos/payload-city-dto');
 
 const router = express.Router();
@@ -15,8 +15,8 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: City
- *     description: City management operations
+ *   - name: city
+ *     description: city management operations
  */
 
 /**
@@ -25,291 +25,143 @@ const router = express.Router();
  *   post:
  *     tags: [City]
  *     summary: Create a new city entry
- *     description: Adds a new city to the database.
  *     requestBody:
- *       description: City object to be created
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               provinceOid:
- *                 type: string
- *                 format: uuid
- *                 example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *               cityName:
- *                 type: string
- *                 example: "Jakarta"
+ *              provinceOid:
+ *                type: string
+ *                example: "-"
+ *              cityName:
+ *                type: string
+ *                example: "-"
+
  *     responses:
  *       200:
- *         description: City created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
- *                     provinceOid:
- *                       type: string
- *                       format: uuid
- *                       example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *                     cityName:
- *                       type: string
- *                       example: "Jakarta"
+ *         description: city created successfully
  */
-router.post('/create', validateRequest(createCityRequestDto), roleGuard('Admin'), cityController.create);
+router.post('/create', validateRequest(createCityDto), roleGuard('Admin'), cityController.create);
 
 /**
  * @swagger
  * /city/{oid}:
  *   put:
  *     tags: [City]
- *     summary: Update a city entry
- *     description: Updates an existing city entry in the database.
+ *     summary: Update an existing city entry
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The UUID of the city to update
  *         schema:
  *           type: string
  *           format: uuid
- *           example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
  *     requestBody:
- *       description: City object that needs to be updated
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               provinceOid:
- *                 type: string
- *                 format: uuid
- *                 example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *               cityName:
- *                 type: string
- *                 example: "Bandung"
+
  *     responses:
  *       200:
- *         description: City updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
- *                     provinceOid:
- *                       type: string
- *                       format: uuid
- *                       example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *                     cityName:
- *                       type: string
- *                       example: "Bandung"
+ *         description: city updated successfully
  */
-router.put('/:oid', validateRequest(updateCityRequestDto), roleGuard('Admin'), cityController.update);
+router.put('/:oid', validateRequest(updateCityDto), roleGuard('Admin'), cityController.update);
 
 /**
  * @swagger
  * /city/delete/{oid}:
  *   delete:
  *     tags: [City]
- *     summary: Delete a city by ID
- *     description: Removes a city record from the system using its unique identifier.
+ *     summary: Delete a city entry
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The unique identifier of the city to delete.
  *         schema:
  *           type: string
  *           format: uuid
- *           example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
  *     responses:
  *       200:
- *         description: City deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
+ *         description: city deleted successfully
  */
 router.delete('/delete/:oid', validateRequest(deleteCityDto), roleGuard('Admin'), cityController.remove);
-
-/**
- * @swagger
- * /city/{oid}:
- *   get:
- *     tags: [City]
- *     summary: Retrieve a city entry by ID
- *     description: Fetches details of a specific city using its UUID.
- *     parameters:
- *       - name: oid
- *         in: path
- *         required: true
- *         description: The UUID of the city to retrieve
- *         schema:
- *           type: string
- *           format: uuid
- *           example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
- *     responses:
- *       200:
- *         description: City retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
- *                     provinceOid:
- *                       type: string
- *                       format: uuid
- *                       example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *                     cityName:
- *                       type: string
- *                       example: "Jakarta"
- */
-router.get('/:oid', validateRequest(getCityDto), roleGuard('Admin'), cityController.findById);
 
 /**
  * @swagger
  * /city:
  *   get:
  *     tags: [City]
- *     summary: Retrieve paginated and filtered city entries
- *     description: Fetches a paginated list of cities with optional filtering and sorting.
+ *     summary: Get all citys with optional filters
  *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
+ *       - in: query
+ *         name: cityCode
  *         schema:
- *           type: integer
- *           minimum: 1
- *           example: 1
- *         description: Page index (starts from 1)
- *       - name: pageSize
- *         in: query
- *         required: true
+ *           type: string
+ *         description: Filter by cityCode
+ *       - in: query
+ *         name: cityName
  *         schema:
- *           type: integer
- *           minimum: 1
- *           maximum: 100
- *           example: 10
- *         description: Number of items per page
+ *           type: string
+ *         description: Filter by cityName
+ *     responses:
+ *       200:
+ *         description: List of citys
+ */
+router.get('/', validateRequest(filterCityDto), roleGuard('Admin'), cityController.findAll);
+
+/**
+ * @swagger
+ * /city/q:
+ *   post:
+ *     tags: [City]
+ *     summary: Paginate citys with filters
  *     requestBody:
- *       description: Filter and sorting options
- *       required: false
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               provinceOid:
+ *               pageIndex:
+ *                 type: integer
+ *                 example: 1
+ *               pageSize:
+ *                 type: integer
+ *                 example: 10
+  *               cityCode:
  *                 type: string
- *                 format: uuid
- *                 example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+ *                 example: "-"
  *               cityName:
  *                 type: string
- *                 example: "Jakarta"
- *               fieldName:
- *                 type: string
- *                 example: "cityName"
- *               sortOrder:
- *                 type: integer
- *                 enum: [-1, 0, 1]
- *                 example: 1
+ *                 example: "-"
  *     responses:
  *       200:
- *         description: List of paginated cities
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 25
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "c0a80154-2f7b-4eaa-bb6d-123456789abc"
- *                       provinceOid:
- *                         type: string
- *                         format: uuid
- *                         example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
- *                       cityName:
- *                         type: string
- *                         example: "Jakarta"
+ *         description: Paginated list of citys
  */
-router.get('/', validateRequest(filterCityDto), roleGuard('Admin'), cityController.findAll);
+router.post('/q', validateRequest(filterCityDto), roleGuard('Admin'), cityController.find);
+/**
+ * @swagger
+ * /city/{oid}:
+ *   get:
+ *     tags: [City]
+ *     summary: Get a single city by ID
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: A city entry
+ */
+
+router.get('/:oid', validateRequest(getCityDto), roleGuard('Admin'), cityController.findById);
 
 module.exports = router;

@@ -36,10 +36,7 @@ const router = express.Router();
  *                 example: "BCA001"
  *               bankName:
  *                 type: string
- *                 example: "Bank Central Asia"
- *               shortName:
- *                 type: string
- *                 example: "BCA"
+ *                 example: "Bank Central Asia" 
  *     responses:
  *       200:
  *         description: Bank created successfully

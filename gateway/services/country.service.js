@@ -1,3 +1,4 @@
+'use strict';
 const countryRepository = require('../repositories/country.repository');
 const mappings = require('../mappings/country.vm');
 const messageMaps = require('../mappings/message.vm');
@@ -5,7 +6,7 @@ const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
-const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields'); 
+const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields');
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
@@ -44,7 +45,6 @@ const create = async (dto, userOid) => {
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error('Create failed:', error);
-
     return {
       country: null,
       err: buildResponse.responseInternalServerError(error).data.error,
@@ -64,34 +64,31 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     const currentTransaction = transaction || localTransaction;
 
-    // Siapkan opsi untuk findById, termasuk transaksi dan include relasi jika diperlukan
     const findOptions = {
       transaction: currentTransaction,
-      include: ['provinces'],  // ubah sesuai kebutuhan, bisa [] atau diambil dari dto misal
+      include: [],
     };
 
-    // Panggil findById dengan options yang benar
-    const { result: existingCountry, err: findError } = await countryRepository.findById(oid, findOptions);
+    const { result: existing, err: findError } = await countryRepository.findById(oid, findOptions);
 
     if (findError) {
       if (localTransaction) await localTransaction.rollback();
       return { country: null, err: findError };
     }
 
-    if (!existingCountry) {
+    if (!existing) {
       if (localTransaction) await localTransaction.rollback();
       return { country: null, err: { message: "Country not found", status: 404 } };
     }
 
     const updateData = {
-      countryCode: dto.countryCode ?? existingCountry.countryCode,
-      countryName: dto.countryName ?? existingCountry.countryName,
-      countryCurrency: dto.countryCurrency ?? existingCountry.countryCurrency,
-      lastModifiedBy: userOid ?? existingCountry.lastModifiedBy,
+      countryCode: dto.countryCode ?? existing.countryCode,
+      countryName: dto.countryName ?? existing.countryName,
+      countryCurrency: dto.countryCurrency ?? existing.countryCurrency,
+      lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
 
-    // Update data dengan transaksi yang sama
     const { result: updateResult, err: updateError } = await countryRepository.update(
       oid,
       updateData,
@@ -103,12 +100,9 @@ const update = async (oid, dto, userOid, options = {}) => {
       return { country: null, err: updateError };
     }
 
-    if (localTransaction) {
-      await localTransaction.commit();
-    }
+    if (localTransaction) await localTransaction.commit();
 
-    // Buat response message dari data yang sudah diupdate
-    const msgData = { value: existingCountry.oid, name: existingCountry.countryName };
+    const msgData = { value: existing.oid, name: existing.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
 
     return { country, err: null };
@@ -116,14 +110,12 @@ const update = async (oid, dto, userOid, options = {}) => {
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
-
     return {
       country: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
-
 
 const deleted = async (oid) => {
   let transaction;
@@ -145,7 +137,7 @@ const deleted = async (oid) => {
       };
     }
 
-    const { result, err } = await countryRepository.deleted(oid, { transaction });
+    const { result, err } = await countryRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
       return { country: null, err };
@@ -161,7 +153,6 @@ const deleted = async (oid) => {
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
-
     return {
       country: null,
       err: buildResponse.responseInternalServerError(err).data.error,
@@ -177,13 +168,13 @@ const findAll = async () => {
       attributes: COUNTRY_BASIC_FIELDS
     });
 
-    if (err) return { countries: [], err };
+    if (err) return { countrys: [], err };
 
-    const countries = await mappings.toCountryResponses(result);
-    return { countries, err: null };
+    const countrys = await mappings.toCountryResponses(result);
+    return { countrys, err: null };
   } catch (err) {
     return {
-      countries: [],
+      countrys: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -201,7 +192,6 @@ const findById = async (oid, options = {}) => {
     }
 
     if (!result) {
-      // Data not found, no error, just empty result
       return { country: null, err: null };
     }
 
@@ -217,35 +207,32 @@ const findById = async (oid, options = {}) => {
   }
 };
 
-
-
 const findPage = async (filters, options) => {
   try {
-    const where = buildFilterConditions(sequelize, filters, false); // case-insensitive
+    const { search, ...restFilters } = filters;
+    const normalizedFilters = search ? { ...restFilters, countryName: search } : filters;
+
+    const where = buildFilterConditions(sequelize, normalizedFilters, false);
     const findOptions = buildFindOptions(where, options);
 
-    const result = await countryRepository.findAndCountAll(findOptions);
+    const result = await countryRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
 
     return {
-      countries: result.data,
+      countrys: result.data,
       count: result.count,
       err: null,
     };
   } catch (error) {
     console.error('CountryService findPage error:', error);
     return {
-      countries: [],
+      countrys: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
 };
-
-
-
-
 
 module.exports = {
   create,

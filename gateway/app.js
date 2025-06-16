@@ -5,21 +5,25 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const helmet = require('helmet')
 // const bankRoutes = require('./routes/bank.route');  
-const authRoutes = require('./routes/auth.route');  
+const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');
 
-const countryRoutes = require('./routes/country.route');  
- const provinceRoutes = require('./routes/province.route');
+const countryRoutes = require('./routes/country.route');
+const provinceRoutes = require('./routes/province.route');
+const cityRoutes = require('./routes/city.route');
+const districtRoutes = require('./routes/district.route');
+const subDistrictRoutes = require('./routes/sub-district.route');
+
 // const bankBranchRoutes = require('./routes/bank-branch.route');
 // const brandRoutes = require('./routes/brand.route');
-// const cityRoutes = require('./routes/city.route');
+
 // const customerRoutes = require('./routes/customer.route');
-// const districtRoutes = require('./routes/district.route');
+
 // const hotelRoomRoutes = require('./routes/hotel-room.route');
 // const hotelRoutes = require('./routes/hotel.route');
 // const imageFileRoutes = require('./routes/image-file.route');
 //
-// const subDistrictRoutes = require('./routes/sub-district.route');
+
 // const tutorBookingRoutes = require('./routes/tutor-booking.route');
 // const tutorScheduleRoutes = require('./routes/tutor-schedule.route');
 // const tutorRoutes = require('./routes/tutor.route');
@@ -57,31 +61,34 @@ if (!fs.existsSync(uploadsDir)) {
 // @ts-ignore
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Terlalu banyak request, coba lagi nanti"
 });
 app.use(limiter);
 
 const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
 console.log(`Server running on basePath ${basePath}`);
+
 // @ts-ignore
-sequelize.logging = console.log; 
+sequelize.logging = console.log;
 
 app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
 
 app.use(`${basePath}/country`, countryRoutes);
 app.use(`${basePath}/province`, provinceRoutes);
-// app.use(`${basePath}/bank-branch`, bankBranchRoutes);
+app.use(`${basePath}/city`, cityRoutes);
+app.use(`${basePath}/district`, districtRoutes);
+app.use(`${basePath}/sub-district`, subDistrictRoutes);
 
+// app.use(`${basePath}/bank-branch`, bankBranchRoutes);
 // app.use(`${basePath}/brand`, brandRoutes);
-// app.use(`${basePath}/city`, cityRoutes);
 // app.use(`${basePath}/customer`, customerRoutes);
-// app.use(`${basePath}/district`, districtRoutes);
 // app.use(`${basePath}/hotel-room`, hotelRoomRoutes);
 // app.use(`${basePath}/hotel`, hotelRoutes);
 // app.use(`${basePath}/image-file`, imageFileRoutes);
 // 
-// app.use(`${basePath}/sub-district`, subDistrictRoutes);
+
 // app.use(`${basePath}/tutor-booking`, tutorBookingRoutes);
 // app.use(`${basePath}/tutor-schedule`, tutorScheduleRoutes);
 // app.use(`${basePath}/tutor`, tutorRoutes);

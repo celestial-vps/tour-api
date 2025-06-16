@@ -31,7 +31,7 @@ const io = new Server(server, {
 //     console.log('User disconnected:', socket.id);
 //   });
 // });
-chatGateway(io);
+// chatGateway(io);
 
 
 const PORT = process.env.PORT || 3000;

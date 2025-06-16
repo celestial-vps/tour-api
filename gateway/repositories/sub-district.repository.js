@@ -1,17 +1,17 @@
 const SubDistrict = require('../models/sub-district');
 
-// Save a new subDistrict
+// Save a new sub-district
 const save = async (data, options) => {
     try {
         const result = await SubDistrict.create(data, options);
         return { result, err: null };
     } catch (err) {
-        console.error('Repository Save Error:', err); // Log for debugging
+        console.error('Repository Save Error:', err);
         return { result: null, err };
     }
 };
 
-// Update an existing subDistrict
+// Update an existing sub-district
 const update = async (oid, data, options) => {
     try {
         const [affectedCount] = await SubDistrict.update(data, {
@@ -22,8 +22,10 @@ const update = async (oid, data, options) => {
         if (affectedCount === 0) {
             return { result: null, err: new Error("No rows updated") };
         }
+
         const findOptions = { ...options };
-        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        delete findOptions.transaction;
+
         const updated = await SubDistrict.findByPk(oid, findOptions);
         return { result: updated, err: null };
     } catch (err) {
@@ -31,7 +33,7 @@ const update = async (oid, data, options) => {
     }
 };
 
-// Delete a subDistrict by ID
+// Delete a sub-district by ID
 const remove = async (id, options = {}) => {
     try {
         const result = await SubDistrict.destroy({
@@ -50,7 +52,7 @@ const remove = async (id, options = {}) => {
     }
 };
 
-// Get all subDistricts
+// Get all sub-districts
 const findAll = async (options = {}) => {
     try {
         const result = await SubDistrict.findAll(options);
@@ -61,20 +63,18 @@ const findAll = async (options = {}) => {
     }
 };
 
-// Find subDistrict by ID
+// Find sub-district by ID
 const findById = async (oid, options = {}) => {
     try {
-        // options bisa berisi { include, transaction, ... }
         const result = await SubDistrict.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
         console.error('Error in findById:', err.message || err);
         return { result: null, err };
     }
-}; 
+};
 
-
-// Find subDistricts by criteria with pagination
+// Find sub-districts by criteria
 const findByCriteria = async (options = {}) => {
     try {
         const result = await SubDistrict.findAll(options);
@@ -85,13 +85,10 @@ const findByCriteria = async (options = {}) => {
     }
 };
 
-
-// Find and count all with pagination 
+// Find and count sub-districts
 const findAndCountByCriteria = async (findOptions) => {
     try {
-        // @ts-ignore
         const result = await SubDistrict.findAndCountAll(findOptions);
-
         return {
             data: result.rows,
             count: result.count,
@@ -106,7 +103,6 @@ const findAndCountByCriteria = async (findOptions) => {
         };
     }
 };
-
 
 module.exports = {
     save,

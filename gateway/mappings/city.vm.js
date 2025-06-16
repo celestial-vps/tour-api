@@ -1,22 +1,22 @@
-async function toCityResponse(city) {
-  return {
-    oid: city.oid,
-    provinceOid: city.provinceOid,
-    cityName: city.cityName,
-    createdBy: city.createdBy,
-    createdAt: city.createdAt,
-    lastModifiedBy: city.lastModifiedBy,
-    updatedAt: city.updatedAt,
-    deletedBy: city.deletedBy,
-    deletedAt: city.deletedAt,
-  };
+// Mapping functions
+async function toCityResponse(city) {  
+    const response = {
+        oid: city.oid,
+        provinceOid: city.provinceOid,
+        cityName: city.cityName,
+        createdBy: city.createdBy,
+        updatedAt: city.updatedAt
+    };
+    return response;
 }
 
-async function toCityResponses(cities) {
-  return await Promise.all(cities.map(toCityResponse));
+async function toCityResponses(citys) {
+    const cityResponses = await Promise.all(citys.map(toCityResponse));
+    return cityResponses;
 }
 
+// Export everything
 module.exports = {
-  toCityResponse,
-  toCityResponses,
+    toCityResponse,
+    toCityResponses
 };

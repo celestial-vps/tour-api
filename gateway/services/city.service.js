@@ -1,3 +1,4 @@
+'use strict';
 const cityRepository = require('../repositories/city.repository');
 const mappings = require('../mappings/city.vm');
 const messageMaps = require('../mappings/message.vm');
@@ -15,8 +16,8 @@ const create = async (dto, userOid) => {
     transaction = await sequelize.transaction();
 
     const data = {
-      cityName: dto.cityName,
       provinceOid: dto.provinceOid,
+      cityName: dto.cityName,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -24,19 +25,29 @@ const create = async (dto, userOid) => {
     };
 
     const { result, err } = await cityRepository.save(data, { transaction });
+
     if (err || !result) {
       await transaction.rollback();
-      return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
+      return {
+        city: null,
+        err: buildResponse.responseInternalServerError(err).data.error,
+      };
     }
 
     await transaction.commit();
+
     const msgData = { value: result.oid, name: result.cityName };
     const city = await messageMaps.toMessageResponse(msgData);
 
     return { city, err: null };
-  } catch (err) {
+
+  } catch (error) {
     if (transaction) await transaction.rollback();
-    return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
+    console.error('Create failed:', error);
+    return {
+      city: null,
+      err: buildResponse.responseInternalServerError(error).data.error,
+    };
   }
 };
 
@@ -51,21 +62,36 @@ const update = async (oid, dto, userOid, options = {}) => {
     }
 
     const currentTransaction = transaction || localTransaction;
-    const { result: existingCity, err: findError } = await cityRepository.findById(oid, { transaction: currentTransaction });
 
-    if (findError || !existingCity) {
+    const findOptions = {
+      transaction: currentTransaction,
+      include: [],
+    };
+
+    const { result: existing, err: findError } = await cityRepository.findById(oid, findOptions);
+
+    if (findError) {
       if (localTransaction) await localTransaction.rollback();
-      return { city: null, err: findError || { message: 'City not found', status: 404 } };
+      return { city: null, err: findError };
+    }
+
+    if (!existing) {
+      if (localTransaction) await localTransaction.rollback();
+      return { city: null, err: { message: "City not found", status: 404 } };
     }
 
     const updateData = {
-      cityName: dto.cityName ?? existingCity.cityName,
-      provinceOid: dto.provinceOid ?? existingCity.provinceOid,
-      lastModifiedBy: userOid,
+      provinceOid: dto.provinceOid ?? existing.provinceOid,
+      cityName: dto.cityName ?? existing.cityName,
+      lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
 
-    const { result: updateResult, err: updateError } = await cityRepository.update(oid, updateData, { transaction: currentTransaction });
+    const { result: updateResult, err: updateError } = await cityRepository.update(
+      oid,
+      updateData,
+      currentTransaction ? { transaction: currentTransaction } : {}
+    );
 
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
@@ -74,25 +100,39 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (localTransaction) await localTransaction.commit();
 
-    const msgData = { value: existingCity.oid, name: existingCity.cityName };
+    const msgData = { value: existing.oid, name: existing.cityName };
     const city = await messageMaps.toMessageResponse(msgData);
 
     return { city, err: null };
+
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
-    return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
+    console.error('Update failed:', err);
+    return {
+      city: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
 const deleted = async (oid) => {
   let transaction;
+
   try {
     transaction = await sequelize.transaction();
-    const { result: city, err: findErr } = await cityRepository.findById(oid, { transaction });
 
-    if (findErr || !city) {
+    const { result: resultFind, err: errFind } = await cityRepository.findById(oid, { transaction });
+    if (errFind) {
       await transaction.rollback();
-      return { city: null, err: findErr || { message: 'City not found', status: 404 } };
+      return { city: null, err: errFind };
+    }
+
+    if (!resultFind) {
+      await transaction.rollback();
+      return {
+        city: null,
+        err: { message: 'Data Not Found', status: 404 }
+      };
     }
 
     const { result, err } = await cityRepository.remove(oid, { transaction });
@@ -103,12 +143,18 @@ const deleted = async (oid) => {
 
     await transaction.commit();
 
-    const msgData = { value: city.oid, name: city.cityName };
-    const cityResponse = await messageMaps.toMessageResponse(msgData);
-    return { city: cityResponse, err: null };
+    const msgData = { value: resultFind.oid, name: resultFind.cityName };
+    const city = await messageMaps.toMessageResponse(msgData);
+
+    return { city, err: null };
+
   } catch (err) {
     if (transaction) await transaction.rollback();
-    return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
+    console.error('Delete failed:', err);
+    return {
+      city: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
@@ -117,48 +163,71 @@ const findAll = async () => {
     const { result, err } = await cityRepository.findAll({
       include: [],
       order: [['createdAt', 'DESC']],
-      attributes: CITY_BASIC_FIELDS,
+      attributes: CITY_BASIC_FIELDS
     });
 
-    if (err) return { cities: [], err };
-    const cities = await mappings.toCityResponses(result);
-    return { cities, err: null };
+    if (err) return { citys: [], err };
+
+    const citys = await mappings.toCityResponses(result);
+    return { citys, err: null };
   } catch (err) {
-    return { cities: [], err: buildResponse.responseInternalServerError(err).data.error };
+    return {
+      citys: [],
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
 const findById = async (oid, options = {}) => {
   try {
     const { result, err } = await cityRepository.findById(oid, options);
-    if (err) return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
-    if (!result) return { city: null, err: null };
+
+    if (err) {
+      return {
+        city: null,
+        err: buildResponse.responseInternalServerError(err).data.error,
+      };
+    }
+
+    if (!result) {
+      return { city: null, err: null };
+    }
 
     const city = await mappings.toCityResponse(result);
+
     return { city, err: null };
   } catch (err) {
-    return { city: null, err: buildResponse.responseInternalServerError(err).data.error };
+    console.error('Error finding city:', err);
+    return {
+      city: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
 const findPage = async (filters, options) => {
   try {
-    const where = buildFilterConditions(sequelize, filters, false);
+    const { search, ...restFilters } = filters;
+    const normalizedFilters = search ? { ...restFilters, cityName: search } : filters;
+
+    const where = buildFilterConditions(sequelize, normalizedFilters, false);
     const findOptions = buildFindOptions(where, options);
 
     const result = await cityRepository.findAndCountByCriteria(findOptions);
+
     if (result.err) throw result.err;
 
     return {
-      cities: result.data,
+      citys: result.data,
       count: result.count,
       err: null,
     };
-  } catch (err) {
+  } catch (error) {
+    console.error('CityService findPage error:', error);
     return {
-      cities: [],
+      citys: [],
       count: 0,
-      err: buildResponse.responseInternalServerError(err).data.error,
+      err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
 };
@@ -169,5 +238,5 @@ module.exports = {
   deleted,
   findAll,
   findById,
-  findPage,
+  findPage
 };

@@ -1,6 +1,6 @@
 const auditTrailService = require('./audit-trail-midleware-service.js');
 const Joi = require('joi');
-const sendAuditLog = require('./kafka-producer');
+// const sendAuditLog = require('./kafka-producer');
 
 const createDto = Joi.object({
   tableName: Joi.string().required(),
@@ -41,7 +41,7 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
       userAgent: req.get('User-Agent'),
       newData: status === 'SUCCESS' ? data : undefined,
     };
-    await sendAuditLog(auditPayload);
+    // await sendAuditLog(auditPayload);
     const { error, value } = createDto.validate(auditPayload);
     if (error) {
       console.warn('Audit trail validation failed:', error.message);

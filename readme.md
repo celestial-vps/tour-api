@@ -11,3 +11,4 @@ test/	Penambahan atau perbaikan testing	Saat buat unit/integration test	test/add
 docs/	Perubahan dokumentasi proyek	Saat update README, swagger, API contract, dll	docs/add-payment-api-spec
 chore/	Tugas-tugas rutin non-feature/non-bug	Update config, dependency, CI/CD, lint, dll	chore/update-eslint-config
 ci/	Perubahan pada file CI/CD workflow	Saat update pipeline, action, docker config, dll	ci/update-deploy-workflow
+.pascalToKebab()

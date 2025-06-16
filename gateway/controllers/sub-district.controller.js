@@ -1,29 +1,28 @@
-// controllers/subdistrictController.js
+'use strict';
 
-const subdistrictService = require('../services/subdistrict.service');
+const subdistrictService = require('../services/sub-district.service');
 const buildResponse = require('../common/build.response');
 const { JwtMaker } = require('../middleware/jwt');
-const jwtMaker = new JwtMaker();
 const pick = require('../misc/pick');
+const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
+const jwtMaker = new JwtMaker();
 
 const create = async (req, res) => {
+  console.log('🟢 [CREATE] Subdistrict controller called');
   try {
     const userJwt = req.authorization_payload;
     const { subdistrict, err } = await subdistrictService.create(req.body, userJwt.userOid);
 
-    if (err !== null) {
-      const response = buildResponse.responseErrorInserted(err.message);
-      return res.status(400).json(response);
+    if (err) {
+      await recordAuditTrail("CREATE", "Subdistrict", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "insert");
     }
-
-    const response = buildResponse.responseOk(subdistrict, 1);
-    return res.status(201).json(response);
+    await recordAuditTrail("CREATE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Create subdistrict success');
+    return buildResponse.createOk(res, subdistrict, 1);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    return res.status(500).json(response);
+    await recordAuditTrail("CREATE", "Subdistrict", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
@@ -32,35 +31,31 @@ const update = async (req, res) => {
     const userJwt = req.authorization_payload;
     const { subdistrict, err } = await subdistrictService.update(req.params.oid, req.body, userJwt.userOid);
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorUpdate(err.message);
-    } else {
-      response = buildResponse.responseOk(subdistrict, 1);
+    if (err) {
+      await recordAuditTrail("UPDATE", "Subdistrict", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "update");
     }
-
-    res.status(200).json(response);
+    await recordAuditTrail("UPDATE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Update subdistrict success');
+    return buildResponse.updateOk(res, subdistrict, 1);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    await recordAuditTrail("UPDATE", "Subdistrict", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
-const deleted = async (req, res) => {
+const remove = async (req, res) => {
   try {
     const { subdistrict, err } = await subdistrictService.deleted(req.params.oid);
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorDelete(err.message || err);
-    } else {
-      response = buildResponse.responseDeleteOk(subdistrict);
+    if (err) {
+      await recordAuditTrail("DELETE", "Subdistrict", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-
-    res.status(200).json(response);
+    await recordAuditTrail("DELETE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Delete subdistrict success');
+    return buildResponse.sendDeleteOk(res, subdistrict);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    await recordAuditTrail("DELETE", "Subdistrict", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
@@ -68,65 +63,65 @@ const findAll = async (req, res) => {
   try {
     const { subdistricts, err } = await subdistrictService.findAll();
 
-    let response;
-    if (err !== null) {
-      response = buildResponse.responseErrorGet(err.message);
-    } else {
-      response = buildResponse.responseOk(subdistricts, subdistricts.length);
+    if (err) {
+      await recordAuditTrail("READ", "Subdistrict", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get all");
     }
-
-    res.status(200).json(response);
+    await recordAuditTrail("READ", "Subdistrict", subdistricts, req, 'SUCCESS', 'Get all subdistricts success');
+    return buildResponse.findOk(res, subdistricts, subdistricts.length);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    await recordAuditTrail("READ", "Subdistrict", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const find = async (req, res) => {
   try {
-    const options = pick(req.query, ['sortBy', 'fieldName', 'sortOrder', 'pageSize', 'pageIndex']);
-    const filters = pick(req.body, ['districtOid', 'subDistrictName', 'postalCode']);
+    const filters = pick(req.body, ['districtOid', 'subDistrictName', 'search']);
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-    const pageIndex = parseInt(options.pageIndex) || DEFAULT_PAGE;
-    const pageSize = parseInt(options.pageSize) || DEFAULT_PAGE_SIZE;
+    const result = await subdistrictService.findPage(filters, options);
 
-    const { subdistricts, count } = await subdistrictService.findPage(filters, options);
-
-    const response = buildResponse.responsePaggination(subdistricts, count, pageIndex, pageSize);
-    res.status(200).json(response);
-  } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    if (result.err) {
+      await recordAuditTrail("READ", "Subdistrict", result.err, req, 'FAILED', result.err.message);
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+    await recordAuditTrail("READ", "Subdistrict", result.subDistricts, req, 'SUCCESS', 'Get subDistricts with filters success');
+    return buildResponse.sendPagination(res, result.subDistricts, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    await recordAuditTrail("READ", "Subdistrict", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const findById = async (req, res) => {
   try {
-    const { subdistrict, err } = await subdistrictService.findById(req.params.oid);
+    const { subdistrict, err } = await subdistrictService.findById(req.params.oid, { include: [] });
 
-    if (err !== null) {
-      const response = buildResponse.responseErrorGet(err.message);
-      return res.status(400).json(response);
+    if (err) {
+      await recordAuditTrail("READ", "Subdistrict", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
-    if (subdistrict) {
-      const response = buildResponse.responseOk(subdistrict, 1);
-      return res.status(200).json(response);
-    } else {
-      const response = buildResponse.responseDataNotFound("Subdistrict not found.");
-      return res.status(404).json(response);
-    }
+    if (!subdistrict) return buildResponse.sendDataNotFound(res);
+    await recordAuditTrail("READ", "Subdistrict", subdistrict, req, 'SUCCESS', 'Get subdistrict by ID success');
+    return buildResponse.findOk(res, subdistrict);
   } catch (err) {
-    const response = buildResponse.responseInternalServerError(err.message);
-    res.status(500).json(response);
+    await recordAuditTrail("READ", "Subdistrict", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 module.exports = {
   create,
   update,
-  deleted,
+  remove,
   findAll,
-  findById,
   find,
+  findById,
 };
