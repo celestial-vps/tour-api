@@ -60,12 +60,12 @@ Customer.associate = (models) => {
   });
 
   // Example association with a Subdistrict (fixing to refer to Subdistrict)
-  Customer.belongsTo(models.Subdistrict, {
-    foreignKey: 'subDistrictOid', // Assuming a field for subdistrict in the customer model
-    targetKey: 'oid',
-    as: 'subDistrict', // Alias for association
-    onDelete: 'CASCADE',
-  });
+  // Customer.belongsTo(models.Subdistrict, {
+  //   foreignKey: 'subDistrictOid', // Assuming a field for subdistrict in the customer model
+  //   targetKey: 'oid',
+  //   as: 'subDistrict', // Alias for association
+  //   onDelete: 'CASCADE',
+  // });
 };
 
 module.exports = Customer;

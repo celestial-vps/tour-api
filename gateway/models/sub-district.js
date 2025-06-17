@@ -46,23 +46,23 @@ Subdistrict.associate = (models) => {
         as: 'district',
     });
 
-    Subdistrict.hasMany(models.Hotel, {
-        foreignKey: 'subDistrictOid',
-        as: 'hotels',
-        onDelete: 'CASCADE',
-    });
+    // Subdistrict.hasMany(models.Hotel, {
+    //     foreignKey: 'subDistrictOid',
+    //     as: 'hotels',
+    //     onDelete: 'CASCADE',
+    // });
 
-    Subdistrict.hasMany(models.Customer, {
-        foreignKey: 'subDistrictOid',
-        as: 'customers',
-        onDelete: 'CASCADE',
-    });
+    // Subdistrict.hasMany(models.Customer, {
+    //     foreignKey: 'subDistrictOid',
+    //     as: 'customers',
+    //     onDelete: 'CASCADE',
+    // });
 
-    Subdistrict.hasMany(models.Owner, {
-        foreignKey: 'subDistrictOid',
-        as: 'owners',
-        onDelete: 'CASCADE',
-    });
+    // Subdistrict.hasMany(models.Owner, {
+    //     foreignKey: 'subDistrictOid',
+    //     as: 'owners',
+    //     onDelete: 'CASCADE',
+    // });
 };
 
 module.exports = Subdistrict;

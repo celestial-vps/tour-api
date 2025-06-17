@@ -9,10 +9,14 @@ const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');
 
 const countryRoutes = require('./routes/country.route');
+const countryCacheRoutes = require('./routes/country-cache.route');
+
 const provinceRoutes = require('./routes/province.route');
 const cityRoutes = require('./routes/city.route');
 const districtRoutes = require('./routes/district.route');
 const subDistrictRoutes = require('./routes/sub-district.route');
+
+const customerRoutes = require('./routes/customer.route');
 
 // const bankBranchRoutes = require('./routes/bank-branch.route');
 // const brandRoutes = require('./routes/brand.route');
@@ -76,14 +80,18 @@ app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
 
 app.use(`${basePath}/country`, countryRoutes);
+app.use(`${basePath}/country-cache`, countryCacheRoutes);
+
 app.use(`${basePath}/province`, provinceRoutes);
 app.use(`${basePath}/city`, cityRoutes);
 app.use(`${basePath}/district`, districtRoutes);
 app.use(`${basePath}/sub-district`, subDistrictRoutes);
 
+ app.use(`${basePath}/customer`, customerRoutes);
+
 // app.use(`${basePath}/bank-branch`, bankBranchRoutes);
 // app.use(`${basePath}/brand`, brandRoutes);
-// app.use(`${basePath}/customer`, customerRoutes);
+//
 // app.use(`${basePath}/hotel-room`, hotelRoomRoutes);
 // app.use(`${basePath}/hotel`, hotelRoutes);
 // app.use(`${basePath}/image-file`, imageFileRoutes);

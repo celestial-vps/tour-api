@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const resendFailedAuditLogs = require('./resend-failed-audit'); // Ambil fungsinya
+const resendFailedAuditLogs = require('../audit-trail/resend-failed-audit'); // Ambil fungsinya
 
 // Panggil langsung saat server start (opsional)
 // @ts-ignore

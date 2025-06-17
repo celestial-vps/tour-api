@@ -7,10 +7,13 @@ const Conversation = require('./conversation');
 const Message = require('./message');
 const ConversationMember = require('./conversation-member');
 const HotelRoom = require('./hotel-room');
+const Subdistrict = require('./sub-district');
+const City = require('./city');
+const District = require('./district');
 
 const models = {
     User,
-    UserRole,Country,Province,
+    UserRole, Country, Province, City, District, Subdistrict,
     Bank,
     // Message,ConversationMember,Conversation,
     // HotelRoom

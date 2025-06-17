@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "set NODE_ENV=development && nodemon server.js",
     "start": "nodemon server.js",
     "start-local": "pm2 start server.js --name audit-api",
     "start-kafka": "pm2 start ecosystem.config.js",

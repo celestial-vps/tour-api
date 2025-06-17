@@ -37,5 +37,6 @@ const io = new Server(server, {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
+  require('./middleware/cron-job/cron-job-redis-region');
   // require('./middleware/audit-trail/schedule-resend-audit'); // Mulai cron job untuk resend audit log
 });

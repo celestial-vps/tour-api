@@ -16,6 +16,8 @@
 14. npm install multer
 15. npm install sharp
 16. npm install express-rate-limit
+17. npm install ioredis
+
 
 npm i express-rate-limit
 npm install lodash
@@ -92,3 +94,14 @@ CTR + C  aja
 ini kalo bikin service nya
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+
+# REDIS
+    sudo service redis-server start
+
+
+# MIGRATION 
+ npx sequelize-cli seed:generate --name country-sync-redis
+
+
+    

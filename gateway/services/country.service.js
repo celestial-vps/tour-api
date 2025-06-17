@@ -7,6 +7,9 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { COUNTRY_BASIC_FIELDS } = require('../constants/country.fields');
+const GeoCacheCountryService = require('../lib/redis/services/geo-cache-country.service');
+const geoCacheCountryService = new GeoCacheCountryService();
+
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
@@ -36,6 +39,10 @@ const create = async (dto, userOid) => {
     }
 
     await transaction.commit();
+    await geoCacheCountryService.upsertCountry({
+      id: result.oid,           // atau result.id kalau ada
+      name: result.countryName, // sesuaikan property
+    });
 
     const msgData = { value: result.oid, name: result.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
@@ -102,6 +109,11 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (localTransaction) await localTransaction.commit();
 
+    await geoCacheCountryService.upsertCountry({
+      id: updateResult.oid,           // pastikan properti ini ada di updateResult
+      name: updateResult.countryName,
+    });
+
     const msgData = { value: existing.oid, name: existing.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
 
@@ -144,6 +156,10 @@ const deleted = async (oid) => {
     }
 
     await transaction.commit();
+
+
+    // Kalau perlu, tambahkan hapus cache Redis disini, misal:
+    await geoCacheCountryService.deleteCountry(oid);
 
     const msgData = { value: resultFind.oid, name: resultFind.countryName };
     const country = await messageMaps.toMessageResponse(msgData);
