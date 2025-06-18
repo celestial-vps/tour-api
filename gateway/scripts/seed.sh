@@ -11,16 +11,40 @@ else
   exit 1
 fi
 
-# Run seeders
-echo "Running seeders..."
-npx sequelize-cli db:seed:all
+# # Run seeders
+# echo "Running seeders..."
+# npx sequelize-cli db:seed:all
 
-if [ $? -eq 0 ]; then
-  echo "Seeders executed successfully."
-else
-  echo "Seeders execution failed. Exiting script."
-  exit 1
-fi
+
+
+# if [ $? -eq 0 ]; then
+#   echo "Seeders executed successfully."
+# else
+#   echo "Seeders execution failed. Exiting script."
+#   exit 1
+# fi
+
+
+# Run specific seeders one by one
+echo "Running specific seeders..."
+
+SEEDERS=(
+  "20250617160533-geo-seed.js"
+  "20250420121520-seed-user-role.js"  
+  "20250618062132-default-user.js"
+)
+
+for SEED in "${SEEDERS[@]}"; do
+  echo "Running seeder: $SEED"
+  npx sequelize-cli db:seed --seed "$SEED"
+
+  if [ $? -eq 0 ]; then
+    echo "Seeder $SEED executed successfully."
+  else
+    echo "Seeder $SEED failed. Exiting script."
+    exit 1
+  fi
+done
 
 # Sync Redis from DB
 echo "Syncing Redis cache from database..."

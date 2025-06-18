@@ -33,10 +33,11 @@ class GeoCacheCountryService {
 
     /**
      * Get all countries from Redis
-     * @returns {Promise<Array<{ id: string, name: string }>>}
+     * @returns {Promise<Array<{ oid: string, countryName: string }>>}
      */
     async getCountries() {
         try {
+            console.log('Looking up Redis key:', this.redisKey);
             const data = await this.redisClient.get(this.redisKey);
             return data ? JSON.parse(data) : [];
         } catch (err) {
@@ -101,7 +102,7 @@ class GeoCacheCountryService {
             const data = await this.redisClient.get(this.redisKey);
             const countries = data ? JSON.parse(data) : [];
             const lowerName = name.toLowerCase();
-            return countries.filter(c => c.name.toLowerCase().includes(lowerName));
+            return countries.filter(c => c.countryName.toLowerCase().includes(lowerName));
         } catch (err) {
             console.error('Redis error (searchCountriesByName):', err);
             return [];

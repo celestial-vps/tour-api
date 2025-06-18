@@ -77,6 +77,7 @@ const buildFindOptions = (filters = {}, options = {}, attributes = {}) => {
     offset,
     order: options.sortBy ? [[options.sortBy, sortOrder]] : undefined,
     attributes,
+    include: options.include || undefined, // tambahkan properti include
     distinct: true,
   };
 };

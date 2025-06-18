@@ -3,8 +3,8 @@ const { roleGuard } = require('../middleware/role-guard');
 const provinceController = require('../controllers/province.controller');
 const { validateRequest } = require('../misc/validation');
 const {
-    createProvinceRequestDto,
-    updateProvinceRequestDto,
+    createProvinceDto,
+    updateProvinceDto,
     deleteProvinceDto,
     getProvinceDto,
     filterProvinceDto
@@ -45,7 +45,7 @@ const router = express.Router();
  */
 router.post(
     '/create',
-    validateRequest(createProvinceRequestDto),
+    validateRequest(createProvinceDto),
     roleGuard('Admin'),
     provinceController.create
 );
@@ -84,7 +84,7 @@ router.post(
  */
 router.put(
     '/:oid',
-    validateRequest(updateProvinceRequestDto),
+    validateRequest(updateProvinceDto),
     roleGuard('Admin'),
     provinceController.update
 );

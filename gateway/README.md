@@ -104,4 +104,9 @@ ini kalo bikin service nya
  npx sequelize-cli seed:generate --name country-sync-redis
 
 
+
+ npx sequelize-cli seed:generate --name geo-seed
+
+
+  npx sequelize-cli seed:generate --name default-user
     
