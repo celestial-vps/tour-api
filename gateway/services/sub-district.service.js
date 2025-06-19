@@ -7,6 +7,8 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { SUBDISTRICT_BASIC_FIELDS } = require('../constants/sub-district.fields');
+const { DISTRICT_BASIC_FIELDS } = require('../constants/district.fields');
+const { District } = require('../models');
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
@@ -18,6 +20,7 @@ const create = async (dto, userOid) => {
     const data = {
       districtOid: dto.districtOid,
       subDistrictName: dto.subDistrictName,
+      postalCode: dto.postalCode,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -29,7 +32,7 @@ const create = async (dto, userOid) => {
     if (err || !result) {
       await transaction.rollback();
       return {
-        SubDistrict: null,
+        subDistrict: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
@@ -37,15 +40,15 @@ const create = async (dto, userOid) => {
     await transaction.commit();
 
     const msgData = { value: result.oid, name: result.subDistrictName };
-    const SubDistrict = await messageMaps.toMessageResponse(msgData);
+    const subDistrict = await messageMaps.toMessageResponse(msgData);
 
-    return { SubDistrict, err: null };
+    return { subDistrict, err: null };
 
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error('Create failed:', error);
     return {
-      SubDistrict: null,
+      subDistrict: null,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
@@ -83,6 +86,7 @@ const update = async (oid, dto, userOid, options = {}) => {
     const updateData = {
       districtOid: dto.districtOid ?? existing.districtOid,
       subDistrictName: dto.subDistrictName ?? existing.subDistrictName,
+      postalCode: dto.postalCode ?? existing.postalCode,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
@@ -101,15 +105,15 @@ const update = async (oid, dto, userOid, options = {}) => {
     if (localTransaction) await localTransaction.commit();
 
     const msgData = { value: existing.oid, name: existing.subDistrictName };
-    const SubDistrict = await messageMaps.toMessageResponse(msgData);
+    const subDistrict = await messageMaps.toMessageResponse(msgData);
 
-    return { SubDistrict, err: null };
+    return { subDistrict, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      SubDistrict: null,
+      subDistrict: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -144,15 +148,15 @@ const deleted = async (oid) => {
     await transaction.commit();
 
     const msgData = { value: resultFind.oid, name: resultFind.subDistrictName };
-    const SubDistrict = await messageMaps.toMessageResponse(msgData);
+    const subDistrict = await messageMaps.toMessageResponse(msgData);
 
-    return { SubDistrict, err: null };
+    return { subDistrict, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      SubDistrict: null,
+      subDistrict: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -168,11 +172,11 @@ const findAll = async () => {
 
     if (err) return { SubDistricts: [], err };
 
-    const SubDistricts = await mappings.toSubDistrictResponses(result);
-    return { SubDistricts, err: null };
+    const subDistrict = await mappings.toSubDistrictResponses(result);
+    return { subDistrict, err: null };
   } catch (err) {
     return {
-      SubDistricts: [],
+      subDistrict: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -180,6 +184,14 @@ const findAll = async () => {
 
 const findById = async (oid, options = {}) => {
   try {
+    options.include = [
+      {
+        model: District,
+        as: 'district',
+        attributes: DISTRICT_BASIC_FIELDS,
+      }
+    ];
+
     const { result, err } = await subDistrictRepository.findById(oid, options);
 
     if (err) {
@@ -193,13 +205,13 @@ const findById = async (oid, options = {}) => {
       return { SubDistrict: null, err: null };
     }
 
-    const SubDistrict = await mappings.toSubDistrictResponse(result);
+    const subDistrict = await mappings.toSubDistrictResponse(result);
 
-    return { SubDistrict, err: null };
+    return { subDistrict, err: null };
   } catch (err) {
     console.error('Error finding SubDistrict:', err);
     return {
-      SubDistrict: null,
+      subDistrict: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -211,14 +223,23 @@ const findPage = async (filters, options) => {
     const normalizedFilters = search ? { ...restFilters, subDistrictName: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
+
+    options.include = [
+      {
+        model: District,
+        as: 'district',
+        attributes: DISTRICT_BASIC_FIELDS,
+      }
+    ];
     const findOptions = buildFindOptions(where, options);
 
     const result = await subDistrictRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
+    const subDistricts = await mappings.toSubDistrictResponses(result.data);
 
     return {
-      subDistricts: result.data,
+      subDistricts,
       count: result.count,
       err: null,
     };

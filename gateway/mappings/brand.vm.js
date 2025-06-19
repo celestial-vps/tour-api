@@ -1,16 +1,17 @@
-async function toBrandResponse(brand) {  
+// Mapping functions
+async function toBrandResponse(Brand) {  
     const response = {
-        oid: brand.oid,        
-        brandName: brand.brandName,        
-        createdBy: brand.createdBy,
-        updatedAt: brand.updatedAt
-      };
+        oid: Brand.oid,
+        brandName: Brand.brandName,
+        createdBy: Brand.createdBy,
+        updatedAt: Brand.updatedAt
+    };
     return response;
 }
 
-async function toBrandResponses(brands) {
-    const brandResponses = await Promise.all(brands.map(toBrandResponse));
-    return brandResponses;
+async function toBrandResponses(Brands) {
+    const BrandResponses = await Promise.all(Brands.map(toBrandResponse));
+    return BrandResponses;
 }
 
 // Export everything

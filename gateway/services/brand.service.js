@@ -1,14 +1,20 @@
+'use strict';
 const brandRepository = require('../repositories/brand.repository');
 const mappings = require('../mappings/brand.vm');
 const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
 const moment = require('moment');
+const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
+const buildResponse = require('../common/build.response');
+const { BRAND_BASIC_FIELDS } = require('../constants/brand.fields');
 
 const create = async (dto, userOid) => {
-  const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
   let transaction;
 
   try {
+    transaction = await sequelize.transaction();
+
     const data = {
       brandName: dto.brandName,
       createdBy: userOid,
@@ -16,149 +22,211 @@ const create = async (dto, userOid) => {
       lastModifiedBy: userOid,
       updatedAt: now,
     };
-    transaction = await sequelize.transaction();
+
     const { result, err } = await brandRepository.save(data, { transaction });
-    if (err !== null) {
+
+    if (err || !result) {
       await transaction.rollback();
-      return { result: null, err }
+      return {
+        Brand: null,
+        err: buildResponse.responseInternalServerError(err).data.error,
+      };
     }
+
     await transaction.commit();
-    if (result) {
-      const msgData = {
-        value: result.oid,
-        name: result.brandName
-      }
-      const brand = await messageMaps.toMessageResponse(msgData);
-      return { brand, err: null };
-    } else {
-      return { brand: {}, err: { message: "Transaction Failed" } };
-    }
-  } catch (err) {
-    await transaction.rollback();
-    return { result: null, err }
+
+    const msgData = { value: result.oid, name: result.undefined };
+    const Brand = await messageMaps.toMessageResponse(msgData);
+
+    return { Brand, err: null };
+
+  } catch (error) {
+    if (transaction) await transaction.rollback();
+    console.error('Create failed:', error);
+    return {
+      Brand: null,
+      err: buildResponse.responseInternalServerError(error).data.error,
+    };
   }
 };
 
-const update = async (oid, dto, userOid) => {
-  const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-  const transaction = await sequelize.transaction();
+const update = async (oid, dto, userOid, options = {}) => {
+  const { transaction = null, useTransaction = false } = options;
+  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  let localTransaction = null;
+
   try {
-    const { result: resultFind, err: errBrand } = await brandRepository.findById(oid);
+    if (useTransaction && !transaction) {
+      localTransaction = await sequelize.transaction();
+    }
 
-    if (errBrand != null) {
-      return { brand: {}, err: errBrand }
-    }
-    if (resultFind == null) {
-      return {
-        brand: {}, err: {
-          message: "Data Not Found"
-        }
-      }
-    }
-    resultFind.brandName = dto.brandName ?? resultFind.brandName
-    resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
-    resultFind.updatedAt = now
+    const currentTransaction = transaction || localTransaction;
 
-    const transaction = await sequelize.transaction();
-    const { result: result, err: err } = await brandRepository.update(oid, resultFind, transaction);
-    if (err !== null) {
-      await transaction.rollback();
-      return { result: null, err }
+    const findOptions = {
+      transaction: currentTransaction,
+      include: [],
+    };
+
+    const { result: existing, err: findError } = await brandRepository.findById(oid, findOptions);
+
+    if (findError) {
+      if (localTransaction) await localTransaction.rollback();
+      return { Brand: null, err: findError };
     }
-    await transaction.commit();
-    if (result) {
-      const msgData = {
-        value: resultFind.oid,
-        name: resultFind.brandName
-      }
-      const brand = await messageMaps.toMessageResponse(msgData);
-      return { brand, err: null };
-    } else {
-      return { brand: {}, err: { message: "Transaction Failed" } };
+
+    if (!existing) {
+      if (localTransaction) await localTransaction.rollback();
+      return { Brand: null, err: { message: "Brand not found", status: 404 } };
     }
+
+    const updateData = {
+      brandName: dto.brandName ?? existing.brandName,
+      lastModifiedBy: userOid ?? existing.lastModifiedBy,
+      updatedAt: now,
+    };
+
+    const { result: updateResult, err: updateError } = await brandRepository.update(
+      oid,
+      updateData,
+      currentTransaction ? { transaction: currentTransaction } : {}
+    );
+
+    if (updateError) {
+      if (localTransaction) await localTransaction.rollback();
+      return { Brand: null, err: updateError };
+    }
+
+    if (localTransaction) await localTransaction.commit();
+
+    const msgData = { value: existing.oid, name: existing.undefined };
+    const Brand = await messageMaps.toMessageResponse(msgData);
+
+    return { Brand, err: null };
+
   } catch (err) {
-    await transaction.rollback();
-    return { result: null, err }
+    if (localTransaction) await localTransaction.rollback();
+    console.error('Update failed:', err);
+    return {
+      Brand: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
 const deleted = async (oid) => {
   let transaction;
+
   try {
     transaction = await sequelize.transaction();
-    const { result: resultFind, err: errBrand } = await brandRepository.findById(oid);
-    if (errBrand != null) {
-      return { brand: {}, err: errBrand }
-    }
-    if (resultFind == null) {
-      return {
-        brand: {}, err: {
-          message: "Data Not Found"
-        }
-      }
-    }
-    const { result, err } = await brandRepository.remove(oid, transaction);
-    if (err !== null) {
+
+    const { result: resultFind, err: errFind } = await brandRepository.findById(oid, { transaction });
+    if (errFind) {
       await transaction.rollback();
+      return { Brand: null, err: errFind };
     }
+
+    if (!resultFind) {
+      await transaction.rollback();
+      return {
+        Brand: null,
+        err: { message: 'Data Not Found', status: 404 }
+      };
+    }
+
+    const { result, err } = await brandRepository.remove(oid, { transaction });
+    if (err) {
+      await transaction.rollback();
+      return { Brand: null, err };
+    }
+
     await transaction.commit();
-    if (result) {
-      const msgData = {
-        value: resultFind.oid,
-        name: resultFind.brandName
-      }
-      const brand = await messageMaps.toMessageResponse(msgData);
-      return { brand, err: null };
-    } else {
-      return { brand: {}, err: { message: "Transaction Failed" } };
-    }
+
+    const msgData = { value: resultFind.oid, name: resultFind.undefined };
+    const Brand = await messageMaps.toMessageResponse(msgData);
+
+    return { Brand, err: null };
+
   } catch (err) {
-    await transaction.rollback();
-    return { brand: null, err }
+    if (transaction) await transaction.rollback();
+    console.error('Delete failed:', err);
+    return {
+      Brand: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
 const findAll = async () => {
   try {
-    const { result, err } = await brandRepository.findAll();
-    const brands = await mappings.toBrandResponses(result)
-    return { brands, err: null }
+    const { result, err } = await brandRepository.findAll({
+      include: [],
+      order: [['createdAt', 'DESC']],
+      attributes: BRAND_BASIC_FIELDS
+    });
+
+    if (err) return { Brands: [], err };
+
+    const Brands = await mappings.toBrandResponses(result);
+    return { Brands, err: null };
   } catch (err) {
-    return { brands: [], err }
+    return {
+      Brands: [],
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
   }
 };
 
-
-const findById = async (oid) => {
+const findById = async (oid, options = {}) => {
   try {
-    const { result, err } = await brandRepository.findById(oid);
-    if (result == null) {
+    const { result, err } = await brandRepository.findById(oid, options);
+
+    if (err) {
       return {
-        brand: {}, err: {
-          message: "Data Not Found"
-        }
-      }
+        Brand: null,
+        err: buildResponse.responseInternalServerError(err).data.error,
+      };
     }
-    const brand = await mappings.toBrandResponse(result)
-    return { brand, err: err }
-  } catch (err) {
-    return { brand: {}, err }
-  }
 
+    if (!result) {
+      return { Brand: null, err: null };
+    }
+
+    const Brand = await mappings.toBrandResponse(result);
+
+    return { Brand, err: null };
+  } catch (err) {
+    console.error('Error finding Brand:', err);
+    return {
+      Brand: null,
+      err: buildResponse.responseInternalServerError(err).data.error,
+    };
+  }
 };
 
-
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (filters, options) => {
   try {
-    const { count, errCount } = await brandRepository.findAndCountByCriteria(condition);
-    if (errCount) {
-      return { brands: [], count: 0, errCount }
-    }
-    const { brands, err } = await brandRepository.findByCriteria(condition);
-    const brandResponses = await mappings.toBrandResponses(brands)
-    return { brands: brandResponses, count, err: err };
-  } catch (err) {
-    return { brands: [], count: 0, err }
+    const { search, ...restFilters } = filters;
+    const normalizedFilters = search ? { ...restFilters, undefined: search } : filters;
+
+    const where = buildFilterConditions(sequelize, normalizedFilters, false);
+    const findOptions = buildFindOptions(where, options);
+
+    const result = await brandRepository.findAndCountByCriteria(findOptions);
+
+    if (result.err) throw result.err;
+
+    return {
+      brands: result.data,
+      count: result.count,
+      err: null,
+    };
+  } catch (error) {
+    console.error('BrandService findPage error:', error);
+    return {
+      Brands: [],
+      count: 0,
+      err: buildResponse.responseInternalServerError(error).data.error,
+    };
   }
 };
 
@@ -168,7 +236,5 @@ module.exports = {
   deleted,
   findAll,
   findById,
-  findPage,
-
+  findPage
 };
-

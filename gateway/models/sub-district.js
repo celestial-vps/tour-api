@@ -32,7 +32,7 @@ const Subdistrict = sequelize.define('Subdistrict', {
         type: DataTypes.UUID,
     },
 }, {
-    tableName: 'subdistricts',
+    tableName: 'sub_districts',
     timestamps: true,  // Automatically handles createdAt, updatedAt
     paranoid: true,    // Soft delete functionality (deletedAt)
 });

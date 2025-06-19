@@ -12,9 +12,24 @@ const countryRoutes = require('./routes/country.route');
 const countryCacheRoutes = require('./routes/country-cache.route');
 
 const provinceRoutes = require('./routes/province.route');
+const provinceCacheRoutes = require('./routes/province-cache.route');
+
 const cityRoutes = require('./routes/city.route');
+const cityCacheRoutes = require('./routes/city-cache.route');
+
 const districtRoutes = require('./routes/district.route');
+const districtCacheRoutes = require('./routes/district-cache.route');
+
 const subDistrictRoutes = require('./routes/sub-district.route');
+const subDistrictCacheRoutes = require('./routes/sub-district-cache.route');
+
+const vehicleTypeRoutes = require('./routes/vehicle-type.route');
+const vehicleRoutes = require('./routes/vehicle.route');
+
+const hotelRoomRoutes = require('./routes/hotel-room.route');
+const hotelRoutes = require('./routes/hotel.route');
+const brandRoutes = require('./routes/brand.route');
+
 
 const customerRoutes = require('./routes/customer.route');
 
@@ -33,8 +48,6 @@ const customerRoutes = require('./routes/customer.route');
 // const tutorRoutes = require('./routes/tutor.route');
 // const userRoleRoutes = require('./routes/user-role.route');
 // const userRoutes = require('./routes/user.route');
-// const vehicleTypeRoutes = require('./routes/vehicle-type.route');
-// const vehicleRoutes = require('./routes/vehicle.route');
 
 const setupSwagger = require('./swagger'); // Adjust the path as needed
 // @ts-ignore
@@ -83,11 +96,25 @@ app.use(`${basePath}/country`, countryRoutes);
 app.use(`${basePath}/country-cache`, countryCacheRoutes);
 
 app.use(`${basePath}/province`, provinceRoutes);
-app.use(`${basePath}/city`, cityRoutes);
-app.use(`${basePath}/district`, districtRoutes);
-app.use(`${basePath}/sub-district`, subDistrictRoutes);
+app.use(`${basePath}/province-cache`, provinceCacheRoutes);
 
- app.use(`${basePath}/customer`, customerRoutes);
+app.use(`${basePath}/city`, cityRoutes);
+app.use(`${basePath}/city-cache`, cityCacheRoutes);
+
+app.use(`${basePath}/district`, districtRoutes);
+app.use(`${basePath}/district-cache`, districtCacheRoutes);
+
+app.use(`${basePath}/sub-district`, subDistrictRoutes);
+app.use(`${basePath}/sub-district-cache`, subDistrictCacheRoutes);
+
+app.use(`${basePath}/vehicle-type`, vehicleTypeRoutes);
+app.use(`${basePath}/vehicle`, vehicleRoutes);
+
+app.use(`${basePath}/hotel-room`, hotelRoomRoutes);
+app.use(`${basePath}/hotel`, hotelRoutes);
+app.use(`${basePath}/brand`, brandRoutes);
+
+app.use(`${basePath}/customer`, customerRoutes);
 
 // app.use(`${basePath}/bank-branch`, bankBranchRoutes);
 // app.use(`${basePath}/brand`, brandRoutes);
@@ -102,8 +129,7 @@ app.use(`${basePath}/sub-district`, subDistrictRoutes);
 // app.use(`${basePath}/tutor`, tutorRoutes);
 // app.use(`${basePath}/user-role`, userRoleRoutes);
 // app.use(`${basePath}/user`, userRoutes);
-// app.use(`${basePath}/vehicle-type`, vehicleTypeRoutes);
-// app.use(`${basePath}/vehicle`, vehicleRoutes);
+
 
 
 // const PORT = process.env.PORT || 3000;

@@ -101,16 +101,16 @@ const find = async (req, res) => {
 
 const findById = async (req, res) => {
   try {
-    const { subdistrict, err } = await subdistrictService.findById(req.params.oid, { include: [] });
+    const { subDistrict, err } = await subdistrictService.findById(req.params.oid, { include: [] });
 
     if (err) {
       await recordAuditTrail("READ", "Subdistrict", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
-    if (!subdistrict) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Subdistrict", subdistrict, req, 'SUCCESS', 'Get subdistrict by ID success');
-    return buildResponse.findOk(res, subdistrict);
+    if (!subDistrict) return buildResponse.sendDataNotFound(res);
+    await recordAuditTrail("READ", "Subdistrict", subDistrict, req, 'SUCCESS', 'Get subDistrict by ID success');
+    return buildResponse.findOk(res, subDistrict);
   } catch (err) {
     await recordAuditTrail("READ", "Subdistrict", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);

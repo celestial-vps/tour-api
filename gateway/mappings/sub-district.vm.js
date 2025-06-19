@@ -1,17 +1,25 @@
+const { District, Subdistrict } = require("../models");
+
 // Mapping functions
-async function toSubDistrictResponse(SubDistrict) {  
+async function toSubDistrictResponse(subDistrict) {
     const response = {
-        oid: SubDistrict.oid,
-        districtOid: SubDistrict.districtOid,
-        subDistrictName: SubDistrict.subDistrictName,
-        createdBy: SubDistrict.createdBy,
-        updatedAt: SubDistrict.updatedAt
+        oid: subDistrict.oid,
+        districtOid: subDistrict.districtOid,
+        subDistrictName: subDistrict.subDistrictName,
+        postalCode: subDistrict.postalCode,
+        createdBy: subDistrict.createdBy,
+        updatedAt: subDistrict.updatedAt
     };
+
+    if (subDistrict.district) {
+        response.district = subDistrict.district;
+    }
+
     return response;
 }
 
-async function toSubDistrictResponses(SubDistricts) {
-    const SubDistrictResponses = await Promise.all(SubDistricts.map(toSubDistrictResponse));
+async function toSubDistrictResponses(subDistricts) {
+    const SubDistrictResponses = await Promise.all(subDistricts.map(toSubDistrictResponse));
     return SubDistrictResponses;
 }
 

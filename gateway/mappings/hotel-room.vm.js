@@ -1,31 +1,26 @@
-async function toHotelRoomResponse(room) {
-  return {
-    room_id: room.room_id,
-    hotelOid: room.hotelOid,
-    room_type: room.room_type,
-    capacity: room.capacity,
-    price_per_night: room.price_per_night,
-    amenities: room.amenities,
-    status: room.status,
-    createdBy: room.createdBy,
-    createdAt: room.createdAt,
-    lastModifiedBy: room.lastModifiedBy,
-    updatedAt: room.updatedAt,
-    deletedBy: room.deletedBy,
-    deletedAt: room.deletedAt,
-    // Optional: include hotel info if eager-loaded
-    hotel: room.hotel ? {
-      oid: room.hotel.oid,
-      hotelName: room.hotel.hotelName, // Adjust according to your Hotel model's attributes
-    } : undefined,
-  };
+// Mapping functions
+async function toHotelRoomResponse(HotelRoom) {  
+    const response = {
+        oid: HotelRoom.oid,
+        hotelOid: HotelRoom.hotelOid,
+        room_type: HotelRoom.room_type,
+        capacity: HotelRoom.capacity,
+        price_per_night: HotelRoom.price_per_night,
+        amenities: HotelRoom.amenities,
+        status: HotelRoom.status,
+        createdBy: HotelRoom.createdBy,
+        updatedAt: HotelRoom.updatedAt
+    };
+    return response;
 }
 
-async function toHotelRoomResponses(rooms) {
-  return await Promise.all(rooms.map(toHotelRoomResponse));
+async function toHotelRoomResponses(HotelRooms) {
+    const HotelRoomResponses = await Promise.all(HotelRooms.map(toHotelRoomResponse));
+    return HotelRoomResponses;
 }
 
+// Export everything
 module.exports = {
-  toHotelRoomResponse,
-  toHotelRoomResponses,
+    toHotelRoomResponse,
+    toHotelRoomResponses
 };

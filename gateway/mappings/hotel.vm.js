@@ -1,41 +1,24 @@
-async function toHotelResponse(hotel) {
-  return {
-    oid: hotel.oid,
-    hotelName: hotel.hotelName,
-    address: hotel.address,
-    phone: hotel.phone,
-    star_rating: hotel.star_rating,
-    createdBy: hotel.createdBy,
-    createdAt: hotel.createdAt,
-    lastModifiedBy: hotel.lastModifiedBy,
-    updatedAt: hotel.updatedAt,
-    deletedBy: hotel.deletedBy,
-    deletedAt: hotel.deletedAt,
-    // Include rooms if eager loaded
-    hotelRooms: hotel.hotelRooms
-      ? await Promise.all(hotel.hotelRooms.map(room => ({
-          room_id: room.room_id,
-          room_type: room.room_type,
-          capacity: room.capacity,
-          price_per_night: room.price_per_night,
-          amenities: room.amenities,
-          status: room.status,
-          createdBy: room.createdBy,
-          createdAt: room.createdAt,
-          lastModifiedBy: room.lastModifiedBy,
-          updatedAt: room.updatedAt,
-          deletedBy: room.deletedBy,
-          deletedAt: room.deletedAt,
-        })))
-      : undefined,
-  };
+// Mapping functions
+async function toHotelResponse(Hotel) {  
+    const response = {
+        oid: Hotel.oid,
+        hotelName: Hotel.hotelName,
+        address: Hotel.address,
+        phone: Hotel.phone,
+        star_rating: Hotel.star_rating,
+        createdBy: Hotel.createdBy,
+        updatedAt: Hotel.updatedAt
+    };
+    return response;
 }
 
-async function toHotelResponses(hotels) {
-  return await Promise.all(hotels.map(toHotelResponse));
+async function toHotelResponses(Hotels) {
+    const HotelResponses = await Promise.all(Hotels.map(toHotelResponse));
+    return HotelResponses;
 }
 
+// Export everything
 module.exports = {
-  toHotelResponse,
-  toHotelResponses,
+    toHotelResponse,
+    toHotelResponses
 };

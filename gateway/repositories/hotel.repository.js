@@ -6,7 +6,7 @@ const save = async (data, options) => {
         const result = await Hotel.create(data, options);
         return { result, err: null };
     } catch (err) {
-        console.error('Repository Save Error:', err); // Log for debugging
+        console.error('Repository Save Error:', err);
         return { result: null, err };
     }
 };
@@ -22,8 +22,10 @@ const update = async (oid, data, options) => {
         if (affectedCount === 0) {
             return { result: null, err: new Error("No rows updated") };
         }
+
         const findOptions = { ...options };
-        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        delete findOptions.transaction;
+
         const updated = await Hotel.findByPk(oid, findOptions);
         return { result: updated, err: null };
     } catch (err) {
@@ -64,17 +66,15 @@ const findAll = async (options = {}) => {
 // Find hotel by ID
 const findById = async (oid, options = {}) => {
     try {
-        // options bisa berisi { include, transaction, ... }
         const result = await Hotel.findByPk(oid, options);
         return { result, err: null };
     } catch (err) {
         console.error('Error in findById:', err.message || err);
         return { result: null, err };
     }
-}; 
+};
 
-
-// Find hotels by criteria with pagination
+// Find hotels by criteria
 const findByCriteria = async (options = {}) => {
     try {
         const result = await Hotel.findAll(options);
@@ -85,13 +85,10 @@ const findByCriteria = async (options = {}) => {
     }
 };
 
-
-// Find and count all with pagination 
+// Find and count hotels
 const findAndCountByCriteria = async (findOptions) => {
     try {
-        // @ts-ignore
         const result = await Hotel.findAndCountAll(findOptions);
-
         return {
             data: result.rows,
             count: result.count,
@@ -106,7 +103,6 @@ const findAndCountByCriteria = async (findOptions) => {
         };
     }
 };
-
 
 module.exports = {
     save,

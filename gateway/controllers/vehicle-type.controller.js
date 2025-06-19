@@ -1,95 +1,127 @@
-// // controllers/vehicleTypeController.js
+'use strict';
 
-// const vehicleTypeService = require('../services/vehicleType.service');
-// const buildResponse = require('../common/build.response');
-// const pick = require('../misc/pick');
+const vehicleTypeService = require('../services/vehicle-type.service');
+const buildResponse = require('../common/build.response');
+const { JwtMaker } = require('../middleware/jwt');
+const pick = require('../misc/pick');
+const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
 
-// const DEFAULT_PAGE = 1;
-// const DEFAULT_PAGE_SIZE = 10;
+const jwtMaker = new JwtMaker();
 
-// const create = async (req, res) => {
-//   try {
-//     const userJwt = req.authorization_payload;
-//     const { vehicleType, err } = await vehicleTypeService.create(req.body, userJwt.userOid);
+const create = async (req, res) => {
+  console.log('🟢 [CREATE] Vehicletype controller called');
+  try {
+    const userJwt = req.authorization_payload;
+    const { vehicletype, err } = await vehicleTypeService.create(req.body, userJwt.userOid);
 
-//     if (err !== null) {
-//       return res.status(400).json(buildResponse.responseErrorInserted(err.message));
-//     }
+    if (err) {
+      await recordAuditTrail("CREATE", "Vehicletype", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "insert");
+    }
+    await recordAuditTrail("CREATE", "Vehicletype", vehicletype, req, 'SUCCESS', 'Create vehicletype success');
+    return buildResponse.createOk(res, vehicletype, 1);
+  } catch (err) {
+    await recordAuditTrail("CREATE", "Vehicletype", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-//     return res.status(201).json(buildResponse.responseOk(vehicleType, 1));
-//   } catch (err) {
-//     return res.status(500).json(buildResponse.responseInternalServerError(err.message));
-//   }
-// };
+const update = async (req, res) => {
+  try {
+    const userJwt = req.authorization_payload;
+    const { vehicletype, err } = await vehicleTypeService.update(req.params.oid, req.body, userJwt.userOid);
 
-// const update = async (req, res) => {
-//   try {
-//     const userJwt = req.authorization_payload;
-//     const { vehicleType, err } = await vehicleTypeService.update(req.params.oid, req.body, userJwt.userOid);
+    if (err) {
+      await recordAuditTrail("UPDATE", "Vehicletype", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "update");
+    }
+    await recordAuditTrail("UPDATE", "Vehicletype", vehicletype, req, 'SUCCESS', 'Update vehicletype success');
+    return buildResponse.updateOk(res, vehicletype, 1);
+  } catch (err) {
+    await recordAuditTrail("UPDATE", "Vehicletype", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-//     if (err !== null) {
-//       return res.status(400).json(buildResponse.responseErrorUpdate(err.message));
-//     }
+const remove = async (req, res) => {
+  try {
+    const { vehicletype, err } = await vehicleTypeService.deleted(req.params.oid);
 
-//     return res.status(200).json(buildResponse.responseOk(vehicleType, 1));
-//   } catch (err) {
-//     return res.status(500).json(buildResponse.responseInternalServerError(err.message));
-//   }
-// };
+    if (err) {
+      await recordAuditTrail("DELETE", "Vehicletype", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message || err, "delete");
+    }
+    await recordAuditTrail("DELETE", "Vehicletype", vehicletype, req, 'SUCCESS', 'Delete vehicletype success');
+    return buildResponse.sendDeleteOk(res, vehicletype);
+  } catch (err) {
+    await recordAuditTrail("DELETE", "Vehicletype", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// const deleted = async (req, res) => {
-//   try {
-//     const { vehicleType, err } = await vehicleTypeService.deleted(req.params.oid);
+const findAll = async (req, res) => {
+  try {
+    const { vehicleTypes, err } = await vehicleTypeService.findAll();
 
-//     if (err !== null) {
-//       return res.status(400).json(buildResponse.responseErrorDelete(err.message));
-//     }
+    if (err) {
+      await recordAuditTrail("READ", "Vehicletype", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get all");
+    }
+    await recordAuditTrail("READ", "Vehicletype", vehicleTypes, req, 'SUCCESS', 'Get all vehicleTypes success');
+    return buildResponse.findOk(res, vehicleTypes, vehicleTypes.length);
+  } catch (err) {
+    await recordAuditTrail("READ", "Vehicletype", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-//     return res.status(200).json(buildResponse.responseDeleteOk(vehicleType));
-//   } catch (err) {
-//     return res.status(500).json(buildResponse.responseInternalServerError(err.message));
-//   }
-// };
+const find = async (req, res) => {
+  try {
+    const filters = pick(req.body, ['vehicleType', 'search']);
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-// const findById = async (req, res) => {
-//   try {
-//     const { vehicleType, err } = await vehicleTypeService.findById(req.params.oid);
+    const result = await vehicleTypeService.findPage(filters, options);
 
-//     if (err !== null) {
-//       return res.status(400).json(buildResponse.responseErrorGet(err.message));
-//     }
+    if (result.err) {
+      await recordAuditTrail("READ", "Vehicletype", result.err, req, 'FAILED', result.err.message);
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+    await recordAuditTrail("READ", "Vehicletype", result.vehicleTypes, req, 'SUCCESS', 'Get vehicleTypes with filters success');
+    return buildResponse.sendPagination(res, result.vehicleTypes, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    await recordAuditTrail("READ", "Vehicletype", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
+};
 
-//     if (!vehicleType) {
-//       return res.status(404).json(buildResponse.responseDataNotFound("VehicleType not found."));
-//     }
+const findById = async (req, res) => {
+  try {
+    const { vehicletype, err } = await vehicleTypeService.findById(req.params.oid, { include: [] });
 
-//     return res.status(200).json(buildResponse.responseOk(vehicleType, 1));
-//   } catch (err) {
-//     return res.status(500).json(buildResponse.responseInternalServerError(err.message));
-//   }
-// };
+    if (err) {
+      await recordAuditTrail("READ", "Vehicletype", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get by id");
+    }
 
-// const find = async (req, res) => {
-//   try {
-//     const filters = pick(req.body, ['vehicleType']);
-//     const options = pick(req.query, ['fieldName', 'sortOrder', 'pageIndex', 'pageSize']);
+    if (!vehicletype) return buildResponse.sendDataNotFound(res);
+    await recordAuditTrail("READ", "Vehicletype", vehicletype, req, 'SUCCESS', 'Get vehicletype by ID success');
+    return buildResponse.findOk(res, vehicletype);
+  } catch (err) {
+    await recordAuditTrail("READ", "Vehicletype", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-//     // Set default paging if not provided
-//     const pageIndex = parseInt(options.pageIndex) || DEFAULT_PAGE;
-//     const pageSize = parseInt(options.pageSize) || DEFAULT_PAGE_SIZE;
-
-//     const { vehicleTypes, count } = await vehicleTypeService.findPage(filters, options);
-
-//     return res.status(200).json(buildResponse.responsePaggination(vehicleTypes, count, pageIndex, pageSize));
-//   } catch (err) {
-//     return res.status(500).json(buildResponse.responseInternalServerError(err.message));
-//   }
-// };
-
-// module.exports = {
-//   create,
-//   update,
-//   deleted,
-//   findById,
-//   find,
-// };
+module.exports = {
+  create,
+  update,
+  remove,
+  findAll,
+  find,
+  findById,
+};

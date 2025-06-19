@@ -48,7 +48,7 @@ done
 
 # Sync Redis from DB
 echo "Syncing Redis cache from database..."
-npx sequelize-cli db:seed --seed 20230617-country-sync-redis.js
+npx sequelize-cli db:seed --seed 20250616173315-country-sync-redis.js
 
 if [ $? -eq 0 ]; then
   echo "Redis sync completed successfully."

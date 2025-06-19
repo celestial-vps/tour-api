@@ -1,172 +1,127 @@
-// const brandService = require('../services/brand.service');
-// const buildBesponse = require('../common/build.response');
-// const validateRequest = require('../misc/validation');
-// const { createBrandDto, updateBrandDto,filterBrandDto,params,querySchema } = require('../dtos/payload-brand-dto');
-// const { JwtMaker } = require('../middleware/jwt'); 
-// const jwtMaker = new JwtMaker();
+'use strict';
 
+const brandService = require('../services/brand.service');
+const buildResponse = require('../common/build.response');
+const { JwtMaker } = require('../middleware/jwt');
+const pick = require('../misc/pick');
+const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
 
-// const create = async (req, res) => {
-// 	try {
-// 		const token = req.headers['authorization'];		
-// 		const accessToken = token.split(' ')[1]; 
-// 		const { isValid, message } = validateRequest(null, createBrandDto, null,req, true);
-// 		if (!isValid) {
-// 			const response = buildBesponse.responseFinValidatorError(message);
-// 			return res.status(400).json(response);
-// 		}
+const jwtMaker = new JwtMaker();
 
-// 		const { brand, err } = await brandService.create(req.body,userJwt.userOid);
-// 		if (err !== null) {
-// 			response = buildBesponse.responseErrorInserted(err.message)
-// 		} else {
-// 			response = buildBesponse.responseOk(brand, 1)
-// 		}
+const create = async (req, res) => {
+  console.log('🟢 [CREATE] Brand controller called');
+  try {
+    const userJwt = req.authorization_payload;
+    const { brand, err } = await brandService.create(req.body, userJwt.userOid);
 
-// 		res.status(201).json(response);
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
+    if (err) {
+      await recordAuditTrail("CREATE", "Brand", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "insert");
+    }
+    await recordAuditTrail("CREATE", "Brand", brand, req, 'SUCCESS', 'Create brand success');
+    return buildResponse.createOk(res, brand, 1);
+  } catch (err) {
+    await recordAuditTrail("CREATE", "Brand", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// const update = async (req, res) => {
-// 	try {
-// 		const token = req.headers['authorization'];		
-// 		const accessToken = token.split(' ')[1]; // Assuming "Bearer <token>" 
-// 		const userJwt = await jwtMaker.getClaimsByOid(accessToken); // Await the promise
+const update = async (req, res) => {
+  try {
+    const userJwt = req.authorization_payload;
+    const { brand, err } = await brandService.update(req.params.oid, req.body, userJwt.userOid);
 
+    if (err) {
+      await recordAuditTrail("UPDATE", "Brand", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "update");
+    }
+    await recordAuditTrail("UPDATE", "Brand", brand, req, 'SUCCESS', 'Update brand success');
+    return buildResponse.updateOk(res, brand, 1);
+  } catch (err) {
+    await recordAuditTrail("UPDATE", "Brand", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// 		const { isValid, message } = validateRequest(params, updateBrandDto,null, req, true);
-// 		if (!isValid) {
-// 			const response = buildBesponse.responseFinValidatorError(message);
-// 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-// 		}
+const remove = async (req, res) => {
+  try {
+    const { brand, err } = await brandService.deleted(req.params.oid);
 
-// 		const { brand, err } = await brandService.update(req.params.oid, req.body,userJwt.userOid);
-// 		if (err !== null) {
-// 			response = buildBesponse.responseErrorUpdate(err.message)
-// 		} else {
-// 			response = buildBesponse.responseOk(brand, 1)
-// 		}
-// 		res.status(201).json(response);
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
+    if (err) {
+      await recordAuditTrail("DELETE", "Brand", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message || err, "delete");
+    }
+    await recordAuditTrail("DELETE", "Brand", brand, req, 'SUCCESS', 'Delete brand success');
+    return buildResponse.sendDeleteOk(res, brand);
+  } catch (err) {
+    await recordAuditTrail("DELETE", "Brand", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// const deleted = async (req, res) => {
-// 	try {
-// 		const { isValid, message } = validateRequest(params, null,null, req, true);
-// 		if (!isValid) {
-// 			const response = buildBesponse.responseFinValidatorError(message);
-// 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-// 		}
+const findAll = async (req, res) => {
+  try {
+    const { brands, err } = await brandService.findAll();
 
-// 		const {brand,err} = await brandService.deleted(req.params.oid);
-// 		if (err !== null) {
-// 			response = buildBesponse.responseErrorDelete(err.message === undefined ? err : err.message)
-// 		} else {
-// 			response = buildBesponse.responseDeleteOk(brand)
+    if (err) {
+      await recordAuditTrail("READ", "Brand", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get all");
+    }
+    await recordAuditTrail("READ", "Brand", brands, req, 'SUCCESS', 'Get all brands success');
+    return buildResponse.findOk(res, brands, brands.length);
+  } catch (err) {
+    await recordAuditTrail("READ", "Brand", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// 		}
-// 		res.status(201).json(response);
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
+const find = async (req, res) => {
+  try {
+    const filters = pick(req.body, ['brandName', 'search']);
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+      pageIndex: parseInt(req.query.pageIndex, 10) || 1,
+      pageSize: parseInt(req.query.pageSize, 10) || 10,
+    };
 
-// const findAll = async (req, res) => {
-// 	try {
-// 		const { brands, err } = await brandService.findAll();
-// 		if (err !== null) {
-// 			response = buildBesponse.responseErrorGet(err.message)
-// 		} else {
-// 			response = buildBesponse.responseOk(brands, brands.length)
-// 		}
-// 		res.status(200).json(response);
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
+    const result = await brandService.findPage(filters, options);
 
-// const find = async (req, res) => {
-// 	const pageIndexStr = req.query.pageIndex;
-// 	const pageSizeStr = req.query.pageSize;
-// 	const brandDto = req.body;  // Assuming request body contains the filter details
-// 	let pageIndex = 0;
-// 	let pageSize = 10;
+    if (result.err) {
+      await recordAuditTrail("READ", "Brand", result.err, req, 'FAILED', result.err.message);
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+    await recordAuditTrail("READ", "Brand", result.brands, req, 'SUCCESS', 'Get brands with filters success');
+    return buildResponse.sendPagination(res, result.brands, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    await recordAuditTrail("READ", "Brand", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
+};
 
-// 	try {
-// 		const { isValid, message } = validateRequest(null, filterBrandDto,querySchema, req, true);
-// 		if (!isValid) {
-// 			const response = buildBesponse.responseFinValidatorError(message);
-// 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-// 		}
+const findById = async (req, res) => {
+  try {
+    const { brand, err } = await brandService.findById(req.params.oid, { include: [] });
 
-// 		if (pageIndexStr) {
-// 			pageIndex = parseInt(pageIndexStr, 10);
-// 			if (isNaN(pageIndex)) {
-// 				return res.status(400).json(common.responseForbidden('Invalid pageIndex format'));
-// 			}
-// 		}
+    if (err) {
+      await recordAuditTrail("READ", "Brand", err, req, 'FAILED', err.message);
+      return buildResponse.sendQueryError(res, err.message, "get by id");
+    }
 
-// 		if (pageSizeStr) {
-// 			pageSize = parseInt(pageSizeStr, 10);
-// 			if (isNaN(pageSize)) {
-// 				return res.status(400).json(common.responseForbidden('Invalid pageSize format'));
-// 			}
-// 		}
-// 		const condition = {
-// 			brandCode: brandDto.brandCode,
-// 			brandName: brandDto.brandName
-// 		};
+    if (!brand) return buildResponse.sendDataNotFound(res);
+    await recordAuditTrail("READ", "Brand", brand, req, 'SUCCESS', 'Get brand by ID success');
+    return buildResponse.findOk(res, brand);
+  } catch (err) {
+    await recordAuditTrail("READ", "Brand", err, req, 'ERROR', err.message);
+    return buildResponse.sendInternalServerError(res, err.message);
+  }
+};
 
-// 		const { brands, count } = await brandService.findPage(condition, pageIndex, pageSize);
-// 		response = buildBesponse.responseOk(brands, count)
-// 		res.status(200).json(response);
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
-
-// const findById = async (req, res) => {
-// 	try {
-// 		const { isValid, message } = validateRequest(params, null, null, req, true);
-// 		if (!isValid) {
-// 			const response = buildBesponse.responseFinValidatorError(message);
-// 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
-// 		}
-		
-// 		const { brand, err } = await brandService.findById(req.params.oid);
-// 		if (err !== null) {
-// 			response = buildBesponse.responseErrorGet(err.message)
-// 			return res.status(200).json(response);
-// 		}
-
-// 		if (brand) {
-// 			response = buildBesponse.responseOk(brand, 1)
-// 			return res.status(200).json(response);
-// 		} else {
-// 			response = buildBesponse.responseDataNotFound("")
-// 			return res.status(404).json(response);
-// 		}
-// 	} catch (err) {
-// 		response = buildBesponse.responseInternalServerError(err.message)
-// 		res.status(500).json(response);
-// 	}
-// };
-
-// module.exports = {
-// 	create,
-// 	update,
-// 	deleted,
-// 	findAll,
-// 	findById,
-// 	find,
-
-// };
+module.exports = {
+  create,
+  update,
+  remove,
+  findAll,
+  find,
+  findById,
+};

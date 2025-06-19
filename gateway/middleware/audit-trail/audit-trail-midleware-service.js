@@ -1,4 +1,5 @@
-const axios = require('axios');
+// const axios = require('axios');
+const axios = require('../../config/axios-config').axios; // Import axios from the configured instance
 const fs = require('fs');
 const path = require('path');
 

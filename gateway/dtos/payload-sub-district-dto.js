@@ -12,12 +12,14 @@ const filterDto = Joi.object({
 const createDto = Joi.object({
     districtOid: Joi.string().required(),
     subDistrictName: Joi.string().required(),
+    postalCode: Joi.string().required(),
 });
 
 // Define the schema for UpdateSubDistrictDto
 const updateDto = Joi.object({
     districtOid: Joi.string().required(),
     subDistrictName: Joi.string().required(),
+    postalCode: Joi.string().required(),
 });
 
 const params = Joi.object({

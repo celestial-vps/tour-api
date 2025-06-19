@@ -7,6 +7,8 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { CITY_BASIC_FIELDS } = require('../constants/city.fields');
+const { Province } = require('../models');
+const { PROVINCE_BASIC_FIELDS } = require('../constants/province.fields');
 
 const create = async (dto, userOid) => {
   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
@@ -211,6 +213,13 @@ const findPage = async (filters, options) => {
     const normalizedFilters = search ? { ...restFilters, cityName: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
+    options.include = [
+      {
+        model: Province,
+        as: 'province',
+        attributes: PROVINCE_BASIC_FIELDS,
+      }
+    ];
     const findOptions = buildFindOptions(where, options);
 
     const result = await cityRepository.findAndCountByCriteria(findOptions);

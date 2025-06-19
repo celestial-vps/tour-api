@@ -1,74 +1,73 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
 
-// === Schema untuk membuat Hotel ===
-const createHotelDto = Joi.object({
-  hotelName: Joi.string().max(100).required(),
-  address: Joi.string().required(),
-  phone: Joi.string().max(20).optional().allow(null, ''),
-  star_rating: Joi.number().integer().min(1).max(5).required(),
-});
-
-// === Schema untuk memperbarui Hotel ===
-const updateHotelDto = Joi.object({
-  hotelName: Joi.string().max(100).required(),
-  address: Joi.string().required(),
-  phone: Joi.string().max(20).optional().allow(null, ''),
-  star_rating: Joi.number().integer().min(1).max(5).required(),
-});
-
-// === Parameter (misalnya untuk GET, DELETE, atau UPDATE by OID) ===
-const params = Joi.object({
-  oid: Joi.string().uuid().required()
-});
-
-// === Query untuk pagination ===
-const query = Joi.object({
-  pageIndex: Joi.number().integer().min(1).required(),
-  pageSize: Joi.number().integer().min(1).max(100).required(),
-});
-
-// === Body untuk filtering/search ===
+// Define the schema for FilterHotelDto
 const filterDto = Joi.object({
-  hotelName: Joi.string().optional().allow(null, ''),
-  star_rating: Joi.number().integer().min(1).max(5).optional().allow(null),
-  fieldName: Joi.string().optional().allow(null, ''),
-  sortOrder: Joi.number().integer().valid(-1, 0, 1).optional().allow(null, 0)
+    search: Joi.string().optional().allow(null, ''),
+    hotelName: Joi.string().optional().allow(null, ''),
+    address: Joi.string().optional().allow(null, ''),
+    phone: Joi.string().optional().allow(null, ''),
+    star_rating: Joi.string().optional().allow(null, ''),
 });
 
-// === DTO untuk masing-masing endpoint ===
-
-const createHotelRequestDto = Joi.object({
-  headers: authSchema,
-  body: createHotelDto
+// Define the schema for CreateHotelDto
+const createDto = Joi.object({
+    hotelName: Joi.string().required(),
+    address: Joi.string().required(),
+    phone: Joi.string().required(),
+    star_rating: Joi.string().required(),
 });
 
-const updateHotelRequestDto = Joi.object({
-  headers: authSchema,
-  params: params,
-  body: updateHotelDto
+// Define the schema for UpdateHotelDto
+const updateDto = Joi.object({
+    hotelName: Joi.string().required(),
+    address: Joi.string().required(),
+    phone: Joi.string().required(),
+    star_rating: Joi.string().required(),
 });
 
-const deleteHotelDto = Joi.object({
-  headers: authSchema,
-  params: params
+const params = Joi.object({
+    oid: Joi.string().uuid().required()
 });
 
-const getHotelDto = Joi.object({
-  headers: authSchema,
-  params: params
+const query = Joi.object({
+    pageIndex: Joi.number().integer().min(1).required(),
+    pageSize: Joi.number().integer().min(1).max(100).required(),
+    sortBy: Joi.string().valid('hotelName', 'address', 'phone', 'star_rating').optional().default('address'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterHotelDto = Joi.object({
-  headers: authSchema,
-  query: query,
-  body: filterDto
+    headers: authSchema,
+    query,
+    body: filterDto
+});
+
+const getHotelDto = Joi.object({
+    headers: authSchema,
+    params: params,
+});
+
+const deleteHotelDto = Joi.object({
+    headers: authSchema,
+    params: params,
+});
+
+const updateHotelDto = Joi.object({
+    headers: authSchema,
+    params: params,
+    body: updateDto
+});
+
+const createHotelDto = Joi.object({
+    headers: authSchema,
+    body: createDto
 });
 
 module.exports = {
-  createHotelRequestDto,
-  updateHotelRequestDto,
-  deleteHotelDto,
-  getHotelDto,
-  filterHotelDto
+    createHotelDto,
+    updateHotelDto,
+    deleteHotelDto,
+    filterHotelDto,
+    getHotelDto,
 };

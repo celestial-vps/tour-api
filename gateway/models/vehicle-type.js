@@ -27,7 +27,7 @@ const VehicleType = sequelize.define('VehicleType', {
     type: DataTypes.DATE,
   },
 }, {
-  tableName: 'vehicle-types',
+  tableName: 'vehicle_types',
   timestamps: true,
   paranoid: true, // for soft deletes using deletedAt
 });

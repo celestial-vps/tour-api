@@ -2,7 +2,7 @@
 
 const VEHICLE_TYPE_BASIC_FIELDS = [
   'oid',
-  'countryName',
+  'vehicleType',
 ];
 
 const VEHICLE_TYPE_AUDIT_FIELDS = [

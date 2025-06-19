@@ -23,6 +23,9 @@ npm i express-rate-limit
 npm install lodash
 
 # MIGRATION
+npx sequelize-cli migration:generate --name rename-countryName-to-vehicleType
+npx sequelize-cli db:migrate
+
 npm install umzug mysql2
 npm install fast-glob
 node runMigrations.js migrate up
