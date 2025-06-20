@@ -226,9 +226,9 @@ const findPage = async (filters, options) => {
     const result = await provinceRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const provinces = await mappings.toProvinceResponses(result.data);
     return {
-      provinces: result.data,
+      provinces: provinces,
       count: result.count,
       err: null,
     };

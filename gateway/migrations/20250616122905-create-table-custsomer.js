@@ -38,8 +38,16 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: true,
       },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
       lastModifiedBy: {
         type: Sequelize.UUID,
+        allowNull: true,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
         allowNull: true,
       },
       deletedBy: {
@@ -49,16 +57,6 @@ module.exports = {
       deletedAt: {
         type: Sequelize.DATE,
         allowNull: true,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
     });
   },

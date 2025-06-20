@@ -2,6 +2,7 @@ const app = require('./app'); // Express app
 const http = require('http');
 const { Server } = require('socket.io');
 const chatGateway = require('../chat/chat.gateway');
+const dotenv = require('dotenv');
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -33,6 +34,12 @@ const io = new Server(server, {
 // });
 // chatGateway(io);
 
+// Ambil env name, default ke `.env` jika tidak ada
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+
+dotenv.config({ path: envFile });
+
+console.log(`Environment loaded from ${envFile}`);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

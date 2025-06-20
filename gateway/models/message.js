@@ -1,18 +1,18 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Message = sequelize.define('messages', {
+const Message = sequelize.define('Message', {
     oid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
     },
-    conversationId: {
+    conversationOid: {
         type: DataTypes.UUID,
         allowNull: false,
     },
-    senderId: {
+    senderOid: {
         type: DataTypes.UUID,
         allowNull: false,
     },
@@ -20,13 +20,17 @@ const Message = sequelize.define('messages', {
         type: DataTypes.TEXT,
         allowNull: false,
     },
+    lastModifiedBy: {
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
     deletedBy: {
         type: DataTypes.UUID,
-        allowNull: true,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedAt: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: true, // Adjust based on your requirements    
     },
 }, {
     tableName: 'messages',

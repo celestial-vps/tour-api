@@ -31,7 +31,8 @@ echo "Running specific seeders..."
 SEEDERS=(
   "20250617160533-geo-seed.js"
   "20250420121520-seed-user-role.js"  
-  "20250618062132-default-user.js"
+  "20250501023758-bank"
+  "20250620074800-seed-countrys.js"
 )
 
 for SEED in "${SEEDERS[@]}"; do

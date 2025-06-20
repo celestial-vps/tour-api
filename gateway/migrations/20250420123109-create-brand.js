@@ -15,13 +15,21 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      // logoUrl: {
+      //   type: Sequelize.STRING,
+      //   allowNull: true,
+      // },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       createdBy: {
         type: Sequelize.UUID,
         allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,

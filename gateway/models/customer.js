@@ -27,21 +27,17 @@ const Customer = sequelize.define('Customer', {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  createdBy: {
-    type: DataTypes.UUID,
-    allowNull: true,
-  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-    allowNull: true,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
-    allowNull: true,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'customers',

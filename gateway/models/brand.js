@@ -14,21 +14,29 @@ const Brand = sequelize.define('Brand', {
         allowNull: false,
         unique: true,
     },
-    description: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
-    logoUrl: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-            isUrl: true,
-        },
-    },
+    // logoUrl: {
+    //     type: DataTypes.STRING,
+    //     allowNull: true,
+    //     validate: {
+    //         isUrl: true,
+    //     },
+    // },
     isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-    }
+    },
+    lastModifiedBy: {
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
+    deletedBy: {
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true, // Adjust based on your requirements    
+    },
 }, {
     tableName: 'brands',
     timestamps: true,      // adds createdAt and updatedAt

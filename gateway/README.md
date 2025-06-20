@@ -17,12 +17,15 @@
 15. npm install sharp
 16. npm install express-rate-limit
 17. npm install ioredis
+18. npm install cross-env --save-dev
+
 
 
 npm i express-rate-limit
 npm install lodash
 
 # MIGRATION
+./scripts/seed.sh
 npx sequelize-cli migration:generate --name rename-countryName-to-vehicleType
 npx sequelize-cli db:migrate
 
@@ -30,6 +33,14 @@ npm install umzug mysql2
 npm install fast-glob
 node runMigrations.js migrate up
 node runMigrations.js migrate down
+
+npx sequelize-cli db:seed:undo --seed name-of-seed-file.js
+npx sequelize-cli db:seed --seed name-of-seed-file.js
+
+npx sequelize-cli db:seed --seed 20250618062132-default-user.js
+npx sequelize-cli db:seed:undo --seed 20250618062132-default-user.js
+npx sequelize-cli db:seed:undo:all
+npx sequelize-cli db:migrate:undo:all
 
 
 

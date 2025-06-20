@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('hotels', {
@@ -21,13 +22,9 @@ module.exports = {
         type: Sequelize.STRING(20),
         allowNull: true,
       },
-      star_rating: {
+      starRating: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          min: 1,
-          max: 5,
-        },
       },
       createdBy: {
         type: Sequelize.UUID,
@@ -35,7 +32,7 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,
@@ -43,6 +40,7 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       deletedBy: {
         type: Sequelize.UUID,
@@ -54,6 +52,7 @@ module.exports = {
       },
     });
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('hotels');
   }

@@ -1,10 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Country = sequelize.define('countries', {
+const Country = sequelize.define('Country', {
     oid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, 
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
     },
@@ -17,7 +17,7 @@ const Country = sequelize.define('countries', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-    },  
+    },
     countryCurrency: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -32,7 +32,7 @@ const Country = sequelize.define('countries', {
     },
     deletedAt: {
         type: DataTypes.DATE,
-        allowNull: true, // Adjust based on your requirements
+        allowNull: true, // Adjust based on your requirements    
     },
 }, {
     tableName: 'countries',

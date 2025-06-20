@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Conversation = sequelize.define('conversations', {
+const Conversation = sequelize.define('Conversation', {
   oid: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -16,13 +16,17 @@ const Conversation = sequelize.define('conversations', {
     type: DataTypes.STRING,
     allowNull: true, // Optional name for group chats
   },
+  lastModifiedBy: {
+    type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
-    allowNull: true,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'conversations',

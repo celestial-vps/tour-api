@@ -67,6 +67,9 @@ module.exports = {
     // @ts-ignore
     const redis = new Redis();
     await redis.del('geo:countries');
+    await redis.del('geo:provinces');
+    await redis.del('geo:cities');
+    await redis.del('geo:districts');
     await redis.quit();
   }
 };

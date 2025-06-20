@@ -14,17 +14,17 @@ const VehicleType = sequelize.define('VehicleType', {
     allowNull: false,
     unique: true,
   },
-  createdBy: {
-    type: DataTypes.UUID,
-  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'vehicle_types',

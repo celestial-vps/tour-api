@@ -9,12 +9,12 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
-      countryName: {
+      countryCode: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      countryCode: {
+      countryName: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -29,7 +29,7 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,

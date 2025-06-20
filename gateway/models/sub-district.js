@@ -22,14 +22,17 @@ const Subdistrict = sequelize.define('Subdistrict', {
         field: 'postalCode', // 👈 this maps the JS name to DB column
         allowNull: false,
     },
-    createdBy: {
-        type: DataTypes.UUID, // DataTypes.UUID is consistent
-    },
     lastModifiedBy: {
         type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedBy: {
         type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true, // Adjust based on your requirements    
     },
 }, {
     tableName: 'sub_districts',

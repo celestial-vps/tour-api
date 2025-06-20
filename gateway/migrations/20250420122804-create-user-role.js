@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
       },
       targetType: {
-        type: Sequelize.STRING(50),        
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       isAdministrative: {
@@ -44,7 +44,7 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,
@@ -52,6 +52,7 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       deletedBy: {
         type: Sequelize.UUID,

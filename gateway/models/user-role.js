@@ -23,32 +23,36 @@ const UserRole = sequelize.define('UserRole', {
     },
     readState: {
         type: DataTypes.BOOLEAN,
-        field: 'readState',
+        field: 'read_state',
     },
     writeState: {
         type: DataTypes.BOOLEAN,
-        field: 'writeState',
+        field: 'write_state',
     },
     createState: {
         type: DataTypes.BOOLEAN,
-        field: 'createState',
+        field: 'create_state',
     },
     deleteState: {
         type: DataTypes.BOOLEAN,
-        field: 'deleteState',
+        field: 'delete_state',
     },
     navigateState: {
         type: DataTypes.BOOLEAN,
-        field: 'navigateState',
+        field: 'navigate_state',
     },
-    // createdAt: {
-    //     type: DataTypes.DATE,
-    //     defaultValue: DataTypes.NOW,
-    // },
-    // updatedAt: {
-    //     type: DataTypes.DATE,
-    //     allowNull: true,
-    // },
+    lastModifiedBy: {
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
+    deletedBy: {
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true, // Adjust based on your requirements
+    },
 }, {
     tableName: 'user_roles',
     timestamps: true,

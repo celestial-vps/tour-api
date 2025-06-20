@@ -2,25 +2,41 @@ const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
 const HotelRoom = sequelize.define('HotelRoom', {
-    room_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+    oid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
+        primaryKey: true,
     },
     hotelOid: {
-        type: DataTypes.UUID,  // Ensure this is UUID to match your Hotel's primary key
+        type: DataTypes.UUID,
         allowNull: false,
     },
     room_type: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.ENUM(
+            'Single Room',
+            'Double Room',
+            'Twin Room',
+            'Deluxe Room',
+            'Superior Room',
+            'Suite',
+            'Junior Suite',
+            'Presidential Suite',
+            'Family Room',
+            'Studio Room',
+            'Connecting Room',
+            'Accessible Room',
+            'Villa',
+            'Cabana',
+            'Penthouse'
+        ),
         allowNull: false,
     },
     capacity: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    price_per_night: {
+    pricePerNight: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
@@ -33,20 +49,20 @@ const HotelRoom = sequelize.define('HotelRoom', {
         allowNull: false,
         defaultValue: 'available',
     },
-    createdBy: {
-        type: DataTypes.UUID,
-    },
     lastModifiedBy: {
         type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedBy: {
         type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedAt: {
         type: DataTypes.DATE,
+        allowNull: true, // Adjust based on your requirements    
     },
 }, {
-    tableName: 'rooms',
+    tableName: 'hotel_rooms',
     timestamps: true,
     paranoid: true,
 });
@@ -62,3 +78,4 @@ HotelRoom.associate = (models) => {
 };
 
 module.exports = HotelRoom;
+

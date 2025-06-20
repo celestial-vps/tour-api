@@ -15,7 +15,7 @@ module.exports = {
         allowNull: false,
       },
       year: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(4),
         allowNull: false,
       },
       color: {
@@ -26,28 +26,33 @@ module.exports = {
         type: Sequelize.ENUM('available', 'rented', 'service'),
         defaultValue: 'available',
       },
-      price_per_day: {
+      pricePerDay: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
       createdBy: {
         type: Sequelize.UUID,
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,
+        allowNull: true,
       },
       updatedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       deletedBy: {
         type: Sequelize.UUID,
+        allowNull: true,
       },
       deletedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },

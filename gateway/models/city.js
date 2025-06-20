@@ -17,17 +17,17 @@ const City = sequelize.define('City', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    createdBy: {
-        type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
-    },
     lastModifiedBy: {
-        type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedBy: {
-        type: DataTypes.UUID, // Use DataTypes.UUID instead of Sequelize.UUID
+        type: DataTypes.UUID,
+        allowNull: true, // Adjust based on your requirements
     },
     deletedAt: {
-        type: DataTypes.DATE, // Use DataTypes.DATE instead of Sequelize.DATE
+        type: DataTypes.DATE,
+        allowNull: true, // Adjust based on your requirements    
     },
 }, {
     tableName: 'cities',

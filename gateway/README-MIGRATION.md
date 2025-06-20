@@ -1,4 +1,4 @@
-'use strict';
+#  ADD COLUMN
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -25,5 +25,29 @@ module.exports = {
     await queryInterface.removeColumn('brands', 'description');
     await queryInterface.removeColumn('brands', 'logoUrl');
     await queryInterface.removeColumn('brands', 'isActive');
+  }
+};
+
+#  REMOVE COLUMN
+'use strict';
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('brands', 'isActive');    
+    await queryInterface.addColumn('brands', 'isActive', {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: 'false',
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('brands', 'isActive');
+    
+    await queryInterface.addColumn('brands', 'isActive', {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    });
   }
 };

@@ -10,28 +10,23 @@ const Payment = sequelize.define('Payment', {
     allowNull: false,
     primaryKey: true,
   },
-  payment_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  transaction_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'transactions',
-      key: 'transaction_id',
-    },
+  paymentOid: {
+    type: DataTypes.UUID,
     allowNull: false,
   },
-  payment_date: {
+  transactionOid: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+  paymentDate: {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  amount_paid: {
+  amountPaid: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
-  payment_method: {
+  paymentMethod: {
     type: DataTypes.ENUM('cash', 'transfer', 'credit_card'),
     allowNull: false,
   },
@@ -39,17 +34,17 @@ const Payment = sequelize.define('Payment', {
     type: DataTypes.ENUM('paid', 'pending', 'failed'),
     defaultValue: 'pending',
   },
-  createdBy: {
-    type: DataTypes.UUID,
-  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'payments',

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const PrdocutCategory = sequelize.define('product_categories', {
+const PrdocutCategory = sequelize.define('ProductCategory', {
   oid: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -14,17 +14,17 @@ const PrdocutCategory = sequelize.define('product_categories', {
     allowNull: false,
     unique: true,
   },
-  createdBy: {
-    type: DataTypes.UUID,
-  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'product_categories',

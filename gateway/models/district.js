@@ -16,17 +16,17 @@ const District = sequelize.define('District', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  createdBy: {
-    type: DataTypes.UUID,
-  }, 
   lastModifiedBy: {
     type: DataTypes.UUID,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'districts',
@@ -36,11 +36,11 @@ const District = sequelize.define('District', {
 
 // @ts-ignore
 District.associate = (models) => {
-    District.belongsTo(models.City, {
-        foreignKey: 'cityOid',
-        as: 'city',
-        onDelete: 'CASCADE',
-      });
+  District.belongsTo(models.City, {
+    foreignKey: 'cityOid',
+    as: 'city',
+    onDelete: 'CASCADE',
+  });
 };
 
 module.exports = District;

@@ -31,17 +31,17 @@ const Provider = sequelize.define('Provider', {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  createdBy: {
+ lastModifiedBy: {
     type: DataTypes.UUID,
-  }, 
-  lastModifiedBy: {
-    type: DataTypes.UUID,
-  }, 
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'providers',

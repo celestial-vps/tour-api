@@ -234,9 +234,10 @@ const findPage = async (filters, options) => {
     const result = await countryRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
+     const countries = await mappings.toCountryResponses(result.data);
 
     return {
-      countrys: result.data,
+      countrys: countries,
       count: result.count,
       err: null,
     };

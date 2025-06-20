@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('bank_branches', {
+    await queryInterface.createTable('bank_branchs', {
       oid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -56,6 +56,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('bank_branches');
+    await queryInterface.dropTable('bank_branchs');
   },
 };

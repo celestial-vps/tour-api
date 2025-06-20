@@ -1,7 +1,13 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const ConversationMember = sequelize.define('conversation_members', {
+const ConversationMember = sequelize.define('ConversationMember', {
+  oid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  },
   conversationOid: {
     type: DataTypes.UUID,
     allowNull: false,
@@ -22,9 +28,22 @@ const ConversationMember = sequelize.define('conversation_members', {
     },
     onDelete: 'CASCADE',
   },
+  lastModifiedBy: {
+    type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
+  },
+  deletedBy: {
+    type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
+  },
 }, {
   tableName: 'conversation_members',
   timestamps: false,
+  paranoid: true, // Enable soft deletes using deletedAt
 });
 
 module.exports = ConversationMember;

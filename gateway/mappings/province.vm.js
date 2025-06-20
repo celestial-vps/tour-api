@@ -1,5 +1,5 @@
 // Mapping functions
-async function toProvinceResponse(province) {  
+async function toProvinceResponse(province) {
     const response = {
         oid: province.oid,
         countryOid: province.countryOid,
@@ -7,6 +7,9 @@ async function toProvinceResponse(province) {
         createdBy: province.createdBy,
         updatedAt: province.updatedAt
     };
+    if (province.country) {
+        response.country = province.country;
+    }
     return response;
 }
 

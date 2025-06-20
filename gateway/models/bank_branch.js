@@ -23,17 +23,17 @@ const BankBranch = sequelize.define('BankBranch', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  createdBy: {
-    type: DataTypes.UUID,
-  },
   lastModifiedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedBy: {
     type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'bank_banks',
@@ -44,11 +44,11 @@ const BankBranch = sequelize.define('BankBranch', {
 // @ts-ignore
 BankBranch.associate = (models) => {
   // Add associations here if needed
-  BankBranch.belongsTo(models.Bank, {
-    foreignKey: 'bankOid',
-    as: 'bank', // Optional alias
-    onDelete: 'CASCADE',
-  });
+  // BankBranch.belongsTo(models.Bank, {
+  //   foreignKey: 'bankOid',
+  //   as: 'bank', // Optional alias
+  //   onDelete: 'CASCADE',
+  // });
 
 };
 

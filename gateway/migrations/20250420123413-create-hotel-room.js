@@ -2,30 +2,48 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+ 
     await queryInterface.createTable('hotel_rooms', {
-      room_id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+      oid: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        unique: true,
         allowNull: false,
+        primaryKey: true,
       },
       hotelOid: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'hotels',  // referencing the hotels table
-          key: 'oid',  // referencing the primary key in hotels table
+          model: 'hotels',
+          key: 'oid',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      room_type: {
-        type: Sequelize.STRING(50),
+      paymentMethod: {
+        type: Sequelize.ENUM('Single Room',
+          'Double Room',
+          'Twin Room',
+          'Deluxe Room',
+          'Superior Room',
+          'Suite',
+          'Junior Suite',
+          'Presidential Suite',
+          'Family Room',
+          'Studio Room',
+          'Connecting Room',
+          'Accessible Room',
+          'Villa',
+          'Cabana',
+          'Penthouse'),
         allowNull: false,
       },
       capacity: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      price_per_night: {
+      pricePerNight: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
@@ -36,7 +54,6 @@ module.exports = {
       status: {
         type: Sequelize.ENUM('available', 'booked', 'maintenance'),
         allowNull: false,
-        defaultValue: 'available',
       },
       createdBy: {
         type: Sequelize.UUID,
@@ -44,7 +61,7 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       lastModifiedBy: {
         type: Sequelize.UUID,
@@ -52,6 +69,7 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       deletedBy: {
         type: Sequelize.UUID,
@@ -66,5 +84,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('hotel_rooms');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_hotel_rooms_room_type";');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_hotel_rooms_status";');
   }
 };

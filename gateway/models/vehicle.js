@@ -14,7 +14,7 @@ const Vehicle = sequelize.define('Vehicle', {
     allowNull: false,
   },
   year: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(4), // Assuming year is a 4-digit string
     allowNull: false,
   },
   color: {
@@ -25,21 +25,21 @@ const Vehicle = sequelize.define('Vehicle', {
     type: DataTypes.ENUM('available', 'rented', 'service'),
     defaultValue: 'available',
   },
-  price_per_day: {
+  pricePerDay: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
-  createdBy: {
-    type: DataTypes.UUID, // Corrected to DataTypes.UUID
-  }, 
   lastModifiedBy: {
-    type: DataTypes.UUID, // Corrected to DataTypes.UUID
-  }, 
+    type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
+  },
   deletedBy: {
-    type: DataTypes.UUID, // Corrected to DataTypes.UUID
+    type: DataTypes.UUID,
+    allowNull: true, // Adjust based on your requirements
   },
   deletedAt: {
     type: DataTypes.DATE,
+    allowNull: true, // Adjust based on your requirements    
   },
 }, {
   tableName: 'vehicles',
