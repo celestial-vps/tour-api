@@ -12,7 +12,8 @@ const geoCacheCountryService = new GeoCacheCountryService();
 
 
 const create = async (dto, userOid) => {
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let transaction;
 
   try {
@@ -61,7 +62,8 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let localTransaction = null;
 
   try {

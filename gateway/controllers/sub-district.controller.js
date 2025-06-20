@@ -1,6 +1,6 @@
 'use strict';
 
-const subdistrictService = require('../services/sub-district.service');
+const subDistrictService = require('../services/sub-district.service');
 const buildResponse = require('../common/build.response');
 const { JwtMaker } = require('../middleware/jwt');
 const pick = require('../misc/pick');
@@ -8,20 +8,19 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => {
-  console.log('🟢 [CREATE] Subdistrict controller called');
+const create = async (req, res) => { 
   try {
     const userJwt = req.authorization_payload;
-    const { subdistrict, err } = await subdistrictService.create(req.body, userJwt.userOid);
+    const { subDistrict, err } = await subDistrictService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Subdistrict", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "sub_districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Create subdistrict success');
-    return buildResponse.createOk(res, subdistrict, 1);
+    await recordAuditTrail("CREATE", "sub_districts", subDistrict, req, 'SUCCESS', 'Create Sub District success');
+    return buildResponse.createOk(res, subDistrict, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Subdistrict", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "sub_districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -29,48 +28,48 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
-    const { subdistrict, err } = await subdistrictService.update(req.params.oid, req.body, userJwt.userOid);
+    const { subDistrict, err } = await subDistrictService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Subdistrict", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "sub_districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Update subdistrict success');
-    return buildResponse.updateOk(res, subdistrict, 1);
+    await recordAuditTrail("UPDATE", "sub_districts", subDistrict, req, 'SUCCESS', 'Update Sub District success');
+    return buildResponse.updateOk(res, subDistrict, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Subdistrict", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "sub_districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const { subdistrict, err } = await subdistrictService.deleted(req.params.oid);
+    const { subDistrict, err } = await subDistrictService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Subdistrict", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "sub_districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Subdistrict", subdistrict, req, 'SUCCESS', 'Delete subdistrict success');
-    return buildResponse.sendDeleteOk(res, subdistrict);
+    await recordAuditTrail("DELETE", "sub_districts", subDistrict, req, 'SUCCESS', 'Delete Sub District success');
+    return buildResponse.sendDeleteOk(res, subDistrict);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Subdistrict", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "sub_districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const { subdistricts, err } = await subdistrictService.findAll();
+    const { subDistricts, err } = await subDistrictService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Subdistrict", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "sub_districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Subdistrict", subdistricts, req, 'SUCCESS', 'Get all subdistricts success');
-    return buildResponse.findOk(res, subdistricts, subdistricts.length);
+    await recordAuditTrail("READ", "sub_districts", subDistricts, req, 'SUCCESS', 'Get all Sub Districts success');
+    return buildResponse.findOk(res, subDistricts, subDistricts.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Subdistrict", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "sub_districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -85,34 +84,34 @@ const find = async (req, res) => {
       pageSize: parseInt(req.query.pageSize, 10) || 10,
     };
 
-    const result = await subdistrictService.findPage(filters, options);
+    const result = await subDistrictService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Subdistrict", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "sub_districts", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Subdistrict", result.subDistricts, req, 'SUCCESS', 'Get subDistricts with filters success');
+    await recordAuditTrail("READ", "sub_districts", result.subDistricts, req, 'SUCCESS', 'Get Sub Districts with filters success');
     return buildResponse.sendPagination(res, result.subDistricts, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Subdistrict", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "sub_districts", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const findById = async (req, res) => {
   try {
-    const { subDistrict, err } = await subdistrictService.findById(req.params.oid, { include: [] });
+    const { subDistrict, err } = await subDistrictService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Subdistrict", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "sub_districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!subDistrict) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Subdistrict", subDistrict, req, 'SUCCESS', 'Get subDistrict by ID success');
+    await recordAuditTrail("READ", "sub_districts", subDistrict, req, 'SUCCESS', 'Get Sub District by ID success');
     return buildResponse.findOk(res, subDistrict);
   } catch (err) {
-    await recordAuditTrail("READ", "Subdistrict", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "sub_districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

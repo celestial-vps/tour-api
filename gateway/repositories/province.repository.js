@@ -34,10 +34,10 @@ const update = async (oid, data, options) => {
 };
 
 // Delete a province by ID
-const remove = async (id, options = {}) => {
+const remove = async (oid, options = {}) => {
     try {
         const result = await Province.destroy({
-            where: { oid: id },
+            where: { oid },
             transaction: options.transaction,
         });
 

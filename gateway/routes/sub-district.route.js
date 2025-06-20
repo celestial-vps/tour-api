@@ -21,7 +21,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /subdistrict/create:
+ * /sub-district/create:
  *   post:
  *     tags: [Subdistrict]
  *     summary: Create a new subdistrict entry
@@ -47,7 +47,7 @@ router.post('/create', validateRequest(createSubDistrictDto), roleGuard('Admin')
 
 /**
  * @swagger
- * /subdistrict/{oid}:
+ * /sub-district/{oid}:
  *   put:
  *     tags: [Subdistrict]
  *     summary: Update an existing subdistrict entry

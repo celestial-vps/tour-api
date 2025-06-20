@@ -6,7 +6,12 @@ const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const roleOidStr = process.env.RoleId || null;
+    // const roleOidStr = process.env.RoleId || null;
+    const [roles] = await queryInterface.sequelize.query(`
+      SELECT oid FROM user_roles WHERE "roleName"  = 'Admin' LIMIT 1
+    `);
+    const roleOidStr = roles.length > 0 ? roles[0].oid : null;
+
 
     return queryInterface.bulkInsert('users', [
       {

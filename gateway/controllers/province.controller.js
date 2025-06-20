@@ -15,13 +15,13 @@ const create = async (req, res) => {
     const { province, err } = await provinceService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Province", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "provinces", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Province", province, req, 'SUCCESS', 'Create province success');
+    await recordAuditTrail("CREATE", "provinces", province, req, 'SUCCESS', 'Create Province success');
     return buildResponse.createOk(res, province, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Province", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "provinces", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +32,13 @@ const update = async (req, res) => {
     const { province, err } = await provinceService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Province", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "provinces", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Province", province, req, 'SUCCESS', 'Update province success');
+    await recordAuditTrail("UPDATE", "provinces", province, req, 'SUCCESS', 'Update Province success');
     return buildResponse.updateOk(res, province, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Province", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "provinces", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +48,13 @@ const remove = async (req, res) => {
     const { province, err } = await provinceService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Province", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "provinces", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Province", province, req, 'SUCCESS', 'Delete province success');
+    await recordAuditTrail("DELETE", "provinces", province, req, 'SUCCESS', 'Delete Province success');
     return buildResponse.sendDeleteOk(res, province);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Province", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "provinces", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +64,13 @@ const findAll = async (req, res) => {
     const { provinces, err } = await provinceService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Province", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "provinces", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Province", provinces, req, 'SUCCESS', 'Get all provinces success');
+    await recordAuditTrail("READ", "provinces", provinces, req, 'SUCCESS', 'Get all Provinces success');
     return buildResponse.findOk(res, provinces, provinces.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Province", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "provinces", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +88,13 @@ const find = async (req, res) => {
     const result = await provinceService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Province", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "provinces", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Province", result.provinces, req, 'SUCCESS', 'Get provinces with filters success');
+    await recordAuditTrail("READ", "provinces", result.provinces, req, 'SUCCESS', 'Get Provinces with filters success');
     return buildResponse.sendPagination(res, result.provinces, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Province", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "provinces", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +104,15 @@ const findById = async (req, res) => {
     const { province, err } = await provinceService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Province", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "provinces", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!province) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Province", province, req, 'SUCCESS', 'Get province by ID success');
+    await recordAuditTrail("READ", "provinces", province, req, 'SUCCESS', 'Get Province by ID success');
     return buildResponse.findOk(res, province);
   } catch (err) {
-    await recordAuditTrail("READ", "Province", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "provinces", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

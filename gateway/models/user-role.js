@@ -23,23 +23,23 @@ const UserRole = sequelize.define('UserRole', {
     },
     readState: {
         type: DataTypes.BOOLEAN,
-        field: 'read_state',
+        field: 'readState',
     },
     writeState: {
         type: DataTypes.BOOLEAN,
-        field: 'write_state',
+        field: 'writeState',
     },
     createState: {
         type: DataTypes.BOOLEAN,
-        field: 'create_state',
+        field: 'createState',
     },
     deleteState: {
         type: DataTypes.BOOLEAN,
-        field: 'delete_state',
+        field: 'deleteState',
     },
     navigateState: {
         type: DataTypes.BOOLEAN,
-        field: 'navigate_state',
+        field: 'navigateState',
     },
     lastModifiedBy: {
         type: DataTypes.UUID,

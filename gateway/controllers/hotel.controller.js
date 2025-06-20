@@ -15,13 +15,13 @@ const create = async (req, res) => {
     const { hotel, err } = await hotelService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Hotel", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "hotel", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Hotel", hotel, req, 'SUCCESS', 'Create hotel success');
+    await recordAuditTrail("CREATE", "hotel", hotel, req, 'SUCCESS', 'Create Hotel success');
     return buildResponse.createOk(res, hotel, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Hotel", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "hotel", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +32,13 @@ const update = async (req, res) => {
     const { hotel, err } = await hotelService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Hotel", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "hotel", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Hotel", hotel, req, 'SUCCESS', 'Update hotel success');
+    await recordAuditTrail("UPDATE", "hotel", hotel, req, 'SUCCESS', 'Update Hotel success');
     return buildResponse.updateOk(res, hotel, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Hotel", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "hotel", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +48,13 @@ const remove = async (req, res) => {
     const { hotel, err } = await hotelService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Hotel", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "hotel", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Hotel", hotel, req, 'SUCCESS', 'Delete hotel success');
+    await recordAuditTrail("DELETE", "hotel", hotel, req, 'SUCCESS', 'Delete Hotel success');
     return buildResponse.sendDeleteOk(res, hotel);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Hotel", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "hotel", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +64,13 @@ const findAll = async (req, res) => {
     const { hotels, err } = await hotelService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Hotel", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "hotel", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Hotel", hotels, req, 'SUCCESS', 'Get all hotels success');
+    await recordAuditTrail("READ", "hotel", hotels, req, 'SUCCESS', 'Get all Hotels success');
     return buildResponse.findOk(res, hotels, hotels.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Hotel", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "hotel", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +88,13 @@ const find = async (req, res) => {
     const result = await hotelService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Hotel", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "hotel", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Hotel", result.hotels, req, 'SUCCESS', 'Get hotels with filters success');
+    await recordAuditTrail("READ", "hotel", result.hotels, req, 'SUCCESS', 'Get Hotels with filters success');
     return buildResponse.sendPagination(res, result.hotels, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Hotel", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "hotel", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +104,15 @@ const findById = async (req, res) => {
     const { hotel, err } = await hotelService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Hotel", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "hotel", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!hotel) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Hotel", hotel, req, 'SUCCESS', 'Get hotel by ID success');
+    await recordAuditTrail("READ", "hotel", hotel, req, 'SUCCESS', 'Get Hotel by ID success');
     return buildResponse.findOk(res, hotel);
   } catch (err) {
-    await recordAuditTrail("READ", "Hotel", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "hotel", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

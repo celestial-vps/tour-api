@@ -32,10 +32,10 @@ const update = async (oid, data, options) => {
 };
 
 // Delete a provider by ID
-const remove = async (id, options = {}) => {
+const remove = async (oid, options = {}) => {
     try {
         const result = await Provider.destroy({
-            where: { oid: id },
+            where: { oid },
             transaction: options.transaction,
         });
 

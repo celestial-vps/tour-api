@@ -8,20 +8,19 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => {
-  console.log('🟢 [CREATE] Customer controller called');
+const create = async (req, res) => {  
   try {
     const userJwt = req.authorization_payload;
     const { customer, err } = await customerService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Customer", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "customers", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Customer", customer, req, 'SUCCESS', 'Create customer success');
+    await recordAuditTrail("CREATE", "customers", customer, req, 'SUCCESS', 'Create Customer success');
     return buildResponse.createOk(res, customer, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Customer", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "customers", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +31,13 @@ const update = async (req, res) => {
     const { customer, err } = await customerService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Customer", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "customers", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Customer", customer, req, 'SUCCESS', 'Update customer success');
+    await recordAuditTrail("UPDATE", "customers", customer, req, 'SUCCESS', 'Update Customer success');
     return buildResponse.updateOk(res, customer, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Customer", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "customers", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +47,13 @@ const remove = async (req, res) => {
     const { customer, err } = await customerService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Customer", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "customers", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Customer", customer, req, 'SUCCESS', 'Delete customer success');
+    await recordAuditTrail("DELETE", "customers", customer, req, 'SUCCESS', 'Delete Customer success');
     return buildResponse.sendDeleteOk(res, customer);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Customer", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "customers", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +63,13 @@ const findAll = async (req, res) => {
     const { customers, err } = await customerService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Customer", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "customers", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Customer", customers, req, 'SUCCESS', 'Get all customers success');
+    await recordAuditTrail("READ", "customers", customers, req, 'SUCCESS', 'Get all Customers success');
     return buildResponse.findOk(res, customers, customers.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Customer", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "customers", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +87,13 @@ const find = async (req, res) => {
     const result = await customerService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Customer", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "customers", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Customer", result.customers, req, 'SUCCESS', 'Get customers with filters success');
+    await recordAuditTrail("READ", "customers", result.customers, req, 'SUCCESS', 'Get Customers with filters success');
     return buildResponse.sendPagination(res, result.customers, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Customer", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "customers", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +103,15 @@ const findById = async (req, res) => {
     const { customer, err } = await customerService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Customer", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "customers", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!customer) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Customer", customer, req, 'SUCCESS', 'Get customer by ID success');
+    await recordAuditTrail("READ", "customers", customer, req, 'SUCCESS', 'Get Customer by ID success');
     return buildResponse.findOk(res, customer);
   } catch (err) {
-    await recordAuditTrail("READ", "Customer", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "customers", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

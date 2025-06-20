@@ -8,20 +8,19 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => {
-  console.log('🟢 [CREATE] Country controller called');
+const create = async (req, res) => {  
   try {
     const userJwt = req.authorization_payload;
     const { country, err } = await countryService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Country", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "countries", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Country", country, req, 'SUCCESS', 'Create country success');
+    await recordAuditTrail("CREATE", "countries", country, req, 'SUCCESS', 'Create Country success');
     return buildResponse.createOk(res, country, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Country", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "countries", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +31,13 @@ const update = async (req, res) => {
     const { country, err } = await countryService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Country", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "countries", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Country", country, req, 'SUCCESS', 'Update country success');
+    await recordAuditTrail("UPDATE", "countries", country, req, 'SUCCESS', 'Update Country success');
     return buildResponse.updateOk(res, country, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Country", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "countries", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +47,13 @@ const remove = async (req, res) => {
     const { country, err } = await countryService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Country", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "countries", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Country", country, req, 'SUCCESS', 'Delete country success');
+    await recordAuditTrail("DELETE", "countries", country, req, 'SUCCESS', 'Delete Country success');
     return buildResponse.sendDeleteOk(res, country);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Country", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "countries", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +63,13 @@ const findAll = async (req, res) => {
     const { countrys, err } = await countryService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Country", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "countries", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Country", countrys, req, 'SUCCESS', 'Get all countrys success');
+    await recordAuditTrail("READ", "countries", countrys, req, 'SUCCESS', 'Get all Countries success');
     return buildResponse.findOk(res, countrys, countrys.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Country", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "countries", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +87,13 @@ const find = async (req, res) => {
     const result = await countryService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Country", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "countries", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Country", result.countrys, req, 'SUCCESS', 'Get countrys with filters success');
+    await recordAuditTrail("READ", "countries", result.countrys, req, 'SUCCESS', 'Get Countries with filters success');
     return buildResponse.sendPagination(res, result.countrys, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Country", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "countries", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +103,15 @@ const findById = async (req, res) => {
     const { country, err } = await countryService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Country", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "countries", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!country) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Country", country, req, 'SUCCESS', 'Get country by ID success');
+    await recordAuditTrail("READ", "countries", country, req, 'SUCCESS', 'Get Country by ID success');
     return buildResponse.findOk(res, country);
   } catch (err) {
-    await recordAuditTrail("READ", "Country", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "countries", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

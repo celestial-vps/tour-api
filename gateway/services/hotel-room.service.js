@@ -6,10 +6,11 @@ const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
-const { HOTELROOM_BASIC_FIELDS } = require('../constants/hotel-room.fields');
+const { HOTEL_ROOM_BASIC_FIELDS } = require('../constants/hotel-room.fields');
 
 const create = async (dto, userOid) => {
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let transaction;
 
   try {
@@ -57,7 +58,8 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let localTransaction = null;
 
   try {
@@ -171,7 +173,7 @@ const findAll = async () => {
     const { result, err } = await hotelRoomRepository.findAll({
       include: [],
       order: [['createdAt', 'DESC']],
-      attributes: HOTELROOM_BASIC_FIELDS
+      attributes: HOTEL_ROOM_BASIC_FIELDS
     });
 
     if (err) return { HotelRooms: [], err };

@@ -9,19 +9,18 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 const jwtMaker = new JwtMaker();
 
 const create = async (req, res) => {
-  console.log('🟢 [CREATE] City controller called');
   try {
     const userJwt = req.authorization_payload;
     const { city, err } = await cityService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "City", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "cities", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "City", city, req, 'SUCCESS', 'Create city success');
+    await recordAuditTrail("CREATE", "cities", city, req, 'SUCCESS', 'Create City success');
     return buildResponse.createOk(res, city, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "City", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "cities", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +31,13 @@ const update = async (req, res) => {
     const { city, err } = await cityService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "City", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "cities", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "City", city, req, 'SUCCESS', 'Update city success');
+    await recordAuditTrail("UPDATE", "cities", city, req, 'SUCCESS', 'Update City success');
     return buildResponse.updateOk(res, city, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "City", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "cities", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,29 +47,29 @@ const remove = async (req, res) => {
     const { city, err } = await cityService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "City", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "cities", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "City", city, req, 'SUCCESS', 'Delete city success');
+    await recordAuditTrail("DELETE", "cities", city, req, 'SUCCESS', 'Delete City success');
     return buildResponse.sendDeleteOk(res, city);
   } catch (err) {
-    await recordAuditTrail("DELETE", "City", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "cities", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const { citys, err } = await cityService.findAll();
+    const { cities, err } = await cityService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "City", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "cities", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "City", citys, req, 'SUCCESS', 'Get all citys success');
-    return buildResponse.findOk(res, citys, citys.length);
+    await recordAuditTrail("READ", "cities", cities, req, 'SUCCESS', 'Get all Cities success');
+    return buildResponse.findOk(res, cities, cities.length);
   } catch (err) {
-    await recordAuditTrail("READ", "City", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "cities", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +87,13 @@ const find = async (req, res) => {
     const result = await cityService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "City", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "cities", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "City", result.citys, req, 'SUCCESS', 'Get citys with filters success');
-    return buildResponse.sendPagination(res, result.citys, result.count, options.pageIndex, options.pageSize);
+    await recordAuditTrail("READ", "cities", result.cities, req, 'SUCCESS', 'Get Cities with filters success');
+    return buildResponse.sendPagination(res, result.cities, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "City", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "cities", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +103,15 @@ const findById = async (req, res) => {
     const { city, err } = await cityService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "City", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "cities", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!city) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "City", city, req, 'SUCCESS', 'Get city by ID success');
+    await recordAuditTrail("READ", "cities", city, req, 'SUCCESS', 'Get City by ID success');
     return buildResponse.findOk(res, city);
   } catch (err) {
-    await recordAuditTrail("READ", "City", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "cities", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

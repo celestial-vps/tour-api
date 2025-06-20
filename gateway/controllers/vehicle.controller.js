@@ -8,20 +8,19 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => {
-  console.log('🟢 [CREATE] Vehicle controller called');
+const create = async (req, res) => { 
   try {
     const userJwt = req.authorization_payload;
     const { vehicle, err } = await vehicleService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "Vehicle", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "vehicles", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "Vehicle", vehicle, req, 'SUCCESS', 'Create vehicle success');
+    await recordAuditTrail("CREATE", "vehicles", vehicle, req, 'SUCCESS', 'Create Vehicle success');
     return buildResponse.createOk(res, vehicle, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "Vehicle", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "vehicles", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +31,13 @@ const update = async (req, res) => {
     const { vehicle, err } = await vehicleService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "Vehicle", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "vehicles", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "Vehicle", vehicle, req, 'SUCCESS', 'Update vehicle success');
+    await recordAuditTrail("UPDATE", "vehicles", vehicle, req, 'SUCCESS', 'Update Vehicle success');
     return buildResponse.updateOk(res, vehicle, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "Vehicle", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "vehicles", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +47,13 @@ const remove = async (req, res) => {
     const { vehicle, err } = await vehicleService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "Vehicle", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "vehicles", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "Vehicle", vehicle, req, 'SUCCESS', 'Delete vehicle success');
+    await recordAuditTrail("DELETE", "vehicles", vehicle, req, 'SUCCESS', 'Delete Vehicle success');
     return buildResponse.sendDeleteOk(res, vehicle);
   } catch (err) {
-    await recordAuditTrail("DELETE", "Vehicle", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "vehicles", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +63,13 @@ const findAll = async (req, res) => {
     const { vehicles, err } = await vehicleService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "Vehicle", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "vehicles", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "Vehicle", vehicles, req, 'SUCCESS', 'Get all vehicles success');
+    await recordAuditTrail("READ", "vehicles", vehicles, req, 'SUCCESS', 'Get all Vehicles success');
     return buildResponse.findOk(res, vehicles, vehicles.length);
   } catch (err) {
-    await recordAuditTrail("READ", "Vehicle", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "vehicles", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +87,13 @@ const find = async (req, res) => {
     const result = await vehicleService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "Vehicle", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "vehicles", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "Vehicle", result.vehicles, req, 'SUCCESS', 'Get vehicles with filters success');
+    await recordAuditTrail("READ", "vehicles", result.vehicles, req, 'SUCCESS', 'Get Vehicles with filters success');
     return buildResponse.sendPagination(res, result.vehicles, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "Vehicle", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "vehicles", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +103,15 @@ const findById = async (req, res) => {
     const { vehicle, err } = await vehicleService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "Vehicle", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "vehicles", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!vehicle) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Vehicle", vehicle, req, 'SUCCESS', 'Get vehicle by ID success');
+    await recordAuditTrail("READ", "vehicles", vehicle, req, 'SUCCESS', 'Get Vehicle by ID success');
     return buildResponse.findOk(res, vehicle);
   } catch (err) {
-    await recordAuditTrail("READ", "Vehicle", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "vehicles", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

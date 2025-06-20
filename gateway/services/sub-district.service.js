@@ -11,7 +11,8 @@ const { DISTRICT_BASIC_FIELDS } = require('../constants/district.fields');
 const { District } = require('../models');
 
 const create = async (dto, userOid) => {
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let transaction;
 
   try {
@@ -56,7 +57,8 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
-  const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+  // @ts-ignore
+  const now = new Date().formatUTC(); 
   let localTransaction = null;
 
   try {
@@ -75,12 +77,12 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (findError) {
       if (localTransaction) await localTransaction.rollback();
-      return { SubDistrict: null, err: findError };
+      return { subDistrict: null, err: findError };
     }
 
     if (!existing) {
       if (localTransaction) await localTransaction.rollback();
-      return { SubDistrict: null, err: { message: "SubDistrict not found", status: 404 } };
+      return { subDistrict: null, err: { message: "Sub District not found", status: 404 } };
     }
 
     const updateData = {
@@ -99,7 +101,7 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
-      return { SubDistrict: null, err: updateError };
+      return { subDistrict: null, err: updateError };
     }
 
     if (localTransaction) await localTransaction.commit();
@@ -128,13 +130,13 @@ const deleted = async (oid) => {
     const { result: resultFind, err: errFind } = await subDistrictRepository.findById(oid, { transaction });
     if (errFind) {
       await transaction.rollback();
-      return { SubDistrict: null, err: errFind };
+      return { subDistrict: null, err: errFind };
     }
 
     if (!resultFind) {
       await transaction.rollback();
       return {
-        SubDistrict: null,
+        subDistrict: null,
         err: { message: 'Data Not Found', status: 404 }
       };
     }
@@ -142,7 +144,7 @@ const deleted = async (oid) => {
     const { result, err } = await subDistrictRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
-      return { SubDistrict: null, err };
+      return { subDistrict: null, err };
     }
 
     await transaction.commit();
@@ -196,13 +198,13 @@ const findById = async (oid, options = {}) => {
 
     if (err) {
       return {
-        SubDistrict: null,
+        subDistrict: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     if (!result) {
-      return { SubDistrict: null, err: null };
+      return { subDistrict: null, err: null };
     }
 
     const subDistrict = await mappings.toSubDistrictResponse(result);

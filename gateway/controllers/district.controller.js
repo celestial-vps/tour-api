@@ -8,20 +8,19 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => {
-  console.log('🟢 [CREATE] District controller called');
+const create = async (req, res) => {  
   try {
     const userJwt = req.authorization_payload;
     const { district, err } = await districtService.create(req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("CREATE", "District", err, req, 'FAILED', err.message);
+      await recordAuditTrail("CREATE", "districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "insert");
     }
-    await recordAuditTrail("CREATE", "District", district, req, 'SUCCESS', 'Create district success');
+    await recordAuditTrail("CREATE", "districts", district, req, 'SUCCESS', 'Create District success');
     return buildResponse.createOk(res, district, 1);
   } catch (err) {
-    await recordAuditTrail("CREATE", "District", err, req, 'ERROR', err.message);
+    await recordAuditTrail("CREATE", "districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -32,13 +31,13 @@ const update = async (req, res) => {
     const { district, err } = await districtService.update(req.params.oid, req.body, userJwt.userOid);
 
     if (err) {
-      await recordAuditTrail("UPDATE", "District", err, req, 'FAILED', err.message);
+      await recordAuditTrail("UPDATE", "districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "update");
     }
-    await recordAuditTrail("UPDATE", "District", district, req, 'SUCCESS', 'Update district success');
+    await recordAuditTrail("UPDATE", "districts", district, req, 'SUCCESS', 'Update District success');
     return buildResponse.updateOk(res, district, 1);
   } catch (err) {
-    await recordAuditTrail("UPDATE", "District", err, req, 'ERROR', err.message);
+    await recordAuditTrail("UPDATE", "districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -48,13 +47,13 @@ const remove = async (req, res) => {
     const { district, err } = await districtService.deleted(req.params.oid);
 
     if (err) {
-      await recordAuditTrail("DELETE", "District", err, req, 'FAILED', err.message);
+      await recordAuditTrail("DELETE", "districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message || err, "delete");
     }
-    await recordAuditTrail("DELETE", "District", district, req, 'SUCCESS', 'Delete district success');
+    await recordAuditTrail("DELETE", "districts", district, req, 'SUCCESS', 'Delete District success');
     return buildResponse.sendDeleteOk(res, district);
   } catch (err) {
-    await recordAuditTrail("DELETE", "District", err, req, 'ERROR', err.message);
+    await recordAuditTrail("DELETE", "districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -64,13 +63,13 @@ const findAll = async (req, res) => {
     const { districts, err } = await districtService.findAll();
 
     if (err) {
-      await recordAuditTrail("READ", "District", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get all");
     }
-    await recordAuditTrail("READ", "District", districts, req, 'SUCCESS', 'Get all districts success');
+    await recordAuditTrail("READ", "districts", districts, req, 'SUCCESS', 'Get all Districts success');
     return buildResponse.findOk(res, districts, districts.length);
   } catch (err) {
-    await recordAuditTrail("READ", "District", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };
@@ -88,13 +87,13 @@ const find = async (req, res) => {
     const result = await districtService.findPage(filters, options);
 
     if (result.err) {
-      await recordAuditTrail("READ", "District", result.err, req, 'FAILED', result.err.message);
+      await recordAuditTrail("READ", "districts", result.err, req, 'FAILED', result.err.message);
       return buildResponse.sendInternalServerError(res, result.err.message);
     }
-    await recordAuditTrail("READ", "District", result.districts, req, 'SUCCESS', 'Get districts with filters success');
+    await recordAuditTrail("READ", "districts", result.districts, req, 'SUCCESS', 'Get Districts with filters success');
     return buildResponse.sendPagination(res, result.districts, result.count, options.pageIndex, options.pageSize);
   } catch (error) {
-    await recordAuditTrail("READ", "District", error, req, 'ERROR', error.message);
+    await recordAuditTrail("READ", "districts", error, req, 'ERROR', error.message);
     return buildResponse.sendInternalServerError(res, error.message);
   }
 };
@@ -104,15 +103,15 @@ const findById = async (req, res) => {
     const { district, err } = await districtService.findById(req.params.oid, { include: [] });
 
     if (err) {
-      await recordAuditTrail("READ", "District", err, req, 'FAILED', err.message);
+      await recordAuditTrail("READ", "districts", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
     if (!district) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "District", district, req, 'SUCCESS', 'Get district by ID success');
+    await recordAuditTrail("READ", "districts", district, req, 'SUCCESS', 'Get District by ID success');
     return buildResponse.findOk(res, district);
   } catch (err) {
-    await recordAuditTrail("READ", "District", err, req, 'ERROR', err.message);
+    await recordAuditTrail("READ", "districts", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);
   }
 };

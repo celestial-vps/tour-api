@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const chatGateway = require('../chat/chat.gateway');
 const dotenv = require('dotenv');
+require('./misc/datetime'); 
 
 const server = http.createServer(app);
 const io = new Server(server, {

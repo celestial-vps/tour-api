@@ -32,10 +32,10 @@ const update = async (oid, data, options) => {
 };
 
 // Delete a userRole by ID
-const remove = async (id, options = {}) => {
+const remove = async (oid, options = {}) => {
     try {
         const result = await UserRole.destroy({
-            where: { oid: id },
+            where: { oid },
             transaction: options.transaction,
         });
 

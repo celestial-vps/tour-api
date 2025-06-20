@@ -33,6 +33,7 @@ SEEDERS=(
   "20250420121520-seed-user-role.js"  
   "20250501023758-bank"
   "20250620074800-seed-countrys.js"
+  "20250618062132-default-user.js"
 )
 
 for SEED in "${SEEDERS[@]}"; do
