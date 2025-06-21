@@ -102,7 +102,11 @@ class GeoCacheCountryService {
             const data = await this.redisClient.get(this.redisKey);
             const countries = data ? JSON.parse(data) : [];
             const lowerName = name.toLowerCase();
-            return countries.filter(c => c.countryName.toLowerCase().includes(lowerName));
+            return countries.filter(c => {
+                if (!c || !c.countryName) return false;
+                return c.countryName.toLowerCase().includes(lowerName);
+            });
+
         } catch (err) {
             console.error('Redis error (searchCountriesByName):', err);
             return [];

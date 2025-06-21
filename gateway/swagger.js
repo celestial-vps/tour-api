@@ -1,5 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+require('dotenv').config();
 
 // Define the Swagger configuration
 const swaggerDefinition = {
@@ -27,7 +28,13 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 function setupSwagger(app) {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  const basePath = process.env.BASE_PATH || '/api/v1';
+  if (process.env.NODE_ENV !== 'production') {
+    // app.use('${basePath}/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    app.use(`${basePath}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    console.log('✅ Swagger Docs available at /api-docs');
+  } else {
+    console.log('⚠️ Swagger is disabled in production mode');
+  }
 }
-
 module.exports = setupSwagger;

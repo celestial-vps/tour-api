@@ -12,7 +12,7 @@ const { PROVINCE_BASIC_FIELDS } = require('../constants/province.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -57,7 +57,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -170,13 +170,13 @@ const findAll = async () => {
       attributes: CITY_BASIC_FIELDS
     });
 
-    if (err) return { citys: [], err };
+    if (err) return { cities: [], err };
 
-    const citys = await mappings.toCityResponses(result);
-    return { citys, err: null };
+    const cities = await mappings.toCityResponses(result);
+    return { cities, err: null };
   } catch (err) {
     return {
-      citys: [],
+      cities: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -225,18 +225,18 @@ const findPage = async (filters, options) => {
     const findOptions = buildFindOptions(where, options);
 
     const result = await cityRepository.findAndCountByCriteria(findOptions);
-
+    const cities = await mappings.toCityResponses(result.data);
     if (result.err) throw result.err;
 
     return {
-      citys: result.data,
+      cities,
       count: result.count,
       err: null,
     };
   } catch (error) {
     console.error('CityService findPage error:', error);
     return {
-      citys: [],
+      cities: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };

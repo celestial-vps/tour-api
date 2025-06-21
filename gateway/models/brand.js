@@ -14,17 +14,11 @@ const Brand = sequelize.define('Brand', {
         allowNull: false,
         unique: true,
     },
-    // logoUrl: {
-    //     type: DataTypes.STRING,
-    //     allowNull: true,
-    //     validate: {
-    //         isUrl: true,
-    //     },
-    // },
-    isActive: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+    imageOid: {
+        type: DataTypes.UUID,
+        allowNull: false,
     },
+  
     lastModifiedBy: {
         type: DataTypes.UUID,
         allowNull: true, // Adjust based on your requirements

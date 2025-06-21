@@ -7,6 +7,9 @@ async function toCityResponse(city) {
         createdBy: city.createdBy,
         updatedAt: city.updatedAt
     };
+     if (city.province) {
+        response.province = city.province;
+    }
     return response;
 }
 

@@ -10,6 +10,7 @@ const filterDto = Joi.object({
 // Define the schema for CreateBrandDto
 const createDto = Joi.object({
     brandName: Joi.string().required(),
+    imageOid: Joi.string().required(),
 });
 
 // Define the schema for UpdateBrandDto

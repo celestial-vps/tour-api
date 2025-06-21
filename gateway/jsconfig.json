@@ -5,5 +5,5 @@
     "module": "commonjs",
     "target": "es2020"
   },
-  "include": ["./**/*.js", "eslint.config.cjs"]
+  "include": ["./**/*.js", "eslint.config.cjs", "../services/imgae-mc-service/models/image-file.js"]
 }

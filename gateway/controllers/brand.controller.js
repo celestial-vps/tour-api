@@ -2,6 +2,8 @@
 
 const brandService = require('../services/brand.service');
 const buildResponse = require('../common/build.response');
+const imageFileService = require('../middleware/image-file/image-file-mc.service');
+// const messageMaps = require('../mappings/message.vm');
 const { JwtMaker } = require('../middleware/jwt');
 const pick = require('../misc/pick');
 const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
@@ -11,6 +13,11 @@ const jwtMaker = new JwtMaker();
 const create = async (req, res) => { 
   try {
     const userJwt = req.authorization_payload;
+    //  let imageFileOid = null;
+    //  if (req.file) {
+    //   const uploadedImage = await uploadFileToMicroservice(req.file);
+    //   imageFileOid = uploadedImage.oid; // atau `uploadedImage.imageFile.oid` sesuai strukturmu
+    // }
     const { brand, err } = await brandService.create(req.body, userJwt.userOid);
 
     if (err) {
@@ -100,6 +107,10 @@ const find = async (req, res) => {
 
 const findById = async (req, res) => {
   try {
+
+
+    //  const fileUrl = response?.data?.fileUrl || null;
+
     const { brand, err } = await brandService.findById(req.params.oid, { include: [] });
 
     if (err) {

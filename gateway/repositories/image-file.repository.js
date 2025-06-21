@@ -1,6 +1,6 @@
 // repositories/imageFileRepository.js
 // const { result } = require('lodash');
-const ImageFile = require('../models/image-file'); // Import the default export
+const ImageFile = require('../../services/imgae-mc-service/models/image-file'); // Import the default export
 const { Op } = require('sequelize');
 const models = require('../models'); // Ensure you're importing the models correctly
 

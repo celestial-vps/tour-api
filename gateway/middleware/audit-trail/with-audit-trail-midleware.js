@@ -1,4 +1,4 @@
-const auditTrailService = require('./audit-trail-midleware-service.js');
+const auditTrailService = require('./audit-trail-midleware-service');
 const Joi = require('joi');
 // const sendAuditLog = require('./kafka-producer');
 

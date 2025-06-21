@@ -30,13 +30,16 @@ const roleGuard = (role) => {
         const accessToken = fields[1];
 
         try {
-            const decoded = jwt.verify(accessToken, JWT_SECRET);
+            const decoded = jwt.verify(accessToken, JWT_SECRET) ;
 
+            // @ts-ignore
             if (decoded && decoded.username) {
+                // @ts-ignore
                 console.log("Username:", decoded.username);
 
                 // Fetch user role from the repository
                 try {
+                    // @ts-ignore
                     const { result, err } = await findUserRole(decoded.username);
                     if (err!=null) {
                         return res.status(403).json({ error: err });

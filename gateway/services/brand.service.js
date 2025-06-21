@@ -7,10 +7,12 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { BRAND_BASIC_FIELDS } = require('../constants/brand.fields');
+const { getImageFile } = require('../middleware/image-file/image-file-mc.service');
+
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -18,6 +20,7 @@ const create = async (dto, userOid) => {
 
     const data = {
       brandName: dto.brandName,
+      imageOid: dto.imageOid,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -54,7 +57,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -166,44 +169,57 @@ const findAll = async () => {
       attributes: BRAND_BASIC_FIELDS
     });
 
-    if (err) return { Brands: [], err };
+    if (err) return { brands: [], err };
 
-    const Brands = await mappings.toBrandResponses(result);
-    return { Brands, err: null };
+    const brands = await mappings.toBrandResponses(result);
+    return { brands, err: null };
   } catch (err) {
     return {
-      Brands: [],
+      brands: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
-
 const findById = async (oid, options = {}) => {
   try {
     const { result, err } = await brandRepository.findById(oid, options);
 
     if (err) {
       return {
-        Brand: null,
+        brand: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     if (!result) {
-      return { Brand: null, err: null };
+      return { brand: null, err: null };
     }
 
-    const Brand = await mappings.toBrandResponse(result);
+    // Tambahkan properti `fileUrl` dari pemanggilan image microservice
+    let fileUrl = null;
+    try {
+      const imageResponse = await getImageFile(result.imageOid);
+      fileUrl = imageResponse.data.data.fileUrl || null;
+    } catch (imageError) {
+      console.warn('Gagal mengambil image file:', imageError.message);
+    }
 
-    return { Brand, err: null };
+    const brandData = {
+      ...result.dataValues,
+      fileUrl,
+    };
+
+    const brand = await mappings.toBrandResponse(brandData);
+    return { brand, err: null };
   } catch (err) {
     console.error('Error finding Brand:', err);
     return {
-      Brand: null,
+      brand: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
 };
+
 
 const findPage = async (filters, options) => {
   try {
@@ -225,7 +241,7 @@ const findPage = async (filters, options) => {
   } catch (error) {
     console.error('BrandService findPage error:', error);
     return {
-      Brands: [],
+      brands: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };

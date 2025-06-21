@@ -9,6 +9,7 @@ const {
   deleteBrandDto,
   getBrandDto
 } = require('../dtos/payload-brand-dto');
+const upload = require('../config/multer-storage'); // Import the multer configuration
 
 const router = express.Router();
 

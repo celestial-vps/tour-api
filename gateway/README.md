@@ -10,7 +10,9 @@
 8. npm install express jsonwebtoken mysql2 dotenv (npm update mysql2)
 9. npm install --save-dev nodemon -->> first when setup new computer / nodejs
 10. npm install jsonwebtoken bcryptjs
-11. npm install swagger-jsdoc swagger-ui-express
+11. npm install swagger-jsdoc swagger-ui-express (ini untuk production tapi tidak perlu )
+12  npm install --save-dev swagger-jsdoc swagger-ui-express
+
 12. npm install dotenv
 13. npm i uuidv7
 14. npm install multer
@@ -18,6 +20,7 @@
 16. npm install express-rate-limit
 17. npm install ioredis
 18. npm install cross-env --save-dev
+19. npm i helmet
 
 
 
@@ -124,3 +127,5 @@ ini kalo bikin service nya
 
   npx sequelize-cli seed:generate --name default-user
     
+# SWAGGER
+    http://localhost:3000/api/v1/api-docs/

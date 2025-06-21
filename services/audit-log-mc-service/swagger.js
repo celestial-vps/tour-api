@@ -11,7 +11,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: `${process.env.BASE_PATH + ':' + process.env.PORT  || '/api/v1'}`, // Base path only
+      url: `${process.env.BASE_PATH + ':' + process.env.PORT || '/api/v1'}`, // Base path only
       description: 'Development server',
     },
   ],
@@ -27,7 +27,12 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 function setupSwagger(app) {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  if (process.env.NODE_ENV !== 'production') {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    console.log('✅ Swagger Docs available at /api-docs');
+  } else {
+    console.log('⚠️ Swagger is disabled in production mode');
+  }
 }
 
 module.exports = setupSwagger;
