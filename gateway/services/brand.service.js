@@ -86,6 +86,7 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     const updateData = {
       brandName: dto.brandName ?? existing.brandName,
+      imageOid: dto.imageOid ?? existing.imageOid,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
@@ -199,6 +200,7 @@ const findById = async (oid, options = {}) => {
     let fileUrl = null;
     try {
       const imageResponse = await getImageFile(result.imageOid);
+      // @ts-ignore
       fileUrl = imageResponse.data.data.fileUrl || null;
     } catch (imageError) {
       console.warn('Gagal mengambil image file:', imageError.message);

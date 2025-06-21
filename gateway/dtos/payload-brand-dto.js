@@ -16,6 +16,7 @@ const createDto = Joi.object({
 // Define the schema for UpdateBrandDto
 const updateDto = Joi.object({
     brandName: Joi.string().required(),
+    imageOid: Joi.string().required(),
 });
 
 const params = Joi.object({
