@@ -75,6 +75,11 @@ HotelRoom.associate = (models) => {
         as: 'hotel', // Optional alias
         onDelete: 'CASCADE',
     });
+    HotelRoom.hasMany(models.HotelRoomAmenity, {
+        foreignKey: 'hotelRoomOid',
+        as: 'amenities',
+        onDelete: 'CASCADE',
+    });
 };
 
 module.exports = HotelRoom;

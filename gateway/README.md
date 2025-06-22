@@ -29,13 +29,15 @@ npm install lodash
 
 # MIGRATION
 ./scripts/seed.sh
-npx sequelize-cli migration:generate --name rename-countryName-to-vehicleType
+npx sequelize-cli migration:generate --name create-hotel-room-amenity
 npx sequelize-cli db:migrate
 
 npm install umzug mysql2
 npm install fast-glob
 node runMigrations.js migrate up
 node runMigrations.js migrate down
+
+npx sequelize-cli seed:generate --name seed-hotels
 
 npx sequelize-cli db:seed:undo --seed name-of-seed-file.js
 npx sequelize-cli db:seed --seed name-of-seed-file.js

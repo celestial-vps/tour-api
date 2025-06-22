@@ -47,7 +47,7 @@ const customerRoutes = require('./routes/customer.route');
 // const tutorScheduleRoutes = require('./routes/tutor-schedule.route');
 // const tutorRoutes = require('./routes/tutor.route');
 // const userRoleRoutes = require('./routes/user-role.route');
-// const userRoutes = require('./routes/user.route');
+const userRoutes = require('./routes/user.route');
 
 const setupSwagger = require('./swagger'); // Adjust the path as needed
 // @ts-ignore
@@ -128,7 +128,7 @@ app.use(`${basePath}/customer`, customerRoutes);
 // app.use(`${basePath}/tutor-schedule`, tutorScheduleRoutes);
 // app.use(`${basePath}/tutor`, tutorRoutes);
 // app.use(`${basePath}/user-role`, userRoleRoutes);
-// app.use(`${basePath}/user`, userRoutes);
+app.use(`${basePath}/user`, userRoutes);
 
 
 

@@ -7,6 +7,7 @@ const { JwtMaker } = require('../middleware/jwt'); // Adjust the path accordingl
 const jwtMaker = new JwtMaker();
 const sequelize = require('../config/sequelize');
 const moment = require('moment');
+const redisClient = require('../lib/redis/redis');
 
 const create = async (dto, userOid) => {
     const transaction = await sequelize.transaction();
@@ -191,7 +192,7 @@ const findAll = async () => {
 };
 
 
-const findById = async (oid) => {
+const findById = async (oid, options = {}) => {
     try {
         const { result, err } = await userRepository.findById(oid);
         if (result == null) {
@@ -237,6 +238,36 @@ const findByEmail = async (condition, page, pageSize) => {
 };
 
 
+const findByMe = async (oid, options = {}) => {
+  try {
+    let userData = await redisClient.get(`user:profile:${oid}`);
+    let user;
+
+    if (!userData) {
+      const { result, err } = await userRepository.findById(oid);
+      if (result == null) {
+        return {
+          user: {},
+          err: { message: "Data Not Found" }
+        };
+      }
+
+      await redisClient.set(`user:profile:${oid}`, JSON.stringify(result), { EX: 3600 });
+      user = await mappings.toUserResponse(result);
+    } else {
+      const json = typeof userData === 'string' ? userData : userData.toString();
+      user = await mappings.toUserResponse(JSON.parse(json));
+    }
+
+    return { user, err: null };
+  } catch (err) {
+    return { user: {}, err };
+  }
+};
+
+
+
+
 module.exports = {
     create,
     register,
@@ -246,6 +277,6 @@ module.exports = {
     findAll,
     findById,
     findPage,
-    findByEmail,
+    findByEmail, findByMe
 };
 

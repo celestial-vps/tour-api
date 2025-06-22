@@ -40,15 +40,15 @@ const create = async (dto, userOid) => {
     await transaction.commit();
 
     const msgData = { value: result.oid, name: result.address };
-    const Hotel = await messageMaps.toMessageResponse(msgData);
+    const hotel = await messageMaps.toMessageResponse(msgData);
 
-    return { Hotel, err: null };
+    return { hotel, err: null };
 
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error('Create failed:', error);
     return {
-      Hotel: null,
+      hotel: null,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
@@ -107,15 +107,15 @@ const update = async (oid, dto, userOid, options = {}) => {
     if (localTransaction) await localTransaction.commit();
 
     const msgData = { value: existing.oid, name: existing.address };
-    const Hotel = await messageMaps.toMessageResponse(msgData);
+    const hotel = await messageMaps.toMessageResponse(msgData);
 
-    return { Hotel, err: null };
+    return { hotel, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      Hotel: null,
+      hotel: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -150,15 +150,15 @@ const deleted = async (oid) => {
     await transaction.commit();
 
     const msgData = { value: resultFind.oid, name: resultFind.address };
-    const Hotel = await messageMaps.toMessageResponse(msgData);
+    const hotel = await messageMaps.toMessageResponse(msgData);
 
-    return { Hotel, err: null };
+    return { hotel, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      Hotel: null,
+      hotel: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -172,13 +172,13 @@ const findAll = async () => {
       attributes: HOTEL_BASIC_FIELDS
     });
 
-    if (err) return { Hotels: [], err };
+    if (err) return { hotels: [], err };
 
-    const Hotels = await mappings.toHotelResponses(result);
-    return { Hotels, err: null };
+    const hotels = await mappings.toHotelResponses(result);
+    return { hotels, err: null };
   } catch (err) {
     return {
-      Hotels: [],
+      hotels: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -196,16 +196,16 @@ const findById = async (oid, options = {}) => {
     }
 
     if (!result) {
-      return { Hotel: null, err: null };
+      return { hotel: null, err: null };
     }
 
-    const Hotel = await mappings.toHotelResponse(result);
+    const hotel = await mappings.toHotelResponse(result);
 
-    return { Hotel, err: null };
+    return { hotel, err: null };
   } catch (err) {
     console.error('Error finding Hotel:', err);
     return {
-      Hotel: null,
+      hotel: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -231,7 +231,7 @@ const findPage = async (filters, options) => {
   } catch (error) {
     console.error('HotelService findPage error:', error);
     return {
-      Hotels: [],
+      hotels: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
