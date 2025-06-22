@@ -16,6 +16,15 @@ const createDto = Joi.object({
     address: Joi.string().required(),
     phone: Joi.string().required(),
     star_rating: Joi.string().required(),
+    hotelRooms:Joi.array().items(
+    Joi.object({
+      hotelOid: Joi.string().required(),
+      room_type: Joi.string().required(),
+      capacity: Joi.string().required(),
+      price_per_night: Joi.string().required(),
+      amenities: Joi.string().required(),
+      status: Joi.string().required()
+    }))
 });
 
 // Define the schema for UpdateHotelDto

@@ -1,5 +1,6 @@
 'use strict';
 const hotelRepository = require('../repositories/hotel.repository');
+const hotelRoomRepository = require('../repositories/hotel-room.repository')
 const mappings = require('../mappings/hotel.vm');
 const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
@@ -10,7 +11,7 @@ const { HOTEL_BASIC_FIELDS } = require('../constants/hotel.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -28,13 +29,37 @@ const create = async (dto, userOid) => {
     };
 
     const { result, err } = await hotelRepository.save(data, { transaction });
-
-    if (err || !result) {
+    if ((err || !result)) {
       await transaction.rollback();
       return {
         Hotel: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
+    }
+
+    if (Array.isArray(dto.hotelRooms)) {
+      for (const room of dto.hotelRooms) {
+        const dataRoom = {
+          hotelOid: result.data.oid,
+          room_type: room.room_type,
+          capacity: room.capacity,
+          pricePerNight: room.pricePerNight,
+          amenities: room.amenities,
+          createdBy: userOid,
+          createdAt: now,
+          lastModifiedBy: userOid,
+          updatedAt: now,
+        };
+        const { result: resultRoom, err: errRoom } = await hotelRoomRepository.save(dataRoom, { transaction });
+
+        if (errRoom || !resultRoom) {
+          await transaction.rollback();
+          return {
+            hotel: null,
+            err: buildResponse.responseInternalServerError(errRoom).data.error,
+          };
+        }
+      }
     }
 
     await transaction.commit();
@@ -57,7 +82,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
