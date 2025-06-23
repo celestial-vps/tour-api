@@ -59,7 +59,7 @@ module.exports = {
 //       hotelName: hotel.hotelName,
 //       address: hotel.address,
 //       phone: hotel.phone,
-//       star_rating: hotel.star_rating,
+//       starRating: hotel.starRating,
 //       createdBy: hotel.createdBy,
 //       createdAt: hotel.createdAt,
 //       updatedAt: hotel.updatedAt,

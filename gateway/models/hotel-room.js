@@ -12,7 +12,7 @@ const HotelRoom = sequelize.define('HotelRoom', {
         type: DataTypes.UUID,
         allowNull: false,
     },
-    room_type: {
+    roomType : {
         type: DataTypes.ENUM(
             'Single Room',
             'Double Room',

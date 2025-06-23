@@ -41,7 +41,7 @@ const router = express.Router();
  *              phone:
  *                type: INTEGER
  *                example: "-"
- *              star_rating:
+ *              starRating:
  *                type: string
  *                example: "-"
 

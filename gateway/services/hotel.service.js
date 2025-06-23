@@ -1,6 +1,9 @@
 'use strict';
 const hotelRepository = require('../repositories/hotel.repository');
 const hotelRoomRepository = require('../repositories/hotel-room.repository')
+const hotelRoomAmenetyRepository = require('../repositories/hotel-room-amenity.repository')
+const hotelAmenetyRepository = require('../repositories/hotel-amenity.repository')
+
 const mappings = require('../mappings/hotel.vm');
 const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
@@ -17,11 +20,12 @@ const create = async (dto, userOid) => {
   try {
     transaction = await sequelize.transaction();
 
+    // Simpan hotel terlebih dahulu
     const data = {
       hotelName: dto.hotelName,
       address: dto.address,
       phone: dto.phone,
-      star_rating: dto.star_rating,
+      starRating: dto.starRating,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -29,29 +33,50 @@ const create = async (dto, userOid) => {
     };
 
     const { result, err } = await hotelRepository.save(data, { transaction });
-    if ((err || !result)) {
+    if (err || !result) {
       await transaction.rollback();
       return {
-        Hotel: null,
+        hotel: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
+ 
+    if (Array.isArray(dto.hotelmenities) && dto.hotelmenities.length > 0) {
+      for (const hotel of dto.hotelmenities) {
+        // Simpan room tanpa amenities terlebih dahulu
+        const dataAmenity = {
+          hotelOid: result.oid,
+          hotelAmenityName: hotel, // pastikan key sesuai model           
+        };
 
-    if (Array.isArray(dto.hotelRooms)) {
+        const { result: resultRoomAmenety, err: errRoomAmenety } = await hotelAmenetyRepository.save(dataAmenity, { transaction });
+        if (errRoomAmenety || !resultRoomAmenety) {
+          await transaction.rollback();
+          return {
+            hotel: null,
+            err: buildResponse.responseInternalServerError(errRoomAmenety).data.error,
+          };
+        }     
+      }
+    }
+
+
+    // Simpan hotelRooms dan amenities (jika ada)
+    if (Array.isArray(dto.hotelRooms) && dto.hotelRooms.length > 0) {
       for (const room of dto.hotelRooms) {
+        // Simpan room tanpa amenities terlebih dahulu
         const dataRoom = {
-          hotelOid: result.data.oid,
-          room_type: room.room_type,
+          hotelOid: result.oid,
+          roomType: room.roomType, // pastikan key sesuai model
           capacity: room.capacity,
           pricePerNight: room.pricePerNight,
-          amenities: room.amenities,
           createdBy: userOid,
           createdAt: now,
           lastModifiedBy: userOid,
           updatedAt: now,
         };
-        const { result: resultRoom, err: errRoom } = await hotelRoomRepository.save(dataRoom, { transaction });
 
+        const { result: resultRoom, err: errRoom } = await hotelRoomRepository.save(dataRoom, { transaction });
         if (errRoom || !resultRoom) {
           await transaction.rollback();
           return {
@@ -59,12 +84,33 @@ const create = async (dto, userOid) => {
             err: buildResponse.responseInternalServerError(errRoom).data.error,
           };
         }
+
+        // Simpan amenities jika ada dan amenities disimpan di tabel terpisah
+        if (Array.isArray(room.amenities) && room.amenities.length > 0) {
+          const amenitiesToSave = room.amenities.map(amenity => ({
+            hotelRoomOid: resultRoom.oid, // gunakan oid dari room yang baru disimpan
+            status: amenity,
+            createdBy: userOid,
+            createdAt: now,
+            lastModifiedBy: userOid,
+            updatedAt: now,
+          }));
+
+          const { err: errAmenity } = await hotelRoomAmenetyRepository.saveMany(amenitiesToSave, { transaction });
+          if (errAmenity) {
+            await transaction.rollback();
+            return {
+              hotel: null,
+              err: buildResponse.responseInternalServerError(errAmenity).data.error,
+            };
+          }
+        }
       }
     }
 
     await transaction.commit();
 
-    const msgData = { value: result.oid, name: result.address };
+    const msgData = { value: result.oid, name: result.hotelName  };
     const hotel = await messageMaps.toMessageResponse(msgData);
 
     return { hotel, err: null };
@@ -81,9 +127,9 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
+  let localTransaction = null;
   // @ts-ignore
   const now = new Date().formatUTC();
-  let localTransaction = null;
 
   try {
     if (useTransaction && !transaction) {
@@ -99,21 +145,67 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     const { result: existing, err: findError } = await hotelRepository.findById(oid, findOptions);
 
-    if (findError) {
+    if (findError || !existing) {
       if (localTransaction) await localTransaction.rollback();
-      return { Hotel: null, err: findError };
+      return {
+        hotel: null,
+        err: findError || { message: "Hotel not found", status: 404 },
+      };
     }
 
-    if (!existing) {
-      if (localTransaction) await localTransaction.rollback();
-      return { Hotel: null, err: { message: "Hotel not found", status: 404 } };
+    // Hapus semua amenities hotelRooms lama dulu (berdasarkan hotelRoomOid)
+    const hotelRooms = await hotelRoomRepository.findAll({
+      where: { hotelOid: existing.oid },
+      attributes: ['oid'],
+      transaction: currentTransaction,
+    });
+    const roomOids = hotelRooms.result.map(r => r.oid);
+
+    if (roomOids.length > 0) {
+      await hotelRoomAmenetyRepository.removeByRoomOids(roomOids, { transaction: currentTransaction });
+    }
+
+    // Hapus semua kamar dan amenities lama
+    await hotelRoomRepository.removeByHotelId(existing.oid, { transaction: currentTransaction });
+
+
+    const insertedRooms = [];
+
+    if (Array.isArray(dto.hotelRooms) && dto.hotelRooms.length > 0) {
+      for (const room of dto.hotelRooms) {
+        const { amenities, ...roomData } = room;
+
+        const savedRoom = await hotelRoomRepository.save(
+          { ...roomData, hotelOid: existing.oid },
+          { transaction: currentTransaction }
+        );
+
+        insertedRooms.push({ ...savedRoom.result.dataValues, amenities: room.amenities });
+      }
+
+      //  await hotelRoomAmenetyRepository.removeByHotelOid(existing.oid, { transaction: currentTransaction });
+
+
+      const roomAmenitiesToSave = insertedRooms.flatMap(room =>
+        (room.amenities || []).map(amenity => ({
+          // @ts-ignore
+          hotelRoomId: room.oid,
+          status: amenity
+        }))
+      );
+
+      if (roomAmenitiesToSave.length > 0) {
+        await hotelRoomAmenetyRepository.saveMany(roomAmenitiesToSave, {
+          transaction: currentTransaction
+        });
+      }
     }
 
     const updateData = {
       hotelName: dto.hotelName ?? existing.hotelName,
       address: dto.address ?? existing.address,
       phone: dto.phone ?? existing.phone,
-      star_rating: dto.star_rating ?? existing.star_rating,
+      starRating: dto.starRating ?? existing.starRating,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
@@ -121,12 +213,12 @@ const update = async (oid, dto, userOid, options = {}) => {
     const { result: updateResult, err: updateError } = await hotelRepository.update(
       oid,
       updateData,
-      currentTransaction ? { transaction: currentTransaction } : {}
+      { transaction: currentTransaction }
     );
 
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
-      return { Hotel: null, err: updateError };
+      return { hotel: null, err: updateError };
     }
 
     if (localTransaction) await localTransaction.commit();
@@ -145,6 +237,8 @@ const update = async (oid, dto, userOid, options = {}) => {
     };
   }
 };
+
+
 
 const deleted = async (oid) => {
   let transaction;

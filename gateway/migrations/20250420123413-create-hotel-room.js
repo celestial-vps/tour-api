@@ -21,7 +21,7 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      paymentMethod: {
+      roomType: {
         type: Sequelize.ENUM('Single Room',
           'Double Room',
           'Twin Room',

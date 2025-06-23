@@ -5,7 +5,7 @@ async function toHotelResponse(Hotel) {
         hotelName: Hotel.hotelName,
         address: Hotel.address,
         phone: Hotel.phone,
-        star_rating: Hotel.star_rating,
+        starRating: Hotel.starRating,
         createdBy: Hotel.createdBy,
         updatedAt: Hotel.updatedAt
     };

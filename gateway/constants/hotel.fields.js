@@ -5,7 +5,7 @@ const HOTEL_BASIC_FIELDS = [
   'hotelName',
   'address',
   'phone',
-  'star_rating',
+  'starRating',
 ];
 
 const HOTEL_AUDIT_FIELDS = [

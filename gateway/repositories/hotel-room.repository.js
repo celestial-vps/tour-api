@@ -11,6 +11,16 @@ const save = async (data, options) => {
     }
 };
 
+const saveMany = async (data, options) => {
+    try {
+        const result = await HotelRoom.bulkCreate(data, options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Save Error:', err);
+        return { result: null, err };
+    }
+};
+
 // Update an existing hotel-room
 const update = async (oid, data, options) => {
     try {
@@ -51,6 +61,25 @@ const remove = async (oid, options = {}) => {
         return { result: null, err };
     }
 };
+
+const removeByHotelId = async (hotelOid, options = {}) => {
+    try {
+        const result = await HotelRoom.destroy({
+            where: { hotelOid },
+            transaction: options.transaction,
+        });
+
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
+        }
+
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
+    }
+};
+
 
 // Get all hotel-rooms
 const findAll = async (options = {}) => {
@@ -106,8 +135,10 @@ const findAndCountByCriteria = async (findOptions) => {
 
 module.exports = {
     save,
+    saveMany,
     update,
     remove,
+    removeByHotelId,
     findAll,
     findById,
     findAndCountByCriteria,
