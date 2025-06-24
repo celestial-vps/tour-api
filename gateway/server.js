@@ -2,6 +2,7 @@ const app = require('./app'); // Express app
 const http = require('http');
 const { Server } = require('socket.io');
 const chatGateway = require('../chat/chat.gateway');
+const initSocketServer = require('./lib/socket/socket-server');
 const dotenv = require('dotenv');
 require('./misc/datetime'); 
 
@@ -35,6 +36,9 @@ const io = new Server(server, {
 // });
 // chatGateway(io);
 
+
+// Inisialisasi socket handler
+initSocketServer(io);
 // Ambil env name, default ke `.env` jika tidak ada
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 
