@@ -4,17 +4,17 @@ const { authSchema } = require('./base-dto');
 // Define the schema for FilterVehicleTypeDto
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, ''),
-    vehicleType: Joi.string().optional().allow(null, ''),
+    typeName: Joi.string().optional().allow(null, ''),
 });
 
 // Define the schema for CreateVehicleTypeDto
 const createDto = Joi.object({
-    vehicleType: Joi.string().required(),
+    typeName: Joi.string().required(),
 });
 
 // Define the schema for UpdateVehicleTypeDto
 const updateDto = Joi.object({
-    vehicleType: Joi.string().required(),
+    typeName: Joi.string().required(),
 });
 
 const params = Joi.object({

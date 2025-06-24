@@ -76,7 +76,7 @@ const findAll = async (req, res) => {
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['vehicleType', 'search']);
+    const filters = pick(req.body, ['typeName', 'search']);
     const options = {
       sortBy: req.query.sortBy,
       sortOrder: req.query.sortOrder,
@@ -100,16 +100,16 @@ const find = async (req, res) => {
 
 const findById = async (req, res) => {
   try {
-    const { vehicletype, err } = await vehicleTypeService.findById(req.params.oid, { include: [] });
+    const { vehicleType, err } = await vehicleTypeService.findById(req.params.oid, { include: [] });
 
     if (err) {
       await recordAuditTrail("READ", "Vehicle_types", err, req, 'FAILED', err.message);
       return buildResponse.sendQueryError(res, err.message, "get by id");
     }
 
-    if (!vehicletype) return buildResponse.sendDataNotFound(res);
-    await recordAuditTrail("READ", "Vehicle_types", vehicletype, req, 'SUCCESS', 'Get Vehicle Type by ID success');
-    return buildResponse.findOk(res, vehicletype);
+    if (!vehicleType) return buildResponse.sendDataNotFound(res);
+    await recordAuditTrail("READ", "Vehicle_types", vehicleType, req, 'SUCCESS', 'Get Vehicle Type by ID success');
+    return buildResponse.findOk(res, vehicleType);
   } catch (err) {
     await recordAuditTrail("READ", "Vehicle_types", err, req, 'ERROR', err.message);
     return buildResponse.sendInternalServerError(res, err.message);

@@ -9,7 +9,7 @@ const VehicleType = sequelize.define('VehicleType', {
     allowNull: false,
     primaryKey: true,
   },
-  vehicleType: {
+  typeName: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,

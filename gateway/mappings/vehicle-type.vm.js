@@ -2,7 +2,7 @@
 async function toVehicleTypeResponse(VehicleType) {  
     const response = {
         oid: VehicleType.oid,
-        vehicleType: VehicleType.vehicleType,
+        typeName: VehicleType.typeName,
         createdBy: VehicleType.createdBy,
         updatedAt: VehicleType.updatedAt
     };

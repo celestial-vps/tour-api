@@ -17,7 +17,7 @@ const create = async (dto, userOid) => {
     transaction = await sequelize.transaction();
 
     const data = {
-      vehicleType: dto.vehicleType,
+      typeName: dto.typeName,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -73,16 +73,16 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (findError) {
       if (localTransaction) await localTransaction.rollback();
-      return { VehicleType: null, err: findError };
+      return { vehicleType: null, err: findError };
     }
 
     if (!existing) {
       if (localTransaction) await localTransaction.rollback();
-      return { VehicleType: null, err: { message: "VehicleType not found", status: 404 } };
+      return { vehicleType: null, err: { message: "VehicleType not found", status: 404 } };
     }
 
     const updateData = {
-      vehicleType: dto.vehicleType ?? existing.vehicleType,
+      typeName: dto.typeName ?? existing.typeName,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
@@ -101,15 +101,15 @@ const update = async (oid, dto, userOid, options = {}) => {
     if (localTransaction) await localTransaction.commit();
 
     const msgData = { value: existing.oid, name: existing.undefined };
-    const VehicleType = await messageMaps.toMessageResponse(msgData);
+    const vehicleType = await messageMaps.toMessageResponse(msgData);
 
-    return { VehicleType, err: null };
+    return { vehicleType, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      VehicleType: null,
+      vehicleType: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -130,7 +130,7 @@ const deleted = async (oid) => {
     if (!resultFind) {
       await transaction.rollback();
       return {
-        VehicleType: null,
+        vehicleType: null,
         err: { message: 'Data Not Found', status: 404 }
       };
     }
@@ -138,21 +138,21 @@ const deleted = async (oid) => {
     const { result, err } = await vehicleTypeRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
-      return { VehicleType: null, err };
+      return { vehicleType: null, err };
     }
 
     await transaction.commit();
 
     const msgData = { value: resultFind.oid, name: resultFind.undefined };
-    const VehicleType = await messageMaps.toMessageResponse(msgData);
+    const vehicleType = await messageMaps.toMessageResponse(msgData);
 
-    return { VehicleType, err: null };
+    return { vehicleType, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      VehicleType: null,
+      vehicleType: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -168,11 +168,11 @@ const findAll = async () => {
 
     if (err) return { VehicleTypes: [], err };
 
-    const VehicleTypes = await mappings.toVehicleTypeResponses(result);
-    return { VehicleTypes, err: null };
+    const vehicleTypes = await mappings.toVehicleTypeResponses(result);
+    return { vehicleTypes, err: null };
   } catch (err) {
     return {
-      VehicleTypes: [],
+      vehicleTypes: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -184,22 +184,22 @@ const findById = async (oid, options = {}) => {
 
     if (err) {
       return {
-        VehicleType: null,
+        vehicleType: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     if (!result) {
-      return { VehicleType: null, err: null };
+      return { vehicleType: null, err: null };
     }
 
-    const VehicleType = await mappings.toVehicleTypeResponse(result);
+    const vehicleType = await mappings.toVehicleTypeResponse(result);
 
-    return { VehicleType, err: null };
+    return { vehicleType, err: null };
   } catch (err) {
     console.error('Error finding VehicleType:', err);
     return {
-      VehicleType: null,
+      vehicleType: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -208,7 +208,7 @@ const findById = async (oid, options = {}) => {
 const findPage = async (filters, options) => {
   try {
     const { search, ...restFilters } = filters;
-    const normalizedFilters = search ? { ...restFilters, undefined: search } : filters;
+    const normalizedFilters = search ? { ...restFilters, typeName: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
     const findOptions = buildFindOptions(where, options);
@@ -225,7 +225,7 @@ const findPage = async (filters, options) => {
   } catch (error) {
     console.error('VehicleTypeService findPage error:', error);
     return {
-      VehicleTypes: [],
+      vehicleTypes: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
