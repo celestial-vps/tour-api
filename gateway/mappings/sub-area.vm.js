@@ -1,5 +1,5 @@
 // Mapping functions
-async function toSubAreaResponse(subArea) {  
+async function toSubAreaResponse(subArea) {
     const response = {
         oid: subArea.oid,
         cityOid: subArea.cityOid,
@@ -13,6 +13,17 @@ async function toSubAreaResponse(subArea) {
         createdBy: subArea.createdBy,
         updatedAt: subArea.updatedAt
     };
+    if (subArea.city) {
+        response.city = subArea.city;
+    }
+    return response;
+}
+
+async function toSubAreaResponseMini(subArea) {
+    const response = {
+        oid: subArea.oid,
+        subAreaName: subArea.subAreaName,
+    };
     return response;
 }
 
@@ -24,5 +35,6 @@ async function toSubAreaResponses(subAreas) {
 // Export everything
 module.exports = {
     toSubAreaResponse,
-    toSubAreaResponses
+    toSubAreaResponses,
+    toSubAreaResponseMini
 };

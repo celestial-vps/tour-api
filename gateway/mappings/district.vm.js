@@ -1,5 +1,5 @@
 async function toDistrictResponse(district) {
-  return {
+  const response = {
     oid: district.oid,
     cityOid: district.cityOid,
     districtName: district.districtName,
@@ -10,6 +10,10 @@ async function toDistrictResponse(district) {
     deletedBy: district.deletedBy,
     deletedAt: district.deletedAt,
   };
+  if (district.city) {
+    response.city = district.city;
+  }
+  return response;
 }
 
 async function toDistrictResponses(districts) {

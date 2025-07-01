@@ -41,8 +41,7 @@ const query = Joi.object({
 });
 
 const filterSubAreaDto = Joi.object({
-    headers: authSchema,
-    query,
+    headers: authSchema, 
     body: filterDto
 });
 

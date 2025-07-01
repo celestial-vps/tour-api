@@ -3,21 +3,21 @@ const { authSchema } = require('./base-dto');
  
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, ''),
-    originOid: Joi.string().optional().allow(null, ''),
-    destinationOid: Joi.string().optional().allow(null, ''),
+    originSubAreaOid: Joi.string().optional().allow(null, ''),
+    destinationSubAreaOid: Joi.string().optional().allow(null, ''),
     estimatedTime: Joi.string().optional().allow(null, ''),
 });
  
 const createDto = Joi.object({
-    originOid: Joi.string().required(),
-    destinationOid: Joi.string().required(),
+    originSubAreaOid: Joi.string().required(),
+    destinationSubAreaOid: Joi.string().required(),
     distanceKm: Joi.string().required(),
     estimatedTime: Joi.string().required(),
 });
  
 const updateDto = Joi.object({
-    originOid: Joi.string().required(),
-    destinationOid: Joi.string().required(),
+    originSubAreaOid: Joi.string().required(),
+    destinationSubAreaOid: Joi.string().required(),
     distanceKm: Joi.string().required(),
     estimatedTime: Joi.string().required(),
 });
@@ -35,7 +35,6 @@ const query = Joi.object({
 
 const filterTravelRouteDto = Joi.object({
     headers: authSchema,
-    query,
     body: filterDto
 });
 

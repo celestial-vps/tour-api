@@ -11,10 +11,10 @@ const TravelRoute = sequelize.define('TravelRoute', {
         allowNull: false,
         primaryKey: true,
     },
-    cityOid: {
-        type: DataTypes.UUID,
-        allowNull: false,
-    },
+    // cityOid: {
+    //     type: DataTypes.UUID,
+    //     allowNull: false,
+    // },
     originSubAreaOid: {
         type: DataTypes.UUID,
         allowNull: false,
@@ -38,11 +38,16 @@ const TravelRoute = sequelize.define('TravelRoute', {
             min: 0
         }
     },
-    estimatedTimeMinutes: {
-        type: DataTypes.INTEGER,
+    estimatedTime: {
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            min: 1,
+            is: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/, // HH:mm:ss format
+        },
+        get() {
+            // opsional: parse string to object (if needed)
+            const rawValue = this.getDataValue('estimatedTime');
+            return rawValue;
         }
     },
     lastModifiedBy: {
@@ -65,10 +70,10 @@ const TravelRoute = sequelize.define('TravelRoute', {
 
 // @ts-ignore
 TravelRoute.associate = (models) => {
-    TravelRoute.belongsTo(models.City, {
-        foreignKey: 'cityOid',
-        as: 'city',
-    });
+    // TravelRoute.belongsTo(models.City, {
+    //     foreignKey: 'cityOid',
+    //     as: 'city',
+    // });
 
     TravelRoute.belongsTo(models.SubArea, {
         foreignKey: 'originSubAreaOid',

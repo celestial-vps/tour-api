@@ -7,8 +7,11 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { TRAVEL_ROUTE_BASIC_FIELDS } = require('../constants/travel-route.fields');
+const { SubArea } = require('../models');
+const { SUB_AREA_BASIC_FIELDS } = require('../constants/sub-area.fields');
 
 const create = async (dto, userOid) => {
+  // @ts-ignore
   const now = new Date().formatUTC();
   let transaction;
 
@@ -16,8 +19,8 @@ const create = async (dto, userOid) => {
     transaction = await sequelize.transaction();
 
     const data = {
-      originOid: dto.originOid,
-      destinationOid: dto.destinationOid,
+      originSubAreaOid: dto.originSubAreaOid,
+      destinationSubAreaOid: dto.destinationSubAreaOid,
       distanceKm: dto.distanceKm,
       estimatedTime: dto.estimatedTime,
       createdBy: userOid,
@@ -55,6 +58,7 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
+  // @ts-ignore
   const now = new Date().formatUTC();
   let localTransaction = null;
 
@@ -83,8 +87,8 @@ const update = async (oid, dto, userOid, options = {}) => {
     }
 
     const updateData = {
-      originOid: dto.originOid ?? existing.originOid,
-      destinationOid: dto.destinationOid ?? existing.destinationOid,
+      originSubAreaOid: dto.originSubAreaOid ?? existing.originSubAreaOid,
+      destinationSubAreaOid: dto.destinationSubAreaOid ?? existing.destinationSubAreaOid,
       distanceKm: dto.distanceKm ?? existing.distanceKm,
       estimatedTime: dto.estimatedTime ?? existing.estimatedTime,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
@@ -215,14 +219,26 @@ const findPage = async (filters, options) => {
     const normalizedFilters = search ? { ...restFilters, originOid: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
+    options.include = [
+      {
+        model: SubArea,
+        as: 'originSubArea',
+        attributes: SUB_AREA_BASIC_FIELDS,
+      }, {
+        model: SubArea,
+        as: 'destinationSubArea',
+        attributes: SUB_AREA_BASIC_FIELDS,
+      }
+    ];
     const findOptions = buildFindOptions(where, options);
 
     const result = await travelRouteRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
+    const travelRoutes = await mappings.toTravelRouteResponses(result.data);
 
     return {
-      travelRoutes: result.data,
+      travelRoutes,
       count: result.count,
       err: null,
     };

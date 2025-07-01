@@ -33,8 +33,8 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
-      estimatedTimeMinutes: {
-        type: Sequelize.INTEGER,
+      estimatedTime: {
+        type: 'TIME', // Raw type, karena Sequelize tidak punya Sequelize.TIME
         allowNull: false,
       },
       createdBy: {
