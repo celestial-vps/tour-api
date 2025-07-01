@@ -225,9 +225,9 @@ const findPage = async (filters, options) => {
     const findOptions = buildFindOptions(where, options);
 
     const result = await cityRepository.findAndCountByCriteria(findOptions);
-    const cities = await mappings.toCityResponses(result.data);
-    if (result.err) throw result.err;
 
+    if (result.err) throw result.err;
+    const cities = await mappings.toCityResponses(result.data);
     return {
       cities,
       count: result.count,

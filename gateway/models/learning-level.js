@@ -8,13 +8,13 @@ const LearningLevel = sequelize.define('LearningLevel', {
         allowNull: false,
         primaryKey: true,
     },
-    LevelName: {
+    levelName: {
         type: DataTypes.STRING(100),
         allowNull: false,
         unique: true
     },
     type: {
-        type: DataTypes.ENUM('academic', 'general'),
+        type: DataTypes.ENUM('academic', 'general','language','skill','test-prep','early-child'),
         allowNull: false,
         defaultValue: 'academic'
     },

@@ -5,9 +5,9 @@ const { authSchema } = require('./base-dto');
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, ''),
     hotelOid: Joi.string().optional().allow(null, ''),
-    room_type: Joi.string().optional().allow(null, ''),
+    roomType: Joi.string().optional().allow(null, ''),
     capacity: Joi.string().optional().allow(null, ''),
-    price_per_night: Joi.string().optional().allow(null, ''),
+    pricePerNight: Joi.string().optional().allow(null, ''),
     amenities: Joi.string().optional().allow(null, ''),
     status: Joi.string().optional().allow(null, ''),
 });
@@ -15,9 +15,9 @@ const filterDto = Joi.object({
 // Define the schema for CreateHotelRoomDto
 const createDto = Joi.object({
     hotelOid: Joi.string().required(),
-    room_type: Joi.string().required(),
+    roomType: Joi.string().required(),
     capacity: Joi.string().required(),
-    price_per_night: Joi.string().required(),
+    pricePerNight: Joi.string().required(),
     amenities: Joi.string().required(),
     status: Joi.string().required(),
 });
@@ -25,9 +25,9 @@ const createDto = Joi.object({
 // Define the schema for UpdateHotelRoomDto
 const updateDto = Joi.object({
     hotelOid: Joi.string().required(),
-    room_type: Joi.string().required(),
+    roomType: Joi.string().required(),
     capacity: Joi.string().required(),
-    price_per_night: Joi.string().required(),
+    pricePerNight: Joi.string().required(),
     amenities: Joi.string().required(),
     status: Joi.string().required(),
 });
@@ -39,7 +39,7 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required(),
     pageSize: Joi.number().integer().min(1).max(100).required(),
-    sortBy: Joi.string().valid('hotelOid', 'room_type', 'capacity', 'price_per_night', 'amenities', 'status').optional().default('room_type'),
+    sortBy: Joi.string().valid('hotelOid', 'roomType', 'capacity', 'pricePerNight', 'amenities', 'status').optional().default('roomType'),
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 

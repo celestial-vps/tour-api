@@ -1,21 +1,28 @@
+const { VehicleType } = require("../models");
+const { toVehicleTypeResponseMini } = require("./vehicle-type.vm")
 // Mapping functions
-async function toVehicleResponse(Vehicle) {  
+async function toVehicleResponse(vehicle) {
     const response = {
-        oid: Vehicle.oid,
-        vehicleTypeOid: Vehicle.vehicleTypeOid,
-        year: Vehicle.year,
-        color: Vehicle.color,
-        status: Vehicle.status,
-        price_per_day: Vehicle.price_per_day,
-        createdBy: Vehicle.createdBy,
-        updatedAt: Vehicle.updatedAt
+        oid: vehicle.oid,
+        vehicleTypeOid: vehicle.vehicleTypeOid,
+        year: vehicle.year,
+        color: vehicle.color,
+        seatCapacity: vehicle.seatCapacity,
+        licensePlate: vehicle.licensePlate,
+        status: vehicle.status,
+        pricePerDay: vehicle.pricePerDay,
+        createdBy: vehicle.createdBy,
+        updatedAt: vehicle.updatedAt
     };
+    if (vehicle.vehicleType) {
+        response.vehicleType = await toVehicleTypeResponseMini(vehicle.vehicleType);
+    }
     return response;
 }
 
-async function toVehicleResponses(Vehicles) {
-    const VehicleResponses = await Promise.all(Vehicles.map(toVehicleResponse));
-    return VehicleResponses;
+async function toVehicleResponses(vehicles) {
+    const vehicleResponses = await Promise.all(vehicles.map(toVehicleResponse));
+    return vehicleResponses;
 }
 
 // Export everything

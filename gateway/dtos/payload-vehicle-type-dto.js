@@ -30,7 +30,6 @@ const query = Joi.object({
 
 const filterVehicleTypeDto = Joi.object({
     headers: authSchema,
-    query,
     body: filterDto
 });
 

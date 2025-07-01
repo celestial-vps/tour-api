@@ -35,13 +35,13 @@ const router = express.Router();
  *              hotelOid:
  *                type: string
  *                example: "-"
- *              room_type:
+ *              roomType:
  *                type: string
  *                example: "-"
  *              capacity:
  *                type: INTEGER
  *                example: "-"
- *              price_per_night:
+ *              pricePerNight:
  *                type: string
  *                example: "-"
  *              amenities:

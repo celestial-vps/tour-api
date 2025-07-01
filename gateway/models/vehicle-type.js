@@ -36,7 +36,7 @@ const VehicleType = sequelize.define('VehicleType', {
 VehicleType.associate = (models) => {
   // Add associations here if needed
   VehicleType.hasMany(models.Vehicle, {
-    foreignKey: 'vehicleOid',
+    foreignKey: 'vehicleTypeOid',
     as: 'vehicles', // Optional alias
     onDelete: 'CASCADE',
   });

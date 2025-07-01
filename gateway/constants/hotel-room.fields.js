@@ -5,7 +5,7 @@ const HOTEL_ROOM_BASIC_FIELDS = [
   'hotelOid',
   'room_type',
   'capacity',
-  'price_per_night',
+  'pricePerNight',
   'amenities',
   'status',
 ];

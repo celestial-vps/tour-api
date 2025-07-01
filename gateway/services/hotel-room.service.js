@@ -10,7 +10,7 @@ const { HOTEL_ROOM_BASIC_FIELDS } = require('../constants/hotel-room.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -18,9 +18,9 @@ const create = async (dto, userOid) => {
 
     const data = {
       hotelOid: dto.hotelOid,
-      room_type: dto.room_type,
+      roomType: dto.roomType,
       capacity: dto.capacity,
-      price_per_night: dto.price_per_night,
+      pricePerNight: dto.pricePerNight,
       amenities: dto.amenities,
       status: dto.status,
       createdBy: userOid,
@@ -34,23 +34,23 @@ const create = async (dto, userOid) => {
     if (err || !result) {
       await transaction.rollback();
       return {
-        HotelRoom: null,
+        hotelRoom: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     await transaction.commit();
 
-    const msgData = { value: result.oid, name: result.room_type };
-    const HotelRoom = await messageMaps.toMessageResponse(msgData);
+    const msgData = { value: result.oid, name: result.roomType };
+    const hotelRoom = await messageMaps.toMessageResponse(msgData);
 
-    return { HotelRoom, err: null };
+    return { hotelRoom, err: null };
 
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error('Create failed:', error);
     return {
-      HotelRoom: null,
+      hotelRoom: null,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
@@ -59,7 +59,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -78,19 +78,19 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (findError) {
       if (localTransaction) await localTransaction.rollback();
-      return { HotelRoom: null, err: findError };
+      return { hotelRoom: null, err: findError };
     }
 
     if (!existing) {
       if (localTransaction) await localTransaction.rollback();
-      return { HotelRoom: null, err: { message: "HotelRoom not found", status: 404 } };
+      return { hotelRoom: null, err: { message: "HotelRoom not found", status: 404 } };
     }
 
     const updateData = {
       hotelOid: dto.hotelOid ?? existing.hotelOid,
-      room_type: dto.room_type ?? existing.room_type,
+      roomType: dto.roomType ?? existing.roomType,
       capacity: dto.capacity ?? existing.capacity,
-      price_per_night: dto.price_per_night ?? existing.price_per_night,
+      pricePerNight: dto.pricePerNight ?? existing.pricePerNight,
       amenities: dto.amenities ?? existing.amenities,
       status: dto.status ?? existing.status,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
@@ -105,21 +105,21 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
-      return { HotelRoom: null, err: updateError };
+      return { hotelRoom: null, err: updateError };
     }
 
     if (localTransaction) await localTransaction.commit();
 
-    const msgData = { value: existing.oid, name: existing.room_type };
-    const HotelRoom = await messageMaps.toMessageResponse(msgData);
+    const msgData = { value: existing.oid, name: existing.roomType };
+    const hotelRoom = await messageMaps.toMessageResponse(msgData);
 
-    return { HotelRoom, err: null };
+    return { hotelRoom, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      HotelRoom: null,
+      hotelRoom: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -134,13 +134,13 @@ const deleted = async (oid) => {
     const { result: resultFind, err: errFind } = await hotelRoomRepository.findById(oid, { transaction });
     if (errFind) {
       await transaction.rollback();
-      return { HotelRoom: null, err: errFind };
+      return { hotelRoom: null, err: errFind };
     }
 
     if (!resultFind) {
       await transaction.rollback();
       return {
-        HotelRoom: null,
+        hotelRoom: null,
         err: { message: 'Data Not Found', status: 404 }
       };
     }
@@ -148,21 +148,21 @@ const deleted = async (oid) => {
     const { result, err } = await hotelRoomRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
-      return { HotelRoom: null, err };
+      return { hotelRoom: null, err };
     }
 
     await transaction.commit();
 
-    const msgData = { value: resultFind.oid, name: resultFind.room_type };
-    const HotelRoom = await messageMaps.toMessageResponse(msgData);
+    const msgData = { value: resultFind.oid, name: resultFind.roomType };
+    const hotelRoom = await messageMaps.toMessageResponse(msgData);
 
-    return { HotelRoom, err: null };
+    return { hotelRoom, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      HotelRoom: null,
+      hotelRoom: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -176,13 +176,13 @@ const findAll = async () => {
       attributes: HOTEL_ROOM_BASIC_FIELDS
     });
 
-    if (err) return { HotelRooms: [], err };
+    if (err) return { hotelRooms: [], err };
 
-    const HotelRooms = await mappings.toHotelRoomResponses(result);
-    return { HotelRooms, err: null };
+    const hotelRooms = await mappings.toHotelRoomResponses(result);
+    return { hotelRooms, err: null };
   } catch (err) {
     return {
-      HotelRooms: [],
+      hotelRooms: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -194,22 +194,22 @@ const findById = async (oid, options = {}) => {
 
     if (err) {
       return {
-        HotelRoom: null,
+        hotelRoom: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     if (!result) {
-      return { HotelRoom: null, err: null };
+      return { hotelRoom: null, err: null };
     }
 
-    const HotelRoom = await mappings.toHotelRoomResponse(result);
+    const hotelRoom = await mappings.toHotelRoomResponse(result);
 
-    return { HotelRoom, err: null };
+    return { hotelRoom, err: null };
   } catch (err) {
     console.error('Error finding HotelRoom:', err);
     return {
-      HotelRoom: null,
+      hotelRoom: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -218,7 +218,7 @@ const findById = async (oid, options = {}) => {
 const findPage = async (filters, options) => {
   try {
     const { search, ...restFilters } = filters;
-    const normalizedFilters = search ? { ...restFilters, room_type: search } : filters;
+    const normalizedFilters = search ? { ...restFilters, roomType: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
     const findOptions = buildFindOptions(where, options);
@@ -226,16 +226,16 @@ const findPage = async (filters, options) => {
     const result = await hotelRoomRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const hotelRooms = await mappings.toHotelRoomResponses(result.data);
     return {
-      hotelRooms: result.data,
+      hotelRooms,
       count: result.count,
       err: null,
     };
   } catch (error) {
     console.error('HotelRoomService findPage error:', error);
     return {
-      HotelRooms: [],
+      hotelRooms: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };

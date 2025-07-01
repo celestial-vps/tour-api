@@ -146,9 +146,9 @@ const findPage = async (filters, options) => {
     const result = await conversationMemberRepository.findAndCountAll(findOptions);
 
     if (result.err) throw result.err;
-
+    const conversationMembers = await mappings.toConversationMemberResponses(result.data);
     return {
-      conversationMembers: result.data,
+      conversationMembers,
       count: result.count,
       err: null,
     };
@@ -167,5 +167,5 @@ module.exports = {
   create,
   deleted,
   findAll,
-  findById,findPage,
+  findById, findPage,
 };

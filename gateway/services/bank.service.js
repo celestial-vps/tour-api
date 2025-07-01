@@ -12,8 +12,8 @@ const { BANK_BASIC_FIELDS } = require('../constants/bank.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
- 
+  const now = new Date().formatUTC();
+
   let transaction;
 
   try {
@@ -60,7 +60,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -237,9 +237,9 @@ const findPage = async (filters, options) => {
     const result = await bankRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const banks = await mappings.toBankResponses(result.data);
     return {
-      banks: result.data,
+      banks,
       count: result.count,
       err: null,
     };

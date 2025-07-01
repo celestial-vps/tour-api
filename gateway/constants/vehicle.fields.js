@@ -5,8 +5,10 @@ const VEHICLE_BASIC_FIELDS = [
   'vehicleTypeOid',
   'year',
   'color',
+  'licensePlate',
+  'seatCapacity',
   'status',
-  'price_per_day',
+  'pricePerDay',
 ];
 
 const VEHICLE_AUDIT_FIELDS = [

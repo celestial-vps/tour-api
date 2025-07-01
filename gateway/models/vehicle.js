@@ -12,6 +12,10 @@ const Vehicle = sequelize.define('Vehicle', {
   vehicleTypeOid: {  // Correct foreign key name
     type: DataTypes.UUID,
     allowNull: false,
+    references: {
+      model: 'vehicle_types',
+      key: 'oid'
+    }
   },
   year: {
     type: DataTypes.STRING(4), // Assuming year is a 4-digit string
@@ -24,6 +28,14 @@ const Vehicle = sequelize.define('Vehicle', {
   status: {
     type: DataTypes.ENUM('available', 'rented', 'service'),
     defaultValue: 'available',
+  },
+  seatCapacity: {
+    type: DataTypes.INTEGER,  // Tipe data bilangan bulat
+    allowNull: false,
+  },
+  licensePlate: {
+    type: DataTypes.STRING(8),
+    allowNull: false,
   },
   pricePerDay: {
     type: DataTypes.DECIMAL(10, 2),

@@ -12,7 +12,7 @@ const { City } = require('../models');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -57,7 +57,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -184,7 +184,7 @@ const findAll = async () => {
 
 const findById = async (oid, options = {}) => {
   try {
-    
+
     const { result, err } = await districtRepository.findById(oid, options);
 
     if (err) {
@@ -228,9 +228,9 @@ const findPage = async (filters, options) => {
     const result = await districtRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const districts = await mappings.toDistrictResponses(result.data);
     return {
-      districts: result.data,
+      districts,
       count: result.count,
       err: null,
     };

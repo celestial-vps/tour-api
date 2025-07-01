@@ -25,11 +25,17 @@ const subDistrictCacheRoutes = require('./routes/sub-district-cache.route');
 
 const vehicleTypeRoutes = require('./routes/vehicle-type.route');
 const vehicleRoutes = require('./routes/vehicle.route');
+const learningLevelRoutes = require('./routes/learning-level.route');
 
 const hotelRoomRoutes = require('./routes/hotel-room.route');
 const hotelRoutes = require('./routes/hotel.route');
 const brandRoutes = require('./routes/brand.route');
-
+const subjectCategoryRoutes = require('./routes/subject-category.route');
+const subAreaRoutes = require('./routes/sub-area.route');
+const travelRouteRoutes = require('./routes/travel-route.route');
+const driverRoutes = require('./routes/driver.route');
+const travelScheduleRoutes = require('./routes/travel-schedule.route');
+const travelPromoRoutes = require('./routes/travel-promo.route');
 
 const customerRoutes = require('./routes/customer.route');
 
@@ -109,10 +115,18 @@ app.use(`${basePath}/sub-district-cache`, subDistrictCacheRoutes);
 
 app.use(`${basePath}/vehicle-type`, vehicleTypeRoutes);
 app.use(`${basePath}/vehicle`, vehicleRoutes);
+app.use(`${basePath}/sub-area`, subAreaRoutes);
+app.use(`${basePath}/driver`, driverRoutes);
+app.use(`${basePath}/travel-route`, travelRouteRoutes);
+app.use(`${basePath}/travel-schedule`, travelScheduleRoutes);
+app.use(`${basePath}/travel-promo`, travelPromoRoutes);
+
 
 app.use(`${basePath}/hotel-room`, hotelRoomRoutes);
 app.use(`${basePath}/hotel`, hotelRoutes);
 app.use(`${basePath}/brand`, brandRoutes);
+app.use(`${basePath}/subject-category`, subjectCategoryRoutes);
+app.use(`${basePath}/learning-level`, learningLevelRoutes);
 
 app.use(`${basePath}/customer`, customerRoutes);
 

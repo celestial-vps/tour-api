@@ -11,6 +11,10 @@ const Subdistrict = sequelize.define('Subdistrict', {
     districtOid: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+            model: 'districts',
+            key: 'oid'
+        }
     },
     subDistrictName: {
         type: DataTypes.STRING,

@@ -10,7 +10,7 @@ const { CUSTOMER_BASIC_FIELDS } = require('../constants/customer.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -58,7 +58,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -103,21 +103,21 @@ const update = async (oid, dto, userOid, options = {}) => {
 
     if (updateError) {
       if (localTransaction) await localTransaction.rollback();
-      return { Customer: null, err: updateError };
+      return { customer: null, err: updateError };
     }
 
     if (localTransaction) await localTransaction.commit();
 
     const msgData = { value: existing.oid, name: existing.customerPhone };
-    const Customer = await messageMaps.toMessageResponse(msgData);
+    const customer = await messageMaps.toMessageResponse(msgData);
 
-    return { Customer, err: null };
+    return { customer, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      Customer: null,
+      customer: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -132,13 +132,13 @@ const deleted = async (oid) => {
     const { result: resultFind, err: errFind } = await customerRepository.findById(oid, { transaction });
     if (errFind) {
       await transaction.rollback();
-      return { Customer: null, err: errFind };
+      return { customer: null, err: errFind };
     }
 
     if (!resultFind) {
       await transaction.rollback();
       return {
-        Customer: null,
+        customer: null,
         err: { message: 'Data Not Found', status: 404 }
       };
     }
@@ -152,15 +152,15 @@ const deleted = async (oid) => {
     await transaction.commit();
 
     const msgData = { value: resultFind.oid, name: resultFind.customerPhone };
-    const Customer = await messageMaps.toMessageResponse(msgData);
+    const customer = await messageMaps.toMessageResponse(msgData);
 
-    return { Customer, err: null };
+    return { customer, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      Customer: null,
+      customer: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -176,11 +176,11 @@ const findAll = async () => {
 
     if (err) return { Customers: [], err };
 
-    const Customers = await mappings.toCustomerResponses(result);
-    return { Customers, err: null };
+    const customers = await mappings.toCustomerResponses(result);
+    return { customers, err: null };
   } catch (err) {
     return {
-      Customers: [],
+      customers: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -198,16 +198,16 @@ const findById = async (oid, options = {}) => {
     }
 
     if (!result) {
-      return { Customer: null, err: null };
+      return { customer: null, err: null };
     }
 
-    const Customer = await mappings.toCustomerResponse(result);
+    const customer = await mappings.toCustomerResponse(result);
 
-    return { Customer, err: null };
+    return { customer, err: null };
   } catch (err) {
     console.error('Error finding Customer:', err);
     return {
-      Customer: null,
+      customer: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -224,16 +224,16 @@ const findPage = async (filters, options) => {
     const result = await customerRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const customers = await mappings.toCustomerResponses(result.data);
     return {
-      customers: result.data,
+      customers,
       count: result.count,
       err: null,
     };
   } catch (error) {
     console.error('CustomerService findPage error:', error);
     return {
-      Customers: [],
+      customers: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };

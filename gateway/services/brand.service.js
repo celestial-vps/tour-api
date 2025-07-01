@@ -234,9 +234,9 @@ const findPage = async (filters, options) => {
     const result = await brandRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const brands = await mappings.toBrandResponses(result.data);
     return {
-      brands: result.data,
+      brands,
       count: result.count,
       err: null,
     };

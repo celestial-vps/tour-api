@@ -29,7 +29,7 @@ npm install lodash
 
 # MIGRATION
 ./scripts/seed.sh
-npx sequelize-cli migration:generate --name create-hotel-room-amenity
+npx sequelize-cli migration:generate --name alter-vehicle-field
 npx sequelize-cli db:migrate
 
 npm install umzug mysql2
@@ -37,10 +37,11 @@ npm install fast-glob
 node runMigrations.js migrate up
 node runMigrations.js migrate down
 
+// CREATE SEED 
 npx sequelize-cli seed:generate --name seed-hotels
-
 npx sequelize-cli db:seed:undo --seed name-of-seed-file.js
 npx sequelize-cli db:seed --seed name-of-seed-file.js
+
 
 npx sequelize-cli db:seed --seed 20250618062132-default-user.js
 npx sequelize-cli db:seed:undo --seed 20250618062132-default-user.js
@@ -51,6 +52,8 @@ npx sequelize-cli db:migrate:undo:all
 
 POWERSHELL => New-Item -Path .\migrations\20250409-create-users-table.js -ItemType File
 npm install --save-dev sequelize-cli
+
+// CREATE MIGRATION
 npx sequelize-cli migration:generate --name create-conversations
 npx sequelize-cli db:migrate
 npx sequelize-cli db:migrate:undo

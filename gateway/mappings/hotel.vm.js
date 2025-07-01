@@ -1,20 +1,20 @@
 // Mapping functions
-async function toHotelResponse(Hotel) {  
+async function toHotelResponse(hotel) {  
     const response = {
-        oid: Hotel.oid,
-        hotelName: Hotel.hotelName,
-        address: Hotel.address,
-        phone: Hotel.phone,
-        starRating: Hotel.starRating,
-        createdBy: Hotel.createdBy,
-        updatedAt: Hotel.updatedAt
+        oid: hotel.oid,
+        hotelName: hotel.hotelName,
+        address: hotel.address,
+        phone: hotel.phone,
+        starRating: hotel.starRating,
+        createdBy: hotel.createdBy,
+        updatedAt: hotel.updatedAt
     };
     return response;
 }
 
-async function toHotelResponses(Hotels) {
-    const HotelResponses = await Promise.all(Hotels.map(toHotelResponse));
-    return HotelResponses;
+async function toHotelResponses(hotels) {
+    const hotelResponses = await Promise.all(hotels.map(toHotelResponse));
+    return hotelResponses;
 }
 
 // Export everything

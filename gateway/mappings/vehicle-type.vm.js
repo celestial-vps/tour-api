@@ -1,21 +1,30 @@
 // Mapping functions
-async function toVehicleTypeResponse(VehicleType) {  
+async function toVehicleTypeResponse(vehicleType) {  
     const response = {
-        oid: VehicleType.oid,
-        typeName: VehicleType.typeName,
-        createdBy: VehicleType.createdBy,
-        updatedAt: VehicleType.updatedAt
+        oid: vehicleType.oid,
+        typeName: vehicleType.typeName,
+        createdBy: vehicleType.createdBy,
+        updatedAt: vehicleType.updatedAt
     };
     return response;
 }
 
-async function toVehicleTypeResponses(VehicleTypes) {
-    const VehicleTypeResponses = await Promise.all(VehicleTypes.map(toVehicleTypeResponse));
-    return VehicleTypeResponses;
+async function toVehicleTypeResponseMini(vehicleType) {  
+    const response = {
+        oid: vehicleType.oid,
+        typeName: vehicleType.typeName,
+    };
+    return response;
+}
+
+async function toVehicleTypeResponses(vehicleTypes) {
+    const vehicleTypeResponses = await Promise.all(vehicleTypes.map(toVehicleTypeResponse));
+    return vehicleTypeResponses;
 }
 
 // Export everything
 module.exports = {
     toVehicleTypeResponse,
-    toVehicleTypeResponses
+    toVehicleTypeResponses,
+    toVehicleTypeResponseMini
 };

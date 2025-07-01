@@ -1,22 +1,22 @@
 // Mapping functions
-async function toHotelRoomResponse(HotelRoom) {  
+async function toHotelRoomResponse(hotelRoom) {  
     const response = {
-        oid: HotelRoom.oid,
-        hotelOid: HotelRoom.hotelOid,
-        room_type: HotelRoom.room_type,
-        capacity: HotelRoom.capacity,
-        price_per_night: HotelRoom.price_per_night,
-        amenities: HotelRoom.amenities,
-        status: HotelRoom.status,
-        createdBy: HotelRoom.createdBy,
-        updatedAt: HotelRoom.updatedAt
+        oid: hotelRoom.oid,
+        hotelOid: hotelRoom.hotelOid,
+        roomType: hotelRoom.roomType,
+        capacity: hotelRoom.capacity,
+        pricePerNight: hotelRoom.pricePerNight,
+        amenities: hotelRoom.amenities,
+        status: hotelRoom.status,
+        createdBy: hotelRoom.createdBy,
+        updatedAt: hotelRoom.updatedAt
     };
     return response;
 }
 
-async function toHotelRoomResponses(HotelRooms) {
-    const HotelRoomResponses = await Promise.all(HotelRooms.map(toHotelRoomResponse));
-    return HotelRoomResponses;
+async function toHotelRoomResponses(hotelRooms) {
+    const hotelRoomResponses = await Promise.all(hotelRooms.map(toHotelRoomResponse));
+    return hotelRoomResponses;
 }
 
 // Export everything

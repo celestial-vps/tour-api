@@ -12,6 +12,10 @@ const City = sequelize.define('City', {
     provinceOid: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+            model: 'provinces',
+            key: 'oid'
+        }
     },
     cityName: {
         type: DataTypes.STRING,
@@ -49,6 +53,12 @@ City.associate = (models) => {
     City.hasMany(models.District, {
         foreignKey: 'cityOid', // ✅ foreign key in the District model that refers to City
         as: 'districts',
+        onDelete: 'CASCADE',
+    });
+
+    City.hasMany(models.SubArea, {
+        foreignKey: 'cityOid', // ✅ foreign key in the District model that refers to City
+        as: 'sub_areas',
         onDelete: 'CASCADE',
     });
 };

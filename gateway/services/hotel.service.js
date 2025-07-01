@@ -40,7 +40,7 @@ const create = async (dto, userOid) => {
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
- 
+
     if (Array.isArray(dto.hotelmenities) && dto.hotelmenities.length > 0) {
       for (const hotel of dto.hotelmenities) {
         // Simpan room tanpa amenities terlebih dahulu
@@ -56,7 +56,7 @@ const create = async (dto, userOid) => {
             hotel: null,
             err: buildResponse.responseInternalServerError(errRoomAmenety).data.error,
           };
-        }     
+        }
       }
     }
 
@@ -110,7 +110,7 @@ const create = async (dto, userOid) => {
 
     await transaction.commit();
 
-    const msgData = { value: result.oid, name: result.hotelName  };
+    const msgData = { value: result.oid, name: result.hotelName };
     const hotel = await messageMaps.toMessageResponse(msgData);
 
     return { hotel, err: null };
@@ -309,7 +309,7 @@ const findById = async (oid, options = {}) => {
 
     if (err) {
       return {
-        Hotel: null,
+        hotel: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
@@ -341,6 +341,7 @@ const findPage = async (filters, options) => {
     const result = await hotelRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
+    const hotels = await mappings.toHotelResponses(result.data);
 
     return {
       hotels: result.data,

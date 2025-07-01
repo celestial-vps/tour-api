@@ -1,21 +1,21 @@
 // Mapping functions
-async function toCustomerResponse(Customer) {  
+async function toCustomerResponse(customer) {
     const response = {
-        oid: Customer.oid,
-        customerName: Customer.customerName,
-        customerPhone: Customer.customerPhone,
-        customerEmail: Customer.customerEmail,
-        customerPostalCode: Customer.customerPostalCode,
-        bankOid: Customer.bankOid,
-        createdBy: Customer.createdBy,
-        updatedAt: Customer.updatedAt
+        oid: customer.oid,
+        customerName: customer.customerName,
+        customerPhone: customer.customerPhone,
+        customerEmail: customer.customerEmail,
+        customerPostalCode: customer.customerPostalCode,
+        bankOid: customer.bankOid,
+        createdBy: customer.createdBy,
+        updatedAt: customer.updatedAt
     };
     return response;
 }
 
-async function toCustomerResponses(Customers) {
-    const CustomerResponses = await Promise.all(Customers.map(toCustomerResponse));
-    return CustomerResponses;
+async function toCustomerResponses(customers) {
+    const customerResponses = await Promise.all(customers.map(toCustomerResponse));
+    return customerResponses;
 }
 
 // Export everything

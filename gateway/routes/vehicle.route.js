@@ -44,7 +44,7 @@ const router = express.Router();
  *              status:
  *                type: string
  *                example: "-"
- *              price_per_day:
+ *              pricePerDay:
  *                type: interger
  *                example: "-"
 

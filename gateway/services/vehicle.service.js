@@ -7,10 +7,12 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { VEHICLE_BASIC_FIELDS } = require('../constants/vehicle.fields');
+const VehicleType = require('../models/vehicle-type');
+const { VEHICLE_TYPE_BASIC_FIELDS } = require('../constants/vehicle-type.fields');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -21,7 +23,9 @@ const create = async (dto, userOid) => {
       year: dto.year,
       color: dto.color,
       status: dto.status,
-      price_per_day: dto.price_per_day,
+      seatCapacity: dto.seatCapacity,
+      licensePlate: dto.licensePlate,
+      pricePerDay: dto.pricePerDay,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -41,15 +45,15 @@ const create = async (dto, userOid) => {
     await transaction.commit();
 
     const msgData = { value: result.oid, name: result.year };
-    const Vehicle = await messageMaps.toMessageResponse(msgData);
+    const vehicle = await messageMaps.toMessageResponse(msgData);
 
-    return { Vehicle, err: null };
+    return { vehicle, err: null };
 
   } catch (error) {
     if (transaction) await transaction.rollback();
     console.error('Create failed:', error);
     return {
-      Vehicle: null,
+      vehicle: null,
       err: buildResponse.responseInternalServerError(error).data.error,
     };
   }
@@ -58,7 +62,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -90,7 +94,9 @@ const update = async (oid, dto, userOid, options = {}) => {
       year: dto.year ?? existing.year,
       color: dto.color ?? existing.color,
       status: dto.status ?? existing.status,
-      price_per_day: dto.price_per_day ?? existing.price_per_day,
+      licensePlate: dto.licensePlate ?? existing.licensePlate,
+      seatCapacity: dto.seatCapacity ?? existing.seatCapacity,
+      pricePerDay: dto.pricePerDay ?? existing.pricePerDay,
       lastModifiedBy: userOid ?? existing.lastModifiedBy,
       updatedAt: now,
     };
@@ -109,15 +115,15 @@ const update = async (oid, dto, userOid, options = {}) => {
     if (localTransaction) await localTransaction.commit();
 
     const msgData = { value: existing.oid, name: existing.year };
-    const Vehicle = await messageMaps.toMessageResponse(msgData);
+    const vehicle = await messageMaps.toMessageResponse(msgData);
 
-    return { Vehicle, err: null };
+    return { vehicle, err: null };
 
   } catch (err) {
     if (localTransaction) await localTransaction.rollback();
     console.error('Update failed:', err);
     return {
-      Vehicle: null,
+      vehicle: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -146,21 +152,21 @@ const deleted = async (oid) => {
     const { result, err } = await vehicleRepository.remove(oid, { transaction });
     if (err) {
       await transaction.rollback();
-      return { Vehicle: null, err };
+      return { vehicle: null, err };
     }
 
     await transaction.commit();
 
     const msgData = { value: resultFind.oid, name: resultFind.year };
-    const Vehicle = await messageMaps.toMessageResponse(msgData);
+    const vehicle = await messageMaps.toMessageResponse(msgData);
 
-    return { Vehicle, err: null };
+    return { vehicle, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
     console.error('Delete failed:', err);
     return {
-      Vehicle: null,
+      vehicle: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -176,11 +182,11 @@ const findAll = async () => {
 
     if (err) return { Vehicles: [], err };
 
-    const Vehicles = await mappings.toVehicleResponses(result);
-    return { Vehicles, err: null };
+    const vehicles = await mappings.toVehicleResponses(result);
+    return { vehicles, err: null };
   } catch (err) {
     return {
-      Vehicles: [],
+      vehicles: [],
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -192,22 +198,22 @@ const findById = async (oid, options = {}) => {
 
     if (err) {
       return {
-        Vehicle: null,
+        vehicle: null,
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
 
     if (!result) {
-      return { Vehicle: null, err: null };
+      return { vehicle: null, err: null };
     }
 
-    const Vehicle = await mappings.toVehicleResponse(result);
+    const vehicle = await mappings.toVehicleResponse(result);
 
-    return { Vehicle, err: null };
+    return { vehicle, err: null };
   } catch (err) {
     console.error('Error finding Vehicle:', err);
     return {
-      Vehicle: null,
+      vehicle: null,
       err: buildResponse.responseInternalServerError(err).data.error,
     };
   }
@@ -219,21 +225,28 @@ const findPage = async (filters, options) => {
     const normalizedFilters = search ? { ...restFilters, year: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
+    options.include = [
+      {
+        model: VehicleType,
+        as: 'vehicleType',
+        attributes: VEHICLE_TYPE_BASIC_FIELDS,
+      }
+    ];
     const findOptions = buildFindOptions(where, options);
 
     const result = await vehicleRepository.findAndCountByCriteria(findOptions);
-
     if (result.err) throw result.err;
+    const vehicles = await mappings.toVehicleResponses(result.data);
 
     return {
-      vehicles: result.data,
+      vehicles,
       count: result.count,
       err: null,
     };
   } catch (error) {
-    console.error('VehicleService findPage error:', error);
+    console.error('Vehicle Service findPage error:', error);
     return {
-      Vehicles: [],
+      vehicles: [],
       count: 0,
       err: buildResponse.responseInternalServerError(error).data.error,
     };

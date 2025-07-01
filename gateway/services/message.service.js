@@ -10,7 +10,7 @@ const { MESSAGE_BASIC_FIELDS } = require('../constants/message.fields'); // kamu
 
 const create = async (dto, userOid) => {
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let transaction;
 
   try {
@@ -55,7 +55,7 @@ const create = async (dto, userOid) => {
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
   // @ts-ignore
-  const now = new Date().formatUTC(); 
+  const now = new Date().formatUTC();
   let localTransaction = null;
 
   try {
@@ -229,9 +229,10 @@ const findPage = async (filters, options) => {
     const result = await messageRepository.findAndCountAll(findOptions);
 
     if (result.err) throw result.err;
+    const messages = await mappings.toMessageResponses(result.data);
 
     return {
-      messages: result.data,
+      messages,
       count: result.count,
       err: null,
     };
