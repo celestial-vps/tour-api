@@ -8,14 +8,6 @@ const Driver = sequelize.define('Driver', {
         allowNull: false,
         primaryKey: true,
     },
-    userOid: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: 'users',
-            key: 'oid'
-        }
-    },
     licenseNumber: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,14 +16,6 @@ const Driver = sequelize.define('Driver', {
     licenseExpiry: {
         type: DataTypes.DATEONLY,
         allowNull: false
-    },
-    vehicleOid: {
-        type: DataTypes.BIGINT,
-        allowNull: true, // Optional
-        references: {
-            model: 'vehicles',
-            key: 'oid'
-        }
     },
     status: {
         type: DataTypes.ENUM('active', 'inactive', 'suspended'),
@@ -84,19 +68,6 @@ const Driver = sequelize.define('Driver', {
 
 // @ts-ignore
 Driver.associate = (models) => {
-    // Belongs to User
-    Driver.belongsTo(models.User, {
-        foreignKey: 'userOid',
-        as: 'user',
-        onDelete: 'RESTRICT'
-    });
-
-    // Belongs to Vehicle (optional)
-    Driver.belongsTo(models.Vehicle, {
-        foreignKey: 'vehicleOid',
-        as: 'vehicle',
-        onDelete: 'SET NULL'
-    });
 
     // Has many Schedules
     Driver.hasMany(models.Schedule, {

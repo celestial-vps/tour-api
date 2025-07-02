@@ -1,5 +1,7 @@
 'use strict';
 const driverRepository = require('../repositories/driver.repository');
+const userRepository = require('../repositories/user.repository');
+
 const mappings = require('../mappings/driver.vm');
 const messageMaps = require('../mappings/message.vm');
 const sequelize = require('../config/sequelize');
@@ -7,6 +9,7 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { DRIVER_BASIC_FIELDS } = require('../constants/driver.fields');
+const { hashPassword } = require('../misc/password');
 
 const create = async (dto, userOid) => {
   // @ts-ignore
@@ -16,16 +19,42 @@ const create = async (dto, userOid) => {
   try {
     transaction = await sequelize.transaction();
 
+    const hashedPassword = await hashPassword("123456");
+    const dataUser = {
+      name: dto.name ?? null,
+      email: dto.email,
+      password: hashedPassword,
+      birthday: dto.birthday ?? null,
+      memberNumber: dto.memberNumber ?? null,
+      androidToken: dto.androidToken ?? null,
+      expiredTime: dto.expiredTime ?? null,
+      isActive: dto.isActive,
+      activatedAt: dto.activatedAt,
+      roleOid: '18d756c1-4f4f-46b1-8a5e-556b2fea264e',
+      description: dto.description ?? null,
+      createdBy: userOid,
+      createdAt: now,
+      lastModifiedBy: userOid,
+      updatedAt: now,
+    };
+
+    const { result: resultUser, err: errUser } = await userRepository.save(dataUser, { transaction });
+
+    if (errUser || !resultUser) {
+      await transaction.rollback();
+      return {
+        driver: null,
+        err: buildResponse.responseInternalServerError(errUser).data.error,
+      };
+    }
+
     const data = {
-      userOid: dto.userOid,
       licenseNumber: dto.licenseNumber,
-      licenseExpiry: dto.licenseExpiry,
-      vehicleOid: dto.vehicleOid,
-      status: dto.status,
+      licenseExpiry: dto.licenseExpiry,  
       hiredAt: dto.hiredAt,
-      terminatedAt: dto.terminatedAt,
-      ratingAvg: dto.ratingAvg,
-      totalTrips: dto.totalTrips,
+      // terminatedAt: dto.terminatedAt,
+      // ratingAvg: dto.ratingAvg,
+      // totalTrips: dto.totalTrips,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -41,6 +70,7 @@ const create = async (dto, userOid) => {
         err: buildResponse.responseInternalServerError(err).data.error,
       };
     }
+
 
     await transaction.commit();
 
@@ -89,11 +119,9 @@ const update = async (oid, dto, userOid, options = {}) => {
       return { driver: null, err: { message: "Driver not found", status: 404 } };
     }
 
-    const updateData = {
-      userOid: dto.userOid ?? existing.userOid,
+    const updateData = {      
       licenseNumber: dto.licenseNumber ?? existing.licenseNumber,
-      licenseExpiry: dto.licenseExpiry ?? existing.licenseExpiry,
-      vehicleOid: dto.vehicleOid ?? existing.vehicleOid,
+      licenseExpiry: dto.licenseExpiry ?? existing.licenseExpiry,    
       status: dto.status ?? existing.status,
       hiredAt: dto.hiredAt ?? existing.hiredAt,
       terminatedAt: dto.terminatedAt ?? existing.terminatedAt,

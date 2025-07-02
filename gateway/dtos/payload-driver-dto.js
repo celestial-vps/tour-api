@@ -14,28 +14,21 @@ const filterDto = Joi.object({
     totalTrips: Joi.string().optional().allow(null, ''),
 });
  
-const createDto = Joi.object({
-    userOid: Joi.string().required(),
+const createDto = Joi.object({ 
+    email: Joi.string().required(),
     licenseNumber: Joi.string().required(),
-    licenseExpiry: Joi.string().required(),
-    vehicleOid: Joi.string().required(),
-    status: Joi.string().required(),
-    hiredAt: Joi.string().required(),
-    terminatedAt: Joi.string().required(),
-    ratingAvg: Joi.string().required(),
-    totalTrips: Joi.string().required(),
+    licenseExpiry: Joi.string().required(),  
+    hiredAt: Joi.string().required(),  
 });
  
 const updateDto = Joi.object({
-    userOid: Joi.string().required(),
     licenseNumber: Joi.string().required(),
-    licenseExpiry: Joi.string().required(),
-    vehicleOid: Joi.string().required(),
+    licenseExpiry: Joi.string().allow(null).required(),
     status: Joi.string().required(),
-    hiredAt: Joi.string().required(),
-    terminatedAt: Joi.string().required(),
-    ratingAvg: Joi.string().required(),
-    totalTrips: Joi.string().required(),
+    hiredAt: Joi.string().allow(null).required(),
+    terminatedAt: Joi.string().allow(null).required(),
+    ratingAvg: Joi.number().required(),
+    totalTrips: Joi.number().required(),
 });
 
 const params = Joi.object({

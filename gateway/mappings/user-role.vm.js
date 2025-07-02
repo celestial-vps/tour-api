@@ -1,7 +1,5 @@
-const moment = require('moment');
-
-// Convert a single UserRole model to UserRoleVm
-async function toUserRoleResponse(userRole) {
+// Mapping functions
+async function toUserRoleResponse(userRole) {  
     const response = {
         oid: userRole.oid,
         roleName: userRole.roleName,
@@ -12,17 +10,18 @@ async function toUserRoleResponse(userRole) {
         createState: userRole.createState,
         deleteState: userRole.deleteState,
         navigateState: userRole.navigateState,
-        createdAt: userRole.createdAt,
+        createdBy: userRole.createdBy,
         updatedAt: userRole.updatedAt
     };
     return response;
-};
+}
 
-// Convert multiple UserRole models to UserRoleVm
-const toUserRoleResponses = (userRoles) => {
-    return userRoles.map(userRole => toUserRoleResponse(userRole));
-};
+async function toUserRoleResponses(userRoles) {
+    const userRoleResponses = await Promise.all(userRoles.map(toUserRoleResponse));
+    return userRoleResponses;
+}
 
+// Export everything
 module.exports = {
     toUserRoleResponse,
     toUserRoleResponses
