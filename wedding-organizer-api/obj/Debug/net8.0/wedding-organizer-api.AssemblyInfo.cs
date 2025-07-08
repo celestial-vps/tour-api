@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("wedding-organizer-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e771c45e612a61ae672057a5fad32de254bd269c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d3abe27ee9a8ccf9bf598b6eed857b4df898b89")]
 [assembly: System.Reflection.AssemblyProductAttribute("wedding-organizer-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("wedding-organizer-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
