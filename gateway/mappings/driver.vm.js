@@ -1,11 +1,9 @@
 // Mapping functions
 async function toDriverResponse(driver) {  
     const response = {
-        oid: driver.oid,
-        userOid: driver.userOid,
+        oid: driver.oid, 
         licenseNumber: driver.licenseNumber,
-        licenseExpiry: driver.licenseExpiry,
-        vehicleOid: driver.vehicleOid,
+        licenseExpiry: driver.licenseExpiry, 
         status: driver.status,
         hiredAt: driver.hiredAt,
         terminatedAt: driver.terminatedAt,

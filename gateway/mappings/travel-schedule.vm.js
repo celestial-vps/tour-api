@@ -1,5 +1,5 @@
 // Mapping functions
-async function toTravelScheduleResponse(travelSchedule) {  
+async function toTravelScheduleResponse(travelSchedule) {
     const response = {
         oid: travelSchedule.oid,
         routeOid: travelSchedule.routeOid,
@@ -11,6 +11,15 @@ async function toTravelScheduleResponse(travelSchedule) {
         createdBy: travelSchedule.createdBy,
         updatedAt: travelSchedule.updatedAt
     };
+    if (travelSchedule.vehicle) {
+        response.vehicle = travelSchedule.vehicle;
+    }
+    if (travelSchedule.driver) {
+        response.driver = travelSchedule.driver;
+    }
+    if (travelSchedule.travelRoute ) {
+        response.travelRoute  = travelSchedule.travelRoute ;
+    }
     return response;
 }
 

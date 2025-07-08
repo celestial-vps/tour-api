@@ -133,7 +133,7 @@ router.delete('/delete/:oid', validateRequest(deleteDriverDto), roleGuard('Admin
  *       200:
  *         description: List of Drivers
  */
-router.get('/', validateRequest(filterDriverDto), roleGuard('Admin'), driverController.findAll);
+router.get('/',  roleGuard('Admin'), driverController.findAll);
 
 /**
  * @swagger

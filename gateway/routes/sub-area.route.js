@@ -132,6 +132,8 @@ router.delete('/delete/:oid', validateRequest(deleteSubAreaDto), roleGuard('Admi
  */
 router.get('/', validateRequest(filterSubAreaDto), roleGuard('Admin'), subAreaController.findAll);
 
+router.get('/no-auth',  subAreaController.findAll);
+
 /**
  * @swagger
  * /sub-area/q:

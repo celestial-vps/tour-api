@@ -7,8 +7,15 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { TRAVEL_SCHEDULE_BASIC_FIELDS } = require('../constants/travel-schedule.fields');
+const { Vehicle, Driver, TravelRoute, SubArea } = require('../models');
+const { VEHICLE_BASIC_FIELDS } = require('../constants/vehicle.fields');
+const { DRIVER_BASIC_FIELDS } = require('../constants/driver.fields');
+const Transaction = require('../models/transaction');
+const { TRAVEL_ROUTE_BASIC_FIELDS } = require('../constants/travel-route.fields');
+const { SUB_AREA_BASIC_FIELDS } = require('../constants/sub-area.fields');
 
 const create = async (dto, userOid) => {
+  // @ts-ignore
   const now = new Date().formatUTC();
   let transaction;
 
@@ -57,6 +64,7 @@ const create = async (dto, userOid) => {
 
 const update = async (oid, dto, userOid, options = {}) => {
   const { transaction = null, useTransaction = false } = options;
+  // @ts-ignore
   const now = new Date().formatUTC();
   let localTransaction = null;
 
@@ -219,14 +227,42 @@ const findPage = async (filters, options) => {
     const normalizedFilters = search ? { ...restFilters, routeOid: search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
+    options.include = [
+      {
+        model: Vehicle,
+        as: 'vehicle',
+        attributes: VEHICLE_BASIC_FIELDS,
+      },
+      {
+        model: Driver,
+        as: 'driver',
+        attributes: DRIVER_BASIC_FIELDS,
+      },
+      {
+        model: TravelRoute,
+        as: 'travelRoute',
+        attributes: TRAVEL_ROUTE_BASIC_FIELDS,
+        include: [
+          {
+            model: SubArea,
+            as: 'originSubArea',
+            attributes: SUB_AREA_BASIC_FIELDS,
+          }, {
+            model: SubArea,
+            as: 'destinationSubArea',
+            attributes: SUB_AREA_BASIC_FIELDS,
+          }
+        ],
+      }
+    ];
     const findOptions = buildFindOptions(where, options);
 
     const result = await travelScheduleRepository.findAndCountByCriteria(findOptions);
 
     if (result.err) throw result.err;
-
+    const travelSchedules = await mappings.toTravelScheduleResponses(result.data);
     return {
-      travelSchedules: result.data,
+      travelSchedules,
       count: result.count,
       err: null,
     };

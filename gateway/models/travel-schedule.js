@@ -17,7 +17,7 @@ const TravelSchedule = sequelize.define('TravelSchedule', {
         }
     },
     vehicleOid: {
-          type: DataTypes.UUID,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: 'vehicles',
@@ -25,7 +25,7 @@ const TravelSchedule = sequelize.define('TravelSchedule', {
         }
     },
     driverOid: {
-          type: DataTypes.UUID,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: 'drivers',
@@ -65,15 +65,15 @@ const TravelSchedule = sequelize.define('TravelSchedule', {
 
 // @ts-ignore
 TravelSchedule.associate = (models) => {
-    TravelSchedule.belongsTo(models.Route, {
+    TravelSchedule.belongsTo(models.TravelRoute, {
         foreignKey: 'routeOid',
-        as: 'route',
+        as: 'travelRoute',
         onDelete: 'RESTRICT'
     });
 
     // Belongs to Vehicle
     TravelSchedule.belongsTo(models.Vehicle, {
-        foreignKey: 'vehicle_id',
+        foreignKey: 'vehicleOid',
         as: 'vehicle',
         onDelete: 'RESTRICT'
     });
@@ -85,11 +85,11 @@ TravelSchedule.associate = (models) => {
         onDelete: 'RESTRICT'
     });
 
-    // Has many Bookings
-    TravelSchedule.hasMany(models.Booking, {
-        foreignKey: 'schedule_id',
-        as: 'bookings'
-    });
+    // // Has many Bookings
+    // TravelSchedule.hasMany(models.Booking, {
+    //     foreignKey: 'schedule_id',
+    //     as: 'bookings'
+    // });
 };
 
 module.exports = TravelSchedule;

@@ -69,7 +69,7 @@ app.use(express.json());
 app.use(helmet())
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:4200', // Replace with your Angular app URL
+  origin:  ['http://localhost:4200', 'http://localhost:4300'], // Replace with your Angular app URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

@@ -121,7 +121,7 @@ router.delete('/delete/:oid', validateRequest(deleteVehicleDto), roleGuard('Admi
  *       200:
  *         description: List of vehicles
  */
-router.get('/', validateRequest(filterVehicleDto), roleGuard('Admin'), vehicleController.findAll);
+router.get('/',  roleGuard('Admin'), vehicleController.findAll);
 
 /**
  * @swagger

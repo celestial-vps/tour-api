@@ -1,4 +1,4 @@
-const DRIVER_BASIC_FIELDS = ['oid', 'userOid', 'licenseNumber', 'licenseExpiry', 'vehicleOid', 'status', 'hiredAt', 'terminatedAt', 'ratingAvg', 'totalTrips'];
+const DRIVER_BASIC_FIELDS = ['oid', 'licenseNumber', 'licenseExpiry', 'status', 'hiredAt', 'terminatedAt', 'ratingAvg', 'totalTrips'];
 
 const DRIVER_AUDIT_FIELDS = ['createdAt', 'updatedAt', 'deletedAt'];
 

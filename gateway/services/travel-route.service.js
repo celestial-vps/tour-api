@@ -168,8 +168,20 @@ const deleted = async (oid) => {
 
 const findAll = async () => {
   try {
+
+
     const { result, err } = await travelRouteRepository.findAll({
-      include: [],
+      include: [
+        {
+          model: SubArea,
+          as: 'originSubArea',
+          attributes: SUB_AREA_BASIC_FIELDS,
+        }, {
+          model: SubArea,
+          as: 'destinationSubArea',
+          attributes: SUB_AREA_BASIC_FIELDS,
+        }
+      ],
       order: [['createdAt', 'DESC']],
       attributes: TRAVEL_ROUTE_BASIC_FIELDS
     });

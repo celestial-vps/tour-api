@@ -68,18 +68,21 @@ const Driver = sequelize.define('Driver', {
 
 // @ts-ignore
 Driver.associate = (models) => {
+    //    console.log('models.TravelSchedule:', models.TravelSchedule?.name);
+    // console.log('models.TravelSchedule keys:', Object.keys(models.TravelSchedule || {}));
+    // console.log('models.TravelSchedule instanceof Model:', models.TravelSchedule?.prototype instanceof sequelize.model);
 
     // Has many Schedules
-    Driver.hasMany(models.Schedule, {
-        foreignKey: 'driver_id',
-        as: 'schedules'
-    });
+    // Driver.hasMany(models.TravelSchedule, {
+    //     foreignKey: 'driverOid',
+    //     as: 'schedules'
+    // });
 
     // Has many DriverRatings (if you have such a table)
-    Driver.hasMany(models.DriverRating, {
-        foreignKey: 'driver_id',
-        as: 'ratings'
-    });
+    // Driver.hasMany(models.DriverRating, {
+    //     foreignKey: 'driverOid',
+    //     as: 'ratings'
+    // });
 };
 
 module.exports = Driver;

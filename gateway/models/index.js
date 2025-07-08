@@ -14,12 +14,20 @@ const SubArea = require('./sub-area');
 const Vehicle = require('./vehicle');
 const VehicleType = require('./vehicle-type');
 const TravelRoute = require('./travel-route');
+const TravelSchedule = require('./travel-schedule');
+const Driver = require('./driver');
+const sequelize = require('../config/database');
+
 
 const models = {
+    sequelize,
     User,
     UserRole, Country, Province, City, District, Subdistrict,
     Bank,
-    SubArea,Vehicle,VehicleType,TravelRoute
+    SubArea, Vehicle, VehicleType, TravelRoute,
+    Driver,
+    TravelSchedule, 
+
 
     // Message,ConversationMember,Conversation,
     // HotelRoom

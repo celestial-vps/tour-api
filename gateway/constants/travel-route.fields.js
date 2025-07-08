@@ -1,4 +1,4 @@
-const TRAVEL_ROUTE_BASIC_FIELDS = ['oid', 'originOid', 'destinationOid','distanceKm', 'estimatedTime'];
+const TRAVEL_ROUTE_BASIC_FIELDS = ['oid', 'originSubAreaOid', 'destinationSubAreaOid','distanceKm', 'estimatedTime'];
 
 const TRAVEL_ROUTE_AUDIT_FIELDS = ['createdAt', 'updatedAt', 'deletedAt'];
 

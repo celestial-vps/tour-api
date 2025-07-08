@@ -115,7 +115,7 @@ router.delete('/delete/:oid', validateRequest(deleteTravelRouteDto), roleGuard('
  *       200:
  *         description: List of Travel Routes
  */
-router.get('/', validateRequest(filterTravelRouteDto), roleGuard('Admin'), travelRouteController.findAll);
+router.get('/',  roleGuard('Admin'), travelRouteController.findAll);
 
 /**
  * @swagger
