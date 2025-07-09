@@ -6,7 +6,7 @@ module.exports = (io) => {
     const conversationOid = socket.handshake.query.conversationOid;
 
     if (!userOid) {
-      
+
       console.error('userOid is required');
       return next(new Error('userOid is required'));
     }
@@ -21,7 +21,7 @@ module.exports = (io) => {
 
     // Join user ke room conversation
     socket.join(socket.conversationOid);
-console.log(`✅ ${socket.userOid} joined room ${socket.conversationOid}`);
+    console.log(`✅ ${socket.userOid} joined room ${socket.conversationOid}`);
     // Terima pesan dari client
     socket.on('send_message', (msg) => {
       console.log(`✅ Message received from ${socket.userOid}:`, msg);
@@ -39,9 +39,10 @@ console.log(`✅ ${socket.userOid} joined room ${socket.conversationOid}`);
     // Event untuk menandai pesan sudah dibaca
     socket.on('message_read', (data) => {
       console.log(`📩 Message read by ${data.from} for ${data.to}: ${data.messageText}`);
-
+      console.log('📩 [SERVER] Received message_read:', data);
       // Broadcast ack read ke semua user dalam room
       io.to(socket.conversationOid).emit('message_read_ack', {
+        messageId: data.messageId,
         from: data.from,
         to: data.to,
         messageText: data.messageText

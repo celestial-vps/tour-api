@@ -1,0 +1,10 @@
+namespace WeddingOrganizerAPI.DTOs
+{
+    public class UserRoleQueryDto
+    {
+        public int PageIndex { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+        public string SortBy { get; set; } = "Name";
+        public string SortOrder { get; set; } = "asc";
+    }
+}

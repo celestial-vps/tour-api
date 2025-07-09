@@ -11,6 +11,8 @@ namespace WeddingOrganizerAPI.Mappings
         {
             CreateMap<Client, ClientDto>().ReverseMap();
             CreateMap<Venue, VenueVM>();
+            CreateMap<User, UserVM>();
+            CreateMap<UserRole, UserRoleVM>();
         }
     }
 }
