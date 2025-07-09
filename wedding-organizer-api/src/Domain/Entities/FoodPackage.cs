@@ -1,20 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 namespace WeddingOrganizerAPI.Models
 {
-    public class FoodPackage
+    public class FoodPackage : AuditableEntity
     {
         [Key]
         public Guid Oid { get; set; } = Guid.NewGuid();
 
-        public int FoodPackageId { get; set; }
-
-        public int VendorId { get; set; } // 🔗 Foreign Key ke Vendor
+        public Guid VendorOid { get; set; } // 🔗 Foreign Key ke Vendor
 
         public string Name { get; set; } = null!;
-        public string? Description { get; set; }
         public decimal PricePerPerson { get; set; }
         public int MinimumOrder { get; set; }
-
         // Relasi
         public Vendor Vendor { get; set; } = null!;
 

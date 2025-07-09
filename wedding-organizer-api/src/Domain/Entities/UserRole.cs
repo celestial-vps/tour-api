@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WeddingOrganizerAPI.Models
 {
     [Table("UserRoles")]
-    public class UserRole
+    public class UserRole: AuditableEntity
     {
         [Key]
         public Guid Oid { get; set; } = Guid.NewGuid();
@@ -39,18 +39,7 @@ namespace WeddingOrganizerAPI.Models
 
         [Column("navigateState")]
         public bool NavigateState { get; set; }
-
-        public Guid CreatedBy { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
-
-        public Guid? LastModifiedBy { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
-
-        public Guid? DeletedBy { get; set; }
-
-        public DateTime? DeletedAt { get; set; }
+ 
 
 
         // RELASI

@@ -44,7 +44,6 @@ namespace WeddingOrganizerAPI.Services
                     Capacity = dto.Capacity,
                     Price = dto.Price,
                     Contact = dto.Contact,
-                    Description = dto.Description,
                     CreatedBy = userOid,
                     CreatedAt = now,
                     LastModifiedBy = userOid,
@@ -61,7 +60,12 @@ namespace WeddingOrganizerAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                var response = _mapper.Map<MessageVM>(result);
+                // var response = _mapper.Map<MessageVM>(result);
+                var response = new MessageVM
+                {
+                    Value = result.Oid.ToString(),
+                    Name = result.Name
+                };
                 return (response, null);
             }
             catch (Exception ex)
@@ -97,7 +101,6 @@ namespace WeddingOrganizerAPI.Services
                 // existingVenue.Capacity = dto.Capacity ?? existingVenue.Capacity;
                 // existingVenue.Price = dto.Price ?? existingVenue.Price;
                 existingVenue.Contact = dto.Contact ?? existingVenue.Contact;
-                existingVenue.Description = dto.Description ?? existingVenue.Description;
                 existingVenue.LastModifiedBy = userOid;
                 existingVenue.UpdatedAt = DateTime.UtcNow;
 

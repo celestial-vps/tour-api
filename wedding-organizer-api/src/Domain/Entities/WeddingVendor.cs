@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace WeddingOrganizerAPI.Models
 {
-    public class WeddingVendor
+    public class WeddingVendor : AuditableEntity
     {
-        public int Id { get; set; }
-        public int WeddingId { get; set; }
-        public int VendorId { get; set; }
+        [Key]
+        public Guid Oid { get; set; } = Guid.NewGuid();
+        public Guid WeddingOid { get; set; }
+        public Guid VendorOid { get; set; }
         public decimal ServiceFee { get; set; }
 
         public Wedding Wedding { get; set; } = null!;

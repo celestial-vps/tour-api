@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace WeddingOrganizerAPI.DTOs
 {
     public class CreateVenueDto
-    {
-        [Required]
-        public int VenueId { get; set; }
+    { 
 
         [Required]
         public string Name { get; set; } = null!;
@@ -19,7 +17,6 @@ namespace WeddingOrganizerAPI.DTOs
         [Required]
         public decimal Price { get; set; }
 
-        public string? Contact { get; set; }
-        public string? Description { get; set; }
+        public string? Contact { get; set; } 
     }
 }

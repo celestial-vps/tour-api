@@ -17,9 +17,11 @@ mkdir controllers dtos models mappings services repositories data
 
 migration 
 dotnet ef migrations add InitialCreate
+dotnet ef migrations add InitialCreate --output-dir src/infrastructure/data/Migrations --verbose
 dotnet ef database update
 
 rolback migration
+
 dotnet ef database update 0
 
 dotnet ef migrations remove

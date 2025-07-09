@@ -39,8 +39,7 @@ namespace WeddingOrganizerAPI.Repositories
                 existing.Location = updatedData.Location;
                 existing.Capacity = updatedData.Capacity;
                 existing.Price = updatedData.Price;
-                existing.Contact = updatedData.Contact;
-                existing.Description = updatedData.Description;
+                existing.Contact = updatedData.Contact; 
 
                 return (existing, null); // hanya tracking
             }
@@ -101,7 +100,7 @@ namespace WeddingOrganizerAPI.Repositories
         {
             try
             {
-                var filtered = _context.Venues.Where(predicate).ToList();
+                var filtered =   _context.Venues.Where(predicate).ToList();
                 return (filtered, null);
             }
             catch (Exception ex)

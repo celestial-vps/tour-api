@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Threading.Tasks;
 using WeddingOrganizerAPI.Data;
 
 namespace WeddingOrganizerAPI.Repositories
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
         private IDbContextTransaction? _transaction;
@@ -55,5 +53,6 @@ namespace WeddingOrganizerAPI.Repositories
             _transaction?.Dispose();
             _context.Dispose();
         }
+ 
     }
 }

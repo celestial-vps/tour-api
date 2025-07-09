@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 namespace WeddingOrganizerAPI.Models
 {
-    public class Vendor
+    public class Vendor: AuditableEntity
     {
         [Key]
-        public Guid Oid { get; set; } = Guid.NewGuid();
-
-        public int VendorId { get; set; }
+        public Guid Oid { get; set; } = Guid.NewGuid(); 
         public string Name { get; set; } = null!;
         public string Category { get; set; } = null!;
         public string Phone { get; set; } = null!;
