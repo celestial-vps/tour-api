@@ -114,7 +114,11 @@ namespace WeddingOrganizerAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                var response = _mapper.Map<MessageVM>(updatedResult);
+                var response = new MessageVM
+                {
+                    Value = updatedResult.Oid.ToString(),
+                    Name = updatedResult.Name
+                };
                 return (response, null);
             }
             catch (Exception ex)
@@ -154,8 +158,12 @@ namespace WeddingOrganizerAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                var response = _mapper.Map<MessageVM>(venue);
-                return (response, null);
+                var response = new MessageVM
+                {
+                    Value = venue.Oid.ToString(),
+                    Name = venue.Name
+                };
+                return (response, null); 
             }
             catch (Exception ex)
             {

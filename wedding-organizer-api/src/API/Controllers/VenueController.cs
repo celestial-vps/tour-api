@@ -37,11 +37,12 @@ namespace WeddingOrganizerAPI.Controllers
         public async Task<IActionResult> GetById(Guid oid)
         {
             var (venue, err) = await _venueService.FindByIdAsync(oid);
-            if (err != null) return StatusCode(err.Status, err);
+            if (err != null)
+            {
+                return BuildResponse.SendQueryError(this, err.Message, "get By Oid");
+            }
 
-            if (venue == null) return NotFound();
-
-            return Ok(venue);
+            return BuildResponse.FindOk(this, venue);
         }
 
         // POST: api/venue
@@ -65,14 +66,17 @@ namespace WeddingOrganizerAPI.Controllers
         [HttpPut("{oid}")]
         public async Task<IActionResult> Update(Guid oid, [FromBody] UpdateVenueDto dto)
         {
-            var userOid = GetUserOid();
-            if (userOid == Guid.Empty)
-                return Unauthorized();
+            // var userOid = GetUserOid();
+            // if (userOid == Guid.Empty)
+            //     return Unauthorized();
 
-            var (venue, err) = await _venueService.UpdateAsync(oid, dto, userOid);
-            if (err != null) return StatusCode(err.Status, err);
+            var (venue, err) = await _venueService.UpdateAsync(oid, dto, Guid.NewGuid());
+            if (err != null)
+            {
+                return BuildResponse.SendQueryError(this, err.Message, "insert");
+            }
 
-            return Ok(venue);
+            return BuildResponse.CreateOk(this, venue);
         }
 
         // DELETE: api/venue/{oid}
@@ -80,9 +84,12 @@ namespace WeddingOrganizerAPI.Controllers
         public async Task<IActionResult> Delete(Guid oid)
         {
             var (venue, err) = await _venueService.DeleteAsync(oid);
-            if (err != null) return StatusCode(err.Status, err);
+            if (err != null)
+            {
+                return BuildResponse.SendQueryError(this, err.Message, "insert");
+            }
 
-            return Ok(venue);
+            return BuildResponse.CreateOk(this, venue);
         }
 
         // Helper: Ambil userOid dari JWT Claim
