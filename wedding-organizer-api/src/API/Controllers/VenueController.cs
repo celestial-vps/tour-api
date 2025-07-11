@@ -9,7 +9,9 @@ namespace WeddingOrganizerAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous] // [Authorize] // jika pakai authentication
+    [Authorize(Roles = "Base,Admin")]
+    // [Authorize(Roles = "Base")]
+    // [Authorize] // [AllowAnonymous] //  // jika pakai authentication
     public class VenueController : ControllerBase
     {
         private readonly IVenueService _venueService;

@@ -10,6 +10,7 @@ dotnet add package BCrypt.Net-Next
 dotnet add package System.IdentityModel.Tokens.Jwt  
 dotnet add package AutoMapper
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 
 
 mkdir controllers dtos models mappings services repositories data

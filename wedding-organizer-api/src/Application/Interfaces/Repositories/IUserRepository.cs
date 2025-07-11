@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using WeddingOrganizerAPI.Models;
 namespace WeddingOrganizerAPI.Repositories
 {
@@ -8,7 +9,10 @@ namespace WeddingOrganizerAPI.Repositories
         Task<(bool result, Exception? err)> RemoveAsync(Guid oid);
         Task<(User? result, Exception? err)> FindByIdAsync(Guid oid);
         Task<(List<User> result, Exception? err)> FindAllAsync();
-        Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Func<User, bool> predicate);
+
+
+        // public async Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Expression<Func<User, bool>> predicate)
+        Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Expression<Func<User, bool>> predicate);
         Task<(List<User> data, int count, Exception? err)> FindAndCountByCriteriaAsync(Func<User, bool> predicate);
     }
 }

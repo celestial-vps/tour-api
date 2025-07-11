@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mappings;
@@ -18,15 +19,21 @@ namespace WeddingOrganizerAPI.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordHasher _passwordHasher;
+        private readonly IJwtService _jwtService;
 
         public UserService(
             IUserRepository userRepository,
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IPasswordHasher passwordHasher,
+            IJwtService jwtService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _passwordHasher = passwordHasher;
+            _jwtService = jwtService;
         }
 
         public async Task<(MessageVM? user, ApiError? err)> CreateAsync(CreateUserDto dto, Guid userOid)
@@ -60,7 +67,6 @@ namespace WeddingOrganizerAPI.Services
                 await _unitOfWork.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                // var response = _mapper.Map<MessageVM>(result);
                 var response = new MessageVM
                 {
                     Value = result.Oid.ToString(),
@@ -95,12 +101,10 @@ namespace WeddingOrganizerAPI.Services
                     return (null, ApiError.NotFound("User not found"));
                 }
 
-                // Update only if DTO fields are not null
                 existingUser.Email = dto.Email ?? existingUser.Email;
                 existingUser.AndroidToken = dto.AndroidToken ?? existingUser.AndroidToken;
                 existingUser.ExpiredTime = dto.ExpiredTime ?? existingUser.ExpiredTime;
                 existingUser.IsActive = dto.IsActive ?? existingUser.IsActive;
-                // existingUser.ActivatedAt = dto.ActivatedAt ?? existingUser.ActivatedAt;
                 existingUser.LastModifiedBy = userOid;
                 existingUser.UpdatedAt = DateTime.UtcNow;
 
@@ -209,27 +213,86 @@ namespace WeddingOrganizerAPI.Services
             }
         }
 
-        // Task<(UserVM? user, ApiError? err)> IUserService.FindByIdAsync(Guid oid)
-        // {
-        //     throw new NotImplementedException();
-        // }
+        public async Task<(MessageVM? user, ApiError? err)> RegisterAsync(RegisterDto dto)
+        {
+            IDbContextTransaction? transaction = null;
+            try
+            {
+                transaction = await _unitOfWork.BeginTransactionAsync();
+                var hashedPassword = _passwordHasher.HashPassword(dto.Password);
+                var now = DateTime.UtcNow;
+                var entity = new User
+                {
+                    Email = dto.Email,
+                    Password = hashedPassword,
+                    RoleOid = Guid.Parse("34A27640-F480-432C-A348-41A68EABCA9C"),
+                    CreatedAt = now,
+                    UpdatedAt = now,
+                };
 
-        // public async Task<(List<UserVM> users, ApiError? err)> FindAllAsync()
-        // {
-        //     try
-        //     {
-        //         var (result, err) = await _userRepository.FindAllAsync();
-        //         if (err != null)
-        //             return (new List<UserVM>(), ApiError.InternalServerError(err));
+                var (result, err) = await _userRepository.SaveAsync(entity);
+                if (err != null || result == null)
+                {
+                    await transaction.RollbackAsync();
+                    return (null, ApiError.InternalServerError(err));
+                }
 
-        //         var responses = _mapper.Map<List<UserVM>>(result);
-        //         return (responses, null);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return (new List<UserVM>(), ApiError.InternalServerError(ex));
-        //     }
-        // }
+                await _unitOfWork.SaveChangesAsync();
+                await transaction.CommitAsync();
 
+                var response = new MessageVM
+                {
+                    Value = result.Oid.ToString(),
+                    Name = result.Email
+                };
+                return (response, null);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null) await transaction.RollbackAsync();
+                return (null, ApiError.InternalServerError(ex));
+            }
+        }
+
+        public async Task<(UserTokenVM? user, ApiError? err)> LoginAsync(LoginDto dto)
+        {
+            IDbContextTransaction? transaction = null;
+            try
+            {
+                transaction = await _unitOfWork.BeginTransactionAsync();
+
+                var (users, err) = await _userRepository.FindByCriteriaAsync(u => u.Email == dto.Email);
+                if (err != null || users == null || users.Count == 0)
+                {
+                    return (null, ApiError.Unauthorized("Invalid email or password."));
+                }
+
+                var user = users.First();
+
+                var isPasswordValid = _passwordHasher.VerifyHashedPassword(user.Password, dto.Password);
+                if (!isPasswordValid)
+                {
+                    return (null, ApiError.Unauthorized("Invalid email or password."));
+                }
+
+                var token = _jwtService.GenerateJwtToken(user);
+
+                await _unitOfWork.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                var response = new UserTokenVM
+                {
+                    Oid = user.Oid,
+                    Email = user.Email,
+                    Token = token
+                };
+                return (response, null);
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null) await transaction.RollbackAsync();
+                return (null, ApiError.InternalServerError(ex));
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using WeddingOrganizerAPI.Data;
 using WeddingOrganizerAPI.Models;
@@ -39,7 +40,7 @@ namespace WeddingOrganizerAPI.Repositories
                 existing.Password = updatedData.Password;
                 existing.AndroidToken = updatedData.AndroidToken;
                 existing.ExpiredTime = updatedData.ExpiredTime;
-                existing.IsActive = updatedData.IsActive; 
+                existing.IsActive = updatedData.IsActive;
 
                 return (existing, null); // hanya tracking
             }
@@ -96,11 +97,18 @@ namespace WeddingOrganizerAPI.Repositories
             }
         }
 
-        public async Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Func<User, bool> predicate)
+        // public async Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Func<User, bool> predicate)
+
+        public async Task<(List<User> result, Exception? err)> FindByCriteriaAsync(Expression<Func<User, bool>> predicate)
         {
             try
             {
-                var filtered =   _context.Users.Where(predicate).ToList();
+                // var filtered =   _context.Users.Where(predicate).ToList();
+                var filtered = await _context.Users
+                           .Include(u => u.UserRole)
+                           .Where(predicate)
+                           .ToListAsync();
+
                 return (filtered, null);
             }
             catch (Exception ex)

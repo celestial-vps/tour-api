@@ -7,6 +7,7 @@ using System.Text;
 using WeddingOrganizerAPI.Data;
 using WeddingOrganizerAPI.DTOs;
 using WeddingOrganizerAPI.Models;
+using WeddingOrganizerAPI.Services.Interfaces;
 
 namespace WeddingOrganizerAPI.Controllers
 {
@@ -14,31 +15,26 @@ namespace WeddingOrganizerAPI.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        private readonly IConfiguration _config;
+        // private readonly AppDbContext _context;
+        // private readonly IConfiguration _config;
+        private readonly IUserService _userService;
 
-        public AuthController(AppDbContext context, IConfiguration config)
+        public AuthController(IUserService userService)
         {
-            _context = context;
-            _config = config;
+            _userService = userService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
-            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-                return BadRequest("Email already registered.");
-
-            var user = new User
+            var (user, err) = await _userService.RegisterAsync(dto);
+            if (err != null)
             {
-                Email = dto.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
-            };
+                return BuildResponse.SendQueryError(this, err.Message, "insert");
+            }
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            return BuildResponse.CreateOk(this, user);
 
-            return Ok("User registered successfully.");
         }
 
         [HttpPost("login")]
@@ -46,16 +42,26 @@ namespace WeddingOrganizerAPI.Controllers
         {
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
 
-                if (user == null || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(dto.Password) ||
-                    !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                var (user, err) = await _userService.LoginAsync(dto);
+                if (err != null)
                 {
-                    return Unauthorized("Invalid credentials.");
+                    return BuildResponse.SendQueryError(this, err.Message, "insert");
                 }
 
-                var token = GenerateJwtToken(user);
-                return Ok(new { token });
+                return BuildResponse.CreateOk(this, user);
+
+                // var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+                // if (user == null || string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(dto.Password) ||
+                //     !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                // {
+                //     return Unauthorized("Invalid credentials.");
+                // }
+
+                // var token = GenerateJwtToken(user);
+                // return Ok(new { token });
+                return Ok(new { });
             }
             catch (Exception ex)
             {
@@ -67,30 +73,30 @@ namespace WeddingOrganizerAPI.Controllers
             }
         }
 
-        private string GenerateJwtToken(User user)
-        {
-            var keyStr = _config["Jwt:Key"];
-            if (string.IsNullOrEmpty(keyStr))
-                throw new Exception("JWT secret key not configured.");
+        // private string GenerateJwtToken(User user)
+        // {
+        //     var keyStr = _config["Jwt:Key"];
+        //     if (string.IsNullOrEmpty(keyStr))
+        //         throw new Exception("JWT secret key not configured.");
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyStr));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        //     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyStr));
+        //     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Oid.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-            };
+        //     var claims = new[]
+        //     {
+        //         new Claim(ClaimTypes.NameIdentifier, user.Oid.ToString()),
+        //         new Claim(ClaimTypes.Email, user.Email),
+        //     };
 
-            var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddHours(2),
-                signingCredentials: creds
-            );
+        //     var token = new JwtSecurityToken(
+        //         _config["Jwt:Issuer"],
+        //         _config["Jwt:Audience"],
+        //         claims,
+        //         expires: DateTime.Now.AddHours(2),
+        //         signingCredentials: creds
+        //     );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        //     return new JwtSecurityTokenHandler().WriteToken(token);
+        // }
     }
 }

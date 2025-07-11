@@ -171,3 +171,4 @@ D:\celestial\travel\tour-api\wedding-organizer-api\obj\Debug\net8.0\refint\weddi
 D:\celestial\travel\tour-api\wedding-organizer-api\obj\Debug\net8.0\wedding-organizer-api.pdb
 D:\celestial\travel\tour-api\wedding-organizer-api\obj\Debug\net8.0\wedding-organizer-api.genruntimeconfig.cache
 D:\celestial\travel\tour-api\wedding-organizer-api\obj\Debug\net8.0\ref\wedding-organizer-api.dll
+D:\celestial\travel\tour-api\wedding-organizer-api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
