@@ -1,7 +1,7 @@
 const app = require('./app'); // Express app
 const http = require('http');
 const { Server } = require('socket.io');
-const chatGateway = require('../chat/chat.gateway');
+// const chatGateway = require('../chat/chat.gateway');
 const initSocketServer = require('./lib/socket/socket-server');
 const dotenv = require('dotenv');
 require('./misc/datetime'); 
