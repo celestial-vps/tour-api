@@ -31,7 +31,6 @@ type UserRoleDomain struct {
 	DeleteState      bool       `json:"deleteState"`
 	NavigateState    bool       `json:"navigateState"`
 	Users            []User     `json:"users"`
-	Description      *string    `json:"description"`
 	CreatedBy        uuid.UUID  `json:"createdBy"`
 	CreatedAt        time.Time  `json:"createdAt"`
 	LastModifiedBy   uuid.UUID  `json:"lastModifiedBy"`

@@ -18,11 +18,11 @@ type UserRoleRepository struct {
 
 // Save implements IUserRoleRepository.
 func (u *UserRoleRepository) Save(ctx context.Context, tx *sql.Tx, userRole models.UserRole) models.UserRole {
-	SQL := `insert into user_roles(description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
+	SQL := `insert into user_roles( createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
 				oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState)
-				values (?,?,?,?,?,?,?,
+				values (?,?,?,?,?,?,
 				?,?,?,?,?,?,?,?,?)`
-	_, err := tx.ExecContext(ctx, SQL, userRole.TransactionRecord.Description, userRole.TransactionRecord.CreatedBy, userRole.TransactionRecord.CreatedAt,
+	_, err := tx.ExecContext(ctx, SQL, userRole.TransactionRecord.CreatedBy, userRole.TransactionRecord.CreatedAt,
 		userRole.TransactionRecord.LastModifiedBy, userRole.TransactionRecord.UpdatedAt, userRole.TransactionRecord.DeletedBy, userRole.TransactionRecord.DeletedAt,
 		userRole.Oid, userRole.RoleName, userRole.TargetType, userRole.IsAdministrative,
 		userRole.ReadState, userRole.WriteState, userRole.CreateState, userRole.DeleteState, userRole.NavigateState)
@@ -32,10 +32,10 @@ func (u *UserRoleRepository) Save(ctx context.Context, tx *sql.Tx, userRole mode
 
 // Update implements IUserRoleRepository.
 func (u *UserRoleRepository) Update(ctx context.Context, tx *sql.Tx, userRole models.UserRoleDomain) models.UserRoleDomain {
-	SQL := `update user_roles set description = ?, lastModifiedBy = ?, updatedAt = ?,
+	SQL := `update user_roles set  lastModifiedBy = ?, updatedAt = ?,
 				roleName = ?,targetType = ?,isAdministrative = ?, readState = ?,
 				writeState = ?,createState = ?,deleteState = ?,navigateState = ?  where oid = ?`
-	_, err := tx.ExecContext(ctx, SQL, userRole.Description, userRole.LastModifiedBy, userRole.UpdatedAt,
+	_, err := tx.ExecContext(ctx, SQL, userRole.LastModifiedBy, userRole.UpdatedAt,
 		userRole.RoleName, userRole.TargetType, userRole.IsAdministrative,
 		userRole.ReadState, userRole.WriteState, userRole.CreateState, userRole.DeleteState, userRole.NavigateState, userRole.Oid)
 	common.PanicIfError(err)
@@ -52,7 +52,7 @@ func (u *UserRoleRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string
 
 // FindAll implements IUserRoleRepository.
 func (u *UserRoleRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.UserRoleDomain {
-	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
 				from user_roles `
 	rows, err := tx.QueryContext(ctx, SQL)
 	common.PanicIfError(err)
@@ -70,7 +70,7 @@ func (u *UserRoleRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.U
 
 // FindByCriteriaPage implements IUserRoleRepository.
 func (u *UserRoleRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterUserRoleDto) ([]models.UserRoleDomain, error) {
-	SQL := `SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`
+	SQL := `SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`
 	var queryParams []interface{}
 
 	// Construct WHERE clause based on filter conditions
@@ -140,7 +140,7 @@ func (u *UserRoleRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 	var args []interface{}
 
 	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`)
+	queryBuilder.WriteString(`SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`)
 
 	// Add WHERE clause if necessary
 	var whereClauses []string
@@ -181,7 +181,7 @@ func (u *UserRoleRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 // FindById implements IUserRoleRepository.
 func (u *UserRoleRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.UserRoleDomain, error) {
-	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
 				from user_roles where oid = ?`
 	rows, err := tx.QueryContext(ctx, SQL, oid)
 	common.PanicIfError(err)

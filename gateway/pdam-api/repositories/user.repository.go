@@ -18,11 +18,11 @@ type UserRepository struct {
 
 // Save implements IUserRepository.
 func (u *UserRepository) Save(ctx context.Context, tx *sql.Tx, user models.User) models.User {
-	SQL := `insert into users(description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
+	SQL := `insert into users(, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
 				oid, name, email, password, birthday, memberNumber, androidToken, expiredTime, isActive, activatedAt, roleOid)
-			 	values (?,?,?,?,?,?,?,
+			 	values (?,?,?,?,?,?,
 				?,?,?,?,?,?,?,?,?,?,?)`
-	_, err := tx.ExecContext(ctx, SQL, user.Description, user.CreatedBy, user.CreatedAt,
+	_, err := tx.ExecContext(ctx, SQL, user.CreatedBy, user.CreatedAt,
 		user.LastModifiedBy, user.UpdatedAt, user.DeletedBy, user.DeletedAt,
 		user.Oid, user.Name, user.Email, user.Password, user.Birthday, user.MemberNumber,
 		user.AndroidToken, user.ExpiredTime, user.IsActive, user.ActivatedAt, user.RoleOid)
@@ -32,11 +32,11 @@ func (u *UserRepository) Save(ctx context.Context, tx *sql.Tx, user models.User)
 
 // Update implements IUserRepository.
 func (u *UserRepository) Update(ctx context.Context, tx *sql.Tx, user models.User) models.User {
-	SQL := `update users set description = ?, lastModifiedBy = ?, updatedAt = ?,
+	SQL := `update users set  lastModifiedBy = ?, updatedAt = ?,
 				name = ?,email = ?,password = ?,birthday=?, memberNumber = ?,androidToken = ? ,
 				expiredTime = ?,isActive = ?,activatedAt = ?,roleOid = ?
 				where oid = ?`
-	_, err := tx.ExecContext(ctx, SQL, user.Description, user.LastModifiedBy, user.UpdatedAt,
+	_, err := tx.ExecContext(ctx, SQL, user.LastModifiedBy, user.UpdatedAt,
 		user.Name, user.Email, user.Password, user.Birthday, user.MemberNumber, user.AndroidToken,
 		user.ExpiredTime, user.IsActive, user.ActivatedAt, user.RoleOid,
 		user.Oid)
@@ -54,7 +54,7 @@ func (u *UserRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string) {
 
 // FindAll implements IUserRepository.
 func (u *UserRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.User {
-	SQL := `select oid, name, email, password, birthday, memberNumber, androidToken, expiredTime, isActive, activatedAt, roleOid, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt from users `
+	SQL := `select oid, name, email, password, birthday, memberNumber, androidToken, expiredTime, isActive, activatedAt, roleOid, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt from users `
 	rows, err := tx.QueryContext(ctx, SQL)
 	common.PanicIfError(err)
 	defer rows.Close()
@@ -72,7 +72,7 @@ func (u *UserRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.User 
 // FindByCriteriaPage implements IUserRepository.
 func (u *UserRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterUserDto) ([]models.UserJoinUserRole, error) {
 	SQL := `SELECT u.oid, u.name, u.email, u.password, u.birthday, u.memberNumber, u.androidToken, u.expiredTime, u.isActive,
-	 		u.activatedAt, u.roleOid, u.description, u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
+	 		u.activatedAt, u.roleOid,  u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
 			ur.roleName, ur.targetType, ur.isAdministrative, ur.readState, ur.writeState, ur.createState, ur.deleteState, ur.navigateState 
 		FROM users u left join user_roles ur on u.roleOid = ur.oid`
 	var queryParams []interface{}
@@ -144,7 +144,7 @@ func (u *UserRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condition
 
 	// Start building the SQL query
 	queryBuilder.WriteString(`SELECT u.oid, u.name, u.email, u.password, u.birthday, u.memberNumber, u.androidToken, u.expiredTime, u.isActive,
-	 		u.activatedAt, u.roleOid, u.description, u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
+	 		u.activatedAt, u.roleOid, u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
 			ur.roleName, ur.targetType, ur.isAdministrative, ur.readState, ur.writeState, ur.createState, ur.deleteState, ur.navigateState 
 		FROM users u left join user_roles ur on u.roleOid = ur.oid`)
 
@@ -187,7 +187,7 @@ func (u *UserRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condition
 // FindById implements IUserRepository.
 func (u *UserRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.UserJoinUserRole, error) {
 	SQL := `SELECT u.oid, u.name, u.email, u.password, u.birthday, u.memberNumber, u.androidToken, u.expiredTime, u.isActive,
-	 		u.activatedAt, u.roleOid, u.description, u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
+	 		u.activatedAt, u.roleOid, u.createdBy, u.createdAt, u.lastModifiedBy, u.updatedAt, u.deletedBy, u.deletedAt,
 			ur.roleName, ur.targetType, ur.isAdministrative, ur.readState, ur.writeState, ur.createState, ur.deleteState, ur.navigateState 
 		FROM users u left join user_roles ur on u.roleOid = ur.oid where u.oid = ?`
 	rows, err := tx.QueryContext(ctx, SQL, oid)
@@ -207,7 +207,7 @@ func (u *UserRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (
 // FindById implements IUserRepository.
 func (u *UserRepository) FindByMiniId(ctx context.Context, tx *sql.Tx, oid string) (models.User, error) {
 	SQL := `SELECT oid, name, email, password, birthday, memberNumber, androidToken, expiredTime, isActive,
-	 		activatedAt, roleOid, description, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt			
+	 		activatedAt, roleOid, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt			
 		FROM users  where u.oid = ?`
 	rows, err := tx.QueryContext(ctx, SQL, oid)
 	common.PanicIfError(err)
@@ -235,7 +235,7 @@ func (u *UserRepository) FindUserRole(ctx context.Context, tx *sql.Tx, email str
 	// 	}
 	// }
 	queryBuilder.WriteString(`select u.oid, u.name, u.email, u.password, u.birthday, u.memberNumber, u.androidToken,
-				u.expiredTime, u.isActive, u.activatedAt, u.roleOid, u.description,ur.roleName
+				u.expiredTime, u.isActive, u.activatedAt, u.roleOid,ur.roleName
 				from users u left join user_roles ur on u.roleOid = ur.oid`)
 
 	if email != "" {
@@ -289,7 +289,7 @@ func NewUserRepository() IUserRepository {
 // 		return nil, fmt.Errorf("invalid condition type: %T", criterias)
 // 	}
 
-// 	queryBuilder.WriteString(`select description,  deleted, userInserted, insertedDate, lastUserId, lastUpdate,
+// 	queryBuilder.WriteString(`select  deleted, userInserted, insertedDate, lastUserId, lastUpdate,
 // 	 		oid,name, email, password, age, birthday, member_number, android_token,
 // 	 		expired_time, is_active, activated_at, role_id, created_at, updated_at
 // 	 		from user `)
@@ -332,7 +332,7 @@ func NewUserRepository() IUserRepository {
 // 			whereClause = whereVal
 // 		}
 // 	}
-// 	SQL := `select description,  deleted, userInserted, insertedDate, lastUserId, lastUpdate,
+// 	SQL := `select   deleted, userInserted, insertedDate, lastUserId, lastUpdate,
 // 			oid,name, email, password, age, birthday, member_number, android_token,
 // 			expired_time, is_active, activated_at, role_id, created_at, updated_at
 // 			from user ` + whereClause

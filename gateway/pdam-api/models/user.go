@@ -21,7 +21,6 @@ type User struct {
 	ActivatedAt    sql.NullTime   `json:"activatedAt"`
 	RoleOid        uuid.UUID      `json:"roleOid"`
 	Role           *UserRole      `json:"role"`
-	Description    *string        `json:"description"`
 	CreatedBy      *uuid.UUID     `json:"createdBy"`
 	CreatedAt      time.Time      `json:"createdAt"`
 	LastModifiedBy uuid.UUID      `json:"lastModifiedBy"`

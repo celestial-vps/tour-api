@@ -37,12 +37,7 @@ module.exports = {
       roleOid: {
         type: Sequelize.UUID,
         allowNull: true,
-      },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-        defaultValue: null,
-      },
+      }, 
       createdBy: {
         type: Sequelize.UUID,
         allowNull: true,

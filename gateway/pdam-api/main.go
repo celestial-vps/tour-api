@@ -25,7 +25,7 @@ import (
 
 func main() {
 	misc.LoadEnvVariables()
-	database.InitRedis()
+	// database.InitRedis()
 	// redisClient := database.GetRedisClient() // Fetch the Redis client
 
 	docs.SwaggerInfo.Title = os.Getenv("Title")

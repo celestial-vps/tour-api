@@ -27,7 +27,6 @@ type CustomerDomain struct {
 	Address        string     `json:"address"`
 	ImageOid       *uuid.UUID `json:"imageOider"`
 	ImageFile      *ImageFile `json:"imageFile"`
-	Description    *string    `json:"description"`
 	CreatedBy      uuid.UUID  `json:"createdBy"`
 	CreatedAt      time.Time  `json:"createdAt"`
 	LastModifiedBy uuid.UUID  `json:"lastModifiedBy"`

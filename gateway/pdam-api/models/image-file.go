@@ -21,7 +21,6 @@ type ImageFileDomain struct {
 	FilePath       *string    `json:"filePath"`
 	FileMime       *string    `json:"fileMime"`
 	FileUrl        *string    `json:"fileUrl"`
-	Description    *string    `json:"description"`
 	CreatedBy      uuid.UUID  `json:"createdBy"`
 	CreatedAt      time.Time  `json:"createdAt"`
 	LastModifiedBy uuid.UUID  `json:"lastModifiedBy"`
