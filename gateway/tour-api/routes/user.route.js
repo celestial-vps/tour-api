@@ -36,14 +36,7 @@ const router = express.Router();
  *                 example: "aioria@gmail.com"
  *               password:
  *                 type: string
- *                 example: "abcdefgh123"
- *               birthday:
- *                 type: string
- *                 format: date
- *                 example: "2024-08-16"
- *               memberNumber:
- *                 type: string
- *                 example: "123456"
+ *                 example: "abcdefgh123"  
  *               androidToken:
  *                 type: string
  *                 example: "1234556666"
@@ -126,14 +119,7 @@ router.post('/create',  userController.create);
  *                 example: "aioria1@gmail.com"
  *               password:
  *                 type: string
- *                 example: "abcdefgh1"
- *               birthday:
- *                 type: string
- *                 format: date
- *                 example: "2024-08-16"
- *               memberNumber:
- *                 type: string
- *                 example: "123456"
+ *                 example: "abcdefgh1"  
  *               androidToken:
  *                 type: string
  *                 example: "1234556666"
@@ -388,15 +374,7 @@ router.delete('/delete/:oid',  userController.remove);
  *                       email:
  *                         type: string
  *                         format: email
- *                         example: "weslyaioria1@gmail.com"
- *                       birthday:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       memberNumber:
- *                         type: string
- *                         nullable: true
- *                         example: null
+ *                         example: "weslyaioria1@gmail.com"  
  *                       androidToken:
  *                         type: string
  *                         nullable: true
@@ -492,16 +470,7 @@ router.get('/',  userController.findAll);
  *                       email:
  *                         type: string
  *                         format: email
- *                         example: "weslyaioria1@gmail.com"
- *                       birthday:
- *                         type: string
- *                         format: date
- *                         nullable: true
- *                         example: null
- *                       memberNumber:
- *                         type: string
- *                         nullable: true
- *                         example: null
+ *                         example: "weslyaioria1@gmail.com"  
  *                       androidToken:
  *                         type: string
  *                         nullable: true
@@ -616,14 +585,7 @@ router.post('/q',  userController.find);
  *                     email:
  *                       type: string
  *                       format: email
- *                       example: "weslyaioria@gmail.com"
- *                     birthday:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-08-15T17:00:00.000Z"
- *                     memberNumber:
- *                       type: string
- *                       example: "123456"
+ *                       example: "weslyaioria@gmail.com"  
  *                     androidToken:
  *                       type: string
  *                       example: "1234556666"

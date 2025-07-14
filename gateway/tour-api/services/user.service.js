@@ -17,9 +17,7 @@ const create = async (dto, userOid) => {
         const data = {
             name: dto.name ?? null,
             email: dto.email,
-            password: hashedPassword,
-            birthday: dto.birthday ?? null,
-            memberNumber: dto.memberNumber ?? null,
+            password: hashedPassword,  
             androidToken: dto.androidToken ?? null,
             expiredTime: dto.expiredTime ?? null,
             isActive: dto.isActive,
@@ -124,12 +122,9 @@ const update = async (oid, dto, userOid) => {
                 }
             }
         }
-        const hashedPassword = await hashPassword(dto.password ?? fresult.password);
-        fresult.name = dto.name ?? fresult.name
+        const hashedPassword = await hashPassword(dto.password ?? fresult.password); 
         fresult.email = dto.email ?? fresult.email
-        fresult.password = hashedPassword
-        fresult.birthday = dto.birthday ?? fresult.birthday
-        fresult.memberNumber = dto.memberNumber ?? fresult.memberNumber
+        fresult.password = hashedPassword  
         fresult.androidToken = dto.androidToken ?? fresult.androidToken
         fresult.expiredTime = dto.expiredTime ?? fresult.expiredTime
         fresult.isActive = dto.isActive ?? fresult.isActive

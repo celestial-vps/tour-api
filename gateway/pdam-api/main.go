@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/pdam-api/go-pdam-api/common"
@@ -136,4 +135,5 @@ func makeRoutes(r *gin.Engine) {
 		c.Next()
 	}
 	r.Use(cors)
+
 }

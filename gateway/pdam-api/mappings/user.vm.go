@@ -9,12 +9,9 @@ import (
 
 type UserVm struct {
 	Oid          uuid.UUID       `json:"oid"`
-	Name         *string         `json:"name"`
 	Email        string          `json:"email"`
 	Role         *UserRoleMiniVm `json:"role,omitempty"` // Use pointer and omit if nil
 	Password     string          `json:"password"`
-	Birthday     *time.Time      `json:"birthday"`
-	MemberNumber string          `json:"memberNumber"`
 	AndroidToken *string         `json:"androidToken"`
 	ExpiredTime  *string         `json:"expiredTime"`
 	IsActive     *bool           `json:"isActive"`
@@ -49,11 +46,8 @@ type UserLoginVm struct {
 func ToUserResponse(user models.User) UserVm {
 	return UserVm{
 		Oid:          user.Oid,
-		Name:         &user.Name,
 		Email:        user.Email,
 		Password:     user.Password,
-		Birthday:     user.Birthday,
-		MemberNumber: user.MemberNumber.String,
 		AndroidToken: user.AndroidToken,
 		ExpiredTime:  user.ExpiredTime,
 		IsActive:     user.IsActive,
@@ -113,12 +107,9 @@ func ToUserJoinUserRoleResponse(user models.UserJoinUserRole) UserVm {
 
 	return UserVm{
 		Oid:          user.Oid,
-		Name:         &user.Name,
 		Role:         role, // Will be nil if no role
 		Email:        user.Email,
 		Password:     user.Password,
-		Birthday:     user.Birthday,
-		MemberNumber: user.MemberNumber.String,
 		AndroidToken: user.AndroidToken,
 		ExpiredTime:  user.ExpiredTime,
 		IsActive:     user.IsActive,

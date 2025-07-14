@@ -40,7 +40,6 @@ func (service *UserService) Create(ctx context.Context, request dtos.CreateUserD
 	}
 	RoleId := uuid.MustParse(request.RoleOid)
 
-	birthday, err := time.Parse("2006-01-02", request.Birthday)
 	if err != nil {
 		common.PanicIfError(err)
 	}
@@ -56,14 +55,9 @@ func (service *UserService) Create(ctx context.Context, request dtos.CreateUserD
 	hash, _ := misc.HashPassword(request.Password)
 
 	user.Oid = uuid.New()
-	user.Name = request.Name
 	user.Email = request.Email
 	user.Password = hash
-	user.Birthday = &birthday
-	user.MemberNumber = sql.NullString{
-		String: request.MemberNumber,
-		Valid:  request.MemberNumber != "",
-	}
+
 	user.AndroidToken = &request.AndroidToken
 	user.IsActive = request.IsActive
 
@@ -79,7 +73,7 @@ func (service *UserService) Create(ctx context.Context, request dtos.CreateUserD
 	// return mappings.ToUserResponse(user)
 	messageVm := mappings.MessageVm{
 		Value: user.Oid.String(),
-		Name:  user.Name,
+		Name:  user.Email,
 	}
 	return messageVm
 }
@@ -99,7 +93,6 @@ func (service *UserService) Register(ctx context.Context, request dtos.RegisterD
 
 	user := models.User{
 		Oid:       uuid.New(),
-		Name:      request.Email,
 		Email:     request.Email,
 		Password:  hash,
 		RoleOid:   roleId,
@@ -116,10 +109,8 @@ func (service *UserService) Register(ctx context.Context, request dtos.RegisterD
 
 func (service *UserService) Login(ctx context.Context, request dtos.LoginDto) mappings.UserLoginVm {
 	user := models.User{
-		// ID:        uuid.New(),
 		Email:    request.Email,
 		Password: request.Password,
-		// CreatedAt: time.Now(),
 	}
 	userDto := dtos.FilterUserDto{
 		Email: request.Email,
@@ -179,13 +170,6 @@ func (service *UserService) Update(ctx context.Context, request dtos.UpdateUserD
 	if err != nil {
 		panic(common.NewNotFoundError(err.Error()))
 	}
-	if request.Birthday != "" {
-		parsedBirthday, err := time.Parse("2006-01-02", request.Birthday)
-		if err != nil {
-			common.PanicIfError(err)
-		}
-		user.Birthday = &parsedBirthday
-	}
 	if request.ActivatedAt != "" {
 		parsedTime, err := time.Parse("2006-01-02", request.ActivatedAt)
 		if err != nil {
@@ -197,12 +181,7 @@ func (service *UserService) Update(ctx context.Context, request dtos.UpdateUserD
 	}
 
 	now := time.Now()
-	user.Name = request.Name
 	user.Email = request.Email
-	user.MemberNumber = sql.NullString{
-		String: request.MemberNumber,
-		Valid:  request.MemberNumber != "",
-	}
 
 	user.LastModifiedBy = lastModifiedBy
 	user.UpdatedAt = &now
@@ -211,7 +190,7 @@ func (service *UserService) Update(ctx context.Context, request dtos.UpdateUserD
 	// return mappings.ToUserResponse(user)
 	messageVm := mappings.MessageVm{
 		Value: user.Oid.String(),
-		Name:  user.Name,
+		Name:  user.Email,
 	}
 	return messageVm
 }

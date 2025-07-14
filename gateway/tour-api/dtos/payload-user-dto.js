@@ -27,9 +27,7 @@ const createUserDto = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(), // Adjust password rules as needed
-  age: Joi.number().integer().min(0).max(255).required(),
-  birthday: Joi.date().iso().required(),
-  memberNumber: Joi.string().required(),
+  age: Joi.number().integer().min(0).max(255).required(),  
   androidToken: Joi.string().optional().allow(''),
   isActive: Joi.boolean().required(),
   roleOid: Joi.string().required(),
@@ -41,9 +39,7 @@ const updateUserDto = Joi.object({
   name: Joi.string().optional().allow(''),
   email: Joi.string().email().optional().allow(''),
   password: Joi.string().min(6).optional().allow(''), // Adjust password rules as needed
-  age: Joi.number().integer().min(0).max(255).optional(),
-  birthday: Joi.date().iso().optional(),
-  memberNumber: Joi.string().optional().allow(''),
+  age: Joi.number().integer().min(0).max(255).optional(),  
   androidToken: Joi.string().optional().allow(''),
   isActive: Joi.boolean().optional(),
   roleOid: Joi.string().optional().allow(''),
