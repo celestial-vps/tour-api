@@ -1,0 +1,18 @@
+using AutoMapper;
+using Mappings;
+using WeddingOrganizerAPI.DTOs;
+using WeddingOrganizerAPI.Models;
+
+namespace WeddingOrganizerAPI.Mappings
+{
+    public class AutoMapperProfile : Profile
+    {
+        public AutoMapperProfile()
+        {
+            CreateMap<Client, ClientDto>().ReverseMap();
+            CreateMap<Venue, VenueVM>();
+            CreateMap<User, UserVM>();
+            CreateMap<UserRole, UserRoleVM>();
+        }
+    }
+}
