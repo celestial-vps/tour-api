@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -36,6 +35,13 @@ func NewCustomerController(customerService services.ICustomerService) ICustomerC
 // @Router /customer/create [post]
 func (controller *CustomerController) Create(c *gin.Context) {
 	var createCustomerDto dtos.CreateCustomerDto
+
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
+
 	if err := c.ShouldBindJSON(&createCustomerDto); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
@@ -43,20 +49,18 @@ func (controller *CustomerController) Create(c *gin.Context) {
 
 	// Validate the struct
 	validate := validator.New()
-	err := validate.Struct(createCustomerDto)
-	if err != nil {
+	if err := validate.Struct(createCustomerDto); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseFinValidatorError(err.Error()))
 		return
 	}
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+
+	// Panggil service dan tangani error
+	customerResponse, err := controller.customerService.Create(c.Request.Context(), createCustomerDto, userOid)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
 		return
 	}
-	customerResponse := controller.customerService.Create(c, createCustomerDto, userJwt.UserOid)
+
 	response := common.ResponseOk(customerResponse, 1)
 	c.JSON(http.StatusOK, response)
 }
@@ -75,7 +79,13 @@ func (controller *CustomerController) Create(c *gin.Context) {
 func (controller *CustomerController) Update(c *gin.Context) {
 	oid := c.Param("oid")
 	customerUpdateRequest := dtos.UpdateCustomerDto{}
-	err := c.ShouldBindJSON(&customerUpdateRequest)
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
+
+	err = c.ShouldBindJSON(&customerUpdateRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
@@ -88,15 +98,20 @@ func (controller *CustomerController) Update(c *gin.Context) {
 		return
 	}
 
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+	// token := c.GetHeader("Authorization")
+	// accessToken := strings.Replace(token, "Bearer ", "", 1)
+	// marker, _ := middleware.NewJwt()
+	// userJwt, err := marker.GetClaimsByOid(accessToken)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
 	}
-	customerResponse := controller.customerService.Update(c, customerUpdateRequest, oid, userJwt.UserOid)
+	customerResponse, err := controller.customerService.Update(c, customerUpdateRequest, oid, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
+
 	response := common.ResponseOk(customerResponse, 1)
 
 	c.JSON(http.StatusOK, response)
@@ -114,15 +129,24 @@ func (controller *CustomerController) Update(c *gin.Context) {
 // @Router /customer/delete/{oid} [delete]
 func (controller *CustomerController) Deleted(c *gin.Context) {
 	oid := c.Param("oid")
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+	// token := c.GetHeader("Authorization")
+	// accessToken := strings.Replace(token, "Bearer ", "", 1)
+	// marker, _ := middleware.NewJwt()
+	// userJwt, err := marker.GetClaimsByOid(accessToken)
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
 	}
-	customer := controller.customerService.Deleted(c, oid, userJwt.UserOid)
+	customer, err := controller.customerService.Deleted(c, oid, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
 	response := common.ResponseDeleteOk(customer)
 
 	c.JSON(http.StatusOK, response)
@@ -138,7 +162,17 @@ func (controller *CustomerController) Deleted(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /customer [get]
 func (controller *CustomerController) FindAll(c *gin.Context) {
-	customers := controller.customerService.FindAll(c)
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
+
+	customers, err := controller.customerService.FindAll(c, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
 	if customers == nil {
 		customers = []mappings.CustomerVm{} // Assuming Customer is your struct type
 	}
@@ -161,9 +195,14 @@ func (controller *CustomerController) FindAll(c *gin.Context) {
 func (controller *CustomerController) Find(c *gin.Context) {
 	pageIndexStr := c.Query("pageIndex")
 	pageSizeStr := c.Query("pageSize")
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
 
 	var customerDto dtos.FilterCustomerDto
-	err := c.ShouldBindJSON(&customerDto)
+	err = c.ShouldBindJSON(&customerDto)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
@@ -189,7 +228,11 @@ func (controller *CustomerController) Find(c *gin.Context) {
 		pageSize = 10 // Default pageSize if not provided
 	}
 
-	customers, count := controller.customerService.FindPage(c, customerDto, pageIndex, pageSize)
+	customers, count, err := controller.customerService.FindPage(c, customerDto, pageIndex, pageSize, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
 	if customers == nil {
 		customers = []mappings.CustomerVm{} // Assuming Customer is your struct type
 	}
@@ -215,7 +258,16 @@ func (controller *CustomerController) Find(c *gin.Context) {
 // @Router /customer/{oid} [get]
 func (controller *CustomerController) FindById(c *gin.Context) {
 	oid := c.Param("oid")
-	customer := controller.customerService.FindById(c, oid)
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
+	customer, err := controller.customerService.FindById(c, oid, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
 	response := common.ResponseOk(customer, 1)
 	c.JSON(http.StatusOK, response)
 }

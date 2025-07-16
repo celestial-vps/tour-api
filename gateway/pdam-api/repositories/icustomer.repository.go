@@ -9,10 +9,10 @@ import (
 )
 
 type ICustomerRepository interface {
-	Save(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer
+	Save(ctx context.Context, tx *sql.Tx, customer models.Customer) (models.Customer, error)
 	Update(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer
-	Deleted(ctx context.Context, tx *sql.Tx, oid string)
-	FindAll(ctx context.Context, tx *sql.Tx) []models.CustomerDomain
+	Deleted(ctx context.Context, tx *sql.Tx, oid string) error
+	FindAll(ctx context.Context, tx *sql.Tx) ([]models.CustomerDomain, error)
 	FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error)
 	FindCountByCriteria(ctx context.Context, tx *sql.Tx, condition dtos.FilterCustomerDto) (int64, error)
 	AdvanceFlter(ctx context.Context, tx *sql.Tx, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error)

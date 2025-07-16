@@ -9,6 +9,7 @@ import (
 	"github.com/pdam-api/go-pdam-api/common"
 	"github.com/pdam-api/go-pdam-api/controllers"
 	"github.com/pdam-api/go-pdam-api/database"
+	"github.com/pdam-api/go-pdam-api/middleware"
 	"github.com/pdam-api/go-pdam-api/misc"
 	"github.com/pdam-api/go-pdam-api/repositories"
 	"github.com/pdam-api/go-pdam-api/routes"
@@ -59,6 +60,7 @@ func main() {
 	customerController := controllers.NewCustomerController(customerService)
 
 	router := gin.Default()
+	router.Use(middleware.InjectAuditContext())
 	router.MaxMultipartMemory = 8 << 20 // maximum file 8 MiB
 	router.Static("/public", "./public")
 	makeRoutes(router)

@@ -14,23 +14,23 @@ type UserVm struct {
 	Password     string          `json:"password"`
 	AndroidToken *string         `json:"androidToken"`
 	ExpiredTime  *string         `json:"expiredTime"`
-	IsActive     *bool           `json:"isActive"`
-	ActivatedAt  string          `json:"activatedAt"`
-	CreatedAt    time.Time       `json:"createdAt"`
-	UpdatedAt    *time.Time      `json:"updatedAt"`
+	IsActive     *bool           `json:"is_active"`
+	ActivatedAt  string          `json:"activated_at"`
+	CreatedAt    time.Time       `json:"created_at"`
+	UpdatedAt    *time.Time      `json:"updated_at"`
 }
 
 type UserRoleMiniVm struct {
 	Oid      uuid.UUID `json:"oid"`
-	RoleName string    `json:"roleName"`
+	RoleName string    `json:"role_name"`
 }
 
 type UserRegisterVm struct {
 	Oid       uuid.UUID  `json:"oid"`
 	Email     string     `json:"email"`
-	IsActive  *bool      `json:"isActive"`
-	CreatedAt time.Time  `json:"createdAt"`
-	UpdatedAt *time.Time `json:"updatedAt"`
+	IsActive  *bool      `json:"is_active"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
 }
 
 type UserLoginVm struct {

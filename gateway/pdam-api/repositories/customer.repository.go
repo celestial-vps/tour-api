@@ -6,8 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
-	"github.com/feiin/ploto"
+	"github.com/google/uuid"
 	"github.com/pdam-api/go-pdam-api/common"
 	"github.com/pdam-api/go-pdam-api/dtos"
 	"github.com/pdam-api/go-pdam-api/models"
@@ -16,113 +17,297 @@ import (
 type CustomerRepository struct {
 }
 
-// Save implements ICustomerRepository.
-func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer {
-	SQL := `insert into customers(  created_by, created_at, lastModified_by, updated_at, deleted_by, deleted_at,
-		oid, first_name, middle_name, last_name, email, phone_number, address, image_oid) 
-		values (?,?,?,?,?,?,
-		?,?,?,?,?,?,?,?)`
-	_, err := tx.ExecContext(ctx, SQL, customer.TransactionRecord.CreatedBy, customer.TransactionRecord.CreatedAt,
-		customer.TransactionRecord.LastModifiedBy, customer.TransactionRecord.UpdatedAt, customer.TransactionRecord.DeletedBy, customer.TransactionRecord.DeletedAt,
-		customer.Oid, customer.Name.FirstName, customer.Name.MiddleName, customer.Name.LastName,
-		customer.Email, customer.PhoneNumber, customer.Address, customer.ImageOid)
-	common.PanicIfError(err)
-	return customer
+func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer models.Customer) (models.Customer, error) {
+	SQL := `
+		INSERT INTO customers (
+			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
+			oid, first_name, middle_name, last_name, email, phone_number, address, image_oid
+		) VALUES (
+			$1, $2, $3, $4, $5, $6,
+			$7, $8, $9, $10, $11, $12, $13, $14
+		)
+	`
+
+	_, err := tx.ExecContext(ctx, SQL,
+		customer.TransactionRecord.CreatedBy,
+		customer.TransactionRecord.CreatedAt,
+		customer.TransactionRecord.LastModifiedBy,
+		customer.TransactionRecord.UpdatedAt,
+		customer.TransactionRecord.DeletedBy,
+		customer.TransactionRecord.DeletedAt,
+		customer.Oid,
+		customer.Name.FirstName,
+		customer.Name.MiddleName,
+		customer.Name.LastName,
+		customer.Email,
+		customer.PhoneNumber,
+		customer.Address,
+		customer.ImageOid,
+	)
+
+	if err != nil {
+		return customer, err
+	}
+	return customer, nil
 }
 
 // Update implements ICustomerRepository.
 func (c *CustomerRepository) Update(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer {
-	SQL := `update customers set  last_modified_by = ?, updated_at = ?,
-	first_name = ?,middle_name = ?,last_name = ?,email = ?,
-	phone_number = ?,address = ?,image_oid = ? where oid = ?`
-	_, err := tx.ExecContext(ctx, SQL, customer.TransactionRecord.LastModifiedBy, customer.TransactionRecord.UpdatedAt,
-		customer.Name.FirstName, customer.Name.MiddleName, customer.Name.LastName,
-		customer.Email, customer.PhoneNumber, customer.Address, customer.ImageOid, customer.Oid)
-	common.PanicIfError(err)
+	SQL := `
+		UPDATE customers SET  
+			last_modified_by = $1, 
+			updated_at = $2,
+			first_name = $3,
+			middle_name = $4,
+			last_name = $5,
+			email = $6,
+			phone_number = $7,
+			address = $8,
+			image_oid = $9
+		WHERE oid = $10
+	`
 
+	_, err := tx.ExecContext(ctx, SQL,
+		customer.TransactionRecord.LastModifiedBy,
+		customer.TransactionRecord.UpdatedAt,
+		customer.Name.FirstName,
+		customer.Name.MiddleName,
+		customer.Name.LastName,
+		customer.Email,
+		customer.PhoneNumber,
+		customer.Address,
+		customer.ImageOid,
+		customer.Oid,
+	)
+
+	common.PanicIfError(err)
 	return customer
 }
 
-// Deleted implements ICustomerRepository.
-func (c *CustomerRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string) {
-	SQL := `delete from customers where oid = ?`
+func (c *CustomerRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string) error {
+	SQL := `DELETE FROM customers WHERE oid = $1`
 	_, err := tx.ExecContext(ctx, SQL, oid)
-	common.PanicIfError(err)
+	return err
 }
 
-// FindAll implements ICustomerRepository.
-func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.CustomerDomain {
-	SQL := `select oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at from customers `
+func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.CustomerDomain, error) {
+	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, 
+                   image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
+            FROM customers`
+
 	rows, err := tx.QueryContext(ctx, SQL)
-	common.PanicIfError(err)
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 
 	var customers []models.CustomerDomain
+
 	for rows.Next() {
-		customer := models.CustomerDomain{}
-		err := ploto.Scan(rows, &customer)
-		common.PanicIfError(err)
+		var customer models.CustomerDomain
+		var imageOidStr *string
+		var createdByStr, lastModifiedByStr string
+		var deletedByStr *string
+		var createdAt time.Time
+		var updatedAt, deletedAt *time.Time
+
+		err := rows.Scan(
+			&customer.Oid,
+			&customer.FirstName,
+			&customer.MiddleName,
+			&customer.LastName,
+			&customer.Email,
+			&customer.PhoneNumber,
+			&customer.Address,
+			&imageOidStr,
+			&createdByStr,
+			&createdAt,
+			&lastModifiedByStr,
+			&updatedAt,
+			&deletedByStr,
+			&deletedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		// Parsing UUID fields
+		if imageOidStr != nil {
+			imageOid, err := uuid.Parse(*imageOidStr)
+			if err != nil {
+				return nil, err
+			}
+			customer.ImageOid = &imageOid
+		} else {
+			customer.ImageOid = nil
+		}
+
+		createdBy, err := uuid.Parse(createdByStr)
+		if err != nil {
+			return nil, err
+		}
+		customer.CreatedBy = createdBy
+		customer.CreatedAt = createdAt
+
+		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
+		if err != nil {
+			return nil, err
+		}
+		customer.LastModifiedBy = lastModifiedBy
+		customer.UpdatedAt = updatedAt
+
+		if deletedByStr != nil {
+			deletedBy, err := uuid.Parse(*deletedByStr)
+			if err != nil {
+				return nil, err
+			}
+			customer.DeletedBy = &deletedBy
+		} else {
+			customer.DeletedBy = nil
+		}
+
+		customer.DeletedAt = deletedAt
+
 		customers = append(customers, customer)
 	}
-	return customers
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return customers, nil
 }
 
-// FindByCriteriaPage implements ICustomerRepository.
 func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error) {
-	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid,  created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
-			 FROM customers`
-	var queryParams []interface{}
+	baseSQL := `
+		SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, 
+		       created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
+		FROM customers
+	`
 
-	// Construct WHERE clause based on filter conditions
+	var queryParams []interface{}
 	var whereConditions []string
+
+	// Build WHERE clause dynamically
 	if condition.FirstName != "" {
-		whereConditions = append(whereConditions, "first_name LIKE ?")
-		queryParams = append(queryParams, fmt.Sprintf("%%%s%%", condition.FirstName))
+		whereConditions = append(whereConditions, fmt.Sprintf("first_name ILIKE $%d", len(queryParams)+1))
+		queryParams = append(queryParams, "%"+condition.FirstName+"%")
 	}
 	if condition.LastName != "" {
-		whereConditions = append(whereConditions, "last_name LIKE ?")
-		queryParams = append(queryParams, fmt.Sprintf("%%%s%%", condition.LastName))
+		whereConditions = append(whereConditions, fmt.Sprintf("last_name ILIKE $%d", len(queryParams)+1))
+		queryParams = append(queryParams, "%"+condition.LastName+"%")
 	}
 
-	// Add WHERE clause if there are conditions
 	if len(whereConditions) > 0 {
-		SQL += " WHERE " + fmt.Sprintf("%s", whereConditions[0])
-		for _, condition := range whereConditions[1:] {
-			SQL += " AND " + condition
-		}
+		baseSQL += " WHERE " + strings.Join(whereConditions, " AND ")
 	}
 
-	rows, err := tx.QueryContext(ctx, SQL, queryParams...)
-	common.PanicIfError(err)
+	// Pagination: OFFSET and LIMIT
+	offset := (page - 1) * pageSize
+	baseSQL += fmt.Sprintf(" ORDER BY created_at DESC LIMIT $%d OFFSET $%d", len(queryParams)+1, len(queryParams)+2)
+	queryParams = append(queryParams, pageSize, offset)
+
+	rows, err := tx.QueryContext(ctx, baseSQL, queryParams...)
+	if err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 
 	var customers []models.CustomerDomain
+
 	for rows.Next() {
-		customer := models.CustomerDomain{}
-		err := ploto.Scan(rows, &customer)
-		common.PanicIfError(err)
+		var customer models.CustomerDomain
+
+		// Temp vars for nullable strings and UUIDs from DB
+		var middleName, lastName *string
+		var imageOidStr *string
+		var createdByStr, lastModifiedByStr string
+		var deletedByStr *string
+		var createdAt time.Time
+		var updatedAt, deletedAt *time.Time
+
+		err := rows.Scan(
+			&customer.Oid,
+			&customer.FirstName,
+			&middleName,
+			&lastName,
+			&customer.Email,
+			&customer.PhoneNumber,
+			&customer.Address,
+			&imageOidStr,
+			&createdByStr,
+			&createdAt,
+			&lastModifiedByStr,
+			&updatedAt,
+			&deletedByStr,
+			&deletedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		customer.MiddleName = middleName
+		customer.LastName = lastName
+
+		if imageOidStr != nil {
+			imageOid, err := uuid.Parse(*imageOidStr)
+			if err != nil {
+				return nil, fmt.Errorf("invalid UUID for ImageOid: %w", err)
+			}
+			customer.ImageOid = &imageOid
+		} else {
+			customer.ImageOid = nil
+		}
+
+		createdBy, err := uuid.Parse(createdByStr)
+		if err != nil {
+			return nil, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
+		}
+		customer.CreatedBy = createdBy
+		customer.CreatedAt = createdAt
+
+		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
+		if err != nil {
+			return nil, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
+		}
+		customer.LastModifiedBy = lastModifiedBy
+		customer.UpdatedAt = updatedAt
+
+		if deletedByStr != nil {
+			deletedBy, err := uuid.Parse(*deletedByStr)
+			if err != nil {
+				return nil, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
+			}
+			customer.DeletedBy = &deletedBy
+		} else {
+			customer.DeletedBy = nil
+		}
+		customer.DeletedAt = deletedAt
+
 		customers = append(customers, customer)
 	}
 
-	return customers, err
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return customers, nil
 }
 
-// FindCountByCriteria implements ICustomerRepository.
 func (c *CustomerRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx, condition dtos.FilterCustomerDto) (int64, error) {
 	var queryBuilder strings.Builder
 	var args []interface{}
 
-	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT  count(oid) FROM customers`)
+	queryBuilder.WriteString(`SELECT count(oid) FROM customers`)
 
-	// Add WHERE clause if necessary
 	var whereClauses []string
+
 	if condition.FirstName != "" {
-		whereClauses = append(whereClauses, "first_name LIKE ?")
+		whereClauses = append(whereClauses, fmt.Sprintf("first_name ILIKE $%d", len(args)+1))
 		args = append(args, "%"+condition.FirstName+"%")
 	}
 	if condition.LastName != "" {
-		whereClauses = append(whereClauses, "last_name LIKE ?")
+		whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
 		args = append(args, "%"+condition.LastName+"%")
 	}
 
@@ -133,7 +318,6 @@ func (c *CustomerRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx
 
 	SQL := queryBuilder.String()
 
-	// Execute the query and get the count
 	var count int64
 	err := tx.QueryRowContext(ctx, SQL, args...).Scan(&count)
 	if err != nil {
@@ -143,23 +327,25 @@ func (c *CustomerRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx
 	return count, nil
 }
 
-// AdvanceFlter implements ICustomerRepository.
 func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error) {
 	var queryBuilder strings.Builder
 	var args []interface{}
 
-	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
-			 FROM customers`)
+	queryBuilder.WriteString(`
+		SELECT oid, first_name, middle_name, last_name, email, phone_number, address, 
+		       image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
+		FROM customers
+	`)
 
-	// Add WHERE clause if necessary
 	var whereClauses []string
+
 	if condition.FirstName != "" {
-		whereClauses = append(whereClauses, "first_name LIKE ?")
+		whereClauses = append(whereClauses, fmt.Sprintf("first_name ILIKE $%d", len(args)+1))
 		args = append(args, "%"+condition.FirstName+"%")
 	}
+
 	if condition.LastName != "" {
-		whereClauses = append(whereClauses, "last_name LIKE ?")
+		whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
 		args = append(args, "%"+condition.LastName+"%")
 	}
 
@@ -170,19 +356,86 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 	SQL := queryBuilder.String()
 
-	// Execute the query
 	rows, err := tx.QueryContext(ctx, SQL, args...)
 	if err != nil {
 		return nil, fmt.Errorf("error executing query: %w", err)
 	}
 	defer rows.Close()
 
-	// Scan rows into models
 	var customers []models.CustomerDomain
 	for rows.Next() {
-		customer := models.CustomerDomain{}
-		err := ploto.Scan(rows, &customer)
-		common.PanicIfError(err)
+		var (
+			customer          models.CustomerDomain
+			middleName        *string
+			lastName          *string
+			imageOidStr       *string
+			createdByStr      string
+			createdAt         time.Time
+			lastModifiedByStr string
+			updatedAt         *time.Time
+			deletedByStr      *string
+			deletedAt         *time.Time
+		)
+
+		err := rows.Scan(
+			&customer.Oid,
+			&customer.FirstName,
+			&middleName,
+			&lastName,
+			&customer.Email,
+			&customer.PhoneNumber,
+			&customer.Address,
+			&imageOidStr,
+			&createdByStr,
+			&createdAt,
+			&lastModifiedByStr,
+			&updatedAt,
+			&deletedByStr,
+			&deletedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+
+		customer.MiddleName = middleName
+		customer.LastName = lastName
+
+		if imageOidStr != nil {
+			imageOid, err := uuid.Parse(*imageOidStr)
+			if err != nil {
+				return nil, fmt.Errorf("invalid UUID for ImageOid: %w", err)
+			}
+			customer.ImageOid = &imageOid
+		} else {
+			customer.ImageOid = nil
+		}
+
+		createdBy, err := uuid.Parse(createdByStr)
+		if err != nil {
+			return nil, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
+		}
+		customer.CreatedBy = createdBy
+		customer.CreatedAt = createdAt
+
+		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
+		if err != nil {
+			return nil, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
+		}
+		customer.LastModifiedBy = lastModifiedBy
+		customer.UpdatedAt = updatedAt
+
+		if deletedByStr != nil {
+			deletedBy, err := uuid.Parse(*deletedByStr)
+			if err != nil {
+				return nil, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
+			}
+			customer.DeletedBy = &deletedBy
+		} else {
+			customer.DeletedBy = nil
+		}
+
+		customer.DeletedAt = deletedAt
+
 		customers = append(customers, customer)
 	}
 
@@ -193,40 +446,38 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 	return customers, nil
 }
 
-// FindById implements ICustomerRepository.
 func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.Customer, error) {
-	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
-			FROM customers WHERE oid = ?`
+	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid,
+			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
+			FROM customers WHERE oid = $1`
 
 	row := tx.QueryRowContext(ctx, SQL, oid)
 
 	customer := models.Customer{}
 
-	// Use ploto to scan the row directly into a temporary struct
-	var middle_name *string
-	var last_name *string
-	var created_by *string
-	var createdAt *string // Change to appropriate types if needed
-	var last_modified_by *string
-	var updated_at *string // Change to appropriate types if needed
-	var deleted_by *string
-	var deleted_at *string // Change to appropriate types if needed
+	// Scan ke variabel pointer dulu (nullable)
+	var middleName, lastName *string
+	var createdByStr, lastModifiedByStr *string
+	var deletedByStr *string
+	var createdAt time.Time
+	var updatedAt *time.Time
+	var deletedAt *time.Time
 
 	err := row.Scan(
 		&customer.Oid,
 		&customer.Name.FirstName,
-		&middle_name,
-		&last_name,
+		&middleName,
+		&lastName,
 		&customer.Email,
 		&customer.PhoneNumber,
 		&customer.Address,
 		&customer.ImageOid,
-		&created_by,
+		&createdByStr,
 		&createdAt,
-		&last_modified_by,
-		&updated_at,
-		&deleted_by,
-		&deleted_at,
+		&lastModifiedByStr,
+		&updatedAt,
+		&deletedByStr,
+		&deletedAt,
 	)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -235,9 +486,37 @@ func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid strin
 		return customer, fmt.Errorf("error scanning customer: %w", err)
 	}
 
-	// Set the optional fields in the Name struct
-	customer.Name.MiddleName = middle_name
-	customer.Name.LastName = last_name
+	// Assign nullable string fields
+	customer.Name.MiddleName = middleName
+	customer.Name.LastName = lastName
+
+	// Convert string UUID ke uuid.UUID
+	createdBy, err := uuid.Parse(*createdByStr)
+	if err != nil {
+		return customer, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
+	}
+	customer.TransactionRecord.CreatedBy = createdBy
+	customer.TransactionRecord.CreatedAt = createdAt
+
+	if lastModifiedByStr != nil {
+		lastModifiedBy, err := uuid.Parse(*lastModifiedByStr)
+		if err != nil {
+			return customer, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
+		}
+		customer.TransactionRecord.LastModifiedBy = lastModifiedBy
+	}
+
+	customer.TransactionRecord.UpdatedAt = updatedAt
+
+	if deletedByStr != nil {
+		deletedBy, err := uuid.Parse(*deletedByStr)
+		if err != nil {
+			return customer, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
+		}
+		customer.TransactionRecord.DeletedBy = &deletedBy
+	}
+
+	customer.TransactionRecord.DeletedAt = deletedAt
 
 	return customer, nil
 }

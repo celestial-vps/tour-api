@@ -8,10 +8,10 @@ import (
 )
 
 type ICustomerService interface {
-	Create(ctx context.Context, request dtos.CreateCustomerDto, userOid string) mappings.MessageVm
-	Update(ctx context.Context, request dtos.UpdateCustomerDto, oid string, userOid string) mappings.MessageVm
-	Deleted(ctx context.Context, oid string, userOid string) mappings.MessageVm
-	FindAll(ctx context.Context) []mappings.CustomerVm
-	FindPage(ctx context.Context, condition dtos.FilterCustomerDto, page, pageSize int) ([]mappings.CustomerVm, int64)
-	FindById(ctx context.Context, oid string) mappings.CustomerVm
+	Create(ctx context.Context, request dtos.CreateCustomerDto, userOid string) (mappings.MessageVm, error)
+	Update(ctx context.Context, request dtos.UpdateCustomerDto, oid string, userOid string) (mappings.MessageVm, error)
+	Deleted(ctx context.Context, oid string, userOid string) (mappings.MessageVm, error)
+	FindAll(ctx context.Context, userOid string) ([]mappings.CustomerVm, error)
+	FindPage(ctx context.Context, condition dtos.FilterCustomerDto, page, pageSize int, userOid string) ([]mappings.CustomerVm, int64, error)
+	FindById(ctx context.Context, oid string, userOid string) (mappings.CustomerVm, error)
 }

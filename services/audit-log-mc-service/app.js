@@ -15,7 +15,7 @@ const fs = require('fs');
 const sequelize = require('./config/sequelize');
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
-
+require('./misc/datetime'); 
 app.use(express.json());
 // @ts-ignore
 app.use(helmet())

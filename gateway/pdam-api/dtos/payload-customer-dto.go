@@ -12,7 +12,6 @@ type CreateCustomerDto struct {
 	Email       string `json:"email" validate:"required,email" `
 	PhoneNumber string `json:"phoneNumber" validate:"required" `
 	Address     string `json:"address" validate:"required" `
-	ImageOid    string `json:"imageOid" validate:"omitempty"`
 }
 
 type UpdateCustomerDto struct {
@@ -22,5 +21,4 @@ type UpdateCustomerDto struct {
 	Email       string `json:"email" validate:"required,email" `
 	PhoneNumber string `json:"phoneNumber" validate:"required" `
 	Address     string `json:"address" validate:"required" `
-	ImageOid    string `json:"imageOid" validate:"omitempty"`
 }

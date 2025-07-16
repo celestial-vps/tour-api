@@ -232,9 +232,10 @@ func (u *UserRepository) FindUserRole(ctx context.Context, tx *sql.Tx, email str
 				LEFT JOIN user_roles ur ON u.role_oid = ur.oid`)
 
 	if email != "" {
-		whereClauses = append(whereClauses, "u.email ILIKE ?")
+		whereClauses = append(whereClauses, fmt.Sprintf("u.email ILIKE $%d", len(args)+1))
 		args = append(args, "%"+email+"%")
 	}
+
 	if len(whereClauses) > 0 {
 		queryBuilder.WriteString(" WHERE ")
 		queryBuilder.WriteString(strings.Join(whereClauses, " AND "))
