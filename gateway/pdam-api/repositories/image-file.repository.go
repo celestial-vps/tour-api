@@ -18,7 +18,7 @@ type ImageFileRepository struct {
 
 // Save implements IImageFileRepository.
 func (i *ImageFileRepository) Save(ctx context.Context, tx *sql.Tx, imageFile models.ImageFile) models.ImageFile {
-	SQL := `insert into image_files( createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
+	SQL := `insert into image_files( created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
 				oid, fileName, filePath, fileMime, fileUrl,) values (?,?,?,?,?,?,?,?,?)`
 	_, err := tx.ExecContext(ctx, SQL, imageFile.TransactionRecord.CreatedBy, imageFile.TransactionRecord.CreatedAt,
 		imageFile.TransactionRecord.LastModifiedBy, imageFile.TransactionRecord.UpdatedAt, imageFile.TransactionRecord.DeletedBy, imageFile.TransactionRecord.DeletedAt,
@@ -29,7 +29,7 @@ func (i *ImageFileRepository) Save(ctx context.Context, tx *sql.Tx, imageFile mo
 
 // Update implements IImageFileRepository.
 func (i *ImageFileRepository) Update(ctx context.Context, tx *sql.Tx, imageFile models.ImageFileDomain) models.ImageFileDomain {
-	SQL := `update image_files set  lastModifiedBy = ?, updatedAt = ?,
+	SQL := `update image_files set  last_modified_by = ?, updated_at = ?,
 				fileName = ?,filePath = ?,fileMime = ?,fileUrl = ? where oid = ?`
 	_, err := tx.ExecContext(ctx, SQL, imageFile.CreatedBy, imageFile.CreatedAt,
 		imageFile.LastModifiedBy, imageFile.UpdatedAt, imageFile.DeletedBy, imageFile.DeletedAt,
@@ -48,7 +48,7 @@ func (i *ImageFileRepository) Deleted(ctx context.Context, tx *sql.Tx, oid strin
 
 // FindAll implements IImageFileRepository.
 func (i *ImageFileRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.ImageFileDomain {
-	SQL := `select oid, fileName, filePath, fileMime, fileUrl, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt from image_files `
+	SQL := `select oid, fileName, filePath, fileMime, fileUrl, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at from image_files `
 	rows, err := tx.QueryContext(ctx, SQL)
 	common.PanicIfError(err)
 	defer rows.Close()
@@ -65,7 +65,7 @@ func (i *ImageFileRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.
 
 // FindByCriteriaPage implements IImageFileRepository.
 func (i *ImageFileRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterImageFileDto) ([]models.ImageFileDomain, error) {
-	SQL := `SELECT oid, fileName, filePath, fileMime, fileUrl, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `SELECT oid, fileName, filePath, fileMime, fileUrl, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM image_files`
 	var queryParams []interface{}
 
@@ -104,7 +104,7 @@ func (i *ImageFileRepository) FindCountByCriteria(ctx context.Context, tx *sql.T
 	var args []interface{}
 
 	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, fileName, filePath, fileMime, fileUrl, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	queryBuilder.WriteString(`SELECT oid, fileName, filePath, fileMime, fileUrl, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM image_files`)
 
 	// Add WHERE clause if necessary
@@ -137,7 +137,7 @@ func (i *ImageFileRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, cond
 	var args []interface{}
 
 	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, fileName, filePath, fileMime, fileUrl, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	queryBuilder.WriteString(`SELECT oid, fileName, filePath, fileMime, fileUrl, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM image_files`)
 
 	// Add WHERE clause if necessary
@@ -179,7 +179,7 @@ func (i *ImageFileRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, cond
 
 // FindById implements IImageFileRepository.
 func (i *ImageFileRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.ImageFileDomain, error) {
-	SQL := `select oid, fileName, filePath, fileMime, fileUrl, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt from image_files where oid = ?`
+	SQL := `select oid, fileName, filePath, fileMime, fileUrl, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at from image_files where oid = ?`
 	rows, err := tx.QueryContext(ctx, SQL, oid)
 	common.PanicIfError(err)
 	defer rows.Close()

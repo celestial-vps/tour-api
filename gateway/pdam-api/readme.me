@@ -1,6 +1,9 @@
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+migrate -path ./migrations -database "postgresql://postgres:Serverh5n%26%2A%23@localhost:5432/pdamdb?sslmode=disable" up
+
 mkdir cmd common controllers database docs dtos helper mappings middleware migrate misc models public repositories routes services
-migrate -path ./migrations -database "postgres://postgres:telogic@localhost:5432/pdamdb?sslmode=disable" up
-migrate -path ./migrations -database "postgres://postgres:telogic@localhost:5432/pdamdb?sslmode=disable" down
+migrate -path ./migrations -database "postgres://postgres:Serverh5n&*#@localhost:5432/pdamdb?sslmode=disable" up
+migrate -path ./migrations -database "postgres://postgres:Serverh5n&*#@localhost:5432/pdamdb?sslmode=disable" down
 
 D:\celestial\travel\tour-api\gateway\pdam-api\migrations>generate_migration.bat
 Enter migration name (use underscore for spaces): bills

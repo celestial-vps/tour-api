@@ -2,8 +2,10 @@ package main
 
 import (
 	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/pdam-api/go-pdam-api/cmd"
 	"github.com/pdam-api/go-pdam-api/common"
 	"github.com/pdam-api/go-pdam-api/controllers"
 	"github.com/pdam-api/go-pdam-api/database"
@@ -35,6 +37,8 @@ func main() {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	DB := database.GetConnection()
+	cmd.SeedUserRoles(DB)
+
 	validate := validator.New()
 
 	userRepository := repositories.NewUserRepository()

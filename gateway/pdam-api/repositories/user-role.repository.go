@@ -18,8 +18,8 @@ type UserRoleRepository struct {
 
 // Save implements IUserRoleRepository.
 func (u *UserRoleRepository) Save(ctx context.Context, tx *sql.Tx, userRole models.UserRole) models.UserRole {
-	SQL := `insert into user_roles( createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
-				oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState)
+	SQL := `insert into user_roles( created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
+				oid, role_name, target_type, is_administrative, read_state, write_state, create_state, delete_state, navigate_state)
 				values (?,?,?,?,?,?,
 				?,?,?,?,?,?,?,?,?)`
 	_, err := tx.ExecContext(ctx, SQL, userRole.TransactionRecord.CreatedBy, userRole.TransactionRecord.CreatedAt,
@@ -32,9 +32,9 @@ func (u *UserRoleRepository) Save(ctx context.Context, tx *sql.Tx, userRole mode
 
 // Update implements IUserRoleRepository.
 func (u *UserRoleRepository) Update(ctx context.Context, tx *sql.Tx, userRole models.UserRoleDomain) models.UserRoleDomain {
-	SQL := `update user_roles set  lastModifiedBy = ?, updatedAt = ?,
-				roleName = ?,targetType = ?,isAdministrative = ?, readState = ?,
-				writeState = ?,createState = ?,deleteState = ?,navigateState = ?  where oid = ?`
+	SQL := `update user_roles set  last_modified_by = ?, updated_at = ?,
+				role_name = ?,target_type = ?,is_administrative = ?, read_state = ?,
+				write_state = ?,create_state = ?,delete_state = ?,navigate_state = ?  where oid = ?`
 	_, err := tx.ExecContext(ctx, SQL, userRole.LastModifiedBy, userRole.UpdatedAt,
 		userRole.RoleName, userRole.TargetType, userRole.IsAdministrative,
 		userRole.ReadState, userRole.WriteState, userRole.CreateState, userRole.DeleteState, userRole.NavigateState, userRole.Oid)
@@ -52,7 +52,7 @@ func (u *UserRoleRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string
 
 // FindAll implements IUserRoleRepository.
 func (u *UserRoleRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.UserRoleDomain {
-	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `select oid, role_name, target_type, is_administrative, read_state, write_state, create_state, delete_state, navigate_state,  created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 				from user_roles `
 	rows, err := tx.QueryContext(ctx, SQL)
 	common.PanicIfError(err)
@@ -70,13 +70,13 @@ func (u *UserRoleRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.U
 
 // FindByCriteriaPage implements IUserRoleRepository.
 func (u *UserRoleRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterUserRoleDto) ([]models.UserRoleDomain, error) {
-	SQL := `SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`
+	SQL := `SELECT oid, role_name, target_type, is_administrative, read_state, write_state, create_state, delete_state, navigate_state,  created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at FROM user_roles`
 	var queryParams []interface{}
 
 	// Construct WHERE clause based on filter conditions
 	var whereConditions []string
 	if condition.RoleName != "" {
-		whereConditions = append(whereConditions, "roleName LIKE ?")
+		whereConditions = append(whereConditions, "role_name LIKE ?")
 		queryParams = append(queryParams, fmt.Sprintf("%%%s%%", condition.RoleName))
 	}
 
@@ -113,7 +113,7 @@ func (u *UserRoleRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx
 	// Add WHERE clause if necessary
 	var whereClauses []string
 	if condition.RoleName != "" {
-		whereClauses = append(whereClauses, "roleName LIKE ?")
+		whereClauses = append(whereClauses, "role_name LIKE ?")
 		args = append(args, "%"+condition.RoleName+"%")
 	}
 
@@ -140,12 +140,12 @@ func (u *UserRoleRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 	var args []interface{}
 
 	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt FROM user_roles`)
+	queryBuilder.WriteString(`SELECT oid, role_name, target_type, is_administrative, read_state, write_state, create_state, delete_state, navigate_state,  created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at FROM user_roles`)
 
 	// Add WHERE clause if necessary
 	var whereClauses []string
 	if condition.RoleName != "" {
-		whereClauses = append(whereClauses, "roleName LIKE ?")
+		whereClauses = append(whereClauses, "role_name LIKE ?")
 		args = append(args, "%"+condition.RoleName+"%")
 	}
 
@@ -181,7 +181,7 @@ func (u *UserRoleRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 // FindById implements IUserRoleRepository.
 func (u *UserRoleRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.UserRoleDomain, error) {
-	SQL := `select oid, roleName, targetType, isAdministrative, readState, writeState, createState, deleteState, navigateState, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `select oid, role_name, target_type, is_administrative, read_state, write_state, create_state, delete_state, navigate_state, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 				from user_roles where oid = ?`
 	rows, err := tx.QueryContext(ctx, SQL, oid)
 	common.PanicIfError(err)

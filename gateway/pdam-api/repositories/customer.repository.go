@@ -18,8 +18,8 @@ type CustomerRepository struct {
 
 // Save implements ICustomerRepository.
 func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer {
-	SQL := `insert into customers(  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt,
-		oid, firstName, middleName, lastName, email, phoneNumber, address, imageOid) 
+	SQL := `insert into customers(  created_by, created_at, lastModified_by, updated_at, deleted_by, deleted_at,
+		oid, first_name, middle_name, last_name, email, phone_number, address, image_oid) 
 		values (?,?,?,?,?,?,
 		?,?,?,?,?,?,?,?)`
 	_, err := tx.ExecContext(ctx, SQL, customer.TransactionRecord.CreatedBy, customer.TransactionRecord.CreatedAt,
@@ -32,9 +32,9 @@ func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer mode
 
 // Update implements ICustomerRepository.
 func (c *CustomerRepository) Update(ctx context.Context, tx *sql.Tx, customer models.Customer) models.Customer {
-	SQL := `update customers set  lastModifiedBy = ?, updatedAt = ?,
-	firstName = ?,middleName = ?,lastName = ?,email = ?,
-	phoneNumber = ?,address = ?,imageOid = ? where oid = ?`
+	SQL := `update customers set  last_modified_by = ?, updated_at = ?,
+	first_name = ?,middle_name = ?,last_name = ?,email = ?,
+	phone_number = ?,address = ?,image_oid = ? where oid = ?`
 	_, err := tx.ExecContext(ctx, SQL, customer.TransactionRecord.LastModifiedBy, customer.TransactionRecord.UpdatedAt,
 		customer.Name.FirstName, customer.Name.MiddleName, customer.Name.LastName,
 		customer.Email, customer.PhoneNumber, customer.Address, customer.ImageOid, customer.Oid)
@@ -52,7 +52,7 @@ func (c *CustomerRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string
 
 // FindAll implements ICustomerRepository.
 func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.CustomerDomain {
-	SQL := `select oid, firstName, middleName, lastName, email, phoneNumber, address, imageOid, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt from customers `
+	SQL := `select oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at from customers `
 	rows, err := tx.QueryContext(ctx, SQL)
 	common.PanicIfError(err)
 	defer rows.Close()
@@ -69,18 +69,18 @@ func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) []models.C
 
 // FindByCriteriaPage implements ICustomerRepository.
 func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error) {
-	SQL := `SELECT oid, firstName, middleName, lastName, email, phoneNumber, address, imageOid,  createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid,  created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
 			 FROM customers`
 	var queryParams []interface{}
 
 	// Construct WHERE clause based on filter conditions
 	var whereConditions []string
 	if condition.FirstName != "" {
-		whereConditions = append(whereConditions, "firstName LIKE ?")
+		whereConditions = append(whereConditions, "first_name LIKE ?")
 		queryParams = append(queryParams, fmt.Sprintf("%%%s%%", condition.FirstName))
 	}
 	if condition.LastName != "" {
-		whereConditions = append(whereConditions, "lastName LIKE ?")
+		whereConditions = append(whereConditions, "last_name LIKE ?")
 		queryParams = append(queryParams, fmt.Sprintf("%%%s%%", condition.LastName))
 	}
 
@@ -118,11 +118,11 @@ func (c *CustomerRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx
 	// Add WHERE clause if necessary
 	var whereClauses []string
 	if condition.FirstName != "" {
-		whereClauses = append(whereClauses, "firstName LIKE ?")
+		whereClauses = append(whereClauses, "first_name LIKE ?")
 		args = append(args, "%"+condition.FirstName+"%")
 	}
 	if condition.LastName != "" {
-		whereClauses = append(whereClauses, "lastName LIKE ?")
+		whereClauses = append(whereClauses, "last_name LIKE ?")
 		args = append(args, "%"+condition.LastName+"%")
 	}
 
@@ -149,17 +149,17 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 	var args []interface{}
 
 	// Start building the SQL query
-	queryBuilder.WriteString(`SELECT oid, firstName, middleName, lastName, email, phoneNumber, address, imageOid, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	queryBuilder.WriteString(`SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
 			 FROM customers`)
 
 	// Add WHERE clause if necessary
 	var whereClauses []string
 	if condition.FirstName != "" {
-		whereClauses = append(whereClauses, "firstName LIKE ?")
+		whereClauses = append(whereClauses, "first_name LIKE ?")
 		args = append(args, "%"+condition.FirstName+"%")
 	}
 	if condition.LastName != "" {
-		whereClauses = append(whereClauses, "lastName LIKE ?")
+		whereClauses = append(whereClauses, "last_name LIKE ?")
 		args = append(args, "%"+condition.LastName+"%")
 	}
 
@@ -195,7 +195,7 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 // FindById implements ICustomerRepository.
 func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.Customer, error) {
-	SQL := `SELECT oid, firstName, middleName, lastName, email, phoneNumber, address, imageOid, createdBy, createdAt, lastModifiedBy, updatedAt, deletedBy, deletedAt
+	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, created_by, createdAt, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM customers WHERE oid = ?`
 
 	row := tx.QueryRowContext(ctx, SQL, oid)
@@ -203,30 +203,30 @@ func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid strin
 	customer := models.Customer{}
 
 	// Use ploto to scan the row directly into a temporary struct
-	var middleName *string
-	var lastName *string
-	var createdBy *string
+	var middle_name *string
+	var last_name *string
+	var created_by *string
 	var createdAt *string // Change to appropriate types if needed
-	var lastModifiedBy *string
-	var updatedAt *string // Change to appropriate types if needed
-	var deletedBy *string
-	var deletedAt *string // Change to appropriate types if needed
+	var last_modified_by *string
+	var updated_at *string // Change to appropriate types if needed
+	var deleted_by *string
+	var deleted_at *string // Change to appropriate types if needed
 
 	err := row.Scan(
 		&customer.Oid,
 		&customer.Name.FirstName,
-		&middleName,
-		&lastName,
+		&middle_name,
+		&last_name,
 		&customer.Email,
 		&customer.PhoneNumber,
 		&customer.Address,
 		&customer.ImageOid,
-		&createdBy,
+		&created_by,
 		&createdAt,
-		&lastModifiedBy,
-		&updatedAt,
-		&deletedBy,
-		&deletedAt,
+		&last_modified_by,
+		&updated_at,
+		&deleted_by,
+		&deleted_at,
 	)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -236,8 +236,8 @@ func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid strin
 	}
 
 	// Set the optional fields in the Name struct
-	customer.Name.MiddleName = middleName
-	customer.Name.LastName = lastName
+	customer.Name.MiddleName = middle_name
+	customer.Name.LastName = last_name
 
 	return customer, nil
 }

@@ -8,7 +8,7 @@ package cmd
 // )
 
 // func main() {
-// 	connStr := "postgres://postgres:telogic@localhost:5432/pdamdb?sslmode=disable"
+// 	connStr := "postgres://postgres:Serverh5n&*#@localhost:5432/pdamdb?sslmode=disable"
 
 // 	db, err := sql.Open("postgres", connStr)
 // 	if err != nil {
