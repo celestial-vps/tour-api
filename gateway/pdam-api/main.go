@@ -59,6 +59,18 @@ func main() {
 	customerService := services.NewCustomerService(customerRepository, imageFileRepository, DB, validate)
 	customerController := controllers.NewCustomerController(customerService)
 
+	waterMeterRepository := repositories.NewWaterMeterRepository()
+	waterMeterService := services.NewWaterMeterService(waterMeterRepository, imageFileRepository, DB, validate)
+	waterMeterController := controllers.NewWaterMeterController(waterMeterService)
+
+	tarifRepository := repositories.NewTarifRepository()
+	tarifService := services.NewTarifService(tarifRepository, imageFileRepository, DB, validate)
+	tarifController := controllers.NewTarifController(tarifService)
+
+	usageRecordRepository := repositories.NewUsageRecordRepository()
+	usageRecordService := services.NewUsageRecordService(usageRecordRepository, imageFileRepository, DB, validate)
+	usageRecordController := controllers.NewUsageRecordController(usageRecordService)
+
 	router := gin.Default()
 	router.Use(middleware.InjectAuditContext())
 	router.MaxMultipartMemory = 8 << 20 // maximum file 8 MiB
@@ -91,6 +103,15 @@ func main() {
 
 		customer := v1.Group("/customer")
 		routes.CustomerRouter(customerController, customer)
+
+		tarif := v1.Group("/tarif")
+		routes.TarifRouter(tarifController, tarif)
+
+		waterMeter := v1.Group("/water-meter")
+		routes.WaterMeterRouter(waterMeterController, waterMeter)
+
+		usageRecord := v1.Group("/usagee-record")
+		routes.UsageRecordRouter(usageRecordController, usageRecord)
 
 		userRole := v1.Group("/user-role")
 		routes.UserRoleRouter(userRoleController, userRole)
