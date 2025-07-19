@@ -98,6 +98,28 @@ const find = async (req, res) => {
   }
 };
 
+const findCriteria = async (req, res) => {
+  try {
+    const filters = pick(req.body, ['originSubAreaOid', 'destinationSubAreaOid', 'depatureTime']);
+    const options = {
+      sortBy: req.query.sortBy, 
+    };
+
+    const result = await travelScheduleService.findPageCriteria(filters, options);
+
+    if (result.err) {
+      await recordAuditTrail("READ", "travel_schedule", result.err, req, 'FAILED', result.err.message);
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+    await recordAuditTrail("READ", "travel_schedule", result.travelSchedules, req, 'SUCCESS', 'Get Travel Schedules with filters success');
+    return buildResponse.sendPagination(res, result.travelSchedules, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    await recordAuditTrail("READ", "travel_schedule", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
+};
+
+
 const findById = async (req, res) => {
   try {
     const { travelSchedule, err } = await travelScheduleService.findById(req.params.oid, { include: [] });
@@ -123,4 +145,5 @@ module.exports = {
   findAll,
   find,
   findById,
+  findCriteria
 };

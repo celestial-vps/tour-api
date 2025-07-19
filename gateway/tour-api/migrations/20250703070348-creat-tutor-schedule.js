@@ -21,7 +21,7 @@ module.exports = {
       },
       vehicleOid: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'vehicles',
           key: 'oid'
@@ -31,7 +31,7 @@ module.exports = {
       },
       driverOid: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'drivers',
           key: 'oid'
@@ -39,13 +39,13 @@ module.exports = {
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
       },
-      departureTime: {
+      depatureTime: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
       },
       arrivalTime: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
       },
       status: {
         type: Sequelize.ENUM('scheduled', 'on_the_way', 'completed', 'cancelled'),

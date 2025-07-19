@@ -37,7 +37,7 @@ const travelRouteRoutes = require('./routes/travel-route.route');
 const driverRoutes = require('./routes/driver.route');
 const travelScheduleRoutes = require('./routes/travel-schedule.route');
 const travelPromoRoutes = require('./routes/travel-promo.route');
-
+const travelBookingRoutes = require('./routes/travel-booking.route.js');
 const customerRoutes = require('./routes/customer.route');
 
 // const bankBranchRoutes = require('./routes/bank-branch.route');
@@ -147,6 +147,8 @@ app.use(`${basePath}/travel-schedule`, travelScheduleRoutes);
 // @ts-ignore
 app.use(`${basePath}/travel-promo`, travelPromoRoutes);
 
+// @ts-ignore
+app.use(`${basePath}/travel-booking`, travelBookingRoutes);
 
 // @ts-ignore
 app.use(`${basePath}/hotel-room`, hotelRoomRoutes);

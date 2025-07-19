@@ -1,5 +1,5 @@
 const TravelSchedule = require('../models/travel-schedule');
- 
+
 const save = async (data, options) => {
     try {
         const result = await TravelSchedule.create(data, options);
@@ -9,7 +9,20 @@ const save = async (data, options) => {
         return { result: null, err };
     }
 };
- 
+
+
+const bulkCreate = async (dataArray, options = {}) => {
+    try {
+        const results = await TravelSchedule.bulkCreate(dataArray, {
+            ...options,
+            returning: true,
+        });
+        return { result: results, err: null };
+    } catch (error) {
+        return { result: null, err: error };
+    }
+};
+
 const update = async (oid, data, options) => {
     try {
         const [affectedCount] = await TravelSchedule.update(data, {
@@ -30,7 +43,7 @@ const update = async (oid, data, options) => {
         return { result: null, err };
     }
 };
- 
+
 const remove = async (oid, options = {}) => {
     try {
         const result = await TravelSchedule.destroy({
@@ -48,7 +61,7 @@ const remove = async (oid, options = {}) => {
         return { result: null, err };
     }
 };
- 
+
 const findAll = async (options = {}) => {
     try {
         const result = await TravelSchedule.findAll(options);
@@ -58,7 +71,7 @@ const findAll = async (options = {}) => {
         return { result: null, err };
     }
 };
- 
+
 const findById = async (oid, options = {}) => {
     try {
         const result = await TravelSchedule.findByPk(oid, options);
@@ -68,7 +81,7 @@ const findById = async (oid, options = {}) => {
         return { result: null, err };
     }
 };
- 
+
 const findByCriteria = async (options = {}) => {
     try {
         const result = await TravelSchedule.findAll(options);
@@ -105,4 +118,5 @@ module.exports = {
     findById,
     findAndCountByCriteria,
     findByCriteria,
+    bulkCreate
 };

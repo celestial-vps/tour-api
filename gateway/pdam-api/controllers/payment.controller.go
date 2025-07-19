@@ -13,17 +13,17 @@ import (
 	"github.com/pdam-api/go-pdam-api/services"
 )
 
-type Paym entController struct {
-	paymentService services.IPaym entService
+type PaymentController struct {
+	paymentService services.IPaymentService
 }
 
-func NewPaym entController(paymentService services.IPaym entService) IPaym entController {
-	return &Paym entController{
+func NewPaymentController(paymentService services.IPaymentService) IPaymentController {
+	return &PaymentController{
 		paymentService: paymentService,
 	}
 }
 
-// Create Paym ent
+// Create Payment
 // @Summary  create payment
 // @Description create new payment
 // @Tags payments
@@ -31,10 +31,10 @@ func NewPaym entController(paymentService services.IPaym entService) IPaym entCo
 // @Produce  json
 // @Success 200 {string} string	"ok"
 // @Security ApiKeyAuth
-// @Param   payment body  dtos.CreatePaym entDto true "payment"
+// @Param   payment body  dtos.CreatePaymentDto true "payment"
 // @Router /payment/create [post]
-func (controller *Paym entController) Create(c *gin.Context) {
-	var createPaym entDto dtos.CreatePaym entDto
+func (controller *PaymentController) Create(c *gin.Context) {
+	var createPaymentDto dtos.CreatePaymentDto
 
 	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
@@ -42,20 +42,20 @@ func (controller *Paym entController) Create(c *gin.Context) {
 		return
 	}
 
-	if err := c.ShouldBindJSON(&createPaym entDto); err != nil {
+	if err := c.ShouldBindJSON(&createPaymentDto); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
 	}
 
 	// Validate the struct
 	validate := validator.New()
-	if err := validate.Struct(createPaym entDto); err != nil {
+	if err := validate.Struct(createPaymentDto); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseFinValidatorError(err.Error()))
 		return
 	}
 
 	// Panggil service dan tangani error
-	paymentResponse, err := controller.paymentService.Create(c.Request.Context(), createPaym entDto, userOid)
+	paymentResponse, err := controller.paymentService.Create(c.Request.Context(), createPaymentDto, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
 		return
@@ -65,7 +65,7 @@ func (controller *Paym entController) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// Update Paym ent
+// Update Payment
 // @Summary  update payment by oid
 // @Description update existing payment
 // @Tags payments
@@ -74,11 +74,11 @@ func (controller *Paym entController) Create(c *gin.Context) {
 // @Success 200 {string} string	"ok"
 // @Security ApiKeyAuth
 // @Param oid path string true  "oid"
-// @Param   payment body  dtos.UpdatePaym entDto true "payment"
+// @Param   payment body  dtos.UpdatePaymentDto true "payment"
 // @Router /payment/{oid} [put]
-func (controller *Paym entController) Update(c *gin.Context) {
+func (controller *PaymentController) Update(c *gin.Context) {
 	oid := c.Param("oid")
-	paymentUpdateRequest := dtos.UpdatePaym entDto{}
+	paymentUpdateRequest := dtos.UpdatePaymentDto{}
 	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
@@ -117,7 +117,7 @@ func (controller *Paym entController) Update(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// Delete Paym ent
+// Delete Payment
 // @Summary  delete payment
 // @Description delete payment by oid
 // @Tags payments
@@ -127,7 +127,7 @@ func (controller *Paym entController) Update(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param oid path string true  "oid"
 // @Router /payment/delete/{oid} [delete]
-func (controller *Paym entController) Deleted(c *gin.Context) {
+func (controller *PaymentController) Deleted(c *gin.Context) {
 	oid := c.Param("oid")
 	// token := c.GetHeader("Authorization")
 	// accessToken := strings.Replace(token, "Bearer ", "", 1)
@@ -152,7 +152,7 @@ func (controller *Paym entController) Deleted(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// Get All Paym ent
+// Get All Payment
 // @Summary List existing payments
 // @Description Get all the existing payments
 // @Tags payments
@@ -161,7 +161,7 @@ func (controller *Paym entController) Deleted(c *gin.Context) {
 // @Success 200 {object} common.DefaultResponse	"ok"
 // @Security ApiKeyAuth
 // @Router /payment [get]
-func (controller *Paym entController) FindAll(c *gin.Context) {
+func (controller *PaymentController) FindAll(c *gin.Context) {
 	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
@@ -174,13 +174,13 @@ func (controller *Paym entController) FindAll(c *gin.Context) {
 		return
 	}
 	if payments == nil {
-		payments = []mappings.Paym entVm{} // Assuming Paym ent is your struct type
+		payments = []mappings.PaymentVm{} // Assuming Payment is your struct type
 	}
 	response := common.ResponseOk(payments, 0)
 	c.JSON(http.StatusOK, response)
 }
 
-// Get All Paym ent
+// Get All Payment
 // @Summary List existing payments
 // @Description Get all the existing payments
 // @Tags payments
@@ -188,11 +188,11 @@ func (controller *Paym entController) FindAll(c *gin.Context) {
 // @Produce  json
 // @Success 200 {object} common.DefaultResponse	"ok"
 // @Security ApiKeyAuth
-// @Param   paymentDto body  dtos.FilterPaym entDto true "payment"
+// @Param   paymentDto body  dtos.FilterPaymentDto true "payment"
 // @Param   pageIndex    query     int  false  "page Index"  minimum(1)    maximum(10)
 // @Param   pageSize    query     int  false  "page Size"  minimum(1)    maximum(10)
 // @Router /payment/q [post]
-func (controller *Paym entController) Find(c *gin.Context) {
+func (controller *PaymentController) Find(c *gin.Context) {
 	pageIndexStr := c.Query("pageIndex")
 	pageSizeStr := c.Query("pageSize")
 	userOid, err := middleware.GetUserOidFromContext(c)
@@ -201,7 +201,7 @@ func (controller *Paym entController) Find(c *gin.Context) {
 		return
 	}
 
-	var paymentDto dtos.FilterPaym entDto
+	var paymentDto dtos.FilterPaymentDto
 	err = c.ShouldBindJSON(&paymentDto)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
@@ -234,7 +234,7 @@ func (controller *Paym entController) Find(c *gin.Context) {
 		return
 	}
 	if payments == nil {
-		payments = []mappings.Paym entVm{} // Assuming Paym ent is your struct type
+		payments = []mappings.PaymentVm{} // Assuming Payment is your struct type
 	}
 	pagging := gin.H{
 		"page":      pageIndex,
@@ -246,7 +246,7 @@ func (controller *Paym entController) Find(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-// Find Paym ent By Oid
+// Find Payment By Oid
 // @Summary  find payment by oid
 // @Description update new payment
 // @Tags payments
@@ -256,7 +256,7 @@ func (controller *Paym entController) Find(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param oid path string true  "oid"
 // @Router /payment/{oid} [get]
-func (controller *Paym entController) FindById(c *gin.Context) {
+func (controller *PaymentController) FindById(c *gin.Context) {
 	oid := c.Param("oid")
 	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {

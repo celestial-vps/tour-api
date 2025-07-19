@@ -18,7 +18,7 @@ const TravelSchedule = sequelize.define('TravelSchedule', {
     },
     vehicleOid: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: 'vehicles',
             key: 'oid'
@@ -26,24 +26,29 @@ const TravelSchedule = sequelize.define('TravelSchedule', {
     },
     driverOid: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: 'drivers',
             key: 'oid'
         }
     },
-    departureTime: {
+    depatureTime: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     arrivalTime: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     status: {
         type: DataTypes.ENUM('scheduled', 'on_the_way', 'completed', 'cancelled'),
         defaultValue: 'scheduled',
         allowNull: false
+    },
+    price: {
+        type: DataTypes.DECIMAL(10, 2), // format: 99999999.99
+        allowNull: false,
+        defaultValue: 0.00
     },
     lastModifiedBy: {
         type: DataTypes.UUID,

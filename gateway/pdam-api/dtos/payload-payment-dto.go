@@ -19,7 +19,7 @@ type CreatePaymentDto struct {
 
 type UpdatePaymentDto struct {
 	BillOid       uuid.UUID `json:"billOid" validate:"required" `
-	PaymentDate   int       `json:"paymentDate" validate:"omitempty"`
-	AmountPaid    int       `json:"amountPaid" validate:"required" `
+	PaymentDate   time.Time `json:"paymentDate" validate:"omitempty"`
+	AmountPaid    float64   `json:"amountPaid" validate:"required" `
 	PaymentMethod string    `json:"paymentMethod" validate:"required" `
 }

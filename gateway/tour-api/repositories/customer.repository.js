@@ -1,4 +1,5 @@
 const Customer = require('../models/customer');
+const { Op } = require('sequelize');
 
 // Save a new customer
 const save = async (data, options) => {
@@ -103,6 +104,25 @@ const findAndCountByCriteria = async (findOptions) => {
         };
     }
 };
+const advanceFlter = async (filterCondition) => {
+    try {
+        const whereConditions = {};
+
+        if (filterCondition.email) {
+            whereConditions.email = {
+                [Op.eq]: filterCondition.email
+            };
+        }
+        const users = await Customer.findAll({            
+            // @ts-ignore
+            where: whereConditions,
+        });
+        return { result: users, err: null }
+    }
+    catch (err) {
+        return { result: null, err }
+    }
+};
 
 module.exports = {
     save,
@@ -112,4 +132,5 @@ module.exports = {
     findById,
     findAndCountByCriteria,
     findByCriteria,
+    advanceFlter
 };

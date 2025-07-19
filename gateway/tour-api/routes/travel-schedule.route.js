@@ -7,7 +7,8 @@ const {
   createTravelScheduleDto,
   updateTravelScheduleDto,
   deleteTravelScheduleDto,
-  getTravelScheduleDto
+  getTravelScheduleDto,
+  filterTravelScheduleNoAuthDto
 } = require('../dtos/payload-travel-schedule-dto');
 
 const router = express.Router();
@@ -41,7 +42,7 @@ const router = express.Router();
  *              driverOid:
  *                type: string
  *                example: "-"
- *              departureTime:
+ *              depatureTime:
  *                type: date
  *                example: "-"
  *              arrivalTime:
@@ -156,6 +157,38 @@ router.get('/', validateRequest(filterTravelScheduleDto), roleGuard('Admin'), tr
  *         description: Paginated list of Travel Schedules
  */
 router.post('/q', validateRequest(filterTravelScheduleDto), roleGuard('Admin'), travelScheduleController.find);
+
+/**
+ * @swagger
+ * /travel-schedule/q/no-auth:
+ *   post:
+ *     tags: [Travel Schedule]
+ *     summary: Paginate Travel Schedules with filters
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pageIndex:
+ *                 type: integer
+ *                 example: 1
+ *               pageSize:
+ *                 type: integer
+ *                 example: 10
+  *               travelScheduleCode:
+ *                 type: string
+ *                 example: "-"
+ *               travelScheduleName:
+ *                 type: string
+ *                 example: "-"
+ *     responses:
+ *       200:
+ *         description: Paginated list of Travel Schedules
+ */
+router.post('/q/no-auth', validateRequest(filterTravelScheduleNoAuthDto), travelScheduleController.findCriteria);
+
 
 /**
  * @swagger

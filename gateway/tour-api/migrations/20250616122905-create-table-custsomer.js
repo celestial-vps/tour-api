@@ -23,11 +23,11 @@ module.exports = {
       },
       customerPostalCode: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       bankOid: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'banks', // Make sure this matches your banks table name
           key: 'oid',

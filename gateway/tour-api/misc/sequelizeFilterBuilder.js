@@ -82,8 +82,22 @@ const buildFindOptions = (filters = {}, options = {}, attributes = {}) => {
   };
 };
 
+
+const buildFindNoPageOptions = (filters = {}, options = {}, attributes = {}) => {
+  const sortOrder = (options.sortOrder || 'ASC').toUpperCase();
+
+  return {
+    where: filters,
+    order: options.sortBy ? [[options.sortBy, sortOrder]] : undefined,
+    attributes,
+    include: options.include || undefined, // tambahkan properti include
+    distinct: true,
+  };
+};
+
 module.exports = {
   buildWhereConditions,
   buildFilterConditions,
-  buildFindOptions
+  buildFindOptions,
+  buildFindNoPageOptions
 };

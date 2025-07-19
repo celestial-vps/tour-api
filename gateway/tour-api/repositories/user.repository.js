@@ -19,16 +19,24 @@ const save = async (data, options) => {
 
 const update = async (oid, data, options) => {
     try {
-        const result = await models.User.update(data, {
-            where: { oid } // Assuming 'id' is the primary key or identifier
-        }, options);
 
-        return { result, err: null }
+        const [affectedCount] = await User.update(data, {
+            where: { oid },
+            ...options,
+        });
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+        const findOptions = { ...options };
+        delete findOptions.transaction; // hapus props yang tidak valid utk findByPk kalau ada
+        const updated = await User.findByPk(oid, findOptions);
+        return { result: updated, err: null };
     } catch (err) {
         return { result: null, err }
     }
 };
 
+// @ts-ignore
 const deleted = async (oid, options) => {
     try {
         const deleteResult = await models.User.destroy({
@@ -87,9 +95,10 @@ const advanceFlter = async (filterCondition) => {
                 {
                     model: UserRole,
                     as: 'userRole', // This should match the alias in the User model's associate method
-                    attributes: ['roleName', 'isAdministrative','readState','writeState','createState','deleteState','navigateState'],
+                    attributes: ['roleName', 'isAdministrative', 'readState', 'writeState', 'createState', 'deleteState', 'navigateState'],
                 }
             ],
+            // @ts-ignore
             where: whereConditions,
         });
         return { result: users, err: null }
@@ -99,27 +108,38 @@ const advanceFlter = async (filterCondition) => {
     }
 };
 
-const findByCriteria = async (filterCondition, page, pageSize) => {
+const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => {
     try {
-        // Initialize the query with conditions
+        // Pastikan page dan pageSize valid
+        // @ts-ignore
+        page = parseInt(page, 10);
+        // @ts-ignore
+        pageSize = parseInt(pageSize, 10);
+
+        if (isNaN(page) || page < 1) page = 1;
+        if (isNaN(pageSize) || pageSize < 1) pageSize = 10;
+
+        // Build dynamic filter conditions
         const whereConditions = {};
 
         if (filterCondition.email) {
             whereConditions.email = {
-                [Op.eq]: `${filterCondition.email}`
+                [Op.eq]: filterCondition.email
             };
         }
-        // if (filterCondition.userName) {
-        //     whereConditions.userName = {
-        //         [Op.like]: `%${filterCondition.userName}%`
-        //     };
-        // }
 
-        // Retrieve the paginated records
+        if (filterCondition.userName) {
+            whereConditions.userName = {
+                [Op.like]: `%${filterCondition.userName}%`
+            };
+        }
+
         const users = await models.User.findAll({
+            // @ts-ignore
             where: whereConditions,
             limit: pageSize,
-            offset: (page - 1) * pageSize
+            offset: (page - 1) * pageSize,
+            order: [['createdAt', 'DESC']] // Optional: sort by latest
         });
 
         return { users, error: null };
@@ -147,6 +167,7 @@ const findCountByCriteria = async (filterCondition) => {
 
         // Retrieve the paginated records
         const count = await models.User.count({
+            // @ts-ignore
             where: whereConditions
         });
 
@@ -161,23 +182,23 @@ const findCountByCriteria = async (filterCondition) => {
 const findUserRole = async (email) => {
     try {
         const result = await models.User.findAll({
-          attributes: ['oid', 'email'],
-          include: [
-            {
-              model: UserRole,
-              as: 'userRole',
-              attributes: ['roleName', 'isAdministrative'],
-            }
-          ],
-          where: { email: email },
+            attributes: ['oid', 'email'],
+            include: [
+                {
+                    model: UserRole,
+                    as: 'userRole',
+                    attributes: ['roleName', 'isAdministrative'],
+                }
+            ],
+            where: { email: email },
         });
         return { result, err: null };
-      } catch (err) {
+    } catch (err) {
         console.error('Error in findUserRole:', err);
         return { result: null, err };
-      }
-  };
-  
+    }
+};
+
 
 
 module.exports = {
