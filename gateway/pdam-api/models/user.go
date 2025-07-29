@@ -12,6 +12,9 @@ type User struct {
 	Email          string       `json:"email" db:"email"`
 	Password       string       `json:"password" db:"password"`
 	AndroidToken   *string      `json:"android_token" db:"android_token"`
+	TokenIos       *string      `json:"token_ios" db:"token_ios"`
+	TokenWeb       *string      `json:"token_web" db:"token_web"`
+	TokenDesktop   *string      `json:"token_desktop" db:"token_desktop"`
 	ExpiredTime    *string      `json:"expired_time" db:"expired_time"`
 	IsActive       *bool        `json:"is_active" db:"is_active"`
 	ActivatedAt    sql.NullTime `json:"activated_at" db:"activated_at"`

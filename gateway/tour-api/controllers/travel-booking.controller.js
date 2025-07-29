@@ -114,6 +114,30 @@ const find = async (req, res) => {
   }
 };
 
+
+const findTopFive = async (req, res) => {
+  try {
+    const filters = pick(req.body, ['code', 'discountType', 'search']);
+    const options = {
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder, 
+    };
+
+    const result = await travelBookingService.findTopFive(filters, options);
+
+    if (result.err) {
+      await recordAuditTrail("READ", "booking", result.err, req, 'FAILED', result.err.message);
+      return buildResponse.sendInternalServerError(res, result.err.message);
+    }
+    await recordAuditTrail("READ", "booking", result.travelBookings, req, 'SUCCESS', 'Get Travel Bookings with filters success');
+    return buildResponse.sendPagination(res, result.travelBookings, result.count, options.pageIndex, options.pageSize);
+  } catch (error) {
+    await recordAuditTrail("READ", "booking", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
+  }
+};
+
+
 const findById = async (req, res) => {
   try {
     const { travelBooking, err } = await travelBookingService.findById(req.params.oid, { include: [] });
@@ -140,4 +164,5 @@ module.exports = {
   findAll,
   find,
   findById,
+  findTopFive
 };

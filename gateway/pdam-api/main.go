@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +10,7 @@ import (
 	"github.com/pdam-api/go-pdam-api/common"
 	"github.com/pdam-api/go-pdam-api/controllers"
 	"github.com/pdam-api/go-pdam-api/database"
+	"github.com/pdam-api/go-pdam-api/docs" // ✅ BENAR — sesuai dengan module kamu
 	"github.com/pdam-api/go-pdam-api/middleware"
 	"github.com/pdam-api/go-pdam-api/misc"
 	"github.com/pdam-api/go-pdam-api/repositories"
@@ -16,7 +18,6 @@ import (
 	"github.com/pdam-api/go-pdam-api/services"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/swaggo/swag/example/override/docs"
 )
 
 // func init() {
@@ -42,9 +43,23 @@ func main() {
 
 	validate := validator.New()
 
+	fcmClient, err := misc.InitFirebaseMessagingClient()
+	if err != nil {
+		log.Fatalf("Failed to initialize Firebase Messaging client: %v", err)
+	}
+	// tokens := []string{"fiq_tLk5aYe7yPjdk-tUCR:APA91bGg5I6jDiRXxP7oNAA-vOOHbcjKxXmz2NNXo6kvAa5b1WG8fcQe8LRedOKU6SvvtGEYKu0kj3zI5aog3K8qn1XaRAcvhgqMwP7Q8dt5Gy6YfbEmY8Q"}
+	// err = misc.SendFCMToDevices(context.Background(), fcmClient, tokens, "Test Title", "Test Body")
+	// if err != nil {
+	// 	log.Fatalf("Failed to send test notification: %v", err)
+	// }
+
 	userRepository := repositories.NewUserRepository()
 	userService := services.NewUserService(userRepository, DB, validate)
 	userController := controllers.NewUserController(userService)
+
+	notificationService := services.NewNotificationService(userRepository, DB, validate, fcmClient)
+	notificationController := controllers.NewNotificationController(notificationService)
+
 	authController := controllers.NewAuthController(userService)
 
 	userRoleRepository := repositories.NewUserRoleRepository()
@@ -118,6 +133,9 @@ func main() {
 
 		imageFile := v1.Group("/image-file")
 		routes.ImageFileRouter(imageFileController, imageFile)
+
+		notification := v1.Group("/notification")
+		routes.NotificationRouter(notificationController, notification)
 	}
 
 	v2 := router.Group(docs.SwaggerInfo.BasePath)

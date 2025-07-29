@@ -10,5 +10,6 @@ type ICustomerController interface {
 	Deleted(ctx *gin.Context)
 	FindAll(ctx *gin.Context)
 	Find(ctx *gin.Context)
+	FindAdvance(ctx *gin.Context)
 	FindById(ctx *gin.Context)
 }

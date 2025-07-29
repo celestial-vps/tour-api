@@ -36,9 +36,9 @@ func (u *UserRepository) Save(ctx context.Context, tx *sql.Tx, user models.User)
 func (u *UserRepository) Update(ctx context.Context, tx *sql.Tx, user models.User) models.User {
 	SQL := `UPDATE users SET  
 		last_modified_by = $1, updated_at = $2,
-		  email = $4, password = $5, android_token = $8,
-		expired_time = $9, is_active = $10, activated_at = $11, role_oid = $12
-		WHERE oid = $13`
+		  email = $3, password = $4, android_token = $5,
+		expired_time = $6, is_active = $7, activated_at = $8, role_oid = $9
+		WHERE oid = $10`
 	_, err := tx.ExecContext(ctx, SQL,
 		user.LastModifiedBy, user.UpdatedAt,
 		user.Email, user.Password, user.AndroidToken,

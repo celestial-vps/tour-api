@@ -15,6 +15,7 @@ func CustomerRouter(customerController controllers.ICustomerController, group *g
 	group.PUT("/:oid", middleware.RoleGuard("Admin"), customerController.Update)
 	group.GET("/", middleware.RoleGuard("Admin"), customerController.FindAll)
 	group.POST("/q", middleware.RoleGuard("Admin"), customerController.Find)
+	group.POST("/q/advance-filter", middleware.RoleGuard("Admin"), customerController.FindAdvance)
 	group.GET("/:oid", middleware.RoleGuard("Admin"), customerController.FindById)
 	group.DELETE("/delete/:oid", middleware.RoleGuard("Admin"), customerController.Deleted)
 	return group

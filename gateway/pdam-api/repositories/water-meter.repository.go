@@ -17,9 +17,9 @@ import (
 type WaterMeterRepository struct {
 }
 
-func (c *WaterMeterRepository) Save(ctx context.Context, tx *sql.Tx, tarif models.WaterMeter) (models.WaterMeter, error) {
+func (c *WaterMeterRepository) Save(ctx context.Context, tx *sql.Tx, waterMeter models.WaterMeter) (models.WaterMeter, error) {
 	SQL := `
-		INSERT INTO tarifs (
+		INSERT INTO water_meters (
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
 			oid, serial_number, customer_oid, installed_at, replaced_at, status
 		) VALUES (
@@ -29,30 +29,30 @@ func (c *WaterMeterRepository) Save(ctx context.Context, tx *sql.Tx, tarif model
 	`
 
 	_, err := tx.ExecContext(ctx, SQL,
-		tarif.TransactionRecord.CreatedBy,
-		tarif.TransactionRecord.CreatedAt,
-		tarif.TransactionRecord.LastModifiedBy,
-		tarif.TransactionRecord.UpdatedAt,
-		tarif.TransactionRecord.DeletedBy,
-		tarif.TransactionRecord.DeletedAt,
-		tarif.Oid,
-		tarif.SerialNumber,
-		tarif.CustomerOid,
-		tarif.InstalledAt,
-		tarif.ReplacedAt,
-		tarif.Status,
+		waterMeter.TransactionRecord.CreatedBy,
+		waterMeter.TransactionRecord.CreatedAt,
+		waterMeter.TransactionRecord.LastModifiedBy,
+		waterMeter.TransactionRecord.UpdatedAt,
+		waterMeter.TransactionRecord.DeletedBy,
+		waterMeter.TransactionRecord.DeletedAt,
+		waterMeter.Oid,
+		waterMeter.SerialNumber,
+		waterMeter.CustomerOid,
+		waterMeter.InstalledAt,
+		waterMeter.ReplacedAt,
+		waterMeter.Status,
 	)
 
 	if err != nil {
-		return tarif, err
+		return waterMeter, err
 	}
-	return tarif, nil
+	return waterMeter, nil
 }
 
 // Update implements IWaterMeterRepository.
-func (c *WaterMeterRepository) Update(ctx context.Context, tx *sql.Tx, tarif models.WaterMeter) models.WaterMeter {
+func (c *WaterMeterRepository) Update(ctx context.Context, tx *sql.Tx, waterMeter models.WaterMeter) models.WaterMeter {
 	SQL := `
-		UPDATE tarifs SET  
+		UPDATE water_meters SET  
 			last_modified_by = $1, 
 			updated_at = $2,
 			serial_number = $3,
@@ -64,22 +64,22 @@ func (c *WaterMeterRepository) Update(ctx context.Context, tx *sql.Tx, tarif mod
 	`
 
 	_, err := tx.ExecContext(ctx, SQL,
-		tarif.TransactionRecord.LastModifiedBy,
-		tarif.TransactionRecord.UpdatedAt,
-		tarif.SerialNumber,
-		tarif.CustomerOid,
-		tarif.InstalledAt,
-		tarif.ReplacedAt,
-		tarif.Status,
-		tarif.Oid,
+		waterMeter.TransactionRecord.LastModifiedBy,
+		waterMeter.TransactionRecord.UpdatedAt,
+		waterMeter.SerialNumber,
+		waterMeter.CustomerOid,
+		waterMeter.InstalledAt,
+		waterMeter.ReplacedAt,
+		waterMeter.Status,
+		waterMeter.Oid,
 	)
 
 	common.PanicIfError(err)
-	return tarif
+	return waterMeter
 }
 
 func (c *WaterMeterRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string) error {
-	SQL := `DELETE FROM tarifs WHERE oid = $1`
+	SQL := `DELETE FROM water_meters WHERE oid = $1`
 	_, err := tx.ExecContext(ctx, SQL, oid)
 	return err
 }
@@ -87,7 +87,7 @@ func (c *WaterMeterRepository) Deleted(ctx context.Context, tx *sql.Tx, oid stri
 func (c *WaterMeterRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.WaterMeterDomain, error) {
 	SQL := `SELECT oid, serial_number, customer_oid, installed_at, replaced_at, status, 
                    created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
-            FROM tarifs`
+            FROM water_meters`
 
 	rows, err := tx.QueryContext(ctx, SQL)
 	if err != nil {
@@ -95,10 +95,10 @@ func (c *WaterMeterRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]model
 	}
 	defer rows.Close()
 
-	var tarifs []models.WaterMeterDomain
+	var waterMeters []models.WaterMeterDomain
 
 	for rows.Next() {
-		var tarif models.WaterMeterDomain
+		var waterMeter models.WaterMeterDomain
 		var imageOidStr *string
 		var createdByStr, lastModifiedByStr string
 		var deletedByStr *string
@@ -106,12 +106,12 @@ func (c *WaterMeterRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]model
 		var updatedAt, deletedAt *time.Time
 
 		err := rows.Scan(
-			&tarif.Oid,
-			&tarif.SerialNumber,
-			&tarif.CustomerOid,
-			&tarif.InstalledAt,
-			&tarif.ReplacedAt,
-			&tarif.Status,
+			&waterMeter.Oid,
+			&waterMeter.SerialNumber,
+			&waterMeter.CustomerOid,
+			&waterMeter.InstalledAt,
+			&waterMeter.ReplacedAt,
+			&waterMeter.Status,
 			&imageOidStr,
 			&createdByStr,
 			&createdAt,
@@ -128,43 +128,43 @@ func (c *WaterMeterRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]model
 		if err != nil {
 			return nil, err
 		}
-		tarif.CreatedBy = createdBy
-		tarif.CreatedAt = createdAt
+		waterMeter.CreatedBy = createdBy
+		waterMeter.CreatedAt = createdAt
 
 		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
 		if err != nil {
 			return nil, err
 		}
-		tarif.LastModifiedBy = lastModifiedBy
-		tarif.UpdatedAt = updatedAt
+		waterMeter.LastModifiedBy = lastModifiedBy
+		waterMeter.UpdatedAt = updatedAt
 
 		if deletedByStr != nil {
 			deletedBy, err := uuid.Parse(*deletedByStr)
 			if err != nil {
 				return nil, err
 			}
-			tarif.DeletedBy = &deletedBy
+			waterMeter.DeletedBy = &deletedBy
 		} else {
-			tarif.DeletedBy = nil
+			waterMeter.DeletedBy = nil
 		}
 
-		tarif.DeletedAt = deletedAt
+		waterMeter.DeletedAt = deletedAt
 
-		tarifs = append(tarifs, tarif)
+		waterMeters = append(waterMeters, waterMeter)
 	}
 
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
 
-	return tarifs, nil
+	return waterMeters, nil
 }
 
 func (c *WaterMeterRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterWaterMeterDto) ([]models.WaterMeterDomain, error) {
 	baseSQL := `
 		SELECT oid, serial_number, customer_oid, installed_at, replaced_at, status, 
 		       created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
-		FROM tarifs
+		FROM water_meters
 	`
 
 	var queryParams []interface{}
@@ -191,10 +191,10 @@ func (c *WaterMeterRepository) FindByCriteriaPage(ctx context.Context, tx *sql.T
 	}
 	defer rows.Close()
 
-	var tarifs []models.WaterMeterDomain
+	var waterMeters []models.WaterMeterDomain
 
 	for rows.Next() {
-		var tarif models.WaterMeterDomain
+		var waterMeter models.WaterMeterDomain
 
 		// Temp vars for nullable strings and UUIDs from DB
 		var createdByStr, lastModifiedByStr string
@@ -203,12 +203,12 @@ func (c *WaterMeterRepository) FindByCriteriaPage(ctx context.Context, tx *sql.T
 		var updatedAt, deletedAt *time.Time
 
 		err := rows.Scan(
-			&tarif.Oid,
-			&tarif.SerialNumber,
-			&tarif.CustomerOid,
-			&tarif.InstalledAt,
-			&tarif.ReplacedAt,
-			&tarif.Status,
+			&waterMeter.Oid,
+			&waterMeter.SerialNumber,
+			&waterMeter.CustomerOid,
+			&waterMeter.InstalledAt,
+			&waterMeter.ReplacedAt,
+			&waterMeter.Status,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -224,42 +224,42 @@ func (c *WaterMeterRepository) FindByCriteriaPage(ctx context.Context, tx *sql.T
 		if err != nil {
 			return nil, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
 		}
-		tarif.CreatedBy = createdBy
-		tarif.CreatedAt = createdAt
+		waterMeter.CreatedBy = createdBy
+		waterMeter.CreatedAt = createdAt
 
 		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
 		if err != nil {
 			return nil, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
 		}
-		tarif.LastModifiedBy = lastModifiedBy
-		tarif.UpdatedAt = updatedAt
+		waterMeter.LastModifiedBy = lastModifiedBy
+		waterMeter.UpdatedAt = updatedAt
 
 		if deletedByStr != nil {
 			deletedBy, err := uuid.Parse(*deletedByStr)
 			if err != nil {
 				return nil, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
 			}
-			tarif.DeletedBy = &deletedBy
+			waterMeter.DeletedBy = &deletedBy
 		} else {
-			tarif.DeletedBy = nil
+			waterMeter.DeletedBy = nil
 		}
-		tarif.DeletedAt = deletedAt
+		waterMeter.DeletedAt = deletedAt
 
-		tarifs = append(tarifs, tarif)
+		waterMeters = append(waterMeters, waterMeter)
 	}
 
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
 
-	return tarifs, nil
+	return waterMeters, nil
 }
 
 func (c *WaterMeterRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx, condition dtos.FilterWaterMeterDto) (int64, error) {
 	var queryBuilder strings.Builder
 	var args []interface{}
 
-	queryBuilder.WriteString(`SELECT count(oid) FROM tarifs`)
+	queryBuilder.WriteString(`SELECT count(oid) FROM water_meters`)
 
 	var whereClauses []string
 
@@ -291,7 +291,7 @@ func (c *WaterMeterRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, con
 	queryBuilder.WriteString(`
 		SELECT oid, serial_number, customer_oid, installed_at, replaced_at, status, 
 		    created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
-		FROM tarifs
+		FROM water_meters
 	`)
 
 	var whereClauses []string
@@ -314,10 +314,10 @@ func (c *WaterMeterRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, con
 	}
 	defer rows.Close()
 
-	var tarifs []models.WaterMeterDomain
+	var waterMeters []models.WaterMeterDomain
 	for rows.Next() {
 		var (
-			tarif             models.WaterMeterDomain
+			waterMeter        models.WaterMeterDomain
 			createdByStr      string
 			createdAt         time.Time
 			lastModifiedByStr string
@@ -327,12 +327,12 @@ func (c *WaterMeterRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, con
 		)
 
 		err := rows.Scan(
-			&tarif.Oid,
-			&tarif.SerialNumber,
-			&tarif.CustomerOid,
-			&tarif.InstalledAt,
-			&tarif.ReplacedAt,
-			&tarif.Status,
+			&waterMeter.Oid,
+			&waterMeter.SerialNumber,
+			&waterMeter.CustomerOid,
+			&waterMeter.InstalledAt,
+			&waterMeter.ReplacedAt,
+			&waterMeter.Status,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -348,46 +348,46 @@ func (c *WaterMeterRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, con
 		if err != nil {
 			return nil, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
 		}
-		tarif.CreatedBy = createdBy
-		tarif.CreatedAt = createdAt
+		waterMeter.CreatedBy = createdBy
+		waterMeter.CreatedAt = createdAt
 
 		lastModifiedBy, err := uuid.Parse(lastModifiedByStr)
 		if err != nil {
 			return nil, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
 		}
-		tarif.LastModifiedBy = lastModifiedBy
-		tarif.UpdatedAt = updatedAt
+		waterMeter.LastModifiedBy = lastModifiedBy
+		waterMeter.UpdatedAt = updatedAt
 
 		if deletedByStr != nil {
 			deletedBy, err := uuid.Parse(*deletedByStr)
 			if err != nil {
 				return nil, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
 			}
-			tarif.DeletedBy = &deletedBy
+			waterMeter.DeletedBy = &deletedBy
 		} else {
-			tarif.DeletedBy = nil
+			waterMeter.DeletedBy = nil
 		}
 
-		tarif.DeletedAt = deletedAt
+		waterMeter.DeletedAt = deletedAt
 
-		tarifs = append(tarifs, tarif)
+		waterMeters = append(waterMeters, waterMeter)
 	}
 
 	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("error iterating rows: %w", err)
 	}
 
-	return tarifs, nil
+	return waterMeters, nil
 }
 
 func (c *WaterMeterRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.WaterMeter, error) {
 	SQL := `SELECT oid, serial_number, customer_oid, installed_at, replaced_at, status, 
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
-			FROM tarifs WHERE oid = $1`
+			FROM water_meters WHERE oid = $1`
 
 	row := tx.QueryRowContext(ctx, SQL, oid)
 
-	tarif := models.WaterMeter{}
+	waterMeter := models.WaterMeter{}
 
 	// Scan ke variabel pointer dulu (nullable)
 	var createdByStr, lastModifiedByStr *string
@@ -397,12 +397,12 @@ func (c *WaterMeterRepository) FindById(ctx context.Context, tx *sql.Tx, oid str
 	var deletedAt *time.Time
 
 	err := row.Scan(
-		&tarif.Oid,
-		&tarif.SerialNumber,
-		&tarif.CustomerOid,
-		&tarif.InstalledAt,
-		&tarif.ReplacedAt,
-		&tarif.Status,
+		&waterMeter.Oid,
+		&waterMeter.SerialNumber,
+		&waterMeter.CustomerOid,
+		&waterMeter.InstalledAt,
+		&waterMeter.ReplacedAt,
+		&waterMeter.Status,
 		&createdByStr,
 		&createdAt,
 		&lastModifiedByStr,
@@ -412,40 +412,40 @@ func (c *WaterMeterRepository) FindById(ctx context.Context, tx *sql.Tx, oid str
 	)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return tarif, errors.New("tarif is not found")
+			return waterMeter, errors.New("waterMeter is not found")
 		}
-		return tarif, fmt.Errorf("error scanning tarif: %w", err)
+		return waterMeter, fmt.Errorf("error scanning waterMeter: %w", err)
 	}
 
 	// Convert string UUID ke uuid.UUID
 	createdBy, err := uuid.Parse(*createdByStr)
 	if err != nil {
-		return tarif, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
+		return waterMeter, fmt.Errorf("invalid UUID for CreatedBy: %w", err)
 	}
-	tarif.TransactionRecord.CreatedBy = createdBy
-	tarif.TransactionRecord.CreatedAt = createdAt
+	waterMeter.TransactionRecord.CreatedBy = createdBy
+	waterMeter.TransactionRecord.CreatedAt = createdAt
 
 	if lastModifiedByStr != nil {
 		lastModifiedBy, err := uuid.Parse(*lastModifiedByStr)
 		if err != nil {
-			return tarif, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
+			return waterMeter, fmt.Errorf("invalid UUID for LastModifiedBy: %w", err)
 		}
-		tarif.TransactionRecord.LastModifiedBy = lastModifiedBy
+		waterMeter.TransactionRecord.LastModifiedBy = lastModifiedBy
 	}
 
-	tarif.TransactionRecord.UpdatedAt = updatedAt
+	waterMeter.TransactionRecord.UpdatedAt = updatedAt
 
 	if deletedByStr != nil {
 		deletedBy, err := uuid.Parse(*deletedByStr)
 		if err != nil {
-			return tarif, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
+			return waterMeter, fmt.Errorf("invalid UUID for DeletedBy: %w", err)
 		}
-		tarif.TransactionRecord.DeletedBy = &deletedBy
+		waterMeter.TransactionRecord.DeletedBy = &deletedBy
 	}
 
-	tarif.TransactionRecord.DeletedAt = deletedAt
+	waterMeter.TransactionRecord.DeletedAt = deletedAt
 
-	return tarif, nil
+	return waterMeter, nil
 }
 
 func NewWaterMeterRepository() IWaterMeterRepository {

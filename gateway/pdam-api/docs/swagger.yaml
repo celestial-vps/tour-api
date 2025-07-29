@@ -1,0 +1,1878 @@
+definitions:
+  common.DefaultResponse:
+    properties:
+      data: {}
+      developerMessage:
+        type: string
+      http_status:
+        type: string
+      resultCode:
+        type: string
+      total:
+        type: integer
+    type: object
+  dtos.CreateBillDto:
+    properties:
+      billingDate:
+        type: string
+      status:
+        type: string
+      totalAmount:
+        type: number
+      usageOid:
+        type: string
+    required:
+    - billingDate
+    - status
+    - totalAmount
+    - usageOid
+    type: object
+  dtos.CreateCustomerDto:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        type: string
+    required:
+    - address
+    - email
+    - firstName
+    - phoneNumber
+    type: object
+  dtos.CreateImageFileDto:
+    properties:
+      fileMime:
+        type: string
+      fileName:
+        type: string
+      filePath:
+        type: string
+      fileUrl:
+        type: string
+      userInserted:
+        type: string
+    type: object
+  dtos.CreatePaymentDto:
+    properties:
+      amountPaid:
+        type: number
+      billOid:
+        type: string
+      paymentDate:
+        type: string
+      paymentMethod:
+        type: string
+    required:
+    - amountPaid
+    - billOid
+    - paymentMethod
+    type: object
+  dtos.CreateTarifDto:
+    properties:
+      customerType:
+        type: string
+      effectiveFrom:
+        type: string
+      effectiveTo:
+        description: optional
+        type: string
+      maxVolume:
+        type: integer
+      minVolume:
+        type: integer
+      pricePerM3:
+        type: number
+    required:
+    - customerType
+    - effectiveFrom
+    - maxVolume
+    - pricePerM3
+    type: object
+  dtos.CreateUsageRecordDto:
+    properties:
+      billingMonth:
+        type: string
+      consumptionM3:
+        type: integer
+      endReading:
+        type: integer
+      meterOid:
+        type: string
+      startReading:
+        type: integer
+    required:
+    - consumptionM3
+    - endReading
+    - meterOid
+    - startReading
+    type: object
+  dtos.CreateUserDto:
+    properties:
+      activatedAt:
+        type: string
+      androidToken:
+        type: string
+      email:
+        type: string
+      isActive:
+        description: Use pointer
+        type: boolean
+      name:
+        type: string
+      password:
+        type: string
+      roleOid:
+        type: string
+    required:
+    - activatedAt
+    - androidToken
+    - email
+    - isActive
+    - name
+    - password
+    - roleOid
+    type: object
+  dtos.CreateUserRoleDto:
+    properties:
+      createState:
+        type: boolean
+      deleteState:
+        type: boolean
+      isAdministrative:
+        type: boolean
+      navigateState:
+        type: boolean
+      readState:
+        type: boolean
+      roleName:
+        type: string
+      targetType:
+        type: string
+      writeState:
+        type: boolean
+    required:
+    - createState
+    - deleteState
+    - isAdministrative
+    - navigateState
+    - readState
+    - roleName
+    - targetType
+    - writeState
+    type: object
+  dtos.CreateWaterMeterDto:
+    properties:
+      customerOid:
+        type: string
+      installedAt:
+        type: string
+      replacedAt:
+        type: string
+      serialNumber:
+        type: string
+      status:
+        type: string
+    required:
+    - installedAt
+    - serialNumber
+    - status
+    type: object
+  dtos.FilterBillDto:
+    properties:
+      usageOid:
+        type: string
+    type: object
+  dtos.FilterCustomerDto:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+    type: object
+  dtos.FilterPaymentDto:
+    properties:
+      billOid:
+        type: string
+    type: object
+  dtos.FilterTarifDto:
+    properties:
+      customerType:
+        type: string
+    type: object
+  dtos.FilterUsageRecordDto:
+    properties:
+      meterOid:
+        type: string
+    type: object
+  dtos.FilterUserDto:
+    properties:
+      email:
+        type: string
+    type: object
+  dtos.FilterUserRoleDto:
+    properties:
+      roleName:
+        type: string
+    type: object
+  dtos.FilterWaterMeterDto:
+    properties:
+      serialNumber:
+        type: string
+    type: object
+  dtos.LoginDto:
+    properties:
+      deviceToken:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - deviceToken
+    - email
+    - password
+    type: object
+  dtos.RegisterDto:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dtos.SendNotificationDto:
+    properties:
+      message:
+        type: string
+      title:
+        type: string
+    required:
+    - message
+    - title
+    type: object
+  dtos.SinggleNotificationDto:
+    properties:
+      message:
+        type: string
+      title:
+        type: string
+      userOid:
+        type: string
+    required:
+    - message
+    - title
+    - userOid
+    type: object
+  dtos.UpdateBillDto:
+    properties:
+      billingDate:
+        type: string
+      status:
+        type: string
+      totalAmount:
+        type: number
+      usageOid:
+        type: string
+    required:
+    - billingDate
+    - status
+    - totalAmount
+    - usageOid
+    type: object
+  dtos.UpdateCustomerDto:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      phoneNumber:
+        type: string
+    required:
+    - address
+    - email
+    - firstName
+    - phoneNumber
+    type: object
+  dtos.UpdateImageFileDto:
+    properties:
+      fileMime:
+        type: string
+      fileName:
+        type: string
+      filePath:
+        type: string
+      fileUrl:
+        type: string
+      lastUserId:
+        type: string
+      oid:
+        type: string
+    type: object
+  dtos.UpdatePaymentDto:
+    properties:
+      amountPaid:
+        type: number
+      billOid:
+        type: string
+      paymentDate:
+        type: string
+      paymentMethod:
+        type: string
+    required:
+    - amountPaid
+    - billOid
+    - paymentMethod
+    type: object
+  dtos.UpdateTarifDto:
+    properties:
+      customerType:
+        type: string
+      effectiveFrom:
+        type: string
+      effectiveTo:
+        description: optional
+        type: string
+      maxVolume:
+        type: integer
+      minVolume:
+        type: integer
+      pricePerM3:
+        type: number
+    required:
+    - customerType
+    - effectiveFrom
+    - maxVolume
+    - pricePerM3
+    type: object
+  dtos.UpdateUsageRecordDto:
+    properties:
+      billingMonth:
+        type: string
+      consumptionM3:
+        type: integer
+      endReading:
+        type: integer
+      meterOid:
+        type: string
+      startReading:
+        type: integer
+    required:
+    - consumptionM3
+    - endReading
+    - meterOid
+    - startReading
+    type: object
+  dtos.UpdateUserDto:
+    properties:
+      activatedAt:
+        type: string
+      androidToken:
+        type: string
+      email:
+        type: string
+      isActive:
+        description: Use pointer
+        type: boolean
+      name:
+        type: string
+      password:
+        type: string
+      roleOid:
+        type: string
+    required:
+    - androidToken
+    - email
+    - isActive
+    - name
+    - password
+    - roleOid
+    type: object
+  dtos.UpdateUserRoleDto:
+    properties:
+      createState:
+        type: boolean
+      deleteState:
+        type: boolean
+      isAdministrative:
+        type: boolean
+      navigateState:
+        type: boolean
+      readState:
+        type: boolean
+      roleName:
+        type: string
+      targetType:
+        type: string
+      writeState:
+        type: boolean
+    required:
+    - createState
+    - deleteState
+    - isAdministrative
+    - navigateState
+    - readState
+    - roleName
+    - targetType
+    - writeState
+    type: object
+  dtos.UpdateWaterMeterDto:
+    properties:
+      customerOid:
+        type: string
+      installedAt:
+        type: string
+      replacedAt:
+        type: string
+      serialNumber:
+        type: string
+      status:
+        type: string
+    required:
+    - installedAt
+    - serialNumber
+    - status
+    type: object
+info:
+  contact: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing auths
+      parameters:
+      - description: auth
+        in: body
+        name: authDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.LoginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing auths
+      tags:
+      - auths
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: create new user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.RegisterDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: create user
+      tags:
+      - auths
+  /bill:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing bills
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing bills
+      tags:
+      - bills
+  /bill/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new bill
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find bill by oid
+      tags:
+      - bills
+    put:
+      consumes:
+      - application/json
+      description: update existing bill
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: bill
+        in: body
+        name: bill
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateBillDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update bill by oid
+      tags:
+      - bills
+  /bill/create:
+    post:
+      consumes:
+      - application/json
+      description: create new bill
+      parameters:
+      - description: bill
+        in: body
+        name: bill
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateBillDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create bill
+      tags:
+      - bills
+  /bill/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete bill by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete bill
+      tags:
+      - bills
+  /bill/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing bills
+      parameters:
+      - description: bill
+        in: body
+        name: billDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterBillDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing bills
+      tags:
+      - bills
+  /customer:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing customers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing customers
+      tags:
+      - customers
+  /customer/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new customer
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find customer by oid
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: update existing customer
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateCustomerDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update customer by oid
+      tags:
+      - customers
+  /customer/create:
+    post:
+      consumes:
+      - application/json
+      description: create new customer
+      parameters:
+      - description: customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateCustomerDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create customer
+      tags:
+      - customers
+  /customer/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete customer by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete customer
+      tags:
+      - customers
+  /customer/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing customers
+      parameters:
+      - description: customer
+        in: body
+        name: customerDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterCustomerDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing customers
+      tags:
+      - customers
+  /image-file/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new imageFile
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find imageFile by oid
+      tags:
+      - imageFiles
+    put:
+      consumes:
+      - application/json
+      description: update existing imageFile
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: imageFile
+        in: body
+        name: imageFile
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateImageFileDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update imageFile by oid
+      tags:
+      - imageFiles
+  /image-file/create:
+    post:
+      consumes:
+      - application/json
+      description: create new imageFile
+      parameters:
+      - description: imageFile
+        in: body
+        name: imageFile
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateImageFileDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create imageFile
+      tags:
+      - imageFiles
+  /image-file/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete imageFile by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete imageFile
+      tags:
+      - imageFiles
+  /image-file/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing imageFiles
+      parameters:
+      - description: imageFile
+        in: body
+        name: imageFileDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateImageFileDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing imageFiles
+      tags:
+      - imageFiles
+  /payment:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing payments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing payments
+      tags:
+      - payments
+  /payment/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new payment
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find payment by oid
+      tags:
+      - payments
+    put:
+      consumes:
+      - application/json
+      description: update existing payment
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: payment
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdatePaymentDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update payment by oid
+      tags:
+      - payments
+  /payment/create:
+    post:
+      consumes:
+      - application/json
+      description: create new payment
+      parameters:
+      - description: payment
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreatePaymentDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create payment
+      tags:
+      - payments
+  /payment/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete payment by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete payment
+      tags:
+      - payments
+  /payment/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing payments
+      parameters:
+      - description: payment
+        in: body
+        name: paymentDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterPaymentDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing payments
+      tags:
+      - payments
+  /send-notification:
+    post:
+      consumes:
+      - application/json
+      description: send new nontification
+      parameters:
+      - description: nontification
+        in: body
+        name: nontification
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.SendNotificationDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: send nontification
+      tags:
+      - nontifications
+  /send-notification/{oid}:
+    post:
+      consumes:
+      - application/json
+      description: send new nontification by oid
+      parameters:
+      - description: nontification
+        in: body
+        name: nontification
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.SinggleNotificationDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: send nontification by oid
+      tags:
+      - nontifications
+  /tarif:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing tarifs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing tarifs
+      tags:
+      - tarifs
+  /tarif/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new tarif
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find tarif by oid
+      tags:
+      - tarifs
+    put:
+      consumes:
+      - application/json
+      description: update existing tarif
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: tarif
+        in: body
+        name: tarif
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateTarifDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update tarif by oid
+      tags:
+      - tarifs
+  /tarif/create:
+    post:
+      consumes:
+      - application/json
+      description: create new tarif
+      parameters:
+      - description: tarif
+        in: body
+        name: tarif
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateTarifDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create tarif
+      tags:
+      - tarifs
+  /tarif/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete tarif by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete tarif
+      tags:
+      - tarifs
+  /tarif/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing tarifs
+      parameters:
+      - description: tarif
+        in: body
+        name: tarifDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterTarifDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing tarifs
+      tags:
+      - tarifs
+  /usageRecord:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing usageRecords
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing usageRecords
+      tags:
+      - usageRecords
+  /usageRecord/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new usageRecord
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find usageRecord by oid
+      tags:
+      - usageRecords
+    put:
+      consumes:
+      - application/json
+      description: update existing usageRecord
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: usageRecord
+        in: body
+        name: usageRecord
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateUsageRecordDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update usageRecord by oid
+      tags:
+      - usageRecords
+  /usageRecord/create:
+    post:
+      consumes:
+      - application/json
+      description: create new usageRecord
+      parameters:
+      - description: usageRecord
+        in: body
+        name: usageRecord
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateUsageRecordDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create usageRecord
+      tags:
+      - usageRecords
+  /usageRecord/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete usageRecord by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete usageRecord
+      tags:
+      - usageRecords
+  /usageRecord/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing usageRecords
+      parameters:
+      - description: usageRecord
+        in: body
+        name: usageRecordDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterUsageRecordDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing usageRecords
+      tags:
+      - usageRecords
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing users
+      tags:
+      - users
+  /user-role:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing userRoles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing userRoles
+      tags:
+      - userRoles
+  /user-role/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new userRole
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find userRole by oid
+      tags:
+      - userRoles
+    put:
+      consumes:
+      - application/json
+      description: update existing userRole
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: userRole
+        in: body
+        name: userRole
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateUserRoleDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update userRole by oid
+      tags:
+      - userRoles
+  /user-role/create:
+    post:
+      consumes:
+      - application/json
+      description: create new userRole
+      parameters:
+      - description: userRole
+        in: body
+        name: userRole
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateUserRoleDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create userRole
+      tags:
+      - userRoles
+  /user-role/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete userRole by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete userRole
+      tags:
+      - userRoles
+  /user-role/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing userRoles
+      parameters:
+      - description: userRole
+        in: body
+        name: userRoleDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterUserRoleDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing userRoles
+      tags:
+      - userRoles
+  /user/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new user
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find user by oid
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: update existing user
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update user by oid
+      tags:
+      - users
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      description: create new user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create user
+      tags:
+      - users
+  /user/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete user by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete user
+      tags:
+      - users
+  /user/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing users
+      parameters:
+      - description: user
+        in: body
+        name: userDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterUserDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing users
+      tags:
+      - users
+  /waterMeter:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing waterMeters
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing waterMeters
+      tags:
+      - waterMeters
+  /waterMeter/{oid}:
+    get:
+      consumes:
+      - application/json
+      description: update new waterMeter
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: find waterMeter by oid
+      tags:
+      - waterMeters
+    put:
+      consumes:
+      - application/json
+      description: update existing waterMeter
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: waterMeter
+        in: body
+        name: waterMeter
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateWaterMeterDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update waterMeter by oid
+      tags:
+      - waterMeters
+  /waterMeter/create:
+    post:
+      consumes:
+      - application/json
+      description: create new waterMeter
+      parameters:
+      - description: waterMeter
+        in: body
+        name: waterMeter
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateWaterMeterDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: create waterMeter
+      tags:
+      - waterMeters
+  /waterMeter/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete waterMeter by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete waterMeter
+      tags:
+      - waterMeters
+  /waterMeter/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing waterMeters
+      parameters:
+      - description: waterMeter
+        in: body
+        name: waterMeterDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterWaterMeterDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing waterMeters
+      tags:
+      - waterMeters
+swagger: "2.0"

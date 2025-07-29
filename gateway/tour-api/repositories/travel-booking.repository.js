@@ -97,6 +97,16 @@ const findAndCountByCriteria = async (findOptions) => {
     }
 };
 
+const findTopFive = async (options = {}) => {
+    try {
+        const result = await TravelBooking.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { result: [], err };
+    }
+};
+
 module.exports = {
     save,
     update,
@@ -105,4 +115,5 @@ module.exports = {
     findById,
     findAndCountByCriteria,
     findByCriteria,
+    findTopFive
 };

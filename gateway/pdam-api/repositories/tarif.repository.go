@@ -21,7 +21,7 @@ func (c *TarifRepository) Save(ctx context.Context, tx *sql.Tx, tarif models.Tar
 	SQL := `
 		INSERT INTO tarifs (
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
-			oid, customer_type, min_volume, max_volume, price_per_m3, effective_rom, effective_to
+			oid, customer_type, min_volume, max_volume, price_per_m3, effective_from, effective_to
 		) VALUES (
 			$1, $2, $3, $4, $5, $6,
 			$7, $8, $9, $10, $11, $12, $13
@@ -60,9 +60,9 @@ func (c *TarifRepository) Update(ctx context.Context, tx *sql.Tx, tarif models.T
 			min_volume = $4,
 			max_volume = $5,
 			price_per_m3 = $6,
-			effective_rom = $7,
+			effective_from = $7,
 			effective_to = $8
-		WHERE oid = $10
+		WHERE oid = $9
 	`
 
 	_, err := tx.ExecContext(ctx, SQL,
@@ -88,8 +88,8 @@ func (c *TarifRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string) e
 }
 
 func (c *TarifRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.TarifDomain, error) {
-	SQL := `SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_rom, effective_to, 
-                   image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
+	SQL := `SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_from, effective_to, 
+                   created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
             FROM tarifs`
 
 	rows, err := tx.QueryContext(ctx, SQL)
@@ -102,7 +102,6 @@ func (c *TarifRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.Tar
 
 	for rows.Next() {
 		var tarif models.TarifDomain
-		var imageOidStr *string
 		var createdByStr, lastModifiedByStr string
 		var deletedByStr *string
 		var createdAt time.Time
@@ -116,7 +115,6 @@ func (c *TarifRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.Tar
 			&tarif.PricePerM3,
 			&tarif.EffectiveFrom,
 			&tarif.EffectiveTo,
-			&imageOidStr,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -166,7 +164,7 @@ func (c *TarifRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.Tar
 
 func (c *TarifRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterTarifDto) ([]models.TarifDomain, error) {
 	baseSQL := `
-		SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_rom, effective_to, image_oid, 
+		SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_from, effective_to, 
 		       created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 		FROM tarifs
 	`
@@ -294,8 +292,8 @@ func (c *TarifRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, conditio
 	var args []interface{}
 
 	queryBuilder.WriteString(`
-		SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_rom, effective_to, 
-		       image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
+		SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_from, effective_to, 
+		        created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 		FROM tarifs
 	`)
 
@@ -387,7 +385,7 @@ func (c *TarifRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, conditio
 }
 
 func (c *TarifRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.Tarif, error) {
-	SQL := `SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_rom, effective_to, image_oid,
+	SQL := `SELECT oid, customer_type, min_volume, max_volume, price_per_m3, effective_from, effective_to,
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM tarifs WHERE oid = $1`
 

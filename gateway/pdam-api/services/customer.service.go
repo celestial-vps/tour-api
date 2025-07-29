@@ -229,6 +229,28 @@ func (service *CustomerService) FindPage(ctx context.Context, condition dtos.Fil
 	return mappings.ToCustomerResponses(customers), count, nil
 }
 
+func (service *CustomerService) FindAdvance(ctx context.Context, condition dtos.FilterCustomerDto, userOid string) ([]mappings.CustomerVm, error) {
+	tx, err := service.DB.Begin()
+	if err != nil {
+		middleware.Failed(ctx, "READ", "customers", userOid, nil, err)
+		return nil, fmt.Errorf("failed to begin transaction: %w", err)
+	}
+	defer common.CommitOrRollback(tx)
+
+	customers, err := service.CustomerRepository.AdvanceFlter(ctx, tx, condition)
+	if err != nil {
+		middleware.Failed(ctx, "READ", "customers", userOid, nil, err)
+		return nil, fmt.Errorf("failed to find customers: %w", err)
+	}
+
+	newData := map[string]interface{}{
+		"count": len(customers),
+	}
+	middleware.Success(ctx, "READ", "customers", userOid, nil, newData)
+
+	return mappings.ToCustomerResponses(customers), nil
+}
+
 func (service *CustomerService) FindById(ctx context.Context, oid string, userOid string) (mappings.CustomerVm, error) {
 	tx, err := service.DB.Begin()
 	if err != nil {

@@ -11,6 +11,7 @@ const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFi
 const buildResponse = require('../common/build.response');
 const { TRAVEL_BOOKING_BASIC_FIELDS } = require('../constants/travel-booking.fields.js');
 const { hashPassword } = require('../misc/password.js');
+const { Op } = require('sequelize');
 
 const create = async (dto, userOid) => {
     // @ts-ignore
@@ -395,6 +396,49 @@ const findPage = async (filters, options) => {
         };
     }
 };
+const findTopFive = async (filters, options) => {
+  try {
+    const { search, startDate, endDate, ...restFilters } = filters;
+
+    // Normalize filters
+    const normalizedFilters = search ? { ...restFilters, code: search } : restFilters;
+
+    // Build where conditions
+    const where = buildFilterConditions(sequelize, normalizedFilters, false);
+
+    // Tambahkan filter tanggal
+    if (startDate && endDate) {
+      where.bookedAt = {
+        [Op.between]: [startDate, endDate],
+      };
+    }
+
+    // Build options (if needed for association or future flexibility)
+    const findOptions = {
+      ...buildFindOptions(where, options),
+      limit: 5,
+    };
+
+    // Panggil repository khusus Top 5
+    const result = await travelBookingRepository.findTopFive(findOptions);
+
+    if (result.err) throw result.err;
+
+    return {
+      travelBookings: result.data,
+      count: result.count || result.data.length,
+      err: null,
+    };
+  } catch (error) {
+    console.error('TravelBookingService findTopFive error:', error);
+    return {
+      travelBookings: [],
+      count: 0,
+      err: buildResponse.responseInternalServerError(error).data.error,
+    };
+  }
+};
+
 
 module.exports = {
     create,
@@ -403,5 +447,6 @@ module.exports = {
     deleted,
     findAll,
     findById,
-    findPage
+    findPage,
+    findTopFive
 };

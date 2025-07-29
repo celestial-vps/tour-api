@@ -10,8 +10,13 @@ type RegisterDto struct {
 }
 
 type LoginDto struct {
-	Email    string `json:"email" validate:"required"`
-	Password string `json:"password" validate:"required"`
+	Email        string `json:"email" validate:"required"`
+	Password     string `json:"password" validate:"required"`
+	AndroidToken string `json:"androidToken" validate:"omitempty"`
+	Platform     string `json:"platform" validate:"required"`
+	IosToken     string `json:"iosToken" validate:"omitempty"`
+	WebToken     string `json:"webToken" validate:"omitempty"`
+	DesktopToken string `json:"desktopToken" validate:"omitempty"`
 }
 
 type CreateUserDto struct {

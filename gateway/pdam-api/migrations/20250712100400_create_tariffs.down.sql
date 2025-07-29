@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS tariffs;
+DROP TABLE IF EXISTS tarifs;

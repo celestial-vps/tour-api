@@ -38,14 +38,27 @@ func (service *WaterMeterService) Create(ctx context.Context, request dtos.Creat
 	if err != nil {
 		return mappings.MessageVm{}, fmt.Errorf("invalid userOid: %w", err)
 	}
+	CustomerOid := uuid.MustParse(request.CustomerOid)
+	installedAt, err := time.Parse(time.RFC3339, request.InstalledAt)
+	if err != nil {
+		return mappings.MessageVm{}, fmt.Errorf("invalid InstalledAt date: %w", err)
+	}
 
+	var replacedAtPtr *time.Time
+	if request.ReplacedAt != "" {
+		replacedAt, err := time.Parse(time.RFC3339, request.ReplacedAt)
+		if err != nil {
+			return mappings.MessageVm{}, fmt.Errorf("invalid ReplacedAt date: %w", err)
+		}
+		replacedAtPtr = &replacedAt
+	}
 	waterMeter := models.WaterMeter{
 		Oid:          uuid.New(),
 		SerialNumber: request.SerialNumber,
-		// CustomerOid:  request.CustomerOid,
-		// InstalledAt:  request.InstalledAt,
-		// ReplacedAt:   request.ReplacedAt,
-		Status: request.Status,
+		CustomerOid:  CustomerOid,
+		InstalledAt:  installedAt,
+		ReplacedAt:   replacedAtPtr,
+		Status:       request.Status,
 		TransactionRecord: models.TransactionRecord{
 			CreatedBy: createdBy,
 			CreatedAt: time.Now(),

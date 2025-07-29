@@ -12,7 +12,7 @@ type CreateTarifDto struct {
 	MaxVolume     int        `json:"maxVolume" validate:"required" `
 	PricePerM3    float64    `json:"pricePerM3" validate:"required" `
 	EffectiveFrom time.Time  `json:"effectiveFrom" validate:"required" `
-	EffectiveTo   *time.Time `json:"effectiveTo" validate:"required" `
+	EffectiveTo   *time.Time `json:"effectiveTo" validate:"omitempty"` // optional
 }
 
 type UpdateTarifDto struct {
@@ -21,5 +21,5 @@ type UpdateTarifDto struct {
 	MaxVolume     int        `json:"maxVolume" validate:"required" `
 	PricePerM3    float64    `json:"pricePerM3" validate:"required" `
 	EffectiveFrom time.Time  `json:"effectiveFrom" validate:"required" `
-	EffectiveTo   *time.Time `json:"e" validate:"required" `
+	EffectiveTo   *time.Time `json:"effectiveTo" validate:"omitempty"` // optional
 }

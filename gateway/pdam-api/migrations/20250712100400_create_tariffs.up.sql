@@ -1,4 +1,4 @@
-CREATE TABLE tariffs (
+CREATE TABLE tarifs (
     oid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     customer_type TEXT NOT NULL,
     min_volume INTEGER NOT NULL,

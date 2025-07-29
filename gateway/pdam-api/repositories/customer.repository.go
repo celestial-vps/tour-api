@@ -21,10 +21,10 @@ func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer mode
 	SQL := `
 		INSERT INTO customers (
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at,
-			oid, first_name, middle_name, last_name, email, phone_number, address, image_oid
+			oid, first_name, middle_name, last_name, email, phone_number, address
 		) VALUES (
 			$1, $2, $3, $4, $5, $6,
-			$7, $8, $9, $10, $11, $12, $13, $14
+			$7, $8, $9, $10, $11, $12, $13
 		)
 	`
 
@@ -42,7 +42,6 @@ func (c *CustomerRepository) Save(ctx context.Context, tx *sql.Tx, customer mode
 		customer.Email,
 		customer.PhoneNumber,
 		customer.Address,
-		customer.ImageOid,
 	)
 
 	if err != nil {
@@ -63,8 +62,7 @@ func (c *CustomerRepository) Update(ctx context.Context, tx *sql.Tx, customer mo
 			email = $6,
 			phone_number = $7,
 			address = $8,
-			image_oid = $9
-		WHERE oid = $10
+		WHERE oid = $9
 	`
 
 	_, err := tx.ExecContext(ctx, SQL,
@@ -92,7 +90,7 @@ func (c *CustomerRepository) Deleted(ctx context.Context, tx *sql.Tx, oid string
 
 func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.CustomerDomain, error) {
 	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, 
-                   image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
+                   created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at 
             FROM customers`
 
 	rows, err := tx.QueryContext(ctx, SQL)
@@ -105,7 +103,6 @@ func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.
 
 	for rows.Next() {
 		var customer models.CustomerDomain
-		var imageOidStr *string
 		var createdByStr, lastModifiedByStr string
 		var deletedByStr *string
 		var createdAt time.Time
@@ -119,7 +116,6 @@ func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.
 			&customer.Email,
 			&customer.PhoneNumber,
 			&customer.Address,
-			&imageOidStr,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -129,17 +125,6 @@ func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.
 		)
 		if err != nil {
 			return nil, err
-		}
-
-		// Parsing UUID fields
-		if imageOidStr != nil {
-			imageOid, err := uuid.Parse(*imageOidStr)
-			if err != nil {
-				return nil, err
-			}
-			customer.ImageOid = &imageOid
-		} else {
-			customer.ImageOid = nil
 		}
 
 		createdBy, err := uuid.Parse(createdByStr)
@@ -180,7 +165,7 @@ func (c *CustomerRepository) FindAll(ctx context.Context, tx *sql.Tx) ([]models.
 
 func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx, page int, pageSize int, condition dtos.FilterCustomerDto) ([]models.CustomerDomain, error) {
 	baseSQL := `
-		SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid, 
+		SELECT oid, first_name, middle_name, last_name, email, phone_number, address, 
 		       created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 		FROM customers
 	`
@@ -220,7 +205,6 @@ func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx,
 
 		// Temp vars for nullable strings and UUIDs from DB
 		var middleName, lastName *string
-		var imageOidStr *string
 		var createdByStr, lastModifiedByStr string
 		var deletedByStr *string
 		var createdAt time.Time
@@ -234,7 +218,6 @@ func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx,
 			&customer.Email,
 			&customer.PhoneNumber,
 			&customer.Address,
-			&imageOidStr,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -248,16 +231,6 @@ func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx,
 
 		customer.MiddleName = middleName
 		customer.LastName = lastName
-
-		if imageOidStr != nil {
-			imageOid, err := uuid.Parse(*imageOidStr)
-			if err != nil {
-				return nil, fmt.Errorf("invalid UUID for ImageOid: %w", err)
-			}
-			customer.ImageOid = &imageOid
-		} else {
-			customer.ImageOid = nil
-		}
 
 		createdBy, err := uuid.Parse(createdByStr)
 		if err != nil {
@@ -333,7 +306,7 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 	queryBuilder.WriteString(`
 		SELECT oid, first_name, middle_name, last_name, email, phone_number, address, 
-		       image_oid, created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
+		        created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 		FROM customers
 	`)
 
@@ -368,7 +341,6 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 			customer          models.CustomerDomain
 			middleName        *string
 			lastName          *string
-			imageOidStr       *string
 			createdByStr      string
 			createdAt         time.Time
 			lastModifiedByStr string
@@ -385,7 +357,6 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 			&customer.Email,
 			&customer.PhoneNumber,
 			&customer.Address,
-			&imageOidStr,
 			&createdByStr,
 			&createdAt,
 			&lastModifiedByStr,
@@ -399,16 +370,6 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 		customer.MiddleName = middleName
 		customer.LastName = lastName
-
-		if imageOidStr != nil {
-			imageOid, err := uuid.Parse(*imageOidStr)
-			if err != nil {
-				return nil, fmt.Errorf("invalid UUID for ImageOid: %w", err)
-			}
-			customer.ImageOid = &imageOid
-		} else {
-			customer.ImageOid = nil
-		}
 
 		createdBy, err := uuid.Parse(createdByStr)
 		if err != nil {
@@ -447,7 +408,7 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 }
 
 func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid string) (models.Customer, error) {
-	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address, image_oid,
+	SQL := `SELECT oid, first_name, middle_name, last_name, email, phone_number, address,
 			created_by, created_at, last_modified_by, updated_at, deleted_by, deleted_at
 			FROM customers WHERE oid = $1`
 

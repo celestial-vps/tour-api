@@ -246,6 +246,44 @@ func (controller *CustomerController) Find(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
+// Get All Customer
+// @Summary List existing customers
+// @Description Get all the existing customers
+// @Tags customers
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} common.DefaultResponse	"ok"
+// @Security ApiKeyAuth
+// @Param   customerDto body  dtos.FilterCustomerDto true "customer"
+// @Router /customer/q [post]
+func (controller *CustomerController) FindAdvance(c *gin.Context) {
+	userOid, err := middleware.GetUserOidFromContext(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		return
+	}
+
+	var customerDto dtos.FilterCustomerDto
+	err = c.ShouldBindJSON(&customerDto)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+		return
+	}
+
+	customers, err := controller.customerService.FindAdvance(c, customerDto, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
+	if customers == nil {
+		customers = []mappings.CustomerVm{} // Assuming Customer is your struct type
+	}
+
+	// response := common.ResponseOkWithPaggination(customers,  count)
+	response := common.ResponseOk(customers, int64(len(customers)))
+	c.JSON(http.StatusOK, response)
+}
+
 // Find Customer By Oid
 // @Summary  find customer by oid
 // @Description update new customer

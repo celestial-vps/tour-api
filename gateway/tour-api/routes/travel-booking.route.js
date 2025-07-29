@@ -216,6 +216,37 @@ router.get('/', validateRequest(filterTravelBookingDto), roleGuard('Admin'), tra
  */
 router.post('/q', validateRequest(filterTravelBookingDto), roleGuard('Admin'), travelBookingController.find);
 
+/**
+ * @swagger
+ * /travel-booking/q/top-five:
+ *   post:
+ *     tags: [Travel Booking]
+ *     summary: Paginate Travel Bookings with filters
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               pageIndex:
+ *                 type: integer
+ *                 example: 1
+ *               pageSize:
+ *                 type: integer
+ *                 example: 10
+  *               travelBookingCode:
+ *                 type: string
+ *                 example: "-"
+ *               travelBookingName:
+ *                 type: string
+ *                 example: "-"
+ *     responses:
+ *       200:
+ *         description: Paginated list of Travel Bookings
+ */
+router.post('/q/top-five', validateRequest(filterTravelBookingDto), roleGuard('Admin'), travelBookingController.findTopFive);
+
  
 
 /**

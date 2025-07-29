@@ -130,6 +130,17 @@ func (service *UserService) Login(ctx context.Context, request dtos.LoginDto) ma
 	if len(userMap) == 0 {
 		panic(common.NewNotFoundError("Data not found"))
 	}
+	if request.Platform == "android" {
+		userMap[0].AndroidToken = &request.AndroidToken
+	} else if request.Platform == "ios" {
+		userMap[0].TokenIos = &request.IosToken
+	} else if request.Platform == "web" {
+		userMap[0].TokenWeb = &request.WebToken
+	} else if request.Platform == "desktop" {
+		userMap[0].TokenDesktop = &request.DesktopToken
+	}
+
+	_ = service.UserRepository.Update(ctx, tx, userMap[0])
 
 	// Convert uuid.UUID to string
 	Oid := userMap[0].Oid.String()

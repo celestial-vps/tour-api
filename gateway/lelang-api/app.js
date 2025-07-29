@@ -1,0 +1,71 @@
+require('dotenv').config();
+// @ts-ignore
+const express = require('express');
+const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
+const helmet = require('helmet')
+// const bankRoutes = require('./routes/bank.route');  
+const authRoutes = require('./routes/auth.route');
+const bankRoutes = require('./routes/bank.route');  
+const userRoleRoutes = require('./routes/user-role.route');
+const userRoutes = require('./routes/user.route');
+const fs = require('fs');
+const setupSwagger = require('./swagger'); // Adjust the path as needed
+// @ts-ignore
+// @ts-ignore
+const multer = require('multer');
+const path = require('path');
+// const fs = require('fs');
+// const sequelize = require('./config/sequelize');
+const app = express();
+// @ts-ignore
+app.use(express.static(path.join(__dirname, 'public')));
+
+// @ts-ignore
+app.use(express.json());
+// @ts-ignore
+app.use(helmet())
+// @ts-ignore
+app.use(bodyParser.json());
+// @ts-ignore
+app.use(cors({
+  origin:  ['http://localhost:4200', 'http://localhost:4300'], // Replace with your Angular app URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
+setupSwagger(app);
+// Ensure the uploads directory exists
+const uploadsDir = path.join(__dirname, 'public');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+// @ts-ignore
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Terlalu banyak request, coba lagi nanti"
+});
+// @ts-ignore
+app.use(limiter);
+
+const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
+console.log(`Server running on basePath ${basePath}`);
+
+// @ts-ignore
+// sequelize.logging = console.log;
+
+// @ts-ignore
+app.use(`${basePath}/auth`, authRoutes);
+// @ts-ignore
+app.use(`${basePath}/bank`, bankRoutes);
+  
+// @ts-ignore
+app.use(`${basePath}/user-role`, userRoleRoutes);
+// @ts-ignore
+app.use(`${basePath}/user`, userRoutes);
+ 
+
+module.exports = app;

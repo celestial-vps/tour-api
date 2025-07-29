@@ -134,3 +134,7 @@ ini kalo bikin service nya
     
 # SWAGGER
     http://localhost:3000/api/v1/api-docs/
+
+
+
+    npm install firebase-admin
