@@ -36,7 +36,7 @@ const update = async (oid, updateData) => {
 
 const deleted = async (oid) => {
     try {
-        const result = await Bank.deleteOne({ oid }); // Use deleteOne to remove the document        
+        const result = await Bank.deleteOne({ _id: oid }); // Use deleteOne to remove the document        
         return { result, err: null };
     } catch (err) {
         return {

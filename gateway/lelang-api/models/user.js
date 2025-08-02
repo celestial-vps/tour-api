@@ -34,7 +34,18 @@ const userSchema = new Schema({
         type: String,
         default: null
     },
-    expiredTime: {
+    iosToken: {
+        type: String,
+        default: null
+    },
+    webToken: {
+        type: String,
+        default: null
+    },
+    desktopToken: {
+        type: String,
+        default: null
+    }, expiredTime: {
         type: String,
         default: null
     },

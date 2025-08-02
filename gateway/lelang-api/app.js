@@ -1,6 +1,7 @@
 require('dotenv').config();
 // @ts-ignore
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
@@ -8,8 +9,13 @@ const helmet = require('helmet')
 // const bankRoutes = require('./routes/bank.route');  
 const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');  
+const itemRoutes = require('./routes/item.route');
+const auctionRoutes = require('./routes/auction.route');
+const itemCategoryRoutes = require('./routes/item-category.route');
 const userRoleRoutes = require('./routes/user-role.route');
 const userRoutes = require('./routes/user.route');
+const imageFileRoutes = require('./routes/image-file.route');
+
 const fs = require('fs');
 const setupSwagger = require('./swagger'); // Adjust the path as needed
 // @ts-ignore
@@ -51,21 +57,27 @@ const limiter = rateLimit({
 // @ts-ignore
 app.use(limiter);
 
+// Connect to MongoDB
+const mongoURI = process.env.MONGO_URL + "/" + process.env.DATABASE;
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
+
+
 const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
 console.log(`Server running on basePath ${basePath}`);
 
+
+
 // @ts-ignore
 // sequelize.logging = console.log;
-
-// @ts-ignore
 app.use(`${basePath}/auth`, authRoutes);
-// @ts-ignore
+app.use(`${basePath}/item-category`, itemCategoryRoutes);  
+app.use(`${basePath}/auction`, auctionRoutes);  
+app.use(`${basePath}/item`, itemRoutes);  
 app.use(`${basePath}/bank`, bankRoutes);
-  
-// @ts-ignore
 app.use(`${basePath}/user-role`, userRoleRoutes);
-// @ts-ignore
 app.use(`${basePath}/user`, userRoutes);
  
-
+app.use(`${basePath}/image-file`, imageFileRoutes);
 module.exports = app;

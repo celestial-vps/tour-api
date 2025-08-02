@@ -138,3 +138,4 @@ ini kalo bikin service nya
 
 
     npm install firebase-admin
+    npm i google-auth-library

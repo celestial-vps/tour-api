@@ -8,7 +8,7 @@ const save = async (data) => {
     } catch (err) {
         return { result: null, err: {
             httpStatus: 500,
-        } };
+        } };F
     }
 };
 

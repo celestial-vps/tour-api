@@ -9,7 +9,7 @@ const admin = require('./firebase'); // gunakan admin yang sudah diinisialisasi
  * @param {string} body - Isi pesan notifikasi
  * @param {object} data - (Opsional) Data tambahan
  */
-const fcm = async (token, title, body, data = {}) => {
+const sendNotification = async (token, title, body, data = {}) => {
   const message = {
     token,
     notification: { title, body },
@@ -32,4 +32,4 @@ const fcm = async (token, title, body, data = {}) => {
   }
 };
 
-module.exports = { fcm };
+module.exports = { sendNotification };

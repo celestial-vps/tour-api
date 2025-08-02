@@ -3,6 +3,26 @@ const userService = require('../services/user.service');
 const buildResponse = require('../common/build.response');
 const validateRequest = require('../misc/validation');
 const { loginDto, registerDto } = require('../dtos/payload-user-dto');
+const { OAuth2Client } = require('google-auth-library');
+
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+const verifyGoogleToken = async (idToken) => {
+  const ticket = await client.verifyIdToken({
+    idToken,
+    audience: GOOGLE_CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  return payload; // berisi email, name, sub (userId Google), dll.
+};
+
+// // Di controller
+// const payload = await verifyGoogleToken(idToken);
+// const email = payload.email;
+
+// // Validasi email kamu sendiri di database
+// const user = await db.User.findOne({ where: { email } });
+// if (!user) throw new Error("Email belum terdaftar");
 
 const login = async (req, res) => {
 	try {

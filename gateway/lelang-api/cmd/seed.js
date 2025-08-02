@@ -52,6 +52,30 @@ async function seedDatabase() {
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
+             {
+                roleName: "Seller",
+                targetType: "System",
+                isAdministrative: false,
+                readState: true,
+                writeState: false,
+                createState: false,
+                deleteState: false,
+                navigateState: true,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+             {
+                roleName: "Buyyer",
+                targetType: "System",
+                isAdministrative: false,
+                readState: true,
+                writeState: false,
+                createState: false,
+                deleteState: false,
+                navigateState: true,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
         ];
 
         // Insert data into collections

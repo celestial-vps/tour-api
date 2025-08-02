@@ -6,7 +6,7 @@ const moment = require('moment');
 const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
 const buildResponse = require('../common/build.response');
 const { BANK_BASIC_FIELDS } = require('../constants/bank.fields');
-const { admin } = require('../misc/fcm'); // 
+const { fcm } = require('../misc/fcm'); // 
 
 // require('../misc/datetime'); // Import string extensions for toCapitalize
 
@@ -22,6 +22,20 @@ const multipleNotification = async (dto, userOid) => {
 
 
         const { result, err } = await userRepository.findAll(data, { transaction });
+        if (dto.platform === 'web') {
+            dto.token = dto.token || result[0].tokenWeb;
+        } else if (dto.platform === 'android') {
+            dto.token = dto.token || result[0].androidToken;
+        } else if (dto.platform === 'ios') {
+            dto.token = dto.token || result[0].iosToken;
+        }
+        else if (dto.platform === 'desktop') {
+            dto.token = result[0].tokenWeb || result[0].androidToken || result[0].iosToken || result[0].desktopToken;
+        }
+        else if (dto.platform === 'all') {
+            dto.token = result[0].tokenWeb || result[0].androidToken || result[0].iosToken;
+        }
+        fcm.sendNotification(dto.token, dto.title, dto.body, dto.data);
 
         if (err || !result) {
             await transaction.rollback();

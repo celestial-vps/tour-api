@@ -20,7 +20,8 @@ const login = async (req, res) => {
 	try {
 		const condition = {
 			email: req.body.email,
-			password: req.body.password
+			password: req.body.password,
+            webToken:req.body.webToken
 		};
 
 		const { user, err } = await userService.login(condition);

@@ -36,7 +36,7 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
       action,
       status,
       message: message || `${action} ${tableName} ${status.toLowerCase()}`,
-      userOid: req.authorization_payload?.userOid,
+      userOid: getUserOidValidator(req.authorization_payload?.userOid),
       ipAddress: req.ip,
       userAgent: req.get('User-Agent'),
       newData: status === 'SUCCESS' ? data : undefined,
@@ -53,5 +53,26 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
     console.error('Failed to record audit trail:', err.message);
   }
 }
+
+function getUserOidValidator(userOid) {
+  const objectIdRegex = /^[a-f\d]{24}$/i;
+  const uuidV4Regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if (!userOid) {
+    return Joi.string().optional(); // Biarkan optional jika tidak ada userOid
+  }
+
+  if (uuidV4Regex.test(userOid)) {
+    return Joi.string().guid({ version: ['uuidv4'] }).optional();
+  }
+
+  if (objectIdRegex.test(userOid)) {
+    return Joi.string().pattern(objectIdRegex).optional();
+  }
+
+  console.warn('userOid tidak valid UUID atau ObjectId. Dibiarkan tanpa validasi ketat.');
+  return Joi.string().optional(); // fallback
+}
+
 
 module.exports = { recordAuditTrail };
