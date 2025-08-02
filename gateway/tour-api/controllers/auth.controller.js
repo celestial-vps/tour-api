@@ -5,16 +5,16 @@ const validateRequest = require('../misc/validation');
 const { loginDto, registerDto } = require('../dtos/payload-user-dto');
 const { OAuth2Client } = require('google-auth-library');
 
-const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+// const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-const verifyGoogleToken = async (idToken) => {
-  const ticket = await client.verifyIdToken({
-    idToken,
-    audience: GOOGLE_CLIENT_ID,
-  });
-  const payload = ticket.getPayload();
-  return payload; // berisi email, name, sub (userId Google), dll.
-};
+// const verifyGoogleToken = async (idToken) => {
+//   const ticket = await client.verifyIdToken({
+//     idToken,
+//     audience: GOOGLE_CLIENT_ID,
+//   });
+//   const payload = ticket.getPayload();
+//   return payload; // berisi email, name, sub (userId Google), dll.
+// };
 
 // // Di controller
 // const payload = await verifyGoogleToken(idToken);

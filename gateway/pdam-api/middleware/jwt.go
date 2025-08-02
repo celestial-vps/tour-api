@@ -8,93 +8,64 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-const (
-	jWTPrivateToken = "SecrteTokenSecrteToken"
-	// ip              = "192.168.0.107"
-)
-
 type Maker struct {
-	token *jwt.Token
-	// response common.WebResponse
+	secretKey string
 }
 
 func NewJwt() (*Maker, error) {
-	token := jwt.New(jwt.SigningMethodHS256)
-	maker := &Maker{
-		token: token,
+	secret := os.Getenv("SECREATKEY")
+	if secret == "" {
+		return nil, fmt.Errorf("environment variable SECREATKEY is not set")
 	}
 
-	return maker, nil
+	return &Maker{
+		secretKey: secret,
+	}, nil
 }
 
 func (maker *Maker) CreateToken(oid string, emailName string) (string, error) {
-	claims := maker.token.Claims.(jwt.MapClaims)
-	claims["userOid"] = oid
-	claims["username"] = emailName
-	claims["level"] = "application"
-	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-	t, err := maker.token.SignedString([]byte(os.Getenv("Host")))
-	return t, err
+	claims := jwt.MapClaims{
+		"userOid":  oid,
+		"username": emailName,
+		"level":    "application",
+		"exp":      time.Now().Add(72 * time.Hour).Unix(),
+	}
 
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString([]byte(maker.secretKey))
 }
 
 func (maker *Maker) VerifyToken(accessToken string) (*jwt.Token, error) {
-
 	claims := jwt.MapClaims{}
 	token, err := jwt.ParseWithClaims(accessToken, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("Host")), nil
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(maker.secretKey), nil
 	})
-
-	// _, err := utils.ParseToken(accessToken)
-
-	// if err != nil {
-	// 	switch err.(*jwt.ValidationError).Errors {
-	// 	case jwt.ValidationErrorExpired:
-	// 		maker.response = common.WebResponse{
-	// 			Code:   200,
-	// 			Status: "OK",
-	// 			Data:   "siteResponse",
-	// 		}
-	// 	default:
-	// 		maker.response = common.WebResponse{
-	// 			Code:   200,
-	// 			Status: "OK",
-	// 			Data:   "siteResponse",
-	// 		}
-	// 	}
-	// }
 	return token, err
-
 }
 
 func (maker *Maker) GetClaims(tokenString string) JwtClaims {
 	claims := &JwtClaims{}
-
-	_, err := getTokenFromString(tokenString, claims)
-	if err == nil {
-		return *claims
+	_, err := maker.getTokenFromString(tokenString, claims)
+	if err != nil {
+		// optionally handle error
 	}
 	return *claims
 }
 
 func (maker *Maker) GetClaimsByOid(tokenString string) (JwtClaims, error) {
 	claims := &JwtClaims{}
-
-	_, err := getTokenFromString(tokenString, claims)
-	if err == nil {
-		return *claims, err
-	}
-	return *claims, nil
+	_, err := maker.getTokenFromString(tokenString, claims)
+	return *claims, err
 }
 
-func getTokenFromString(tokenString string, claims *JwtClaims) (*jwt.Token, error) {
+func (maker *Maker) getTokenFromString(tokenString string, claims *JwtClaims) (*jwt.Token, error) {
 	return jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		// Don't forget to validate the alg is what you expect:
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-
-		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
-		return []byte(jWTPrivateToken), nil
+		return []byte(maker.secretKey), nil
 	})
 }

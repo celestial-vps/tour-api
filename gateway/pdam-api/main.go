@@ -145,7 +145,17 @@ func main() {
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	errPort := router.Run(":3000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3102" // default port
+	}
+
+	errPort := router.Run(":" + port)
+	if errPort != nil {
+		log.Fatalf("Failed to run server: %v", errPort)
+	}
+
+	// errPort := router.Run(":3102")
 
 	common.PanicIfError(errPort)
 }
