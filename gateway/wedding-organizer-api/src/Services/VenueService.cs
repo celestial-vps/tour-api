@@ -163,7 +163,7 @@ namespace WeddingOrganizerAPI.Services
                     Value = venue.Oid.ToString(),
                     Name = venue.Name
                 };
-                return (response, null); 
+                return (response, null);
             }
             catch (Exception ex)
             {
@@ -206,6 +206,23 @@ namespace WeddingOrganizerAPI.Services
             catch (Exception ex)
             {
                 return (null, ApiError.InternalServerError(ex));
+            }
+        }
+
+        public async Task<(List<VenueVM> venues, ApiError? err)> FindPageAsync(VenueFilterDto dto, int page, int pageSize)
+        {
+            try
+            {
+                var (result, total, err) = await _venueRepository.FindByCriteriaPageAsync( page, pageSize,dto);
+                if (err != null)
+                    return (new List<VenueVM>(), ApiError.InternalServerError(err));
+
+                var responses = _mapper.Map<List<VenueVM>>(result);
+                return (responses, null);
+            }
+            catch (Exception ex)
+            {
+                return (new List<VenueVM>(), ApiError.InternalServerError(ex));
             }
         }
 

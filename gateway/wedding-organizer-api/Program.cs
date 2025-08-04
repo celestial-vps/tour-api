@@ -12,7 +12,22 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    // options.AddPolicy("AllowAll", policy =>
+    // {
+    //     policy.AllowAnyOrigin()
+    //           .AllowAnyMethod()
+    //           .AllowAnyHeader();
+    // });
+    options.AddPolicy("AllowAngular", policy =>
+{
+    policy.WithOrigins("http://localhost:4200") // harus cocok protokol dan port
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+    //    .AllowCredentials();
+});
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -94,7 +109,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAngular");
+Console.WriteLine("LOGIN endpoint hit!");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

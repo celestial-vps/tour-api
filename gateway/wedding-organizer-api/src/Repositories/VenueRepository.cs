@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WeddingOrganizerAPI.Data;
+using WeddingOrganizerAPI.DTOs;
 using WeddingOrganizerAPI.Models;
 
 namespace WeddingOrganizerAPI.Repositories
@@ -39,7 +40,7 @@ namespace WeddingOrganizerAPI.Repositories
                 existing.Location = updatedData.Location;
                 existing.Capacity = updatedData.Capacity;
                 existing.Price = updatedData.Price;
-                existing.Contact = updatedData.Contact; 
+                existing.Contact = updatedData.Contact;
 
                 return (existing, null); // hanya tracking
             }
@@ -100,7 +101,7 @@ namespace WeddingOrganizerAPI.Repositories
         {
             try
             {
-                var filtered =   _context.Venues.Where(predicate).ToList();
+                var filtered = _context.Venues.Where(predicate).ToList();
                 return (filtered, null);
             }
             catch (Exception ex)
@@ -123,5 +124,40 @@ namespace WeddingOrganizerAPI.Repositories
                 return (new List<Venue>(), 0, ex);
             }
         }
+
+        public async Task<(List<Venue> result, int count, Exception? err)> FindByCriteriaPageAsync(int page, int pageSize, VenueFilterDto condition)
+        {
+
+            try
+            {
+                // Bangun predicate filter
+                var query = _context.Venues.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(condition.Name))
+                {
+                    query = query.Where(v => v.Name.Contains(condition.Name));
+                }
+
+
+
+                // Hitung total data sebelum pagination
+                var totalCount = await query.CountAsync();
+
+                // Terapkan pagination
+                var filtered = await query
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                return (filtered, totalCount, null);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[Repository] FindByCriteriaPageAsync Error: {ex}");
+                return (new List<Venue>(), 0, ex);
+            }
+        }
     }
-}
+ 
+
+} 

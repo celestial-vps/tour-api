@@ -14,8 +14,8 @@ type LoginDto struct {
 	Password     string `json:"password" validate:"required"`
 	AndroidToken string `json:"androidToken" validate:"omitempty"`
 	Platform     string `json:"platform" validate:"required"`
-	IosToken     string `json:"iosToken" validate:"omitempty"`
-	WebToken     string `json:"webToken" validate:"omitempty"`
+	TokenIos     string `json:"tokenIos" validate:"omitempty"`
+	TokenWeb     string `json:"tokenWeb" validate:"omitempty"`
 	DesktopToken string `json:"desktopToken" validate:"omitempty"`
 }
 

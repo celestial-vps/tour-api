@@ -160,6 +160,11 @@ namespace wedding_organizer_api.src.infrastructure.data.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("DesktopToken")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("desktopToken");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -186,6 +191,16 @@ namespace wedding_organizer_api.src.infrastructure.data.Migrations
 
                     b.Property<Guid?>("RoleOid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TokenIos")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("tokenIos");
+
+                    b.Property<string>("TokenWeb")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("tokenWeb");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");

@@ -8,7 +8,8 @@ using WeddingOrganizerAPI.Common;
 namespace WeddingOrganizerAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
+    [Route("api/v1/venue")]
     [Authorize(Roles = "Base,Admin")]
     // [Authorize(Roles = "Base")]
     // [Authorize] // [AllowAnonymous] //  // jika pakai authentication
@@ -22,7 +23,7 @@ namespace WeddingOrganizerAPI.Controllers
         }
 
         // GET: api/venue
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> GetAll()
         {
             var (venues, err) = await _venueService.FindAllAsync();
@@ -47,8 +48,25 @@ namespace WeddingOrganizerAPI.Controllers
             return BuildResponse.FindOk(this, venue);
         }
 
+        [HttpPost("q")]
+        public async Task<IActionResult> FindPage([FromBody] VenueFilterDto dto, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
+        {
+            // var userOid = GetUserOid();
+            // if (userOid == Guid.Empty)
+            //     return Unauthorized();
+
+            var (venue, err) = await _venueService.FindPageAsync(dto, pageIndex, pageSize);
+            if (err != null)
+            {
+                return BuildResponse.SendQueryError(this, err.Message, "insert");
+            }
+
+            return BuildResponse.CreateOk(this, venue);
+        }
+
+
         // POST: api/venue
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateVenueDto dto)
         {
             // var userOid = GetUserOid();
@@ -82,7 +100,7 @@ namespace WeddingOrganizerAPI.Controllers
         }
 
         // DELETE: api/venue/{oid}
-        [HttpDelete("{oid}")]
+        [HttpDelete("delete/{oid}")]
         public async Task<IActionResult> Delete(Guid oid)
         {
             var (venue, err) = await _venueService.DeleteAsync(oid);

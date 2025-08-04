@@ -6,7 +6,7 @@ namespace WeddingOrganizerAPI.Models
         [Key]
         public Guid Oid { get; set; } = Guid.NewGuid();
 
-        public int DecorationPackageId { get; set; } 
+        public int DecorationPackageOid { get; set; } 
         public string Name { get; set; } = null!; 
         public string? Theme { get; set; }
         public decimal Price { get; set; }

@@ -14,10 +14,11 @@ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 
 
 mkdir controllers dtos models mappings services repositories data
+dotnet tool install --global dotnet-ef
 
 
 migration 
-dotnet ef migrations add InitialCreate
+dotnet ef migrations add FixingLogin
 dotnet ef migrations add InitialCreate --output-dir src/infrastructure/data/Migrations --verbose
 dotnet ef database update
 
@@ -26,3 +27,62 @@ rolback migration
 dotnet ef database update 0
 
 dotnet ef migrations remove
+
+RUN
+dotnet run
+dotnet run --launch-profile "https"
+dotnet run --launch-profile http
+
+https://localhost:3104/swagger/index.html
+
+DEBUG
+dotnet build
+dotnet watch run 
+lalu tekang F5
+
+
+# launchSettings.json https 
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:63179",
+      "sslPort": 44341
+    }
+  },
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:3104",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:3104;http://localhost:3100",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+
+

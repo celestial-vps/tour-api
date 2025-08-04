@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "/ajjjjxVIrvIahH59CxSrrm7xM/Zjb4QvO6mqspSMm4=",
-  "Source": "wedding-organizer-api",
-  "BasePath": "_content/wedding-organizer-api",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"N+7L8lBCA22Hf+YlvcUThLXFc5HTnirqQ67wH6HXkg4=","Source":"wedding-organizer-api","BasePath":"_content/wedding-organizer-api","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

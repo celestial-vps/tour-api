@@ -12,7 +12,8 @@ using WeddingOrganizerAPI.Services.Interfaces;
 namespace WeddingOrganizerAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
+    [Route("api/v1/auth")]
     public class AuthController : ControllerBase
     {
         // private readonly AppDbContext _context;

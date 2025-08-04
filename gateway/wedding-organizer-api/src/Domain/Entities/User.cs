@@ -24,6 +24,19 @@ namespace WeddingOrganizerAPI.Models
         [StringLength(255)]
         public string? AndroidToken { get; set; }
 
+        [Column("tokenIos")]
+        [StringLength(255)]
+        public string? TokenIos { get; set; }
+
+        [Column("tokenWeb")]
+        [StringLength(255)]
+        public string? TokenWeb { get; set; }
+
+        [Column("desktopToken")]
+        [StringLength(255)]
+        public string? DesktopToken { get; set; }
+
+
         [Column("expiredTime")]
         [StringLength(50)]
         public string? ExpiredTime { get; set; }

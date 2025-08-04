@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.SecreatKey || 'SecretTokenSecretToken'; // Replace with your secret key
+const SECRET_KEY = process.env.SecreatKey || 'celestial'; // Replace with your secret key
 
 class JwtMaker {
   constructor() {

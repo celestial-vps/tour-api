@@ -133,9 +133,9 @@ func (service *UserService) Login(ctx context.Context, request dtos.LoginDto) ma
 	if request.Platform == "android" {
 		userMap[0].AndroidToken = &request.AndroidToken
 	} else if request.Platform == "ios" {
-		userMap[0].TokenIos = &request.IosToken
+		userMap[0].TokenIos = &request.TokenIos
 	} else if request.Platform == "web" {
-		userMap[0].TokenWeb = &request.WebToken
+		userMap[0].TokenWeb = &request.TokenWeb
 	} else if request.Platform == "desktop" {
 		userMap[0].TokenDesktop = &request.DesktopToken
 	}

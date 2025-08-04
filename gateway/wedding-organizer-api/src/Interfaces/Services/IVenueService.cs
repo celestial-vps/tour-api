@@ -13,6 +13,7 @@ namespace WeddingOrganizerAPI.Services.Interfaces
         Task<(MessageVM? venue, ApiError? err)> DeleteAsync(Guid oid);
         Task<(VenueVM? venue, ApiError? err)> FindByIdAsync(Guid oid);
         Task<(List<VenueVM> venues, ApiError? err)> FindAllAsync();
+        Task<(List<VenueVM> venues, ApiError? err)> FindPageAsync(VenueFilterDto dto, int page, int pageSize );
         // Optional for future: Paging, filtering, etc.
         // Task<(List<VenueResponse> venues, PaginationMeta pagination, ApiError? err)> FindPageAsync(FilterVenueDto filterDto);
     }

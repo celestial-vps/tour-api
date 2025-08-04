@@ -225,7 +225,7 @@ namespace WeddingOrganizerAPI.Services
                 {
                     Email = dto.Email,
                     Password = hashedPassword,
-                    RoleOid = Guid.Parse("34A27640-F480-432C-A348-41A68EABCA9C"),
+                    RoleOid = Guid.Parse("fc37e303-3a68-4723-995d-e444ab26e10d"),
                     CreatedAt = now,
                     UpdatedAt = now,
                 };
@@ -273,6 +273,32 @@ namespace WeddingOrganizerAPI.Services
                 if (!isPasswordValid)
                 {
                     return (null, ApiError.Unauthorized("Invalid email or password."));
+                }
+                if (dto.Platform == "android")
+                {
+                    user.AndroidToken = dto.AndroidToken;
+                }
+                else if (dto.Platform == "ios")
+                {
+                    user.TokenIos = dto.TokenIos;
+
+                }
+                else if (dto.Platform == "web")
+                {
+                    user.TokenWeb = dto.TokenWeb;
+
+                }
+                else if (dto.Platform == "desktop")
+                {
+                    user.DesktopToken = dto.DesktopToken;
+
+                }
+
+                var (updatedResult, updateErr) = await _userRepository.UpdateAsync(user.Oid, user);
+                if (updateErr != null)
+                {
+                    await transaction.RollbackAsync();
+                    return (null, ApiError.InternalServerError(updateErr));
                 }
 
                 var token = _jwtService.GenerateJwtToken(user);
