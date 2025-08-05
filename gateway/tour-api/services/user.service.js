@@ -96,7 +96,7 @@ const login = async (condition) => {
             return { result: [], err: { message: "password not match" } }
         }
         const oid = result[0].oid
-        const token = await jwtMaker.createToken(oid, condition.email);
+        const token = await jwtMaker.createToken(oid, condition.email,result[0].userRole.roleName );
 
 
         const user = await mappings.toUserTokenResponse(result[0], token, "")

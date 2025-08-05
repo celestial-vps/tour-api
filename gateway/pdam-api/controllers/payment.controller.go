@@ -102,10 +102,10 @@ func (controller *PaymentController) Update(c *gin.Context) {
 	// accessToken := strings.Replace(token, "Bearer ", "", 1)
 	// marker, _ := middleware.NewJwt()
 	// userJwt, err := marker.GetClaimsByOid(accessToken)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	// 	return
+	// }
 	paymentResponse, err := controller.paymentService.Update(c, paymentUpdateRequest, oid, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))

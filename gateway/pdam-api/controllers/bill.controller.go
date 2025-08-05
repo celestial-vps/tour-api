@@ -102,10 +102,10 @@ func (controller *BillController) Update(c *gin.Context) {
 	// accessToken := strings.Replace(token, "Bearer ", "", 1)
 	// marker, _ := middleware.NewJwt()
 	// userJwt, err := marker.GetClaimsByOid(accessToken)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	// 	return
+	// }
 	billResponse, err := controller.billService.Update(c, billUpdateRequest, oid, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
@@ -138,10 +138,10 @@ func (controller *BillController) Deleted(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
 		return
 	}
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	// 	return
+	// }
 	bill, err := controller.billService.Deleted(c, oid, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))

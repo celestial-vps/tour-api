@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using WeddingOrganizerAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
@@ -113,6 +114,7 @@ app.UseCors("AllowAngular");
 Console.WriteLine("LOGIN endpoint hit!");
 app.UseAuthentication();
 app.UseAuthorization();
+// app.UseRoleAuthorization(); // role jika mau query ulang ke db
 
 app.MapControllers();
 

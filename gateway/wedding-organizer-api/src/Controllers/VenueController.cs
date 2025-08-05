@@ -4,15 +4,18 @@ using System.Security.Claims;
 using WeddingOrganizerAPI.DTOs;
 using WeddingOrganizerAPI.Services.Interfaces;
 using WeddingOrganizerAPI.Common;
+using WeddingOrganizerAPI.Attributes;
 
 namespace WeddingOrganizerAPI.Controllers
 {
     [ApiController]
     // [Route("api/[controller]")]
     [Route("api/v1/venue")]
-    [Authorize(Roles = "Base,Admin")]
+    // [Authorize(Roles = "Base,Admin")]
     // [Authorize(Roles = "Base")]
     // [Authorize] // [AllowAnonymous] //  // jika pakai authentication
+     [RoleAuthorize("Admin")]
+    // [Authorize(Roles = "Admin")] // pakai ini role jika mau query ulang ke db
     public class VenueController : ControllerBase
     {
         private readonly IVenueService _venueService;

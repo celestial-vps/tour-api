@@ -102,10 +102,10 @@ func (controller *CustomerController) Update(c *gin.Context) {
 	// accessToken := strings.Replace(token, "Bearer ", "", 1)
 	// marker, _ := middleware.NewJwt()
 	// userJwt, err := marker.GetClaimsByOid(accessToken)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	// 	return
+	// }
 	customerResponse, err := controller.customerService.Update(c, customerUpdateRequest, oid, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
@@ -138,10 +138,10 @@ func (controller *CustomerController) Deleted(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
 		return
 	}
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	// 	return
+	// }
 	customer, err := controller.customerService.Deleted(c, oid, userOid)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))

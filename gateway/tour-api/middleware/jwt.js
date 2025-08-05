@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { roleGuard } = require('./role-guard');
 const SECRET_KEY = process.env.SecreatKey || 'celestial'; // Replace with your secret key
 
 class JwtMaker {
@@ -7,10 +8,11 @@ class JwtMaker {
     this.secretKey = SECRET_KEY;
   }
 
-  createToken(oid, emailName) {
+  createToken(oid, emailName,role) {
     const payload = {
       userOid: oid,
       username: emailName,
+      role:role,
       level: 'application',
       exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
     };
