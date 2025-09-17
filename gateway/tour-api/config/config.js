@@ -1,5 +1,8 @@
 // config/config.js
 require('dotenv').config();
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Dialect:', process.env.dialect);
+
 module.exports = {
   development: {
     username: process.env.DB_USERNAME || 'postgres',

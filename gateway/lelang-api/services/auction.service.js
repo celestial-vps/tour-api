@@ -78,7 +78,7 @@ const update = async (oid, dto, userOid) => {
     resultFind.itemOid = dto.itemOid ?? resultFind.itemOid
     resultFind.startTime = dto.startTime ?? resultFind.startTime
     resultFind.endTime = dto.endTime ?? resultFind.endTime
-    resultFind.status = dto.status ?? resultFind.status    
+    resultFind.status = dto.status ?? resultFind.status
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
@@ -199,11 +199,16 @@ const findById = async (oid) => {
 
 const findPage = async (condition, page, pageSize) => {
   try {
-    const { count, errCount } = await auctionRepository.findCountByCriteria(condition);
+    const filterCondition = {
+      categoryName: condition.search
+    };
+
+
+    const { count, errCount } = await auctionRepository.findCountByCriteria(filterCondition);
     if (errCount) {
       return { auctions: [], count: 0, errCount }
     }
-    const { auctions, err } = await auctionRepository.findByCriteria(condition, page, pageSize);
+    const { auctions, err } = await auctionRepository.findByCriteria(filterCondition, page, pageSize);
     if (err) {
       return { auctions: [], count: 0, errCount }
     }

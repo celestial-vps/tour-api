@@ -1,6 +1,5 @@
 const Joi = require('joi');
-const { authSchema } = require('./base-dto');
-const { search } = require('../app');
+const { authSchema } = require('./base-dto'); 
 
 // Define the schema for FilterAuditLogDto
 const filterDto = Joi.object({

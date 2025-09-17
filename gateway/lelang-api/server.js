@@ -25,3 +25,22 @@ server.listen(PORT, () => {
   // require('./middleware/cron-job/cron-job-redis-region');
   // require('./middleware/audit-trail/schedule-resend-audit'); // Mulai cron job untuk resend audit log
 });
+// 🛑 Graceful shutdown handler
+const shutdown = () => {
+  console.log('\n🛑 SIGINT/SIGTERM received. Shutting down gracefully...');
+
+  // 🛑 Close HTTP server
+  server.close(() => {
+    console.log('✅ HTTP server closed');
+    process.exit(0);
+  });
+
+  // ⏱️ Force exit jika ada proses yang belum selesai
+  setTimeout(() => {
+    console.error('❌ Force shutdown due to timeout');
+    process.exit(1);
+  }, 10000); // 10 detik
+};
+
+// 🔌 Tangkap sinyal dari OS
+process.on('SIGINT', shutdown);   // Ctrl+C

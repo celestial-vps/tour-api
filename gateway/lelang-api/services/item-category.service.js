@@ -14,7 +14,7 @@ const create = async (dto, userOid) => {
 
     const data = {
       _id: new mongoose.Types.ObjectId(),
-      categoryName: dto.categoryName, 
+      categoryName: dto.categoryName,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -72,7 +72,7 @@ const update = async (oid, dto, userOid) => {
       }
     }
 
-    resultFind.categoryName = dto.categoryName ?? resultFind.categoryName 
+    resultFind.categoryName = dto.categoryName ?? resultFind.categoryName
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
@@ -193,11 +193,17 @@ const findById = async (oid) => {
 
 const findPage = async (condition, page, pageSize) => {
   try {
-    const { count, errCount } = await itemCategoryRepository.findCountByCriteria(condition);
+
+    const filterCondition = {
+      categoryName: condition.search
+    };
+
+
+    const { count, errCount } = await itemCategoryRepository.findCountByCriteria(filterCondition);
     if (errCount) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const { itemCategorys, err } = await itemCategoryRepository.findByCriteria(condition, page, pageSize);
+    const { itemCategorys, err } = await itemCategoryRepository.findByCriteria(filterCondition, page, pageSize);
     if (err) {
       return { itemCategorys: [], count: 0, errCount }
     }

@@ -203,11 +203,14 @@ const findById = async (oid) => {
 
 const findPage = async (condition, page, pageSize) => {
   try {
-    const { count, errCount } = await itemRepository.findCountByCriteria(condition);
+    const filterCondition = {
+      itemName: condition.search
+    };
+    const { count, errCount } = await itemRepository.findCountByCriteria(filterCondition);
     if (errCount) {
       return { items: [], count: 0, errCount }
     }
-    const { items, err } = await itemRepository.findByCriteria(condition, page, pageSize);
+    const { items, err } = await itemRepository.findByCriteria(filterCondition, page, pageSize);
     if (err) {
       return { items: [], count: 0, errCount }
     }

@@ -47,7 +47,7 @@ func (controller *ImageFileController) Create(c *gin.Context) {
 	filePath := "public/" + uuid.New().String() + "." + mimeType[1] // file.Filename
 
 	c.SaveUploadedFile(file, filePath)
-	// url := "http://localhost:3000/" + filePath
+	// url := "http://localhost:5000/" + filePath
 	url := os.Getenv("Host") + "/" + filePath
 	createImageFileDto := dtos.CreateImageFileDto{
 		FileName:     file.Filename,

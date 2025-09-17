@@ -41,7 +41,7 @@ func send(ctx context.Context, action, tableName, userOid string, recordOid any,
 
 	// url := os.Getenv("AUDIT_TRAIL_SERVICE_URL")
 	// url := path.Join(os.Getenv("AUDIT_TRAIL_SERVICE_URL"), "/create")
-	// http: //localhost:3001/api/v1/audit-log/api/v1/audit-log/create
+	// http: //localhost:5001/api/v1/audit-log/api/v1/audit-log/create
 
 	url := fmt.Sprintf("%s/create", os.Getenv("AUDIT_TRAIL_SERVICE_URL"))
 

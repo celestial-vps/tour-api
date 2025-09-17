@@ -4,7 +4,8 @@ const CircuitBreaker = require('opossum');
 
 // ========== ORIGINAL FUNCTION (untuk dibungkus) ==========
 async function fetchImageFile(oid) {
-    const response = await axios.get(`http://localhost:3003/api/v1/image-file/${oid}/view`);
+    // @ts-ignore
+    const response = await axios.get(`http://localhost:5003/api/v1/image-file/${oid}/view`);
     return response;
 }
 
@@ -24,6 +25,7 @@ breaker.on('halfOpen', () => console.log('[CircuitBreaker] HALF-OPEN: testing im
 breaker.on('close', () => console.log('[CircuitBreaker] CLOSED: image service recovered'));
 
 // Fallback jika gagal — misalnya, kembalikan URL gambar default
+// @ts-ignore
 breaker.fallback((oid) => {
     return {
         data: {
@@ -50,7 +52,8 @@ async function uploadFileToMicroservice(file) {
             contentType: file.mimetype,
         });
 
-        const response = await axios.post('http://localhost:3003/api/v1/image-file/upload', form, {
+        // @ts-ignore
+        const response = await axios.post('http://localhost:5003/api/v1/image-file/upload', form, {
             headers: {
                 ...form.getHeaders(),
             },

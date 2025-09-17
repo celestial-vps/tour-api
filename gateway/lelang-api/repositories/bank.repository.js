@@ -1,157 +1,154 @@
-
 const Bank = require('../models/bank');
 
-
+// ✅ Create
 const save = async (bankData) => {
     try {
         const result = new Bank(bankData);
         await result.save();
-        return { result, err: null }
-    }
-    catch (err) {
+        return { result, error: null };
+    } catch (err) {
+        console.error('Error saving bank:', err);
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
-        }
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to save bank' },
+        };
     }
-
 };
 
+// ✅ Update
 const update = async (oid, updateData) => {
     try {
         const result = await Bank.findOneAndUpdate({ _id: oid }, updateData, {
             new: true,
             runValidators: true,
         });
-        return { result, err: null }
+        return { result, error: null };
     } catch (err) {
+        console.error('Error updating bank:', err);
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
-        }
-    }
-};
-
-const deleted = async (oid) => {
-    try {
-        const result = await Bank.deleteOne({ _id: oid }); // Use deleteOne to remove the document        
-        return { result, err: null };
-    } catch (err) {
-        return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to update bank' },
         };
     }
-
 };
 
+// ✅ Delete
+const deleted = async (oid) => {
+    try {
+        const result = await Bank.deleteOne({ _id: oid });
+        return { result, error: null };
+    } catch (err) {
+        console.error('Error deleting bank:', err);
+        return {
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to delete bank' },
+        };
+    }
+};
+
+// ✅ Find all
 const findAll = async () => {
     try {
-        const result = await Bank.find();
-        return { result, err: null }
-    } catch (err) {
-        return {
-            result: null, err: {
-                httpStatus: 500,
-            }
-        }
-    }
-
-};
-
-const findByCriteria = async (filterCondition, page, pageSize) => {
-    try {
-        // Initialize the query with conditions
-        const whereConditions = {};
-
-        if (filterCondition.bankCode) {
-            whereConditions.bankCode = {
-                [Op.like]: `%${filterCondition.bankCode}%`
-            };
-        }
-        if (filterCondition.bankName) {
-            whereConditions.bankName = {
-                [Op.like]: `%${filterCondition.bankName}%`
-            };
-        }
-
-        // Retrieve the paginated records
-        const banks = await Bank.find(whereConditions)
-            .limit(pageSize) // Limit the number of records returned
-            .skip((page - 1) * pageSize); // Skip the records for pagination
-
-        const count = await Bank.countDocuments(whereConditions); // Count total documents
-
-
-        return { banks, error: null };
+        const result = await Bank.find().sort({ createdAt: -1 });
+        return { result, error: null };
     } catch (err) {
         console.error('Error retrieving banks:', err);
         return {
-            banks: [], err: {
-                httpStatus: 500,
-            }
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to retrieve banks' },
         };
     }
 };
 
-const findCountByCriteria = async (filterCondition) => {
+// ✅ Find by ID
+const findById = async (oid) => {
     try {
-        // Initialize the query with conditions
+        const result = await Bank.findOne({ _id: oid });
+        return { result, error: null };
+    } catch (err) {
+        console.error('Error retrieving bank by ID:', err);
+        return {
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to retrieve bank' },
+        };
+    }
+};
+
+// ✅ Find by criteria (pagination + filter)
+const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => {
+    try {
         const whereConditions = {};
 
         if (filterCondition.bankCode) {
             whereConditions.bankCode = {
-                [Op.like]: `%${filterCondition.bankCode}%`
+                $regex: filterCondition.bankCode,
+                $options: 'i',
             };
         }
+
         if (filterCondition.bankName) {
             whereConditions.bankName = {
-                [Op.like]: `%${filterCondition.bankName}%`
+                $regex: filterCondition.bankName,
+                $options: 'i',
             };
         }
 
-        // Retrieve the paginated records
-        const count = await Bank.countDocuments(whereConditions);
+        const result = await Bank.find(whereConditions)
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize);
 
-        return { count, error: null };
-    } catch (error) {
-        console.error('Error retrieving banks:', error);
+        return { result, error: null };
+    } catch (err) {
+        console.error('Error filtering banks:', err);
         return {
-            count: 0, err: {
-                httpStatus: 500,
-            }
+            result: [],
+            error: { httpStatus: 500, message: 'Failed to retrieve filtered data' },
         };
     }
 };
 
-const advanceFlter = async () => {
+// ✅ Count by criteria
+const findCountByCriteria = async (filterCondition = {}) => {
     try {
-        const result = await Bank.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
-        return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+        const whereConditions = {};
+
+        if (filterCondition.bankCode) {
+            whereConditions.bankCode = {
+                $regex: filterCondition.bankCode,
+                $options: 'i',
+            };
         }
+
+        if (filterCondition.bankName) {
+            whereConditions.bankName = {
+                $regex: filterCondition.bankName,
+                $options: 'i',
+            };
+        }
+
+        const count = await Bank.countDocuments(whereConditions);
+        return { count, error: null };
+    } catch (err) {
+        console.error('Error counting banks:', err);
+        return {
+            count: 0,
+            error: { httpStatus: 500, message: 'Failed to count filtered data' },
+        };
     }
 };
 
-const findById = async (oid) => {
+// ✅ Advance filter (placeholder or general query)
+const advanceFilter = async () => {
     try {
-        const result = await Bank.findOne({ _id: oid }); // Use findOne to find by the oid field
-        return { result, err: null };
-    }
-    catch (err) {
+        const result = await Bank.find();
+        return { result, error: null };
+    } catch (err) {
+        console.error('Error retrieving banks (advance filter):', err);
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
-        }
+            result: null,
+            error: { httpStatus: 500, message: 'Failed to retrieve banks' },
+        };
     }
 };
 
@@ -161,7 +158,7 @@ module.exports = {
     deleted,
     findAll,
     findById,
-    advanceFlter,
+    advanceFilter,
     findByCriteria,
     findCountByCriteria,
 };

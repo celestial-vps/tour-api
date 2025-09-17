@@ -67,15 +67,10 @@ const findByCriteria = async (filterCondition, page, pageSize) => {
     try {
         // Initialize the query with conditions
         const whereConditions = {};
-
         if (filterCondition.itemName) {
             whereConditions.itemName = {
-                [Op.like]: `%${filterCondition.itemName}%`
-            };
-        }
-        if (filterCondition.description) {
-            whereConditions.description = {
-                [Op.like]: `%${filterCondition.description}%`
+                $regex: filterCondition.itemName,
+                $options: 'i' // 'i' untuk case-insensitive
             };
         }
 
@@ -102,18 +97,12 @@ const findCountByCriteria = async (filterCondition) => {
     try {
         // Initialize the query with conditions
         const whereConditions = {};
-
         if (filterCondition.itemName) {
             whereConditions.itemName = {
-                [Op.like]: `%${filterCondition.itemName}%`
+                $regex: filterCondition.itemName,
+                $options: 'i' // 'i' untuk case-insensitive
             };
         }
-        if (filterCondition.description) {
-            whereConditions.description = {
-                [Op.like]: `%${filterCondition.description}%`
-            };
-        }
-
         // Retrieve the paginated records
         const count = await Item.countDocuments(whereConditions);
 
@@ -130,15 +119,13 @@ const findCountByCriteria = async (filterCondition) => {
 
 const advanceFlter = async () => {
     try {
-        const result = await Item.findAll();
-        return { result, err: null }
-    }
-    catch (err) {
+        const result = await Item.find(); // ✅ yang benar
+        return { result, err: null };
+    } catch (err) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
-        }
+            result: null,
+            err: { httpStatus: 500 }
+        };
     }
 };
 
