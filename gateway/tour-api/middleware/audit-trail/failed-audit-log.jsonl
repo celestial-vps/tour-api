@@ -690,3 +690,11 @@
 {"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot read properties of null (reading 'oid')","ipAddress":"::1"}
 {"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot read properties of null (reading 'oid')","ipAddress":"::1"}
 {"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot read properties of null (reading 'oid')","ipAddress":"::1"}
+{"tableName":"Vehicle_types","recordOid":"unknown","action":"DELETE","status":"SUCCESS","message":"Delete Vehicle Type success","userOid":"7f80de74-970d-40f8-9358-befb841bf5fb","ipAddress":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Validation error","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Validation error","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Validation error","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Validation error","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot access 'result' before initialization","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot access 'result' before initialization","ipAddress":"::1"}
+{"tableName":"booking","recordOid":"unknown","action":"CREATE","status":"FAILED","message":"Cannot read properties of null (reading 'oid')","ipAddress":"::1"}

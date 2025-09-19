@@ -74,7 +74,7 @@ const createNoAuth = async (dtos) => {
         const dataUser = {
             email: dtos[0].email,
         }
-        const { users, err } = await userRepository.advanceFlter(dataUser);
+        const { result: userResult, err } = await userRepository.advanceFlter(dataUser);
 
         if (err) {
             await transaction.rollback();
@@ -84,7 +84,7 @@ const createNoAuth = async (dtos) => {
             };
         }
 
-        if (users && Array.isArray(users) && users.length > 0) {
+        if (userResult && Array.isArray(userResult) && userResult.length > 0) {
             // const { customerData, err } = await customerRepository.advanceFlter(users[0].email);
             // if (err) {
             //     await transaction.rollback();
@@ -94,13 +94,13 @@ const createNoAuth = async (dtos) => {
             //     };
             // }
             const dataCustomer = {
-                alamat: dtos.alamat,
-                nama: dtos.nama,
-                noHp: dtos.noHp,
-                userOid: users[0].oid,
-                email: dtos.email,
+                alamat: dtos[0].alamat,
+                nama: dtos[0].nama,
+                noHp: dtos[0].noHp,
+                userOid: userResult[0].oid,
+                email: dtos[0].email,
             };
-            const { resultCustomer, errFilter } = await customerRepository.advanceFlter(dataCustomer.email);
+            const { result: customerResult, errFilter } = await customerRepository.advanceFlter(dataCustomer.email);
 
             if (errFilter) {
                 await transaction.rollback();
@@ -109,16 +109,16 @@ const createNoAuth = async (dtos) => {
                     err: buildResponse.responseInternalServerError(err).data.error,
                 };
             }
-            if (resultCustomer && Array.isArray(users) && users.length > 0) {
-                customerOid = resultCustomer[0].oid;
+            if (customerResult && Array.isArray(customerResult) && customerResult.length > 0) {
+                customerOid = customerResult[0].oid;
             } else {
                 const dataCustomer = {
-                    alamat: dtos.alamat,
-                    nama: dtos.nama,
-                    noHp: dtos.noHp,
-                    userOid: users[0].oid,
+                    alamat: dtos[0].alamat,
+                    nama: dtos[0].nama,
+                    noHp: dtos[0].noHp,
+                    userOid: userResult[0].oid,
                 };
-                const { result, errSave } = await customerRepository.save(dataCustomer, { transaction });
+                const { result: savedCustomer, err:errSave } = await customerRepository.save(dataCustomer, { transaction });
                 if (errSave) {
                     await transaction.rollback();
                     return {
@@ -126,7 +126,7 @@ const createNoAuth = async (dtos) => {
                         err: buildResponse.responseInternalServerError(err).data.error,
                     };
                 }
-                customerOid = result.oid;
+                customerOid = savedCustomer.oid;
             }
 
 
