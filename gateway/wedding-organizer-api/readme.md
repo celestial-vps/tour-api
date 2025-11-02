@@ -33,7 +33,7 @@ dotnet run
 dotnet run --launch-profile "https"
 dotnet run --launch-profile http
 
-https://localhost:3104/swagger/index.html
+https://localhost:5104/swagger/index.html
 
 DEBUG
 dotnet build
@@ -58,7 +58,7 @@ lalu tekang F5
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:3104",
+      "applicationUrl": "http://localhost:5104",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -68,7 +68,7 @@ lalu tekang F5
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:3104;http://localhost:3100",
+      "applicationUrl": "https://localhost:5104;http://localhost:5100",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
