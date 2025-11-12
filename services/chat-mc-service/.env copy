@@ -1,0 +1,15 @@
+# Server Config
+PORT=3000
+
+# Database Config (PostgreSQL)
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=chat_db
+DB_USER=postgres
+DB_PASS=yourpassword
+
+# JWT Secret (untuk Auth Middleware)
+JWT_SECRET=your_jwt_secret_key_here
+
+# Optional: Environment mode
+NODE_ENV=development
