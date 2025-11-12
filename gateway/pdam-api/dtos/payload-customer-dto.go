@@ -1,8 +1,12 @@
 package dtos
 
+// type FilterCustomerDto struct {
+// 	FirstName string `json:"firstName" validate:"omitempty"`
+// 	LastName  string `json:"lastName" validate:"omitempty"`
+// }
+
 type FilterCustomerDto struct {
-	FirstName string `json:"firstName" validate:"omitempty"`
-	LastName  string `json:"lastName" validate:"omitempty"`
+	Search string `json:"search" validate:"omitempty"`
 }
 
 type CreateCustomerDto struct {

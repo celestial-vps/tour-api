@@ -61,7 +61,7 @@ func (c *CustomerRepository) Update(ctx context.Context, tx *sql.Tx, customer mo
 			last_name = $5,
 			email = $6,
 			phone_number = $7,
-			address = $8,
+			address = $8 
 		WHERE oid = $9
 	`
 
@@ -74,7 +74,7 @@ func (c *CustomerRepository) Update(ctx context.Context, tx *sql.Tx, customer mo
 		customer.Email,
 		customer.PhoneNumber,
 		customer.Address,
-		customer.ImageOid,
+		// customer.ImageOid,
 		customer.Oid,
 	)
 
@@ -174,14 +174,14 @@ func (c *CustomerRepository) FindByCriteriaPage(ctx context.Context, tx *sql.Tx,
 	var whereConditions []string
 
 	// Build WHERE clause dynamically
-	if condition.FirstName != "" {
+	if condition.Search != "" {
 		whereConditions = append(whereConditions, fmt.Sprintf("first_name ILIKE $%d", len(queryParams)+1))
-		queryParams = append(queryParams, "%"+condition.FirstName+"%")
+		queryParams = append(queryParams, "%"+condition.Search+"%")
 	}
-	if condition.LastName != "" {
-		whereConditions = append(whereConditions, fmt.Sprintf("last_name ILIKE $%d", len(queryParams)+1))
-		queryParams = append(queryParams, "%"+condition.LastName+"%")
-	}
+	// if condition.LastName != "" {
+	// 	whereConditions = append(whereConditions, fmt.Sprintf("last_name ILIKE $%d", len(queryParams)+1))
+	// 	queryParams = append(queryParams, "%"+condition.LastName+"%")
+	// }
 
 	if len(whereConditions) > 0 {
 		baseSQL += " WHERE " + strings.Join(whereConditions, " AND ")
@@ -275,14 +275,14 @@ func (c *CustomerRepository) FindCountByCriteria(ctx context.Context, tx *sql.Tx
 
 	var whereClauses []string
 
-	if condition.FirstName != "" {
+	if condition.Search != "" {
 		whereClauses = append(whereClauses, fmt.Sprintf("first_name ILIKE $%d", len(args)+1))
-		args = append(args, "%"+condition.FirstName+"%")
+		args = append(args, "%"+condition.Search+"%")
 	}
-	if condition.LastName != "" {
-		whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
-		args = append(args, "%"+condition.LastName+"%")
-	}
+	// if condition.LastName != "" {
+	// 	whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
+	// 	args = append(args, "%"+condition.LastName+"%")
+	// }
 
 	if len(whereClauses) > 0 {
 		queryBuilder.WriteString(" WHERE ")
@@ -312,15 +312,15 @@ func (c *CustomerRepository) AdvanceFlter(ctx context.Context, tx *sql.Tx, condi
 
 	var whereClauses []string
 
-	if condition.FirstName != "" {
+	if condition.Search != "" {
 		whereClauses = append(whereClauses, fmt.Sprintf("first_name ILIKE $%d", len(args)+1))
-		args = append(args, "%"+condition.FirstName+"%")
+		args = append(args, "%"+condition.Search+"%")
 	}
 
-	if condition.LastName != "" {
-		whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
-		args = append(args, "%"+condition.LastName+"%")
-	}
+	// if condition.LastName != "" {
+	// 	whereClauses = append(whereClauses, fmt.Sprintf("last_name ILIKE $%d", len(args)+1))
+	// 	args = append(args, "%"+condition.LastName+"%")
+	// }
 
 	if len(whereClauses) > 0 {
 		queryBuilder.WriteString(" WHERE ")
@@ -432,7 +432,6 @@ func (c *CustomerRepository) FindById(ctx context.Context, tx *sql.Tx, oid strin
 		&customer.Email,
 		&customer.PhoneNumber,
 		&customer.Address,
-		&customer.ImageOid,
 		&createdByStr,
 		&createdAt,
 		&lastModifiedByStr,
