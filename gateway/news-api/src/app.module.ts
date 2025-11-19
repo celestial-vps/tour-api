@@ -7,11 +7,9 @@ import { typeOrmAsyncConfig } from './db/type-orm-async.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsGateway } from './events.gateway';
-import { AuthModule } from './modules/auth.module';
-import { UserModule } from './modules/user.module';
-
+import { BankModule } from './modules/bank.module';
 // Modules
- 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,8 +17,7 @@ import { UserModule } from './modules/user.module';
       load: [configuration],
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    AuthModule,
-    UserModule,
+    BankModule,
   ],
   controllers: [AppController],
   providers: [AppService, EventsGateway],

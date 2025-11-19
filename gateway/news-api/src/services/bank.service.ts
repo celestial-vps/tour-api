@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { BankRepository } from '../repositories/bank.repository';
+import { Bank } from '../models/bank.entity';
 import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
 import { DataSource, getConnection } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
 import { BankMapping, BankVm } from '../mappings/bank-vm';
 import { ConfigService } from '@nestjs/config';
-import { Bank } from '../models/bank.entity';
 
 @Injectable()
 export class BankService {
@@ -25,11 +25,7 @@ export class BankService {
 
   }
 
-  async create(bankdto: CreateBankDto, userOid: string): Promise<MessageVm> {
-    // const connection = getConnection();
-    // const queryRunner = connection.createQueryRunner();
-    // await queryRunner.connect();
-    // await queryRunner.startTransaction();
+  async create(bankdto: CreateBankDto, userOid: string): Promise<MessageVm> { 
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
@@ -95,7 +91,7 @@ export class BankService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = bank.oid;
-      messageVm.name = bank.bankName ?? ''  ;
+      messageVm.name = bank.bankName ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();

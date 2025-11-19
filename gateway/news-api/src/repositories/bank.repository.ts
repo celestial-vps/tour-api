@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, QueryRunner, Repository } from 'typeorm';
-import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
 import { Bank } from '../models/bank.entity';
+import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
 
 @Injectable()
 export class BankRepository {

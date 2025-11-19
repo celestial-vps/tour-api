@@ -1,110 +1,102 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Res, Query, UseGuards } from '@nestjs/common';
 import { BankService } from '../services/bank.service';
 import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
-import { ResponseService } from '../common/build.response';
-import express from 'express';
+import { Response } from 'express';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
+import { ResponseService } from '../common/build.response';
 
 @Controller('bank')
-@ApiBearerAuth()
 @ApiTags('Bank')
-// @UseGuards(JwtAuthGuard)
 export class BankController {
   constructor(private readonly bankService: BankService, private readonly responseService: ResponseService,) { }
 
-  @Get('test')
-  testEnvVariable() {
-    return this.bankService.getEnvVariable();
-  }
 
-  @UseGuards(AdminRoleGuard)
+  // @UseGuards(AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Bank' })
   @ApiBody({ type: CreateBankDto })  // Document the body DTO used for creation
   @ApiOkResponse({ description: 'The bank has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  async create(@Body() createBankDto: CreateBankDto, @Request() req: any, @Res() res: express.Response): Promise<any> {
+  async create(@Body() createBankDto: CreateBankDto, @Request() req: any): Promise<any> {
     try {
       // const userOid = res.locals.userOid || res.locals.user?.oid;  // If you attached the full user object, use user.oid
       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid
       const bankResponse = await this.bankService.create(createBankDto, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
-      return res.status(200).json(response);  // Return JSON response with status 200
+      return response;  // Return JSON response with status 200
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  @UseGuards(AdminRoleGuard)
+  // @UseGuards(AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be updated' })  // Document the OID parameter
   @ApiBody({ type: UpdateBankDto })  // Document the body DTO used for updating
   @ApiOkResponse({ description: 'The bank has been successfully updated.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  async update(@Param('oid') oid: string, @Body() updateBankDto: UpdateBankDto,@Request() req: any, @Res() res: express.Response): Promise<any> {
+  async update(@Param('oid') oid: string, @Body() updateBankDto: UpdateBankDto, @Request() req: any): Promise<any> {
     try {
       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
-      const bankResponse = await this.bankService.update(oid, updateBankDto,userOid);
+      const bankResponse = await this.bankService.update(oid, updateBankDto, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
-      return res.status(200).json(response);  // Return JSON response with status 200
+      return response;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  @UseGuards(AdminRoleGuard)
-  @Delete('/delete/:oid')
+  // @UseGuards(AdminRoleGuard) 
   @ApiOperation({ summary: 'Delete a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The bank has been successfully deleted.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @Delete('/delete/:oid')
-  async deleted(@Param('oid') oid: string, @Res() res: express.Response): Promise<any> {    
-    try {
-      const bankResponse = await this.bankService.deleted(oid);;
-      const response = this.responseService.responseOk(bankResponse, 1);
-      return res.status(200).json(response);  // Return JSON response with status 200
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
+  async deleted(@Param('oid') oid: string): Promise<any> {
+    // try {
+    //   const bankResponse = await this.bankService.deleted(oid);;
+    //   const response = this.responseService.responseOk(bankResponse, 1);
+    //   return response;
+    // } catch (error) {
+    //   throw new BadRequestException(error.message);
+    // }
   }
 
-  @UseGuards(AdminRoleGuard)
+  // @UseGuards(AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all banks' })
   @ApiOkResponse({ description: 'List of all banks', type: [CreateBankDto] })  // Document the response type
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  async findAll(@Res() res: express.Response): Promise<any> {
+  async findAll(): Promise<any> {
     try {
       const banks = await this.bankService.findAll();
       const response = this.responseService.responseOk(banks, banks.length);
-      return res.status(200).json(response);  // Return JSON response with status 200
+      return response;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
 
   }
 
-  @UseGuards(AdminRoleGuard)
+  // @UseGuards(AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific bank by OID' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to retrieve' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The bank details', type: CreateBankDto })  // Document the response type
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  async findOne(@Param('oid') oid: string, @Res() res: express.Response): Promise<any> {
+  async findOne(@Param('oid') oid: string): Promise<any> {
     // return this.bankService.findById(oid);
     try {
       const bank = await this.bankService.findById(oid);;
       const response = this.responseService.responseOk(bank, 1);
-      return res.status(200).json(response);  // Return JSON response with status 200
+      return response;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
 
-  @UseGuards(AdminRoleGuard)
+  // @UseGuards(AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find banks with pagination and filters' })
   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
@@ -114,23 +106,23 @@ export class BankController {
   @ApiResponse({ status: 400, description: 'Bad Request' })
   async find(@Query('pageIndex') pageIndex: number = 1,  // Get pageIndex query param
     @Query('pageSize') pageSize: number = 10,   // Get pageSize query param    
-    @Body() filterBankDto: FilterBankDto, @Res() res: express.Response): Promise<any> {
-    try {
+    @Body() filterBankDto: FilterBankDto): Promise<any> {
+    // try {
 
-      const { banks, count } = await this.bankService.findPage(pageIndex, pageSize, filterBankDto);
-      const totalPage = Math.ceil(count / pageSize);
+    //   const { banks, count } = await this.bankService.findPage(pageIndex, pageSize, filterBankDto);
+    //   const totalPage = Math.ceil(count / pageSize);
 
-      const pagging = {
-        page: pageIndex,
-        size: pageSize,
-        totalItem: count,
-        totalPage: totalPage, // Correctly calculates total pages			
-      };
-      const response = this.responseService.responseOkWithPagination(banks, pagging);
-      return res.status(200).json(response);  // Return JSON response with status 200
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
+    //   const pagging = {
+    //     page: pageIndex,
+    //     size: pageSize,
+    //     totalItem: count,
+    //     totalPage: totalPage, // Correctly calculates total pages			
+    //   };
+    //   const response = this.responseService.responseOkWithPagination(banks, pagging);
+    //   return response;
+    // } catch (error) {
+    //   throw new BadRequestException(error.message);
+    // }
   }
 
 }

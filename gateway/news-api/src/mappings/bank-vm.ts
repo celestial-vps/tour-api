@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Bank } from '../models/bank.entity';
- 
+import { Bank } from '../models/bank.entity'; // Make sure the path is correct
+
 export class BankVm {
   oid: string;
   bankCode: string;

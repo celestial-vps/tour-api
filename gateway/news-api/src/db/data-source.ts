@@ -1,20 +1,19 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
-dotenv.config();
+import * as path from 'path';
 
-const dataSourceOptions: DataSourceOptions = {
-  type: 'mysql', // <- harus literal 'mysql', bukan string umum
-  host: process.env.DB_HOST || 'localhost',
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
+
+export const AppDataSource = new DataSource({
+  type: 'mysql',
+  host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '3306', 10),
-  username: process.env.DB_USERNAME || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'basedbnest',
-  entities: ['dist/**/*.entity.js'],
-  migrations: ['dist/migrations/*.js'],
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   synchronize: false,
   logging: true,
-  logger: 'advanced-console',
-};
-
-const dataSource = new DataSource(dataSourceOptions);
-export default dataSource;
+  entities: [process.env.NODE_ENV === 'production' ? 'dist/**/*.entity.js' : 'src/**/*.entity.ts'],
+  migrations: [process.env.NODE_ENV === 'production' ? 'dist/migrations/*.js' : 'src/db/migrations/*.ts'],
+});
