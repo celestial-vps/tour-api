@@ -1,15 +1,9 @@
-import {
-  IsString,
-  IsEmail,
-  IsOptional,
-  IsBoolean,
-  IsDateString,
-  Min,
-  IsNotEmpty
-} from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 // Filter DTO for User
 export class FilterUserDto {
+  @ApiProperty({ example: 'user@example.com', description: 'Email of the user' })
   @IsEmail()
   @IsNotEmpty()
   email: string; // Required
@@ -17,102 +11,76 @@ export class FilterUserDto {
 
 // Register DTO for User
 export class RegisterDto {
+  @ApiProperty({ example: 'user@example.com', description: 'Email of the user' })
   @IsEmail()
   @IsNotEmpty()
   email: string; // Required email
 
+  @ApiProperty({ example: 'secret123', description: 'Password for the user' })
   @IsString()
-  // @Min(6)
   @IsNotEmpty()
   password: string; // Required password
 }
 
 // Login DTO for User
 export class LoginDto {
+  @ApiProperty({ example: 'user@example.com', description: 'Email of the user' })
   @IsEmail()
   @IsNotEmpty()
   email: string; // Required email
 
+  @ApiProperty({ example: 'secret123', description: 'Password for login' })
   @IsString()
-  // @Min(6)
   @IsNotEmpty()
   password: string; // Required password
 }
 
 // Create User DTO
 export class CreateUserDto {
+  @ApiProperty({ example: 'John Doe', description: 'Full name of the user' })
   @IsString()
   @IsNotEmpty()
-  name: string; // Required name
+  name: string;
 
+  @ApiProperty({ example: 'john.doe@example.com', description: 'Email of the user' })
   @IsEmail()
   @IsNotEmpty()
-  email: string; // Required email
+  email: string;
 
+  @ApiProperty({ example: 'secret123', description: 'Password for the user' })
   @IsString()
-  // @Min(6)
   @IsNotEmpty()
-  password: string; // Required password
+  password: string;
 
+  @ApiProperty({ example: '1990-01-01', description: 'Birthday in ISO date format' })
   @IsDateString()
   @IsNotEmpty()
-  birthday: string; // Required ISO date format
+  birthday: string;
 
+  @ApiProperty({ example: 'MEM123456', description: 'Member number' })
   @IsString()
   @IsNotEmpty()
-  memberNumber: string; // Required member number
+  memberNumber: string;
 
+  @ApiPropertyOptional({ example: 'android-token-xyz', description: 'Optional Android token' })
   @IsOptional()
   @IsString()
-  androidToken?: string; // Optional
+  androidToken?: string;
 
+  @ApiProperty({ example: true, description: 'Whether user is active' })
   @IsBoolean()
-  isActive: boolean; // Required
+  isActive: boolean;
 
+  @ApiProperty({ example: 'role-uuid-123', description: 'Role OID assigned to the user' })
   @IsString()
   @IsNotEmpty()
-  roleOid: string; // Required
+  roleOid: string;
 
+  @ApiPropertyOptional({ example: '2025-01-01', description: 'Optional activated date in ISO format' })
   @IsOptional()
   @IsDateString()
-  activatedAt?: string | null; // Optional, can be null
+  activatedAt?: string | null;
 }
 
-// Update User 
-export class UpdateUserDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string; // Required name
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string; // Required email
-
-  @IsString()
-  // @Min(6)
-  @IsNotEmpty()
-  password: string; // Required password
-
-  @IsDateString()
-  @IsNotEmpty()
-  birthday: string; // Required ISO date format
-
-  @IsString()
-  @IsNotEmpty()
-  memberNumber: string; // Required member number
-
-  @IsOptional()
-  @IsString()
-  androidToken?: string; // Optional
-
-  @IsBoolean()
-  isActive: boolean; // Required
-
-  @IsString()
-  @IsNotEmpty()
-  roleOid: string; // Required
-
-  @IsOptional()
-  @IsDateString()
-  activatedAt?: string | null; // Optional, can be null
-}
+// Update User DTO (sama dengan CreateUserDto, tapi bisa dibuat berbeda jika perlu)
+export class UpdateUserDto extends CreateUserDto {}

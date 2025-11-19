@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsGateway } from './events.gateway';
 import { BankModule } from './modules/bank.module';
+import { AuthModule } from './modules/auth.module';
 // Modules
 
 @Module({
@@ -17,7 +18,7 @@ import { BankModule } from './modules/bank.module';
       load: [configuration],
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    BankModule,
+    BankModule,AuthModule
   ],
   controllers: [AppController],
   providers: [AppService, EventsGateway],

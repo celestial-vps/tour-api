@@ -8,6 +8,9 @@ src/db/migrations/CreateBankTable
 
     NODE_ENV=development npx typeorm-ts-node-commonjs migration:revert -d src/db/data-source.ts // UNDO MIGRATION
 
-2. link swaggger 
+2. SEEDER
+     npx ts-node src/db/seeds/index.ts
+
+3. link swaggger 
     http://localhost:5010/api/v1/#/Bank/BankController_create
 
