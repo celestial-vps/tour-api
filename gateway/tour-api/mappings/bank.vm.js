@@ -1,12 +1,13 @@
 // Mapping functions
-async function toBankResponse(bank) {  
+async function toBankResponse(bank) {
     const response = {
         oid: bank.oid,
         bankCode: bank.bankCode,
-        bankName: bank.bankName,        
+        bankName: bank.bankName,
         createdBy: bank.createdBy,
+        createAt: bank.createdAt,
         updatedAt: bank.updatedAt
-      };
+    };
     return response;
 }
 

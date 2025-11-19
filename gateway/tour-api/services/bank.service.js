@@ -180,7 +180,7 @@ const findAll = async () => {
     const { result, err } = await bankRepository.findAll({
       include: [],
       order: [['createdAt', 'DESC']],
-      attributes: BANK_BASIC_FIELDS
+      attributes: BANK_BASIC_FIELDS,
     });
 
     if (err) return { banks: [], err };
