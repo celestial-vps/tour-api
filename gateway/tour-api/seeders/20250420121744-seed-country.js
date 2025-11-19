@@ -8261,7 +8261,7 @@ module.exports = {
 
         // insert all subdistrict
 
-        const [] = await queryInterface.bulkInsert('subdistricts', [
+        const [] = await queryInterface.bulkInsert('sub_districts', [
 
             // Baiturrahman Sub-Districts (9)
             { oid: uuidv4(), subDistrictName: 'Kampung Baru', postalCode: '23116', districtOid: baiturrahmanAcehDistrict.oid, createdAt: new Date(), updatedAt: new Date() },

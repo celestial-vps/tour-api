@@ -5,6 +5,7 @@ async function toBankResponse(bank) {
         bankCode: bank.bankCode,
         bankName: bank.bankName,        
         createdBy: bank.createdBy,
+        createdAt: bank.createdAt,
         updatedAt: bank.updatedAt
       };
     return response;

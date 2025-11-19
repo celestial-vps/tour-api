@@ -47,8 +47,14 @@ dotenv.config({ path: envFile });
 console.log(`Environment loaded from ${envFile}`);
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`🚀 Server + WebSocket running on port ${PORT}`);
+// server.listen(PORT, () => {
+//   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
+//   require('./middleware/cron-job/cron-job-redis-region');
+//   // require('./middleware/audit-trail/schedule-resend-audit'); // Mulai cron job untuk resend audit log
+// });
+
+// @ts-ignore
+server.listen(PORT, '0.0.0.0', () => {
   require('./middleware/cron-job/cron-job-redis-region');
-  // require('./middleware/audit-trail/schedule-resend-audit'); // Mulai cron job untuk resend audit log
+  console.log(`🚀 Server running on port ${PORT}`);
 });

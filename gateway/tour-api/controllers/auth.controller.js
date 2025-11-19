@@ -26,12 +26,14 @@ const { OAuth2Client } = require('google-auth-library');
 
 const login = async (req, res) => {
 	try {
+		console.error('Controller Create:');
 		const condition = {
 			email: req.body.email,
 			password: req.body.password
 		};
 
 		const { user, err } = await userService.login(condition);
+		console.error('Controller Create err 1:',err);
 		if (err) {
 			return buildResponse.sendQueryError(res, err.message, "insert");
 		}
