@@ -4,14 +4,17 @@ import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-ban
 import { Response } from 'express';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
+import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
 
 @Controller('bank')
+@ApiBearerAuth()
 @ApiTags('Bank')
 export class BankController {
   constructor(private readonly bankService: BankService, private readonly responseService: ResponseService,) { }
 
-
-  // @UseGuards(AdminRoleGuard)
+ 
+  @UseGuards(JwtAuthGuard,SystemRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Bank' })
   @ApiBody({ type: CreateBankDto })  // Document the body DTO used for creation
@@ -20,7 +23,7 @@ export class BankController {
   async create(@Body() createBankDto: CreateBankDto, @Request() req: any): Promise<any> {
     try {
       // const userOid = res.locals.userOid || res.locals.user?.oid;  // If you attached the full user object, use user.oid
-      const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid
+      const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const bankResponse = await this.bankService.create(createBankDto, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
       return response;  // Return JSON response with status 200

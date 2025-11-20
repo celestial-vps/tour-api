@@ -10,22 +10,21 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class BankService {
   constructor(private readonly bankRepository: BankRepository, private readonly bankMapping: BankMapping,
-    private configService: ConfigService,
+    // private configService: ConfigService,
     private readonly dataSource: DataSource,
   ) { }
 
 
-  getEnvVariable() {
-    try {
-      return this.configService.get<number>('port')
+  // getEnvVariable() {
+  //   try {
+  //     return this.configService.get<number>('port')
 
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
+  //   } catch (error) {
+  //     throw new BadRequestException(error.message);
+  //   }
+  // }
 
-  }
-
-  async create(bankdto: CreateBankDto, userOid: string): Promise<MessageVm> { 
+  async create(bankdto: CreateBankDto, userOid: string): Promise<MessageVm> {
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
@@ -36,6 +35,7 @@ export class BankService {
       bank.bankName = bankdto.bankName;
       bank.shortName = bankdto.shortName;
       bank.createdBy = userOid;
+      bank.createdAt = new Date();
       const savedBank = await this.bankRepository.save(bank, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
@@ -112,7 +112,7 @@ export class BankService {
   }
 
   async findPage(page: number, pageSize: number, condition: FilterBankDto):
-   Promise<{ banks: BankVm[]; count: number }> {
+    Promise<{ banks: BankVm[]; count: number }> {
 
     try {
       // Get the banks and count from the repository
