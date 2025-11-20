@@ -4,17 +4,18 @@ import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-ban
 import { Response } from 'express';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
+import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 
 @Controller('bank')
 @ApiBearerAuth()
 @ApiTags('Bank')
 export class BankController {
-  constructor(private readonly bankService: BankService, private readonly responseService: ResponseService,) { }
+  constructor(private readonly bankService: BankService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
- 
-  @UseGuards(JwtAuthGuard,SystemRoleGuard)
+
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Bank' })
   @ApiBody({ type: CreateBankDto })  // Document the body DTO used for creation
@@ -25,9 +26,31 @@ export class BankController {
       // const userOid = res.locals.userOid || res.locals.user?.oid;  // If you attached the full user object, use user.oid
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const bankResponse = await this.bankService.create(createBankDto, userOid);
+      await this.auditTrailService.recordPost({
+        tableName: 'banks',
+        recordOid: bankResponse?.value ?? 'unknown',
+        action: 'CREATE',
+        status: 'SUCCESS',
+        message: 'Create Bank success',
+        userOid: userOid,
+        ipAddress: req.ip,
+        userAgent: req.headers['user-agent'],
+        newData: bankResponse,
+      });
+
       const response = this.responseService.responseOk(bankResponse, 1);
       return response;  // Return JSON response with status 200
     } catch (error) {
+      await this.auditTrailService.recordPost({
+        tableName: 'banks',
+        recordOid: 'unknown',
+        action: 'CREATE',
+        status: 'ERROR',
+        message: error.message,
+        userOid: req.user?.oid,
+        ipAddress: req.ip,
+        userAgent: req.headers['user-agent'],
+      });
       throw new BadRequestException(error.message);
     }
   }
