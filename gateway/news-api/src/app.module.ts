@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { EventsGateway } from './events.gateway';
 import { BankModule } from './modules/bank.module';
 import { AuthModule } from './modules/auth.module';
+import { GeoCacheModule } from './modules/geo-cache.module';
 // Modules
 
 @Module({
@@ -18,7 +19,8 @@ import { AuthModule } from './modules/auth.module';
       load: [configuration],
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    BankModule,AuthModule
+    BankModule,AuthModule,
+    GeoCacheModule // GeoCache module added here
   ],
   controllers: [AppController],
   providers: [AppService, EventsGateway],

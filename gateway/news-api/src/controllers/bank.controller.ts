@@ -26,6 +26,7 @@ export class BankController {
       // const userOid = res.locals.userOid || res.locals.user?.oid;  // If you attached the full user object, use user.oid
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const bankResponse = await this.bankService.create(createBankDto, userOid);
+      const response = this.responseService.responseOk(bankResponse, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.value ?? 'unknown',
@@ -37,8 +38,6 @@ export class BankController {
         userAgent: req.headers['user-agent'],
         newData: bankResponse,
       });
-
-      const response = this.responseService.responseOk(bankResponse, 1);
       return response;  // Return JSON response with status 200
     } catch (error) {
       await this.auditTrailService.recordPost({
@@ -55,7 +54,7 @@ export class BankController {
     }
   }
 
-  // @UseGuards(AdminRoleGuard)
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be updated' })  // Document the OID parameter
@@ -73,7 +72,7 @@ export class BankController {
     }
   }
 
-  // @UseGuards(AdminRoleGuard) 
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @ApiOperation({ summary: 'Delete a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The bank has been successfully deleted.' })
@@ -89,7 +88,7 @@ export class BankController {
     // }
   }
 
-  // @UseGuards(AdminRoleGuard)
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all banks' })
   @ApiOkResponse({ description: 'List of all banks', type: [CreateBankDto] })  // Document the response type
@@ -105,7 +104,7 @@ export class BankController {
 
   }
 
-  // @UseGuards(AdminRoleGuard)
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific bank by OID' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to retrieve' })  // Document the OID parameter
@@ -122,7 +121,7 @@ export class BankController {
     }
   }
 
-  // @UseGuards(AdminRoleGuard)
+  @UseGuards(JwtAuthGuard, SystemRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find banks with pagination and filters' })
   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
