@@ -8,24 +8,33 @@ import { MessageVm } from '../mappings/message-vm';
 import { UserRole } from '../models/user-role.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UserMapping, UserTokenVm } from '../mappings/user-vm';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
+     
+ 
     constructor(
         private readonly userRepository: UserRepository,  // Inject UserRepository directly
         private readonly dataSource: DataSource,
         private jwtService: JwtService,
-        private readonly userMapping: UserMapping
+        private readonly userMapping: UserMapping,
+        private configService: ConfigService
     ) { }
 
     async register(userDTO: RegisterDto): Promise<MessageVm> {
+        const systemUser = '00000000-0000-0000-0000-000000000000';
+
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const user = new User();
             user.email = userDTO.email;
             user.name = userDTO.email;
-            const role = await queryRunner.manager.findOne(UserRole, { where: { oid: "8efdd987-4d2b-401c-aa34-16605870bdab" } });
+            user.createdBy = systemUser; 
+            user.createdAt = new Date();  
+            const roleId = this.configService.get<string>('ROLEID');
+            const role = await queryRunner.manager.findOne(UserRole, { where: { oid: roleId } });
 
             if (!role) {
                 throw new InternalServerErrorException('Role not found');
