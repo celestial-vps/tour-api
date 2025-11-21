@@ -1,40 +1,27 @@
 import { Entity, PrimaryGeneratedColumn, Column, DeleteDateColumn } from 'typeorm';
+import { BaseEntity } from './base/base';
+import { ImageOwnerTypeEnum } from '../enums/image-owner-type.enum';
  
 @Entity('image_files')
-export class ImageFile {
+export class ImageFile extends BaseEntity{
   @PrimaryGeneratedColumn('uuid')
-  oid: string;  // UUID primary key
+  oid: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   fileName?: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   filePath?: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   fileMime?: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   fileUrl?: string;
 
-  @Column({ type: 'text', nullable: true, default: null })
-  description?: string;
+  @Column({ type: 'varchar', length: 50 })
+  ownerType: ImageOwnerTypeEnum;
 
-  @Column('uuid')
-  createdBy: string;
-
-  @Column('timestamp')
-  createdAt: Date;
-
-  @Column('uuid', { nullable: true, default: null })
-  lastModifiedBy: string | null;
-
-  @Column('timestamp', { nullable: true })
-  updatedAt?: Date;
-
-  @Column('uuid', { nullable: true })
-  deletedBy?: string;
-
-  @DeleteDateColumn()
-  deletedAt?: Date;  // Soft delete with DeleteDateColumn for TypeORM
+  // @Column('uuid')
+  // ownerId: string; 
 }

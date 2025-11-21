@@ -14,3 +14,8 @@ src/db/migrations/CreateBankTable
 3. link swaggger 
     http://localhost:5010/api/v1/#/Bank/BankController_create
 
+
+jalankan migration menggunakan git bash
+NODE_ENV=development npx typeorm-ts-node-commonjs migration:generate \
+-d src/db/data-source.ts \
+src/db/migrations/alter-table-imagefile-remove-owneroid

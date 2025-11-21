@@ -9,7 +9,11 @@ import { AppService } from './app.service';
 import { EventsGateway } from './events.gateway';
 import { BankModule } from './modules/bank.module';
 import { AuthModule } from './modules/auth.module';
-import { GeoCacheModule } from './modules/geo-cache.module';
+import { GeoCacheModule } from './modules/geo-cache.module'; 
+import { NewsCategoryModule } from './modules/news-category.module';
+import { NewsModule } from './modules/news.module';
+import { CountryModule } from './modules/country.module';
+import { ImageFileModule } from './modules/image-file.module';
 // Modules
 
 @Module({
@@ -19,7 +23,8 @@ import { GeoCacheModule } from './modules/geo-cache.module';
       load: [configuration],
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    BankModule,AuthModule,
+    BankModule,AuthModule,CountryModule,NewsCategoryModule,NewsModule,
+    ImageFileModule,
     GeoCacheModule // GeoCache module added here
   ],
   controllers: [AppController],

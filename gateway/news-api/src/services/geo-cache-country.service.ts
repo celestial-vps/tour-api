@@ -1,4 +1,5 @@
 // src/geo-cache/geo-cache-country.service.ts
+
 import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
@@ -12,18 +13,26 @@ export interface Country {
 export class GeoCacheCountryService implements OnModuleDestroy {
   private readonly logger = new Logger(GeoCacheCountryService.name);
   private readonly redisClient: Redis;
-  private readonly redisKey: string;
+  private readonly redisKey = 'geo:countries';
 
   constructor(private readonly configService: ConfigService) {
-    const redisHost = this.configService.get<string>('REDIS_HOST', 'localhost');
+    const redisUrl = this.configService.get<string>('REDIS_URL');
+    const redisHost = this.configService.get<string>('REDIS_HOST', '127.0.0.1');
     const redisPort = this.configService.get<number>('REDIS_PORT', 6379);
 
-    this.redisClient = new Redis({
-      host: redisHost,
-      port: redisPort,
-    });
-
-    this.redisKey = 'geo:countries';
+    // Priority:
+    // 1. REDIS_URL
+    // 2. REDIS_HOST + REDIS_PORT
+    if (redisUrl) {
+      this.logger.log(`Connecting to Redis using URL: ${redisUrl}`);
+      this.redisClient = new Redis(redisUrl);
+    } else {
+      this.logger.log(`Connecting to Redis: ${redisHost}:${redisPort}`);
+      this.redisClient = new Redis({
+        host: redisHost,
+        port: redisPort,
+      });
+    }
   }
 
   async onModuleDestroy() {
@@ -37,6 +46,7 @@ export class GeoCacheCountryService implements OnModuleDestroy {
       const countries: Country[] = data ? JSON.parse(data) : [];
 
       const index = countries.findIndex(c => c.id === country.id);
+
       if (index !== -1) {
         countries[index] = country;
       } else {
@@ -66,7 +76,9 @@ export class GeoCacheCountryService implements OnModuleDestroy {
     try {
       const data = await this.redisClient.get(this.redisKey);
       let countries: Country[] = data ? JSON.parse(data) : [];
+
       countries = countries.filter(c => c.id !== id);
+
       await this.redisClient.set(this.redisKey, JSON.stringify(countries));
     } catch (err) {
       this.logger.error('Redis error (deleteCountry)', err);
