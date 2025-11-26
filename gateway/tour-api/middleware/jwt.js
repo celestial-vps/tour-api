@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { roleGuard } = require('./role-guard');
-const SECRET_KEY = process.env.SecreatKey || 'celestial'; // Replace with your secret key
+const SECRET_KEY = process.env.SecreatKey || 'celestial-super-secret-key-should-be-longer-123!'; // Replace with your secret key
 
 class JwtMaker {
   constructor() {

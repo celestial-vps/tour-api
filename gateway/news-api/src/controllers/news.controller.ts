@@ -100,7 +100,7 @@ export class NewsController {
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     try {
       const userOid = req.user?.oid;
-      const newsResponse = await this.newsService.deleted(oid);;
+      const newsResponse = await this.newsService.deleted(oid,userOid);;
       const response = this.responseService.responseOk(newsResponse, 1);
       await this.auditTrailService.recordPost({
         tableName: 'newss',

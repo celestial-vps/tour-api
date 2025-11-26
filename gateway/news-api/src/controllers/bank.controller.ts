@@ -100,7 +100,7 @@ export class BankController {
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     try {
       const userOid = req.user?.oid;
-      const bankResponse = await this.bankService.deleted(oid);;
+      const bankResponse = await this.bankService.deleted(oid,userOid);;
       const response = this.responseService.responseOk(bankResponse, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',

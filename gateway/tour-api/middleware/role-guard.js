@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { findUserRole } = require('../repositories/user.repository'); // Import your user repository logic
-const JWT_SECRET = process.env.SecreatKey || 'celestial'; // Ensure you set this in your environment
+const JWT_SECRET = process.env.SecreatKey || 'celestial-super-secret-key-should-be-longer-123!'; // Ensure you set this in your environment
 
 const authorizationHeaderKey = 'authorization';
 const authorizationTypeBearer = 'bearer';

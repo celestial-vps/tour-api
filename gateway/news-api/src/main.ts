@@ -3,9 +3,11 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import rateLimit from 'express-rate-limit';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   app.enableCors({
@@ -31,8 +33,8 @@ async function bootstrap() {
       message: 'Terlalu banyak request, coba lagi nanti',
     }),
   );
-
-  await app.listen(5010);
-  console.log(`🚀 Server running on port 5010`);
+  const port = configService.get<number>('PORT', 5105);
+  await app.listen(port);
+  console.log(`🚀 Server running on port ${port}`);
 }
 bootstrap();

@@ -72,7 +72,7 @@ export class ImageFileService {
         }
     }
 
-    async deleted(oid: string): Promise<MessageVm> {
+    async deleted(oid: string,userOid:string): Promise<MessageVm> {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
 

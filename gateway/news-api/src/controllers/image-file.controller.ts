@@ -138,7 +138,7 @@ export class ImageFileController {
     async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
         try {
             const userOid = req.user?.oid;
-            const imageFileResponse = await this.imageFileService.deleted(oid);;
+            const imageFileResponse = await this.imageFileService.deleted(oid,userOid);;
             const response = this.responseService.responseOk(imageFileResponse, 1);
             await this.auditTrailService.recordPost({
                 tableName: 'imageFiles',

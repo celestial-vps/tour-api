@@ -63,7 +63,7 @@ export class NewsCategoryService {
     }
   }
 
-  async deleted(oid: string): Promise<MessageVm> {
+  async deleted(oid: string,userOid:string): Promise<MessageVm> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
 
