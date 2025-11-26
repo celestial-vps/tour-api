@@ -6,15 +6,15 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User extends Base {
-  @Prop({ required: true })
+  @Prop({ required: false })
   name: string;
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string; // Non-nullable string field with unique constraint
   @Prop({ required: true })
   password: string; // Non-nullable string field 
-  @Prop({ required: true })
+  @Prop({ required: false })
   androidToken?: string; // Nullable string field
-  @Prop({ required: true })
+  @Prop({ required: false })
   expiredTime?: string; // Nullable string field
   @Prop({ required: true })
   isActive?: boolean; // Nullable boolean field
@@ -22,7 +22,7 @@ export class User extends Base {
   activatedAt?: Date; // Nullable date field
   @Prop({ required: true })
   roleOid: string; // Non-nullable UUID field
-  @Prop({ required: true })
+  @Prop({ required: false, default: null })
   description?: string; // Nullable text field with a default value of null
   @Prop({ required: true })
   userRole: UserRole;

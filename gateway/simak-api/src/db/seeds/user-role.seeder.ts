@@ -45,7 +45,7 @@ export class UserRoleSeeder {
         createdAt: now,
       },
       {
-        roleName: 'Edtor',
+        roleName: 'Editor',
         targetType: 'general',
         isAdministrative: false,
         readState: true,

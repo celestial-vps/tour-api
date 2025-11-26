@@ -3,9 +3,9 @@ import { BankService } from '../services/bank.service';
 import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard';
-import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
+import { JwtAuthGuard } from '../middleware/jwt-guard'; 
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 
 @Controller('bank')
 @ApiBearerAuth()
@@ -14,7 +14,7 @@ export class BankController {
   constructor(private readonly bankService: BankService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Bank' })
   @ApiBody({ type: CreateBankDto })  // Document the body DTO used for creation
@@ -52,7 +52,7 @@ export class BankController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be updated' })  // Document the OID parameter
@@ -91,7 +91,7 @@ export class BankController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @ApiOperation({ summary: 'Delete a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The bank has been successfully deleted.' })
@@ -129,7 +129,7 @@ export class BankController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all banks' })
   @ApiOkResponse({ description: 'List of all banks', type: [CreateBankDto] })  // Document the response type
@@ -168,7 +168,7 @@ export class BankController {
 
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific bank by OID' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to retrieve' })  // Document the OID parameter
@@ -207,7 +207,7 @@ export class BankController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find banks with pagination and filters' })
   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter

@@ -20,7 +20,7 @@ export class EditorRoleGuard implements CanActivate {
       throw new UnauthorizedException('User not found');
     }
 
-    if (user.user?.userRole.roleName !== 'Editor') {
+    if (user.user?.userRole.roleName !== 'Edtor') {
       throw new UnauthorizedException('System role required');
     }
 

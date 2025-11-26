@@ -1,5 +1,6 @@
 import { Expose, Transform, Type } from "class-transformer";
 import { ObjectIdToString } from "../misc/mapper";
+import { UserRoleDomain } from "./user-role.domain";
 
 export class UserDomain {
     @Expose()
@@ -16,29 +17,27 @@ export class UserDomain {
 
     @Expose()
     password: string;
-
     @Expose()
-    birthday?: Date; 
+    androidToken?: string;
     @Expose()
-    memberNumber?: string; 
-    @Expose()
-    androidToken?: string; 
-    @Expose()
-    expiredTime?: string; 
+    expiredTime?: string;
     @Expose()
     isActive?: boolean;
     @Expose()
-    activatedAt?: Date; 
+    activatedAt?: Date;
     @Expose()
-    roleOid: string;  
+    roleOid: string;
     @Expose()
-    description?: string; 
+    @Type(() => UserRoleDomain) // ⚡ penting agar nested mapping berjalan
+    userRole: UserRoleDomain;
+    @Expose()
+    description?: string;
 
     @Expose()
-    createdBy: string; 
+    createdBy: string;
 
     @Expose()
-    createdAt: Date; 
+    createdAt: Date;
 
     @Expose()
     lastModifiedBy?: string;
@@ -47,9 +46,9 @@ export class UserDomain {
     updatedAt?: Date;
 
     @Expose()
-    deletedBy?: string; 
+    deletedBy?: string;
 
     @Expose()
-    deletedAt?: Date; 
+    deletedAt?: Date;
 
 }

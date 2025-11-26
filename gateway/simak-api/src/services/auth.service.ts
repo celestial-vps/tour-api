@@ -37,13 +37,16 @@ export class AuthService {
             if (!result) {
                 throw new InternalServerErrorException('Role not found');
             }
+            user.roleOid = roleId ?? '';
             user.userRole = result;
-
+            user.isActive = true;
             const salt = await bcrypt.genSalt(); // 2.
             user.password = await bcrypt.hash(userDTO.password, salt); // 3.
 
             const savedUser = await this.userRepository.save(user);
-
+            if (savedUser.err !== null) {
+                throw new InternalServerErrorException('Error saving user: ' + savedUser.err.message);
+            }
             const messageVm = new MessageVm();
             messageVm.value = savedUser.result ? savedUser.result.id : '';
             messageVm.name = savedUser.result ? savedUser.result.email : '';
@@ -62,23 +65,23 @@ export class AuthService {
 
 
             const users = await this.userRepository.advanceFilter(condition);  // Using custom repository save method
-            if (users.result ? users.result.length : 0 == 0) {
+            if ( users.result ===null ) {
                 throw new UnauthorizedException('Email not found');
             }
             const passwordMatched = await bcrypt.compare(
                 userDTO.password,
-                users[0].password,
+                users.result[0].password
             );
             if (passwordMatched) {
                 // delete users[0].password;
                 const payload = {
-                    userOid: users[0].oid,
-                    username: users[0].email,
+                    userOid: users.result[0].id,
+                    username: users.result[0].email,
                     level: 'application',
                     expiresIn: '1h',  // Expire in 1 hour
                 };
                 const token = this.jwtService.sign(payload);
-                const user = toUserTokenResponse(users[0], token, "")
+                const user = toUserTokenResponse(users.result[0], token, "")
 
                 return user;
             }

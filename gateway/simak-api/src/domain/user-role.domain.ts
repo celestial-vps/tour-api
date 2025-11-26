@@ -8,31 +8,31 @@ export class UserRoleDomain {
     )
     id: string;
 
-     @Expose()
+    @Expose()
     roleName: string; // Non-nullable string field with unique constraint
-     @Expose()
+    @Expose()
     targetType?: string; // Nullable string field
-     @Expose()
+    @Expose()
     isAdministrative: boolean; // Non-nullable boolean field
-     @Expose()
+    @Expose()
     readState: boolean; // Non-nullable boolean field
-     @Expose()
+    @Expose()
     writeState: boolean; // Non-nullable boolean field
-     @Expose()
+    @Expose()
     createState: boolean; // Non-nullable boolean field
-     @Expose()
+    @Expose()
     deleteState: boolean; // Non-nullable boolean field
-     @Expose()
+    @Expose()
     navigateState: boolean;
 
     @Expose()
-    description?: string; 
+    description?: string;
 
     @Expose()
-    createdBy: string; 
+    createdBy: string;
 
     @Expose()
-    createdAt: Date; 
+    createdAt: Date;
 
     @Expose()
     lastModifiedBy?: string;
@@ -41,9 +41,9 @@ export class UserRoleDomain {
     updatedAt?: Date;
 
     @Expose()
-    deletedBy?: string; 
+    deletedBy?: string;
 
     @Expose()
-    deletedAt?: Date; 
+    deletedAt?: Date;
 
 }

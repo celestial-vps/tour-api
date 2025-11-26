@@ -19,8 +19,8 @@ import configuration from './config/configuration';
     }),
     MongooseModule.forRoot(
       'mongodb://localhost:27017/simakdb',
-    ),AuthModule
-    // BankModule
+    ),AuthModule,
+    BankModule
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '/', 'uploads'),
     // }),

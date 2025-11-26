@@ -16,7 +16,7 @@ export class SystemRoleGuard implements CanActivate {
     // Ambil user dari DB berdasarkan userId dari JWT
     const user = await this.userService.findById(userFromJwt.userId);
 
-    if (!user) {
+    if (user.err!==null || !user.user) {
       throw new UnauthorizedException('User not found');
     }
 

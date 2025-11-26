@@ -80,7 +80,9 @@ export class UserRepository implements IUserRepository {
 
 	async findById(oid: string): Promise<{ result: UserDomain | null; err: any }> {
 		try {
-			const user = await this.userModel.findOne({ _id: oid }); // Await the find operation
+			const user = await this.userModel.findOne({ _id: oid }).populate('userRole').lean(); ; // Await the find operation
+			// const userPlain = user?.toObject(); atau pakai lean // ⚡ penting
+
 			const data = Mapper.mapToDomain(UserDomain, user) as UserDomain;
 			return { result: data, err: null };
 		} catch (err) {

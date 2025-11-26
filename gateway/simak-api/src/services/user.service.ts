@@ -88,8 +88,6 @@ export class UserService implements IUserService {
             resultFind.name = updateUserDto.name ?? resultFind.name;
             resultFind.email = updateUserDto.email ?? resultFind.email;
             resultFind.password = updateUserDto.password ?? resultFind.password;
-            resultFind.birthday = new Date(updateUserDto.birthday) ?? resultFind.birthday;
-            resultFind.memberNumber = updateUserDto.memberNumber ?? resultFind.memberNumber;
             resultFind.androidToken = updateUserDto.androidToken ?? resultFind.androidToken;
             resultFind.isActive = updateUserDto.isActive ?? resultFind.isActive;
             resultFind.roleOid = updateUserDto.roleOid ?? resultFind.roleOid;

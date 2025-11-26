@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Bank, BankSchema } from '../models/bank';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Bank.name, schema: BankSchema }]),AuditTrailModule],
+    imports: [MongooseModule.forFeature([{ name: Bank.name, schema: BankSchema }]),AuditTrailModule,UserModule],
     controllers: [BankController],
     providers: [AuditTrailService, BankService, ResponseService, BankRepository],
     exports: [AuditTrailService],

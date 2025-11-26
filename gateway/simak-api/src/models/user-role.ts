@@ -25,4 +25,11 @@ export class UserRole extends Base{
   navigateState: boolean; 
 }
 
+
 export const UserRoleSchema = SchemaFactory.createForClass(UserRole);
+
+// 🔹 Baru tambahkan unique compound index
+UserRoleSchema.index(
+  { roleName: 1, targetType: 1 },
+  { unique: true }
+);

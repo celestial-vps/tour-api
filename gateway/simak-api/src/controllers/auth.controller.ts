@@ -1,8 +1,8 @@
 import { Controller, Post, Body, BadRequestException, Req } from '@nestjs/common';
-import { ResponseService } from '../common/build.response';
-import { AuthService } from '../services/auth.service';
+import { ResponseService } from '../common/build.response'; 
 import { LoginDto, RegisterDto } from '../dtos/payload-user-dto';
 import { ApiTags, ApiOperation, ApiBody, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { AuthService } from '../services/auth.service';
 
 @ApiTags('Authentication') // Group di Swagger
 @Controller('auth')
