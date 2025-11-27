@@ -24,7 +24,7 @@ export class BankController {
     try {
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const bankResponse = await this.bankService.create(createBankDto, userOid);
-      const response = this.responseService.responseOk(bankResponse, 1);
+      const response = this.responseService.responseOk(bankResponse.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.bank ?? 'unknown',
@@ -63,7 +63,7 @@ export class BankController {
     try {
       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
       const bankResponse = await this.bankService.update(oid, updateBankDto, userOid);
-      const response = this.responseService.responseOk(bankResponse, 1);
+      const response = this.responseService.responseOk(bankResponse.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.bank ?? 'unknown',
@@ -101,7 +101,7 @@ export class BankController {
     try {
       const userOid = req.user?.oid;
       const bankResponse = await this.bankService.deleted(oid, userOid);;
-      const response = this.responseService.responseOk(bankResponse, 1);
+      const response = this.responseService.responseOk(bankResponse.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.bank ?? 'unknown',
@@ -179,7 +179,7 @@ export class BankController {
     try {
       const userOid = req.user?.oid;
       const bank = await this.bankService.findById(oid);;
-      const response = this.responseService.responseOk(bank, 1);
+      const response = this.responseService.responseOk(bank.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: 'unknown',
