@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
 
 export interface Country {
-  id: string;
+  oid: string;
   countryName: string;
 }
 

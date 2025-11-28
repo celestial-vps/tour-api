@@ -8,10 +8,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   app.enableCors({
-    origin: ['http://192.168.1.6:4200', 'http://localhost:4300'],
+    origin: ['http://192.168.1.6:4200', 'http://localhost:4200'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
+  // Global API prefix
+  app.setGlobalPrefix('api/v1');
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
     .setDescription('REST API NestJS + SocketIO')
