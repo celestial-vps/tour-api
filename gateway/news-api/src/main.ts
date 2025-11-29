@@ -11,11 +11,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   app.enableCors({
-    origin: ['http://192.168.1.6:4200', 'http://localhost:4300'],
+    origin: ['http://192.168.1.6:4200', 'http://localhost:4200','http://192.168.1.6:4300', 'http://localhost:4300'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
-
+  app.setGlobalPrefix('api/v1');
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
     .setDescription('REST API NestJS + SocketIO')
@@ -33,7 +33,7 @@ async function bootstrap() {
       message: 'Terlalu banyak request, coba lagi nanti',
     }),
   );
-  const port = configService.get<number>('PORT', 5105);
+  const port = configService.get<number>('PORT', 5201);
   await app.listen(port);
   console.log(`🚀 Server running on port ${port}`);
 }

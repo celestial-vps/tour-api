@@ -45,7 +45,7 @@ export class GeoCacheCountryService implements OnModuleDestroy {
       const data = await this.redisClient.get(this.redisKey);
       const countries: Country[] = data ? JSON.parse(data) : [];
 
-      const index = countries.findIndex(c => c.id === country.id);
+      const index = countries.findIndex(c => c.oid === country.oid);
 
       if (index !== -1) {
         countries[index] = country;
@@ -72,12 +72,12 @@ export class GeoCacheCountryService implements OnModuleDestroy {
   }
 
   /** Delete a country by ID */
-  async deleteCountry(id: string) {
+  async deleteCountry(oid: string) {
     try {
       const data = await this.redisClient.get(this.redisKey);
       let countries: Country[] = data ? JSON.parse(data) : [];
 
-      countries = countries.filter(c => c.id !== id);
+      countries = countries.filter(c => c.oid !== oid);
 
       await this.redisClient.set(this.redisKey, JSON.stringify(countries));
     } catch (err) {
@@ -97,10 +97,10 @@ export class GeoCacheCountryService implements OnModuleDestroy {
   }
 
   /** Get a country by ID */
-  async getCountryById(id: string): Promise<Country | null> {
+  async getCountryById(oid: string): Promise<Country | null> {
     try {
       const countries = await this.getCountries();
-      return countries.find(c => c.id === id) || null;
+      return countries.find(c => c.oid === oid) || null;
     } catch (err) {
       this.logger.error('Redis error (getCountryById)', err);
       return null;

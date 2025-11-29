@@ -29,10 +29,10 @@ export class CreateCourseDto {
   @IsNotEmpty()
   credits: number;
 
-  @ApiProperty({ example: '654321', description: 'Teacher ID' })
-  @IsString()
-  @IsNotEmpty()
-  teacher: string;
+  // @ApiProperty({ example: '654321', description: 'Teacher ID' })
+  // @IsString()
+  // @IsNotEmpty()
+  // teacher: string;
 }
 
 export class UpdateCourseDto extends CreateCourseDto {}

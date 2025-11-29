@@ -23,7 +23,7 @@ export class StudentService implements IStudentService {
             student.nim = createStudentDto.nim;
             student.name = createStudentDto.name;
             student.studyProgram = createStudentDto.studyProgram;
-
+            student.yearOfEntry = createStudentDto.yearOfEntry;
             const { result, err } = await this.studentRepository.save(student);
             if (err) {
                 return { student: null, err };
@@ -66,6 +66,7 @@ export class StudentService implements IStudentService {
             resultFind.nim = updateStudentDto.nim ?? resultFind.nim;
             resultFind.name = updateStudentDto.name ?? resultFind.name;
             resultFind.studyProgram = updateStudentDto.studyProgram ?? resultFind.studyProgram;
+            resultFind.yearOfEntry = updateStudentDto.yearOfEntry ?? resultFind.yearOfEntry;
             // Save updated student details
             const { result, err } = await this.studentRepository.update(oid, resultFind);
             if (err != null) {

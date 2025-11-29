@@ -7,8 +7,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/pdam-api/go-pdam-api/common"
-	"github.com/pdam-api/go-pdam-api/database"
-	"github.com/pdam-api/go-pdam-api/repositories"
 )
 
 // RoleGuard checks if the user has the required role and stores the JWT claims in context
@@ -52,23 +50,28 @@ func RoleGuard(requiredRole string) gin.HandlerFunc {
 		}
 
 		// Validasi role user dari database
-		ctx := c.Request.Context()
-		db := database.GetConnection()
-		tx, err := db.Begin()
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, common.ResponseUnAuthorized("Database transaction failed"))
-			return
-		}
-		defer common.CommitOrRollback(tx)
+		// ctx := c.Request.Context()
+		// db := database.GetConnection()
+		// tx, err := db.Begin()
+		// if err != nil {
+		// 	c.AbortWithStatusJSON(http.StatusInternalServerError, common.ResponseUnAuthorized("Database transaction failed"))
+		// 	return
+		// }
+		// defer common.CommitOrRollback(tx)
 
-		userRepository := repositories.NewUserRepository()
-		userRole, err := userRepository.FindUserRole(ctx, tx, username)
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
-			return
-		}
+		// userRepository := repositories.NewUserRepository()
+		// userRole, err := userRepository.FindUserRole(ctx, tx, username)
+		// if err != nil {
+		// 	c.AbortWithStatusJSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
+		// 	return
+		// }
 
-		if userRole != requiredRole {
+		// if userRole != requiredRole {
+		// 	c.AbortWithStatusJSON(http.StatusForbidden, common.ResponseUnAuthorized("Insufficient role"))
+		// 	return
+		// }
+
+		if claims["role"].(string) != requiredRole {
 			c.AbortWithStatusJSON(http.StatusForbidden, common.ResponseUnAuthorized("Insufficient role"))
 			return
 		}

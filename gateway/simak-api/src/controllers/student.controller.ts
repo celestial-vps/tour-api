@@ -3,7 +3,7 @@ import { StudentService } from '../services/student.service';
 import { CreateStudentDto, FilterStudentDto, UpdateStudentDto } from '../dtos/payload-student-dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 
@@ -24,6 +24,19 @@ export class StudentController {
     try {
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const studentResponse = await this.studentService.create(createStudentDto, userOid);
+      if (studentResponse.err) {
+        await this.auditTrailService.recordPost({
+          tableName: 'students',
+          recordOid: 'unknown',
+          action: 'CREATE',
+          status: 'ERROR',
+          message: studentResponse.err,
+          userOid: req.user?.oid,
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+        throw new BadRequestException(studentResponse.err);
+      }
       const response = this.responseService.responseOk(studentResponse.student, 1);
       await this.auditTrailService.recordPost({
         tableName: 'students',

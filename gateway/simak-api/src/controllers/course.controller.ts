@@ -3,7 +3,7 @@ import { CourseService } from '../services/course.service';
 import { CreateCourseDto, FilterCourseDto, UpdateCourseDto } from '../dtos/payload-course-dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 
@@ -24,6 +24,20 @@ export class CourseController {
     try {
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const courseResponse = await this.courseService.create(createCourseDto, userOid);
+
+      if (courseResponse.err) {
+        await this.auditTrailService.recordPost({
+          tableName: 'courses',
+          recordOid: 'unknown',
+          action: 'CREATE',
+          status: 'ERROR',
+          message: courseResponse.err,
+          userOid: req.user?.oid,
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+        throw new BadRequestException(courseResponse.err);
+      }
       const response = this.responseService.responseOk(courseResponse.course, 1);
       await this.auditTrailService.recordPost({
         tableName: 'courses',

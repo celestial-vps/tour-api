@@ -3,9 +3,9 @@ import { BannerRepository } from '../repositories/banner.repository';
 import { Banner } from '../models/banner.entity';
 import { CreateBannerDto, FilterBannerDto, UpdateBannerDto } from '../dtos/payload-banner-dto';
 import { DataSource, getConnection } from 'typeorm';
-import { MessageVm } from '../mappings/message-vm';
-import { BannerMapping, BannerVm } from '../mappings/banner-vm';
+import { MessageVm } from '../mappings/message-vm'; 
 import { ConfigService } from '@nestjs/config';
+import { BannerMapping, BannerVm } from '../mappings/banner-vm';
 
 @Injectable()
 export class BannerService {
@@ -19,8 +19,7 @@ export class BannerService {
     await queryRunner.startTransaction();
 
     try {
-      const banner = new Banner();
-      banner.article = bannerdto.article;
+      const banner = new Banner(); 
       banner.title = bannerdto.title;
       banner.createdBy = userOid;
       banner.createdAt = new Date();
@@ -28,7 +27,7 @@ export class BannerService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedBanner.oid;
-      messageVm.name = savedBanner.user ?? '';
+      messageVm.name = savedBanner.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -49,13 +48,12 @@ export class BannerService {
         throw new NotFoundException('Banner data not found');
       }
 
-      banner.article = bannerdto.article;
-      banner.user = bannerdto.user;
+      banner.title = bannerdto.title; 
       const savedBanner = await this.bannerRepository.update(oid, banner, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedBanner.oid;
-      messageVm.name = savedBanner.user ?? '';
+      messageVm.name = savedBanner.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -78,7 +76,7 @@ export class BannerService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = banner.oid;
-      messageVm.name = banner.user ?? '';
+      messageVm.name = banner.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();

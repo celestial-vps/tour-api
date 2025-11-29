@@ -14,6 +14,9 @@ import { NewsCategoryModule } from './modules/news-category.module';
 import { NewsModule } from './modules/news.module';
 import { CountryModule } from './modules/country.module';
 import { ImageFileModule } from './modules/image-file.module';
+import { Tag } from './models/tag.entity';
+import { TagModule } from './modules/tag.module';
+import { BannerModule } from './modules/banner.module';
 // Modules
 
 @Module({
@@ -25,6 +28,8 @@ import { ImageFileModule } from './modules/image-file.module';
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     BankModule, AuthModule, CountryModule, NewsCategoryModule, NewsModule,
+    TagModule,
+    // BannerModule,
     ImageFileModule,
     GeoCacheModule // GeoCache module added here
   ],

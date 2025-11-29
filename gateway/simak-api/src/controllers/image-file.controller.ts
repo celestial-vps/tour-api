@@ -43,6 +43,19 @@ export class ImageFileController {
         try {
             const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
             const imageFileResponse = await this.imageFileService.create(file, createImageFileDto, userOid);
+            if (imageFileResponse.err) {
+                await this.auditTrailService.recordPost({
+                    tableName: 'imageFiles',
+                    recordOid: 'unknown',
+                    action: 'CREATE',
+                    status: 'ERROR',
+                    message: imageFileResponse.err,
+                    userOid: req.user?.oid,
+                    ipAddress: req.ip,
+                    userAgent: req.headers['user-agent'],
+                });
+                throw new BadRequestException(imageFileResponse.err);
+            }
             const response = this.responseService.responseOk(imageFileResponse, 1);
             await this.auditTrailService.recordPost({
                 tableName: 'imageFiles',
@@ -138,7 +151,7 @@ export class ImageFileController {
     async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
         try {
             const userOid = req.user?.oid;
-            const imageFileResponse = await this.imageFileService.deleted(oid,userOid);;
+            const imageFileResponse = await this.imageFileService.deleted(oid, userOid);;
             const response = this.responseService.responseOk(imageFileResponse, 1);
             await this.auditTrailService.recordPost({
                 tableName: 'imageFiles',
@@ -259,7 +272,7 @@ export class ImageFileController {
         @Request() req: any): Promise<any> {
         try {
             const userOid = req.user?.oid;
-            const { imageFiles, total } = await this.imageFileService.findPage(filterImageFileDto,pageIndex, pageSize );
+            const { imageFiles, total } = await this.imageFileService.findPage(filterImageFileDto, pageIndex, pageSize);
             const totalPage = Math.ceil(total / pageSize);
 
             const pagging = {

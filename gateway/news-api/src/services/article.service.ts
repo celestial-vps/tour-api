@@ -3,9 +3,9 @@ import { ArticleRepository } from '../repositories/article.repository';
 import { Article } from '../models/article.entity';
 import { CreateArticleDto, FilterArticleDto, UpdateArticleDto } from '../dtos/payload-article-dto';
 import { DataSource, getConnection } from 'typeorm';
-import { MessageVm } from '../mappings/message-vm';
-import { ArticleMapping, ArticleVm } from '../mappings/article-vm';
+import { MessageVm } from '../mappings/message-vm'; 
 import { ConfigService } from '@nestjs/config';
+import { ArticleMapping, ArticleVm } from '../mappings/article-vm';
 
 @Injectable()
 export class ArticleService {

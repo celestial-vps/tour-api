@@ -19,8 +19,8 @@ export class CommentMapping {
 
   toCommentResponse(comment: Comment): CommentVm {
     return {
-      id: comment.id,
-      articleId: comment.article.id,
+      oid: comment.oid,
+      articleId: comment.article.oid,
       user: this.userMapping.toUserResponse(comment.user),
       content: comment.content,
       status: comment.status,

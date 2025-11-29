@@ -4,7 +4,7 @@ import { CreateNewsDto, FilterNewsDto, UpdateNewsDto } from '../dtos/payload-new
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
-import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 
 @Controller('news')
@@ -14,7 +14,7 @@ export class NewsController {
   constructor(private readonly newsService: NewsService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new News' })
   @ApiBody({ type: CreateNewsDto }) 
@@ -52,7 +52,7 @@ export class NewsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a News' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the news to be updated' })   
@@ -91,7 +91,7 @@ export class NewsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @ApiOperation({ summary: 'Delete a News' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the news to be deleted' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The news has been successfully deleted.' })
@@ -129,7 +129,7 @@ export class NewsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all newss' })
   @ApiOkResponse({ description: 'List of all newss', type: [CreateNewsDto] })  // Document the response type
@@ -168,7 +168,7 @@ export class NewsController {
 
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific news by OID' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the news to retrieve' })  // Document the OID parameter
@@ -207,7 +207,7 @@ export class NewsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find newss with pagination and filters' })
   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter

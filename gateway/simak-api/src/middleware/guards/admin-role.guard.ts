@@ -14,18 +14,25 @@ export class AdminRoleGuard implements CanActivate {
     }
 
     // Ambil user dari DB berdasarkan userId dari JWT
-    const user = await this.userService.findById(userFromJwt.userId);
+    // const user = await this.userService.findById(userFromJwt.userId);
 
-    if (!user) {
-      throw new UnauthorizedException('User not found');
-    }
+    // if (!user) {
+    //   throw new UnauthorizedException('User not found');
+    // }
 
-    if (user.user?.userRole.roleName !== 'Admin') {
+    // if (user.user?.userRole.roleName !== 'Admin') {
+    //   throw new UnauthorizedException('System role required');
+    // }
+    // request.user = user;
+    // request.user = userFromJwt;
+
+    if (userFromJwt.role !== 'Admin') {
       throw new UnauthorizedException('System role required');
-    }
-
-    // attach user lengkap ke request
-    request.user = user;
+    } 
+    request.user = {
+      oid: userFromJwt.userId,
+      ...userFromJwt,
+    };
     return true;
   }
 }

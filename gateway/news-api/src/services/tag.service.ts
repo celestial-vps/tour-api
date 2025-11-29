@@ -3,9 +3,9 @@ import { TagRepository } from '../repositories/tag.repository';
 import { Tag } from '../models/tag.entity';
 import { CreateTagDto, FilterTagDto, UpdateTagDto } from '../dtos/payload-tag-dto';
 import { DataSource, getConnection } from 'typeorm';
-import { MessageVm } from '../mappings/message-vm';
-import { TagMapping, TagVm } from '../mappings/tag-vm';
+import { MessageVm } from '../mappings/message-vm'; 
 import { ConfigService } from '@nestjs/config';
+import { TagMapping, TagVm } from '../mappings/tag-vm';
 
 @Injectable()
 export class TagService {

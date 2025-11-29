@@ -3,7 +3,7 @@ import { BankService } from '../services/bank.service';
 import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 
@@ -24,6 +24,19 @@ export class BankController {
     try {
       const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
       const bankResponse = await this.bankService.create(createBankDto, userOid);
+      if (bankResponse.err) {
+        await this.auditTrailService.recordPost({
+          tableName: 'banks',
+          recordOid: 'unknown',
+          action: 'CREATE',
+          status: 'ERROR',
+          message: bankResponse.err,
+          userOid: req.user?.oid,
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+        throw new BadRequestException(bankResponse.err);
+      }
       const response = this.responseService.responseOk(bankResponse.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
@@ -63,6 +76,19 @@ export class BankController {
     try {
       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
       const bankResponse = await this.bankService.update(oid, updateBankDto, userOid);
+           if (bankResponse.err) {
+        await this.auditTrailService.recordPost({
+          tableName: 'banks',
+          recordOid: 'unknown',
+          action: 'CREATE',
+          status: 'ERROR',
+          message: bankResponse.err,
+          userOid: req.user?.oid,
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+        throw new BadRequestException(bankResponse.err);
+      }
       const response = this.responseService.responseOk(bankResponse.bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',

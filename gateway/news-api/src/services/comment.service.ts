@@ -1,17 +1,18 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CommentRepository } from '../repositories/comment.repository';
 import { Comment } from '../models/comment.entity';
-import { CreateCommentDto, FilterCommentDto, UpdateCommentDto } from '../dtos/payload-comment-dto';
 import { DataSource, getConnection } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
-import { CommentMapping, CommentVm } from '../mappings/comment-vm';
 import { ConfigService } from '@nestjs/config';
+import { CreateCommentDto, FilterCommentDto, UpdateCommentDto } from '../dtos/payload-comment.dto';
+import { CommentMapping, CommentVm } from '../mappings/comment-vm';
+import { Article } from '../models/article.entity';
 
 @Injectable()
 export class CommentService {
-  constructor(private readonly commentRepository: CommentRepository, private readonly commentMapping: CommentMapping, 
+  constructor(private readonly commentRepository: CommentRepository, private readonly commentMapping: CommentMapping,
     private readonly dataSource: DataSource,
-  ) { } 
+  ) { }
 
   async create(commentdto: CreateCommentDto, userOid: string): Promise<MessageVm> {
 
@@ -20,15 +21,15 @@ export class CommentService {
 
     try {
       const comment = new Comment();
-      comment.article = commentdto.article;
-      comment.user = commentdto.user;
+      comment.article = { oid: commentdto.articleId } as Article;
+      // comment.user = commentdto.user;
       comment.createdBy = userOid;
       comment.createdAt = new Date();
       const savedComment = await this.commentRepository.save(comment, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedComment.oid;
-      messageVm.name = savedComment.user ?? '';
+      messageVm.name = savedComment.article ? savedComment.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -49,13 +50,13 @@ export class CommentService {
         throw new NotFoundException('Comment data not found');
       }
 
-      comment.article = commentdto.article;
-      comment.user = commentdto.user;
+      comment.article = { oid: commentdto.articleId } as Article;
+      // comment.user = commentdto.user;
       const savedComment = await this.commentRepository.update(oid, comment, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedComment.oid;
-      messageVm.name = savedComment.user ?? '';
+      messageVm.name = savedComment.article ? savedComment.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -78,7 +79,7 @@ export class CommentService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = comment.oid;
-      messageVm.name = comment.user ?? '';
+      messageVm.name = comment.article ? comment.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -101,9 +102,9 @@ export class CommentService {
   async findPage(page: number, pageSize: number, condition: FilterCommentDto):
     Promise<{ comments: CommentVm[]; count: number }> {
 
-    try { 
-      const { comments, count } = await this.commentRepository.findByCriteriaPage(page, pageSize, condition); 
-      const commentResponses = this.commentMapping.toCommentResponses(comments); 
+    try {
+      const { comments, count } = await this.commentRepository.findByCriteriaPage(page, pageSize, condition);
+      const commentResponses = this.commentMapping.toCommentResponses(comments);
       return { comments: commentResponses, count };
 
     } catch (error) {

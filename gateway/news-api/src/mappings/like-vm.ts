@@ -16,8 +16,8 @@ export class LikeMapping {
 
   toLikeResponse(like: Like): LikeVm {
     return {
-      id: like.id,
-      articleId: like.article.id,
+      oid: like.oid,
+      articleId: like.article.oid,
       user: this.userMapping.toUserResponse(like.user),
       createdAt: like.createdAt,
     };

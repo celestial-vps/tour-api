@@ -16,8 +16,8 @@ export class BookmarkMapping {
 
   toBookmarkResponse(bookmark: Bookmark): BookmarkVm {
     return {
-      id: bookmark.id,
-      articleId: bookmark.article.id,
+      oid: bookmark.oid,
+      articleId: bookmark.article.oid,
       user: this.userMapping.toUserResponse(bookmark.user),
       createdAt: bookmark.createdAt,
     };

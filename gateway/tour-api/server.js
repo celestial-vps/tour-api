@@ -46,7 +46,7 @@ dotenv.config({ path: envFile });
 
 console.log(`Environment loaded from ${envFile}`);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5101;
 // server.listen(PORT, () => {
 //   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
 //   require('./middleware/cron-job/cron-job-redis-region');

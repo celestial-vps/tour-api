@@ -14,7 +14,7 @@ export class TagMapping {
 
   toTagResponse(tag: Tag): TagVm {
     return {
-      id: tag.id,
+      oid: tag.oid,
       name: tag.name,
       slug: tag.slug,
       createdAt: tag.createdAt,

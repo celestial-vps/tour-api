@@ -147,7 +147,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3102" // default port
+		port = "5301" // default port
 	}
 
 	errPort := router.Run(":" + port)

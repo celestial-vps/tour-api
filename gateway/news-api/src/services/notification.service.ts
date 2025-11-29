@@ -3,9 +3,9 @@ import { NotificationRepository } from '../repositories/notification.repository'
 import { Notification } from '../models/notification.entity';
 import { CreateNotificationDto, FilterNotificationDto, UpdateNotificationDto } from '../dtos/payload-notification-dto';
 import { DataSource, getConnection } from 'typeorm';
-import { MessageVm } from '../mappings/message-vm';
-import { NotificationMapping, NotificationVm } from '../mappings/notification-vm';
+import { MessageVm } from '../mappings/message-vm'; 
 import { ConfigService } from '@nestjs/config';
+import { NotificationMapping, NotificationVm } from '../mappings/notification-vm';
 
 @Injectable()
 export class NotificationService {
@@ -21,14 +21,14 @@ export class NotificationService {
     try {
       const notification = new Notification();
       notification.title = notificationdto.title;
-      notification.user = notificationdto.user;
+      // notification.user = notificationdto.user;
       notification.createdBy = userOid;
       notification.createdAt = new Date();
       const savedNotification = await this.notificationRepository.save(notification, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedNotification.oid;
-      messageVm.name = savedNotification.user ?? '';
+      messageVm.name = savedNotification.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -50,12 +50,12 @@ export class NotificationService {
       }
 
       notification.title = notificationdto.title;
-      notification.user = notificationdto.user;
+      // notification.user = notificationdto.user;
       const savedNotification = await this.notificationRepository.update(oid, notification, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedNotification.oid;
-      messageVm.name = savedNotification.user ?? '';
+      messageVm.name = savedNotification.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -78,7 +78,7 @@ export class NotificationService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = notification.oid;
-      messageVm.name = notification.user ?? '';
+      messageVm.name = notification.title ?? '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();

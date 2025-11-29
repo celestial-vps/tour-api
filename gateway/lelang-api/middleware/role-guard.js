@@ -1,11 +1,11 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { findUserRole } = require('../repositories/user.repository'); // Import your user repository logic
-const JWT_SECRET = process.env.SecreatKey || 'SecrteTokenSecrteToken'; // Ensure you set this in your environment
+const JWT_SECRET = process.env.SECREATKEY || 'celestial-super-secret-key-should-be-longer-123!'; // Ensure you set this in your environment
 const { responseUnauthorized } = require('../common/build.response');
 const authorizationHeaderKey = 'authorization';
 const authorizationTypeBearer = 'bearer';
-const authorizationPayloadKey = 'authorization_payload'; 
+const authorizationPayloadKey = 'authorization_payload';
 
 // Middleware function to check if the user has the required role
 const RoleGuard = (role) => {
@@ -37,17 +37,21 @@ const RoleGuard = (role) => {
             }
 
             // Fetch user role from the repository
-            const { user, err } = await findUserRole(decoded.username);
-            if (err) {
-                return res.status(403).json(responseUnauthorized(err.message || "Role not found"));
-            }
-            if (!user) {
-                return res.status(401).json(responseUnauthorized("Data Not Found"));
-            }
+            // const { user, err } = await findUserRole(decoded.username);
+            // if (err) {
+            //     return res.status(403).json(responseUnauthorized(err.message || "Role not found"));
+            // }
+            // if (!user) {
+            //     return res.status(401).json(responseUnauthorized("Data Not Found"));
+            // }
 
-            // Check role
-            const roleName = user.roleOid ? user.roleOid.roleName  : null;
-            if (roleName !== role) {
+            // // Check role
+            // const roleName = user.roleOid ? user.roleOid.roleName  : null;
+            // if (roleName !== role) {
+            //     return res.status(403).json(responseUnauthorized("Forbidden: Insufficient role"));
+            // }
+
+            if (decoded.role !== role) {
                 return res.status(403).json(responseUnauthorized("Forbidden: Insufficient role"));
             }
 

@@ -18,4 +18,4 @@ src/db/migrations/CreateBankTable
 jalankan migration menggunakan git bash
 NODE_ENV=development npx typeorm-ts-node-commonjs migration:generate \
 -d src/db/data-source.ts \
-src/db/migrations/alter-table-imagefile-remove-owneroid
+src/db/migrations/create-new-table

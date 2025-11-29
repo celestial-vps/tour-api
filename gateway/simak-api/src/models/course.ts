@@ -16,7 +16,7 @@ export class Course extends Base {
   @Prop({ required: true })
   credits: number; // sks
 
-  @Prop({ type: Types.ObjectId, ref: Teacher.name, required: true })
+  @Prop({ type: Types.ObjectId, ref: Teacher.name, required: false })
   teacher: Types.ObjectId; // dosen pengajar
 }
 

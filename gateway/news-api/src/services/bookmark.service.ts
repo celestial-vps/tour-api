@@ -4,14 +4,15 @@ import { Bookmark } from '../models/bookmark.entity';
 import { CreateBookmarkDto, FilterBookmarkDto, UpdateBookmarkDto } from '../dtos/payload-bookmark-dto';
 import { DataSource, getConnection } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
-import { BookmarkMapping, BookmarkVm } from '../mappings/bookmark-vm';
 import { ConfigService } from '@nestjs/config';
+import { BookmarkMapping, BookmarkVm } from '../mappings/bookmark-vm';
+import { Article } from '../models/article.entity';
 
 @Injectable()
 export class BookmarkService {
-  constructor(private readonly bookmarkRepository: BookmarkRepository, private readonly bookmarkMapping: BookmarkMapping, 
+  constructor(private readonly bookmarkRepository: BookmarkRepository, private readonly bookmarkMapping: BookmarkMapping,
     private readonly dataSource: DataSource,
-  ) { } 
+  ) { }
 
   async create(bookmarkdto: CreateBookmarkDto, userOid: string): Promise<MessageVm> {
 
@@ -20,15 +21,14 @@ export class BookmarkService {
 
     try {
       const bookmark = new Bookmark();
-      bookmark.article = bookmarkdto.article;
-      bookmark.user = bookmarkdto.user;
+      bookmark.article = { oid: bookmarkdto.articleId } as Article; //find dulu atau bisa langsung diisi dengan bookmarkdto.articleId jika tipe data sesuai 
       bookmark.createdBy = userOid;
       bookmark.createdAt = new Date();
       const savedBookmark = await this.bookmarkRepository.save(bookmark, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedBookmark.oid;
-      messageVm.name = savedBookmark.user ?? '';
+      messageVm.name = savedBookmark.article ? savedBookmark.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -49,13 +49,12 @@ export class BookmarkService {
         throw new NotFoundException('Bookmark data not found');
       }
 
-      bookmark.article = bookmarkdto.article;
-      bookmark.user = bookmarkdto.user;
+      bookmark.article = { oid: bookmarkdto.articleId } as Article;
       const savedBookmark = await this.bookmarkRepository.update(oid, bookmark, queryRunner);
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = savedBookmark.oid;
-      messageVm.name = savedBookmark.user ?? '';
+      messageVm.name = savedBookmark.article ? savedBookmark.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -78,7 +77,7 @@ export class BookmarkService {
       await queryRunner.commitTransaction();
       const messageVm = new MessageVm();
       messageVm.value = bookmark.oid;
-      messageVm.name = bookmark.user ?? '';
+      messageVm.name = bookmark.article ? bookmark.article.oid : '';
       return messageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -101,9 +100,9 @@ export class BookmarkService {
   async findPage(page: number, pageSize: number, condition: FilterBookmarkDto):
     Promise<{ bookmarks: BookmarkVm[]; count: number }> {
 
-    try { 
-      const { bookmarks, count } = await this.bookmarkRepository.findByCriteriaPage(page, pageSize, condition); 
-      const bookmarkResponses = this.bookmarkMapping.toBookmarkResponses(bookmarks); 
+    try {
+      const { bookmarks, count } = await this.bookmarkRepository.findByCriteriaPage(page, pageSize, condition);
+      const bookmarkResponses = this.bookmarkMapping.toBookmarkResponses(bookmarks);
       return { bookmarks: bookmarkResponses, count };
 
     } catch (error) {

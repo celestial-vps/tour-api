@@ -3,7 +3,7 @@ import { TeacherService } from '../services/teacher.service';
 import { CreateTeacherDto, FilterTeacherDto, UpdateTeacherDto } from '../dtos/payload-teacher-dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
-import { JwtAuthGuard } from '../middleware/jwt-guard'; 
+import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 
@@ -63,6 +63,19 @@ export class TeacherController {
     try {
       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
       const teacherResponse = await this.teacherService.update(oid, updateTeacherDto, userOid);
+      if (teacherResponse.err) {
+        await this.auditTrailService.recordPost({
+          tableName: 'teachers',
+          recordOid: 'unknown',
+          action: 'CREATE',
+          status: 'ERROR',
+          message: teacherResponse.err,
+          userOid: req.user?.oid,
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+        throw new BadRequestException(teacherResponse.err);
+      }
       const response = this.responseService.responseOk(teacherResponse.teacher, 1);
       await this.auditTrailService.recordPost({
         tableName: 'teachers',

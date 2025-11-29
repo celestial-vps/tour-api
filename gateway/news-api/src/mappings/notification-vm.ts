@@ -18,7 +18,7 @@ export class NotificationMapping {
 
   toNotificationResponse(notification: Notification): NotificationVm {
     return {
-      id: notification.id,
+      oid: notification.oid,
       user: this.userMapping.toUserResponse(notification.user),
       title: notification.title,
       message: notification.message,

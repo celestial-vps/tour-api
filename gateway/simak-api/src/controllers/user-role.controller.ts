@@ -25,6 +25,19 @@ export class UserRoleController {
         try {
             const userOid = req.userOid || req.user?.oid;
             const userRoleResponse = await this.userRoleService.create(createUserRoleDto, userOid);
+            if (userRoleResponse.err) {
+                await this.auditTrailService.recordPost({
+                    tableName: 'userRoles',
+                    recordOid: 'unknown',
+                    action: 'CREATE',
+                    status: 'ERROR',
+                    message: userRoleResponse.err,
+                    userOid: req.user?.oid,
+                    ipAddress: req.ip,
+                    userAgent: req.headers['user-agent'],
+                });
+                throw new BadRequestException(userRoleResponse.err);
+            }
             const response = this.responseService.responseOk(userRoleResponse, 1);
 
             await this.auditTrailService.recordPost({

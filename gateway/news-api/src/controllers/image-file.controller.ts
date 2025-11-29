@@ -3,7 +3,7 @@ import { ImageFileService } from '../services/image-file.service';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
-import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { CreateImageFileDto, FilterImageFileDto, UpdateImageFileDto } from '../dtos/payload-image-file-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class ImageFileController {
     constructor(private readonly imageFileService: ImageFileService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Post('create')
     @ApiConsumes('multipart/form-data') // <- ini wajib!
     @ApiOperation({ summary: 'Create a new ImageFile' })
@@ -71,7 +71,7 @@ export class ImageFileController {
         }
     }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Put(':oid')
     @ApiOperation({ summary: 'Update a ImageFile' })
     @ApiParam({ name: 'oid', description: 'Unique identifier of the imageFile to be updated' })  // Document the OID parameter
@@ -129,7 +129,7 @@ export class ImageFileController {
         }
     }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @ApiOperation({ summary: 'Delete a ImageFile' })
     @ApiParam({ name: 'oid', description: 'Unique identifier of the imageFile to be deleted' })  // Document the OID parameter
     @ApiOkResponse({ description: 'The imageFile has been successfully deleted.' })
@@ -167,7 +167,7 @@ export class ImageFileController {
         }
     }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Get()
     @ApiOperation({ summary: 'Get all imageFiles' })
     @ApiOkResponse({ description: 'List of all imageFiles', type: [CreateImageFileDto] })  // Document the response type
@@ -206,7 +206,7 @@ export class ImageFileController {
 
     }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Get(':oid')
     @ApiOperation({ summary: 'Get a specific imageFile by OID' })
     @ApiParam({ name: 'oid', description: 'Unique identifier of the imageFile to retrieve' })  // Document the OID parameter
@@ -245,7 +245,7 @@ export class ImageFileController {
         }
     }
 
-    @UseGuards(JwtAuthGuard, SystemRoleGuard)
+    @UseGuards(JwtAuthGuard, AdminRoleGuard)
     @Post('/q')
     @ApiOperation({ summary: 'Find imageFiles with pagination and filters' })
     @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter

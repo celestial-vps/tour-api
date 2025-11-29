@@ -4,7 +4,7 @@ import { CreateNewsCategoryDto, FilterNewsCategoryDto, UpdateNewsCategoryDto } f
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
-import { SystemRoleGuard } from '../middleware/guards/viewer-role.guard';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 
 @Controller('news-category')
@@ -14,7 +14,7 @@ export class NewsCategoryController {
   constructor(private readonly newsCategoryService: NewsCategoryService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new NewsCategory' })
   @ApiBody({ type: CreateNewsCategoryDto }) 
@@ -52,7 +52,7 @@ export class NewsCategoryController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a NewsCategory' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be updated' })   
@@ -91,7 +91,7 @@ export class NewsCategoryController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @ApiOperation({ summary: 'Delete a NewsCategory' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be deleted' })  // Document the OID parameter
   @ApiOkResponse({ description: 'The newsCategory has been successfully deleted.' })
@@ -129,7 +129,7 @@ export class NewsCategoryController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all newsCategories' })
   @ApiOkResponse({ description: 'List of all newsCategories', type: [CreateNewsCategoryDto] })  // Document the response type
@@ -168,7 +168,7 @@ export class NewsCategoryController {
 
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific newsCategory by OID' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to retrieve' })  // Document the OID parameter
@@ -207,7 +207,7 @@ export class NewsCategoryController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, SystemRoleGuard)
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find newsCategories with pagination and filters' })
   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
