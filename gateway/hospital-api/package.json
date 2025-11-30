@@ -1,0 +1,47 @@
+{
+  "name": "rekamedis-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "staging": "cross-env NODE_ENV=staging node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "migration-up": "cross-env NODE_ENV=development node runMigrations.js migrate up",
+    "migration-down": "cross-env NODE_ENV=development node runMigrations.js migrate down",
+    "seed-up": "cross-env NODE_ENV=development node runMigrations.js seed up",
+    "seed-down": "cross-env NODE_ENV=development node runMigrations.js seed down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "axios": "^1.13.2",
+    "axios-retry": "^4.5.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "fast-glob": "^3.3.3",
+    "google-auth-library": "^10.5.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.16.4",
+    "multer": "^2.0.2",
+    "mysql2": "^3.15.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "umzug": "^3.8.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.19.0"
+  }
+}
