@@ -1,0 +1,456 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all the existing auths",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auths"
+                ],
+                "summary": "List existing auths",
+                "parameters": [
+                    {
+                        "description": "auth",
+                        "name": "authDto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.LoginDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/common.DefaultResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh-token": {
+            "post": {
+                "description": "create new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auths"
+                ],
+                "summary": "create user",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RegisterDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "description": "create new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auths"
+                ],
+                "summary": "create user",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RegisterDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/bank": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all the existing banks",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "List existing banks",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/common.DefaultResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/bank/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "create new bank",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "create bank",
+                "parameters": [
+                    {
+                        "description": "bank",
+                        "name": "bank",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.CreateBankDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/bank/delete/{oid}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "delete bank by oid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "delete bank",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "oid",
+                        "name": "oid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/bank/q": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get all the existing banks in redis",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "List existing banks in redis",
+                "parameters": [
+                    {
+                        "description": "bank",
+                        "name": "bankDto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.FilterBankDto"
+                        }
+                    },
+                    {
+                        "maximum": 10,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "page Index",
+                        "name": "pageIndex",
+                        "in": "query"
+                    },
+                    {
+                        "maximum": 10,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "page Size",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/common.DefaultResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/bank/{oid}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update new bank",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "find bank by oid",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "oid",
+                        "name": "oid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/common.DefaultResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update existing bank",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "banks"
+                ],
+                "summary": "update bank by oid",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "oid",
+                        "name": "oid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "bank",
+                        "name": "bank",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.UpdateBankDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "common.DefaultResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "developerMessage": {
+                    "type": "string"
+                },
+                "http_status": {
+                    "type": "string"
+                },
+                "resultCode": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dtos.CreateBankDto": {
+            "type": "object",
+            "required": [
+                "bankCode",
+                "bankName",
+                "shortName"
+            ],
+            "properties": {
+                "bankCode": {
+                    "type": "string"
+                },
+                "bankName": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string",
+                    "maxLength": 3
+                }
+            }
+        },
+        "dtos.FilterBankDto": {
+            "type": "object",
+            "properties": {
+                "bankCode": {
+                    "type": "string"
+                },
+                "bankName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.LoginDto": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.RegisterDto": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.UpdateBankDto": {
+            "type": "object",
+            "required": [
+                "bankCode",
+                "bankName",
+                "shortName"
+            ],
+            "properties": {
+                "bankCode": {
+                    "type": "string"
+                },
+                "bankName": {
+                    "type": "string"
+                },
+                "shortName": {
+                    "type": "string",
+                    "maxLength": 3
+                }
+            }
+        }
+    }
+}
