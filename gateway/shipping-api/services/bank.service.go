@@ -3,12 +3,13 @@ package services
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"time"
 
-	"shipping-api/common"
 	"shipping-api/dtos"
 	"shipping-api/mappings"
+	"shipping-api/middleware"
 	"shipping-api/models"
 	"shipping-api/repositories"
 
@@ -34,55 +35,37 @@ func NewBankService(bankRepository repositories.IBankRepository, redisClient *re
 	}
 }
 
-// func (service *BankService) Create(ctx context.Context, request dtos.CreateBankDto, userOid string) mappings.MessageVm {
-// 	createdBy, err := uuid.Parse(userOid)
-// 	if err != nil {
-// 		common.PanicIfError(err)
-// 	}
+func (service *BankService) Create(ctx context.Context, request dtos.CreateBankDto, userOid string) (mappings.MessageVm, error) {
+	var (
+		err     error
+		bank    models.Bank
+		newData map[string]interface{}
+	)
 
-// 	code, err := service.BankRepository.FindGetLastData(ctx, service.DB)
-// 	if err != nil {
-// 		common.PanicIfError(err)
-// 	}
+	defer func() {
+		if err != nil {
+			middleware.Failed(ctx, "CREATE", "banks", userOid, nil, err)
+		} else {
+			middleware.Success(ctx, "CREATE", "banks", userOid, bank.Oid.String(), newData)
+		}
+	}()
 
-// 	bank := models.Bank{
-// 		Oid:       uuid.New(),
-// 		BankCode:  code, // request.BankCode,
-// 		BankName:  request.BankName,
-// 		ShortName: request.ShortName,
-// 		TransactionRecord: models.TransactionRecord{
-// 			CreatedBy: createdBy,
-// 			CreatedAt: time.Now(),
-// 		},
-// 	}
-// 	bank = service.BankRepository.Save(ctx, service.DB, bank)
-// 	messageVm := mappings.MessageVm{
-// 		Value: bank.Oid.String(),
-// 		Name:  bank.BankName,
-// 	}
-// 	banks := service.BankRepository.FindAll(ctx, service.DB)
-
-// 	err = service.RedisClient.Set(ctx, "banks", banks, 0).Err()
-// 	if err != nil {
-// 		common.PanicIfError(err)
-// 	}
-
-//		return messageVm
-//	}
-func (service *BankService) Create(ctx context.Context, request dtos.CreateBankDto, userOid string) mappings.MessageVm {
+	// Parse userOid
 	createdBy, err := uuid.Parse(userOid)
 	if err != nil {
-		common.PanicIfError(err)
+		return mappings.MessageVm{}, fmt.Errorf("invalid userOid: %w", err)
 	}
 
+	// Get last bank code
 	code, err := service.BankRepository.FindGetLastData(ctx, service.DB)
 	if err != nil {
-		common.PanicIfError(err)
+		return mappings.MessageVm{}, fmt.Errorf("failed to get last bank code: %w", err)
 	}
 
-	bank := models.Bank{
+	// Build bank model
+	bank = models.Bank{
 		Oid:       uuid.New(),
-		BankCode:  code, // request.BankCode,
+		BankCode:  code,
 		BankName:  request.BankName,
 		ShortName: request.ShortName,
 		TransactionRecord: models.TransactionRecord{
@@ -91,129 +74,187 @@ func (service *BankService) Create(ctx context.Context, request dtos.CreateBankD
 		},
 	}
 
-	bank = service.BankRepository.Save(ctx, service.DB, bank)
+	// Save bank
+	bank, err = service.BankRepository.Save(ctx, service.DB, bank)
+	if err != nil {
+		return mappings.MessageVm{}, fmt.Errorf("failed to save bank: %w", err)
+	}
+
+	// Prepare newData for audit
+	newData = map[string]interface{}{
+		"BankCode":  bank.BankCode,
+		"BankName":  bank.BankName,
+		"ShortName": bank.ShortName,
+	}
 
 	messageVm := mappings.MessageVm{
 		Value: bank.Oid.String(),
 		Name:  bank.BankName,
 	}
 
-	// Fetch all banks after saving the new bank
-	banks := service.BankRepository.FindAll(ctx, service.DB)
+	// Fetch all banks and update Redis
+	banks, err := service.BankRepository.FindAll(ctx, service.DB)
+	if err != nil {
+		return messageVm, fmt.Errorf("failed to fetch all banks: %w", err)
+	}
 
-	// Step 1: Serialize the banks slice to JSON
 	banksJSON, err := json.Marshal(banks)
 	if err != nil {
-		common.PanicIfError(err) // Handle the error appropriately
+		return messageVm, fmt.Errorf("failed to marshal banks: %w", err)
 	}
 
-	// Step 2: Store the JSON in Redis
-	// err = service.RedisClient.Set(ctx, "banks", banksJSON, 0).Err()
-	err = service.RedisClient.Set(ctx, "bank", banksJSON, 0).Err() // Use "bank" to match the read
-
+	err = service.RedisClient.Set(ctx, "bank", banksJSON, 0).Err()
 	if err != nil {
-		common.PanicIfError(err) // Handle the error appropriately
+		return messageVm, fmt.Errorf("failed to update Redis: %w", err)
 	}
 
-	return messageVm
+	return messageVm, nil
 }
 
-func (service *BankService) Update(ctx context.Context, request dtos.UpdateBankDto, oid string, userOid string) mappings.MessageVm {
+func (service *BankService) Update(ctx context.Context, request dtos.UpdateBankDto, oid string, userOid string) (mappings.MessageVm, error) {
+	var (
+		err     error
+		bank    models.Bank
+		newData map[string]interface{}
+	)
 
-	err := service.Validate.Struct(request)
-	common.PanicIfError(err)
+	defer func() {
+		if err != nil {
+			middleware.Failed(ctx, "UPDATE", "banks", userOid, nil, err)
+		} else {
+			middleware.Success(ctx, "UPDATE", "banks", userOid, bank.Oid.String(), newData)
+		}
+	}()
+
+	// Validate request
+	err = service.Validate.Struct(request)
+	if err != nil {
+		return mappings.MessageVm{}, fmt.Errorf("validation failed: %w", err)
+	}
+
+	// Parse userOid
 	lastModifiedBy, err := uuid.Parse(userOid)
 	if err != nil {
-		common.PanicIfError(err)
+		return mappings.MessageVm{}, fmt.Errorf("invalid userOid: %w", err)
 	}
 
-	bank, err := service.BankRepository.FindById(ctx, service.DB, oid)
+	// Find bank
+	bank, err = service.BankRepository.FindById(ctx, service.DB, oid)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return mappings.MessageVm{}, fmt.Errorf("bank not found: %w", err)
 	}
+
+	// Update bank fields
 	now := time.Now()
 	bank.BankCode = request.BankCode
 	bank.BankName = request.BankName
 	bank.ShortName = request.ShortName
 	bank.TransactionRecord.LastModifiedBy = lastModifiedBy
 	bank.TransactionRecord.UpdatedAt = &now
-	bank = service.BankRepository.Update(ctx, service.DB, bank)
 
-	// return mappings.ToBankResponse(bank)
-	messageVm := mappings.MessageVm{
-		Value: bank.Oid.String(),
-		Name:  bank.BankName,
-	}
-	return messageVm
-}
-
-func (service *BankService) Deleted(ctx context.Context, oid string, userOid string) mappings.MessageVm {
-	// case for soft  delete
-	// deletedBy, err := uuid.Parse(userOid)
-	// if err != nil {
-	// 	common.PanicIfError(err)
-	// }
-
-	bank, err := service.BankRepository.FindById(ctx, service.DB, oid)
-	// bank.TransactionRecord.DeletedBy = deletedBy
+	// Save update
+	bank, err = service.BankRepository.Update(ctx, service.DB, bank)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return mappings.MessageVm{}, fmt.Errorf("failed to update bank: %w", err)
 	}
 
-	// service.BankRepository.Deleted(ctx, service.DB, bank, oid)
-	service.BankRepository.Deleted(ctx, service.DB, oid)
+	// Prepare audit data
+	newData = map[string]interface{}{
+		"BankCode":  bank.BankCode,
+		"BankName":  bank.BankName,
+		"ShortName": bank.ShortName,
+	}
+
 	messageVm := mappings.MessageVm{
 		Value: bank.Oid.String(),
 		Name:  bank.BankName,
 	}
-	return messageVm
+
+	return messageVm, nil
 }
 
-func (service *BankService) FindAll(ctx context.Context) []mappings.BankVm {
-	banks := service.BankRepository.FindAll(ctx, service.DB)
+func (service *BankService) Deleted(ctx context.Context, oid string, userOid string) (mappings.MessageVm, error) {
+	var (
+		err  error
+		bank models.Bank
+	)
 
-	return mappings.ToBankResponses(banks)
+	defer func() {
+		if err != nil {
+			middleware.Failed(ctx, "DELETE", "banks", userOid, nil, err)
+		} else {
+			middleware.Success(ctx, "DELETE", "banks", userOid, bank.Oid.String(), nil)
+		}
+	}()
+
+	// Cari bank
+	bank, err = service.BankRepository.FindById(ctx, service.DB, oid)
+	if err != nil {
+		return mappings.MessageVm{}, fmt.Errorf("bank not found: %w", err)
+	}
+
+	// Hapus bank
+	err = service.BankRepository.Deleted(ctx, service.DB, oid)
+	if err != nil {
+		return mappings.MessageVm{}, fmt.Errorf("failed to delete bank: %w", err)
+	}
+
+	messageVm := mappings.MessageVm{
+		Value: bank.Oid.String(),
+		Name:  bank.BankName,
+	}
+
+	return messageVm, nil
 }
 
-func (service *BankService) FindAllRedis(ctx context.Context) []mappings.BankVm {
-	// banks := service.BankRepository.FindAll(ctx, service.DB)
+func (service *BankService) FindAll(ctx context.Context) ([]mappings.BankVm, error) {
+	banks, err := service.BankRepository.FindAll(ctx, service.DB)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch banks: %w", err)
+	}
+
+	return mappings.ToBankResponses(banks), nil
+}
+
+func (service *BankService) FindAllRedis(ctx context.Context) ([]mappings.BankVm, error) {
 	banksJSON, err := service.RedisClient.Get(ctx, "bank").Result()
-	if err == redis.Nil {
-		panic(common.NewNotFoundError(err.Error()))
-	} else if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+	if err != nil {
+		if err == redis.Nil {
+			return nil, fmt.Errorf("bank data not found in Redis: %w", err)
+		}
+		return nil, fmt.Errorf("failed to get bank data from Redis: %w", err)
 	}
 
 	var banks []models.Bank
 	err = json.Unmarshal([]byte(banksJSON), &banks)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return nil, fmt.Errorf("failed to unmarshal bank data from Redis: %w", err)
 	}
 
-	return mappings.ToBankResponses(banks)
+	return mappings.ToBankResponses(banks), nil
 }
 
-func (service *BankService) FindPage(ctx context.Context, condition dtos.FilterBankDto, page, pageSize int) ([]mappings.BankVm, int64) {
-	// banks, _, err := service.BankRepository.Find(ctx, service.DB, condition, page, pageSize)
-
+func (service *BankService) FindPage(ctx context.Context, condition dtos.FilterBankDto, page, pageSize int) ([]mappings.BankVm, int64, error) {
+	// Hitung total record
 	count, err := service.BankRepository.FindCountByCriteria(ctx, service.DB, condition)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return nil, 0, fmt.Errorf("failed to count banks: %w", err)
 	}
-	banks, err := service.BankRepository.FindByCriteriaPage(ctx, service.DB, page, pageSize, condition)
 
+	// Ambil data page
+	banks, err := service.BankRepository.FindByCriteriaPage(ctx, service.DB, page, pageSize, condition)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return nil, 0, fmt.Errorf("failed to fetch bank page: %w", err)
 	}
-	return mappings.ToBankResponses(banks), count
+
+	return mappings.ToBankResponses(banks), count, nil
 }
 
-func (service *BankService) FindById(ctx context.Context, oid string) mappings.BankVm {
-
+func (service *BankService) FindById(ctx context.Context, oid string) (mappings.BankVm, error) {
 	bank, err := service.BankRepository.FindById(ctx, service.DB, oid)
 	if err != nil {
-		panic(common.NewNotFoundError(err.Error()))
+		return mappings.BankVm{}, fmt.Errorf("bank not found: %w", err)
 	}
 
-	return mappings.ToBankResponse(bank)
+	return mappings.ToBankResponse(bank), nil
 }

@@ -1,8 +1,22 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "API for shipping service",
+        "title": "Shipping API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:5302",
+    "basePath": "/api/v1",
     "paths": {
         "/auth/login": {
             "post": {
@@ -143,7 +157,7 @@
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "create new bank",
@@ -271,41 +285,6 @@
             }
         },
         "/bank/{oid}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "update new bank",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "banks"
-                ],
-                "summary": "find bank by oid",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "oid",
-                        "name": "oid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ok",
-                        "schema": {
-                            "$ref": "#/definitions/common.DefaultResponse"
-                        }
-                    }
-                }
-            },
             "put": {
                 "security": [
                     {
@@ -380,14 +359,20 @@
             ],
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default bank code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default bank name",
+                    "type": "string",
+                    "example": "Bank Central"
                 },
                 "shortName": {
+                    "description": "contoh default short name",
                     "type": "string",
-                    "maxLength": 3
+                    "maxLength": 3,
+                    "example": "BC"
                 }
             }
         },
@@ -395,10 +380,14 @@
             "type": "object",
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default filter code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default filter name",
+                    "type": "string",
+                    "example": "Bank Central"
                 }
             }
         },
@@ -410,10 +399,12 @@
             ],
             "properties": {
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "weslyaioria@gmail.com"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "serverh5n"
                 }
             }
         },
@@ -425,10 +416,12 @@
             ],
             "properties": {
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "weslyaioria@gmail.com"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "serverh5n"
                 }
             }
         },
@@ -441,16 +434,30 @@
             ],
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default bank code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default bank name",
+                    "type": "string",
+                    "example": "Bank Central"
                 },
                 "shortName": {
+                    "description": "contoh default short name",
                     "type": "string",
-                    "maxLength": 3
+                    "maxLength": 3,
+                    "example": "BC"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Enter token in format: Bearer \u003ctoken\u003e",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

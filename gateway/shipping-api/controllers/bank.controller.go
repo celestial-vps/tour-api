@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 	"strconv"
-	"strings"
 
 	"shipping-api/common"
 	"shipping-api/dtos"
@@ -32,7 +31,7 @@ func NewBankController(bankService services.IBankService) IBankController {
 // @Accept  json
 // @Produce  json
 // @Success 200 {string} string	"ok"
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @Param   bank body  dtos.CreateBankDto true "bank"
 // @Router /bank/create [post]
 func (controller *BankController) Create(c *gin.Context) {
@@ -44,21 +43,24 @@ func (controller *BankController) Create(c *gin.Context) {
 
 	// Validate the struct
 	validate := validator.New()
-	err := validate.Struct(createBankDto)
-	if err != nil {
+	if err := validate.Struct(createBankDto); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseFinValidatorError(err.Error()))
 		return
 	}
 
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
 		return
 	}
-	bankResponse := controller.bankService.Create(c, createBankDto, userJwt.UserOid)
+
+	// Panggil service
+	bankResponse, err := controller.bankService.Create(c, createBankDto, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
+
 	response := common.ResponseOk(bankResponse, 1)
 	c.JSON(http.StatusOK, response)
 }
@@ -76,30 +78,33 @@ func (controller *BankController) Create(c *gin.Context) {
 // @Router /bank/{oid} [put]
 func (controller *BankController) Update(c *gin.Context) {
 	oid := c.Param("oid")
-	bankUpdateRequest := dtos.UpdateBankDto{}
-	err := c.ShouldBindJSON(&bankUpdateRequest)
-	if err != nil {
+	var bankUpdateRequest dtos.UpdateBankDto
+	if err := c.ShouldBindJSON(&bankUpdateRequest); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
 		return
 	}
+
+	// Validate the struct
 	validate := validator.New()
-	err = validate.Struct(bankUpdateRequest)
-	if err != nil {
+	if err := validate.Struct(bankUpdateRequest); err != nil {
 		c.JSON(http.StatusBadRequest, common.ResponseFinValidatorError(err.Error()))
 		return
 	}
 
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
 		return
 	}
-	bankResponse := controller.bankService.Update(c, bankUpdateRequest, oid, userJwt.UserOid)
-	response := common.ResponseOk(bankResponse, 1)
 
+	// Panggil service
+	bankResponse, err := controller.bankService.Update(c, bankUpdateRequest, oid, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
+
+	response := common.ResponseOk(bankResponse, 1)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -116,18 +121,20 @@ func (controller *BankController) Update(c *gin.Context) {
 func (controller *BankController) Deleted(c *gin.Context) {
 	oid := c.Param("oid")
 
-	token := c.GetHeader("Authorization")
-	accessToken := strings.Replace(token, "Bearer ", "", 1)
-	marker, _ := middleware.NewJwt()
-	userJwt, err := marker.GetClaimsByOid(accessToken)
+	// Ambil userOid dari token
+	userOid, err := middleware.GetUserOidFromContext(c)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+		c.JSON(http.StatusUnauthorized, common.ResponseUnAuthorized(err.Error()))
 		return
 	}
-	//
-	bank := controller.bankService.Deleted(c, oid, userJwt.UserOid)
-	response := common.ResponseDeleteOk(bank)
+	// Panggil service
+	bankResponse, err := controller.bankService.Deleted(c, oid, userOid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
+	}
 
+	response := common.ResponseDeleteOk(bankResponse)
 	c.JSON(http.StatusOK, response)
 }
 
@@ -141,11 +148,17 @@ func (controller *BankController) Deleted(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Router /bank [get]
 func (controller *BankController) FindAll(c *gin.Context) {
-	banks := controller.bankService.FindAll(c)
-	if banks == nil {
-		banks = []mappings.BankVm{} // Assuming Bank is your struct type
+	banks, err := controller.bankService.FindAll(c)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseInternalServerError(err.Error()))
+		return
 	}
-	response := common.ResponseOk(banks, 0)
+
+	if banks == nil {
+		banks = []mappings.BankVm{}
+	}
+
+	response := common.ResponseOk(banks, int64(len(banks)))
 	c.JSON(http.StatusOK, response)
 }
 
@@ -162,52 +175,51 @@ func (controller *BankController) FindAll(c *gin.Context) {
 // @Param   pageSize    query     int  false  "page Size"  minimum(1)    maximum(10)
 // @Router /bank/q [post]
 func (controller *BankController) Find(c *gin.Context) {
-	pageIndexStr := c.Query("pageIndex")
-	pageSizeStr := c.Query("pageSize")
+	// Ambil query params
+	pageIndexStr := c.DefaultQuery("pageIndex", "0")
+	pageSizeStr := c.DefaultQuery("pageSize", "10")
 
-	var bankDto dtos.FilterBankDto
-	err := c.ShouldBindJSON(&bankDto)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden(err.Error()))
+	var err error
+	pageIndex, err := strconv.Atoi(pageIndexStr)
+	if err != nil || pageIndex < 0 {
+		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden("Invalid pageIndex format"))
 		return
 	}
-	var pageIndex, pageSize int
-	if pageIndexStr != "" {
-		pageIndex, err = strconv.Atoi(pageIndexStr)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden("Invalid pageIndex format"))
-			return
-		}
-	} else {
-		pageIndex = 0 // Default pageIndex if not provided
+
+	pageSize, err := strconv.Atoi(pageSizeStr)
+	if err != nil || pageSize <= 0 {
+		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden("Invalid pageSize format"))
+		return
 	}
 
-	if pageSizeStr != "" {
-		pageSize, err = strconv.Atoi(pageSizeStr)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden("Invalid pageSize format"))
-			return
-		}
-	} else {
-		pageSize = 10 // Default pageSize if not provided
+	// Ambil filter dari query params (misal: ?bankName=abc)
+	var bankDto dtos.FilterBankDto
+	if err := c.BindQuery(&bankDto); err != nil {
+		c.JSON(http.StatusBadRequest, common.ResponseForm1Forbidden("Invalid filter parameters"))
+		return
 	}
 
-	banks, count := controller.bankService.FindPage(c, bankDto, pageIndex, pageSize)
+	// Panggil service
+	banks, count, err := controller.bankService.FindPage(c, bankDto, pageIndex, pageSize)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, common.ResponseForm1Forbidden(err.Error()))
+		return
+	}
+
 	if banks == nil {
-		banks = []mappings.BankVm{} // Assuming Bank is your struct type
+		banks = []mappings.BankVm{}
 	}
-	// pagging := common.Pagination{
-	// 	"page":pageIndex,
-	// 	"size":pageSize,
-	// 	"totalItem":count,
-	// 	"totalPage":len(banks),
-	// }
+
+	// Hitung total pages
+	totalPages := (count + int64(pageSize) - 1) / int64(pageSize)
+
 	pagging := gin.H{
 		"page":      pageIndex,
 		"size":      pageSize,
 		"totalItem": count,
-		"totalPage": (count + int64(pageSize) - 1) / int64(pageSize), // Correctly calculates total pages
+		"totalPage": totalPages,
 	}
+
 	response := common.ResponseOkWithPaggination(banks, pagging, count)
 	c.JSON(http.StatusOK, response)
 }
@@ -225,11 +237,17 @@ func (controller *BankController) Find(c *gin.Context) {
 // @Param   pageSize    query     int  false  "page Size"  minimum(1)    maximum(10)
 // @Router /bank/q [post]
 func (controller *BankController) FindRedis(c *gin.Context) {
-	banks := controller.bankService.FindAllRedis(c)
-	if banks == nil {
-		banks = []mappings.BankVm{} // Assuming Bank is your struct type
+	banks, err := controller.bankService.FindAllRedis(c)
+	if err != nil {
+		if err.Error() == "bank data not found in Redis: redis: nil" {
+			banks = []mappings.BankVm{} // Jika Redis kosong, return empty slice
+		} else {
+			c.JSON(http.StatusInternalServerError, common.ResponseForm1Forbidden(err.Error()))
+			return
+		}
 	}
-	response := common.ResponseOk(banks, 0)
+
+	response := common.ResponseOk(banks, int64(len(banks)))
 	c.JSON(http.StatusOK, response)
 }
 
@@ -243,9 +261,15 @@ func (controller *BankController) FindRedis(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param oid path string true  "oid"
 // @Router /bank/{oid} [get]
+
 func (controller *BankController) FindById(c *gin.Context) {
 	oid := c.Param("oid")
-	bank := controller.bankService.FindById(c, oid)
+	bank, err := controller.bankService.FindById(c, oid)
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.ResponseForm1Forbidden(err.Error()))
+		return
+	}
+
 	response := common.ResponseOk(bank, 1)
 	c.JSON(http.StatusOK, response)
 }

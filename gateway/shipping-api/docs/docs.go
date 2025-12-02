@@ -9,16 +9,17 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
         "version": "{{.Version}}"
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-            "description": "Enter token in format: Bearer <token>"
-        }
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
@@ -162,7 +163,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "create new bank",
@@ -290,41 +291,6 @@ const docTemplate = `{
             }
         },
         "/bank/{oid}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "update new bank",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "banks"
-                ],
-                "summary": "find bank by oid",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "oid",
-                        "name": "oid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ok",
-                        "schema": {
-                            "$ref": "#/definitions/common.DefaultResponse"
-                        }
-                    }
-                }
-            },
             "put": {
                 "security": [
                     {
@@ -399,14 +365,20 @@ const docTemplate = `{
             ],
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default bank code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default bank name",
+                    "type": "string",
+                    "example": "Bank Central"
                 },
                 "shortName": {
+                    "description": "contoh default short name",
                     "type": "string",
-                    "maxLength": 3
+                    "maxLength": 3,
+                    "example": "BC"
                 }
             }
         },
@@ -414,10 +386,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default filter code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default filter name",
+                    "type": "string",
+                    "example": "Bank Central"
                 }
             }
         },
@@ -429,10 +405,12 @@ const docTemplate = `{
             ],
             "properties": {
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "weslyaioria@gmail.com"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "serverh5n"
                 }
             }
         },
@@ -444,10 +422,12 @@ const docTemplate = `{
             ],
             "properties": {
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "weslyaioria@gmail.com"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "serverh5n"
                 }
             }
         },
@@ -460,28 +440,42 @@ const docTemplate = `{
             ],
             "properties": {
                 "bankCode": {
-                    "type": "string"
+                    "description": "contoh default bank code",
+                    "type": "string",
+                    "example": "B001"
                 },
                 "bankName": {
-                    "type": "string"
+                    "description": "contoh default bank name",
+                    "type": "string",
+                    "example": "Bank Central"
                 },
                 "shortName": {
+                    "description": "contoh default short name",
                     "type": "string",
-                    "maxLength": 3
+                    "maxLength": 3,
+                    "example": "BC"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Enter token in format: Bearer \u003ctoken\u003e",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:5302",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Shipping API",
+	Description:      "API for shipping service",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

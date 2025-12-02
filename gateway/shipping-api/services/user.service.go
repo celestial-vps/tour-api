@@ -124,7 +124,7 @@ func (service *UserService) Login(ctx context.Context, request dtos.LoginDto) ma
 	Oid := userMap[0].Oid.String()
 
 	marker, _ := middleware.NewJwt()
-	token, _ := marker.CreateToken(Oid, user.Email)
+	token, _ := marker.CreateToken(Oid, user.Email, userMap[0].Role.RoleName)
 	// refreshToken, _ := marker.CreateRefreshToken(Oid, user.Email)
 
 	return mappings.ToUserTokenResponse(userMap[0], token, "refreshToken", "")
@@ -162,7 +162,7 @@ func (service *UserService) RefreshToken(ctx context.Context, oid string, email 
 	// Oid := userMap[0].Oid.String()
 
 	marker, _ := middleware.NewJwt()
-	token, _ := marker.CreateToken(oid, email)
+	token, _ := marker.CreateToken(oid, email, userMap[0].Role.RoleName)
 	// refreshToken, _ := marker.CreateRefreshToken(oid, email)
 
 	return mappings.ToUserTokenResponse(userMap[0], token, "refreshToken", "")

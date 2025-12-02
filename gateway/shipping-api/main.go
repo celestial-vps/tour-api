@@ -23,10 +23,31 @@ import (
 func init() {
 	misc.LoadEnvVariables()
 	database.GetConnection()
+	database.InitRedis()
 }
 
-func main() {
+// @title Shipping API
+// @version 1.0
+// @description API for shipping service
+// @termsOfService http://swagger.io/terms/
 
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:5302
+// @BasePath /api/v1
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Enter token in format: Bearer <token>
+
+func main() {
+	redisClient := database.GetRedisClient()
 	docs.SwaggerInfo.Title = os.Getenv("Title")
 	docs.SwaggerInfo.Description = os.Getenv("Description")
 	docs.SwaggerInfo.Version = os.Getenv("DB_URL")
@@ -45,6 +66,10 @@ func main() {
 	userService := services.NewUserService(userRepository, database.DB, validate)
 
 	authController := controllers.NewAuthController(userService)
+
+	bankRepository := repositories.NewBankRepository()
+	bankService := services.NewBankService(bankRepository, redisClient, database.DB, validate)
+	bankController := controllers.NewBankController(bankService)
 
 	router := gin.Default()
 	router.Use(middleware.InjectAuditContext())
@@ -68,34 +93,12 @@ func main() {
 	}))
 
 	// // router.SetTrustedProxies([]string{"192.168.0.200"})
-	// router.SetTrustedProxies([]string{"127.0.0.1", "192.168.0.200"}) // Replace with your proxy's IP address
-	// // userServiceRole := services.NewUserService(userRepository, DB, validate)
-	// v1 := router.Group("/api/v1")
-	// {
-	// 	user := v1.Group("/user")
-	// 	routes.UserRouter(userController, user)
-
-	// 	customer := v1.Group("/customer")
-	// 	routes.CustomerRouter(customerController, customer)
-
-	// 	tarif := v1.Group("/tarif")
-	// 	routes.TarifRouter(tarifController, tarif)
-
-	// 	waterMeter := v1.Group("/water-meter")
-	// 	routes.WaterMeterRouter(waterMeterController, waterMeter)
-
-	// 	usageRecord := v1.Group("/usagee-record")
-	// 	routes.UsageRecordRouter(usageRecordController, usageRecord)
-
-	// 	userRole := v1.Group("/user-role")
-	// 	routes.UserRoleRouter(userRoleController, userRole)
-
-	// 	imageFile := v1.Group("/image-file")
-	// 	routes.ImageFileRouter(imageFileController, imageFile)
-
-	// 	notification := v1.Group("/notification")
-	// 	routes.NotificationRouter(notificationController, notification)
-	// }
+	// router.SetTrustedProxies([]string{"127.0.0.1", "192.168.0.200"})
+	v1 := router.Group("/api/v1")
+	{
+		bank := v1.Group("/bank")
+		routes.BankRouter(bankController, bank)
+	}
 
 	v2 := router.Group(docs.SwaggerInfo.BasePath)
 	{

@@ -23,10 +23,11 @@ func NewJwt() (*Maker, error) {
 	}, nil
 }
 
-func (maker *Maker) CreateToken(oid string, emailName string) (string, error) {
+func (maker *Maker) CreateToken(oid string, emailName string, role string) (string, error) {
 	claims := jwt.MapClaims{
 		"userOid":  oid,
 		"username": emailName,
+		"role":     role,
 		"level":    "application",
 		"exp":      time.Now().Add(72 * time.Hour).Unix(),
 	}
