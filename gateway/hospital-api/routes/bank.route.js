@@ -1,15 +1,23 @@
 const express = require('express');
 const { roleGuard } = require('../middleware/role-guard');
-const bankController = require('../controllers/bank.controller'); // Pastikan path-nya sesuai
+const bankController = require('../controllers/bank.controller');
 const { validateRequest } = require('../misc/validation');
+const j2s = require('joi-to-swagger');
 const {
   filterBankDto,
   createBankDto,
-  updateBankDto,deleteBankDto,
+  updateBankDto,
+  deleteBankDto,
   getBankDto
 } = require('../dtos/payload-bank-dto');
 
 const router = express.Router();
+
+// Convert DTO ke Swagger schema
+const { swagger: createBankSchema } = j2s(createBankDto);
+const { swagger: updateBankSchema } = j2s(updateBankDto);
+const { swagger: filterBankSchema } = j2s(filterBankDto); // hanya body
+// getBankDto & deleteBankDto biasanya hanya params, bisa manual di Swagger
 
 /**
  * @swagger
@@ -29,14 +37,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               bankCode:
- *                 type: string
- *                 example: "BCA001"
- *               bankName:
- *                 type: string
- *                 example: "Bank Central Asia" 
+ *             ${JSON.stringify(createBankSchema)}
  *     responses:
  *       200:
  *         description: Bank created successfully
@@ -61,7 +62,7 @@ router.post('/create', validateRequest(createBankDto), roleGuard('Admin'), bankC
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateBank'
+ *             ${JSON.stringify(updateBankSchema)}
  *     responses:
  *       200:
  *         description: Bank updated successfully
@@ -105,23 +106,25 @@ router.get('/', validateRequest(filterBankDto), roleGuard('Admin'), bankControll
  *   post:
  *     tags: [Bank]
  *     summary: Paginate banks
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             ${JSON.stringify(filterBankSchema)}
  *     parameters:
  *       - name: pageIndex
  *         in: query
  *         required: true
  *         schema:
  *           type: integer
+ *           default: 1
  *       - name: pageSize
  *         in: query
  *         required: true
  *         schema:
  *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/FilterBank'
+ *           default: 10
  *     responses:
  *       200:
  *         description: Paginated list of banks

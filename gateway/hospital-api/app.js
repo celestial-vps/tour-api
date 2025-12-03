@@ -6,6 +6,24 @@ const helmet = require('helmet');
 
 const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');
+const bedRoutes = require('./routes/bed.route');
+const billingRoutes = require('./routes/billing.route');
+const departmentRoutes = require('./routes/department.route');
+const diseasesRoutes = require('./routes/diseases.route');
+const doctorRoutes = require('./routes/doctor.route');
+const labTestRoutes = require('./routes/lab-test.route');
+const medicationCategoryRoutes = require('./routes/medication-category.route');
+const medicationRoutes = require('./routes/medication.route');
+const medicineRoutes = require('./routes/medicine.route');
+const patientRoutes = require('./routes/patient.route');
+const patientMedicalRecordRoutes = require('./routes/patient-medical-record.route');
+// const patientLabTestRoutes = require('./routes/patient-lab-test.route');
+const prescriptionRoutes = require('./routes/prescription.route');
+const queueRoutes = require('./routes/queue.route');
+const roomRoutes = require('./routes/room.route');
+const specializationRoutes = require('./routes/specialization.route');
+const treatmentRoutes = require('./routes/treatment.route');
+
 const setupSwagger = require('./swagger');
 
 const multer = require('multer');
@@ -47,5 +65,23 @@ console.log(`Server running on basePath ${basePath}`);
 
 app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
+
+app.use(`${basePath}/bed`, bedRoutes);
+app.use(`${basePath}/billing`, billingRoutes);
+app.use(`${basePath}/department`, departmentRoutes);
+app.use(`${basePath}/diseases`, diseasesRoutes);
+app.use(`${basePath}/doctor`, doctorRoutes);
+app.use(`${basePath}/labTest`, labTestRoutes);
+app.use(`${basePath}/medication-category`, medicationCategoryRoutes);
+app.use(`${basePath}/medication`, medicationRoutes);
+app.use(`${basePath}/medicine`, medicineRoutes);
+app.use(`${basePath}/patient`, patientRoutes);
+app.use(`${basePath}/patient-medical-record`, patientMedicalRecordRoutes);
+// app.use(`${basePath}/patientL-lab-test`, patientLabTestRoutes);
+app.use(`${basePath}/prescription`, prescriptionRoutes);
+app.use(`${basePath}/queue`, queueRoutes);
+app.use(`${basePath}/room`, roomRoutes);
+app.use(`${basePath}/specialization`, specializationRoutes);
+app.use(`${basePath}/treatment`, treatmentRoutes);
 
 module.exports = app;
