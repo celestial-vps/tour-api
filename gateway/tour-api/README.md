@@ -134,7 +134,7 @@ ini kalo bikin service nya
   npx sequelize-cli seed:generate --name default-user
     
 # SWAGGER
-    http://localhost:5000/api/v1/api-docs/
+    http://localhost:5101/api/v1/api-docs/
 
 
 

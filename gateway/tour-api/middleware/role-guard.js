@@ -1,6 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { findUserRole } = require('../repositories/user.repository'); // Import your user repository logic
+// const { findUserRole } = require('../repositories/user.repository'); // Import your user repository logic
+const { responseUnauthorized } = require('../common/build.response');
 const JWT_SECRET = process.env.SECREATKEY || 'celestial-super-secret-key-should-be-longer-123!'; // Ensure you set this in your environment
 
 const authorizationHeaderKey = 'authorization';
@@ -30,25 +31,28 @@ const roleGuard = (role) => {
         const accessToken = fields[1];
 
         try {
-            const decoded = jwt.verify(accessToken, JWT_SECRET) ;
-
+            const decoded = jwt.verify(accessToken, JWT_SECRET);
+ 
             // @ts-ignore
-            if (decoded && decoded.username) {
+            if (decoded && decoded.username ) { 
                 // @ts-ignore
                 console.log("Username:", decoded.username);
 
                 // Fetch user role from the repository
-                try {
+                try {     
+                    // const { result, err } = await findUserRole(decoded.username);
+                    // if (err!=null) {
+                    //     return res.status(403).json({ error: err });
+                    // }
+                    // if (result.length == 0) {
+                    //     return res.status(401).json({ error: 'Data Not Found' });
+                    // }
+                    // if (result[0].userRole.roleName !== role) {
+                    //     return res.status(403).json({ error: 'Forbidden: Insufficient role' });
+                    // }
                     // @ts-ignore
-                    const { result, err } = await findUserRole(decoded.username);
-                    if (err!=null) {
-                        return res.status(403).json({ error: err });
-                    }
-                    if (result.length == 0) {
-                        return res.status(401).json({ error: 'Data Not Found' });
-                    }
-                    if (result[0].userRole.roleName !== role) {
-                        return res.status(403).json({ error: 'Forbidden: Insufficient role' });
+                    if (decoded.role  !== role) {
+                        return res.status(403).json(responseUnauthorized("Forbidden: Insufficient role"));
                     }
 
                     // Attach payload to request object

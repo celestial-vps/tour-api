@@ -1,59 +1,109 @@
 const Joi = require('joi');
+const { authSchema } = require('./base-dto');
+
+// ==============================
+// Body Schemas
+// ==============================
 
 // FilterUserDto
-const filterUserDto = Joi.object({
-  customerOid: Joi.string().required().allow(null, '')
+const filterDto = Joi.object({
+  email: Joi.string().optional().allow(null, '')
 });
 
-// PageUserDto
-const pageUserDto = Joi.object({
-  customerOid: Joi.string().required().allow(null, '')
+// PageUserDto (bisa digabung ke filter kalau sama)
+const pageDto = Joi.object({
+  email: Joi.string().optional().allow(null, '')
 });
 
 // RegisterDto
-const registerDto = Joi.object({
+const registerDtoBody = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required() // Adjust password rules as needed
+  password: Joi.string().min(6).required()
 });
 
 // LoginDto
-const loginDto = Joi.object({
+const loginDtoBody = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required() // Adjust password rules as needed
+  password: Joi.string().min(6).required()
 });
 
 // CreateUserDto
-const createUserDto = Joi.object({
-  name: Joi.string().required(),
+const createDto = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(), // Adjust password rules as needed
-  age: Joi.number().integer().min(0).max(255).required(),  
+  password: Joi.string().min(6).required(),
   androidToken: Joi.string().optional().allow(''),
-  isActive: Joi.boolean().required(),
   roleOid: Joi.string().required(),
-  activatedAt: Joi.date().iso().optional().allow(null)
 });
 
 // UpdateUserDto
-const updateUserDto = Joi.object({
-  name: Joi.string().optional().allow(''),
+const updateDto = Joi.object({
   email: Joi.string().email().optional().allow(''),
-  password: Joi.string().min(6).optional().allow(''), // Adjust password rules as needed
-  age: Joi.number().integer().min(0).max(255).optional(),  
+  password: Joi.string().min(6).optional().allow(''),
   androidToken: Joi.string().optional().allow(''),
-  isActive: Joi.boolean().optional(),
   roleOid: Joi.string().optional().allow(''),
-  activatedAt: Joi.date().iso().optional().allow(null)
 });
+
+// ==============================
+// Params & Query
+// ==============================
 
 const params = Joi.object({
   oid: Joi.string().uuid().required()
 });
 
-const querySchema = Joi.object({
+const query = Joi.object({
   pageIndex: Joi.number().integer().min(1).required(),
   pageSize: Joi.number().integer().min(1).max(100).required(),
 });
+
+// ==============================
+// Final DTO Structures
+// ==============================
+
+const filterUserDto = Joi.object({
+  headers: authSchema,
+  query,
+  body: filterDto
+});
+
+const pageUserDto = Joi.object({
+  headers: authSchema,
+  query,
+  body: pageDto
+});
+
+const createUserDto = Joi.object({
+  headers: authSchema,
+  body: createDto
+});
+
+const updateUserDto = Joi.object({
+  headers: authSchema,
+  params,
+  body: updateDto
+});
+
+const getUserDto = Joi.object({
+  headers: authSchema,
+  params
+});
+
+const deleteUserDto = Joi.object({
+  headers: authSchema,
+  params
+});
+
+const registerDto = Joi.object({
+  body: registerDtoBody
+});
+
+const loginDto = Joi.object({
+  body: loginDtoBody
+});
+
+// ==============================
+// Export
+// ==============================
 
 module.exports = {
   filterUserDto,
@@ -62,6 +112,8 @@ module.exports = {
   loginDto,
   createUserDto,
   updateUserDto,
-  querySchema,
+  getUserDto,
+  deleteUserDto,
+  query,
   params
 };

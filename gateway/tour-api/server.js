@@ -1,11 +1,15 @@
+const dotenv = require('dotenv');
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: envFile });
+
 // Express app
 const http = require('http');
 const { Server } = require('socket.io');
 // const chatGateway = require('../chat/chat.gateway');
 const initSocketServer = require('./lib/socket/socket-server');
-const dotenv = require('dotenv');
-const app = require('./app'); 
-require('./misc/datetime'); 
+
+const app = require('./app');
+require('./misc/datetime');
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -41,8 +45,7 @@ const io = new Server(server, {
 // Inisialisasi socket handler
 initSocketServer(io);
 // Ambil env name, default ke `.env` jika tidak ada
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
-
+ 
 dotenv.config({ path: envFile });
 
 console.log(`Environment loaded from ${envFile}`);
