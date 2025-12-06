@@ -1,38 +1,35 @@
 const express = require('express');
-const auctionController = require('../controllers/auction.controller'); // Adjust the path as needed
-const roleGuard = require('../middleware/role-guard');
-const router = express.Router();
+const { roleGuard } = require('../middleware/role-guard');
+const auctionController = require('../controllers/auction.controller');
+const { validateRequest } = require('../misc/validation');
+const {
+    filterAuctionDto,
+    createAuctionDto,
+    updateAuctionDto,
+    deleteAuctionDto,
+    getAuctionDto
+} = require('../dtos/payload-auction-dto');
 
+const j2s = require('joi-to-swagger');
+
+// Convert DTO ke Swagger schema
+const { swagger: createAuctionSchema } = j2s(createAuctionDto);
+const { swagger: updateAuctionSchema } = j2s(updateAuctionDto);
+const { swagger: filterAuctionSchema } = j2s(filterAuctionDto);
+
+const router = express.Router();
 
 /**
  * @swagger
  * /auction/create:
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  *   post:
- *     summary: Create a new auction entry
- *     description: Adds a new auction to the database.
+ *     tags: [Auction]
+ *     summary: Create a new auction
  *     requestBody:
- *       description: Auction object that needs to be added
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B001
- *               description:
- *                 type: string
- *                 example: Auction Central Asia
- *               imageOid:
- *                 type: string
- *                 example: BCA
+ *           schema: ${JSON.stringify(createAuctionSchema)}
  *     responses:
  *       200:
  *         description: Auction created successfully
@@ -41,81 +38,54 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 1 }
  *                 data:
  *                   type: object
  *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     title:
- *                       type: string
- *                       example: B001
- *                     description:
- *                       type: string
- *                       example: Auction Central Asia
- *                     imageOid:
- *                       type: string
- *                       example: BCA
- *                     createdBy:
- *                       type: string
- *                       example: test
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:42:10Z"
+ *                     value: { type: string, example: "650f8a1234567890abcdef" }
+ *                     name: { type: string, example: "Auction created successfully" }
+ *       400:
+ *         description: Bad Request - Validation failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
  */
-router.post('/create', roleGuard('Admin'), auctionController.create);
+router.post('/create', validateRequest(createAuctionDto), roleGuard('Admin'), auctionController.create);
+
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  * /auction/{oid}:
  *   put:
- *     summary: Update a auction entry
- *     description: Updates an existing auction entry in the database.
+ *     tags: [Auction]
+ *     summary: Update an auction
  *     parameters:
- *       - name: oid
- *         in: path
+ *       - in: path
+ *         name: oid
  *         required: true
- *         description: The UUID of the auction to update
- *         schema:
- *           type: string
- *           format: uuid
- *           example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
+ *         schema: { type: string, format: uuid }
  *     requestBody:
- *       description: Auction object that needs to be updated
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B002
- *               description:
- *                 type: string
- *                 example: Auction Rakyat Indonesia
- *               imageOid:
- *                 type: string
- *                 example: BRI
+ *           schema: ${JSON.stringify(updateAuctionSchema)}
  *     responses:
  *       200:
  *         description: Auction updated successfully
@@ -124,341 +94,254 @@ router.post('/create', roleGuard('Admin'), auctionController.create);
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 1 }
  *                 data:
  *                   type: object
  *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0192037d-4f4d-76eb-9286-76924e2e6914"
- *                     title:
- *                       type: string
- *                       example: B002
- *                     description:
- *                       type: string
- *                       example: Auction Rakyat Indonesia
- *                     imageOid:
- *                       type: string
- *                       example: BRI
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:56:36Z"
+ *                     value: { type: string, example: "650f8a1234567890abcdef" }
+ *                     name: { type: string, example: "Auction updated successfully" }
+ *       400:
+ *         description: Bad Request - Validation failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
  */
-router.put('/:oid', roleGuard('Admin'), auctionController.update);
+router.put('/:oid', validateRequest(updateAuctionDto), roleGuard('Admin'), auctionController.update);
+
 /**
  * @swagger
- * /auction/delete/{id}:
+ * /auction/delete/{oid}:
  *   delete:
- *     summary: Delete a auction by ID
- *     description: Removes a auction record from the system using its unique identifier.
+ *     tags: [Auction]
+ *     summary: Delete an auction
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: oid
  *         required: true
- *         description: The unique identifier of the auction to delete.
- *         schema:
- *           type: string
- *           example: "01920370-1523-78ec-8a88-9b01fe874882"
- *     security:
- *       - bearerAuth: []
+ *         schema: { type: string, format: uuid }
  *     responses:
  *       200:
- *         description: A successful response indicating the auction was deleted
+ *         description: Auction deleted successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 1 }
  *                 data:
  *                   type: object
  *                   properties:
- *                     value:
- *                       type: string
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     name:
- *                       type: string
- *                       example: "Auction Central Asia"
- *       401:
- *         description: Unauthorized
+ *                     value: { type: string, example: "650f8a1234567890abcdef" }
+ *                     name: { type: string, example: "Auction deleted successfully" }
+ *       400:
+ *         description: Bad Request - Validation failed or invalid OID
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: Not Found
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "Auction not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
  */
+router.delete('/delete/:oid', validateRequest(deleteAuctionDto), roleGuard('Admin'), auctionController.remove);
 
-router.delete('/delete/:oid', roleGuard('Admin'), auctionController.remove);
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  * /auction:
  *   get:
- *     summary: Retrieve all auction entries
- *     description: Fetches a list of all auctions from the database.
+ *     tags: [Auction]
+ *     summary: Get all auctions
  *     responses:
  *       200:
- *         description: A list of auction entries
+ *         description: List of auctions
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 10
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 3 }
  *                 data:
  *                   type: array
- *                   auctions:
+ *                   items:
  *                     type: object
  *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
- *                       title:
- *                         type: string
- *                         example: "B022"
- *                       description:
- *                         type: string
- *                         example: "Auction Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:58:52.000Z"
+ *                       oid: { type: string, example: "650f8a1234567890abcdef" }
+ *                       itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
+ *                       startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
+ *                       endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
+ *                       status: { type: string, example: "pending" }
+ *                       createdBy: { type: string, example: "admin" }
+ *                       updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
+ *       400:
+ *         description: Bad Request - Invalid query or filter parameters
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
  */
-router.get('/', roleGuard('Admin'), auctionController.findAll);
+router.get('/', validateRequest(filterAuctionDto), roleGuard('Admin'), auctionController.findAll);
+
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * /auction/{oid}:
+ *   get:
+ *     tags: [Auction]
+ *     summary: Get a single auction by ID
+ *     parameters:
+ *       - in: path
+ *         name: oid
+ *         required: true
+ *         schema: { type: string, format: uuid }
+ *     responses:
+ *       200:
+ *         description: Single auction
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 1 }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     oid: { type: string, example: "650f8a1234567890abcdef" }
+ *                     itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
+ *                     startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
+ *                     endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
+ *                     status: { type: string, example: "pending" }
+ *                     createdBy: { type: string, example: "admin" }
+ *                     updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
+ *       400:
+ *         description: Bad Request - Invalid OID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
+ */
+router.get('/:oid', validateRequest(getAuctionDto), roleGuard('Admin'), auctionController.findById);
+
+/**
+ * @swagger
  * /auction/q:
  *   post:
- *     summary: Query auction entries with pagination
- *     description: Retrieves a paginated list of auction entries based on optional filters.
+ *     tags: [Auction]
+ *     summary: Paginate auctions
  *     requestBody:
- *       description: Filter options for auction query
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: ""
- *               description:
- *                 type: string
- *                 example: ""
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         description: The index of the page to retrieve
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         description: The number of auctions to return per page
- *         schema:
- *           type: integer
- *           example: 10
+ *           schema: ${JSON.stringify(filterAuctionSchema)}
  *     responses:
  *       200:
- *         description: A paginated list of auction entries
+ *         description: Paginated list of auctions
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 9
+ *                 code: { type: string, example: "200" }
+ *                 status: { type: integer, example: 200 }
+ *                 message: { type: string, example: "Success" }
+ *                 total: { type: integer, example: 3 }
  *                 data:
  *                   type: array
- *                   auctions:
+ *                   items:
  *                     type: object
  *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                       title:
- *                         type: string
- *                         example: "B023"
- *                       description:
- *                         type: string
- *                         example: "Auction Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:59:57.000Z"
- */
-router.post('/q', roleGuard('Admin'), auctionController.find);
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- * /auction/{oid}:
- *   get:
- *     summary: Retrieve a auction entry by ID
- *     description: Fetches details of a specific auction using its UUID.
- *     parameters:
- *       - name: oid
- *         in: path
- *         required: true
- *         description: The UUID of the auction to retrieve
- *         schema:
- *           type: string
- *           format: uuid
- *           example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *     responses:
- *       200:
- *         description: Auction entry retrieved successfully
+ *                       oid: { type: string, example: "650f8a1234567890abcdef" }
+ *                       itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
+ *                       startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
+ *                       endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
+ *                       status: { type: string, example: "pending" }
+ *                       createdBy: { type: string, example: "admin" }
+ *                       updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
+ *       400:
+ *         description: Bad Request - Invalid filter or pagination parameters
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                     title:
- *                       type: string
- *                       example: "B023"
- *                     description:
- *                       type: string
- *                       example: "Auction Of America"
- *                     imageOid:
- *                       type: string
- *                       example: "BcA"
- *                     createdBy:
- *                       type: string
- *                       nullable: true
- *                       example: null
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-17T02:59:57.000Z"
+ *                 code: { type: string, example: "400" }
+ *                 status: { type: integer, example: 400 }
+ *                 message: { type: string, example: "Invalid request data" }
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: string, example: "500" }
+ *                 status: { type: integer, example: 500 }
+ *                 message: { type: string, example: "Something went wrong" }
  */
-router.get('/:oid', roleGuard('Admin'), auctionController.findById);
+router.post('/q', validateRequest(filterAuctionDto), roleGuard('Admin'), auctionController.find);
 
 module.exports = router;

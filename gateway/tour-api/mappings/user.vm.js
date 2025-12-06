@@ -10,8 +10,8 @@ async function toUserResponse(user) {
     roleOid: user.roleOid,
     androidToken: user.androidToken,
     expiredTime: user.expiredTime,
-    isActive: user.isActive,
-    activatedAt: moment(user.activatedAt).format(),
+    isActive: user.isActive ? true : false,
+    activatedAt: user.activatedAt ? moment(user.activatedAt).format('YYYY-MM-DD') : null,
     userRole: user.userRole,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt

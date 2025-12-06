@@ -17,6 +17,9 @@ export class Student extends Base {
 
   @Prop({ required: true })
   yearOfEntry: number; // angkatan
+
+  @Prop({ required: true })
+  userOid: string;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

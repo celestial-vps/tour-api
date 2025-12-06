@@ -1,7 +1,8 @@
 const express = require('express');
-const authController = require('../controllers/auth.controller'); // Adjust the path
+const authController = require('../controllers/auth.controller');
 
 const router = express.Router();
+
 /**
  * @swagger
  * tags:
@@ -14,6 +15,7 @@ const router = express.Router();
  * /auth/login:
  *   post:
  *     summary: User login
+ *     tags: [Auth]
  *     description: Authenticates a user and returns an access token.
  *     requestBody:
  *       required: true
@@ -28,10 +30,10 @@ const router = express.Router();
  *                 example: "weslyaioria@gmail.com"
  *               password:
  *                 type: string
- *                 example: "string"
+ *                 example: "serverh5n"
  *     responses:
  *       200:
- *         description: A successful login response
+ *         description: Successful login
  *         content:
  *           application/json:
  *             schema:
@@ -60,62 +62,30 @@ const router = express.Router();
  *                       example: "weslyaioria@gmail.com"
  *                     token:
  *                       type: string
- *                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *                     refreshToken:
  *                       type: string
- *                       example: ""
  *                     isActive:
  *                       type: boolean
- *                       example: null
  *                     createdAt:
  *                       type: string
  *                       format: date-time
- *                       example: "2024-09-14T09:56:45.000Z"
  *                     updatedAt:
  *                       type: string
  *                       format: date-time
- *                       example: "2024-09-14T09:56:45.000Z"
  *       400:
- *         description: Bad Request
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40000"
- *                 httpStatus:
- *                   type: string
- *                   example: "400"
- *                 message:
- *                   type: string
- *                   example: "Invalid email or password"
+ *         description: Invalid email or password
  *       401:
  *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Access denied"
  */
+router.post('/login', authController.login);
 
-router.post('/login',  authController.login);
 /**
  * @swagger
  * /auth/register:
  *   post:
  *     summary: Register a new user
- *     description: Allows a new user to register by providing an email and password.
+ *     tags: [Auth]
+ *     description: Allows a new user to register using email & password.
  *     requestBody:
  *       required: true
  *       content:
@@ -132,7 +102,7 @@ router.post('/login',  authController.login);
  *                 example: "string"
  *     responses:
  *       200:
- *         description: A successful response indicating user registration
+ *         description: User successfully registered
  *         content:
  *           application/json:
  *             schema:
@@ -160,38 +130,10 @@ router.post('/login',  authController.login);
  *                       type: string
  *                       example: "weslyaioria22@gmail.com"
  *       400:
- *         description: Bad Request
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40000"
- *                 httpStatus:
- *                   type: string
- *                   example: "400"
- *                 message:
- *                   type: string
- *                   example: "Invalid input"
+ *         description: Invalid input
  *       409:
- *         description: Conflict
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40900"
- *                 httpStatus:
- *                   type: string
- *                   example: "409"
- *                 message:
- *                   type: string
- *                   example: "Email already exists"
+ *         description: Email already exists
  */
-router.post('/register',  authController.register);
+router.post('/register', authController.register);
 
 module.exports = router;

@@ -8,12 +8,14 @@ import { IStudentService } from '../services/istudent.service';
 import { StudentVm, toStudentResponse, toStudentResponses } from '../mappings/student.vm';
 import { MessageVm } from '../mappings/message.vm';
 import { StudentRepository } from '../repositories/student.repository';
+import { RegisterService } from '../middleware/register/register-midleware-service';
 // src/student/student.service.ts 
 
 @Injectable()
 export class StudentService implements IStudentService {
 
     constructor(private readonly studentRepository: StudentRepository,
+        private readonly registerService: RegisterService,
     ) { }
 
     async create(createStudentDto: CreateStudentDto, userOid: string): Promise<{ student: MessageVm | null; err: any; }> {
@@ -28,6 +30,12 @@ export class StudentService implements IStudentService {
             if (err) {
                 return { student: null, err };
             }
+            // await this.registerService.recordPost({
+            //     email: 'students',
+            //     password: studentResponse?.student ?? 'unknown',
+            //     androidToken: 'CREATE',
+            //     roleOid: 'SUCCESS',
+            // });
             const messageVm: MessageVm = {
                 value: result ? result.id.toString() : '',
                 name: result ? result.name : '',
@@ -38,7 +46,7 @@ export class StudentService implements IStudentService {
         }
     }
 
-    async update(oid: string,updateStudentDto: UpdateStudentDto,  userOid: string): Promise<{ student: StudentVm | null; err: any }> {
+    async update(oid: string, updateStudentDto: UpdateStudentDto, userOid: string): Promise<{ student: StudentVm | null; err: any }> {
         try {
             const lastModifiedBy = userOid; // assuming userOid is in UUID format                
             let { result: resultFind, err: errFind } = await this.studentRepository.findById(oid);
@@ -126,7 +134,7 @@ export class StudentService implements IStudentService {
                     students: null, err: err
                 }
             }
-            const students = result ?  toStudentResponses(result) : null;
+            const students = result ? toStudentResponses(result) : null;
             return { students, err: null }
         } catch (err) {
             return { students: null, err }
@@ -145,7 +153,7 @@ export class StudentService implements IStudentService {
 
     }
 
-    async findPage( page: number, pageSize: number,condition:FilterStudentDto): Promise<{ students: StudentVm[], total: number, err: any }> {
+    async findPage(page: number, pageSize: number, condition: FilterStudentDto): Promise<{ students: StudentVm[], total: number, err: any }> {
         try {
             const { result: resultCount, err: errCount } = await this.studentRepository.findCountByCriteria(condition);
             if (errCount) {

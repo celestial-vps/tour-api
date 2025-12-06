@@ -62,7 +62,8 @@ app.use(limiter);
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGO_URL + "/" + process.env.DATABASE;
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 

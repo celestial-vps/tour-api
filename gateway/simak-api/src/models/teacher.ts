@@ -11,6 +11,9 @@ export class Teacher extends Base {
 
   @Prop({ required: true })
   name: string; // Nama dosen / teacher
+
+  @Prop({ required: true })
+  userOid: string;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);
