@@ -1,70 +1,52 @@
 const express = require('express');
-const multer = require('multer');
-const {roleGuard} = require('../middleware/role-guard');
+const { roleGuard } = require('../middleware/role-guard');
 const imageFileController = require('../controllers/image-file.controller');
+const { 
+  createImageFileDto,
+  updateImageFileDto,
+  filterImageFileDto,
+  params,
+  imageFileResponseDto
+} = require('../dtos/payload-image-file-dto');
+const { validateRequest } = require('../misc/validation');
+const j2s = require('joi-to-swagger');
+const Joi = require('joi');
+const { successResponse, errorResponse } = require('../dtos/response.dto');
+const { messageDto } = require('../dtos/message-dto');
+
 const router = express.Router();
 
-/**
- * @swagger
- * tags:
- *   - name: Image File
- *     description: Image file management
- *
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *   schemas:
- *     ImageFile:
- *       type: object
- *       properties:
- *         oid:
- *           type: string
- *           format: uuid
- *         fileUrl:
- *           type: string
- *         fileName:
- *           type: string
- *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
- *     ImageFileUploadDto:
- *       type: object
- *       properties:
- *         file:
- *           type: string
- *           format: binary
- *         user:
- *           type: string
- *     ApiResponse:
- *       type: object
- *       properties:
- *         resultCode:
- *           type: string
- *         httpStatus:
- *           type: string
- *         message:
- *           type: string
- *         total:
- *           type: integer
- *         data:
- *           oneOf:
- *             - $ref: '#/components/schemas/ImageFile'
- *             - type: array
- *               items:
- *                 $ref: '#/components/schemas/ImageFile'
- */
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateImageFilePayloadSchema } = j2s(createImageFileDto);
+const { swagger: UpdateImageFilePayloadSchema } = j2s(updateImageFileDto);
+const { swagger: DeleteImageFilePayloadSchema } = j2s(params);
+const { swagger: FilterImageFilePayloadSchema } = j2s(filterImageFileDto);
+const { swagger: ImageFileSuccessSchema } = j2s(successResponse(imageFileResponseDto));
+const { swagger: ImageFileListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(imageFileResponseDto))
+);
+const { swagger: ImageFileSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register global swagger components ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateImageFilePayloadDto = CreateImageFilePayloadSchema;
+global.swaggerComponents.UpdateImageFilePayloadDto = UpdateImageFilePayloadSchema;
+global.swaggerComponents.DeleteImageFilePayloadDto = DeleteImageFilePayloadSchema;
+global.swaggerComponents.FilterImageFilePayloadDto = FilterImageFilePayloadSchema;
+global.swaggerComponents.ImageFileSuccessResponse = ImageFileSuccessSchema;
+global.swaggerComponents.ImageFileListSuccessResponse = ImageFileListSuccessSchema;
+global.swaggerComponents.ImageFileSuccessCRUDResponse = ImageFileSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
+// ---------------- Routes ----------------
 
 /**
- * @swagger
+ * @openapi
  * /image-file/upload:
  *   post:
- *     tags: [ImageFile]
+ *     tags:
+ *       - ImageFile
  *     summary: Upload an image file
  *     security:
  *       - bearerAuth: []
@@ -73,116 +55,208 @@ const router = express.Router();
  *       content:
  *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/ImageFileUploadDto'
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *               user:
+ *                 type: string
  *     responses:
  *       200:
- *         description: Successful file upload
+ *         description: File uploaded successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ImageFileSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
 router.post('/upload', roleGuard('Admin'), imageFileController.create);
 
-router.put('/:oid', roleGuard('Admin'), imageFileController.update);
-
 /**
- * @swagger
- * /image-file/delete/{oid}:
- *   delete:
- *     tags: [ImageFile]
- *     summary: Delete an image file by ID
- *     security:
- *       - bearerAuth: []
+ * @openapi
+ * /image-file/{oid}:
+ *   put:
+ *     tags:
+ *       - Image File
+ *     summary: Update an image file
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/UpdateImageFilePayloadDto"
  *     responses:
  *       200:
- *         description: Successful deletion
+ *         description: Image file updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ImageFileSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', roleGuard('Admin'), imageFileController.deleted);
+router.put('/:oid', validateRequest(updateImageFileDto), roleGuard('Admin'), imageFileController.update);
 
 /**
- * @swagger
+ * @openapi
+ * /image-file/delete/{oid}:
+ *   delete:
+ *     tags:
+ *       - Image File
+ *     summary: Delete an image file by ID
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Image file deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ImageFileSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.delete('/delete/:oid', validateRequest(params), roleGuard('Admin'), imageFileController.deleted);
+
+/**
+ * @openapi
  * /image-file:
  *   get:
- *     tags: [ImageFile]
- *     summary: Retrieve all uploaded image files
- *     security:
- *       - bearerAuth: []
+ *     tags:
+ *       - Image File
+ *     summary: Get all image files
  *     responses:
  *       200:
  *         description: List of image files
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ImageFileListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
 router.get('/', roleGuard('Admin'), imageFileController.findAll);
 
 /**
- * @swagger
+ * @openapi
  * /image-file/q:
- *   get:
- *     tags: [ImageFile]
- *     summary: Query uploaded image files with pagination
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
+ *   post:
+ *     tags:
+ *       - Image File
+ *     summary: Paginated or filtered image files
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/FilterImageFilePayloadDto"
  *     responses:
  *       200:
  *         description: Paginated list of image files
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ImageFileListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', roleGuard('Admin'), imageFileController.find);
+router.post('/q', validateRequest(filterImageFileDto), roleGuard('Admin'), imageFileController.find);
 
 /**
- * @swagger
+ * @openapi
  * /image-file/{oid}:
  *   get:
- *     tags: [ImageFile]
- *     summary: Retrieve an image file by ID
- *     security:
- *       - bearerAuth: []
+ *     tags:
+ *       - Image File
+ *     summary: Get image file by ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
  *         description: Image file retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ImageFileSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), imageFileController.findById);
+router.get('/:oid', validateRequest(params), roleGuard('Admin'), imageFileController.findById);
 
 module.exports = router;

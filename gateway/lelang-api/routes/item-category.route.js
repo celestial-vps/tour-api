@@ -1,228 +1,288 @@
-const express = require('express');
-const itemCategoryController = require('../controllers/item-category.controller');
-const {roleGuard} = require('../middleware/role-guard');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const itemCategoryController = require("../controllers/item-category.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
+const {
+  createItemCategoryDto,
+  updateItemCategoryDto,
+  deleteItemCategoryDto,
+  getItemCategoryDto, filterItemCategoryDto, itemCategoryResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-item-category-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response.dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateItemCategoryPayloadSchema } = j2s(createDto);
+const { swagger: UpdateItemCategoryPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteItemCategoryPayloadSchema } = j2s(params);
+const { swagger: FilterItemCategoryPayloadSchema } = j2s(filterDto);
+const { swagger: ItemCategorySuccessSchema } = j2s(successResponse(itemCategoryResponseDto));
+const { swagger: ItemCategoryListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(itemCategoryResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: ItemCategorySuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateItemCategoryPayloadDto = CreateItemCategoryPayloadSchema;
+global.swaggerComponents.FilterItemCategoryPayloadDto = FilterItemCategoryPayloadSchema;
+global.swaggerComponents.UpdateItemCategoryPayloadDto = UpdateItemCategoryPayloadSchema;
+global.swaggerComponents.DeleteItemCategoryPayloadDto = DeleteItemCategoryPayloadSchema;
+global.swaggerComponents.ItemCategoryListSuccessResponse = ItemCategoryListSuccessSchema;
+global.swaggerComponents.ItemCategorySuccessResponse = ItemCategorySuccessSchema;
+global.swaggerComponents.ItemCategorySuccessCRUDResponse = ItemCategorySuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Item Category
- *     description: ItemCategory management
- *
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *   schemas:
- *     ItemCategory:
- *       type: object
- *       properties:
- *         oid:
- *           type: string
- *           format: uuid
- *         title:
- *           type: string
- *         description:
- *           type: string
- *         imageOid:
- *           type: string
- *         createdBy:
- *           type: string
- *           nullable: true
- *         updatedAt:
- *           type: string
- *           format: date-time
- *     ItemCategoryCreateDto:
- *       type: object
- *       properties:
- *         title:
- *           type: string
- *         description:
- *           type: string
- *         imageOid:
- *           type: string
- *     ApiResponse:
- *       type: object
- *       properties:
- *         resultCode:
- *           type: string
- *         httpStatus:
- *           type: string
- *         message:
- *           type: string
- *         total:
- *           type: integer
- *         data:
- *           oneOf:
- *             - $ref: '#/components/schemas/ItemCategory'
- *             - type: array
- *               items:
- *                 $ref: '#/components/schemas/ItemCategory'
- */
-
-/**
- * @swagger
- * /itemCategory/create:
+ * @openapi
+ * /item-category/create:
  *   post:
- *     tags: [ItemCategory]
- *     summary: Create a new itemCategory
- *     security:
- *       - bearerAuth: []
+ *     tags:
+ *       - Item Category
+ *     summary: Create ItemCategory
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ItemCategoryCreateDto'
+ *             $ref: "#/components/schemas/CreateItemCategoryPayloadDto"
  *     responses:
- *       200:
- *         description: ItemCategory created successfully
+ *       201:
+ *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategorySuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', roleGuard('Admin'), itemCategoryController.create);
+router.post(
+  "/create",
+  validateRequest(createItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.create
+);
+
 
 /**
- * @swagger
- * /itemCategory/{oid}:
+ * @openapi
+ * /item-category/{oid}:
  *   put:
- *     tags: [ItemCategory]
- *     summary: Update an itemCategory
- *     security:
- *       - bearerAuth: []
+ *     tags: [Item Category]
+ *     summary: Update Item Category
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ItemCategoryCreateDto'
+ *             $ref: "#/components/schemas/UpdateItemCategoryPayloadDto"
  *     responses:
  *       200:
- *         description: ItemCategory updated successfully
+ *         description: ItemCategory Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategorySuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', roleGuard('Admin'), itemCategoryController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.update
+);
 
 /**
- * @swagger
- * /itemCategory/delete/{oid}:
+ * @openapi
+ * /item-category/delete/{oid}:
  *   delete:
- *     tags: [ItemCategory]
- *     summary: Delete an itemCategory
- *     security:
- *       - bearerAuth: []
+ *     tags: [Item Category]
+ *     summary: Delete Item Category
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: ItemCategory deleted successfully
+ *         description: ItemCategory Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategorySuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', roleGuard('Admin'), itemCategoryController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.remove
+);
 
 /**
- * @swagger
- * /itemCategory:
+ * @openapi
+ * /item-category:
  *   get:
- *     tags: [ItemCategory]
- *     summary: Retrieve all itemCategory entries
- *     security:
- *       - bearerAuth: []
+ *     tags: [Item Category]
+ *     summary: Get All Item Categorys
  *     responses:
  *       200:
- *         description: List of itemCategory entries
+ *         description: List of ItemCategorys
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategoryListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', roleGuard('Admin'), itemCategoryController.findAll);
+router.get(
+  "/",
+  validateRequest(filterItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.findAll
+);
 
 /**
- * @swagger
- * /itemCategory/q:
+ * @openapi
+ * /item-category/q:
  *   post:
- *     tags: [ItemCategory]
- *     summary: Query itemCategory entries with pagination
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
+ *     tags: [Item Category]
+ *     summary: Paginated Item Categorys
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               description:
- *                 type: string
+ *             $ref: "#/components/schemas/FilterItemCategoryPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of itemCategory entries
+ *         description: Paginated ItemCategorys List
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategoryListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', roleGuard('Admin'), itemCategoryController.find);
+router.post(
+  "/q",
+  validateRequest(filterItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.find
+);
 
 /**
- * @swagger
- * /itemCategory/{oid}:
+ * @openapi
+ * /item-category/{oid}:
  *   get:
- *     tags: [ItemCategory]
- *     summary: Retrieve an itemCategory by ID
- *     security:
- *       - bearerAuth: []
+ *     tags: [Item Category]
+ *     summary: Get Item Category By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: ItemCategory retrieved successfully
+ *         description: ItemCategory Detail
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ApiResponse'
+ *               $ref: "#/components/schemas/ItemCategorySuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), itemCategoryController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getItemCategoryDto),
+  roleGuard("Admin"),
+  itemCategoryController.findById
+);
+
 
 module.exports = router;

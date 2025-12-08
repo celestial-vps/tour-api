@@ -1,347 +1,289 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const auctionController = require('../controllers/auction.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const auctionController = require("../controllers/auction.controller");
+const { validateRequest } = require("../misc/validation");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
-    filterAuctionDto,
-    createAuctionDto,
-    updateAuctionDto,
-    deleteAuctionDto,
-    getAuctionDto
-} = require('../dtos/payload-auction-dto');
+  createAuctionDto,
+  updateAuctionDto,
+  deleteAuctionDto,
+  getAuctionDto,
+  filterAuctionDto,
+  auctionResponseDto,
+  createDto,
+  updateDto,
+  filterDto,
+  params
+} = require("../dtos/payload-auction-dto");
 
-const j2s = require('joi-to-swagger');
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response.dto");
 
-// Convert DTO ke Swagger schema
-const { swagger: createAuctionSchema } = j2s(createAuctionDto);
-const { swagger: updateAuctionSchema } = j2s(updateAuctionDto);
-const { swagger: filterAuctionSchema } = j2s(filterAuctionDto);
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateAuctionPayloadSchema } = j2s(createDto);
+const { swagger: UpdateAuctionPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteAuctionPayloadSchema } = j2s(params);
+const { swagger: FilterAuctionPayloadSchema } = j2s(filterDto);
+const { swagger: AuctionSuccessSchema } = j2s(successResponse(auctionResponseDto));
+const { swagger: AuctionListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(auctionResponseDto))
+);
+
+// Response Schema (success + error)
+const { swagger: AuctionSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateAuctionPayloadDto = CreateAuctionPayloadSchema;
+global.swaggerComponents.FilterAuctionPayloadDto = FilterAuctionPayloadSchema;
+global.swaggerComponents.UpdateAuctionPayloadDto = UpdateAuctionPayloadSchema;
+global.swaggerComponents.DeleteAuctionPayloadDto = DeleteAuctionPayloadSchema;
+global.swaggerComponents.AuctionListSuccessResponse = AuctionListSuccessSchema;
+global.swaggerComponents.AuctionSuccessResponse = AuctionSuccessSchema;
+global.swaggerComponents.AuctionSuccessCRUDResponse = AuctionSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
+ * @openapi
  * /auction/create:
  *   post:
  *     tags: [Auction]
- *     summary: Create a new auction
+ *     summary: Create Auction
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           schema: ${JSON.stringify(createAuctionSchema)}
+ *           schema:
+ *             $ref: "#/components/schemas/CreateAuctionPayloadDto"
  *     responses:
- *       200:
- *         description: Auction created successfully
+ *       201:
+ *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 1 }
- *                 data:
- *                   type: object
- *                   properties:
- *                     value: { type: string, example: "650f8a1234567890abcdef" }
- *                     name: { type: string, example: "Auction created successfully" }
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
  *       400:
- *         description: Bad Request - Validation failed
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createAuctionDto), roleGuard('Admin'), auctionController.create);
+router.post(
+  "/create",
+  validateRequest(createAuctionDto),
+  roleGuard("Admin"),
+  auctionController.create
+);
 
 /**
- * @swagger
+ * @openapi
  * /auction/{oid}:
  *   put:
  *     tags: [Auction]
- *     summary: Update an auction
+ *     summary: Update Auction
  *     parameters:
- *       - in: path
- *         name: oid
+ *       - name: oid
+ *         in: path
  *         required: true
- *         schema: { type: string, format: uuid }
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           schema: ${JSON.stringify(updateAuctionSchema)}
+ *           schema:
+ *             $ref: "#/components/schemas/UpdateAuctionPayloadDto"
  *     responses:
  *       200:
- *         description: Auction updated successfully
+ *         description: Auction Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 1 }
- *                 data:
- *                   type: object
- *                   properties:
- *                     value: { type: string, example: "650f8a1234567890abcdef" }
- *                     name: { type: string, example: "Auction updated successfully" }
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
  *       400:
- *         description: Bad Request - Validation failed
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateAuctionDto), roleGuard('Admin'), auctionController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateAuctionDto),
+  roleGuard("Admin"),
+  auctionController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /auction/delete/{oid}:
  *   delete:
  *     tags: [Auction]
- *     summary: Delete an auction
+ *     summary: Delete Auction
  *     parameters:
- *       - in: path
- *         name: oid
+ *       - name: oid
+ *         in: path
  *         required: true
- *         schema: { type: string, format: uuid }
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
- *         description: Auction deleted successfully
+ *         description: Auction Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 1 }
- *                 data:
- *                   type: object
- *                   properties:
- *                     value: { type: string, example: "650f8a1234567890abcdef" }
- *                     name: { type: string, example: "Auction deleted successfully" }
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
  *       400:
- *         description: Bad Request - Validation failed or invalid OID
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteAuctionDto), roleGuard('Admin'), auctionController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteAuctionDto),
+  roleGuard("Admin"),
+  auctionController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /auction:
  *   get:
  *     tags: [Auction]
- *     summary: Get all auctions
+ *     summary: Get All Auctions
  *     responses:
  *       200:
- *         description: List of auctions
+ *         description: List of Auctions
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 3 }
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid: { type: string, example: "650f8a1234567890abcdef" }
- *                       itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
- *                       startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
- *                       endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
- *                       status: { type: string, example: "pending" }
- *                       createdBy: { type: string, example: "admin" }
- *                       updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
+ *               $ref: "#/components/schemas/AuctionListSuccessResponse"
  *       400:
- *         description: Bad Request - Invalid query or filter parameters
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterAuctionDto), roleGuard('Admin'), auctionController.findAll);
+router.get(
+  "/",
+  validateRequest(filterAuctionDto),
+  roleGuard("Admin"),
+  auctionController.findAll
+);
 
 /**
- * @swagger
- * /auction/{oid}:
- *   get:
- *     tags: [Auction]
- *     summary: Get a single auction by ID
- *     parameters:
- *       - in: path
- *         name: oid
- *         required: true
- *         schema: { type: string, format: uuid }
- *     responses:
- *       200:
- *         description: Single auction
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 1 }
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid: { type: string, example: "650f8a1234567890abcdef" }
- *                     itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
- *                     startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
- *                     endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
- *                     status: { type: string, example: "pending" }
- *                     createdBy: { type: string, example: "admin" }
- *                     updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
- *       400:
- *         description: Bad Request - Invalid OID
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
- *       500:
- *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
- */
-router.get('/:oid', validateRequest(getAuctionDto), roleGuard('Admin'), auctionController.findById);
-
-/**
- * @swagger
+ * @openapi
  * /auction/q:
  *   post:
  *     tags: [Auction]
- *     summary: Paginate auctions
+ *     summary: Paginated Auctions
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           schema: ${JSON.stringify(filterAuctionSchema)}
+ *           schema:
+ *             $ref: "#/components/schemas/FilterAuctionPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of auctions
+ *         description: Paginated Auctions List
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "200" }
- *                 status: { type: integer, example: 200 }
- *                 message: { type: string, example: "Success" }
- *                 total: { type: integer, example: 3 }
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid: { type: string, example: "650f8a1234567890abcdef" }
- *                       itemOid: { type: string, example: "678e4567-e89b-12d3-a456-426614174abc" }
- *                       startTime: { type: string, format: date-time, example: "2025-12-05T10:00:00Z" }
- *                       endTime: { type: string, format: date-time, example: "2025-12-05T12:00:00Z" }
- *                       status: { type: string, example: "pending" }
- *                       createdBy: { type: string, example: "admin" }
- *                       updatedAt: { type: string, format: date-time, example: "2025-12-05T10:01:00Z" }
+ *               $ref: "#/components/schemas/AuctionListSuccessResponse"
  *       400:
- *         description: Bad Request - Invalid filter or pagination parameters
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "400" }
- *                 status: { type: integer, example: 400 }
- *                 message: { type: string, example: "Invalid request data" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 code: { type: string, example: "500" }
- *                 status: { type: integer, example: 500 }
- *                 message: { type: string, example: "Something went wrong" }
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterAuctionDto), roleGuard('Admin'), auctionController.find);
+router.post(
+  "/q",
+  validateRequest(filterAuctionDto),
+  roleGuard("Admin"),
+  auctionController.find
+);
+
+/**
+ * @openapi
+ * /auction/{oid}:
+ *   get:
+ *     tags: [Auction]
+ *     summary: Get Auction By ID
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Auction Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/AuctionSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.get(
+  "/:oid",
+  validateRequest(getAuctionDto),
+  roleGuard("Admin"),
+  auctionController.findById
+);
 
 module.exports = router;

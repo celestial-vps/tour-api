@@ -82,6 +82,16 @@ const createAuctionDto = Joi.object({
     body: createDto
 });
 
+const auctionResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    itemOid: Joi.string().optional().allow(null).example('678e4567-e89b-12d3-a456-426614174abc'),
+    startTime: Joi.date().required().example('2025-01-10T10:00:00Z'),
+    endTime: Joi.date().required().example('2025-01-11T10:00:00Z'),
+    status: Joi.string().example('active'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 // --------------------
 // Export
 // --------------------
@@ -91,4 +101,6 @@ module.exports = {
     deleteAuctionDto,
     filterAuctionDto,
     getAuctionDto,
+    auctionResponseDto,
+    createDto,updateDto, filterDto, params
 };

@@ -59,7 +59,7 @@ const update = async (req, res) => {
 	}
 };
 
-const deleted = async (req, res) => {
+const remove = async (req, res) => {
 	try {
 		const { isValid, message } = validateRequest(params, null, null, req, true);
 		if (!isValid) {
@@ -173,7 +173,7 @@ const find = async (req, res) => {
 module.exports = {
 	create,
 	update,
-	deleted,
+	remove,
 	findAll,
 	findById,
 	find,

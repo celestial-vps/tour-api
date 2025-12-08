@@ -1,249 +1,288 @@
-const express = require('express');
-const userController = require('../controllers/user.controller'); // sesuaikan path
-const {roleGuard} = require('../middleware/role-guard');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const userController = require("../controllers/user.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
+const {
+  createUserDto,
+  updateUserDto,
+  deleteUserDto,
+  getUserDto, filterUserDto, userResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-user-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response.dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateUserPayloadSchema } = j2s(createDto);
+const { swagger: UpdateUserPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteUserPayloadSchema } = j2s(params);
+const { swagger: FilterUserPayloadSchema } = j2s(filterDto);
+const { swagger: UserSuccessSchema } = j2s(successResponse(userResponseDto));
+const { swagger: UserListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(userResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: UserSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateUserPayloadDto = CreateUserPayloadSchema;
+global.swaggerComponents.FilterUserPayloadDto = FilterUserPayloadSchema;
+global.swaggerComponents.UpdateUserPayloadDto = UpdateUserPayloadSchema;
+global.swaggerComponents.DeleteUserPayloadDto = DeleteUserPayloadSchema;
+global.swaggerComponents.UserListSuccessResponse = UserListSuccessSchema;
+global.swaggerComponents.UserSuccessResponse = UserSuccessSchema;
+global.swaggerComponents.UserSuccessCRUDResponse = UserSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: User
- *     description: User management operations
- */
-
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *   schemas:
- *     User:
- *       type: object
- *       properties:
- *         oid:
- *           type: string
- *           format: uuid
- *         name:
- *           type: string
- *         email:
- *           type: string
- *           format: email
- *         birthday:
- *           type: string
- *           format: date
- *           nullable: true
- *         memberNumber:
- *           type: string
- *           nullable: true
- *         androidToken:
- *           type: string
- *           nullable: true
- *         expiredTime:
- *           type: string
- *           format: date-time
- *           nullable: true
- *         isActive:
- *           type: boolean
- *         activatedAt:
- *           type: string
- *           format: date-time
- *           nullable: true
- *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
- *     UserCreate:
- *       type: object
- *       required:
- *         - name
- *         - email
- *         - password
- *       properties:
- *         name:
- *           type: string
- *         email:
- *           type: string
- *           format: email
- *         password:
- *           type: string
- *         birthday:
- *           type: string
- *           format: date
- *           nullable: true
- *         memberNumber:
- *           type: string
- *           nullable: true
- *         androidToken:
- *           type: string
- *           nullable: true
- *         isActive:
- *           type: boolean
- *         roleOid:
- *           type: string
- *           format: uuid
- *         activatedAt:
- *           type: string
- *           format: date
- *           nullable: true
- *     UserUpdate:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *         email:
- *           type: string
- *           format: email
- *         password:
- *           type: string
- *         birthday:
- *           type: string
- *           format: date
- *           nullable: true
- *         memberNumber:
- *           type: string
- *           nullable: true
- *         androidToken:
- *           type: string
- *           nullable: true
- *         isActive:
- *           type: boolean
- *         roleOid:
- *           type: string
- *           format: uuid
- *         activatedAt:
- *           type: string
- *           format: date
- *           nullable: true
- */
-
-/**
- * @swagger
- * /user:
+ * @openapi
+ * /user/create:
  *   post:
- *     summary: Create a new user
  *     tags:
  *       - User
- *     security:
- *       - bearerAuth: []
+ *     summary: Create User
  *     requestBody:
- *       description: User object to create
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UserCreate'
+ *             $ref: "#/components/schemas/CreateUserPayloadDto"
  *     responses:
- *       200:
- *         description: User created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/', roleGuard('Admin'), userController.create);
+router.post(
+  "/create",
+  validateRequest(createUserDto),
+  roleGuard("Admin"),
+  userController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /user/{oid}:
  *   put:
- *     summary: Update user by OID
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
+ *     tags: [User]
+ *     summary: Update User
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UserUpdate'
+ *             $ref: "#/components/schemas/UpdateUserPayloadDto"
  *     responses:
  *       200:
- *         description: User updated successfully
+ *         description: User Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', roleGuard('Admin'), userController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateUserDto),
+  roleGuard("Admin"),
+  userController.update
+);
 
 /**
- * @swagger
- * /user/{oid}:
+ * @openapi
+ * /user/delete/{oid}:
  *   delete:
- *     summary: Delete a user by OID
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
+ *     tags: [User]
+ *     summary: Delete User
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: User deleted successfully
+ *         description: User Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/:oid', roleGuard('Admin'), userController.deleted);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteUserDto),
+  roleGuard("Admin"),
+  userController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /user:
  *   get:
- *     summary: Retrieve users with optional filtering and pagination
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *       - name: email
- *         in: query
- *         required: false
- *         schema:
- *           type: string
- *           format: email
+ *     tags: [User]
+ *     summary: Get All Users
  *     responses:
  *       200:
- *         description: Users retrieved successfully
+ *         description: List of Users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', roleGuard('Admin'), userController.find);
+router.get(
+  "/",
+  validateRequest(filterUserDto),
+  roleGuard("Admin"),
+  userController.findAll
+);
 
 /**
- * @swagger
+ * @openapi
+ * /user/q:
+ *   post:
+ *     tags: [User]
+ *     summary: Paginated Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/FilterUserPayloadDto"
+ *     responses:
+ *       200:
+ *         description: Paginated Users List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.post(
+  "/q",
+  validateRequest(filterUserDto),
+  roleGuard("Admin"),
+  userController.find
+);
+
+/**
+ * @openapi
  * /user/{oid}:
  *   get:
- *     summary: Retrieve a single user by OID
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
+ *     tags: [User]
+ *     summary: Get User By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: User retrieved successfully
+ *         description: User Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), userController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getUserDto),
+  roleGuard("Admin"),
+  userController.findById
+);
+
 
 module.exports = router;

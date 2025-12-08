@@ -1,175 +1,288 @@
-const express = require('express');
-const bidderController = require('../controllers/bidder.controller');
-const {roleGuard} = require('../middleware/role-guard');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const bidderController = require("../controllers/bidder.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
-    createBidderDto,
-    updateBidderDto,
-    params,
-    query,
-    pageBidderDto
-} = require('../dtos/payload-bidder-dto'); // pastikan path sesuai
-const { validateRequest } = require('../misc/validation'); // middleware untuk Joi
+  createBidderDto,
+  updateBidderDto,
+  deleteBidderDto,
+  getBidderDto, filterBidderDto, bidderResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-bidder-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response.dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateBidderPayloadSchema } = j2s(createDto);
+const { swagger: UpdateBidderPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteBidderPayloadSchema } = j2s(params);
+const { swagger: FilterBidderPayloadSchema } = j2s(filterDto);
+const { swagger: BidderSuccessSchema } = j2s(successResponse(bidderResponseDto));
+const { swagger: BidderListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(bidderResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: BidderSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateBidderPayloadDto = CreateBidderPayloadSchema;
+global.swaggerComponents.FilterBidderPayloadDto = FilterBidderPayloadSchema;
+global.swaggerComponents.UpdateBidderPayloadDto = UpdateBidderPayloadSchema;
+global.swaggerComponents.DeleteBidderPayloadDto = DeleteBidderPayloadSchema;
+global.swaggerComponents.BidderListSuccessResponse = BidderListSuccessSchema;
+global.swaggerComponents.BidderSuccessResponse = BidderSuccessSchema;
+global.swaggerComponents.BidderSuccessCRUDResponse = BidderSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Bidder
- *     description: Bidder management
- */
-
-/**
- * @swagger
+ * @openapi
  * /bidder/create:
  *   post:
- *     tags: [Bidder]
- *     summary: Create a new bidder
- *     security:
- *       - bearerAuth: []
+ *     tags:
+ *       - Bidder
+ *     summary: Create Bidder
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateBidderDto'
+ *             $ref: "#/components/schemas/CreateBidderPayloadDto"
  *     responses:
- *       200:
- *         description: Bidder created successfully
+ *       201:
+ *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BidderResponse'
+ *               $ref: "#/components/schemas/BidderSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', roleGuard('Admin'), validateRequest(createBidderDto), bidderController.create);
+router.post(
+  "/create",
+  validateRequest(createBidderDto),
+  roleGuard("Admin"),
+  bidderController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /bidder/{oid}:
  *   put:
  *     tags: [Bidder]
- *     summary: Update a bidder
- *     security:
- *       - bearerAuth: []
+ *     summary: Update Bidder
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateBidderDto'
+ *             $ref: "#/components/schemas/UpdateBidderPayloadDto"
  *     responses:
  *       200:
- *         description: Bidder updated successfully
+ *         description: Bidder Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BidderResponse'
- */
-router.put('/:oid', roleGuard('Admin'), validator.params(params), validateRequest(updateBidderDto), bidderController.update);
-
-/**
- * @swagger
- * /bidder/{oid}:
- *   get:
- *     tags: [Bidder]
- *     summary: Get bidder by ID
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: oid
- *         in: path
- *         required: true
- *         schema:
- *           type: string
- *           format: uuid
- *     responses:
- *       200:
- *         description: Bidder retrieved successfully
+ *               $ref: "#/components/schemas/BidderSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BidderResponse'
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), validator.params(params), bidderController.findById);
+router.put(
+  "/:oid",
+  validateRequest(updateBidderDto),
+  roleGuard("Admin"),
+  bidderController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /bidder/delete/{oid}:
  *   delete:
  *     tags: [Bidder]
- *     summary: Delete a bidder
- *     security:
- *       - bearerAuth: []
+ *     summary: Delete Bidder
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Bidder deleted successfully
+ *         description: Bidder Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BidderResponse'
+ *               $ref: "#/components/schemas/BidderSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', roleGuard('Admin'), validator.params(params), bidderController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteBidderDto),
+  roleGuard("Admin"),
+  bidderController.remove
+);
 
 /**
- * @swagger
+ * @openapi
+ * /bidder:
+ *   get:
+ *     tags: [Bidder]
+ *     summary: Get All Bidders
+ *     responses:
+ *       200:
+ *         description: List of Bidders
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BidderListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.get(
+  "/",
+  validateRequest(filterBidderDto),
+  roleGuard("Admin"),
+  bidderController.findAll
+);
+
+/**
+ * @openapi
  * /bidder/q:
  *   post:
  *     tags: [Bidder]
- *     summary: Query bidders with pagination
- *     security:
- *       - bearerAuth: []
+ *     summary: Paginated Bidders
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/PageBidderDto'
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
+ *             $ref: "#/components/schemas/FilterBidderPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated bidder list
+ *         description: Paginated Bidders List
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                 httpStatus:
- *                   type: string
- *                 message:
- *                   type: string
- *                 total:
- *                   type: integer
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/BidderResponse'
+ *               $ref: "#/components/schemas/BidderListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', roleGuard('Admin'), validateRequest(pageBidderDto), validator.query(query), bidderController.find);
+router.post(
+  "/q",
+  validateRequest(filterBidderDto),
+  roleGuard("Admin"),
+  bidderController.find
+);
+
+/**
+ * @openapi
+ * /bidder/{oid}:
+ *   get:
+ *     tags: [Bidder]
+ *     summary: Get Bidder By ID
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Bidder Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BidderSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.get(
+  "/:oid",
+  validateRequest(getBidderDto),
+  roleGuard("Admin"),
+  bidderController.findById
+);
+
 
 module.exports = router;

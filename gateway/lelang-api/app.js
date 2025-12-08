@@ -12,6 +12,8 @@ const helmet = require('helmet')
 // const bankRoutes = require('./routes/bank.route');  
 const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');  
+const bidRoutes = require('./routes/bid.route');  
+const bidderRoutes = require('./routes/bidder.route');  
 const itemRoutes = require('./routes/item.route');
 const auctionRoutes = require('./routes/auction.route');
 const itemCategoryRoutes = require('./routes/item-category.route');
@@ -79,6 +81,8 @@ app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/item-category`, itemCategoryRoutes);  
 app.use(`${basePath}/auction`, auctionRoutes);  
 app.use(`${basePath}/item`, itemRoutes);  
+app.use(`${basePath}/bid`, bidRoutes);
+app.use(`${basePath}/bidder`, bidderRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
 app.use(`${basePath}/user-role`, userRoleRoutes);
 app.use(`${basePath}/user`, userRoutes);

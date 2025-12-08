@@ -1,54 +1,119 @@
 const Joi = require('joi');
+const { authSchema } = require('./base-dto');
 
-// Validation schema for FilterUserRoleDto
-const filterUserRoleDto = Joi.object({
-  roleName: Joi.string().required().allow(null, ''), // Role name is required and should be a string
-});
-
-// Validation schema for PageUserRoleDto
-const pageUserRoleDto = Joi.object({
-  roleName: Joi.string().required().allow(null, ''), // Role name is required and should be a string
-});
-
-// Validation schema for CreateUserRoleDto
-const createUserRoleDto = Joi.object({
-  roleName: Joi.string().required(), // Role name is required and should be a string
-  targetType: Joi.string().required(), // Target type is required and should be a string
-  isAdministrative: Joi.boolean().required(), // Administrative flag is required and should be a boolean
-  readState: Joi.boolean().required(), // Read state is required and should be a boolean
-  writeState: Joi.boolean().required(), // Write state is required and should be a boolean
-  createState: Joi.boolean().required(), // Create state is required and should be a boolean
-  deleteState: Joi.boolean().required(), // Delete state is required and should be a boolean
-  navigateState: Joi.boolean().required(), // Navigate state is required and should be a boolean
-  description: Joi.string().allow('', null).optional()
-});
-
-// Validation schema for UpdateUserRoleDto
-const updateUserRoleDto = Joi.object({
-  roleName: Joi.string().required(), // Role name is required and should be a string
-  targetType: Joi.string().required(), // Target type is required and should be a string
-  isAdministrative: Joi.boolean().required(), // Administrative flag is required and should be a boolean
-  readState: Joi.boolean().required(), // Read state is required and should be a boolean
-  writeState: Joi.boolean().required(), // Write state is required and should be a boolean
-  createState: Joi.boolean().required(), // Create state is required and should be a boolean
-  deleteState: Joi.boolean().required(), // Delete state is required and should be a boolean
-  navigateState: Joi.boolean().required(), // Navigate state is required and should be a boolean
-  description: Joi.string().allow('', null).optional()
-});
-
+// Params
 const params = Joi.object({
-  oid: Joi.string().uuid().required()
+    oid: Joi.string().uuid().required().example('123e4567-e89b-12d3-a456-426614174000')
 });
 
+// Query for pagination
 const query = Joi.object({
-  pageIndex: Joi.number().integer().min(1).required(),
-  pageSize: Joi.number().integer().min(1).max(100).required(),
+    pageIndex: Joi.number().integer().min(1).required().default(1).example(1),
+    pageSize: Joi.number().integer().min(1).max(100).required().default(10).example(10),
+});
+
+// Filter (Body)
+const filterDto = Joi.object({
+    roleName: Joi.string().allow(null, '').required().example('Administrator'),
+});
+
+// Page DTO (Body)
+const pageUserRoleDto = Joi.object({
+    roleName: Joi.string().allow(null, '').required().example('Manager'),
+});
+
+// Create DTO
+const createDto = Joi.object({
+    roleName: Joi.string().required().example('Supervisor'),
+    targetType: Joi.string().required().example('SYSTEM'),
+    isAdministrative: Joi.boolean().required().example(true),
+    readState: Joi.boolean().required().example(true),
+    writeState: Joi.boolean().required().example(true),
+    createState: Joi.boolean().required().example(true),
+    deleteState: Joi.boolean().required().example(false),
+    navigateState: Joi.boolean().required().example(true),
+    description: Joi.string().allow('', null).optional().example('Role with limited access'),
+});
+
+// Update DTO
+const updateDto = Joi.object({
+    roleName: Joi.string().required().example('Supervisor Updated'),
+    targetType: Joi.string().required().example('APP'),
+    isAdministrative: Joi.boolean().required().example(false),
+    readState: Joi.boolean().required().example(true),
+    writeState: Joi.boolean().required().example(false),
+    createState: Joi.boolean().required().example(true),
+    deleteState: Joi.boolean().required().example(false),
+    navigateState: Joi.boolean().required().example(true),
+    description: Joi.string().allow('', null).optional().example('Updated description'),
+});
+
+// --------------------- COMPLETE DTOs --------------------- //
+
+// Filter User Role
+const filterUserRoleDto = Joi.object({
+    headers: authSchema,
+    query,
+    body: filterDto
+});
+
+// Get User Role by OID
+const getUserRoleDto = Joi.object({
+    headers: authSchema,
+    params
+});
+
+// Delete User Role
+const deleteUserRoleDto = Joi.object({
+    headers: authSchema,
+    params
+});
+
+// Update User Role
+const updateUserRoleDto = Joi.object({
+    headers: authSchema,
+    params,
+    body: updateDto
+});
+
+// Create User Role
+const createUserRoleDto = Joi.object({
+    headers: authSchema,
+    body: createDto
+});
+
+// Response DTO
+const userRoleResponseDto = Joi.object({
+    oid: Joi.string().required().example('550e8400-e29b-41d4-a716-446655440000'),
+    roleName: Joi.string().required().example('Admin'),
+    targetType: Joi.string().required().example('SYSTEM'),
+    isAdministrative: Joi.boolean().required().example(true),
+    readState: Joi.boolean().required().example(true),
+    writeState: Joi.boolean().required().example(true),
+    createState: Joi.boolean().required().example(true),
+    deleteState: Joi.boolean().required().example(true),
+    navigateState: Joi.boolean().required().example(true),
+    description: Joi.string().allow(null).example('Full system admin'),
+    createdAt: Joi.date().iso().required(),
+    updatedAt: Joi.date().iso().required(),
 });
 
 module.exports = {
-  filterUserRoleDto,
-  pageUserRoleDto,
-  createUserRoleDto,
-  updateUserRoleDto,
-  query
+    // Complete DTOs
+    filterUserRoleDto,
+    getUserRoleDto,
+    deleteUserRoleDto,
+    updateUserRoleDto,
+    createUserRoleDto,
+
+    // Base schemas
+    filterDto,
+    pageUserRoleDto,
+    createDto,
+    updateDto,
+    params,
+    query,
+
+    // Response
+    userRoleResponseDto
 };

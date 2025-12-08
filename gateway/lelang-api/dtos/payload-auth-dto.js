@@ -1,0 +1,54 @@
+const Joi = require("joi");
+const { authSchema } = require("./base-dto");
+
+// -------------------- BODY SCHEMAS -------------------- //
+
+// Register DTO
+const registerDto = Joi.object({
+  name: Joi.string().allow("", null).optional().example("John Doe"),
+  email: Joi.string().email().required().example("user@example.com"),
+  password: Joi.string().min(6).required().example("password123"),
+  androidToken: Joi.string().allow(null, "").optional().example("ANDROID_TOKEN_123")
+});
+
+// Login DTO
+const loginDto = Joi.object({
+  email: Joi.string().email().required().example("user@example.com"),
+  password: Joi.string().required().example("password123")
+});
+
+// -------------------- COMPLETE DTO WRAPPER -------------------- //
+
+const registerAuthDto = Joi.object({
+  body: registerDto
+});
+
+const loginAuthDto = Joi.object({
+  body: loginDto
+});
+
+// -------------------- RESPONSE DTO -------------------- //
+
+const authResponseDto = Joi.object({
+  oid: Joi.string().uuid().example("80366f9e-8600-4e37-867f-2e687f5ed14a"),
+  name: Joi.string().example("John Doe"),
+  email: Joi.string().email().example("user@example.com"),
+  token: Joi.string().example("eyJhbGciOi..."),
+  refreshToken: Joi.string().example("eyJhbGciOi..."),
+  isActive: Joi.boolean().example(true),
+  createdAt: Joi.date().iso(),
+  updatedAt: Joi.date().iso()
+});
+
+module.exports = {
+  // Full DTO
+  loginAuthDto,
+  registerAuthDto,
+
+  // Base body schemas
+  loginDto,
+  registerDto,
+
+  // Response
+  authResponseDto
+};
