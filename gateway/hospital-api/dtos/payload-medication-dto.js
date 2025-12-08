@@ -8,12 +8,12 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).default(1),
     pageSize: Joi.number().integer().min(1).max(100).default(10),
-    sortBy: Joi.string().valid('name','stock','price').default('name'),
-    sortOrder: Joi.string().valid('asc','desc').insensitive().default('asc')
+    sortBy: Joi.string().valid('name', 'stock', 'price').default('name'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Paracetamol'),
+    name: Joi.string().optional().allow(null, '').example('Paracetamol'),
     categoryOid: Joi.string().uuid().optional().example('category-uuid-123')
 });
 
@@ -60,10 +60,23 @@ const createMedicationDto = Joi.object({
     body: createDto
 });
 
+const medicationResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().example('Paracetamol Extra'),
+    categoryOid: Joi.string().uuid().example('category-uuid-456'),
+    description: Joi.string().example('Pain reliever updated'),
+    stock: Joi.number().integer().example(200),
+    price: Joi.number().precision(2).example(5500),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createMedicationDto,
     updateMedicationDto,
     deleteMedicationDto,
     filterMedicationDto,
-    getMedicationDto
+    getMedicationDto,
+    medicationResponseDto,
+    createDto, updateDto, filterDto, params
 };

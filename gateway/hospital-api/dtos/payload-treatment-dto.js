@@ -90,10 +90,23 @@ const createTreatmentDto = Joi.object({
     body: createDto
 });
 
+const treatmentResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    treatmentName: Joi.string().required().example('Physiotherapy'),
+    departmentOid: Joi.string().uuid().required().example('dept-uuid-123'),
+    description: Joi.string().optional().allow(null).example('Rehabilitation therapy for patients'),
+    price: Joi.number().required().example(150000),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
+
 module.exports = {
     createTreatmentDto,
     updateTreatmentDto,
     deleteTreatmentDto,
     filterTreatmentDto,
-    getTreatmentDto
+    getTreatmentDto,
+    treatmentResponseDto,
+    createDto, updateDto, filterDto, params
 };

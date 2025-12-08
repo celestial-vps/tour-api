@@ -53,10 +53,20 @@ const createDoctorDto = Joi.object({
     body: createDto
 });
 
+const doctorResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    userOid: Joi.string().uuid().optional().example('user-uuid-123'),
+    specializationOid: Joi.string().uuid().optional().example('specialization-uuid-123'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createDoctorDto,
     updateDoctorDto,
     deleteDoctorDto,
     filterDoctorDto,
-    getDoctorDto
+    getDoctorDto,
+    doctorResponseDto,
+    createDto, updateDto, filterDto, params
 };

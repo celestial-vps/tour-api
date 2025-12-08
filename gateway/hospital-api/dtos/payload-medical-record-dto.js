@@ -61,10 +61,24 @@ const createMedicalRecordDto = Joi.object({
     body: createDto
 });
 
+const medicalRecordResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    patientOid: Joi.string().uuid().required().example('patient-uuid-123'),
+    doctorOid: Joi.string().uuid().optional().example('doctor-uuid-123'),
+    diseaseOid: Joi.string().uuid().optional().example('disease-uuid-123'),
+    treatmentOid: Joi.string().uuid().optional().example('treatment-uuid-123'),
+    recordDate: Joi.date().default(() => new Date(), 'current date'),
+    notes: Joi.string().optional().example('Patient shows improvement'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createMedicalRecordDto,
     updateMedicalRecordDto,
     deleteMedicalRecordDto,
     filterMedicalRecordDto,
-    getMedicalRecordDto
+    getMedicalRecordDto,
+    medicalRecordResponseDto,
+    createDto, updateDto, filterDto, params
 };

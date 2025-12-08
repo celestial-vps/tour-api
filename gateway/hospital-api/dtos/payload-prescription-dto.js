@@ -59,10 +59,21 @@ const createPrescriptionDto = Joi.object({
     body: createDto
 });
 
+// Schema data khusus BANK
+const prescriptionResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    medicalRecordOid: Joi.string().uuid().optional().example('medicalrecord-uuid-123'),
+    medicineOid: Joi.string().uuid().optional().example('medication-uuid-123'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createPrescriptionDto,
     updatePrescriptionDto,
     deletePrescriptionDto,
     filterPrescriptionDto,
-    getPrescriptionDto
+    getPrescriptionDto,
+    prescriptionResponseDto,
+    createDto, updateDto, filterDto, params
 };

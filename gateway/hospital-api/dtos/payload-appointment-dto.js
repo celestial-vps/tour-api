@@ -8,14 +8,14 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).default(1),
     pageSize: Joi.number().integer().min(1).max(100).default(10),
-    sortBy: Joi.string().valid('appointmentDate','status').default('appointmentDate'),
-    sortOrder: Joi.string().valid('asc','desc').insensitive().default('asc')
+    sortBy: Joi.string().valid('appointmentDate', 'status').default('appointmentDate'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterDto = Joi.object({
     patientOid: Joi.string().uuid().optional().example('patient-uuid-123'),
     doctorOid: Joi.string().uuid().optional().example('doctor-uuid-123'),
-    status: Joi.string().valid('Scheduled','Completed','Cancelled').optional().example('Scheduled')
+    status: Joi.string().valid('Scheduled', 'Completed', 'Cancelled').optional().example('Scheduled')
 });
 
 const createDto = Joi.object({
@@ -23,14 +23,14 @@ const createDto = Joi.object({
     doctorOid: Joi.string().uuid().required().example('doctor-uuid-123'),
     departmentOid: Joi.string().uuid().optional().example('dept-uuid-123'),
     appointmentDate: Joi.date().required().example('2025-12-05T09:00:00Z'),
-    status: Joi.string().valid('Scheduled','Completed','Cancelled').default('Scheduled')
+    status: Joi.string().valid('Scheduled', 'Completed', 'Cancelled').default('Scheduled')
 });
 
 const updateDto = Joi.object({
     doctorOid: Joi.string().uuid().example('doctor-uuid-456'),
     departmentOid: Joi.string().uuid().example('dept-uuid-456'),
     appointmentDate: Joi.date().example('2025-12-06T10:00:00Z'),
-    status: Joi.string().valid('Scheduled','Completed','Cancelled').example('Completed')
+    status: Joi.string().valid('Scheduled', 'Completed', 'Cancelled').example('Completed')
 });
 
 const filterAppointmentDto = Joi.object({
@@ -60,10 +60,23 @@ const createAppointmentDto = Joi.object({
     body: createDto
 });
 
+const appointmentResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    patientOid: Joi.string().uuid().required().example('patient-uuid-123'),
+    doctorOid: Joi.string().uuid().required().example('doctor-uuid-123'),
+    departmentOid: Joi.string().uuid().optional().example('dept-uuid-123'),
+    appointmentDate: Joi.date().required().example('2025-12-05T09:00:00Z'),
+    status: Joi.string().valid('Scheduled', 'Completed', 'Cancelled').default('Scheduled'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createAppointmentDto,
     updateAppointmentDto,
     deleteAppointmentDto,
     filterAppointmentDto,
-    getAppointmentDto
+    getAppointmentDto,
+    appointmentResponseDto,
+    createDto, updateDto, filterDto, params
 };

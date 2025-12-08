@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
+const { successResponse, errorResponse } = require("./response-dto");
 
 // Params
 const params = Joi.object({
@@ -63,10 +64,22 @@ const createBankDto = Joi.object({
     body: createDto
 });
 
+// Schema data khusus BANK
+const bankResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    bankCode: Joi.string().required().example('BCA001'),
+    bankName: Joi.string().required().example('BCA'),
+    shortName: Joi.string().required().example('Bank Central Asia'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createBankDto,
     updateBankDto,
     deleteBankDto,
     filterBankDto,
     getBankDto,
+    bankResponseDto,
+    createDto, updateDto, filterDto, params
 };

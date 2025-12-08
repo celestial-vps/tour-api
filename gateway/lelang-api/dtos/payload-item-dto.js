@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
-const { successResponse, errorResponse } = require("./response.dto");
+const { successResponse, errorResponse } = require("./response-dto");
 
 // Params
 const params = Joi.object({

@@ -10,14 +10,14 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).default(1),
     pageSize: Joi.number().integer().min(1).max(100).default(10),
-    sortBy: Joi.string().valid('bedNumber','room','status').default('bedNumber'),
-    sortOrder: Joi.string().valid('asc','desc').insensitive().default('asc')
+    sortBy: Joi.string().valid('bedNumber', 'room', 'status').default('bedNumber'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 // Filter Bed DTO untuk pencarian/pagination
 const filterDto = Joi.object({
     roomOid: Joi.string().uuid().optional().example('room-uuid-123'),
-    status: Joi.string().valid('Available','Occupied','Maintenance').optional().example('Available'),
+    status: Joi.string().valid('Available', 'Occupied', 'Maintenance').optional().example('Available'),
     bedNumber: Joi.string().optional().example('B-101')
 });
 
@@ -25,7 +25,7 @@ const filterDto = Joi.object({
 const createDto = Joi.object({
     roomOid: Joi.string().uuid().required().example('room-uuid-123'),
     bedNumber: Joi.string().required().example('B-101'),
-    status: Joi.string().valid('Available','Occupied','Maintenance').default('Available'),
+    status: Joi.string().valid('Available', 'Occupied', 'Maintenance').default('Available'),
     description: Joi.string().optional().example('Near window')
 });
 
@@ -33,7 +33,7 @@ const createDto = Joi.object({
 const updateDto = Joi.object({
     roomOid: Joi.string().uuid().example('room-uuid-456'),
     bedNumber: Joi.string().example('B-102'),
-    status: Joi.string().valid('Available','Occupied','Maintenance').example('Occupied'),
+    status: Joi.string().valid('Available', 'Occupied', 'Maintenance').example('Occupied'),
     description: Joi.string().example('Next to nurse station')
 });
 
@@ -65,10 +65,22 @@ const createBedDto = Joi.object({
     body: createDto
 });
 
+const bedResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    roomOid: Joi.string().uuid().required().example('room-uuid-123'),
+    bedNumber: Joi.string().required().example('B-101'),
+    status: Joi.string().valid('Available', 'Occupied', 'Maintenance').default('Available'),
+    description: Joi.string().optional().example('Near window'),
+        createdBy: Joi.string().required(),
+        updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createBedDto,
     updateBedDto,
     deleteBedDto,
     filterBedDto,
-    getBedDto
+    getBedDto,
+    bedResponseDto,
+    createDto, updateDto, filterDto, params
 };

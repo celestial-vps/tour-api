@@ -21,13 +21,13 @@ const createDto = Joi.object({
   labTestOid: Joi.string().uuid().required(),
   doctorOid: Joi.string().uuid().optional(),
   result: Joi.string().optional(),
-  testDate: Joi.date().default(() => new Date(), 'current date')
+  testDate: Joi.date().default(new Date())
 });
 
 const updateDto = Joi.object({
   doctorOid: Joi.string().uuid().optional(),
   result: Joi.string().optional(),
-  testDate: Joi.date().default(() => new Date(), 'current date')
+  testDate: Joi.date().default(new Date())
 });
 
 const filterPatientLabTestDto = Joi.object({
@@ -57,10 +57,23 @@ const createPatientLabTestDto = Joi.object({
   body: createDto
 });
 
+const patientLabTestResponseDto = Joi.object({
+  oid: Joi.string().required(),
+  patientOid: Joi.string().uuid().required(),
+  labTestOid: Joi.string().uuid().required(),
+  doctorOid: Joi.string().uuid().optional(),
+  result: Joi.string().optional(),
+  testDate: Joi.date().default(new Date()),
+  createdBy: Joi.string().required(),
+  updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
   createPatientLabTestDto,
   updatePatientLabTestDto,
   deletePatientLabTestDto,
   filterPatientLabTestDto,
-  getPatientLabTestDto
+  getPatientLabTestDto,
+  patientLabTestResponseDto,
+  createDto, updateDto, filterDto, params
 };

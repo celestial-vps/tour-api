@@ -9,21 +9,19 @@ const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).default(1),
     pageSize: Joi.number().integer().min(1).max(100).default(10),
     sortBy: Joi.string().valid('name').default('name'),
-    sortOrder: Joi.string().valid('asc','desc').insensitive().default('asc')
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Diabetes')
+    name: Joi.string().optional().allow(null, '').example('Diabetes')
 });
 
 const createDto = Joi.object({
     name: Joi.string().required().example('Diabetes'),
-    description: Joi.string().optional().example('Chronic disease affecting blood sugar')
 });
 
 const updateDto = Joi.object({
     name: Joi.string().example('Diabetes Type 2'),
-    description: Joi.string().example('Updated description')
 });
 
 const filterDiseaseDto = Joi.object({
@@ -53,10 +51,20 @@ const createDiseaseDto = Joi.object({
     body: createDto
 });
 
+const diseasesResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().required().example('Diabetes'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
+
 module.exports = {
     createDiseaseDto,
     updateDiseaseDto,
     deleteDiseaseDto,
     filterDiseaseDto,
-    getDiseaseDto
+    getDiseaseDto,
+    diseasesResponseDto,
+    createDto, updateDto, filterDto, params
 };

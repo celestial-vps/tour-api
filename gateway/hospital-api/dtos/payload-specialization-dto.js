@@ -11,17 +11,15 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Cardiology')
+    name: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({
     name: Joi.string().required().example('Cardiology'),
-    description: Joi.string().optional().example('Heart specialist')
 });
 
 const updateDto = Joi.object({
     name: Joi.string().example('Neurology'),
-    description: Joi.string().example('Brain specialist')
 });
 
 const filterSpecializationDto = Joi.object({
@@ -51,10 +49,20 @@ const createSpecializationDto = Joi.object({
     body: createDto
 });
 
+const specializationResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().required().example('Cardiology'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
+
 module.exports = {
     createSpecializationDto,
     updateSpecializationDto,
     deleteSpecializationDto,
     filterSpecializationDto,
-    getSpecializationDto
+    getSpecializationDto,
+    specializationResponseDto,
+    createDto, updateDto, filterDto, params
 };

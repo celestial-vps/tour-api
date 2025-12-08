@@ -1,153 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const bankController = require('../controllers/bank.controller');
-const { validateRequest } = require('../misc/validation');
-const j2s = require('joi-to-swagger');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const bankController = require("../controllers/bank.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
-  filterBankDto,
   createBankDto,
   updateBankDto,
   deleteBankDto,
-  getBankDto
-} = require('../dtos/payload-bank-dto');
+  getBankDto, filterBankDto, bankResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-bank-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateBankPayloadSchema } = j2s(createDto);
+const { swagger: UpdateBankPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteBankPayloadSchema } = j2s(params);
+const { swagger: FilterBankPayloadSchema } = j2s(filterDto);
+const { swagger: BankSuccessSchema } = j2s(successResponse(bankResponseDto));
+const { swagger: BankListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(bankResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: BankSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateBankPayloadDto = CreateBankPayloadSchema;
+global.swaggerComponents.FilterBankPayloadDto = FilterBankPayloadSchema;
+global.swaggerComponents.UpdateBankPayloadDto = UpdateBankPayloadSchema;
+global.swaggerComponents.DeleteBankPayloadDto = DeleteBankPayloadSchema;
+global.swaggerComponents.BankListSuccessResponse = BankListSuccessSchema;
+global.swaggerComponents.BankSuccessResponse = BankSuccessSchema;
+global.swaggerComponents.BankSuccessCRUDResponse = BankSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
-// Convert DTO ke Swagger schema
-const { swagger: createBankSchema } = j2s(createBankDto);
-const { swagger: updateBankSchema } = j2s(updateBankDto);
-const { swagger: filterBankSchema } = j2s(filterBankDto); // hanya body
-// getBankDto & deleteBankDto biasanya hanya params, bisa manual di Swagger
-
 /**
- * @swagger
- * tags:
- *   - name: Bank
- *     description: Bank management operations
- */
-
-/**
- * @swagger
+ * @openapi
  * /bank/create:
  *   post:
- *     tags: [Bank]
- *     summary: Create a new bank entry
+ *     tags:
+ *       - Bank
+ *     summary: Create Bank
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             ${JSON.stringify(createBankSchema)}
+ *             $ref: "#/components/schemas/CreateBankPayloadDto"
  *     responses:
- *       200:
- *         description: Bank created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createBankDto), roleGuard('Admin'), bankController.create);
+router.post(
+  "/create",
+  validateRequest(createBankDto),
+  roleGuard("Admin"),
+  bankController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /bank/{oid}:
  *   put:
  *     tags: [Bank]
- *     summary: Update an existing bank entry
+ *     summary: Update Bank
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             ${JSON.stringify(updateBankSchema)}
+ *             $ref: "#/components/schemas/UpdateBankPayloadDto"
  *     responses:
  *       200:
- *         description: Bank updated successfully
+ *         description: Bank Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateBankDto), roleGuard('Admin'), bankController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateBankDto),
+  roleGuard("Admin"),
+  bankController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /bank/delete/{oid}:
  *   delete:
  *     tags: [Bank]
- *     summary: Delete a bank entry
+ *     summary: Delete Bank
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Bank deleted successfully
+ *         description: Bank Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteBankDto), roleGuard('Admin'), bankController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteBankDto),
+  roleGuard("Admin"),
+  bankController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /bank:
  *   get:
  *     tags: [Bank]
- *     summary: Get all banks
+ *     summary: Get All Banks
  *     responses:
  *       200:
- *         description: List of banks
+ *         description: List of Banks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterBankDto), roleGuard('Admin'), bankController.findAll);
+router.get(
+  "/",
+  validateRequest(filterBankDto),
+  roleGuard("Admin"),
+  bankController.findAll
+);
 
 /**
- * @swagger
+ * @openapi
  * /bank/q:
  *   post:
  *     tags: [Bank]
- *     summary: Paginate banks
+ *     summary: Paginated Banks
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             ${JSON.stringify(filterBankSchema)}
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *             $ref: "#/components/schemas/FilterBankPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of banks
+ *         description: Paginated Banks List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterBankDto), roleGuard('Admin'), bankController.find);
+router.post(
+  "/q",
+  validateRequest(filterBankDto),
+  roleGuard("Admin"),
+  bankController.find
+);
 
 /**
- * @swagger
+ * @openapi
  * /bank/{oid}:
  *   get:
  *     tags: [Bank]
- *     summary: Get a single bank by ID
+ *     summary: Get Bank By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A bank entry
+ *         description: Bank Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BankSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getBankDto), roleGuard('Admin'), bankController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getBankDto),
+  roleGuard("Admin"),
+  bankController.findById
+);
+
 
 module.exports = router;

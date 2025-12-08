@@ -11,7 +11,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Blood Test')
+    name: Joi.string().optional().allow(null, '').example('Blood Test')
 });
 
 const createDto = Joi.object({
@@ -53,10 +53,19 @@ const createLabTestDto = Joi.object({
     body: createDto
 });
 
+const labTestResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().optional().allow(null, '').example('Blood Test'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createLabTestDto,
     updateLabTestDto,
     deleteLabTestDto,
     filterLabTestDto,
-    getLabTestDto
+    getLabTestDto,
+    labTestResponseDto,
+    createDto, updateDto, filterDto, params
 };

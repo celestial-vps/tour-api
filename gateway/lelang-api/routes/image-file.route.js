@@ -11,7 +11,7 @@ const {
 const { validateRequest } = require('../misc/validation');
 const j2s = require('joi-to-swagger');
 const Joi = require('joi');
-const { successResponse, errorResponse } = require('../dtos/response.dto');
+const { successResponse, errorResponse } = require('../dtos/response-dto');
 const { messageDto } = require('../dtos/message-dto');
 
 const router = express.Router();

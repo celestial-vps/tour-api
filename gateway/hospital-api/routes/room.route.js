@@ -1,146 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const roomController = require('../controllers/room.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const roomController = require("../controllers/room.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
   createRoomDto,
   updateRoomDto,
   deleteRoomDto,
-  filterRoomDto,
-  getRoomDto
-} = require('../dtos/payload-room-dto');
+  getRoomDto, filterRoomDto, roomResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-room-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateRoomPayloadSchema } = j2s(createDto);
+const { swagger: UpdateRoomPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteRoomPayloadSchema } = j2s(params);
+const { swagger: FilterRoomPayloadSchema } = j2s(filterDto);
+const { swagger: RoomSuccessSchema } = j2s(successResponse(roomResponseDto));
+const { swagger: RoomListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(roomResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: RoomSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateRoomPayloadDto = CreateRoomPayloadSchema;
+global.swaggerComponents.FilterRoomPayloadDto = FilterRoomPayloadSchema;
+global.swaggerComponents.UpdateRoomPayloadDto = UpdateRoomPayloadSchema;
+global.swaggerComponents.DeleteRoomPayloadDto = DeleteRoomPayloadSchema;
+global.swaggerComponents.RoomListSuccessResponse = RoomListSuccessSchema;
+global.swaggerComponents.RoomSuccessResponse = RoomSuccessSchema;
+global.swaggerComponents.RoomSuccessCRUDResponse = RoomSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Rooms
- *     description: Room management operations
- */
-
-/**
- * @swagger
- * /rooms/create:
+ * @openapi
+ * /room/create:
  *   post:
- *     tags: [Rooms]
- *     summary: Create a new room
+ *     tags:
+ *       - Room
+ *     summary: Create Room
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateRoom'
+ *             $ref: "#/components/schemas/CreateRoomPayloadDto"
  *     responses:
- *       200:
- *         description: Room created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createRoomDto), roleGuard('Admin'), roomController.create);
+router.post(
+  "/create",
+  validateRequest(createRoomDto),
+  roleGuard("Admin"),
+  roomController.create
+);
+
 
 /**
- * @swagger
- * /rooms/{oid}:
+ * @openapi
+ * /room/{oid}:
  *   put:
- *     tags: [Rooms]
- *     summary: Update an existing room
+ *     tags: [Room]
+ *     summary: Update Room
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateRoom'
+ *             $ref: "#/components/schemas/UpdateRoomPayloadDto"
  *     responses:
  *       200:
- *         description: Room updated successfully
+ *         description: Room Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateRoomDto), roleGuard('Admin'), roomController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateRoomDto),
+  roleGuard("Admin"),
+  roomController.update
+);
 
 /**
- * @swagger
- * /rooms/delete/{oid}:
+ * @openapi
+ * /room/delete/{oid}:
  *   delete:
- *     tags: [Rooms]
- *     summary: Delete a room
+ *     tags: [Room]
+ *     summary: Delete Room
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Room deleted successfully
+ *         description: Room Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteRoomDto), roleGuard('Admin'), roomController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteRoomDto),
+  roleGuard("Admin"),
+  roomController.remove
+);
 
 /**
- * @swagger
- * /rooms:
+ * @openapi
+ * /room:
  *   get:
- *     tags: [Rooms]
- *     summary: Get all rooms
+ *     tags: [Room]
+ *     summary: Get All Rooms
  *     responses:
  *       200:
- *         description: List of rooms
+ *         description: List of Rooms
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterRoomDto), roleGuard('Admin'), roomController.findAll);
+router.get(
+  "/",
+  validateRequest(filterRoomDto),
+  roleGuard("Admin"),
+  roomController.findAll
+);
 
 /**
- * @swagger
- * /rooms/q:
+ * @openapi
+ * /room/q:
  *   post:
- *     tags: [Rooms]
- *     summary: Paginate rooms
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *     tags: [Room]
+ *     summary: Paginated Rooms
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FilterRoom'
+ *             $ref: "#/components/schemas/FilterRoomPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of rooms
+ *         description: Paginated Rooms List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterRoomDto), roleGuard('Admin'), roomController.find);
+router.post(
+  "/q",
+  validateRequest(filterRoomDto),
+  roleGuard("Admin"),
+  roomController.find
+);
 
 /**
- * @swagger
- * /rooms/{oid}:
+ * @openapi
+ * /room/{oid}:
  *   get:
- *     tags: [Rooms]
- *     summary: Get a single room by ID
+ *     tags: [Room]
+ *     summary: Get Room By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A single room entry
+ *         description: Room Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/RoomSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getRoomDto), roleGuard('Admin'), roomController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getRoomDto),
+  roleGuard("Admin"),
+  roomController.findById
+);
+
 
 module.exports = router;

@@ -1,183 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const billingController = require('../controllers/billing.controller');
-const { validateRequest } = require('../misc/validation');
-const j2s = require('joi-to-swagger');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const billingController = require("../controllers/billing.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
 
+// Payload DTO
 const {
   createBillingDto,
   updateBillingDto,
   deleteBillingDto,
-  filterBillingDto,
-  getBillingDto
-} = require('../dtos/payload-billing-dto');
+  getBillingDto, filterBillingDto, billingResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-billing-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateBillingPayloadSchema } = j2s(createDto);
+const { swagger: UpdateBillingPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteBillingPayloadSchema } = j2s(params);
+const { swagger: FilterBillingPayloadSchema } = j2s(filterDto);
+const { swagger: BillingSuccessSchema } = j2s(successResponse(billingResponseDto));
+const { swagger: BillingListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(billingResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: BillingSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateBillingPayloadDto = CreateBillingPayloadSchema;
+global.swaggerComponents.FilterBillingPayloadDto = FilterBillingPayloadSchema;
+global.swaggerComponents.UpdateBillingPayloadDto = UpdateBillingPayloadSchema;
+global.swaggerComponents.DeleteBillingPayloadDto = DeleteBillingPayloadSchema;
+global.swaggerComponents.BillingListSuccessResponse = BillingListSuccessSchema;
+global.swaggerComponents.BillingSuccessResponse = BillingSuccessSchema;
+global.swaggerComponents.BillingSuccessCRUDResponse = BillingSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
-// Swagger schemas from DTO
-const { swagger: createBillingSchema } = j2s(createBillingDto);
-const { swagger: updateBillingSchema } = j2s(updateBillingDto);
-const { swagger: filterBillingSchema } = j2s(filterBillingDto);
-
 /**
- * @swagger
- * tags:
- *   - name: Billing
- *     description: Billing management operations
- */
-
-/**
- * @swagger
+ * @openapi
  * /billing/create:
  *   post:
- *     tags: [Billing]
- *     summary: Create a new billing entry
+ *     tags:
+ *       - Billing
+ *     summary: Create Billing
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               patientOid:
- *                 type: string
- *                 example: "uuid-patient-123"
- *               totalAmount:
- *                 type: number
- *                 example: 150000.00
- *               status:
- *                 type: string
- *                 enum: ["Pending", "Paid", "Cancelled"]
- *                 example: "Pending"
+ *             $ref: "#/components/schemas/CreateBillingPayloadDto"
  *     responses:
- *       200:
- *         description: Billing created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createBillingDto), roleGuard('Admin'), billingController.create);
+router.post(
+  "/create",
+  validateRequest(createBillingDto),
+  roleGuard("Admin"),
+  billingController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /billing/{oid}:
  *   put:
  *     tags: [Billing]
- *     summary: Update an existing billing entry
+ *     summary: Update Billing
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               patientOid:
- *                 type: string
- *                 example: "uuid-patient-123"
- *               totalAmount:
- *                 type: number
- *                 example: 200000.00
- *               status:
- *                 type: string
- *                 enum: ["Pending", "Paid", "Cancelled"]
- *                 example: "Paid"
+ *             $ref: "#/components/schemas/UpdateBillingPayloadDto"
  *     responses:
  *       200:
- *         description: Billing updated successfully
+ *         description: Billing Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateBillingDto), roleGuard('Admin'), billingController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateBillingDto),
+  roleGuard("Admin"),
+  billingController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /billing/delete/{oid}:
  *   delete:
  *     tags: [Billing]
- *     summary: Delete a billing entry
+ *     summary: Delete Billing
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Billing deleted successfully
+ *         description: Billing Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteBillingDto), roleGuard('Admin'), billingController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteBillingDto),
+  roleGuard("Admin"),
+  billingController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /billing:
  *   get:
  *     tags: [Billing]
- *     summary: Get all billings
+ *     summary: Get All Billings
  *     responses:
  *       200:
- *         description: List of billings
+ *         description: List of Billings
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterBillingDto), roleGuard('Admin'), billingController.findAll);
+router.get(
+  "/",
+  validateRequest(filterBillingDto),
+  roleGuard("Admin"),
+  billingController.findAll
+);
 
 /**
- * @swagger
+ * @openapi
  * /billing/q:
  *   post:
  *     tags: [Billing]
- *     summary: Paginate billings
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
+ *     summary: Paginated Billings
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               patientOid:
- *                 type: string
- *                 example: "uuid-patient-123"
- *               status:
- *                 type: string
- *                 enum: ["Pending", "Paid", "Cancelled"]
- *                 example: "Pending"
+ *             $ref: "#/components/schemas/FilterBillingPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of billings
+ *         description: Paginated Billings List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterBillingDto), roleGuard('Admin'), billingController.find);
+router.post(
+  "/q",
+  validateRequest(filterBillingDto),
+  roleGuard("Admin"),
+  billingController.find
+);
 
 /**
- * @swagger
+ * @openapi
  * /billing/{oid}:
  *   get:
  *     tags: [Billing]
- *     summary: Get a single billing by ID
+ *     summary: Get Billing By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A billing entry
+ *         description: Billing Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BillingSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getBillingDto), roleGuard('Admin'), billingController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getBillingDto),
+  roleGuard("Admin"),
+  billingController.findById
+);
+
 
 module.exports = router;

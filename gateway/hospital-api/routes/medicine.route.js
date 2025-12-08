@@ -1,179 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const medicationController = require('../controllers/medication.controller');
-const { validateRequest } = require('../misc/validation');
-const j2s = require('joi-to-swagger');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const medicineController = require("../controllers/medicine.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
 
+// Payload DTO
 const {
-  createMedicationDto,
-  updateMedicationDto,
-  deleteMedicationDto,
-  filterMedicationDto,
-  getMedicationDto
-} = require('../dtos/payload-medication-dto');
+  createBMedicineDto,
+  updateBMedicineDto,
+  deleteBMedicineDto,
+  getBMedicineDto, filterBMedicineDto, medicineResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-medicine-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateBMedicinePayloadSchema } = j2s(createDto);
+const { swagger: UpdateBMedicinePayloadSchema } = j2s(updateDto);
+const { swagger: DeleteBMedicinePayloadSchema } = j2s(params);
+const { swagger: FilterBMedicinePayloadSchema } = j2s(filterDto);
+const { swagger: BMedicineSuccessSchema } = j2s(successResponse(medicineResponseDto));
+const { swagger: BMedicineListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(medicineResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: BMedicineSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateBMedicinePayloadDto = CreateBMedicinePayloadSchema;
+global.swaggerComponents.FilterBMedicinePayloadDto = FilterBMedicinePayloadSchema;
+global.swaggerComponents.UpdateBMedicinePayloadDto = UpdateBMedicinePayloadSchema;
+global.swaggerComponents.DeleteBMedicinePayloadDto = DeleteBMedicinePayloadSchema;
+global.swaggerComponents.BMedicineListSuccessResponse = BMedicineListSuccessSchema;
+global.swaggerComponents.BMedicineSuccessResponse = BMedicineSuccessSchema;
+global.swaggerComponents.BMedicineSuccessCRUDResponse = BMedicineSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
-// Swagger schemas from DTO
-const { swagger: createMedicationSchema } = j2s(createMedicationDto);
-const { swagger: updateMedicationSchema } = j2s(updateMedicationDto);
-const { swagger: filterMedicationSchema } = j2s(filterMedicationDto);
-
 /**
- * @swagger
- * tags:
- *   - name: Medication
- *     description: Medication management operations
- */
-
-/**
- * @swagger
- * /medication/create:
+ * @openapi
+ * /medicine/create:
  *   post:
- *     tags: [Medication]
- *     summary: Create a new medication
+ *     tags:
+ *       - BMedicine
+ *     summary: Create BMedicine
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Paracetamol"
- *               categoryOid:
- *                 type: string
- *                 format: uuid
- *                 example: "550e8400-e29b-41d4-a716-446655440000"
- *               description:
- *                 type: string
- *                 example: "Pain reliever and fever reducer"
+ *             $ref: "#/components/schemas/CreateBMedicinePayloadDto"
  *     responses:
- *       200:
- *         description: Medication created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createMedicationDto), roleGuard('Admin'), medicationController.create);
+router.post(
+  "/create",
+  validateRequest(createBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.create
+);
+
 
 /**
- * @swagger
- * /medication/{oid}:
+ * @openapi
+ * /medicine/{oid}:
  *   put:
- *     tags: [Medication]
- *     summary: Update an existing medication
+ *     tags: [BMedicine]
+ *     summary: Update BMedicine
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Ibuprofen"
- *               categoryOid:
- *                 type: string
- *                 format: uuid
- *                 example: "550e8400-e29b-41d4-a716-446655440001"
- *               description:
- *                 type: string
- *                 example: "Anti-inflammatory medication"
+ *             $ref: "#/components/schemas/UpdateBMedicinePayloadDto"
  *     responses:
  *       200:
- *         description: Medication updated successfully
+ *         description: BMedicine Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateMedicationDto), roleGuard('Admin'), medicationController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.update
+);
 
 /**
- * @swagger
- * /medication/delete/{oid}:
+ * @openapi
+ * /medicine/delete/{oid}:
  *   delete:
- *     tags: [Medication]
- *     summary: Delete a medication
+ *     tags: [BMedicine]
+ *     summary: Delete BMedicine
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Medication deleted successfully
+ *         description: BMedicine Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteMedicationDto), roleGuard('Admin'), medicationController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.remove
+);
 
 /**
- * @swagger
- * /medication:
+ * @openapi
+ * /medicine:
  *   get:
- *     tags: [Medication]
- *     summary: Get all medications
+ *     tags: [BMedicine]
+ *     summary: Get All BMedicines
  *     responses:
  *       200:
- *         description: List of medications
+ *         description: List of BMedicines
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterMedicationDto), roleGuard('Admin'), medicationController.findAll);
+router.get(
+  "/",
+  validateRequest(filterBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.findAll
+);
 
 /**
- * @swagger
- * /medication/q:
+ * @openapi
+ * /medicine/q:
  *   post:
- *     tags: [Medication]
- *     summary: Paginate medications
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
+ *     tags: [BMedicine]
+ *     summary: Paginated BMedicines
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Paracetamol"
+ *             $ref: "#/components/schemas/FilterBMedicinePayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of medications
+ *         description: Paginated BMedicines List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterMedicationDto), roleGuard('Admin'), medicationController.find);
+router.post(
+  "/q",
+  validateRequest(filterBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.find
+);
 
 /**
- * @swagger
- * /medication/{oid}:
+ * @openapi
+ * /medicine/{oid}:
  *   get:
- *     tags: [Medication]
- *     summary: Get a single medication by ID
+ *     tags: [BMedicine]
+ *     summary: Get BMedicine By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A medication entry
+ *         description: BMedicine Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/BMedicineSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getMedicationDto), roleGuard('Admin'), medicationController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getBMedicineDto),
+  roleGuard("Admin"),
+  medicineController.findById
+);
+
 
 module.exports = router;

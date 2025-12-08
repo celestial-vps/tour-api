@@ -1,146 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const medicalRecordController = require('../controllers/patient-medical-record.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const patientMedicalRecordController = require("../controllers/patient-medical-record.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
   createPatientMedicalRecordDto,
   updatePatientMedicalRecordDto,
   deletePatientMedicalRecordDto,
-  filterPatientMedicalRecordDto,
-  getPatientMedicalRecordDto
-} = require('../dtos/payload-patient-medical-record-dto');
+  getPatientMedicalRecordDto, filterPatientMedicalRecordDto, patientMedicalRecordResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-patient-medical-record-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreatePatientMedicalRecordPayloadSchema } = j2s(createDto);
+const { swagger: UpdatePatientMedicalRecordPayloadSchema } = j2s(updateDto);
+const { swagger: DeletePatientMedicalRecordPayloadSchema } = j2s(params);
+const { swagger: FilterPatientMedicalRecordPayloadSchema } = j2s(filterDto);
+const { swagger: PatientMedicalRecordSuccessSchema } = j2s(successResponse(patientMedicalRecordResponseDto));
+const { swagger: PatientMedicalRecordListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(patientMedicalRecordResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: PatientMedicalRecordSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreatePatientMedicalRecordPayloadDto = CreatePatientMedicalRecordPayloadSchema;
+global.swaggerComponents.FilterPatientMedicalRecordPayloadDto = FilterPatientMedicalRecordPayloadSchema;
+global.swaggerComponents.UpdatePatientMedicalRecordPayloadDto = UpdatePatientMedicalRecordPayloadSchema;
+global.swaggerComponents.DeletePatientMedicalRecordPayloadDto = DeletePatientMedicalRecordPayloadSchema;
+global.swaggerComponents.PatientMedicalRecordListSuccessResponse = PatientMedicalRecordListSuccessSchema;
+global.swaggerComponents.PatientMedicalRecordSuccessResponse = PatientMedicalRecordSuccessSchema;
+global.swaggerComponents.PatientMedicalRecordSuccessCRUDResponse = PatientMedicalRecordSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: PatientMedicalRecords
- *     description: Patient Medical Record management operations
- */
-
-/**
- * @swagger
- * /medical-records/create:
+ * @openapi
+ * /patient-medical-record/create:
  *   post:
- *     tags: [PatientMedicalRecords]
- *     summary: Create a new patient medical record
+ *     tags:
+ *       - Patient Medical Record
+ *     summary: Create Patient Medical Record
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreatePatientMedicalRecord'
+ *             $ref: "#/components/schemas/CreatePatientMedicalRecordPayloadDto"
  *     responses:
- *       200:
- *         description: Medical record created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createPatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.create);
+router.post(
+  "/create",
+  validateRequest(createPatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.create
+);
+
 
 /**
- * @swagger
- * /medical-records/{oid}:
+ * @openapi
+ * /patient-medical-record/{oid}:
  *   put:
- *     tags: [PatientMedicalRecords]
- *     summary: Update an existing patient medical record
+ *     tags: [Patient Medical Record]
+ *     summary: Update Patient Medical Record
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdatePatientMedicalRecord'
+ *             $ref: "#/components/schemas/UpdatePatientMedicalRecordPayloadDto"
  *     responses:
  *       200:
- *         description: Medical record updated successfully
+ *         description: PatientMedicalRecord Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updatePatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.update);
+router.put(
+  "/:oid",
+  validateRequest(updatePatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.update
+);
 
 /**
- * @swagger
- * /medical-records/delete/{oid}:
+ * @openapi
+ * /patient-medical-record/delete/{oid}:
  *   delete:
- *     tags: [PatientMedicalRecords]
- *     summary: Delete a patient medical record
+ *     tags: [Patient Medical Record]
+ *     summary: Delete Patient Medical Record
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Medical record deleted successfully
+ *         description: PatientMedicalRecord Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deletePatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deletePatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.remove
+);
 
 /**
- * @swagger
- * /medical-records:
+ * @openapi
+ * /patient-medical-record:
  *   get:
- *     tags: [PatientMedicalRecords]
- *     summary: Get all patient medical records
+ *     tags: [Patient Medical Record]
+ *     summary: Get All Patient Medical Records
  *     responses:
  *       200:
- *         description: List of patient medical records
+ *         description: List of PatientMedicalRecords
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterPatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.findAll);
+router.get(
+  "/",
+  validateRequest(filterPatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.findAll
+);
 
 /**
- * @swagger
- * /medical-records/q:
+ * @openapi
+ * /patient-medical-record/q:
  *   post:
- *     tags: [PatientMedicalRecords]
- *     summary: Paginate patient medical records
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *     tags: [Patient Medical Record]
+ *     summary: Paginated Patient Medical Records
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FilterPatientMedicalRecord'
+ *             $ref: "#/components/schemas/FilterPatientMedicalRecordPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of patient medical records
+ *         description: Paginated PatientMedicalRecords List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterPatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.find);
+router.post(
+  "/q",
+  validateRequest(filterPatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.find
+);
 
 /**
- * @swagger
- * /medical-records/{oid}:
+ * @openapi
+ * /patient-medical-record/{oid}:
  *   get:
- *     tags: [PatientMedicalRecords]
- *     summary: Get a single patient medical record by ID
+ *     tags: [Patient Medical Record]
+ *     summary: Get Patient Medical Record By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A single patient medical record entry
+ *         description: PatientMedicalRecord Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientMedicalRecordSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getPatientMedicalRecordDto), roleGuard('Admin'), medicalRecordController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getPatientMedicalRecordDto),
+  roleGuard("Admin"),
+  patientMedicalRecordController.findById
+);
+
 
 module.exports = router;

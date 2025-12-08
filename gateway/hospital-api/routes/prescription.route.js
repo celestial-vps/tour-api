@@ -1,146 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const prescriptionController = require('../controllers/prescription.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const prescriptionController = require("../controllers/prescription.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
   createPrescriptionDto,
   updatePrescriptionDto,
   deletePrescriptionDto,
-  filterPrescriptionDto,
-  getPrescriptionDto
-} = require('../dtos/payload-prescription-dto');
+  getPrescriptionDto, filterPrescriptionDto, prescriptionResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-prescription-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreatePrescriptionPayloadSchema } = j2s(createDto);
+const { swagger: UpdatePrescriptionPayloadSchema } = j2s(updateDto);
+const { swagger: DeletePrescriptionPayloadSchema } = j2s(params);
+const { swagger: FilterPrescriptionPayloadSchema } = j2s(filterDto);
+const { swagger: PrescriptionSuccessSchema } = j2s(successResponse(prescriptionResponseDto));
+const { swagger: PrescriptionListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(prescriptionResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: PrescriptionSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreatePrescriptionPayloadDto = CreatePrescriptionPayloadSchema;
+global.swaggerComponents.FilterPrescriptionPayloadDto = FilterPrescriptionPayloadSchema;
+global.swaggerComponents.UpdatePrescriptionPayloadDto = UpdatePrescriptionPayloadSchema;
+global.swaggerComponents.DeletePrescriptionPayloadDto = DeletePrescriptionPayloadSchema;
+global.swaggerComponents.PrescriptionListSuccessResponse = PrescriptionListSuccessSchema;
+global.swaggerComponents.PrescriptionSuccessResponse = PrescriptionSuccessSchema;
+global.swaggerComponents.PrescriptionSuccessCRUDResponse = PrescriptionSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Prescriptions
- *     description: Prescription management operations
- */
-
-/**
- * @swagger
- * /prescriptions/create:
+ * @openapi
+ * /prescription/create:
  *   post:
- *     tags: [Prescriptions]
- *     summary: Create a new prescription
+ *     tags:
+ *       - Prescription
+ *     summary: Create Prescription
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreatePrescription'
+ *             $ref: "#/components/schemas/CreatePrescriptionPayloadDto"
  *     responses:
- *       200:
- *         description: Prescription created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createPrescriptionDto), roleGuard('Admin'), prescriptionController.create);
+router.post(
+  "/create",
+  validateRequest(createPrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.create
+);
+
 
 /**
- * @swagger
- * /prescriptions/{oid}:
+ * @openapi
+ * /prescription/{oid}:
  *   put:
- *     tags: [Prescriptions]
- *     summary: Update an existing prescription
+ *     tags: [Prescription]
+ *     summary: Update Prescription
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdatePrescription'
+ *             $ref: "#/components/schemas/UpdatePrescriptionPayloadDto"
  *     responses:
  *       200:
- *         description: Prescription updated successfully
+ *         description: Prescription Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updatePrescriptionDto), roleGuard('Admin'), prescriptionController.update);
+router.put(
+  "/:oid",
+  validateRequest(updatePrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.update
+);
 
 /**
- * @swagger
- * /prescriptions/delete/{oid}:
+ * @openapi
+ * /prescription/delete/{oid}:
  *   delete:
- *     tags: [Prescriptions]
- *     summary: Delete a prescription
+ *     tags: [Prescription]
+ *     summary: Delete Prescription
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Prescription deleted successfully
+ *         description: Prescription Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deletePrescriptionDto), roleGuard('Admin'), prescriptionController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deletePrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.remove
+);
 
 /**
- * @swagger
- * /prescriptions:
+ * @openapi
+ * /prescription:
  *   get:
- *     tags: [Prescriptions]
- *     summary: Get all prescriptions
+ *     tags: [Prescription]
+ *     summary: Get All Prescriptions
  *     responses:
  *       200:
- *         description: List of prescriptions
+ *         description: List of Prescriptions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterPrescriptionDto), roleGuard('Admin'), prescriptionController.findAll);
+router.get(
+  "/",
+  validateRequest(filterPrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.findAll
+);
 
 /**
- * @swagger
- * /prescriptions/q:
+ * @openapi
+ * /prescription/q:
  *   post:
- *     tags: [Prescriptions]
- *     summary: Paginate prescriptions
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *     tags: [Prescription]
+ *     summary: Paginated Prescriptions
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FilterPrescription'
+ *             $ref: "#/components/schemas/FilterPrescriptionPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of prescriptions
+ *         description: Paginated Prescriptions List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterPrescriptionDto), roleGuard('Admin'), prescriptionController.find);
+router.post(
+  "/q",
+  validateRequest(filterPrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.find
+);
 
 /**
- * @swagger
- * /prescriptions/{oid}:
+ * @openapi
+ * /prescription/{oid}:
  *   get:
- *     tags: [Prescriptions]
- *     summary: Get a single prescription by ID
+ *     tags: [Prescription]
+ *     summary: Get Prescription By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A single prescription entry
+ *         description: Prescription Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PrescriptionSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getPrescriptionDto), roleGuard('Admin'), prescriptionController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getPrescriptionDto),
+  roleGuard("Admin"),
+  prescriptionController.findById
+);
+
 
 module.exports = router;

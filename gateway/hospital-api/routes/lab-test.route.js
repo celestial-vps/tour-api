@@ -1,177 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const labTestController = require('../controllers/lab-test.controller');
-const { validateRequest } = require('../misc/validation');
-const j2s = require('joi-to-swagger');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const labTestController = require("../controllers/lab-test.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
 
+// Payload DTO
 const {
   createLabTestDto,
   updateLabTestDto,
   deleteLabTestDto,
-  filterLabTestDto,
-  getLabTestDto
-} = require('../dtos/payload-lab-test-dto');
+  getLabTestDto, filterLabTestDto, labTestResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-lab-test-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateLabTestPayloadSchema } = j2s(createDto);
+const { swagger: UpdateLabTestPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteLabTestPayloadSchema } = j2s(params);
+const { swagger: FilterLabTestPayloadSchema } = j2s(filterDto);
+const { swagger: LabTestSuccessSchema } = j2s(successResponse(labTestResponseDto));
+const { swagger: LabTestListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(labTestResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: LabTestSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateLabTestPayloadDto = CreateLabTestPayloadSchema;
+global.swaggerComponents.FilterLabTestPayloadDto = FilterLabTestPayloadSchema;
+global.swaggerComponents.UpdateLabTestPayloadDto = UpdateLabTestPayloadSchema;
+global.swaggerComponents.DeleteLabTestPayloadDto = DeleteLabTestPayloadSchema;
+global.swaggerComponents.LabTestListSuccessResponse = LabTestListSuccessSchema;
+global.swaggerComponents.LabTestSuccessResponse = LabTestSuccessSchema;
+global.swaggerComponents.LabTestSuccessCRUDResponse = LabTestSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
-// Swagger schemas from DTO
-const { swagger: createLabTestSchema } = j2s(createLabTestDto);
-const { swagger: updateLabTestSchema } = j2s(updateLabTestDto);
-const { swagger: filterLabTestSchema } = j2s(filterLabTestDto);
-
 /**
- * @swagger
- * tags:
- *   - name: LabTest
- *     description: Lab test management operations
- */
-
-/**
- * @swagger
+ * @openapi
  * /lab-test/create:
  *   post:
- *     tags: [LabTest]
- *     summary: Create a new lab test entry
+ *     tags:
+ *       - Lab Test
+ *     summary: Create Lab Test
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Complete Blood Count"
- *               description:
- *                 type: string
- *                 example: "A complete blood count test to measure RBC, WBC, and platelets"
- *               cost:
- *                 type: number
- *                 example: 150000
+ *             $ref: "#/components/schemas/CreateLabTestPayloadDto"
  *     responses:
- *       200:
- *         description: Lab test created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createLabTestDto), roleGuard('Admin'), labTestController.create);
+router.post(
+  "/create",
+  validateRequest(createLabTestDto),
+  roleGuard("Admin"),
+  labTestController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /lab-test/{oid}:
  *   put:
- *     tags: [LabTest]
- *     summary: Update an existing lab test
+ *     tags: [Lab Test]
+ *     summary: Update Lab Test
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Complete Blood Count"
- *               description:
- *                 type: string
- *                 example: "Updated description"
- *               cost:
- *                 type: number
- *                 example: 155000
+ *             $ref: "#/components/schemas/UpdateLabTestPayloadDto"
  *     responses:
  *       200:
- *         description: Lab test updated successfully
+ *         description: LabTest Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateLabTestDto), roleGuard('Admin'), labTestController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateLabTestDto),
+  roleGuard("Admin"),
+  labTestController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /lab-test/delete/{oid}:
  *   delete:
- *     tags: [LabTest]
- *     summary: Delete a lab test entry
+ *     tags: [Lab Test]
+ *     summary: Delete Lab Test
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Lab test deleted successfully
+ *         description: LabTest Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteLabTestDto), roleGuard('Admin'), labTestController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteLabTestDto),
+  roleGuard("Admin"),
+  labTestController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /lab-test:
  *   get:
- *     tags: [LabTest]
- *     summary: Get all lab tests
+ *     tags: [Lab Test]
+ *     summary: Get All Lab Tests
  *     responses:
  *       200:
- *         description: List of lab tests
+ *         description: List of LabTests
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterLabTestDto), roleGuard('Admin'), labTestController.findAll);
+router.get(
+  "/",
+  validateRequest(filterLabTestDto),
+  roleGuard("Admin"),
+  labTestController.findAll
+);
 
 /**
- * @swagger
+ * @openapi
  * /lab-test/q:
  *   post:
- *     tags: [LabTest]
- *     summary: Paginate lab tests
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
+ *     tags: [Lab Test]
+ *     summary: Paginated Lab Tests
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "Blood"
+ *             $ref: "#/components/schemas/FilterLabTestPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of lab tests
+ *         description: Paginated LabTests List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterLabTestDto), roleGuard('Admin'), labTestController.find);
+router.post(
+  "/q",
+  validateRequest(filterLabTestDto),
+  roleGuard("Admin"),
+  labTestController.find
+);
 
 /**
- * @swagger
+ * @openapi
  * /lab-test/{oid}:
  *   get:
- *     tags: [LabTest]
- *     summary: Get a single lab test by ID
+ *     tags: [Lab Test]
+ *     summary: Get Lab Test By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A lab test entry
+ *         description: LabTest Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/LabTestSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getLabTestDto), roleGuard('Admin'), labTestController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getLabTestDto),
+  roleGuard("Admin"),
+  labTestController.findById
+);
+
 
 module.exports = router;

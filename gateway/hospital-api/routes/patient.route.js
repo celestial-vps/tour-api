@@ -1,146 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const patientController = require('../controllers/patient.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const patientController = require("../controllers/patient.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
   createPatientDto,
   updatePatientDto,
   deletePatientDto,
-  filterPatientDto,
-  getPatientDto
-} = require('../dtos/payload-patient-dto');
+  getPatientDto, filterPatientDto, patientResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-patient-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreatePatientPayloadSchema } = j2s(createDto);
+const { swagger: UpdatePatientPayloadSchema } = j2s(updateDto);
+const { swagger: DeletePatientPayloadSchema } = j2s(params);
+const { swagger: FilterPatientPayloadSchema } = j2s(filterDto);
+const { swagger: PatientSuccessSchema } = j2s(successResponse(patientResponseDto));
+const { swagger: PatientListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(patientResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: PatientSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreatePatientPayloadDto = CreatePatientPayloadSchema;
+global.swaggerComponents.FilterPatientPayloadDto = FilterPatientPayloadSchema;
+global.swaggerComponents.UpdatePatientPayloadDto = UpdatePatientPayloadSchema;
+global.swaggerComponents.DeletePatientPayloadDto = DeletePatientPayloadSchema;
+global.swaggerComponents.PatientListSuccessResponse = PatientListSuccessSchema;
+global.swaggerComponents.PatientSuccessResponse = PatientSuccessSchema;
+global.swaggerComponents.PatientSuccessCRUDResponse = PatientSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Patients
- *     description: Patient management operations
- */
-
-/**
- * @swagger
- * /patients/create:
+ * @openapi
+ * /patient/create:
  *   post:
- *     tags: [Patients]
- *     summary: Create a new patient
+ *     tags:
+ *       - Patient
+ *     summary: Create Patient
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreatePatient'
+ *             $ref: "#/components/schemas/CreatePatientPayloadDto"
  *     responses:
- *       200:
- *         description: Patient created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createPatientDto), roleGuard('Admin'), patientController.create);
+router.post(
+  "/create",
+  validateRequest(createPatientDto),
+  roleGuard("Admin"),
+  patientController.create
+);
+
 
 /**
- * @swagger
- * /patients/{oid}:
+ * @openapi
+ * /patient/{oid}:
  *   put:
- *     tags: [Patients]
- *     summary: Update an existing patient
+ *     tags: [Patient]
+ *     summary: Update Patient
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdatePatient'
+ *             $ref: "#/components/schemas/UpdatePatientPayloadDto"
  *     responses:
  *       200:
- *         description: Patient updated successfully
+ *         description: Patient Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updatePatientDto), roleGuard('Admin'), patientController.update);
+router.put(
+  "/:oid",
+  validateRequest(updatePatientDto),
+  roleGuard("Admin"),
+  patientController.update
+);
 
 /**
- * @swagger
- * /patients/delete/{oid}:
+ * @openapi
+ * /patient/delete/{oid}:
  *   delete:
- *     tags: [Patients]
- *     summary: Delete a patient
+ *     tags: [Patient]
+ *     summary: Delete Patient
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Patient deleted successfully
+ *         description: Patient Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deletePatientDto), roleGuard('Admin'), patientController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deletePatientDto),
+  roleGuard("Admin"),
+  patientController.remove
+);
 
 /**
- * @swagger
- * /patients:
+ * @openapi
+ * /patient:
  *   get:
- *     tags: [Patients]
- *     summary: Get all patients
+ *     tags: [Patient]
+ *     summary: Get All Patients
  *     responses:
  *       200:
- *         description: List of patients
+ *         description: List of Patients
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterPatientDto), roleGuard('Admin'), patientController.findAll);
+router.get(
+  "/",
+  validateRequest(filterPatientDto),
+  roleGuard("Admin"),
+  patientController.findAll
+);
 
 /**
- * @swagger
- * /patients/q:
+ * @openapi
+ * /patient/q:
  *   post:
- *     tags: [Patients]
- *     summary: Paginate patients
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *     tags: [Patient]
+ *     summary: Paginated Patients
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FilterPatient'
+ *             $ref: "#/components/schemas/FilterPatientPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of patients
+ *         description: Paginated Patients List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterPatientDto), roleGuard('Admin'), patientController.find);
+router.post(
+  "/q",
+  validateRequest(filterPatientDto),
+  roleGuard("Admin"),
+  patientController.find
+);
 
 /**
- * @swagger
- * /patients/{oid}:
+ * @openapi
+ * /patient/{oid}:
  *   get:
- *     tags: [Patients]
- *     summary: Get a single patient by ID
+ *     tags: [Patient]
+ *     summary: Get Patient By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A single patient entry
+ *         description: Patient Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PatientSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getPatientDto), roleGuard('Admin'), patientController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getPatientDto),
+  roleGuard("Admin"),
+  patientController.findById
+);
+
 
 module.exports = router;

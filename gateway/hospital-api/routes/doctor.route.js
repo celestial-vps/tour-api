@@ -1,178 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const doctorController = require('../controllers/doctor.controller');
-const { validateRequest } = require('../misc/validation');
-const j2s = require('joi-to-swagger');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const doctorController = require("../controllers/doctor.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
 
+// Payload DTO
 const {
   createDoctorDto,
   updateDoctorDto,
   deleteDoctorDto,
-  filterDoctorDto,
-  getDoctorDto
-} = require('../dtos/payload-doctor-dto');
+  getDoctorDto, filterDoctorDto, doctorResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-doctor-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateDoctorPayloadSchema } = j2s(createDto);
+const { swagger: UpdateDoctorPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteDoctorPayloadSchema } = j2s(params);
+const { swagger: FilterDoctorPayloadSchema } = j2s(filterDto);
+const { swagger: DoctorSuccessSchema } = j2s(successResponse(doctorResponseDto));
+const { swagger: DoctorListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(doctorResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: DoctorSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateDoctorPayloadDto = CreateDoctorPayloadSchema;
+global.swaggerComponents.FilterDoctorPayloadDto = FilterDoctorPayloadSchema;
+global.swaggerComponents.UpdateDoctorPayloadDto = UpdateDoctorPayloadSchema;
+global.swaggerComponents.DeleteDoctorPayloadDto = DeleteDoctorPayloadSchema;
+global.swaggerComponents.DoctorListSuccessResponse = DoctorListSuccessSchema;
+global.swaggerComponents.DoctorSuccessResponse = DoctorSuccessSchema;
+global.swaggerComponents.DoctorSuccessCRUDResponse = DoctorSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
-// Swagger schemas from DTO
-const { swagger: createDoctorSchema } = j2s(createDoctorDto);
-const { swagger: updateDoctorSchema } = j2s(updateDoctorDto);
-const { swagger: filterDoctorSchema } = j2s(filterDoctorDto);
-
 /**
- * @swagger
- * tags:
- *   - name: Doctor
- *     description: Doctor management operations
- */
-
-/**
- * @swagger
+ * @openapi
  * /doctor/create:
  *   post:
- *     tags: [Doctor]
- *     summary: Create a new doctor entry
+ *     tags:
+ *       - Doctor
+ *     summary: Create Doctor
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               userOid:
- *                 type: string
- *                 format: uuid
- *                 example: "c56a4180-65aa-42ec-a945-5fd21dec0538"
- *               specializationOid:
- *                 type: string
- *                 format: uuid
- *                 example: "e1b5f6f2-5b8a-4b6a-bd8e-59c1e5b2a2f4"
- *               phone:
- *                 type: string
- *                 example: "+628123456789"
+ *             $ref: "#/components/schemas/CreateDoctorPayloadDto"
  *     responses:
- *       200:
- *         description: Doctor created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createDoctorDto), roleGuard('Admin'), doctorController.create);
+router.post(
+  "/create",
+  validateRequest(createDoctorDto),
+  roleGuard("Admin"),
+  doctorController.create
+);
+
 
 /**
- * @swagger
+ * @openapi
  * /doctor/{oid}:
  *   put:
  *     tags: [Doctor]
- *     summary: Update an existing doctor entry
+ *     summary: Update Doctor
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               specializationOid:
- *                 type: string
- *                 format: uuid
- *                 example: "e1b5f6f2-5b8a-4b6a-bd8e-59c1e5b2a2f4"
- *               phone:
- *                 type: string
- *                 example: "+628123456789"
+ *             $ref: "#/components/schemas/UpdateDoctorPayloadDto"
  *     responses:
  *       200:
- *         description: Doctor updated successfully
+ *         description: Doctor Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateDoctorDto), roleGuard('Admin'), doctorController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateDoctorDto),
+  roleGuard("Admin"),
+  doctorController.update
+);
 
 /**
- * @swagger
+ * @openapi
  * /doctor/delete/{oid}:
  *   delete:
  *     tags: [Doctor]
- *     summary: Delete a doctor entry
+ *     summary: Delete Doctor
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Doctor deleted successfully
+ *         description: Doctor Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteDoctorDto), roleGuard('Admin'), doctorController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteDoctorDto),
+  roleGuard("Admin"),
+  doctorController.remove
+);
 
 /**
- * @swagger
+ * @openapi
  * /doctor:
  *   get:
  *     tags: [Doctor]
- *     summary: Get all doctors
+ *     summary: Get All Doctors
  *     responses:
  *       200:
- *         description: List of doctors
+ *         description: List of Doctors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterDoctorDto), roleGuard('Admin'), doctorController.findAll);
+router.get(
+  "/",
+  validateRequest(filterDoctorDto),
+  roleGuard("Admin"),
+  doctorController.findAll
+);
 
 /**
- * @swagger
+ * @openapi
  * /doctor/q:
  *   post:
  *     tags: [Doctor]
- *     summary: Paginate doctors
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
+ *     summary: Paginated Doctors
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               specializationOid:
- *                 type: string
- *                 format: uuid
- *                 example: "e1b5f6f2-5b8a-4b6a-bd8e-59c1e5b2a2f4"
+ *             $ref: "#/components/schemas/FilterDoctorPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of doctors
+ *         description: Paginated Doctors List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterDoctorDto), roleGuard('Admin'), doctorController.find);
+router.post(
+  "/q",
+  validateRequest(filterDoctorDto),
+  roleGuard("Admin"),
+  doctorController.find
+);
 
 /**
- * @swagger
+ * @openapi
  * /doctor/{oid}:
  *   get:
  *     tags: [Doctor]
- *     summary: Get a single doctor by ID
+ *     summary: Get Doctor By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A doctor entry
+ *         description: Doctor Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/DoctorSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getDoctorDto), roleGuard('Admin'), doctorController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getDoctorDto),
+  roleGuard("Admin"),
+  doctorController.findById
+);
+
 
 module.exports = router;

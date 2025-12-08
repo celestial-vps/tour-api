@@ -11,22 +11,20 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Room 101'),
+    name: Joi.string().optional().allow(null, '').example('Room 101'),
     departmentOid: Joi.string().uuid().optional().example('department-uuid-123')
 });
 
 const createDto = Joi.object({
     name: Joi.string().required().example('Room 101'),
     departmentOid: Joi.string().uuid().optional().example('department-uuid-123'),
-    type: Joi.string().valid('General','ICU','Surgery','Maternity','Other').default('General'),
-    description: Joi.string().optional().example('Room for general patients')
+    type: Joi.string().valid('General', 'ICU', 'Surgery', 'Maternity', 'Other').default('General'),
 });
 
 const updateDto = Joi.object({
     name: Joi.string().example('Room 102'),
     departmentOid: Joi.string().uuid().example('department-uuid-456'),
-    type: Joi.string().valid('General','ICU','Surgery','Maternity','Other').example('ICU'),
-    description: Joi.string().example('Updated description')
+    type: Joi.string().valid('General', 'ICU', 'Surgery', 'Maternity', 'Other').example('ICU'),
 });
 
 const filterRoomDto = Joi.object({
@@ -56,10 +54,22 @@ const createRoomDto = Joi.object({
     body: createDto
 });
 
+const roomResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().required().example('Room 101'),
+    departmentOid: Joi.string().uuid().optional().example('department-uuid-123'),
+    type: Joi.string().valid('General', 'ICU', 'Surgery', 'Maternity', 'Other').default('General'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
+
 module.exports = {
     createRoomDto,
     updateRoomDto,
     deleteRoomDto,
     filterRoomDto,
-    getRoomDto
+    getRoomDto,
+    roomResponseDto,
+    createDto, updateDto, filterDto, params
 };

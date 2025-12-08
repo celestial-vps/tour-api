@@ -20,7 +20,7 @@ const {
 } = require("../dtos/payload-auction-dto");
 
 // Response DTO
-const { successResponse, errorResponse } = require("../dtos/response.dto");
+const { successResponse, errorResponse } = require("../dtos/response-dto");
 
 // Message DTO
 const { messageDto } = require("../dtos/message-dto");

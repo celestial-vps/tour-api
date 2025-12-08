@@ -13,7 +13,7 @@ const {
 } = require("../dtos/payload-auth-dto");
 
 // Response DTO
-const { successResponse, errorResponse } = require("../dtos/response.dto");
+const { successResponse, errorResponse } = require("../dtos/response-dto");
 
 const router = express.Router();
 

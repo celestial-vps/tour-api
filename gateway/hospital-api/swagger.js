@@ -13,6 +13,10 @@ const swaggerDefinition = {
     version: process.env.Version || '1.0.0',
     description: process.env.Description || 'API Documentation',
   },
+
+  components: {
+    schemas: global.swaggerComponents || {}
+  },
   servers: [
     {
       url: `http://localhost:${PORT}${BASE_PATH}`,   // ← FIXED
@@ -24,7 +28,32 @@ const swaggerDefinition = {
 // Options for the swagger-jsdoc
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.js', './controllers/*.js'],
+  // Hanya route aktif yang ingin didokumentasikan
+  apis: [
+    './routes/image-file.route.js',
+    './routes/bank.route.js',
+    './routes/bed.route.js',
+    './routes/billing.route.js',
+    './routes/departement.route.js',
+    './routes/diseases.route.js',
+    './routes/doctor.route.js',
+    './routes/lab-test.route.js',
+    './routes/medication-category.route.js',
+    './routes/medication.route.js',
+    './routes/medicine.route.js',
+    './routes/patient-lab-test.route.js',
+    './routes/patient-medical-record.route.js',
+    './routes/patient.route.js',
+    './routes/prescription.route.js',
+    './routes/queue.route.js',
+    './routes/room.route.js',
+    './routes/specialization.route.js',
+    './routes/treatment.route.js',
+    './routes/user.route.js',
+    './routes/user-role.route.js',
+    './routes/auth.route.js',
+    './controllers/*.js', // jika ingin dokumentasi tambahan di controller
+  ],
 };
 
 // Initialize swagger-jsdoc

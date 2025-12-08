@@ -1,146 +1,288 @@
-const express = require('express');
-const { roleGuard } = require('../middleware/role-guard');
-const specializationController = require('../controllers/specialization.controller');
-const { validateRequest } = require('../misc/validation');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const specializationController = require("../controllers/specialization.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
 const {
   createSpecializationDto,
   updateSpecializationDto,
   deleteSpecializationDto,
-  filterSpecializationDto,
-  getSpecializationDto
-} = require('../dtos/payload-specialization-dto');
+  getSpecializationDto, filterSpecializationDto, specializationResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-specialization-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateSpecializationPayloadSchema } = j2s(createDto);
+const { swagger: UpdateSpecializationPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteSpecializationPayloadSchema } = j2s(params);
+const { swagger: FilterSpecializationPayloadSchema } = j2s(filterDto);
+const { swagger: SpecializationSuccessSchema } = j2s(successResponse(specializationResponseDto));
+const { swagger: SpecializationListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(specializationResponseDto))
+);
+
+
+// Response Schema (success + error)
+
+const { swagger: SpecializationSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateSpecializationPayloadDto = CreateSpecializationPayloadSchema;
+global.swaggerComponents.FilterSpecializationPayloadDto = FilterSpecializationPayloadSchema;
+global.swaggerComponents.UpdateSpecializationPayloadDto = UpdateSpecializationPayloadSchema;
+global.swaggerComponents.DeleteSpecializationPayloadDto = DeleteSpecializationPayloadSchema;
+global.swaggerComponents.SpecializationListSuccessResponse = SpecializationListSuccessSchema;
+global.swaggerComponents.SpecializationSuccessResponse = SpecializationSuccessSchema;
+global.swaggerComponents.SpecializationSuccessCRUDResponse = SpecializationSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
- * @swagger
- * tags:
- *   - name: Specializations
- *     description: Specialization management operations
- */
-
-/**
- * @swagger
- * /specializations/create:
+ * @openapi
+ * /specialization/create:
  *   post:
- *     tags: [Specializations]
- *     summary: Create a new specialization
+ *     tags:
+ *       - Specialization
+ *     summary: Create Specialization
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateSpecialization'
+ *             $ref: "#/components/schemas/CreateSpecializationPayloadDto"
  *     responses:
- *       200:
- *         description: Specialization created successfully
+ *       201:
+ *         description: Created Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', validateRequest(createSpecializationDto), roleGuard('Admin'), specializationController.create);
+router.post(
+  "/create",
+  validateRequest(createSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.create
+);
+
 
 /**
- * @swagger
- * /specializations/{oid}:
+ * @openapi
+ * /specialization/{oid}:
  *   put:
- *     tags: [Specializations]
- *     summary: Update an existing specialization
+ *     tags: [Specialization]
+ *     summary: Update Specialization
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateSpecialization'
+ *             $ref: "#/components/schemas/UpdateSpecializationPayloadDto"
  *     responses:
  *       200:
- *         description: Specialization updated successfully
+ *         description: Specialization Updated Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', validateRequest(updateSpecializationDto), roleGuard('Admin'), specializationController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.update
+);
 
 /**
- * @swagger
- * /specializations/delete/{oid}:
+ * @openapi
+ * /specialization/delete/{oid}:
  *   delete:
- *     tags: [Specializations]
- *     summary: Delete a specialization
+ *     tags: [Specialization]
+ *     summary: Delete Specialization
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: Specialization deleted successfully
+ *         description: Specialization Deleted Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.delete('/delete/:oid', validateRequest(deleteSpecializationDto), roleGuard('Admin'), specializationController.remove);
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.remove
+);
 
 /**
- * @swagger
- * /specializations:
+ * @openapi
+ * /specialization:
  *   get:
- *     tags: [Specializations]
- *     summary: Get all specializations
+ *     tags: [Specialization]
+ *     summary: Get All Specializations
  *     responses:
  *       200:
- *         description: List of specializations
+ *         description: List of Specializations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', validateRequest(filterSpecializationDto), roleGuard('Admin'), specializationController.findAll);
+router.get(
+  "/",
+  validateRequest(filterSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.findAll
+);
 
 /**
- * @swagger
- * /specializations/q:
+ * @openapi
+ * /specialization/q:
  *   post:
- *     tags: [Specializations]
- *     summary: Paginate specializations
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         schema:
- *           type: integer
- *           default: 10
+ *     tags: [Specialization]
+ *     summary: Paginated Specializations
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FilterSpecialization'
+ *             $ref: "#/components/schemas/FilterSpecializationPayloadDto"
  *     responses:
  *       200:
- *         description: Paginated list of specializations
+ *         description: Paginated Specializations List
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', validateRequest(filterSpecializationDto), roleGuard('Admin'), specializationController.find);
+router.post(
+  "/q",
+  validateRequest(filterSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.find
+);
 
 /**
- * @swagger
- * /specializations/{oid}:
+ * @openapi
+ * /specialization/{oid}:
  *   get:
- *     tags: [Specializations]
- *     summary: Get a single specialization by ID
+ *     tags: [Specialization]
+ *     summary: Get Specialization By ID
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
  *         schema:
  *           type: string
- *           format: uuid
  *     responses:
  *       200:
- *         description: A single specialization entry
+ *         description: Specialization Detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/SpecializationSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', validateRequest(getSpecializationDto), roleGuard('Admin'), specializationController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getSpecializationDto),
+  roleGuard("Admin"),
+  specializationController.findById
+);
+
 
 module.exports = router;

@@ -92,10 +92,23 @@ const createPatientMedicalRecordDto = Joi.object({
     body: createDto
 });
 
+// Schema data khusus BANK
+const patientMedicalRecordResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    doctorOid: Joi.string().uuid().optional().example('doctor-uuid-456'),
+    diagnosis: Joi.string().optional().example('Recovered from Typhoid'),
+    notes: Joi.string().optional().allow(null).example('Follow-up schedule recommended'),
+    recordDate: Joi.date().optional().example('2025-12-07T10:00:00Z'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
 module.exports = {
     createPatientMedicalRecordDto,
     updatePatientMedicalRecordDto,
     deletePatientMedicalRecordDto,
     filterPatientMedicalRecordDto,
-    getPatientMedicalRecordDto
+    getPatientMedicalRecordDto,
+    patientMedicalRecordResponseDto,
+    createDto, updateDto, filterDto, params
 };

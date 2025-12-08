@@ -9,11 +9,11 @@ const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required().default(1),
     pageSize: Joi.number().integer().min(1).max(100).required().default(10),
     sortBy: Joi.string().valid('name').optional().default('name'),
-    sortOrder: Joi.string().valid('asc','desc').insensitive().default('asc')
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null,'').example('Cardiology')
+    name: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({
@@ -51,10 +51,21 @@ const createDepartmentDto = Joi.object({
     body: createDto
 });
 
+ 
+const departementResponseDto = Joi.object({
+    oid: Joi.string().required(),
+    name: Joi.string().optional().allow(null, '').example('Cardiology'),
+    createdBy: Joi.string().required(),
+    updatedAt: Joi.date().iso().required(),
+});
+
+
 module.exports = {
     createDepartmentDto,
     updateDepartmentDto,
     deleteDepartmentDto,
     filterDepartmentDto,
-    getDepartmentDto
+    getDepartmentDto,
+    departementResponseDto,
+    createDto, updateDto, filterDto, params
 };
