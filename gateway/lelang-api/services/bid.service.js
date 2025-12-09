@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
   const session = await mongoose.startSession();
@@ -13,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+      _id: uuidv4(),
       auctionId: dto.auctionId,
       userId: dto.userId,
       bidAmount: dto.bidAmount ?? null,

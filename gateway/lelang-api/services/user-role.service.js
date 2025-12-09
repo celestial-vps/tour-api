@@ -3,6 +3,7 @@ const mappings = require('../mappings/user-role.vm');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {  
   const session = await mongoose.startSession();
@@ -12,7 +13,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+       _id: uuidv4(),
       roleName: dto.roleName,
       targetType: dto.targetType,
       isAdministrative: dto.isAdministrative,

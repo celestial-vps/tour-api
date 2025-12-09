@@ -66,7 +66,8 @@ const findAll = async () => {
 const findById = async (oid) => {
     try {
         const result = await ItemCategory.aggregate([
-            { $match: { _id: new ObjectId(oid) } },
+            // { $match: { _id: new ObjectId(oid) } },
+            { $match: { _id: oid } },
             {
                 $lookup: {
                     from: 'items', // Collection name (bukan model)

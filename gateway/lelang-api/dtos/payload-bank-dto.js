@@ -3,10 +3,13 @@ const { authSchema } = require('./base-dto');
 const { successResponse, errorResponse } = require("./response-dto");
 
 // Params
+// const params = Joi.object({
+//     oid: Joi.string().length(24).hex().required().example('507f1f77bcf86cd799439011')
+// });
+// Params
 const params = Joi.object({
     oid: Joi.string().uuid().required().example('123e4567-e89b-12d3-a456-426614174000')
 });
-
 // Query for pagination
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required().default(1),

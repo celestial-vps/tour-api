@@ -1,9 +1,13 @@
+const dotenv = require('dotenv');
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: envFile });
+
 const app = require('./app'); // Express app
 const http = require('http');
 // const { Server } = require('socket.io');
 // const chatGateway = require('../chat/chat.gateway');
 // const initSocketServer = require('./lib/socket/socket-server');
-const dotenv = require('dotenv');
+
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('Dialect:', process.env.dialect);
 
@@ -16,9 +20,9 @@ const server = http.createServer(app);
 //   }
 // });
     
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 
-dotenv.config({ path: envFile });
+
+
 
 console.log(`Environment loaded from ${envFile}`);
 

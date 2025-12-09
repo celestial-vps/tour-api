@@ -7,7 +7,7 @@ const { hashPassword, checkPassword } = require('../misc/password');
 const { JwtMaker } = require('../middleware/jwt'); // Adjust the path accordingly
 const mongoose = require("mongoose");
 const jwtMaker = new JwtMaker();
-
+const { v4: uuidv4 } = require('uuid');
 
 const register = async (dto, userOid) => {
   // const roleId = process.env.RoleId;    
@@ -16,7 +16,7 @@ const register = async (dto, userOid) => {
   try {
     const hashedPassword = await hashPassword(dto.password);
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+       _id: uuidv4(),
       name: dto.name ?? "",
       email: dto.email,
       password: hashedPassword,

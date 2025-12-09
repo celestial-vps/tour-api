@@ -4,6 +4,7 @@ const { authSchema } = require('./base-dto');
 // --------------------
 // Params
 // --------------------
+// Params
 const params = Joi.object({
     oid: Joi.string().uuid().required().example('123e4567-e89b-12d3-a456-426614174000')
 });

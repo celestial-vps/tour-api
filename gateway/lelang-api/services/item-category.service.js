@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
   const session = await mongoose.startSession();
@@ -13,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+      _id: uuidv4(),//new mongoose.Types.ObjectId(),
       categoryName: dto.categoryName,
       createdBy: userOid,
       createdAt: now,
@@ -31,7 +32,7 @@ const create = async (dto, userOid) => {
     if (result) {
       const msgData = {
         value: data._id,
-        name: data.description
+        name: data.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
       return { itemCategory, err: null };
@@ -85,7 +86,7 @@ const update = async (oid, dto, userOid) => {
     if (result) {
       const msgData = {
         value: resultFind._id,
-        name: resultFind.description
+        name: resultFind.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
       return { itemCategory, err: null };
@@ -134,7 +135,7 @@ const deleted = async (oid) => {
     if (result) {
       const msgData = {
         value: resultFind._id,
-        name: resultFind.description
+        name: resultFind.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
       return { itemCategory, err: null };
@@ -203,11 +204,11 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const { itemCategorys, err } = await itemCategoryRepository.findByCriteria(filterCondition, page, pageSize);
+    const { result, err } = await itemCategoryRepository.findByCriteria(filterCondition, page, pageSize);
     if (err) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const itemCategoryResponses = await mappings.toItemCategoryResponses(itemCategorys)
+    const itemCategoryResponses = await mappings.toItemCategoryResponses(result)
     return { itemCategorys: itemCategoryResponses, count, err: err };
   } catch (err) {
     return {
