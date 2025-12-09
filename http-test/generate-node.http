@@ -1,0 +1,13 @@
+### Test POST Notification
+POST http://localhost:5008/api/v1/notification/send
+Content-Type: application/json
+
+{
+  "token": "dFCQucR-TJhjVKC1dq6pxz:APA91bFt-_4hZPT3ptwB3XDWjQrP7IctsM5rrLnWdBzqAWwUY5UsZwMDnkYqCKJJ58nhj6NYqpUSHz8AZ2ox_AVYYYhrT6PCS4mlTYvbhH246-_FaPq1HQA",
+  "title": "Hallo Bos!",
+  "body": "Ini notifikasi dari server Node.js",
+  "data": {
+    "orderId": "12345",
+    "type": "order_update"
+  }
+}

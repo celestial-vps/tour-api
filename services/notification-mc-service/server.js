@@ -3,7 +3,7 @@ const http = require('http');
 
 const server = http.createServer(app); 
 
-const PORT = 5014;
+const PORT = 5008;
 server.listen(PORT, () => {
   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
 });

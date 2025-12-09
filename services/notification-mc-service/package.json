@@ -4,9 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "staging": "cross-env NODE_ENV=staging node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "start-local": "pm2 start server.js --name notification-api",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "firebase-admin": "^13.6.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "sequelize": "^6.37.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
 }
