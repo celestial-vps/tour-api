@@ -15,7 +15,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: city
+ *   - name: City
  *     description: city management operations
  */
 

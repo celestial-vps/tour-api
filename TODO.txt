@@ -1,2 +1,112 @@
 1. Cek semua Env
     - tour-api
+
+
+2. send email
+3. send notification
+4. docker
+5. ci/cd
+6. login google
+7. firebase
+
+4. GraphQL
+A. Dasar GraphQL
+
+Konsep: query, mutation, subscription
+
+Type system: type, enum, input, scalar
+
+Resolver → menghubungkan schema dengan database
+
+GraphQL Playground / GraphiQL → untuk testing query
+
+B. Implementasi Backend
+
+Node.js: Apollo Server, GraphQL.js
+
+Golang: gqlgen, graphql-go
+
+Handling errors & validation
+
+Pagination & filtering
+
+Authentication & authorization (misal JWT)
+
+C. Integrasi dengan Frontend / Mobile
+
+Client libraries:
+
+Web: Apollo Client, Relay
+
+Flutter: graphql_flutter
+
+Query caching & offline support
+
+Optimistic updates untuk mutation
+
+D. Best Practices
+
+Avoid N+1 query → gunakan batching / dataloader
+
+Modular schema → untuk microservices
+
+Versioning → schema evolution
+
+E. Latihan / Mini Project
+
+Buat satu microservice GraphQL untuk User + Post + Comment
+
+Integrasikan ke Flutter / Angular untuk ambil data sekaligus
+
+5. Monitoring
+A. Dasar Monitoring
+
+Konsep metrics, logs, alerting
+
+Jenis metrics:
+
+Application-level (response time, error rate)
+
+Infrastructure-level (CPU, memory, disk)
+
+Database & cache metrics
+
+B. Tools
+
+Metrics collection: Prometheus
+
+Visualization: Grafana
+
+Logging: ELK stack (Elasticsearch + Logstash + Kibana) atau Loki
+
+Alerting: Alertmanager, Grafana alerts
+
+C. Implementasi Monitoring
+
+Expose metrics endpoint di backend (Golang / Node.js)
+
+Track slow queries & DB stats
+
+Structured logging → kirim ke centralized logging
+
+Setup dashboard di Grafana
+
+Setup alert rules (response time, error rate, memory, etc.)
+
+D. Best Practices
+
+Gunakan labels/tags untuk microservices → filter mudah
+
+Fokus metrics yang penting saja
+
+Gabungkan metrics + logs + alerts untuk troubleshooting cepat
+
+Monitoring & alerting harus real-time di production
+
+E. Latihan / Mini Project
+
+Tambahkan metrics endpoint di microservices monolith & microservices
+
+Buat dashboard Grafana → tampilkan response time, error rate, CPU/memory
+
+Buat alert → kirim notifikasi ke Slack/Email

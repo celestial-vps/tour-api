@@ -14,15 +14,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: country
+ *   - name: Country Cache
  *     description: country read-only operations
  */
 
 /**
  * @swagger
- * /country:
+ * /country-cache:
  *   get:
- *     tags: [country]
+ *     tags: [Country Cache]
  *     summary: Get all countries with optional filters
  *     parameters:
  *       - in: query
@@ -43,9 +43,9 @@ router.get('/', validateRequest(filterCountryDto), roleGuard('Admin'), countryCo
 
 /**
  * @swagger
- * /country/q:
+ * /country-cache/q:
  *   post:
- *     tags: [country]
+ *     tags: [Country Cache]
  *     summary: Paginate countries with filters
  *     requestBody:
  *       required: true
@@ -74,9 +74,9 @@ router.post('/q',   roleGuard('Admin'), countryController.find);
 
 /**
  * @swagger
- * /country/{oid}:
+ * /country-cache/{oid}:
  *   get:
- *     tags: [country]
+ *     tags: [Country Cache]
  *     summary: Get a single country by ID
  *     parameters:
  *       - name: oid

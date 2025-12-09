@@ -15,7 +15,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: country
+ *   - name: Country
  *     description: country management operations
  */
 

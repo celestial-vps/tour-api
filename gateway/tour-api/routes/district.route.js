@@ -15,7 +15,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: district
+ *   - name: District
  *     description: district management operations
  */
 

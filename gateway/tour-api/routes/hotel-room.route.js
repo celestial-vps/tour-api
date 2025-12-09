@@ -15,15 +15,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: HotelRoom
+ *   - name: Hotel Room
  *     description: HotelRoom management operations
  */
 
 /**
  * @swagger
- * /hotelroom/create:
+ * /hotel-room/create:
  *   post:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Create a new hotelroom entry
  *     requestBody:
  *       required: true
@@ -59,9 +59,9 @@ router.post('/create', validateRequest(createHotelRoomDto), roleGuard('Admin'), 
 
 /**
  * @swagger
- * /hotelroom/{oid}:
+ * /hotel-room/{oid}:
  *   put:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Update an existing hotelroom entry
  *     parameters:
  *       - name: oid
@@ -86,9 +86,9 @@ router.put('/:oid', validateRequest(updateHotelRoomDto), roleGuard('Admin'), hot
 
 /**
  * @swagger
- * /hotelroom/delete/{oid}:
+ * /hotel-room/delete/{oid}:
  *   delete:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Delete a hotelroom entry
  *     parameters:
  *       - name: oid
@@ -105,9 +105,9 @@ router.delete('/delete/:oid', validateRequest(deleteHotelRoomDto), roleGuard('Ad
 
 /**
  * @swagger
- * /hotelroom:
+ * /hotel-room:
  *   get:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Get all hotelrooms with optional filters
  *     parameters:
  *       - in: query
@@ -128,9 +128,9 @@ router.get('/', validateRequest(filterHotelRoomDto), roleGuard('Admin'), hotelRo
 
 /**
  * @swagger
- * /hotelroom/q:
+ * /hotel-room/q:
  *   post:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Paginate hotelrooms with filters
  *     requestBody:
  *       required: true
@@ -158,9 +158,9 @@ router.get('/', validateRequest(filterHotelRoomDto), roleGuard('Admin'), hotelRo
 router.post('/q', validateRequest(filterHotelRoomDto), roleGuard('Admin'), hotelRoomController.find);
 /**
  * @swagger
- * /hotelroom/{oid}:
+ * /hotel-room/{oid}:
  *   get:
- *     tags: [Hotelroom]
+ *     tags: [Hotel Room]
  *     summary: Get a single hotelroom by ID
  *     parameters:
  *       - name: oid

@@ -14,15 +14,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: subDistrict
+ *   - name: Sub District Cache
  *     description: subDistrict read-only operations
  */
 
 /**
  * @swagger
- * /subDistrict:
+ * /sub-district-cache:
  *   get:
- *     tags: [subDistrict]
+ *     tags: [Sub District Cache]
  *     summary: Get all countries with optional filters
  *     parameters:
  *       - in: query
@@ -43,9 +43,9 @@ router.get('/', validateRequest(filterSubDistrictDto), roleGuard('Admin'), subDi
 
 /**
  * @swagger
- * /subDistrict/q:
+ * /sub-district-cache/q:
  *   post:
- *     tags: [subDistrict]
+ *     tags: [Sub District Cache]
  *     summary: Paginate countries with filters
  *     requestBody:
  *       required: true
@@ -74,9 +74,9 @@ router.post('/q',   roleGuard('Admin'), subDistrictController.find);
 
 /**
  * @swagger
- * /subDistrict/{oid}:
+ * /sub-district-cache/{oid}:
  *   get:
- *     tags: [subDistrict]
+ *     tags: [Sub District Cache]
  *     summary: Get a single subDistrict by ID
  *     parameters:
  *       - name: oid
