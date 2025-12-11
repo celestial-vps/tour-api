@@ -72,5 +72,5 @@ module.exports = {
     filterItemDto,
     getItemDto,
     itemResponseDto,
-    createDto, updateDto, filterDto, params
+    createDto, updateDto, filterDto, params,query
 };

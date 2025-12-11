@@ -7,11 +7,12 @@ class JwtMaker {
     this.secretKey = SECRET_KEY;
   }
 
-  createToken(oid, emailName) {
+  createToken(oid, emailName,role) {
     const payload = {
       userOid: oid,
       username: emailName,
       level: 'application',
+      role:role,
       exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
     };
 

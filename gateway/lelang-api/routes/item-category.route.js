@@ -10,9 +10,10 @@ const {
   createItemCategoryDto,
   updateItemCategoryDto,
   deleteItemCategoryDto,
-  getItemCategoryDto, filterItemCategoryDto, itemCategoryResponseDto, createDto, updateDto, filterDto, params
+  getItemCategoryDto, filterItemCategoryDto,
+  itemCategoryResponseDto, createDto, updateDto, filterDto, params,
 } = require("../dtos/payload-item-category-dto");
- 
+
 // Response DTO
 const { successResponse, errorResponse } = require("../dtos/response-dto");
 
@@ -61,6 +62,7 @@ const router = express.Router();
  *         application/json:
  *           schema:
  *             $ref: "#/components/schemas/CreateItemCategoryPayloadDto"
+
  *     responses:
  *       201:
  *         description: Created Successfully
@@ -212,6 +214,38 @@ router.get(
  *   post:
  *     tags: [Item Category]
  *     summary: Paginated Item Categorys
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: pageIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         required: true
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         required: true
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [categoryName]
+ *           default: categoryName
+ *         required: false
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         required: false
  *     requestBody:
  *       required: true
  *       content:

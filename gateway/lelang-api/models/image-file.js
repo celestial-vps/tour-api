@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
+
 
 const imageFileSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true,
-    },
+    _id: { type: String, default: uuidv4 },
     fileName: {
         type: String,
         maxlength: 255,

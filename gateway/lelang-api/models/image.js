@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid'); // Kalau perlu UUID, tapi di contoh ini saya pakai ObjectId
 
 const imageSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true, // Otomatis generate ObjectId
-    },
-
+    _id: { type: String, default: uuidv4 },
     url: {
         type: String,
         required: true,

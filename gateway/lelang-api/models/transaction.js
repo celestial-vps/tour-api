@@ -3,10 +3,7 @@ const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
 
 
 const transactionSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true, // Otomatis generate ObjectId
-    },
+    _id: { type: String, default: uuidv4 },
     auctionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Auction' },
     buyerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     finalPrice: { type: Number, required: true },

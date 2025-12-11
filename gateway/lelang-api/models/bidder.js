@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
 
 const bidderSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId, // Bisa otomatis generate ObjectId oleh Mongoose
-
+    _id: { type: String, default: uuidv4 },
     userId: {
         type: String, // Diubah menjadi String karena diambil dari microservice
         required: true

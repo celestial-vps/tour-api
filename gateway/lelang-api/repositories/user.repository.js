@@ -66,7 +66,7 @@ const advanceFilter = async (filterCondition) => {
             query.email = filterCondition.email;
         }
 
-        const users = await User.find(query); // Execute the query
+        const users = await User.find(query).populate('role'); // Execute the query
         return { users, err: null };
     } catch (err) {
         return { users: [], err: {

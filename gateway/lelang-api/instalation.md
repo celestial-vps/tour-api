@@ -12,3 +12,7 @@ npm install cors
 npm install uuid npm install jsonwebtoken bcryptjs npm install multer npm install sharp npm install redis
 
 
+
+http://localhost:5102/api/v1/api-docs/#/
+
+

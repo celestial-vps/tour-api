@@ -12,8 +12,8 @@ const params = Joi.object({
 });
 // Query for pagination
 const query = Joi.object({
-    pageIndex: Joi.number().integer().min(1).required().default(1),
-    pageSize: Joi.number().integer().min(1).max(100).required().default(10),
+    pageIndex: Joi.number().integer().min(1).optional().default(1),
+    pageSize: Joi.number().integer().min(1).max(100).optional().default(10),
     sortBy: Joi.string().valid('bankCode', 'bankName', 'shortName').optional().default('bankName'),
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });

@@ -10,7 +10,7 @@ const {
   createItemDto,
   updateItemDto,
   deleteItemDto,
-  getItemDto, filterItemDto, itemResponseDto, createDto, updateDto, filterDto, params
+  getItemDto, filterItemDto, itemResponseDto, createDto, updateDto, filterDto, params,query
 } = require("../dtos/payload-item-dto");
  
 // Response DTO
@@ -28,6 +28,7 @@ const { swagger: ItemSuccessSchema } = j2s(successResponse(itemResponseDto));
 const { swagger: ItemListSuccessSchema } = j2s(
   successResponse(Joi.array().items(itemResponseDto))
 );
+const { swagger: QueryPayloadSchema } = j2s(query);
 
 
 // Response Schema (success + error)
@@ -39,6 +40,7 @@ const { swagger: ErrorSchema } = j2s(errorResponse);
 global.swaggerComponents ??= {};
 global.swaggerComponents.CreateItemPayloadDto = CreateItemPayloadSchema;
 global.swaggerComponents.FilterItemPayloadDto = FilterItemPayloadSchema;
+global.swaggerComponents.QueryPayloadDto = QueryPayloadSchema;
 global.swaggerComponents.UpdateItemPayloadDto = UpdateItemPayloadSchema;
 global.swaggerComponents.DeleteItemPayloadDto = DeleteItemPayloadSchema;
 global.swaggerComponents.ItemListSuccessResponse = ItemListSuccessSchema;
@@ -212,6 +214,14 @@ router.get(
  *   post:
  *     tags: [Item]
  *     summary: Paginated Items
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: false
+ *         style: deepObject
+ *         explode: true
+ *         schema:
+ *           $ref: "#/components/schemas/QueryPayloadDto"
  *     requestBody:
  *       required: true
  *       content:

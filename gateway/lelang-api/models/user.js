@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
+
 const UserRole = require('./user-role'); // Ensure correct path
 
 // Define Mongoose schema
 const userSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId() // Explicitly generate ObjectId
-    },
+    _id: { type: String, default: uuidv4 },
     email: {
         type: String,
         maxlength: 150,
@@ -57,7 +56,7 @@ const userSchema = new Schema({
         type: Date,
         default: null
     },
-    roleOid: {
+    role: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserRole',
         default: null

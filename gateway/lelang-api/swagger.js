@@ -15,7 +15,14 @@ const swaggerDefinition = {
   },
 
   components: {
-    schemas: global.swaggerComponents || {}
+    schemas: global.swaggerComponents || {},
+    securitySchemes: {
+    BearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },
+  },
   },
   servers: [
     {
@@ -42,6 +49,12 @@ const options = {
     './routes/auth.route.js',
     './controllers/*.js', // jika ingin dokumentasi tambahan di controller
   ],
+  security: [
+  {
+    BearerAuth: [],
+  },
+],
+
 };
 
 // Initialize swagger-jsdoc

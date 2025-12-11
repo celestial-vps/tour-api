@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const itemCategorySchema = new mongoose.Schema({
-    _id: { type: String, default: uuidv4 },
+  _id: { type: String, default: uuidv4 },
     categoryName: { type: String, required: true },
 
 

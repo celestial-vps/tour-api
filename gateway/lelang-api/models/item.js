@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid'); // kalau memang perlu
 
 const itemSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true,
-    },
+     _id: { type: String, default: uuidv4 },
     itemCategoryOid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ItemCategory',
