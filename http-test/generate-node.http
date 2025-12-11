@@ -11,3 +11,30 @@ Content-Type: application/json
     "type": "order_update"
   }
 }
+
+### Test POST Notification
+POST http://localhost:5008/api/v1/notification/send
+Content-Type: application/json
+
+{
+  "token": "TOKEN_FCM",
+  "title": "Hallo Bos!",
+  "body": "Ini notifikasi dari server Node.js",
+  "data": {
+    "orderId": "12345",
+    "type": "order_update"
+  }
+}
+ 
+
+### Test POST Google Login
+POST http://localhost:5008/api/v1/auth/login/google
+Content-Type: application/json
+
+{
+  "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ1NDNlMjFhMDI3M2VmYzY2YTQ3NTAwMDI0NDFjYjIxNTFjYjIzNWYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMDczMTkzMjk2NzMtMGZoZzkzcGxsZW5kNzVuNnViZG5wMHZvYmg1anVyZDkuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMDczMTkzMjk2NzMtMGZoZzkzcGxsZW5kNzVuNnViZG5wMHZvYmg1anVyZDkuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDMyNDk5MDY1NTY0Nzg2NTU5NDAiLCJlbWFpbCI6InZlbmlhbmNlbHJvdmVhbjUyNzIyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYmYiOjE3NjUzMzMxODQsIm5hbWUiOiJSb3ZlYW4gVmVuaWFuY2VsIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0loRlBHVmdoQTVxZ01YTkhhZWFPR0ZHZFRDNUVJeEd2dno1eVFjMGczc0lBeDlydz1zOTYtYyIsImdpdmVuX25hbWUiOiJSb3ZlYW4iLCJmYW1pbHlfbmFtZSI6IlZlbmlhbmNlbCIsImlhdCI6MTc2NTMzMzQ4NCwiZXhwIjoxNzY1MzM3MDg0LCJqdGkiOiI2ZjA3ODQ2NTBlNTc1ZDM3NGNjMzY4YTc0ZWE0MDZhODg1N2U3YjNiIn0.oeiEccYdBkSeQWmWACt1IsYm3TviQPh9hbT7ADdb-09bFxCJUmAOggAnlFxSE_jSO0tBrxqJmmQsaIdvm0VUCbZ6ZQxFopeSjQsgu50XAzxQ-y8riiBe9S6hviP81zjmePlaphmky3xQIBVf6wcK52AxnGGYSN352aJE3dsw44PuWtC8JfJNXdK0sjEQpQTRJ3wmw1eK3KbebKLHLQPlPh5Gcp1y7C-dqi826AtgFO9b7lHU0dvdr0cOm13idK1O515qN4z67zKBis2HHqgjVrwL3Sw-rW9cUEz0EgmfUhCfKai9XYABNy0_A0PiV7siA6i0Cjdn5DMgcDHQ8fHtOQ"
+}
+
+
+
+ 
