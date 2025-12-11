@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	"go-auth-odm/middleware"
-	"go-auth-odm/models"
-	"go-auth-odm/utils"
+	"firebase-go-service/middleware"
+	"firebase-go-service/models"
+	"firebase-go-service/utils"
 
-	"github.com/Kamva/mgm/v3"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // -------------------- REGISTER --------------------
@@ -30,7 +30,7 @@ func Register(c *gin.Context) {
 	}
 	input.Password = hashed
 	input.RoleOid = os.Getenv("ROLE_USER_ID")
-	input.ID = uuid.New().String()
+	input.ID = primitive.NewObjectID()
 	input.CreatedAt = time.Now()
 	input.UpdatedAt = time.Now()
 
@@ -67,12 +67,12 @@ func Login(c *gin.Context) {
 	}
 
 	// Generate JWT & refresh token
-	accessToken, _ := middleware.CreateToken(user.ID, user.Email)
+	accessToken, _ := middleware.CreateToken(user.ID.Hex(), user.Email)
 	refreshToken, _ := utils.GenerateRefreshToken()
 	now := time.Now().Unix()
 
 	tokenDoc := &models.UserToken{
-		UserID:           user.ID,
+		UserID:           user.ID.Hex(),
 		AccessToken:      accessToken,
 		RefreshToken:     refreshToken,
 		DeviceType:       "web",

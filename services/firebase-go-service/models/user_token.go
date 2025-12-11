@@ -1,6 +1,6 @@
 package models
 
-import "github.com/Kamva/mgm/v3"
+import "github.com/kamva/mgm/v3"
 
 type UserToken struct {
 	mgm.DefaultModel `bson:",inline"`

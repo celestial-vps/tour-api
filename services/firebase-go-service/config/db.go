@@ -3,12 +3,11 @@ package config
 import (
 	"context"
 	"log"
+	"os"
 	"time"
 
-	"os"
-
-	"github.com/Kamva/mgm/v3"
 	"github.com/joho/godotenv"
+	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -28,12 +27,15 @@ func ConnectDB() {
 	}
 
 	// Ping DB
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	_, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	err = mgm.DefaultClient().Ping(ctx, nil)
+
+	// err = mgm.Conn().Ping(ctx, nil)
+
+	_, client, _, err := mgm.DefaultConfigs()
 	if err != nil {
 		log.Fatal("MongoDB connection failed:", err)
 	}
-
+	client.Database("another_db")
 	log.Println("MongoDB connected")
 }
