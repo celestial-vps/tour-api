@@ -10,7 +10,7 @@ const {
   createItemDto,
   updateItemDto,
   deleteItemDto,
-  getItemDto, filterItemDto, itemResponseDto, createDto, updateDto, filterDto, params,query
+  getItemDto, filterItemDto,filterItemQueryDto, itemResponseDto, createDto, updateDto, filterDto, params,query
 } = require("../dtos/payload-item-dto");
  
 // Response DTO
@@ -189,6 +189,14 @@ router.delete(
  *     summary: Get All Items
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of Items
@@ -211,7 +219,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterItemDto),
+  validateRequest(filterItemQueryDto),
   roleGuard("Admin"),
   itemController.findAll
 );
@@ -224,7 +232,7 @@ router.get(
  *     summary: Paginated Items
  *     security:
  *       - BearerAuth: []
-*     parameters:
+ *     parameters:
  *       - in: query
  *         name: pageIndex
  *         schema:
@@ -254,14 +262,6 @@ router.get(
  *           enum: [asc, desc]
  *           default: asc
  *         required: false
- *     parameters:
- *       - in: query
- *         name: query
- *         required: false
- *         style: deepObject
- *         explode: true
- *         schema:
- *           $ref: "#/components/schemas/QueryPayloadDto"
  *     requestBody:
  *       required: true
  *       content:

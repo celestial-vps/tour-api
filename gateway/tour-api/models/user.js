@@ -21,6 +21,16 @@ const User = sequelize.define('user', {
         allowNull: true, // null allowed
         field: 'androidToken', // maps to the 'androidToken' column in the database
     },
+    iosToken: {
+        type: DataTypes.STRING(255),
+        allowNull: true, // null allowed
+        field: 'iosToken', // maps to the 'androidToken' column in the database
+    },
+    webToken: {
+        type: DataTypes.STRING(255),
+        allowNull: true, // null allowed
+        field: 'webToken', // maps to the 'androidToken' column in the database
+    },
     expiredTime: {
         type: DataTypes.STRING(50),
         allowNull: true, // null allowed

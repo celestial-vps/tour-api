@@ -12,6 +12,12 @@ const query = Joi.object({
     pageSize: Joi.number().integer().min(1).max(100).required().default(10).example(10),
 });
 
+
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
+
 // Filter (Body)
 const filterDto = Joi.object({
     roleName: Joi.string().allow(null, '').required().example('Administrator'),
@@ -57,6 +63,11 @@ const filterUserRoleDto = Joi.object({
     body: filterDto
 });
 
+const filterUserRoleQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
+});
+
 // Get User Role by OID
 const getUserRoleDto = Joi.object({
     headers: authSchema,
@@ -100,7 +111,7 @@ const userRoleResponseDto = Joi.object({
 
 module.exports = {
     // Complete DTOs
-    filterUserRoleDto,
+    filterUserRoleDto,filterUserRoleQueryDto,
     getUserRoleDto,
     deleteUserRoleDto,
     updateUserRoleDto,

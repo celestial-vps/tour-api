@@ -45,6 +45,7 @@ const options = {
     './routes/item.route.js',
     './routes/bidder.route.js',
     './routes/user.route.js',
+    './routes/seller.route.js',
     './routes/user-role.route.js',
     './routes/auth.route.js',
     './controllers/*.js', // jika ingin dokumentasi tambahan di controller

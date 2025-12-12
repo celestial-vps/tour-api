@@ -96,7 +96,7 @@ router.post('/login', authController.login);
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "weslyaioria22@gmail.com"
+ *                 example: "weslyaioria@gmail.com"
  *               password:
  *                 type: string
  *                 example: "string"
@@ -135,5 +135,63 @@ router.post('/login', authController.login);
  *         description: Email already exists
  */
 router.post('/register', authController.register);
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     description: Allows a new user to register using email & password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "weslyaioria22@gmail.com"
+ *               password:
+ *                 type: string
+ *                 example: "string"
+ *     responses:
+ *       200:
+ *         description: User successfully registered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 resultCode:
+ *                   type: string
+ *                   example: "20000"
+ *                 httpStatus:
+ *                   type: string
+ *                   example: "200"
+ *                 message:
+ *                   type: string
+ *                   example: "success"
+ *                 total:
+ *                   type: integer
+ *                   example: 1
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     value:
+ *                       type: string
+ *                       example: "019223c4-645d-7f4d-9f9b-04a43ae1401f"
+ *                     name:
+ *                       type: string
+ *                       example: "weslyaioria22@gmail.com"
+ *       400:
+ *         description: Invalid input
+ *       409:
+ *         description: Email already exists
+ */
+router.post('/register-admin', authController.register);
+
 
 module.exports = router;

@@ -6,8 +6,8 @@ const save = async (bidData) => {
         const result = new Bid(bidData);
         await result.save();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error saving bid:', err);
+    } catch (error) {
+        console.error('Error saving bid:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to save bid' },
@@ -23,8 +23,8 @@ const update = async (oid, updateData) => {
             runValidators: true,
         });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error updating bid:', err);
+    } catch (error) {
+        console.error('Error updating bid:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to update bid' },
@@ -37,8 +37,8 @@ const deleted = async (oid) => {
     try {
         const result = await Bid.deleteOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error deleting bid:', err);
+    } catch (error) {
+        console.error('Error deleting bid:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to delete bid' },
@@ -51,8 +51,8 @@ const findAll = async () => {
     try {
         const result = await Bid.find().sort({ createdAt: -1 });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving bids:', err);
+    } catch (error) {
+        console.error('Error retrieving bids:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve bids' },
@@ -65,8 +65,8 @@ const findById = async (oid) => {
     try {
         const result = await Bid.findOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving bid by ID:', err);
+    } catch (error) {
+        console.error('Error retrieving bid by ID:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve bid' },
@@ -99,8 +99,8 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .limit(pageSize);
 
         return { result, error: null };
-    } catch (err) {
-        console.error('Error filtering bids:', err);
+    } catch (error) {
+        console.error('Error filtering bids:', error);
         return {
             result: [],
             error: { httpStatus: 500, message: 'Failed to retrieve filtered data' },
@@ -129,8 +129,8 @@ const findCountByCriteria = async (filterCondition = {}) => {
 
         const count = await Bid.countDocuments(whereConditions);
         return { count, error: null };
-    } catch (err) {
-        console.error('Error counting bids:', err);
+    } catch (error) {
+        console.error('Error counting bids:', error);
         return {
             count: 0,
             error: { httpStatus: 500, message: 'Failed to count filtered data' },
@@ -143,8 +143,8 @@ const advanceFilter = async () => {
     try {
         const result = await Bid.find();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving bids (advance filter):', err);
+    } catch (error) {
+        console.error('Error retrieving bids (advance filter):', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve bids' },

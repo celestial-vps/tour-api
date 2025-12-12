@@ -134,6 +134,30 @@ router.get('/', validateRequest(filterUserRoleDto), roleGuard('Admin'), userRole
 
 /**
  * @swagger
+ * /user-role/no-auth:
+ *   get:
+ *     tags: [User Role]
+ *     summary: Get all User Roles No Auth with optional filters
+ *     parameters:
+ *       - in: query
+ *         name: userRoleCode
+ *         schema:
+ *           type: string
+ *         description: Filter by userRoleCode
+ *       - in: query
+ *         name: userRoleName
+ *         schema:
+ *           type: string
+ *         description: Filter by userRoleName
+ *     responses:
+ *       200:
+ *         description: List of User Roles
+ */
+router.get('/no-auth',   userRoleController.findAll);
+
+
+/**
+ * @swagger
  * /user-role/q:
  *   post:
  *     tags: [User Role]

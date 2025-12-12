@@ -3,10 +3,9 @@ async function toItemResponse(item) {
     const response = {
         oid: item._id,
         itemName: item.itemName,
-        imageOid: item.imageOid._id,
-        description: item.description,
+        imageOid: item.imageOid, 
         startingPrice: item.startingPrice,
-        owner: item.owner,
+        seller: item.seller,
         createdBy: item.createdBy,
         updatedAt: item.updatedAt
     };

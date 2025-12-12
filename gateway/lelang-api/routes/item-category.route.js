@@ -10,7 +10,7 @@ const {
   createItemCategoryDto,
   updateItemCategoryDto,
   deleteItemCategoryDto,
-  getItemCategoryDto, filterItemCategoryDto,
+  getItemCategoryDto, filterItemCategoryDto,filterItemCategoryQueryDto,
   itemCategoryResponseDto, createDto, updateDto, filterDto, params,
 } = require("../dtos/payload-item-category-dto");
 
@@ -189,6 +189,14 @@ router.delete(
  *     summary: Get All Item Categorys
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of ItemCategorys
@@ -211,7 +219,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterItemCategoryDto),
+  validateRequest(filterItemCategoryQueryDto),
   roleGuard("Admin"),
   itemCategoryController.findAll
 );

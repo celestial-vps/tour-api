@@ -10,7 +10,7 @@ const {
   createUserRoleDto,
   updateUserRoleDto,
   deleteUserRoleDto,
-  getUserRoleDto, filterUserRoleDto, userRoleResponseDto, createDto, updateDto, filterDto, params
+  getUserRoleDto, filterUserRoleDto,filterUserQueryDto, userRoleResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-user-role-dto");
  
 // Response DTO
@@ -185,8 +185,16 @@ router.delete(
  *   get:
  *     tags: [User Role]
  *     summary: Get All User Roles
-  *     security:
+ *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of UserRoles
@@ -209,8 +217,49 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterUserRoleDto),
+  validateRequest(filterUserQueryDto),
   roleGuard("Admin"),
+  userRoleController.findAll
+);
+
+
+
+/**
+ * @openapi
+ * /user-role//no-auth:
+ *   get:
+ *     tags: [User Role]
+ *     summary: Get All User Roles No Auth
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
+ *     responses:
+ *       200:
+ *         description: List of UserRoles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/UserRoleListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.get(
+  "/no-auth", 
   userRoleController.findAll
 );
 

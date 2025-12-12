@@ -15,6 +15,12 @@ const query = Joi.object({
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
+
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
+
 // Body schemas
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, '').example('BCA'),
@@ -23,21 +29,18 @@ const filterDto = Joi.object({
 });
 
 const createDto = Joi.object({
-    userId: Joi.string().required().example('BCA001'),
     fullName: Joi.string().required().example('Bidder Central Asia'),
     ktpNumber: Joi.string().optional().example('BCA'),
     address: Joi.string().optional().example('BCA'),
     phone: Joi.string().optional().example('BCA'),
-    birthDate: Joi.string().optional().example('Bidder description')
 });
 
 const updateDto = Joi.object({
-    userId: Joi.string().required().example('BCA001'),
     fullName: Joi.string().required().example('Bidder Central Asia'),
     ktpNumber: Joi.string().optional().example('BCA'),
     address: Joi.string().optional().example('BCA'),
     phone: Joi.string().optional().example('BCA'),
-    birthDate: Joi.string().optional().example('Bidder description')
+
 });
 
 // Complete DTOs
@@ -45,6 +48,11 @@ const filterBidderDto = Joi.object({
     headers: authSchema,
     query,
     body: filterDto
+});
+
+const filterBidderQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
 });
 
 const getBidderDto = Joi.object({
@@ -84,7 +92,7 @@ module.exports = {
     createBidderDto,
     updateBidderDto,
     deleteBidderDto,
-    filterBidderDto,
+    filterBidderDto,filterBidderQueryDto,
     getBidderDto,
     bidderResponseDto,
     createDto, updateDto, filterDto, params

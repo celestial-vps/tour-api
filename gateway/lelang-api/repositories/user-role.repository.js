@@ -4,11 +4,11 @@ const save = async (userRoleData) => {
     try {
         const userRole = new UserRole(userRoleData);
         await userRole.save();
-        return { result: userRole, err: null };
-    } catch (err) {
+        return { result: userRole, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -19,11 +19,11 @@ const update = async (oid, updateData) => {
             new: true,
             runValidators: true,
         });
-        return { result: userRole, err: null };
-    } catch (err) {
+        return { result: userRole, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -31,11 +31,11 @@ const update = async (oid, updateData) => {
 const deleted = async (oid) => {
     try {
         const result = await UserRole.deleteOne({ _id: oid });
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -43,11 +43,11 @@ const deleted = async (oid) => {
 const findAll = async () => {
     try {
         const result = await UserRole.find();
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -58,14 +58,14 @@ const findById = async (oid) => {
         if (!userRole) {
             return {
                 result: null,
-                err: { httpStatus: 404, message: 'UserRole not found' },
+                error: { httpStatus: 404, message: 'UserRole not found' },
             };
         }
-        return { result: userRole, err: null };
-    } catch (err) {
+        return { result: userRole, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -84,12 +84,12 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10) => {
 
         const count = await UserRole.countDocuments(whereConditions);
 
-        return { userRoles, count, err: null };
-    } catch (err) {
+        return { userRoles, count, error: null };
+    } catch (error) {
         return {
             userRoles: [],
             count: 0,
-            err: { httpStatus: 500 },
+            error: { httpStatus: 500 },
         };
     }
 };
@@ -112,9 +112,7 @@ const findCountByCriteria = async (filterCondition) => {
     } catch (error) {
         console.error('Error retrieving userRoles:', error);
         return {
-            count: 0, err: {
-                httpStatus: 500,
-            }
+            count: 0,  error: { httpStatus: 500, message: 'Failed to delete User Role' },
         };
     }
 };
@@ -122,13 +120,11 @@ const findCountByCriteria = async (filterCondition) => {
 const advanceFlter = async () => {
     try {
         const result = await UserRole.findAll();
-        return { result, err: null }
+        return { result, error: null }
     }
-    catch (err) {
+    catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,  error: { httpStatus: 500, message: 'Failed to delete User Role' },
         }
     }
 };

@@ -19,16 +19,16 @@ const create = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { user, err } = await userService.create(req.body, userJwt.userOid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { user, error } = await userService.create(req.body, userJwt.userOid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseOk(user, 1)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -45,16 +45,16 @@ const update = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { user, err } = await userService.update(req.params.oid, req.body, userJwt.userOid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { user, error } = await userService.update(req.params.oid, req.body, userJwt.userOid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseOk(user, 1)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -67,31 +67,31 @@ const remove = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { user, err } = await userService.deleted(req.params.oid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { user, error } = await userService.deleted(req.params.oid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseDeleteOk(user)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
 
 const findAll = async (req, res) => {
 	try {
-		const { users, err } = await userService.findAll();
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { users, error } = await userService.findAll();
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseOk(users, users.length)
 		}
 		res.status(200).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -104,18 +104,18 @@ const findById = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { user, err } = await userService.findById(req.params.oid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { user, error } = await userService.findById(req.params.oid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else if (user === null) {
-			response = responseDataNotFound(err.message)
+			response = responseDataNotFound(error.message)
 		} else {
 			response = responseOk(user, 1)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -162,8 +162,8 @@ const find = async (req, res) => {
 		};
 		response = buildBesponse.ResponseOkWithPaggination(users,pagging )
 		res.status(200).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };

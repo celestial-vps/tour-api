@@ -14,6 +14,11 @@ const query = Joi.object({
     sortBy: Joi.string().valid('auctionId', 'userId', 'bidAmount').optional().default('userId'),
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
+
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
 // Body schemas
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, '').example('Bank Central Asia'),
@@ -40,6 +45,11 @@ const filterBidDto = Joi.object({
     headers: authSchema,
     query,
     body: filterDto
+});
+
+const filterBidQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
 });
 
 const getBidDto = Joi.object({
@@ -100,7 +110,7 @@ module.exports = {
     createBidDto,
     updateBidDto,
     deleteBidDto,
-    filterBidDto,
+    filterBidDto,filterBidQueryDto,
     getBidDto,
     bidResponseDto,
     createDto, updateDto, filterDto, params

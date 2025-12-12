@@ -11,7 +11,7 @@ const {
   updateAuctionDto,
   deleteAuctionDto,
   getAuctionDto,
-  filterAuctionDto,
+  filterAuctionDto,filterAuctionQueryDto,
   auctionResponseDto,
   createDto,
   updateDto,
@@ -189,6 +189,14 @@ router.delete(
  *     summary: Get All Auctions
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of Auctions
@@ -211,7 +219,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterAuctionDto),
+  validateRequest(filterAuctionQueryDto),
   roleGuard("Admin"),
   auctionController.findAll
 );

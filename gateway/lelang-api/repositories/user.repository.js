@@ -4,28 +4,28 @@ const save = async (data) => {
     try {
         const user = new User(data); // Create a new user instance
         const result = await user.save(); // Save the user to the database
-        return { result, err: null };
-    } catch (err) {
-        return { result: null, err };
+        return { result, error: null };
+    } catch (error) {
+        return { result: null, error };
     }
 };
 
 const update = async (oid, data) => {
     try {
         const result = await User.findOneAndUpdate({ _id: oid }, data, { new: true }); // Update the user
-        return { result, err: null };
-    } catch (err) {
-        return { result: null, err };
+        return { result, error: null };
+    } catch (error) {
+        return { result: null, error };
     }
 };
 
 const deleted = async (oid) => {
     try {
         const result = await User.deleteOne({ oid }); // Delete the user
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
-            result: null, err
+            result: null, error
         };
     }
 };
@@ -33,12 +33,10 @@ const deleted = async (oid) => {
 const findAll = async () => {
     try {
         const result = await User.find(); // Find all users
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,  error: { httpStatus: 500, message: 'Failed to delete User' },
         };
     }
 };
@@ -46,10 +44,10 @@ const findAll = async () => {
 const findById = async (oid) => {
     try {
         const result = await User.findOne({ _id: oid }); // Find user by oid
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
-            result: null, err
+            result: null, error
         };
     }
 };
@@ -65,10 +63,10 @@ const advanceFilter = async (filterCondition) => {
         }
 
         const users = await User.find(query).populate('role'); // Execute the query
-        return { users, err: null };
-    } catch (err) {
+        return { users, error: null };
+    } catch (error) {
         return {
-            users: [], err
+            users: [], error
         };
     }
 };
@@ -84,10 +82,10 @@ const findCountByCriteria = async (filterCondition) => {
         }
 
         const count = await User.countDocuments(query); // Count the documents
-        return { count, err: null };
+        return { count, error: null };
     } catch (error) {
         return {
-            count: 0, err:error
+            count: 0, error:error
         };
     }
 };
@@ -106,9 +104,9 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10) => {
             .skip((page - 1) * pageSize) // Pagination
             .limit(pageSize); // Limit results
 
-        return { users, err: null };
+        return { users, error: null };
     } catch (error) {
-        return { users: [], err: error };
+        return { users: [], error: error };
     }
 };
 
@@ -117,10 +115,10 @@ const findUserRole = async (email) => {
         // const user = await User.findOne({ email })
         // .populate('roleOid');
         const user = await User.findOne({ email }).populate('roleOid');
-        return { user, err: null };
+        return { user, error: null };
     } catch (error) {
         return {
-            user: null, err: error
+            user: null, error: error
         };
     }
 };

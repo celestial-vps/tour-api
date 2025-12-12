@@ -29,7 +29,7 @@ npm install lodash
 
 # MIGRATION
 ./scripts/seed.sh
-npx sequelize-cli migration:generate --name create-driver
+npx sequelize-cli migration:generate --name add-field-user
 npx sequelize-cli db:migrate
 
 npm install umzug mysql2

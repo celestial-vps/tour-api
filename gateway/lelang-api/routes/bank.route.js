@@ -10,7 +10,7 @@ const {
   createBankDto,
   updateBankDto,
   deleteBankDto,
-  getBankDto, filterBankDto, bankResponseDto, createDto, updateDto, filterDto, params
+  getBankDto, filterBankDto, filterBankQueryDto,bankResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-bank-dto");
  
 // Response DTO
@@ -187,6 +187,14 @@ router.delete(
  *     summary: Get All Banks
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of Banks
@@ -280,7 +288,7 @@ router.get(
  */
 router.post(
   "/q",
-  validateRequest(filterBankDto),
+  validateRequest(filterBankQueryDto),
   roleGuard("Admin"),
   bankController.find
 );

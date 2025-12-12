@@ -25,12 +25,12 @@ const create = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await bidRepository.save(data);
+    const { result, error } = await bidRepository.save(data);
     await session.commitTransaction();
     session.endSession();
 
-    if (err) {
-      return { bid: null, err };
+    if (error) {
+      return { bid: null, error };
     }
     if (result) {
       const msgData = {
@@ -38,21 +38,17 @@ const create = async (dto, userOid) => {
         name: data.userId
       }
       const bid = await messageMaps.toMessageResponse(msgData);
-      return { bid, err: null };
+      return { bid, error: null };
     } else {
       return {
-        bid: {}, err: {
-          httpStatus: 500,
-        }
+        bid: {}, error: { httpStatus: 500, message: 'Failed to delete Bid' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bid: null, err: {
-        httpStatus: 500,
-      }
+      bid: null,error: { httpStatus: 500, message: 'Failed to delete Bid' },
     };
   }
 };
@@ -64,13 +60,13 @@ const update = async (oid, dto, userOid) => {
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
 
-    const { result: resultFind, err: errBid } = await bidRepository.findById(oid);
+    const { result: resultFind, error: errBid } = await bidRepository.findById(oid);
     if (errBid != null) {
-      return { bid: {}, err: errBid }
+      return { bid: {}, error: errBid }
     }
     if (resultFind == null) {
       return {
-        bid: {}, err: {
+        bid: {}, error: {
           httpStatus: 404,
         }
       }
@@ -83,11 +79,11 @@ const update = async (oid, dto, userOid) => {
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
-    const { result, err } = await bidRepository.update(oid, resultFind);
+    const { result, error } = await bidRepository.update(oid, resultFind);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { bid: result, err };
+    if (error) {
+      return { bid: result, error };
     }
     if (result) {
       const msgData = {
@@ -95,21 +91,17 @@ const update = async (oid, dto, userOid) => {
         name: resultFind.userId
       }
       const bid = await messageMaps.toMessageResponse(msgData);
-      return { bid, err: null };
+      return { bid, error: null };
     } else {
       return {
-        bid: {}, err: {
-          httpStatus: 500,
-        }
+        bid: {}, error: { httpStatus: 500, message: 'Failed to delete Bid' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bid: null, err: {
-        httpStatus: 500,
-      }
+      bid: null, error: { httpStatus: 500, message: 'Failed to delete Bid' },
     };
   }
 };
@@ -120,23 +112,23 @@ const deleted = async (oid) => {
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
-    const { result: resultFind, err: errBid } = await bidRepository.findById(oid);
+    const { result: resultFind, error: errBid } = await bidRepository.findById(oid);
     if (errBid != null) {
-      return { bid: {}, err: errBid }
+      return { bid: {}, error: errBid }
     }
     if (resultFind == null) {
       return {
-        bid: {}, err: {
+        bid: {}, error: {
           httpStatus: 404,
         }
       }
     }
 
-    const { result, err } = await bidRepository.deleted(oid);
+    const { result, error } = await bidRepository.deleted(oid);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { result: null, err };
+    if (error) {
+      return { result: null, error };
     }
     if (result) {
       const msgData = {
@@ -144,55 +136,49 @@ const deleted = async (oid) => {
         name: resultFind.userId
       }
       const bid = await messageMaps.toMessageResponse(msgData);
-      return { bid, err: null };
+      return { bid, error: null };
     } else {
       return {
-        bid: {}, err: {
-          httpStatus: 500,
-        }
+        bid: {}, error: { httpStatus: 500, message: 'Failed to delete Bid' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bid: null, err: {
-        httpStatus: 500,
-      }
+      bid: null,error: { httpStatus: 500, message: 'Failed to delete Bid' },
     };
   }
 };
 
 const findAll = async () => {  
   try {
-    const { result, err } = await bidRepository.findAll();
+    const { result, error } = await bidRepository.findAll();
     const bids = await mappings.toBidResponses(result)
-    return { bids, err: null }
-  } catch (err) {
-    return { bids: [], err }
+    return { bids, error: null }
+  } catch (error) {
+    return { bids: [], error }
   }
 };
 
 const findById = async (oid) => {  
   try {
-    const { result, err } = await bidRepository.findById(oid);
-    if (err != null) {
-      return { bid: {}, err }
+    const { result, error } = await bidRepository.findById(oid);
+    if (error != null) {
+      return { bid: {}, error }
     }
     if (result == null) {
       return {
-        bid: null, err: {
+        bid: null, error: {
           httpStatus: 404,
         }
       }
     }
     const bid = await mappings.toBidResponse(result)
-    return { bid, err: null }
-  } catch (err) {
+    return { bid, error: null }
+  } catch (error) {
     return {
-      bid: [], err: {
-        httpStatus: 500,
-      }
+      bid: [], error: { httpStatus: 500, message: 'Failed to delete Bid' },
     }
   }
 
@@ -204,17 +190,15 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { bids: [], count: 0, errCount }
     }
-    const { bids, err } = await bidRepository.findByCriteria(condition, page, pageSize);
-    if (err) {
+    const { bids, error } = await bidRepository.findByCriteria(condition, page, pageSize);
+    if (error) {
       return { bids: [], count: 0, errCount }
     }
     const bidResponses = await mappings.toBidResponses(bids)
-    return { bids: bidResponses, count, err: err };
-  } catch (err) {
+    return { bids: bidResponses, count, error: error };
+  } catch (error) {
     return {
-      bids: [], count: 0, err: {
-        httpStatus: 500,
-      }
+      bids: [], count: 0,error: { httpStatus: 500, message: 'Failed to delete Bid' },
     }
   }
 };

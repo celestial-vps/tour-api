@@ -18,6 +18,10 @@ const query = Joi.object({
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
 // Body schemas
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, '').example('BCA'),
@@ -44,6 +48,11 @@ const filterBankDto = Joi.object({
     headers: authSchema,
     query,
     body: filterDto
+});
+
+const filterBankQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
 });
 
 const getBankDto = Joi.object({
@@ -81,7 +90,7 @@ module.exports = {
     createBankDto,
     updateBankDto,
     deleteBankDto,
-    filterBankDto,
+    filterBankDto,filterBankQueryDto,
     getBankDto,
     bankResponseDto,
     createDto, updateDto, filterDto, params

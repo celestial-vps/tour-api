@@ -82,8 +82,8 @@
 //         const result = await userRolesCollection.insertMany(userRoles);
 //         console.log(`${result.insertedCount} user roles seeded successfully`);
 
-//     } catch (err) {
-//         console.error('Error seeding database:', err);
+//     } catch (error) {
+//         console.error('Error seeding database:', error);
 //     } finally {
 //         await client.close();
 //     }

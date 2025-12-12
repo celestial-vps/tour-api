@@ -29,32 +29,32 @@ const login = async (req, res) => {
 			webToken: req.body.webToken,
 			desktopToken: req.body.desktopToken,
 		};
-		const { user, err } = await userService.login(condition, body);
-		if (err) {
-			return buildResponse.sendQueryError(res, err.message, "insert");
+		const { user, error } = await userService.login(condition, body);
+		if (error) {
+			return buildResponse.sendQueryError(res, error.message, "insert");
 		}
 
 		return buildResponse.findOk(res, user, 1)
 
 
-	} catch (err) {
-		console.error('Controller Create Error:', err);
-		return buildResponse.sendInternalServerError(res, err.message);
+	} catch (error) {
+		console.error('Controller Create Error:', error);
+		return buildResponse.sendInternalServerError(res, error.message);
 	}
 };
 
 const register = async (req, res) => {
 	try {
 
-		const { user, err } = await userService.register(req.body);
-		if (err) {
-			return buildResponse.sendQueryError(res, err.message, "insert");
+		const { user, error } = await userService.register(req.body);
+		if (error) {
+			return buildResponse.sendQueryError(res, error.message, "insert");
 		}
 
 		return buildResponse.createOk(res, user, 1);
-	} catch (err) {
-		console.error('Controller Create Error:', err);
-		return buildResponse.sendInternalServerError(res, err.message);
+	} catch (error) {
+		console.error('Controller Create Error:', error);
+		return buildResponse.sendInternalServerError(res, error.message);
 	}
 };
 

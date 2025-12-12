@@ -101,4 +101,37 @@ router.post(
   authController.register
 );
 
+/**
+ * @swagger
+ * /auth/register-admin:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/AuthRegisterPayloadDto"
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/AuthSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.post(
+  "/register-admin",
+  validateRequest(registerAuthDto),
+  authController.register
+);
+
+
 module.exports = router;

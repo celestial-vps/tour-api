@@ -87,8 +87,8 @@ const getErrorMsg = (fieldError) => {
 };
 
 // Panic on error utility
-const panicIfError = (err) => {
-	if (err) throw new Error(err);
+const panicIfError = (error) => {
+	if (error) throw new Error(error);
 };
 
 // Export all

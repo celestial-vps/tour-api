@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const jwtMaker = new JwtMaker();
 const { v4: uuidv4 } = require('uuid');
 
-const register = async (dto, userOid) => {
+const registerAdmin = async (dto, userOid) => {
   // const roleId = process.env.RoleId;    
   const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   const roleOidStr = process.env.RoleId || ""
@@ -30,18 +30,18 @@ const register = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await userRepository.save(data);
-    if (err) {
+    const { result, error } = await userRepository.save(data);
+    if (error) {
       return {
-        user: {}, err: err
+        user: {}, error: error
       };
     }
 
     const token = await jwtMaker.createToken(result.id, dto.email, 'Admin');
 
 
-    if (err) {
-      return { user: null, err };
+    if (error) {
+      return { user: null, error };
     }
     if (result) {
       const msgData = {
@@ -49,20 +49,69 @@ const register = async (dto, userOid) => {
         name: data.email
       }
       const user = await messageMaps.toMessageResponse(msgData);
-      return { user, err: null };
+      return { user, error: null };
     } else {
       return {
-        user: {}, err: {
-          httpStatus: 500,
-        }
+        user: {}, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
 
-  } catch (err) {
+  } catch (error) {
     return {
-      user: null, err: {
-        httpStatus: 500,
+      user: null,error: { httpStatus: 500, message: 'Failed to delete Immage File' },
+    };
+  }
+
+}
+
+const register = async (dto, userOid) => {  
+  const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  try {
+    const hashedPassword = await hashPassword(dto.password);
+    const data = {
+      _id: uuidv4(),
+      email: dto.email,
+      password: hashedPassword,
+      androidToken: dto.androidToken ?? null,
+      iosToken: dto.iosToken ?? null,
+      webToken: dto.webToken ?? null,
+      desktopToken: dto.desktopToken ?? null,
+      role: dto.roleOid,
+      createdBy: userOid ?? "",
+      createdAt: now,
+      lastModifiedBy: userOid ?? "",
+      updatedAt: now,
+    };
+
+    const { result, error } = await userRepository.save(data);
+    if (error) {
+      return {
+        user: {}, error: error
+      };
+    }
+
+    const token = await jwtMaker.createToken(result.id, dto.email, 'Admin');
+
+
+    if (error) {
+      return { user: null, error };
+    }
+    if (result) {
+      const msgData = {
+        value: token,//result.id,
+        name: data.email
       }
+      const user = await messageMaps.toMessageResponse(msgData);
+      return { user, error: null };
+    } else {
+      return {
+        user: {},error: { httpStatus: 500, message: 'Failed to delete Immage File' },
+      };
+    }
+
+  } catch (error) {
+    return {
+      user: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 
@@ -70,20 +119,20 @@ const register = async (dto, userOid) => {
 
 const login = async (condition, body) => {
   try {
-    const { users, err } = await userRepository.advanceFilter(condition);
-    if (err != null) {
-      return { user: {}, err }
+    const { users, error } = await userRepository.advanceFilter(condition);
+    if (error != null) {
+      return { user: {}, error }
     }
     if (users == null || users.length == 0) {
       return {
-        user: {}, err: {
+        user: {}, error: {
           message: "Data Not Found"
         }
       }
     }
     const status = await checkPassword(condition.password, users[0].password);
     if (!status) {
-      return { users: [], err }
+      return { users: [], error }
     }
     const oid = users[0].id
     selectedUser = users[0];
@@ -94,17 +143,15 @@ const login = async (condition, body) => {
     const token = await jwtMaker.createToken(oid, condition.email, selectedUser.role.roleName);
 
 
-    const { users: userUpdate, err: errUpdate } = await userRepository.update(oid, selectedUser);
+    const { users: userUpdate, error: errUpdate } = await userRepository.update(oid, selectedUser);
     if (errUpdate != null) {
-      return { user: {}, err }
+      return { user: {}, error }
     }
     const user = await mappings.toUserTokenResponse(users[0], token, "")
-    return { user, err: null }
-  } catch (err) {
+    return { user, error: null }
+  } catch (error) {
     return {
-      user: [], err: {
-        httpStatus: 500,
-      }
+      user: [],error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     }
   }
 }
@@ -137,12 +184,12 @@ const create = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await userRepository.save(data);
+    const { result, error } = await userRepository.save(data);
     await session.commitTransaction();
     session.endSession();
 
-    if (err) {
-      return { user: null, err };
+    if (error) {
+      return { user: null, error };
     }
     if (result) {
       const msgData = {
@@ -150,21 +197,17 @@ const create = async (dto, userOid) => {
         name: data.email
       }
       const user = await messageMaps.toMessageResponse(msgData);
-      return { user, err: null };
+      return { user, error: null };
     } else {
       return {
-        user: {}, err: {
-          httpStatus: 500,
-        }
+        user: {},error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      user: null, err: {
-        httpStatus: 500,
-      }
+      user: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
@@ -176,13 +219,13 @@ const update = async (oid, dto, userOid) => {
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
 
-    const { result: resultFind, err: errUser } = await userRepository.findById(oid);
+    const { result: resultFind, error: errUser } = await userRepository.findById(oid);
     if (errUser != null) {
-      return { user: {}, err: errUser }
+      return { user: {}, error: errUser }
     }
     if (resultFind == null) {
       return {
-        user: {}, err: {
+        user: {}, error: {
           httpStatus: 404,
         }
       }
@@ -202,11 +245,11 @@ const update = async (oid, dto, userOid) => {
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now ?? resultFind.updatedAt
 
-    const { result, err } = await userRepository.update(oid, resultFind);
+    const { result, error } = await userRepository.update(oid, resultFind);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { user: result, err };
+    if (error) {
+      return { user: result, error };
     }
     if (result) {
       const msgData = {
@@ -214,21 +257,17 @@ const update = async (oid, dto, userOid) => {
         name: resultFind.email
       }
       const user = await messageMaps.toMessageResponse(msgData);
-      return { user, err: null };
+      return { user, error: null };
     } else {
       return {
-        user: {}, err: {
-          httpStatus: 500,
-        }
+        user: {}, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      user: null, err: {
-        httpStatus: 500,
-      }
+      user: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
@@ -239,23 +278,23 @@ const deleted = async (oid) => {
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
-    const { result: resultFind, err: errUser } = await userRepository.findById(oid);
+    const { result: resultFind, error: errUser } = await userRepository.findById(oid);
     if (errUser != null) {
-      return { user: {}, err: errUser }
+      return { user: {}, error: errUser }
     }
     if (resultFind == null) {
       return {
-        user: {}, err: {
+        user: {}, error: {
           httpStatus: 404,
         }
       }
     }
 
-    const { result, err } = await userRepository.deleted(oid);
+    const { result, error } = await userRepository.deleted(oid);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { result: null, err };
+    if (error) {
+      return { result: null, error };
     }
     if (result) {
       const msgData = {
@@ -263,55 +302,49 @@ const deleted = async (oid) => {
         name: resultFind.email
       }
       const user = await messageMaps.toMessageResponse(msgData);
-      return { user, err: null };
+      return { user, error: null };
     } else {
       return {
-        user: {}, err: {
-          httpStatus: 500,
-        }
+        user: {},error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      user: null, err: {
-        httpStatus: 500,
-      }
+      user: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
 
 const findAll = async () => {
   try {
-    const { result, err } = await userRepository.findAll();
+    const { result, error } = await userRepository.findAll();
     const users = await mappings.toUserResponses(result)
-    return { users, err: null }
-  } catch (err) {
-    return { users: [], err }
+    return { users, error: null }
+  } catch (error) {
+    return { users: [], error }
   }
 };
 
 const findById = async (oid) => {
   try {
-    const { result, err } = await userRepository.findById(oid);
-    if (err != null) {
-      return { user: {}, err }
+    const { result, error } = await userRepository.findById(oid);
+    if (error != null) {
+      return { user: {}, error }
     }
     if (result == null) {
       return {
-        user: null, err: {
+        user: null, error: {
           httpStatus: 404,
         }
       }
     }
     const user = await mappings.toUserResponse(result)
-    return { user, err: null }
-  } catch (err) {
+    return { user, error: null }
+  } catch (error) {
     return {
-      user: [], err: {
-        httpStatus: 500,
-      }
+      user: [], error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     }
   }
 
@@ -323,23 +356,25 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { users: [], count: 0, errCount }
     }
-    const { users, err } = await userRepository.findByCriteria(condition, page, pageSize);
-    if (err) {
+    const { users, error } = await userRepository.findByCriteria(condition, page, pageSize);
+    if (error) {
       return { users: [], count: 0, errCount }
     }
     const userResponses = await mappings.toUserResponses(users)
-    return { users: userResponses, count, err: err };
-  } catch (err) {
+    return { users: userResponses, count, error: error };
+  } catch (error) {
     return {
-      users: [], count: 0, err: {
-        httpStatus: 500,
-      }
+      users: [], count: 0,error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     }
   }
 };
 
+
+ 
+
 module.exports = {
   register,
+  registerAdmin,
   login,
   create,
   update,

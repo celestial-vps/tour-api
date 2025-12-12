@@ -29,16 +29,20 @@ const login = async (req, res) => {
 		console.error('Controller Create:');
 		const condition = {
 			email: req.body.email,
-			password: req.body.password
+			password: req.body.password,
 		};
 
 		const { user, err } = await userService.login(condition);
-		console.error('Controller Create err 1:',err);
+
+		console.error('Controller Create err 1:', err);
 		if (err) {
 			return buildResponse.sendQueryError(res, err.message, "insert");
 		}
-
-		return buildResponse.findOk(res,user, 1)
+		const { userRole, err: errUpdate } = await userService.update(user.oid, req.body, user.oid);
+		if (errUpdate) {
+			return buildResponse.sendQueryError(res, err.message, "insert");
+		}
+		return buildResponse.findOk(res, user, 1)
 
 
 		// const { user, err } = await userService.login(condition);
@@ -76,7 +80,28 @@ const register = async (req, res) => {
 	}
 };
 
+const registerAdmin = async (req, res) => {
+	try {
+		// const { isValid, message } = validateRequest(null, registerDto, null,req, false);
+		// if (!isValid) {
+		// 	const response = buildResponse.responseFinValidatorError(message);
+		// 	return res.status(400).json(response); // Return 400 Bad Request for validation errors
+		// }
+
+		const { user, err } = await userService.registerAdmin(req.body);
+		if (err) {
+			return buildResponse.sendQueryError(res, err.message, "insert");
+		}
+
+		return buildResponse.createOk(res, user, 1);
+	} catch (err) {
+		console.error('Controller Create Error:', err);
+		return buildResponse.sendInternalServerError(res, err.message);
+	}
+};
+
 module.exports = {
 	login,
 	register,
+	registerAdmin
 };

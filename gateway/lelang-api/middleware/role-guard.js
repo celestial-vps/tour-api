@@ -37,9 +37,9 @@ const roleGuard = (role) => {
             }
 
             // Fetch user role from the repository
-            // const { user, err } = await findUserRole(decoded.username);
-            // if (err) {
-            //     return res.status(403).json(responseUnauthorized(err.message || "Role not found"));
+            // const { user, error } = await findUserRole(decoded.username);
+            // if (error) {
+            //     return res.status(403).json(responseUnauthorized(error.message || "Role not found"));
             // }
             // if (!user) {
             //     return res.status(401).json(responseUnauthorized("Data Not Found"));
@@ -59,7 +59,7 @@ const roleGuard = (role) => {
             req[authorizationPayloadKey] = decoded;
             next();
 
-        } catch (err) {
+        } catch (error) {
             return res.status(401).json(responseUnauthorized("Invalid token"));
         }
     };

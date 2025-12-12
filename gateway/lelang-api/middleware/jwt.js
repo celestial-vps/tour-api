@@ -17,8 +17,8 @@ class JwtMaker {
     };
 
     return new Promise((resolve, reject) => {
-      jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {
-        if (err) return reject(err);
+      jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (error, token) => {
+        if (error) return reject(error);
         resolve(token);
       });
     });
@@ -26,8 +26,8 @@ class JwtMaker {
 
   verifyToken(accessToken) {
     return new Promise((resolve, reject) => {
-      jwt.verify(accessToken, this.secretKey, (err, decoded) => {
-        if (err) return reject(err);
+      jwt.verify(accessToken, this.secretKey, (error, decoded) => {
+        if (error) return reject(error);
         resolve(decoded);
       });
     });
@@ -35,8 +35,8 @@ class JwtMaker {
 
   // getClaims(tokenString) {
   //   return new Promise((resolve, reject) => {
-  //     jwt.decode(tokenString, { complete: true }, (err, decoded) => {
-  //       if (err) return reject(err);
+  //     jwt.decode(tokenString, { complete: true }, (error, decoded) => {
+  //       if (error) return reject(error);
   //       resolve(decoded ? decoded.payload : {});
   //     });
   //   });
@@ -63,7 +63,7 @@ const authenticateToken = async (req, res, next) => {
     const user = await jwtMaker.verifyToken(token);
     req.user = user; // Attach user info to the request object
     next();
-  } catch (err) {
+  } catch (error) {
     res.sendStatus(403); // Forbidden
   }
 };

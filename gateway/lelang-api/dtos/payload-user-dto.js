@@ -12,6 +12,11 @@ const query = Joi.object({
     pageSize: Joi.number().integer().min(1).max(100).required().default(10).example(10),
 });
 
+
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
 // Filter DTO (Body)
 const filterDto = Joi.object({
     email: Joi.string().optional().allow(null, '').example('user@example.com'),
@@ -60,6 +65,11 @@ const filterUserDto = Joi.object({
     body: filterDto
 });
 
+const filterUserQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
+});
+
 // Get User by ID
 const getUserDto = Joi.object({
     headers: authSchema,
@@ -97,7 +107,7 @@ const userResponseDto = Joi.object({
 
 module.exports = {
     // Complete DTO
-    filterUserDto,
+    filterUserDto,filterUserQueryDto,
     getUserDto,
     deleteUserDto,
     updateUserDto,

@@ -10,19 +10,19 @@ const jwtMaker = new JwtMaker();
 const create = async (req, res) => { 
   try {
     const userJwt = req.authorization_payload;
-    const { bid, err } = await bidService.create(req.body, userJwt.userOid);
+    const { bid, error } = await bidService.create(req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("CREATE", "bids", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "insert");
+    if (error) {
+      await recordAuditTrail("CREATE", "bids", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "insert");
     }
     await recordAuditTrail("CREATE", "bids", bid, req, 'SUCCESS', 'Create Bid success');
     return buildResponse.createOk(res, bid, 1);
 
-  } catch (err) {
-    await recordAuditTrail("CREATE", "bids", err, req, 'ERROR', err.message);
-    console.error('Controller Create Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("CREATE", "bids", error, req, 'ERROR', error.message);
+    console.error('Controller Create Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
@@ -30,52 +30,52 @@ const update = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
 
-    const { bid, err } = await bidService.update(req.params.oid, req.body, userJwt.userOid);
+    const { bid, error } = await bidService.update(req.params.oid, req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("UPDATE", "bids", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "update");
+    if (error) {
+      await recordAuditTrail("UPDATE", "bids", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "update");
     }
     await recordAuditTrail("UPDATE", "bids", bid, req, 'SUCCESS', 'Update Bid success');
     return buildResponse.updateOk(res, bid, 1);
-  } catch (err) {
-    console.error('Controller Update Error:', err);
-    await recordAuditTrail("UPDATE", "bids", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    console.error('Controller Update Error:', error);
+    await recordAuditTrail("UPDATE", "bids", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const { bid, err } = await bidService.deleted(req.params.oid);
+    const { bid, error } = await bidService.deleted(req.params.oid);
 
-    if (err) {
-      await recordAuditTrail("DELETE", "bids", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message || err, "delete");
+    if (error) {
+      await recordAuditTrail("DELETE", "bids", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message || error, "delete");
     }
     await recordAuditTrail("DELETE", "bids", bid, req, 'SUCCESS', 'Delete Bid success');
     return buildResponse.sendDeleteOk(res, bid);
-  } catch (err) {
-    await recordAuditTrail("DELETE", "bids", err, req, 'ERROR', err.message);
-    console.error('Controller Delete Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("DELETE", "bids", error, req, 'ERROR', error.message);
+    console.error('Controller Delete Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const { bids, err } = await bidService.findAll();
+    const { bids, error } = await bidService.findAll();
 
-    if (err) {
-      await recordAuditTrail("READ", "bids", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get all");
+    if (error) {
+      await recordAuditTrail("READ", "bids", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get all");
     }
     await recordAuditTrail("READ", "bids", bids, req, 'SUCCESS', 'Get all Bids success');
     return buildResponse.findOk(res, bids, bids.length);
-  } catch (err) {
-    await recordAuditTrail("READ", "bids", err, req, 'ERROR', err.message);
-    console.error('Controller Find All Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "bids", error, req, 'ERROR', error.message);
+    console.error('Controller Find All Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
@@ -92,9 +92,9 @@ const find = async (req, res) => {
 
     const result = await bidService.findPage(filters, options);
 
-    if (result.err) {
-      await recordAuditTrail("READ", "bids", result.err, req, 'FAILED', result.err.message);
-      return buildResponse.sendInternalServerError(res, result.err.message);
+    if (result.error) {
+      await recordAuditTrail("READ", "bids", result.error, req, 'FAILED', result.error.message);
+      return buildResponse.sendInternalServerError(res, result.error.message);
     }
     await recordAuditTrail("READ", "bids", result.bids, req, 'SUCCESS', 'Get Bids with filters success');
     return buildResponse.sendPagination(res, result.bids, result.count, options.pageIndex, options.pageSize);
@@ -111,19 +111,19 @@ const findById = async (req, res) => {
       include: [], // bisa ditambahkan jika ada relasi
     };
 
-    const { bid, err } = await bidService.findById(req.params.oid, options);
+    const { bid, error } = await bidService.findById(req.params.oid, options);
 
-    if (err) {
-      await recordAuditTrail("READ", "bids", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get by id");
+    if (error) {
+      await recordAuditTrail("READ", "bids", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get by id");
     }
 
     if (!bid) return buildResponse.sendDataNotFound(res);
     await recordAuditTrail("READ", "bids", bid, req, 'SUCCESS', 'Get Bid by ID success');
     return buildResponse.findOk(res, bid);
-  } catch (err) {
-    await recordAuditTrail("READ", "bids", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "bids", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 

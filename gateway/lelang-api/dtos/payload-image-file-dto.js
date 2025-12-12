@@ -1,11 +1,19 @@
 const Joi = require('joi');
-
+const { authSchema } = require('./base-dto');
 // ---------------- Payload DTO ----------------
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
 
 // Filter / query image files
 const filterImageFileDto = Joi.object({
   fileName: Joi.string().optional().allow(null, ''),
   fileUrl: Joi.string().optional().allow(null, ''),
+});
+
+const filterImageFileQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
 });
 
 // Pagination DTO
@@ -47,6 +55,9 @@ const query = Joi.object({
   pageSize: Joi.number().integer().min(1).max(100).required(),
 });
 
+
+ 
+
 // Response DTO
 const imageFileResponseDto = Joi.object({
   oid: Joi.string().uuid().required(),
@@ -62,7 +73,7 @@ const imageFileResponseDto = Joi.object({
 });
 
 module.exports = {
-  filterImageFileDto,
+  filterImageFileDto,filterImageFileQueryDto,
   pageImageFileDto,
   createImageFileDto,
   updateImageFileDto,

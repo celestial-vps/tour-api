@@ -10,7 +10,7 @@ const {
   createUserDto,
   updateUserDto,
   deleteUserDto,
-  getUserDto, filterUserDto, userResponseDto, createDto, updateDto, filterDto, params
+  getUserDto, filterUserDto, filterUserQueryDto,userResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-user-dto");
  
 // Response DTO
@@ -187,6 +187,14 @@ router.delete(
  *     summary: Get All Users
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of Users
@@ -209,10 +217,11 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterUserDto),
+  validateRequest(filterUserQueryDto),
   roleGuard("Admin"),
   userController.findAll
 );
+
 
 /**
  * @openapi

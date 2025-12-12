@@ -56,6 +56,30 @@ const create = async (dto, userOid) => {
 };
 
 const register = async (dto) => {
+    const transaction = await sequelize.transaction(); 
+
+    try {
+        const hashedPassword = await hashPassword(dto.password);
+        dto.createdBy = dto.email
+        const data = {
+            email: dto.email, 
+            password: hashedPassword,
+            roleOid: dto.roleOid,
+            createdBy: dto.createdBy
+        };
+
+        const { result, err } = await userRepository.save(data, transaction);
+        if (err !== null) {
+            return { result: null, err }
+        }
+        const user = await mappings.toUserResponse(result)
+        return { user, err: err }
+    } catch (err) {
+        return { result: null, err }
+    }
+};
+
+const registerAdmin = async (dto) => {
     const transaction = await sequelize.transaction();
     const roleOidStr = process.env.RoleId || ""
 
@@ -144,6 +168,8 @@ const update = async (oid, dto, userOid, options = {}) => {
             email: dto.email ?? existing.email,
             password: hashedPassword,
             androidToken: dto.androidToken ?? existing.androidToken,
+            iosToken: dto.iosToken ?? existing.iosToken,
+            webToken: dto.webToken ?? existing.webToken,
             expiredTime: dto.expiredTime ?? existing.expiredTime,
             isActive: dto.isActive ?? existing.isActive,
             activatedAt: dto.activatedAt ?? existing.activatedAt,
@@ -347,7 +373,7 @@ const findByMe = async (oid, options = {}) => {
 
 module.exports = {
     create,
-    register,
+    register,registerAdmin,
     login,
     update,
     deleted,

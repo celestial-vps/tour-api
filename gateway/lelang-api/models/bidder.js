@@ -30,12 +30,7 @@ const bidderSchema = new mongoose.Schema({
         type: String,
         maxlength: 20,
         default: null,
-    },
-
-    birthDate: {
-        type: Date,
-        default: null,
-    },
+    }, 
 
     createdBy: {
         type: String,

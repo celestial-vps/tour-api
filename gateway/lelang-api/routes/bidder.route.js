@@ -10,7 +10,7 @@ const {
   createBidderDto,
   updateBidderDto,
   deleteBidderDto,
-  getBidderDto, filterBidderDto, bidderResponseDto, createDto, updateDto, filterDto, params
+  getBidderDto, filterBidderDto,filterBidderQueryDto, bidderResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-bidder-dto");
  
 // Response DTO
@@ -187,6 +187,14 @@ router.delete(
  *     summary: Get All Bidders
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of Bidders
@@ -209,7 +217,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterBidderDto),
+  validateRequest(filterBidderQueryDto),
   roleGuard("Admin"),
   bidderController.findAll
 );

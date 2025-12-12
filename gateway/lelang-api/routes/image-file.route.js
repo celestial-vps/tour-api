@@ -171,6 +171,16 @@ router.delete('/delete/:oid', validateRequest(params), roleGuard('Admin'), image
  *     tags:
  *       - Image File
  *     summary: Get all image files
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
  *         description: List of image files
@@ -202,7 +212,7 @@ router.get('/', roleGuard('Admin'), imageFileController.findAll);
  *     summary: Paginated or filtered image files
  *     security:
  *       - BearerAuth: []
-*     parameters:
+ *     parameters:
  *       - in: query
  *         name: pageIndex
  *         schema:

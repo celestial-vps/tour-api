@@ -7,6 +7,7 @@ const { authSchema } = require("./base-dto");
 const registerDto = Joi.object({
   email: Joi.string().email().required().example("weslyaioria@gmail.com"),
   password: Joi.string().min(6).required().example("serverh5n"),
+  roleOid: Joi.string().optional().example("123"),
   androidToken: Joi.string().optional().example("123"),
   iosToken: Joi.string().optional().example("123"),
   webToken: Joi.string().optional().example("123"),

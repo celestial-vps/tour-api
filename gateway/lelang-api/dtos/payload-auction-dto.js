@@ -22,6 +22,10 @@ const query = Joi.object({
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
+
 // --------------------
 // Body Schemas
 // --------------------
@@ -33,6 +37,8 @@ const filterDto = Joi.object({
         .allow(null, ''),
     itemOid: Joi.string().optional().allow(null, '').example('678e4567-e89b-12d3-a456-426614174abc')
 });
+
+
 
 const createDto = Joi.object({
     itemOid: Joi.string().optional().allow(null).example('678e4567-e89b-12d3-a456-426614174abc'),
@@ -61,6 +67,12 @@ const filterAuctionDto = Joi.object({
     query,
     body: filterDto
 });
+
+const filterAuctionQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
+});
+
 
 const getAuctionDto = Joi.object({
     headers: authSchema,
@@ -100,7 +112,7 @@ module.exports = {
     createAuctionDto,
     updateAuctionDto,
     deleteAuctionDto,
-    filterAuctionDto,
+    filterAuctionDto,filterAuctionQueryDto,
     getAuctionDto,
     auctionResponseDto,
     createDto,updateDto, filterDto, params

@@ -17,6 +17,7 @@ const bidderRoutes = require('./routes/bidder.route');
 const itemRoutes = require('./routes/item.route');
 const auctionRoutes = require('./routes/auction.route');
 const itemCategoryRoutes = require('./routes/item-category.route');
+const sellerRoutes = require('./routes/seller.route');  
 const userRoleRoutes = require('./routes/user-role.route');
 const userRoutes = require('./routes/user.route');
 const imageFileRoutes = require('./routes/image-file.route');
@@ -69,7 +70,7 @@ mongoose.set('autoCreate', false);
 mongoose.set('autoIndex', false);
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(error => console.log(error));
 
 
 const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
@@ -86,6 +87,7 @@ app.use(`${basePath}/item`, itemRoutes);
 app.use(`${basePath}/bid`, bidRoutes);
 app.use(`${basePath}/bidder`, bidderRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
+app.use(`${basePath}/seller`, sellerRoutes);
 app.use(`${basePath}/user-role`, userRoleRoutes);
 app.use(`${basePath}/user`, userRoutes);
  
