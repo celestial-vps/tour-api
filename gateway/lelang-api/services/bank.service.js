@@ -14,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-       _id: uuidv4(),
+      _id: uuidv4(),
       bankCode: dto.bankCode,
       bankName: dto.bankName,
       shortName: dto.shortName ?? null,
@@ -57,7 +57,7 @@ const create = async (dto, userOid) => {
   }
 };
 
-const update = async (oid, dto, userOid) => {  
+const update = async (oid, dto, userOid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -114,7 +114,7 @@ const update = async (oid, dto, userOid) => {
   }
 };
 
-const deleted = async (oid) => {  
+const deleted = async (oid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -163,7 +163,7 @@ const deleted = async (oid) => {
   }
 };
 
-const findAll = async () => {  
+const findAll = async () => {
   try {
     const { result, err } = await bankRepository.findAll();
     const banks = await mappings.toBankResponses(result)
@@ -173,7 +173,7 @@ const findAll = async () => {
   }
 };
 
-const findById = async (oid) => {  
+const findById = async (oid) => {
   try {
     const { result, err } = await bankRepository.findById(oid);
     if (err != null) {
@@ -204,7 +204,7 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { banks: [], count: 0, errCount }
     }
-    const { banks, err } = await bankRepository.findByCriteria(condition, page, pageSize);
+    const { result: banks, error:err } = await bankRepository.findByCriteria(condition, page, pageSize);
     if (err) {
       return { banks: [], count: 0, errCount }
     }

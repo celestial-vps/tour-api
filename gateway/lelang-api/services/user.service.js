@@ -91,7 +91,7 @@ const login = async (condition, body) => {
     selectedUser.iosToken = body.iosToken
     selectedUser.webToken = body.webToken
     selectedUser.desktopToken = body.desktopToken
-    const token = await jwtMaker.createToken(oid, condition.email, selectedUser.userRole.roleName);
+    const token = await jwtMaker.createToken(oid, condition.email, selectedUser.role.roleName);
 
 
     const { users: userUpdate, err: errUpdate } = await userRepository.update(oid, selectedUser);

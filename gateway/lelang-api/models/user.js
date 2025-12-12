@@ -11,7 +11,8 @@ const userSchema = new Schema({
         type: String,
         maxlength: 150,
         unique: true,
-        required: true
+        required: true,
+        index: true
     },
     password: {
         type: String,
@@ -78,7 +79,8 @@ const userSchema = new Schema({
         default: null,
     },
 }, {
-    timestamps: true // Automatically manage createdAt and updatedAt fields
+    timestamps: true, // Automatically manage createdAt and updatedAt fields
+    autoCreate: false
 });
 
 // Compile schema into a model if not already defined

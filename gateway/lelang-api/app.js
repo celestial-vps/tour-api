@@ -65,6 +65,8 @@ app.use(limiter);
 // Connect to MongoDB
 const mongoURI = process.env.MONGO_URL + "/" + process.env.DATABASE;
 // mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.set('autoCreate', false);
+mongoose.set('autoIndex', false);
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));

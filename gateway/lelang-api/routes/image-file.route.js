@@ -91,6 +91,8 @@ router.post('/upload', roleGuard('Admin'), imageFileController.create);
  *     tags:
  *       - Image File
  *     summary: Update an image file
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -132,6 +134,8 @@ router.put('/:oid', validateRequest(updateImageFileDto), roleGuard('Admin'), ima
  *     tags:
  *       - Image File
  *     summary: Delete an image file by ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -198,6 +202,36 @@ router.get('/', roleGuard('Admin'), imageFileController.findAll);
  *     summary: Paginated or filtered image files
  *     security:
  *       - BearerAuth: []
+*     parameters:
+ *       - in: query
+ *         name: pageIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         required: true
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         required: true
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [categoryName]
+ *           default: categoryName
+ *         required: false
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         required: false
  *     requestBody:
  *       required: true
  *       content:
