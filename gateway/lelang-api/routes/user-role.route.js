@@ -55,6 +55,8 @@ const router = express.Router();
  *     tags:
  *       - User Role
  *     summary: Create User Role
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -95,6 +97,8 @@ router.post(
  *   put:
  *     tags: [User Role]
  *     summary: Update User Role
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -140,6 +144,8 @@ router.put(
  *   delete:
  *     tags: [User Role]
  *     summary: Delete User Role
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -179,6 +185,8 @@ router.delete(
  *   get:
  *     tags: [User Role]
  *     summary: Get All User Roles
+  *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of UserRoles
@@ -212,6 +220,8 @@ router.get(
  *   post:
  *     tags: [User Role]
  *     summary: Paginated User Roles
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -251,6 +261,8 @@ router.post(
  *   get:
  *     tags: [User Role]
  *     summary: Get User Role By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

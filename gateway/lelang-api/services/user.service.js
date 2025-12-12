@@ -16,12 +16,14 @@ const register = async (dto, userOid) => {
   try {
     const hashedPassword = await hashPassword(dto.password);
     const data = {
-       _id: uuidv4(),
-      name: dto.name ?? "",
+      _id: uuidv4(),
       email: dto.email,
       password: hashedPassword,
-      androidToken: dto.androidToken ?? null,    
-      roleOid: roleOidStr, 
+      androidToken: dto.androidToken ?? null,
+      iosToken: dto.iosToken ?? null,
+      webToken: dto.webToken ?? null,
+      desktopToken: dto.desktopToken ?? null,
+      role: roleOidStr,
       createdBy: userOid ?? "",
       createdAt: now,
       lastModifiedBy: userOid ?? "",
@@ -29,13 +31,21 @@ const register = async (dto, userOid) => {
     };
 
     const { result, err } = await userRepository.save(data);
+    if (err) {
+      return {
+        user: {}, err: err
+      };
+    }
+
+    const token = await jwtMaker.createToken(result.id, dto.email, 'Admin');
+
 
     if (err) {
       return { user: null, err };
     }
     if (result) {
       const msgData = {
-        value: result.id,
+        value: token,//result.id,
         name: data.email
       }
       const user = await messageMaps.toMessageResponse(msgData);
@@ -58,7 +68,7 @@ const register = async (dto, userOid) => {
 
 }
 
-const login = async (condition) => {
+const login = async (condition, body) => {
   try {
     const { users, err } = await userRepository.advanceFilter(condition);
     if (err != null) {
@@ -76,7 +86,18 @@ const login = async (condition) => {
       return { users: [], err }
     }
     const oid = users[0].id
-    const token = await jwtMaker.createToken(oid, condition.email);
+    selectedUser = users[0];
+    selectedUser.androidToken = body.androidToken
+    selectedUser.iosToken = body.iosToken
+    selectedUser.webToken = body.webToken
+    selectedUser.desktopToken = body.desktopToken
+    const token = await jwtMaker.createToken(oid, condition.email, selectedUser.userRole.roleName);
+
+
+    const { users: userUpdate, err: errUpdate } = await userRepository.update(oid, selectedUser);
+    if (errUpdate != null) {
+      return { user: {}, err }
+    }
     const user = await mappings.toUserTokenResponse(users[0], token, "")
     return { user, err: null }
   } catch (err) {
@@ -148,7 +169,7 @@ const create = async (dto, userOid) => {
   }
 };
 
-const update = async (oid, dto, userOid) => {  
+const update = async (oid, dto, userOid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -169,7 +190,7 @@ const update = async (oid, dto, userOid) => {
     const hashedPassword = await hashPassword(dto.password ?? resultFind.password);
     resultFind.name = dto.name ?? resultFind.name
     resultFind.email = dto.email ?? resultFind.email
-    resultFind.password =   hashedPassword
+    resultFind.password = hashedPassword
     resultFind.birthday = dto.birthday ?? resultFind.birthday
     resultFind.memberNumber = dto.memberNumber ?? resultFind.memberNumber
     resultFind.androidToken = dto.androidToken ?? resultFind.androidToken
@@ -212,7 +233,7 @@ const update = async (oid, dto, userOid) => {
   }
 };
 
-const deleted = async (oid) => {  
+const deleted = async (oid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -261,7 +282,7 @@ const deleted = async (oid) => {
   }
 };
 
-const findAll = async () => {  
+const findAll = async () => {
   try {
     const { result, err } = await userRepository.findAll();
     const users = await mappings.toUserResponses(result)
@@ -271,7 +292,7 @@ const findAll = async () => {
   }
 };
 
-const findById = async (oid) => {  
+const findById = async (oid) => {
   try {
     const { result, err } = await userRepository.findById(oid);
     if (err != null) {

@@ -57,6 +57,8 @@ const router = express.Router();
  *     tags:
  *       - Item
  *     summary: Create Item
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -97,6 +99,8 @@ router.post(
  *   put:
  *     tags: [Item]
  *     summary: Update Item
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -142,6 +146,8 @@ router.put(
  *   delete:
  *     tags: [Item]
  *     summary: Delete Item
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -181,6 +187,8 @@ router.delete(
  *   get:
  *     tags: [Item]
  *     summary: Get All Items
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of Items
@@ -214,6 +222,8 @@ router.get(
  *   post:
  *     tags: [Item]
  *     summary: Paginated Items
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: query
@@ -261,6 +271,8 @@ router.post(
  *   get:
  *     tags: [Item]
  *     summary: Get Item By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

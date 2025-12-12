@@ -58,6 +58,8 @@ const router = express.Router();
  *   post:
  *     tags: [Auction]
  *     summary: Create Auction
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -97,6 +99,8 @@ router.post(
  *   put:
  *     tags: [Auction]
  *     summary: Update Auction
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -142,6 +146,8 @@ router.put(
  *   delete:
  *     tags: [Auction]
  *     summary: Delete Auction
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -181,6 +187,8 @@ router.delete(
  *   get:
  *     tags: [Auction]
  *     summary: Get All Auctions
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of Auctions
@@ -214,6 +222,8 @@ router.get(
  *   post:
  *     tags: [Auction]
  *     summary: Paginated Auctions
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -253,6 +263,8 @@ router.post(
  *   get:
  *     tags: [Auction]
  *     summary: Get Auction By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

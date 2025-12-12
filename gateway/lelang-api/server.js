@@ -4,26 +4,12 @@ dotenv.config({ path: envFile });
 
 const app = require('./app'); // Express app
 const http = require('http');
-// const { Server } = require('socket.io');
-// const chatGateway = require('../chat/chat.gateway');
-// const initSocketServer = require('./lib/socket/socket-server');
-
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('Dialect:', process.env.dialect);
 
 require('./misc/datetime'); 
 
 const server = http.createServer(app);
-// const io = new Server(server, {
-//   cors: {
-//     origin: '*', // sesuaikan origin kalau perlu
-//   }
-// });
-    
-
-
-
-
 console.log(`Environment loaded from ${envFile}`);
 
 const PORT = process.env.PORT || 5102;

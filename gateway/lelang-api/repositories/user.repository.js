@@ -1,14 +1,12 @@
 const User = require('../models/user');
- 
+
 const save = async (data) => {
     try {
         const user = new User(data); // Create a new user instance
         const result = await user.save(); // Save the user to the database
         return { result, err: null };
     } catch (err) {
-        return { result: null, err: {
-            httpStatus: 500,
-        } };F
+        return { result: null, err };
     }
 };
 
@@ -17,9 +15,7 @@ const update = async (oid, data) => {
         const result = await User.findOneAndUpdate({ _id: oid }, data, { new: true }); // Update the user
         return { result, err: null };
     } catch (err) {
-        return { result: null, err: {
-            httpStatus: 500,
-        } };
+        return { result: null, err };
     }
 };
 
@@ -28,9 +24,9 @@ const deleted = async (oid) => {
         const result = await User.deleteOne({ oid }); // Delete the user
         return { result, err: null };
     } catch (err) {
-        return { result: null, err: {
-            httpStatus: 500,
-        } };
+        return {
+            result: null, err
+        };
     }
 };
 
@@ -39,9 +35,11 @@ const findAll = async () => {
         const result = await User.find(); // Find all users
         return { result, err: null };
     } catch (err) {
-        return { result: null, err: {
-            httpStatus: 500,
-        } };
+        return {
+            result: null, err: {
+                httpStatus: 500,
+            }
+        };
     }
 };
 
@@ -50,9 +48,9 @@ const findById = async (oid) => {
         const result = await User.findOne({ _id: oid }); // Find user by oid
         return { result, err: null };
     } catch (err) {
-        return { result: null, err: {
-            httpStatus: 500,
-        } };
+        return {
+            result: null, err
+        };
     }
 };
 
@@ -69,9 +67,9 @@ const advanceFilter = async (filterCondition) => {
         const users = await User.find(query).populate('role'); // Execute the query
         return { users, err: null };
     } catch (err) {
-        return { users: [], err: {
-            httpStatus: 500,
-        }};
+        return {
+            users: [], err
+        };
     }
 };
 
@@ -88,9 +86,9 @@ const findCountByCriteria = async (filterCondition) => {
         const count = await User.countDocuments(query); // Count the documents
         return { count, err: null };
     } catch (error) {
-        return { count: 0,err: {
-            httpStatus: 500,
-        }};
+        return {
+            count: 0, err:error
+        };
     }
 };
 
@@ -121,9 +119,9 @@ const findUserRole = async (email) => {
         const user = await User.findOne({ email }).populate('roleOid');
         return { user, err: null };
     } catch (error) {
-        return { user: null, err: {
-            httpStatus: 500,
-        } };
+        return {
+            user: null, err: error
+        };
     }
 };
 

@@ -46,7 +46,7 @@ global.swaggerComponents.ErrorResponse = ErrorSchema;
  * /image-file/upload:
  *   post:
  *     tags:
- *       - ImageFile
+ *       - Image File
  *     summary: Upload an image file
  *     security:
  *       - bearerAuth: []
@@ -196,6 +196,8 @@ router.get('/', roleGuard('Admin'), imageFileController.findAll);
  *     tags:
  *       - Image File
  *     summary: Paginated or filtered image files
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -231,6 +233,8 @@ router.post('/q', validateRequest(filterImageFileDto), roleGuard('Admin'), image
  *     tags:
  *       - Image File
  *     summary: Get image file by ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

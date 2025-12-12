@@ -55,6 +55,8 @@ const router = express.Router();
  *     tags:
  *       - User
  *     summary: Create User
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -95,6 +97,8 @@ router.post(
  *   put:
  *     tags: [User]
  *     summary: Update User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -140,6 +144,8 @@ router.put(
  *   delete:
  *     tags: [User]
  *     summary: Delete User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -179,6 +185,8 @@ router.delete(
  *   get:
  *     tags: [User]
  *     summary: Get All Users
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of Users
@@ -212,6 +220,8 @@ router.get(
  *   post:
  *     tags: [User]
  *     summary: Paginated Users
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -251,6 +261,8 @@ router.post(
  *   get:
  *     tags: [User]
  *     summary: Get User By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

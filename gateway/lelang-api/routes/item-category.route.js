@@ -56,6 +56,8 @@ const router = express.Router();
  *     tags:
  *       - Item Category
  *     summary: Create ItemCategory
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -97,6 +99,8 @@ router.post(
  *   put:
  *     tags: [Item Category]
  *     summary: Update Item Category
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -142,6 +146,8 @@ router.put(
  *   delete:
  *     tags: [Item Category]
  *     summary: Delete Item Category
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -181,6 +187,8 @@ router.delete(
  *   get:
  *     tags: [Item Category]
  *     summary: Get All Item Categorys
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of ItemCategorys
@@ -285,6 +293,8 @@ router.post(
  *   get:
  *     tags: [Item Category]
  *     summary: Get Item Category By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

@@ -15,23 +15,28 @@ const { OAuth2Client } = require('google-auth-library');
 //   const payload = ticket.getPayload();
 //   return payload; // berisi email, name, sub (userId Google), dll.
 // };
- 
+
 const login = async (req, res) => {
 	try {
 		const condition = {
 			email: req.body.email,
 			password: req.body.password,
-            webToken:req.body.webToken
 		};
 
-		const { user, err } = await userService.login(condition);
+		const body = { 
+			androidToken: req.body.androidToken,
+			iosToken: req.body.iosToken,
+			webToken: req.body.webToken,
+			desktopToken: req.body.desktopToken,
+		};
+		const { user, err } = await userService.login(condition, body);
 		if (err) {
 			return buildResponse.sendQueryError(res, err.message, "insert");
 		}
 
-		return buildResponse.findOk(res,user, 1)
+		return buildResponse.findOk(res, user, 1)
 
- 
+
 	} catch (err) {
 		console.error('Controller Create Error:', err);
 		return buildResponse.sendInternalServerError(res, err.message);
@@ -39,7 +44,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-	try { 
+	try {
 
 		const { user, err } = await userService.register(req.body);
 		if (err) {

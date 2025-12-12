@@ -55,6 +55,8 @@ const router = express.Router();
  *     tags:
  *       - Bid
  *     summary: Create Bid
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -95,6 +97,8 @@ router.post(
  *   put:
  *     tags: [Bid]
  *     summary: Update Bid
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -140,6 +144,8 @@ router.put(
  *   delete:
  *     tags: [Bid]
  *     summary: Delete Bid
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -179,6 +185,8 @@ router.delete(
  *   get:
  *     tags: [Bid]
  *     summary: Get All Bids
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of Bids
@@ -212,6 +220,8 @@ router.get(
  *   post:
  *     tags: [Bid]
  *     summary: Paginated Bids
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -251,6 +261,8 @@ router.post(
  *   get:
  *     tags: [Bid]
  *     summary: Get Bid By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

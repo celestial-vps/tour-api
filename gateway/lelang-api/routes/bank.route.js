@@ -55,6 +55,8 @@ const router = express.Router();
  *     tags:
  *       - Bank
  *     summary: Create Bank
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -95,6 +97,8 @@ router.post(
  *   put:
  *     tags: [Bank]
  *     summary: Update Bank
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -140,6 +144,8 @@ router.put(
  *   delete:
  *     tags: [Bank]
  *     summary: Delete Bank
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
@@ -179,6 +185,8 @@ router.delete(
  *   get:
  *     tags: [Bank]
  *     summary: Get All Banks
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: List of Banks
@@ -212,6 +220,8 @@ router.get(
  *   post:
  *     tags: [Bank]
  *     summary: Paginated Banks
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -251,6 +261,8 @@ router.post(
  *   get:
  *     tags: [Bank]
  *     summary: Get Bank By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path

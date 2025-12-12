@@ -13,21 +13,10 @@ const userSchema = new Schema({
         unique: true,
         required: true
     },
-    name: {
-        type: String,
-        maxlength: 50
-    },
     password: {
         type: String,
         maxlength: 150,
         required: true
-    },
-    birthday: {
-        type: Date
-    },
-    memberNumber: {
-        type: String,
-        default: null
     },
     androidToken: {
         type: String,
@@ -57,13 +46,9 @@ const userSchema = new Schema({
         default: null
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserRole',
+        type: String,      // Matches UserRole._id type (UUID)
+        ref: 'UserRole',   // Reference to UserRole collection
         default: null
-    },
-    description: {
-        type: String,
-        default: null,
     },
     createdBy: {
         type: String,

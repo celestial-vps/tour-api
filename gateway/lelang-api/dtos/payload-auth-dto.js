@@ -5,16 +5,22 @@ const { authSchema } = require("./base-dto");
 
 // Register DTO
 const registerDto = Joi.object({
-  name: Joi.string().allow("", null).optional().example("John Doe"),
   email: Joi.string().email().required().example("weslyaioria@gmail.com"),
   password: Joi.string().min(6).required().example("serverh5n"),
-  androidToken: Joi.string().allow(null, "").optional().example("ANDROID_TOKEN_123")
+  androidToken: Joi.string().optional().example("123"),
+  iosToken: Joi.string().optional().example("123"),
+  webToken: Joi.string().optional().example("123"),
+  desktopToken: Joi.string().optional().example("123")
 });
 
 // Login DTO
 const loginDto = Joi.object({
   email: Joi.string().email().required().example("weslyaioria@gmail.com"),
-  password: Joi.string().required().example("serverh5n")
+  password: Joi.string().required().example("serverh5n"),
+  androidToken: Joi.string().optional().example("123"),
+  iosToken: Joi.string().optional().example("123"),
+  webToken: Joi.string().optional().example("123"),
+  desktopToken: Joi.string().optional().example("123")
 });
 
 // -------------------- COMPLETE DTO WRAPPER -------------------- //
