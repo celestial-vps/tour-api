@@ -70,7 +70,7 @@ const findByCriteria = async (filterCondition, page, pageSize) => {
         }
 
         // Retrieve the paginated records
-        const items = await Item.find(whereConditions).populate('itemCategoryOid')
+        const items = await Item.find(whereConditions).populate('itemCategory').populate('seller')
             .limit(pageSize) // Limit the number of records returned
             .skip((page - 1) * pageSize); // Skip the records for pagination
 
@@ -122,7 +122,10 @@ const advanceFlter = async () => {
 
 const findById = async (oid) => {
     try {
-        const result = await Item.findOne({ _id: oid }).populate('imageOid'); // Use findOne to find by the oid field
+        const result = await Item.findOne({ _id: oid })
+        .populate('itemCategory')
+        .populate('seller')
+        // .populate('imageOid'); // Use findOne to find by the oid field
         return { result, error: null };
     }
     catch (error) {

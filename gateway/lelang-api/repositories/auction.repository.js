@@ -91,7 +91,7 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .populate({
                 path: 'itemOid',
                 populate: {
-                    path: 'itemCategoryOid',
+                    path: 'itemCategory',
                     model: 'ItemCategory',
                     match: itemCategoryMatch,
                 },

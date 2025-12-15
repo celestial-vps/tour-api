@@ -1,9 +1,10 @@
 // Mapping functions
-async function toItemResponse(item) {
+async function toItemResponse(item, imageData) {
     const response = {
         oid: item._id,
+        itemCategory: item.itemCategory,
         itemName: item.itemName,
-        imageOid: item.imageOid, 
+        imageOid: item.imageOid,
         startingPrice: item.startingPrice,
         seller: item.seller,
         createdBy: item.createdBy,
@@ -11,15 +12,23 @@ async function toItemResponse(item) {
     };
     if (item.imageOid) {
         response.image = {
-            fileName: item.imageOid.fileName,
-            fileUrl: item.imageOid.fileUrl,
-            fileMime: item.imageOid.fileMime,
-            description: item.imageOid.description,
+            oid: imageData._id,
+            fileName: imageData.fileName,
+            fileUrl: imageData.fileUrl,
+            fileMime: imageData.fileMime,
+            description: imageData.description,
         };
     }
-     if (item.itemCategoryOid) {
+    if (item.itemCategory) {
         response.itemCategory = {
-            categoryName: item.itemCategoryOid.categoryName,            
+            oid: item.itemCategory._id,
+            categoryName: item.itemCategory.categoryName,
+        };
+    }
+       if (item.seller) {
+        response.seller = {
+            oid: item.seller._id,
+            storeName: item.seller.storeName,
         };
     }
     return response;

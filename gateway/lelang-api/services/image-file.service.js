@@ -174,14 +174,14 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
 
     const { count, errCount } = await imageFileRepository.findCountByCriteria(condition);
     if (errCount) {
       return { imageFiles: [], count: 0, errCount }
     }
-    const { imageFiles, error } = await imageFileRepository.findByCriteria(condition, page, pageSize);
+    const { imageFiles, error } = await imageFileRepository.findByCriteria(condition, options.pageIndex, options.pageSize);
     if (error) {
       return { imageFiles: [], count: 0, errCount }
     }

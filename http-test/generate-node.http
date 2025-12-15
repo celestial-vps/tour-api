@@ -36,5 +36,5 @@ Content-Type: application/json
 }
 
 
-
- 
+### Test GET IMage
+ curl -X GET http://localhost:5009/api/v1/image-file/4bd02c74-aa52-48d5-8216-6ac1020febd4

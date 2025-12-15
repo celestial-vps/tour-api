@@ -181,14 +181,14 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
 
     const { count, errCount } = await userRoleRepository.findCountByCriteria(condition);
     if (errCount) {
       return { userRoles: [], count: 0, errCount }
     }
-    const { userRoles, error } = await userRoleRepository.findByCriteria(condition, page, pageSize);
+    const { userRoles, error } = await userRoleRepository.findByCriteria(condition, options.pageIndex, options.pageSize);
     if (error) {
       return { userRoles: [], count: 0, errCount }
     }

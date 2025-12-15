@@ -350,13 +350,13 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const { count, errCount } = await userRepository.findCountByCriteria(condition);
     if (errCount) {
       return { users: [], count: 0, errCount }
     }
-    const { users, error } = await userRepository.findByCriteria(condition, page, pageSize);
+    const { users, error } = await userRepository.findByCriteria(condition, options.pageIndex, options.pageSize);
     if (error) {
       return { users: [], count: 0, errCount }
     }

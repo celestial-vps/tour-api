@@ -2,8 +2,9 @@
 async function toBidResponse(bid) {  
   const response = {
       oid: bid._id,
-      auctionId: bid.auctionId,
-      userId: bid.userId,
+      auctionOid: bid.auctionOid._id,
+      itemName:bid.auctionOid.itemOid.itemName,
+      userOid: bid.userOid,
       bidAmount: bid.bidAmount,
       bidTime: bid.bidTime,
       createdBy: bid.createdBy,

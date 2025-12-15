@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid'); // kalau memang perlu
 
 const itemSchema = new mongoose.Schema({
     _id: { type: String, default: uuidv4 },
-    itemCategoryOid: {
+    itemCategory: {
         type: String,
         ref: 'ItemCategory',
         default: null

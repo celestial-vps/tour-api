@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const itemImageFileClient = require('../middleware/image-file/item-image-file-client');
 const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
@@ -15,8 +16,8 @@ const create = async (dto, userOid) => {
 
     const data = {
       _id: uuidv4(),
-      itemCategoryOid: dto.itemCategoryOid ?? null,
-      itemName: dto.itemName, 
+      itemCategory: dto.itemCategory ?? null,
+      itemName: dto.itemName,
       imageOid: dto.imageOid ?? null,
       startingPrice: dto.startingPrice ?? null,
       seller: dto.seller ?? null,
@@ -73,8 +74,8 @@ const update = async (oid, dto, userOid) => {
       }
     }
 
-    resultFind.itemCategoryOid = dto.itemCategoryOid ?? resultFind.itemCategoryOid
-    resultFind.itemName = dto.itemName ?? resultFind.itemName 
+    resultFind.itemCategory = dto.itemCategory ?? resultFind.itemCategory
+    resultFind.itemName = dto.itemName ?? resultFind.itemName
     resultFind.imageOid = dto.imageOid ?? resultFind.imageOid
     resultFind.startingPrice = dto.startingPrice ?? resultFind.startingPrice
     resultFind.seller = dto.seller ?? resultFind.seller
@@ -163,30 +164,48 @@ const findAll = async () => {
   }
 };
 
-const findById = async (oid) => {
+const findById = async (oid, token) => {
   try {
     const { result, error } = await itemRepository.findById(oid);
     if (error != null) {
-      return { item: {}, error }
+      return { item: {}, error };
     }
-    if (result == null) {
-      return {
-        item: null, error: {
-          httpStatus: 404,
-        }
+
+    if (!result) {
+      return { item: null, error: { httpStatus: 404 } };
+    }
+
+    // 1️⃣ Ambil image metadata dulu jika ada
+    let imageData = null;
+    if (result.imageOid) {
+      try {
+        const imageClient = itemImageFileClient(token); // token bisa dari request
+        const response = await imageClient.get(`/${result.imageOid}`);
+        imageData = response.data;
+      } catch (imgErr) {
+        console.error('[ItemService] failed to fetch image metadata:', imgErr.message);
+        imageData = null;
       }
     }
-    const item = await mappings.toItemResponse(result)
-    return { item, error: null }
-  } catch (error) {
-    return {
-      item: [], error: { httpStatus: 500, message: 'Failed to delete Immage File' },
-    }
-  }
 
+    // 2️⃣ Mapping DB result ke response
+    const item = await mappings.toItemResponse(result,imageData.data);
+
+    // 3️⃣ Tambahkan imageData ke object item
+    item.imageData = imageData;
+
+    return { item, error: null };
+
+  } catch (err) {
+    return {
+      item: null,
+      error: { httpStatus: 500, message: 'Internal server error', detail: err.message },
+    };
+  }
 };
 
-const findPage = async (condition, page, pageSize) => {
+
+const findPage = async (condition, options) => {
   try {
     const filterCondition = {
       itemName: condition.search
@@ -195,7 +214,7 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { items: [], count: 0, errCount }
     }
-    const { items, error } = await itemRepository.findByCriteria(filterCondition, page, pageSize);
+    const { items, error } = await itemRepository.findByCriteria(filterCondition, options.pageIndex, options.pageSize);
     if (error) {
       return { items: [], count: 0, errCount }
     }

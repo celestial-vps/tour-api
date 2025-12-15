@@ -185,13 +185,13 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition,options) => {
   try {
     const { count, errCount } = await bidderRepository.findCountByCriteria(condition);
     if (errCount) {
       return { bidders: [], count: 0, errCount }
     }
-    const { result:bidders, error } = await bidderRepository.findByCriteria(condition, page, pageSize);
+    const { result:bidders, error } = await bidderRepository.findByCriteria(condition, options.pageIndex, options.pageSize);
     if (error) {
       return { bidders: [], count: 0, errCount }
     }

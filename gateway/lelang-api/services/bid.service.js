@@ -15,10 +15,10 @@ const create = async (dto, userOid) => {
 
     const data = {
       _id: uuidv4(),
-      auctionId: dto.auctionId,
-      userId: dto.userId,
+      auctionOid: dto.auctionOid,
+      userOid:userOid,
       bidAmount: dto.bidAmount ?? null,
-      bidTime: dto.bidTime ?? null,
+      bidTime: dto.bidTime ?? now,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -48,12 +48,12 @@ const create = async (dto, userOid) => {
     await session.abortTransaction();
     session.endSession();
     return {
-      bid: null,error: { httpStatus: 500, message: 'Failed to delete Bid' },
+      bid: null, error: { httpStatus: 500, message: 'Failed to delete Bid' },
     };
   }
 };
 
-const update = async (oid, dto, userOid) => {  
+const update = async (oid, dto, userOid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -72,8 +72,8 @@ const update = async (oid, dto, userOid) => {
       }
     }
 
-    resultFind.auctionId = dto.auctionId ?? resultFind.auctionId
-    resultFind.userId = dto.userId ?? resultFind.userId
+    resultFind.auctionOid = dto.auctionOid ?? resultFind.auctionOid
+    resultFind.userOid = dto.userOid ?? resultFind.userOid
     resultFind.bidAmount = dto.bidAmount ?? resultFind.bidAmount
     resultFind.bidTime = dto.bidTime ?? resultFind.bidTime
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
@@ -106,7 +106,7 @@ const update = async (oid, dto, userOid) => {
   }
 };
 
-const deleted = async (oid) => {  
+const deleted = async (oid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -146,12 +146,12 @@ const deleted = async (oid) => {
     await session.abortTransaction();
     session.endSession();
     return {
-      bid: null,error: { httpStatus: 500, message: 'Failed to delete Bid' },
+      bid: null, error: { httpStatus: 500, message: 'Failed to delete Bid' },
     };
   }
 };
 
-const findAll = async () => {  
+const findAll = async () => {
   try {
     const { result, error } = await bidRepository.findAll();
     const bids = await mappings.toBidResponses(result)
@@ -161,7 +161,7 @@ const findAll = async () => {
   }
 };
 
-const findById = async (oid) => {  
+const findById = async (oid) => {
   try {
     const { result, error } = await bidRepository.findById(oid);
     if (error != null) {
@@ -184,13 +184,13 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const { count, errCount } = await bidRepository.findCountByCriteria(condition);
     if (errCount) {
       return { bids: [], count: 0, errCount }
     }
-    const { bids, error } = await bidRepository.findByCriteria(condition, page, pageSize);
+    const { result:bids, error } = await bidRepository.findByCriteria(condition, options.pageIndex, options.pageSize);
     if (error) {
       return { bids: [], count: 0, errCount }
     }
@@ -198,7 +198,7 @@ const findPage = async (condition, page, pageSize) => {
     return { bids: bidResponses, count, error: error };
   } catch (error) {
     return {
-      bids: [], count: 0,error: { httpStatus: 500, message: 'Failed to delete Bid' },
+      bids: [], count: 0, error: { httpStatus: 500, message: 'Failed to delete Bid' },
     }
   }
 };

@@ -35,7 +35,7 @@ const create = async (dto, userOid) => {
     if (result) {
       const msgData = {
         value: data._id,
-        name: data.description
+        name: data.itemOid
       }
       const auction = await messageMaps.toMessageResponse(msgData);
       return { auction, error: null };
@@ -184,10 +184,10 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const filterCondition = {
-      categoryName: condition.search
+      itemOid: condition.search
     };
 
 
@@ -195,7 +195,7 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { auctions: [], count: 0, errCount }
     }
-    const { auctions, error } = await auctionRepository.findByCriteria(filterCondition, page, pageSize);
+    const { result:auctions, error } = await auctionRepository.findByCriteria(filterCondition, options.pageIndex, options.pageSize);
     if (error) {
       return { auctions: [], count: 0, errCount }
     }

@@ -7,7 +7,7 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => { 
+const create = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
     const { item, error } = await itemService.create(req.body, userJwt.userOid);
@@ -81,7 +81,7 @@ const findAll = async (req, res) => {
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['itemName',   'search']);
+    const filters = pick(req.body, ['itemName', 'search']);
 
     const options = {
       sortBy: req.query.sortBy,
@@ -106,12 +106,13 @@ const find = async (req, res) => {
 };
 
 const findById = async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
   try {
     const options = {
       include: [], // bisa ditambahkan jika ada relasi
     };
 
-    const { item, error } = await itemService.findById(req.params.oid, options);
+    const { item, error } = await itemService.findById(req.params.oid, token, options);
 
     if (error) {
       await recordAuditTrail("READ", "items", error, req, 'FAILED', error.message);

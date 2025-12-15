@@ -184,13 +184,13 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const { count, errCount } = await bankRepository.findCountByCriteria(condition);
     if (errCount) {
       return { banks: [], count: 0, errCount }
     }
-    const { result: banks, error:error } = await bankRepository.findByCriteria(condition, page, pageSize);
+    const { result: banks, error:error } = await bankRepository.findByCriteria(condition,options.pageIndex, options.pageSize);
     if (error) {
       return { banks: [], count: 0, errCount }
     }

@@ -72,7 +72,7 @@ const findById = async (oid) => {
                 $lookup: {
                     from: 'items', // Collection name (bukan model)
                     localField: '_id',
-                    foreignField: 'itemCategoryOid',
+                    foreignField: 'itemCategory',
                     as: 'items',
                 },
             },

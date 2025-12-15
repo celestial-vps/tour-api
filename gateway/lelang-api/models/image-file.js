@@ -30,7 +30,7 @@ const imageFileSchema = new Schema({
         required: false, // Set to true if it cannot be null
     },
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: false,
     },
     createdAt: {
@@ -38,7 +38,7 @@ const imageFileSchema = new Schema({
         default: Date.now,
     },
     lastModifiedBy: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: false,
     },
     updatedAt: {
@@ -46,7 +46,7 @@ const imageFileSchema = new Schema({
         required: false,
     },
     deletedBy: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: false,
     },
     deletedAt: {

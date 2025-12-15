@@ -11,7 +11,7 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required().default(1),
     pageSize: Joi.number().integer().min(1).max(100).required().default(10),
-    sortBy: Joi.string().valid('userId', 'fullName', 'ktpNumber').optional().default('fullName'),
+    sortBy: Joi.string().valid('auctionOid',).optional().default('fullName'),
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
@@ -47,7 +47,7 @@ const updateDto = Joi.object({
 const filterBidderDto = Joi.object({
     headers: authSchema,
     query,
-    body: filterDto
+    // body: filterDto
 });
 
 const filterBidderQueryDto = Joi.object({

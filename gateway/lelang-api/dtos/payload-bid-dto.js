@@ -11,7 +11,7 @@ const params = Joi.object({
 const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).required().default(1),
     pageSize: Joi.number().integer().min(1).max(100).required().default(10),
-    sortBy: Joi.string().valid('auctionId', 'userId', 'bidAmount').optional().default('userId'),
+    sortBy: Joi.string().valid('auctionOid', 'userId', 'bidAmount').optional().default('userId'),
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
@@ -22,29 +22,24 @@ const querySearch = Joi.object({
 // Body schemas
 const filterDto = Joi.object({
     search: Joi.string().optional().allow(null, '').example('Bank Central Asia'),
-    auctionId: Joi.string().hex().length(24).optional().allow(null, '').example('64b7f8c5a1d2f9b123456780'),
-    userId: Joi.string().hex().length(24).optional().allow(null, '').example('64b7f8c5a1d2f9b123456781')
+  auctionOid:  Joi.string().required().example('123'),
 });
 
 const createDto = Joi.object({
-    auctionId: Joi.string().hex().length(24).required().example('64b7f8c5a1d2f9b123456780'),
-    userId: Joi.string().hex().length(24).required().example('64b7f8c5a1d2f9b123456781'),
-    bidAmount: Joi.number().required().example(2500000),
-    description: Joi.string().optional().example('Bid for auction BCA001')
+    auctionOid:  Joi.string().required().example('123'),
+    bidAmount: Joi.number().required().example(2500000), 
 });
 
 const updateDto = Joi.object({
-    auctionId: Joi.string().hex().length(24).required().example('64b7f8c5a1d2f9b123456780'),
-    userId: Joi.string().hex().length(24).required().example('64b7f8c5a1d2f9b123456781'),
-    bidAmount: Joi.number().optional().example(3000000),
-    description: Joi.string().optional().example('Updated bid for auction BCA001')
+    auctionOid:  Joi.string().required().example('123'),
+    bidAmount: Joi.number().optional().example(3000000), 
 });
 
 // Complete DTOs
 const filterBidDto = Joi.object({
     headers: authSchema,
     query,
-    body: filterDto
+    // body: filterDto
 });
 
 const filterBidQueryDto = Joi.object({
@@ -80,7 +75,7 @@ const bidResponseDto = Joi.object({
         .length(24)
         .required()
         .example('64b7f8c5a1d2f9b123456789'),
-    auctionId: Joi.string()
+    auctionOid: Joi.string()
         .hex()
         .length(24)
         .required()

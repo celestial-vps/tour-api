@@ -178,7 +178,7 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
 
     const filterCondition = {
@@ -190,7 +190,7 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const { result, error } = await itemCategoryRepository.findByCriteria(filterCondition, page, pageSize);
+    const { result, error } = await itemCategoryRepository.findByCriteria(filterCondition, options.pageIndex, options.pageSize);
     if (error) {
       return { itemCategorys: [], count: 0, errCount }
     }

@@ -79,21 +79,37 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
     try {
         const whereConditions = {};
 
-        if (filterCondition.auctionId) {
-            whereConditions.auctionId = {
-                $regex: filterCondition.auctionId,
+        if (filterCondition.auctionOid && typeof filterCondition.auctionOid === 'string') {
+            whereConditions.auctionOid = {
+                $regex: filterCondition.auctionOid,
                 $options: 'i',
             };
         }
 
-        if (filterCondition.userId) {
-            whereConditions.userId = {
-                $regex: filterCondition.userId,
+        if (filterCondition.userOid && typeof filterCondition.userOid === 'string') {
+            whereConditions.userOid = {
+                $regex: filterCondition.userOid,
                 $options: 'i',
+            };
+        }
+
+        // ⬇️ conditional populate match
+        const itemMatch = {};
+        if (filterCondition.itemName && typeof filterCondition.itemName === 'string') {
+            itemMatch.itemName = {
+                $regex: filterCondition.itemName,
+                $options: 'i'
             };
         }
 
         const result = await Bid.find(whereConditions)
+            .populate({
+                path: 'auctionOid',
+                populate: {
+                    path: 'itemOid',
+                    match: itemMatch   // aman walaupun kosong
+                }
+            })
             .sort({ createdAt: -1 })
             .skip((page - 1) * pageSize)
             .limit(pageSize);
@@ -108,14 +124,15 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
     }
 };
 
+
 // ✅ Count by criteria
 const findCountByCriteria = async (filterCondition = {}) => {
     try {
         const whereConditions = {};
 
-        if (filterCondition.auctionId) {
-            whereConditions.auctionId = {
-                $regex: filterCondition.auctionId,
+        if (filterCondition.auctionOid) {
+            whereConditions.auctionOid = {
+                $regex: filterCondition.auctionOid,
                 $options: 'i',
             };
         }

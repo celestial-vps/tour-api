@@ -28,7 +28,7 @@ const filterDto = Joi.object({
 
 const createDto = Joi.object({
     imageOid: Joi.string().required().example('123'),
-    itemCategoryOid: Joi.string().required().example('123'),
+    itemCategory: Joi.string().required().example('123'),
     itemName: Joi.string().required().example('Item Central Asia'),
     seller: Joi.string().required().example('123'),
     startingPrice: Joi.number().required().example(1),
@@ -36,7 +36,7 @@ const createDto = Joi.object({
 
 const updateDto = Joi.object({
     imageOid: Joi.string().required().example('123'),
-    itemCategoryOid: Joi.string().required().example('123'),
+    itemCategory: Joi.string().required().example('123'),
     itemName: Joi.string().required().example('Item Central Asia'),
     seller: Joi.string().required().example('123'),
     startingPrice: Joi.number().required().example(1),
