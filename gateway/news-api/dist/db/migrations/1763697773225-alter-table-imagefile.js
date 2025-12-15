@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AlterTableImagefile1763697773225 = void 0;
+class AlterTableImagefile1763697773225 {
+    name = 'AlterTableImagefile1763697773225';
+    async up(queryRunner) {
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`createdBy\` varchar(255) NOT NULL`);
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`createdAt\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)`);
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`lastModifiedBy\` varchar(255) NULL`);
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`updatedAt\` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)`);
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`deletedBy\` varchar(255) NULL`);
+        await queryRunner.query(`ALTER TABLE \`image_files\` ADD \`deletedAt\` timestamp(6) NULL`);
+    }
+    async down(queryRunner) {
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`deletedAt\``);
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`deletedBy\``);
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`updatedAt\``);
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`lastModifiedBy\``);
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`createdAt\``);
+        await queryRunner.query(`ALTER TABLE \`image_files\` DROP COLUMN \`createdBy\``);
+    }
+}
+exports.AlterTableImagefile1763697773225 = AlterTableImagefile1763697773225;
+//# sourceMappingURL=1763697773225-alter-table-imagefile.js.map
