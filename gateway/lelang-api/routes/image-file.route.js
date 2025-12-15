@@ -1,20 +1,53 @@
 const express = require('express');
-const multer = require('multer');
-const roleGuard = require('../middleware/role-guard');
-const sharp = require('sharp');
-const path = require('path'); // Make sure to import path
-const fs = require('fs');
+const { roleGuard } = require('../middleware/role-guard');
+const imageFileController = require('../controllers/image-file.controller');
+const { 
+  createImageFileDto,
+  updateImageFileDto,
+  filterImageFileDto,
+  params,
+  imageFileResponseDto
+} = require('../dtos/payload-image-file-dto');
+const { validateRequest } = require('../misc/validation');
+const j2s = require('joi-to-swagger');
+const Joi = require('joi');
+const { successResponse, errorResponse } = require('../dtos/response-dto');
+const { messageDto } = require('../dtos/message-dto');
 
-const imageFileController = require('../controllers/image-file.controller'); // Adjust the path
 const router = express.Router();
-  
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateImageFilePayloadSchema } = j2s(createImageFileDto);
+const { swagger: UpdateImageFilePayloadSchema } = j2s(updateImageFileDto);
+const { swagger: DeleteImageFilePayloadSchema } = j2s(params);
+const { swagger: FilterImageFilePayloadSchema } = j2s(filterImageFileDto);
+const { swagger: ImageFileSuccessSchema } = j2s(successResponse(imageFileResponseDto));
+const { swagger: ImageFileListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(imageFileResponseDto))
+);
+const { swagger: ImageFileSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register global swagger components ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateImageFilePayloadDto = CreateImageFilePayloadSchema;
+global.swaggerComponents.UpdateImageFilePayloadDto = UpdateImageFilePayloadSchema;
+global.swaggerComponents.DeleteImageFilePayloadDto = DeleteImageFilePayloadSchema;
+global.swaggerComponents.FilterImageFilePayloadDto = FilterImageFilePayloadSchema;
+global.swaggerComponents.ImageFileSuccessResponse = ImageFileSuccessSchema;
+global.swaggerComponents.ImageFileListSuccessResponse = ImageFileListSuccessSchema;
+global.swaggerComponents.ImageFileSuccessCRUDResponse = ImageFileSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
+// ---------------- Routes ----------------
 
 /**
- * @swagger
+ * @openapi
  * /image-file/upload:
  *   post:
+ *     tags:
+ *       - Image File
  *     summary: Upload an image file
- *     description: Allows users to upload an image file to the server.
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -27,427 +60,251 @@ const router = express.Router();
  *               file:
  *                 type: string
  *                 format: binary
- *                 description: The image file to upload.
  *               user:
  *                 type: string
- *                 description: The ID of the user uploading the file.
  *     responses:
  *       200:
- *         description: Successful file upload
+ *         description: File uploaded successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "019223ba-7c2f-76d4-9ad1-2e4b7d2569c2"
- *                     name:
- *                       type: string
- *                       example: "1727176276972-compressed.jpg"
+ *               $ref: "#/components/schemas/ImageFileSuccessResponse"
  *       400:
- *         description: Bad request
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40000"
- *                 httpStatus:
- *                   type: string
- *                   example: "400"
- *                 message:
- *                   type: string
- *                   example: "Invalid file format"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
+router.post('/upload', roleGuard('Admin'), imageFileController.create);
 
-router.post('/upload', roleGuard('Admin'),  imageFileController.create);
-router.put('/:oid', roleGuard('Admin'), imageFileController.update);
 /**
- * @swagger
- * /image-file/delete/{id}:
- *   delete:
- *     summary: Delete an image file by ID
- *     description: Removes an image file from the server using its unique identifier.
+ * @openapi
+ * /image-file/{oid}:
+ *   put:
+ *     tags:
+ *       - Image File
+ *     summary: Update an image file
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
- *       - name: id
+ *       - name: oid
  *         in: path
  *         required: true
- *         description: The unique identifier of the image file to delete.
  *         schema:
  *           type: string
- *           example: "019227e9-2fca-7809-bd79-e8f1f47a131f"
- *     security:
- *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/UpdateImageFilePayloadDto"
  *     responses:
  *       200:
- *         description: A successful response indicating the image file was deleted
+ *         description: Image file updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "019227e9-2fca-7809-bd79-e8f1f47a131f"
- *                     name:
- *                       type: string
- *                       example: "1727246446420-compressed.jpg"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ImageFileSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: Not Found
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "Image file not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
+router.put('/:oid', validateRequest(updateImageFileDto), roleGuard('Admin'), imageFileController.update);
 
-router.delete('/delete/:oid', roleGuard('Admin'), imageFileController.deleted);
 /**
- * @swagger
+ * @openapi
+ * /image-file/delete/{oid}:
+ *   delete:
+ *     tags:
+ *       - Image File
+ *     summary: Delete an image file by ID
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Image file deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ImageFileSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ */
+router.delete('/delete/:oid', validateRequest(params), roleGuard('Admin'), imageFileController.deleted);
+
+/**
+ * @openapi
  * /image-file:
  *   get:
- *     summary: Retrieve all uploaded image files
- *     description: Fetches a list of all uploaded image files without pagination.
+ *     tags:
+ *       - Image File
+ *     summary: Get all image files
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
- *         description: A successful response with the list of image files
+ *         description: List of image files
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 3
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         example: "019222ac-0f8c-76f5-a3ae-44d8c30de126"
- *                       fileUrl:
- *                         type: string
- *                         example: "/public/1727158549525-compressed.jpg"
- *                       fileName:
- *                         type: string
- *                         example: "1727158549525-compressed.jpg"
- *                       createdAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-24T06:15:52.000Z"
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-24T06:15:52.000Z"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ImageFileListSuccessResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-
 router.get('/', roleGuard('Admin'), imageFileController.findAll);
+
 /**
- * @swagger
+ * @openapi
  * /image-file/q:
- *   get:
- *     summary: Query uploaded image files
- *     description: Retrieves a list of uploaded image files with pagination support.
+ *   post:
+ *     tags:
+ *       - Image File
+ *     summary: Paginated or filtered image files
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: pageIndex
- *         required: true
- *         description: The page number to retrieve.
  *         schema:
  *           type: integer
- *           example: 1
+ *           minimum: 1
+ *           default: 1
+ *         required: true
  *       - in: query
  *         name: pageSize
- *         required: true
- *         description: The number of items to return per page.
  *         schema:
  *           type: integer
- *           example: 10
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         required: true
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [categoryName]
+ *           default: categoryName
+ *         required: false
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         required: false
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/FilterImageFilePayloadDto"
  *     responses:
  *       200:
- *         description: A successful response with the list of image files
+ *         description: Paginated list of image files
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 3
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         example: "019222ac-0f8c-76f5-a3ae-44d8c30de126"
- *                       fileUrl:
- *                         type: string
- *                         example: "/public/1727158549525-compressed.jpg"
- *                       fileName:
- *                         type: string
- *                         example: "1727158549525-compressed.jpg"
- *                       createdAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-24T06:15:52.000Z"
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-24T06:15:52.000Z"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ImageFileListSuccessResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
+router.post('/q', validateRequest(filterImageFileDto), roleGuard('Admin'), imageFileController.find);
 
-router.post('/q', roleGuard('Admin'), imageFileController.find);
 /**
- * @swagger
- * /image-file/{id}:
+ * @openapi
+ * /image-file/{oid}:
  *   get:
- *     summary: Retrieve an uploaded image file
- *     description: Fetches the details of an uploaded image file by its ID.
+ *     tags:
+ *       - Image File
+ *     summary: Get image file by ID
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: oid
+ *         in: path
  *         required: true
- *         description: The ID of the image file to retrieve.
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Successful retrieval of the image file
+ *         description: Image file retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       example: "019223ba-7c2f-76d4-9ad1-2e4b7d2569c2"
- *                     fileUrl:
- *                       type: string
- *                       example: "/public/1727176276972-compressed.jpg"
- *                     fileName:
- *                       type: string
- *                       example: "1727176276972-compressed.jpg"
- *                     createdAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-24T11:11:17.000Z"
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-24T11:11:17.000Z"
- *       404:
- *         description: Image file not found
+ *               $ref: "#/components/schemas/ImageFileSuccessResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "Image file not found"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-
-router.get('/:oid', roleGuard('Admin'), imageFileController.findById);
+router.get('/:oid', validateRequest(params), roleGuard('Admin'), imageFileController.findById);
 
 module.exports = router;

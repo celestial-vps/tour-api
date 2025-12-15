@@ -10,19 +10,19 @@ const jwtMaker = new JwtMaker();
 const create = async (req, res) => { 
   try {
     const userJwt = req.authorization_payload;
-    const { itemCategory, err } = await itemCategoryService.create(req.body, userJwt.userOid);
+    const { itemCategory, error } = await itemCategoryService.create(req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("CREATE", "item Categorys", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "insert");
+    if (error) {
+      await recordAuditTrail("CREATE", "item Categorys", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "insert");
     }
     await recordAuditTrail("CREATE", "item Categorys", itemCategory, req, 'SUCCESS', 'Create Item Categorys success');
     return buildResponse.createOk(res, itemCategory, 1);
 
-  } catch (err) {
-    await recordAuditTrail("CREATE", "item Categorys", err, req, 'ERROR', err.message);
-    console.error('Controller Create Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("CREATE", "item Categorys", error, req, 'ERROR', error.message);
+    console.error('Controller Create Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
@@ -30,58 +30,58 @@ const update = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
 
-    const { itemCategory, err } = await itemCategoryService.update(req.params.oid, req.body, userJwt.userOid);
+    const { itemCategory, error } = await itemCategoryService.update(req.params.oid, req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("UPDATE", "item Categorys", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "update");
+    if (error) {
+      await recordAuditTrail("UPDATE", "item Categorys", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "update");
     }
     await recordAuditTrail("UPDATE", "item Categorys", itemCategory, req, 'SUCCESS', 'Update Item Categorys success');
     return buildResponse.updateOk(res, itemCategory, 1);
-  } catch (err) {
-    console.error('Controller Update Error:', err);
-    await recordAuditTrail("UPDATE", "item Categorys", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    console.error('Controller Update Error:', error);
+    await recordAuditTrail("UPDATE", "item Categorys", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const { itemCategory, err } = await itemCategoryService.deleted(req.params.oid);
+    const { itemCategory, error } = await itemCategoryService.deleted(req.params.oid);
 
-    if (err) {
-      await recordAuditTrail("DELETE", "item Categorys", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message || err, "delete");
+    if (error) {
+      await recordAuditTrail("DELETE", "item Categorys", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message || error, "delete");
     }
     await recordAuditTrail("DELETE", "item Categorys", itemCategory, req, 'SUCCESS', 'Delete Item Categorys success');
     return buildResponse.sendDeleteOk(res, itemCategory);
-  } catch (err) {
-    await recordAuditTrail("DELETE", "item Categorys", err, req, 'ERROR', err.message);
-    console.error('Controller Delete Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("DELETE", "item Categorys", error, req, 'ERROR', error.message);
+    console.error('Controller Delete Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const { itemCategorys, err } = await itemCategoryService.findAll();
+    const { itemCategorys, error } = await itemCategoryService.findAll();
 
-    if (err) {
-      await recordAuditTrail("READ", "item Categorys", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get all");
+    if (error) {
+      await recordAuditTrail("READ", "item Categorys", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get all");
     }
     await recordAuditTrail("READ", "item Categorys", itemCategorys, req, 'SUCCESS', 'Get all Item Categoryss success');
     return buildResponse.findOk(res, itemCategorys, itemCategorys.length);
-  } catch (err) {
-    await recordAuditTrail("READ", "item Categorys", err, req, 'ERROR', err.message);
-    console.error('Controller Find All Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "item Categorys", error, req, 'ERROR', error.message);
+    console.error('Controller Find All Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['title', 'description', 'search']);
+    const filters = pick(req.body, ['categoryName',  'search']);
 
     const options = {
       sortBy: req.query.sortBy,
@@ -92,9 +92,9 @@ const find = async (req, res) => {
 
     const result = await itemCategoryService.findPage(filters, options);
 
-    if (result.err) {
-      await recordAuditTrail("READ", "item Categorys", result.err, req, 'FAILED', result.err.message);
-      return buildResponse.sendInternalServerError(res, result.err.message);
+    if (result.error) {
+      await recordAuditTrail("READ", "item Categorys", result.error, req, 'FAILED', result.error.message);
+      return buildResponse.sendInternalServerError(res, result.error.message);
     }
     await recordAuditTrail("READ", "item Categorys", result.itemCategorys, req, 'SUCCESS', 'Get Item Categoryss with filters success');
     return buildResponse.sendPagination(res, result.itemCategorys, result.count, options.pageIndex, options.pageSize);
@@ -111,19 +111,19 @@ const findById = async (req, res) => {
       include: [], // bisa ditambahkan jika ada relasi
     };
 
-    const { itemCategory, err } = await itemCategoryService.findById(req.params.oid, options);
+    const { itemCategory, error } = await itemCategoryService.findById(req.params.oid, options);
 
-    if (err) {
-      await recordAuditTrail("READ", "item Categorys", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get by id");
+    if (error) {
+      await recordAuditTrail("READ", "item Categorys", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get by id");
     }
 
     if (!itemCategory) return buildResponse.sendDataNotFound(res);
     await recordAuditTrail("READ", "item Categorys", itemCategory, req, 'SUCCESS', 'Get Item Categorys by ID success');
     return buildResponse.findOk(res, itemCategory);
-  } catch (err) {
-    await recordAuditTrail("READ", "item Categorys", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "item Categorys", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 

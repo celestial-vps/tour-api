@@ -15,7 +15,7 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: SubDistrict
+ *   - name: Sub District
  *     description: SubDistrict management operations
  */
 
@@ -23,7 +23,7 @@ const router = express.Router();
  * @swagger
  * /sub-district/create:
  *   post:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Create a new subdistrict entry
  *     requestBody:
  *       required: true
@@ -49,7 +49,7 @@ router.post('/create', validateRequest(createSubDistrictDto), roleGuard('Admin')
  * @swagger
  * /sub-district/{oid}:
  *   put:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Update an existing subdistrict entry
  *     parameters:
  *       - name: oid
@@ -76,7 +76,7 @@ router.put('/:oid', validateRequest(updateSubDistrictDto), roleGuard('Admin'), s
  * @swagger
  * /subdistrict/delete/{oid}:
  *   delete:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Delete a subdistrict entry
  *     parameters:
  *       - name: oid
@@ -95,7 +95,7 @@ router.delete('/delete/:oid', validateRequest(deleteSubDistrictDto), roleGuard('
  * @swagger
  * /subdistrict:
  *   get:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Get all subdistricts with optional filters
  *     parameters:
  *       - in: query
@@ -118,7 +118,7 @@ router.get('/', validateRequest(filterSubDistrictDto), roleGuard('Admin'), subDi
  * @swagger
  * /subdistrict/q:
  *   post:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Paginate subdistricts with filters
  *     requestBody:
  *       required: true
@@ -148,7 +148,7 @@ router.post('/q', validateRequest(filterSubDistrictDto), roleGuard('Admin'), sub
  * @swagger
  * /subdistrict/{oid}:
  *   get:
- *     tags: [Subdistrict]
+ *     tags: [Sub District]
  *     summary: Get a single subdistrict by ID
  *     parameters:
  *       - name: oid

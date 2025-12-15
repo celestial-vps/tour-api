@@ -29,7 +29,7 @@ npm install lodash
 
 # MIGRATION
 ./scripts/seed.sh
-npx sequelize-cli migration:generate --name create-driver
+npx sequelize-cli migration:generate --name add-field-user
 npx sequelize-cli db:migrate
 
 npm install umzug mysql2
@@ -134,7 +134,7 @@ ini kalo bikin service nya
   npx sequelize-cli seed:generate --name default-user
     
 # SWAGGER
-    http://localhost:5000/api/v1/api-docs/
+    http://localhost:5101/api/v1/api-docs/
 
 
 

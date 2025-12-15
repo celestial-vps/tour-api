@@ -1,34 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
+
 const UserRole = require('./user-role'); // Ensure correct path
 
 // Define Mongoose schema
 const userSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId() // Explicitly generate ObjectId
-    },
+    _id: { type: String, default: uuidv4 },
     email: {
         type: String,
         maxlength: 150,
         unique: true,
-        required: true
-    },
-    name: {
-        type: String,
-        maxlength: 50
+        required: true,
+        index: true
     },
     password: {
         type: String,
         maxlength: 150,
         required: true
-    },
-    birthday: {
-        type: Date
-    },
-    memberNumber: {
-        type: String,
-        default: null
     },
     androidToken: {
         type: String,
@@ -57,14 +46,10 @@ const userSchema = new Schema({
         type: Date,
         default: null
     },
-    roleOid: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserRole',
+    role: {
+        type: String,      // Matches UserRole._id type (UUID)
+        ref: 'UserRole',   // Reference to UserRole collection
         default: null
-    },
-    description: {
-        type: String,
-        default: null,
     },
     createdBy: {
         type: String,
@@ -94,7 +79,8 @@ const userSchema = new Schema({
         default: null,
     },
 }, {
-    timestamps: true // Automatically manage createdAt and updatedAt fields
+    timestamps: true, // Automatically manage createdAt and updatedAt fields
+    autoCreate: false
 });
 
 // Compile schema into a model if not already defined

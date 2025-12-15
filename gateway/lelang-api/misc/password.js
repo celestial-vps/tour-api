@@ -18,8 +18,8 @@ const hashPassword = async (password) => {
   try {
     const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10));
     return hashedPassword;
-  } catch (err) {
-    throw new Error(`Failed to hash password: ${err.message}`);
+  } catch (error) {
+    throw new Error(`Failed to hash password: ${error.message}`);
   }
 };
 
@@ -27,8 +27,8 @@ const hashPassword = async (password) => {
 const checkPassword = async (password, hashedPassword) => {
   try {
    return await bcrypt.compare(password, hashedPassword);
-  } catch (err) {
-    throw new Error(`Password comparison failed: ${err.message}`);
+  } catch (error) {
+    throw new Error(`Password comparison failed: ${error.message}`);
   }
 };
 
@@ -37,8 +37,8 @@ const parseToken = (token) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     return decoded;
-  } catch (err) {
-    throw new Error(`Failed to parse token: ${err.message}`);
+  } catch (error) {
+    throw new Error(`Failed to parse token: ${error.message}`);
   }
 };
 

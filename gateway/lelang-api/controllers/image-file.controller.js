@@ -30,9 +30,9 @@ const upload = multer({
 }).single('image');
 
 const create = async (req, res) => {
-	  upload(req, res, async (err) => {
-		if (err) {
-			return res.status(400).send(err.message);
+	  upload(req, res, async (error) => {
+		if (error) {
+			return res.status(400).send(error.message);
 		}
 
 		if (!req.file) {
@@ -71,9 +71,9 @@ const create = async (req, res) => {
 			// }
 
 			// Call service to create the image file record
-			const { imageFile, err } = await imageFileService.create(createImageFileDto,userJwt.userOid);
-			if (err) {
-				const response = buildBesponse.responseError(err.httpStatus);
+			const { imageFile, error } = await imageFileService.create(createImageFileDto,userJwt.userOid);
+			if (error) {
+				const response = buildBesponse.responseError(error.httpStatus);
 				return res.status(500).json(response); // Return 500 for internal errors
 			}
 
@@ -99,16 +99,16 @@ const update = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { imageFile, err } = await imageFileService.update(req.params.oid, req.body,userJwt.userOid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { imageFile, error } = await imageFileService.update(req.params.oid, req.body,userJwt.userOid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseOk(imageFile, 1)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -121,31 +121,31 @@ const deleted = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { imageFile, err } = await imageFileService.deleted(req.params.oid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { imageFile, error } = await imageFileService.deleted(req.params.oid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseDeleteOk(imageFile)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
 
 const findAll = async (req, res) => {
 	try {
-		const { imageFiles, err } = await imageFileService.findAll();
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { imageFiles, error } = await imageFileService.findAll();
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		} else {
 			response = responseOk(imageFiles, imageFiles.length)
 		}
 		res.status(200).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -158,18 +158,18 @@ const findById = async (req, res) => {
 			return res.status(400).json(response); // Return 400 Bad Request for validation errors
 		}
 
-		const { imageFile, err } = await imageFileService.findById(req.params.oid);
-		if (err !== null) {
-			response = buildBesponse.responseError(err.httpStatus)
+		const { imageFile, error } = await imageFileService.findById(req.params.oid);
+		if (error !== null) {
+			response = buildBesponse.responseError(error.httpStatus)
 		}else if (imageFile === null) {
-			response = responseDataNotFound(err.message)
+			response = responseDataNotFound(error.message)
 		} else {
 			response = responseOk(imageFile, 1)
 		}
 
 		res.status(201).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };
@@ -214,8 +214,8 @@ const find = async (req, res) => {
 		};
 		response = buildBesponse.ResponseOkWithPaggination(imageFiles,pagging )
 		res.status(200).json(response);
-	} catch (err) {
-		response = responseInternalServerError(err.message)
+	} catch (error) {
+		response = responseInternalServerError(error.message)
 		res.status(500).json(response);
 	}
 };

@@ -3,12 +3,9 @@ const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
 
 
 const auctionSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true, // Otomatis generate ObjectId
-    },
+    _id: { type: String, default: uuidv4 },
     itemOid: {
-        type: mongoose.Schema.Types.ObjectId,
+           type: String, 
         ref: 'Item',
         required: false,    // tidak wajib
         default: null       // default null

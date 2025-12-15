@@ -1,464 +1,340 @@
-const express = require('express');
-const itemController = require('../controllers/item.controller'); // Adjust the path as needed
-const roleGuard = require('../middleware/role-guard');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const { validateRequest } = require("../misc/validation");
+const itemController = require("../controllers/item.controller");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
+const {
+  createItemDto,
+  updateItemDto,
+  deleteItemDto,
+  getItemDto, filterItemDto,filterItemQueryDto, itemResponseDto, createDto, updateDto, filterDto, params,query
+} = require("../dtos/payload-item-dto");
+ 
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateItemPayloadSchema } = j2s(createDto);
+const { swagger: UpdateItemPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteItemPayloadSchema } = j2s(params);
+const { swagger: FilterItemPayloadSchema } = j2s(filterDto);
+const { swagger: ItemSuccessSchema } = j2s(successResponse(itemResponseDto));
+const { swagger: ItemListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(itemResponseDto))
+);
+const { swagger: QueryPayloadSchema } = j2s(query);
+
+
+// Response Schema (success + error)
+
+const { swagger: ItemSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateItemPayloadDto = CreateItemPayloadSchema;
+global.swaggerComponents.FilterItemPayloadDto = FilterItemPayloadSchema;
+global.swaggerComponents.QueryPayloadDto = QueryPayloadSchema;
+global.swaggerComponents.UpdateItemPayloadDto = UpdateItemPayloadSchema;
+global.swaggerComponents.DeleteItemPayloadDto = DeleteItemPayloadSchema;
+global.swaggerComponents.ItemListSuccessResponse = ItemListSuccessSchema;
+global.swaggerComponents.ItemSuccessResponse = ItemSuccessSchema;
+global.swaggerComponents.ItemSuccessCRUDResponse = ItemSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
 const router = express.Router();
 
-
 /**
- * @swagger
+ * @openapi
  * /item/create:
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  *   post:
- *     summary: Create a new item entry
- *     description: Adds a new item to the database.
+ *     tags:
+ *       - Item
+ *     summary: Create Item
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
- *       description: Item object that needs to be added
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B001
- *               description:
- *                 type: string
- *                 example: Item Central Asia
- *               imageOid:
- *                 type: string
- *                 example: BCA
+ *             $ref: "#/components/schemas/CreateItemPayloadDto"
  *     responses:
- *       200:
- *         description: Item created successfully
+ *       201:
+ *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     title:
- *                       type: string
- *                       example: B001
- *                     description:
- *                       type: string
- *                       example: Item Central Asia
- *                     imageOid:
- *                       type: string
- *                       example: BCA
- *                     createdBy:
- *                       type: string
- *                       example: test
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:42:10Z"
+ *               $ref: "#/components/schemas/ItemSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', roleGuard('Admin'), itemController.create);
+router.post(
+  "/create",
+  validateRequest(createItemDto),
+  roleGuard("Admin"),
+  itemController.create
+);
+
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /item/{oid}:
  *   put:
- *     summary: Update a item entry
- *     description: Updates an existing item entry in the database.
+ *     tags: [Item]
+ *     summary: Update Item
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The UUID of the item to update
  *         schema:
  *           type: string
- *           format: uuid
- *           example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
  *     requestBody:
- *       description: Item object that needs to be updated
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B002
- *               description:
- *                 type: string
- *                 example: Item Rakyat Indonesia
- *               imageOid:
- *                 type: string
- *                 example: BRI
+ *             $ref: "#/components/schemas/UpdateItemPayloadDto"
  *     responses:
  *       200:
- *         description: Item updated successfully
+ *         description: Item Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0192037d-4f4d-76eb-9286-76924e2e6914"
- *                     title:
- *                       type: string
- *                       example: B002
- *                     description:
- *                       type: string
- *                       example: Item Rakyat Indonesia
- *                     imageOid:
- *                       type: string
- *                       example: BRI
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:56:36Z"
+ *               $ref: "#/components/schemas/ItemSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', roleGuard('Admin'), itemController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateItemDto),
+  roleGuard("Admin"),
+  itemController.update
+);
+
 /**
- * @swagger
- * /item/delete/{id}:
+ * @openapi
+ * /item/delete/{oid}:
  *   delete:
- *     summary: Delete a item by ID
- *     description: Removes a item record from the system using its unique identifier.
+ *     tags: [Item]
+ *     summary: Delete Item
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
- *       - name: id
+ *       - name: oid
  *         in: path
  *         required: true
- *         description: The unique identifier of the item to delete.
  *         schema:
  *           type: string
- *           example: "01920370-1523-78ec-8a88-9b01fe874882"
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A successful response indicating the item was deleted
+ *         description: Item Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     name:
- *                       type: string
- *                       example: "Item Central Asia"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/ItemSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: Not Found
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "Item not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteItemDto),
+  roleGuard("Admin"),
+  itemController.remove
+);
 
-router.delete('/delete/:oid', roleGuard('Admin'), itemController.remove);
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /item:
  *   get:
- *     summary: Retrieve all item entries
- *     description: Fetches a list of all items from the database.
+ *     tags: [Item]
+ *     summary: Get All Items
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
- *         description: A list of item entries
+ *         description: List of Items
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 10
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
- *                       title:
- *                         type: string
- *                         example: "B022"
- *                       description:
- *                         type: string
- *                         example: "Item Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:58:52.000Z"
+ *               $ref: "#/components/schemas/ItemListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', roleGuard('Admin'), itemController.findAll);
+router.get(
+  "/",
+  validateRequest(filterItemQueryDto),
+  roleGuard("Admin"),
+  itemController.findAll
+);
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /item/q:
  *   post:
- *     summary: Query item entries with pagination
- *     description: Retrieves a paginated list of item entries based on optional filters.
+ *     tags: [Item]
+ *     summary: Paginated Items
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: pageIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         required: true
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         required: true
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [categoryName]
+ *           default: categoryName
+ *         required: false
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         required: false
  *     requestBody:
- *       description: Filter options for item query
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: ""
- *               description:
- *                 type: string
- *                 example: ""
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         description: The index of the page to retrieve
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         description: The number of items to return per page
- *         schema:
- *           type: integer
- *           example: 10
+ *             $ref: "#/components/schemas/FilterItemPayloadDto"
  *     responses:
  *       200:
- *         description: A paginated list of item entries
+ *         description: Paginated Items List
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 9
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                       title:
- *                         type: string
- *                         example: "B023"
- *                       description:
- *                         type: string
- *                         example: "Item Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:59:57.000Z"
+ *               $ref: "#/components/schemas/ItemListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', roleGuard('Admin'), itemController.find);
+router.post(
+  "/q",
+  validateRequest(filterItemDto),
+  roleGuard("Admin"),
+  itemController.find
+);
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /item/{oid}:
  *   get:
- *     summary: Retrieve a item entry by ID
- *     description: Fetches details of a specific item using its UUID.
+ *     tags: [Item]
+ *     summary: Get Item By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The UUID of the item to retrieve
  *         schema:
  *           type: string
- *           format: uuid
- *           example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
  *     responses:
  *       200:
- *         description: Item entry retrieved successfully
+ *         description: Item Detail
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                     title:
- *                       type: string
- *                       example: "B023"
- *                     description:
- *                       type: string
- *                       example: "Item Of America"
- *                     imageOid:
- *                       type: string
- *                       example: "BcA"
- *                     createdBy:
- *                       type: string
- *                       nullable: true
- *                       example: null
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-17T02:59:57.000Z"
+ *               $ref: "#/components/schemas/ItemSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), itemController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getItemDto),
+  roleGuard("Admin"),
+  itemController.findById
+);
+
 
 module.exports = router;

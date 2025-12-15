@@ -36,7 +36,8 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
       action,
       status,
       message: message || `${action} ${tableName} ${status.toLowerCase()}`,
-      userOid: getUserOidValidator(req.authorization_payload?.userOid),
+      userOid: req.authorization_payload?.userOid,
+      // userOid: getUserOidValidator(req.authorization_payload?.userOid),
       ipAddress: req.ip,
       userAgent: req.get('User-Agent'),
       newData: status === 'SUCCESS' ? data : undefined,
@@ -49,8 +50,8 @@ async function recordAuditTrail(action, tableName, data, req, status = 'SUCCESS'
     }
 
     await auditTrailService.recordPost(value);
-  } catch (err) {
-    console.error('Failed to record audit trail:', err.message);
+  } catch (error) {
+    console.error('Failed to record audit trail:', error.message);
   }
 }
 

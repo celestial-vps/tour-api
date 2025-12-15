@@ -14,15 +14,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: city
+ *   - name: City Cache
  *     description: city read-only operations
  */
 
 /**
  * @swagger
- * /city:
+ * /city-cache:
  *   get:
- *     tags: [city]
+ *     tags: [City Cache]
  *     summary: Get all countries with optional filters
  *     parameters:
  *       - in: query
@@ -43,9 +43,9 @@ router.get('/', validateRequest(filterCityDto), roleGuard('Admin'), cityControll
 
 /**
  * @swagger
- * /city/q:
+ * /city-cache/q:
  *   post:
- *     tags: [city]
+ *     tags: [City Cache]
  *     summary: Paginate countries with filters
  *     requestBody:
  *       required: true
@@ -74,9 +74,9 @@ router.post('/q',   roleGuard('Admin'), cityController.find);
 
 /**
  * @swagger
- * /city/{oid}:
+ * /city-cache/{oid}:
  *   get:
- *     tags: [city]
+ *     tags: [City Cache]
  *     summary: Get a single city by ID
  *     parameters:
  *       - name: oid

@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const itemCategorySchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true,
-    },
+  _id: { type: String, default: uuidv4 },
     categoryName: { type: String, required: true },
 
 
@@ -39,7 +36,7 @@ const itemCategorySchema = new mongoose.Schema({
     },
     items: [{
         type: Schema.Types.ObjectId,
-        ref: 'Item' 
+        ref: 'Item'
     }]
 }, {
     collection: 'item_categories',

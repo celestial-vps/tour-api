@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
   const session = await mongoose.startSession();
@@ -13,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+      _id: uuidv4(),
       bankCode: dto.bankCode,
       bankName: dto.bankName,
       shortName: dto.shortName ?? null,
@@ -24,12 +25,12 @@ const create = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await bankRepository.save(data);
+    const { result, error } = await bankRepository.save(data);
     await session.commitTransaction();
     session.endSession();
 
-    if (err) {
-      return { bank: null, err };
+    if (error) {
+      return { bank: null, error };
     }
     if (result) {
       const msgData = {
@@ -37,39 +38,35 @@ const create = async (dto, userOid) => {
         name: data.bankName
       }
       const bank = await messageMaps.toMessageResponse(msgData);
-      return { bank, err: null };
+      return { bank, error: null };
     } else {
       return {
-        bank: {}, err: {
-          httpStatus: 500,
-        }
+        bank: {}, error: { httpStatus: 500, message: 'Failed to delete Bank' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bank: null, err: {
-        httpStatus: 500,
-      }
+      bank: null, error: { httpStatus: 500, message: 'Failed to delete Bank' },
     };
   }
 };
 
-const update = async (oid, dto, userOid) => {  
+const update = async (oid, dto, userOid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
 
-    const { result: resultFind, err: errBank } = await bankRepository.findById(oid);
+    const { result: resultFind, error: errBank } = await bankRepository.findById(oid);
     if (errBank != null) {
-      return { bank: {}, err: errBank }
+      return { bank: {}, error: errBank }
     }
     if (resultFind == null) {
       return {
-        bank: {}, err: {
+        bank: {}, error: {
           httpStatus: 404,
         }
       }
@@ -82,11 +79,11 @@ const update = async (oid, dto, userOid) => {
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
-    const { result, err } = await bankRepository.update(oid, resultFind);
+    const { result, error } = await bankRepository.update(oid, resultFind);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { bank: result, err };
+    if (error) {
+      return { bank: result, error };
     }
     if (result) {
       const msgData = {
@@ -94,48 +91,44 @@ const update = async (oid, dto, userOid) => {
         name: resultFind.bankName
       }
       const bank = await messageMaps.toMessageResponse(msgData);
-      return { bank, err: null };
+      return { bank, error: null };
     } else {
       return {
-        bank: {}, err: {
-          httpStatus: 500,
-        }
+        bank: {},error: { httpStatus: 500, message: 'Failed to delete Bank' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bank: null, err: {
-        httpStatus: 500,
-      }
+      bank: null, error: { httpStatus: 500, message: 'Failed to delete Bank' },
     };
   }
 };
 
-const deleted = async (oid) => {  
+const deleted = async (oid) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
-    const { result: resultFind, err: errBank } = await bankRepository.findById(oid);
+    const { result: resultFind, error: errBank } = await bankRepository.findById(oid);
     if (errBank != null) {
-      return { bank: {}, err: errBank }
+      return { bank: {}, error: errBank }
     }
     if (resultFind == null) {
       return {
-        bank: {}, err: {
+        bank: {}, error: {
           httpStatus: 404,
         }
       }
     }
 
-    const { result, err } = await bankRepository.deleted(oid);
+    const { result, error } = await bankRepository.deleted(oid);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { result: null, err };
+    if (error) {
+      return { result: null, error };
     }
     if (result) {
       const msgData = {
@@ -143,77 +136,69 @@ const deleted = async (oid) => {
         name: resultFind.bankName
       }
       const bank = await messageMaps.toMessageResponse(msgData);
-      return { bank, err: null };
+      return { bank, error: null };
     } else {
       return {
-        bank: {}, err: {
-          httpStatus: 500,
-        }
+        bank: {}, error: { httpStatus: 500, message: 'Failed to delete Bank' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      bank: null, err: {
-        httpStatus: 500,
-      }
+      bank: null,error: { httpStatus: 500, message: 'Failed to delete Bank' },
     };
   }
 };
 
-const findAll = async () => {  
+const findAll = async () => {
   try {
-    const { result, err } = await bankRepository.findAll();
+    const { result, error } = await bankRepository.findAll();
     const banks = await mappings.toBankResponses(result)
-    return { banks, err: null }
-  } catch (err) {
-    return { banks: [], err }
+    return { banks, error: null }
+  } catch (error) {
+    return { banks: [], error }
   }
 };
 
-const findById = async (oid) => {  
+const findById = async (oid) => {
   try {
-    const { result, err } = await bankRepository.findById(oid);
-    if (err != null) {
-      return { bank: {}, err }
+    const { result, error } = await bankRepository.findById(oid);
+    if (error != null) {
+      return { bank: {}, error }
     }
     if (result == null) {
       return {
-        bank: null, err: {
+        bank: null, error: {
           httpStatus: 404,
         }
       }
     }
     const bank = await mappings.toBankResponse(result)
-    return { bank, err: null }
-  } catch (err) {
+    return { bank, error: null }
+  } catch (error) {
     return {
-      bank: [], err: {
-        httpStatus: 500,
-      }
+      bank: [], error: { httpStatus: 500, message: 'Failed to delete Bank' },
     }
   }
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const { count, errCount } = await bankRepository.findCountByCriteria(condition);
     if (errCount) {
       return { banks: [], count: 0, errCount }
     }
-    const { banks, err } = await bankRepository.findByCriteria(condition, page, pageSize);
-    if (err) {
+    const { result: banks, error:error } = await bankRepository.findByCriteria(condition,options.pageIndex, options.pageSize);
+    if (error) {
       return { banks: [], count: 0, errCount }
     }
     const bankResponses = await mappings.toBankResponses(banks)
-    return { banks: bankResponses, count, err: err };
-  } catch (err) {
+    return { banks: bankResponses, count, error: error };
+  } catch (error) {
     return {
-      banks: [], count: 0, err: {
-        httpStatus: 500,
-      }
+      banks: [], count: 0, error: { httpStatus: 500, message: 'Failed to delete Bank' },
     }
   }
 };

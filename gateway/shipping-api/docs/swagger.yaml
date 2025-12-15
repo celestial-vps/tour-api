@@ -1,0 +1,307 @@
+basePath: /api/v1
+definitions:
+  common.DefaultResponse:
+    properties:
+      data: {}
+      developerMessage:
+        type: string
+      http_status:
+        type: string
+      resultCode:
+        type: string
+      total:
+        type: integer
+    type: object
+  dtos.CreateBankDto:
+    properties:
+      bankCode:
+        description: contoh default bank code
+        example: B001
+        type: string
+      bankName:
+        description: contoh default bank name
+        example: Bank Central
+        type: string
+      shortName:
+        description: contoh default short name
+        example: BC
+        maxLength: 3
+        type: string
+    required:
+    - bankCode
+    - bankName
+    - shortName
+    type: object
+  dtos.FilterBankDto:
+    properties:
+      bankCode:
+        description: contoh default filter code
+        example: B001
+        type: string
+      bankName:
+        description: contoh default filter name
+        example: Bank Central
+        type: string
+    type: object
+  dtos.LoginDto:
+    properties:
+      email:
+        example: weslyaioria@gmail.com
+        type: string
+      password:
+        example: serverh5n
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dtos.RegisterDto:
+    properties:
+      email:
+        example: weslyaioria@gmail.com
+        type: string
+      password:
+        example: serverh5n
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dtos.UpdateBankDto:
+    properties:
+      bankCode:
+        description: contoh default bank code
+        example: B001
+        type: string
+      bankName:
+        description: contoh default bank name
+        example: Bank Central
+        type: string
+      shortName:
+        description: contoh default short name
+        example: BC
+        maxLength: 3
+        type: string
+    required:
+    - bankCode
+    - bankName
+    - shortName
+    type: object
+host: localhost:5302
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API for shipping service
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Shipping API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing auths
+      parameters:
+      - description: auth
+        in: body
+        name: authDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.LoginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing auths
+      tags:
+      - auths
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: create new user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.RegisterDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: create user
+      tags:
+      - auths
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: create new user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.RegisterDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: create user
+      tags:
+      - auths
+  /bank:
+    get:
+      consumes:
+      - application/json
+      description: Get all the existing banks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing banks
+      tags:
+      - banks
+  /bank/{oid}:
+    put:
+      consumes:
+      - application/json
+      description: update existing bank
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      - description: bank
+        in: body
+        name: bank
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.UpdateBankDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update bank by oid
+      tags:
+      - banks
+  /bank/create:
+    post:
+      consumes:
+      - application/json
+      description: create new bank
+      parameters:
+      - description: bank
+        in: body
+        name: bank
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CreateBankDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: create bank
+      tags:
+      - banks
+  /bank/delete/{oid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete bank by oid
+      parameters:
+      - description: oid
+        in: path
+        name: oid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete bank
+      tags:
+      - banks
+  /bank/q:
+    post:
+      consumes:
+      - application/json
+      description: Get all the existing banks in redis
+      parameters:
+      - description: bank
+        in: body
+        name: bankDto
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.FilterBankDto'
+      - description: page Index
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageIndex
+        type: integer
+      - description: page Size
+        in: query
+        maximum: 10
+        minimum: 1
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/common.DefaultResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List existing banks in redis
+      tags:
+      - banks
+securityDefinitions:
+  BearerAuth:
+    description: 'Enter token in format: Bearer <token>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

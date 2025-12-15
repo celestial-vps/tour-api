@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.SecreatKey || 'celestial';
+const JWT_SECRET = process.env.SECREATKEY || 'celestial-super-secret-key-should-be-longer-123!';
 
 const authorizationHeaderKey = 'authorization';
 const authorizationTypeBearer = 'bearer';

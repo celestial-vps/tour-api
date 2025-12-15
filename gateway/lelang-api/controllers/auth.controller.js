@@ -15,41 +15,46 @@ const { OAuth2Client } = require('google-auth-library');
 //   const payload = ticket.getPayload();
 //   return payload; // berisi email, name, sub (userId Google), dll.
 // };
- 
+
 const login = async (req, res) => {
 	try {
 		const condition = {
 			email: req.body.email,
 			password: req.body.password,
-            webToken:req.body.webToken
 		};
 
-		const { user, err } = await userService.login(condition);
-		if (err) {
-			return buildResponse.sendQueryError(res, err.message, "insert");
+		const body = { 
+			androidToken: req.body.androidToken,
+			iosToken: req.body.iosToken,
+			webToken: req.body.webToken,
+			desktopToken: req.body.desktopToken,
+		};
+		const { user, error } = await userService.login(condition, body);
+		if (error) {
+			return buildResponse.sendQueryError(res, error.message, "insert");
 		}
 
-		return buildResponse.findOk(res,user, 1)
+		return buildResponse.findOk(res, user, 1)
 
- 
-	} catch (err) {
-		console.error('Controller Create Error:', err);
-		return buildResponse.sendInternalServerError(res, err.message);
+
+	} catch (error) {
+		console.error('Controller Create Error:', error);
+		return buildResponse.sendInternalServerError(res, error.message);
 	}
 };
 
 const register = async (req, res) => {
-	try { 
+	try {
 
-		const { user, err } = await userService.register(req.body);
-		if (err) {
-			return buildResponse.sendQueryError(res, err.message, "insert");
+		const { user, error } = await userService.register(req.body);
+		if (error) {
+			return buildResponse.sendQueryError(res, error.message, "insert");
 		}
 
 		return buildResponse.createOk(res, user, 1);
-	} catch (err) {
-		console.error('Controller Create Error:', err);
-		return buildResponse.sendInternalServerError(res, err.message);
+	} catch (error) {
+		console.error('Controller Create Error:', error);
+		return buildResponse.sendInternalServerError(res, error.message);
 	}
 };
 

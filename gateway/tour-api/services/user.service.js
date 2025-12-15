@@ -8,6 +8,10 @@ const jwtMaker = new JwtMaker();
 const sequelize = require('../config/sequelize');
 const moment = require('moment');
 const redisClient = require('../lib/redis/redis');
+const { buildFilterConditions, buildFindOptions } = require('../misc/sequelizeFilterBuilder');
+const buildResponse = require('../common/build.response');
+const { UserRole } = require('../models');
+const { USER_ROLE_BASIC_FIELDS } = require('../constants/user-role.fields');
 
 const create = async (dto, userOid) => {
     const transaction = await sequelize.transaction();
@@ -17,7 +21,7 @@ const create = async (dto, userOid) => {
         const data = {
             name: dto.name ?? null,
             email: dto.email,
-            password: hashedPassword,  
+            password: hashedPassword,
             androidToken: dto.androidToken ?? null,
             expiredTime: dto.expiredTime ?? null,
             isActive: dto.isActive,
@@ -52,6 +56,30 @@ const create = async (dto, userOid) => {
 };
 
 const register = async (dto) => {
+    const transaction = await sequelize.transaction(); 
+
+    try {
+        const hashedPassword = await hashPassword(dto.password);
+        dto.createdBy = dto.email
+        const data = {
+            email: dto.email, 
+            password: hashedPassword,
+            roleOid: dto.roleOid,
+            createdBy: dto.createdBy
+        };
+
+        const { result, err } = await userRepository.save(data, transaction);
+        if (err !== null) {
+            return { result: null, err }
+        }
+        const user = await mappings.toUserResponse(result)
+        return { user, err: err }
+    } catch (err) {
+        return { result: null, err }
+    }
+};
+
+const registerAdmin = async (dto) => {
     const transaction = await sequelize.transaction();
     const roleOidStr = process.env.RoleId || ""
 
@@ -96,7 +124,7 @@ const login = async (condition) => {
             return { result: [], err: { message: "password not match" } }
         }
         const oid = result[0].oid
-        const token = await jwtMaker.createToken(oid, condition.email,result[0].userRole.roleName );
+        const token = await jwtMaker.createToken(oid, condition.email, result[0].userRole.roleName);
 
 
         const user = await mappings.toUserTokenResponse(result[0], token, "")
@@ -106,70 +134,121 @@ const login = async (condition) => {
     }
 };
 
-const update = async (oid, dto, userOid) => {
-    const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-    const transaction = await sequelize.transaction();
+const update = async (oid, dto, userOid, options = {}) => {
+    const { transaction = null, useTransaction = false } = options;
+    // @ts-ignore
+    const now = new Date().formatUTC();
+    let localTransaction = null;
+
     try {
-        const { result: fresult, err: ferr } = await userRepository.findById(oid);
-
-        if (ferr !== null) {
-            return { result: null, ferr }
+        if (useTransaction && !transaction) {
+            localTransaction = await sequelize.transaction();
         }
-        if (fresult == null) {
-            return {
-                result: null, err: {
-                    message: "Data Not Found"
-                }
-            }
+
+        const currentTransaction = transaction || localTransaction;
+
+        const findOptions = {
+            transaction: currentTransaction,
+            include: [],
+        };
+
+        const { result: existing, err: findError } = await userRepository.findById(oid, findOptions);
+
+        if (findError) {
+            if (localTransaction) await localTransaction.rollback();
+            return { userRole: null, err: findError };
         }
-        const hashedPassword = await hashPassword(dto.password ?? fresult.password); 
-        fresult.email = dto.email ?? fresult.email
-        fresult.password = hashedPassword  
-        fresult.androidToken = dto.androidToken ?? fresult.androidToken
-        fresult.expiredTime = dto.expiredTime ?? fresult.expiredTime
-        fresult.isActive = dto.isActive ?? fresult.isActive
-        fresult.activatedAt = dto.activatedAt ?? fresult.activatedAt
-        fresult.roleOid = dto.roleOid ?? fresult.roleOid
-        fresult.description = dto.description ?? fresult.description
-        fresult.lastModifiedBy = userOid ?? fresult.lastModifiedBy
-        fresult.updatedAt = now ?? fresult.updatedAt
+
+        if (!existing) {
+            if (localTransaction) await localTransaction.rollback();
+            return { userRole: null, err: { message: "UserRole not found", status: 404 } };
+        }
+        const hashedPassword = await hashPassword(dto.password ?? existing.password);
+        const updateData = {
+            email: dto.email ?? existing.email,
+            password: hashedPassword,
+            androidToken: dto.androidToken ?? existing.androidToken,
+            iosToken: dto.iosToken ?? existing.iosToken,
+            webToken: dto.webToken ?? existing.webToken,
+            expiredTime: dto.expiredTime ?? existing.expiredTime,
+            isActive: dto.isActive ?? existing.isActive,
+            activatedAt: dto.activatedAt ?? existing.activatedAt,
+            roleOid: dto.roleOid ?? existing.roleOid,
+            description: dto.description ?? existing.description,
+            lastModifiedBy: userOid ?? existing.lastModifiedBy,
+            updatedAt: now,
+        };
 
 
-        const { result: result, err: err } = await userRepository.update(oid, fresult, transaction);
-        const user = await mappings.toUserResponse(result)
-        return { user, err: err }
+        const { result: updateResult, err: updateError } = await userRepository.update(
+            oid,
+            updateData,
+            currentTransaction ? { transaction: currentTransaction } : {}
+        );
+
+        if (updateError) {
+            if (localTransaction) await localTransaction.rollback();
+            return { userRole: null, err: updateError };
+        }
+
+        if (localTransaction) await localTransaction.commit();
+
+        const msgData = { value: existing.oid, name: existing.roleName };
+        const userRole = await messageMaps.toMessageResponse(msgData);
+
+        return { userRole, err: null };
+
     } catch (err) {
-        return { result: null, err }
+        if (localTransaction) await localTransaction.rollback();
+        console.error('Update failed:', err);
+        return {
+            userRole: null,
+            err: buildResponse.responseInternalServerError(err).data.error,
+        };
     }
 };
 
+
 const deleted = async (oid) => {
-    const transaction = await sequelize.transaction();
+    let transaction;
+
     try {
-        const { result: resultFind, err: errUser } = await userRepository.findById(oid);
-        if (errUser != null) {
-            return { user: {}, err: errUser }
+        transaction = await sequelize.transaction();
+
+        const { result: resultFind, err: errFind } = await userRepository.findById(oid, { transaction });
+        if (errFind) {
+            await transaction.rollback();
+            return { userRole: null, err: errFind };
         }
-        if (resultFind == null) {
+
+        if (!resultFind) {
+            await transaction.rollback();
             return {
-                user: {}, err: {
-                    message: "Data Not Found"
-                }
-            }
+                userRole: null,
+                err: { message: 'Data Not Found', status: 404 }
+            };
         }
-        const { result, err } = await userRepository.deleted(oid, transaction);
+
+        const { result, err } = await userRepository.remove(oid, { transaction });
         if (err) {
-            const msgData = {
-                value: result.oid,
-                name: result.userName
-            }
-            const user = await messageMaps.toMessageResponse(msgData);
-            return { user, err: null };
-        } else {
-            return { user: {}, err: { message: "Transaction Failed" } };
+            await transaction.rollback();
+            return { userRole: null, err };
         }
+
+        await transaction.commit();
+
+        const msgData = { value: resultFind.oid, name: resultFind.roleName };
+        const userRole = await messageMaps.toMessageResponse(msgData);
+
+        return { userRole, err: null };
+
     } catch (err) {
-        return { user: null, err }
+        if (transaction) await transaction.rollback();
+        console.error('Delete failed:', err);
+        return {
+            userRole: null,
+            err: buildResponse.responseInternalServerError(err).data.error,
+        };
     }
 };
 
@@ -204,27 +283,56 @@ const findById = async (oid, options = {}) => {
     }
 
 };
-const findPage = async (condition, page, pageSize) => {
+
+const findPage = async (filters, options) => {
     try {
-        const { count, errCount } = await userRepository.findCountByCriteria(condition);
-        if (errCount) {
-            return { users: [], count: 0, errCount }
-        }
-        const { users, err } = await userRepository.findByCriteria(condition, page, pageSize);
-        const userResponses = await mappings.toUserResponses(users)
-        return { users: userResponses, count, err: err };
-    } catch (err) {
-        return { users: [], count: 0, err }
+
+        const { search, ...restFilters } = filters;
+        const normalizedFilters = search ? { ...restFilters, email: search } : filters;
+
+        const where = buildFilterConditions(sequelize, normalizedFilters, false); // case-insensitive
+        options.include = [
+            {
+                model: UserRole,
+                as: 'userRole',
+                attributes: USER_ROLE_BASIC_FIELDS,
+            }
+        ];
+        const findOptions = buildFindOptions(where, options);
+
+        const result = await userRepository.findAndCountByCriteria(findOptions);
+
+        if (result.err) throw result.err;
+        const users = await mappings.toUserResponses(result.data);
+        return {
+            users,
+            count: result.count,
+            err: null,
+        };
+    } catch (error) {
+        console.error('UserService findPage error:', error);
+        return {
+            users: [],
+            count: 0,
+            err: buildResponse.responseInternalServerError(error).data.error,
+        };
     }
 };
 
-const findByEmail = async (condition, page, pageSize) => {
+const findByEmail = async (filters, options) => {
     try {
-        const { count, errCount } = await userRepository.findCountByCriteria(condition);
+        const { search, ...restFilters } = filters;
+        const normalizedFilters = search ? { ...restFilters, email: search } : filters;
+
+        const where = buildFilterConditions(sequelize, normalizedFilters, false); // case-insensitive
+        const findOptions = buildFindOptions(where, options);
+
+
+        const { count, errCount } = await userRepository.findAndCountByCriteria(findOptions);
         if (errCount) {
             return { users: [], count: 0, errCount }
         }
-        const { users, err } = await userRepository.findByCriteria(condition, page, pageSize);
+        const { users, err } = await userRepository.findByCriteria(findOptions);
         const userResponses = await mappings.toUserResponses(users)
         return { users: userResponses, count, err: err };
     } catch (err) {
@@ -234,30 +342,30 @@ const findByEmail = async (condition, page, pageSize) => {
 
 
 const findByMe = async (oid, options = {}) => {
-  try {
-    let userData = await redisClient.get(`user:profile:${oid}`);
-    let user;
+    try {
+        let userData = await redisClient.get(`user:profile:${oid}`);
+        let user;
 
-    if (!userData) {
-      const { result, err } = await userRepository.findById(oid);
-      if (result == null) {
-        return {
-          user: {},
-          err: { message: "Data Not Found" }
-        };
-      }
+        if (!userData) {
+            const { result, err } = await userRepository.findById(oid);
+            if (result == null) {
+                return {
+                    user: {},
+                    err: { message: "Data Not Found" }
+                };
+            }
 
-      await redisClient.set(`user:profile:${oid}`, JSON.stringify(result), { EX: 3600 });
-      user = await mappings.toUserResponse(result);
-    } else {
-      const json = typeof userData === 'string' ? userData : userData.toString();
-      user = await mappings.toUserResponse(JSON.parse(json));
+            await redisClient.set(`user:profile:${oid}`, JSON.stringify(result), { EX: 3600 });
+            user = await mappings.toUserResponse(result);
+        } else {
+            const json = typeof userData === 'string' ? userData : userData.toString();
+            user = await mappings.toUserResponse(JSON.parse(json));
+        }
+
+        return { user, err: null };
+    } catch (err) {
+        return { user: {}, err };
     }
-
-    return { user, err: null };
-  } catch (err) {
-    return { user: {}, err };
-  }
 };
 
 
@@ -265,7 +373,7 @@ const findByMe = async (oid, options = {}) => {
 
 module.exports = {
     create,
-    register,
+    register,registerAdmin,
     login,
     update,
     deleted,

@@ -1,29 +1,39 @@
 const Joi = require('joi');
+const { authSchema } = require('./base-dto');
+// ---------------- Payload DTO ----------------
+const querySearch = Joi.object({ 
+    search: Joi.string().valid('search').optional().default('123')
+});
 
-// Validation schema for FilterImageFileDto
+// Filter / query image files
 const filterImageFileDto = Joi.object({
   fileName: Joi.string().optional().allow(null, ''),
   fileUrl: Joi.string().optional().allow(null, ''),
 });
 
-// Validation schema for PageImageFileDto
+const filterImageFileQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
+});
+
+// Pagination DTO
 const pageImageFileDto = Joi.object({
   oid: Joi.string().optional(),
   fileName: Joi.string().optional().allow(null, ''),
   fileUrl: Joi.string().optional().allow(null, ''),
 });
 
-// Validation schema for CreateImageFileDto
+// Create image file DTO
 const createImageFileDto = Joi.object({
   fileName: Joi.string().required(),
   fileUrl: Joi.string().required(),
   filePath: Joi.string().required(),
   fileMime: Joi.string().required(),
   userInserted: Joi.string().required(),
-  description: Joi.string().allow('', null).optional()
+  description: Joi.string().allow('', null).optional(),
 });
 
-// Validation schema for UpdateImageFileDto
+// Update image file DTO
 const updateImageFileDto = Joi.object({
   oid: Joi.string().required(),
   fileName: Joi.string().required(),
@@ -31,22 +41,43 @@ const updateImageFileDto = Joi.object({
   filePath: Joi.string().required(),
   fileMime: Joi.string().required(),
   description: Joi.string().allow('', null).optional(),
-  lastUserId: Joi.string().required()
+  lastUserId: Joi.string().required(),
 });
 
+// Params (for delete / get by id)
 const params = Joi.object({
-  oid: Joi.string().uuid().required()
+  oid: Joi.string().uuid().required(),
 });
 
+// Query pagination params
 const query = Joi.object({
   pageIndex: Joi.number().integer().min(1).required(),
   pageSize: Joi.number().integer().min(1).max(100).required(),
 });
 
+
+ 
+
+// Response DTO
+const imageFileResponseDto = Joi.object({
+  oid: Joi.string().uuid().required(),
+  fileName: Joi.string().required(),
+  fileUrl: Joi.string().required(),
+  filePath: Joi.string().required(),
+  fileMime: Joi.string().required(),
+  description: Joi.string().allow('', null).optional(),
+  createdAt: Joi.date().iso().required(),
+  updatedAt: Joi.date().iso().required(),
+  userInserted: Joi.string().required(),
+  lastUserId: Joi.string().optional()
+});
+
 module.exports = {
-  filterImageFileDto,
+  filterImageFileDto,filterImageFileQueryDto,
   pageImageFileDto,
   createImageFileDto,
   updateImageFileDto,
-  query
+  params,
+  query,
+  imageFileResponseDto
 };

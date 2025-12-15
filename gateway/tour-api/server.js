@@ -1,10 +1,15 @@
-const app = require('./app'); // Express app
+const dotenv = require('dotenv');
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: envFile });
+
+// Express app
 const http = require('http');
 const { Server } = require('socket.io');
 // const chatGateway = require('../chat/chat.gateway');
 const initSocketServer = require('./lib/socket/socket-server');
-const dotenv = require('dotenv');
-require('./misc/datetime'); 
+
+const app = require('./app');
+require('./misc/datetime');
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -40,13 +45,12 @@ const io = new Server(server, {
 // Inisialisasi socket handler
 initSocketServer(io);
 // Ambil env name, default ke `.env` jika tidak ada
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
-
+ 
 dotenv.config({ path: envFile });
 
 console.log(`Environment loaded from ${envFile}`);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5101;
 // server.listen(PORT, () => {
 //   console.log(`🚀 Server + WebSocket running on port ${PORT}`);
 //   require('./middleware/cron-job/cron-job-redis-region');

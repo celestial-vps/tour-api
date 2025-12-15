@@ -7,13 +7,12 @@ const save = async (itemData) => {
     try {
         const result = new Item(itemData);
         await result.save();
-        return { result, err: null }
+        return { result, error: null }
     }
-    catch (err) {
+    catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,
+             error: { httpStatus: 500, message: 'Failed to save Item' },
         }
     }
 
@@ -25,12 +24,10 @@ const update = async (oid, updateData) => {
             new: true,
             runValidators: true,
         });
-        return { result, err: null }
-    } catch (err) {
+        return { result, error: null }
+    } catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null, error: { httpStatus: 500, message: 'Failed to update item' },
         }
     }
 };
@@ -38,10 +35,10 @@ const update = async (oid, updateData) => {
 const deleted = async (oid) => {
     try {
         const result = await Item.deleteOne({ _id: oid }); // Use deleteOne to remove the document        
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
-            result: null, err: {
+            result: null, error: {
                 httpStatus: 500,
             }
         };
@@ -52,12 +49,10 @@ const deleted = async (oid) => {
 const findAll = async () => {
     try {
         const result = await Item.find();
-        return { result, err: null }
-    } catch (err) {
+        return { result, error: null }
+    } catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,  error: { httpStatus: 500, message: 'Failed to delete item' },
         }
     }
 
@@ -75,7 +70,7 @@ const findByCriteria = async (filterCondition, page, pageSize) => {
         }
 
         // Retrieve the paginated records
-        const items = await Item.find(whereConditions).populate('imageOid').populate('itemCategoryOid')
+        const items = await Item.find(whereConditions).populate('itemCategory').populate('seller')
             .limit(pageSize) // Limit the number of records returned
             .skip((page - 1) * pageSize); // Skip the records for pagination
 
@@ -83,12 +78,10 @@ const findByCriteria = async (filterCondition, page, pageSize) => {
 
 
         return { items, error: null };
-    } catch (err) {
-        console.error('Error retrieving items:', err);
+    } catch (error) {
+        console.error('Error retrieving items:', error);
         return {
-            items: [], err: {
-                httpStatus: 500,
-            }
+            items: [],  error: { httpStatus: 500, message: 'Failed to delete item' },
         };
     }
 };
@@ -110,9 +103,7 @@ const findCountByCriteria = async (filterCondition) => {
     } catch (error) {
         console.error('Error retrieving items:', error);
         return {
-            count: 0, err: {
-                httpStatus: 500,
-            }
+            count: 0,  error: { httpStatus: 500, message: 'Failed to delete item' },
         };
     }
 };
@@ -120,25 +111,26 @@ const findCountByCriteria = async (filterCondition) => {
 const advanceFlter = async () => {
     try {
         const result = await Item.find(); // ✅ yang benar
-        return { result, err: null };
-    } catch (err) {
+        return { result, error: null };
+    } catch (error) {
         return {
             result: null,
-            err: { httpStatus: 500 }
+            error: { httpStatus: 500 }
         };
     }
 };
 
 const findById = async (oid) => {
     try {
-        const result = await Item.findOne({ _id: oid }).populate('imageOid'); // Use findOne to find by the oid field
-        return { result, err: null };
+        const result = await Item.findOne({ _id: oid })
+        .populate('itemCategory')
+        .populate('seller')
+        // .populate('imageOid'); // Use findOne to find by the oid field
+        return { result, error: null };
     }
-    catch (err) {
+    catch (error) {
         return {
-            result: null, err: {
-                httpStatus: 500,
-            }
+            result: null,  error: { httpStatus: 500, message: 'Failed to delete item' },
         }
     }
 };

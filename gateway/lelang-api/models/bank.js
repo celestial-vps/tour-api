@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
 
 const bankSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: { type: String, default: uuidv4 },
  
   bankName: {
     type: String,

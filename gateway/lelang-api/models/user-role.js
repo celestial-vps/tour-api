@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require('uuid'); // For generating UUIDs
+
 
 // Define Mongoose schema for UserRole
 const userRoleSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId() // Explicitly generate ObjectId
-    },
+    _id: { type: String, default: uuidv4 },
     roleName: {
         type: String,
         unique: true,
@@ -47,7 +46,7 @@ const userRoleSchema = new Schema({
     },
     createdBy: {
         type: String,
-        default:null,
+        default: null,
         required: false,
     },
     createdAt: {

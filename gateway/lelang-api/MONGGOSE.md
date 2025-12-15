@@ -90,7 +90,7 @@ Item.find()
 
 6. Populate (JOIN ke collection lain)
 Item.find()
-  .populate('itemCategoryOid'); // JOIN ke ItemCategory
+  .populate('itemCategory'); // JOIN ke ItemCategory
 
 7. Aggregation (untuk GROUP BY, JOIN, dll)
 7. a. Join ItemCategory dan Items (seperti LEFT JOIN)
@@ -100,7 +100,7 @@ ItemCategory.aggregate([
     $lookup: {
       from: 'items',
       localField: '_id',
-      foreignField: 'itemCategoryOid',
+      foreignField: 'itemCategory',
       as: 'items'
     }
   }
@@ -110,7 +110,7 @@ ItemCategory.aggregate([
 Item.aggregate([
   {
     $group: {
-      _id: "$itemCategoryOid",
+      _id: "$itemCategory",
       totalItems: { $sum: 1 }
     }
   }
@@ -120,7 +120,7 @@ Item.aggregate([
 Item.aggregate([
   {
     $group: {
-      _id: "$itemCategoryOid",
+      _id: "$itemCategory",
       totalPrice: { $sum: "$startingPrice" },
       avgPrice: { $avg: "$startingPrice" }
     }
@@ -131,7 +131,7 @@ Item.aggregate([
 Item.aggregate([
   {
     $group: {
-      _id: "$itemCategoryOid",
+      _id: "$itemCategory",
       totalItems: { $sum: 1 }
     }
   },
@@ -174,7 +174,7 @@ ItemCategory.aggregate([
     $lookup: {
       from: "items",
       localField: "_id",
-      foreignField: "itemCategoryOid",
+      foreignField: "itemCategory",
       as: "items"
     }
   },

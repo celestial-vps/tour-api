@@ -12,6 +12,14 @@ const docTemplate = `{
         "contact": {},
         "version": "{{.Version}}"
     },
+        "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Enter token in format: Bearer <token>"
+        }
+    },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {

@@ -1,464 +1,339 @@
-const express = require('express');
-const auctionController = require('../controllers/auction.controller'); // Adjust the path as needed
-const roleGuard = require('../middleware/role-guard');
+const express = require("express");
+const { roleGuard } = require("../middleware/role-guard");
+const auctionController = require("../controllers/auction.controller");
+const { validateRequest } = require("../misc/validation");
+const j2s = require("joi-to-swagger");
+const Joi = require("joi");
+
+// Payload DTO
+const {
+  createAuctionDto,
+  updateAuctionDto,
+  deleteAuctionDto,
+  getAuctionDto,
+  filterAuctionDto,filterAuctionQueryDto,
+  auctionResponseDto,
+  createDto,
+  updateDto,
+  filterDto,
+  params
+} = require("../dtos/payload-auction-dto");
+
+// Response DTO
+const { successResponse, errorResponse } = require("../dtos/response-dto");
+
+// Message DTO
+const { messageDto } = require("../dtos/message-dto");
+
+// ---- Convert Joi to Swagger ----
+const { swagger: CreateAuctionPayloadSchema } = j2s(createDto);
+const { swagger: UpdateAuctionPayloadSchema } = j2s(updateDto);
+const { swagger: DeleteAuctionPayloadSchema } = j2s(params);
+const { swagger: FilterAuctionPayloadSchema } = j2s(filterDto);
+const { swagger: AuctionSuccessSchema } = j2s(successResponse(auctionResponseDto));
+const { swagger: AuctionListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(auctionResponseDto))
+);
+
+// Response Schema (success + error)
+const { swagger: AuctionSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: ErrorSchema } = j2s(errorResponse);
+
+// ---- Register to components (global) ----
+global.swaggerComponents ??= {};
+global.swaggerComponents.CreateAuctionPayloadDto = CreateAuctionPayloadSchema;
+global.swaggerComponents.FilterAuctionPayloadDto = FilterAuctionPayloadSchema;
+global.swaggerComponents.UpdateAuctionPayloadDto = UpdateAuctionPayloadSchema;
+global.swaggerComponents.DeleteAuctionPayloadDto = DeleteAuctionPayloadSchema;
+global.swaggerComponents.AuctionListSuccessResponse = AuctionListSuccessSchema;
+global.swaggerComponents.AuctionSuccessResponse = AuctionSuccessSchema;
+global.swaggerComponents.AuctionSuccessCRUDResponse = AuctionSuccessCRUDSchema;
+global.swaggerComponents.ErrorResponse = ErrorSchema;
+
 const router = express.Router();
 
-
 /**
- * @swagger
+ * @openapi
  * /auction/create:
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  *   post:
- *     summary: Create a new auction entry
- *     description: Adds a new auction to the database.
+ *     tags: [Auction]
+ *     summary: Create Auction
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
- *       description: Auction object that needs to be added
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B001
- *               description:
- *                 type: string
- *                 example: Auction Central Asia
- *               imageOid:
- *                 type: string
- *                 example: BCA
+ *             $ref: "#/components/schemas/CreateAuctionPayloadDto"
  *     responses:
- *       200:
- *         description: Auction created successfully
+ *       201:
+ *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     title:
- *                       type: string
- *                       example: B001
- *                     description:
- *                       type: string
- *                       example: Auction Central Asia
- *                     imageOid:
- *                       type: string
- *                       example: BCA
- *                     createdBy:
- *                       type: string
- *                       example: test
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:42:10Z"
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/create', roleGuard('Admin'), auctionController.create);
+router.post(
+  "/create",
+  validateRequest(createAuctionDto),
+  roleGuard("Admin"),
+  auctionController.create
+);
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /auction/{oid}:
  *   put:
- *     summary: Update a auction entry
- *     description: Updates an existing auction entry in the database.
+ *     tags: [Auction]
+ *     summary: Update Auction
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The UUID of the auction to update
  *         schema:
  *           type: string
- *           format: uuid
- *           example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
  *     requestBody:
- *       description: Auction object that needs to be updated
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: B002
- *               description:
- *                 type: string
- *                 example: Auction Rakyat Indonesia
- *               imageOid:
- *                 type: string
- *                 example: BRI
+ *             $ref: "#/components/schemas/UpdateAuctionPayloadDto"
  *     responses:
  *       200:
- *         description: Auction updated successfully
+ *         description: Auction Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0192037d-4f4d-76eb-9286-76924e2e6914"
- *                     title:
- *                       type: string
- *                       example: B002
- *                     description:
- *                       type: string
- *                       example: Auction Rakyat Indonesia
- *                     imageOid:
- *                       type: string
- *                       example: BRI
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-18T11:56:36Z"
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.put('/:oid', roleGuard('Admin'), auctionController.update);
+router.put(
+  "/:oid",
+  validateRequest(updateAuctionDto),
+  roleGuard("Admin"),
+  auctionController.update
+);
+
 /**
- * @swagger
- * /auction/delete/{id}:
+ * @openapi
+ * /auction/delete/{oid}:
  *   delete:
- *     summary: Delete a auction by ID
- *     description: Removes a auction record from the system using its unique identifier.
+ *     tags: [Auction]
+ *     summary: Delete Auction
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
- *       - name: id
+ *       - name: oid
  *         in: path
  *         required: true
- *         description: The unique identifier of the auction to delete.
  *         schema:
  *           type: string
- *           example: "01920370-1523-78ec-8a88-9b01fe874882"
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A successful response indicating the auction was deleted
+ *         description: Auction Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "01920370-1523-78ec-8a88-9b01fe874882"
- *                     name:
- *                       type: string
- *                       example: "Auction Central Asia"
- *       401:
- *         description: Unauthorized
+ *               $ref: "#/components/schemas/AuctionSuccessCRUDResponse"
+ *       400:
+ *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: Not Found
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "Auction not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
+router.delete(
+  "/delete/:oid",
+  validateRequest(deleteAuctionDto),
+  roleGuard("Admin"),
+  auctionController.remove
+);
 
-router.delete('/delete/:oid', roleGuard('Admin'), auctionController.remove);
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /auction:
  *   get:
- *     summary: Retrieve all auction entries
- *     description: Fetches a list of all auctions from the database.
+ *     tags: [Auction]
+ *     summary: Get All Auctions
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           enum: [search]
+ *           default: gitar
+ *         required: false
  *     responses:
  *       200:
- *         description: A list of auction entries
+ *         description: List of Auctions
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 10
- *                 data:
- *                   type: array
- *                   auctions:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdeb-12a0-7fa6-916b-b7105b043c3c"
- *                       title:
- *                         type: string
- *                         example: "B022"
- *                       description:
- *                         type: string
- *                         example: "Auction Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:58:52.000Z"
+ *               $ref: "#/components/schemas/AuctionListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/', roleGuard('Admin'), auctionController.findAll);
+router.get(
+  "/",
+  validateRequest(filterAuctionQueryDto),
+  roleGuard("Admin"),
+  auctionController.findAll
+);
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /auction/q:
  *   post:
- *     summary: Query auction entries with pagination
- *     description: Retrieves a paginated list of auction entries based on optional filters.
+ *     tags: [Auction]
+ *     summary: Paginated Auctions
+ *     security:
+ *       - BearerAuth: []
+*     parameters:
+ *       - in: query
+ *         name: pageIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         required: true
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         required: true
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [categoryName]
+ *           default: categoryName
+ *         required: false
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: asc
+ *         required: false
  *     requestBody:
- *       description: Filter options for auction query
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *                 example: ""
- *               description:
- *                 type: string
- *                 example: ""
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         description: The index of the page to retrieve
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         description: The number of auctions to return per page
- *         schema:
- *           type: integer
- *           example: 10
+ *             $ref: "#/components/schemas/FilterAuctionPayloadDto"
  *     responses:
  *       200:
- *         description: A paginated list of auction entries
+ *         description: Paginated Auctions List
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 9
- *                 data:
- *                   type: array
- *                   auctions:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                       title:
- *                         type: string
- *                         example: "B023"
- *                       description:
- *                         type: string
- *                         example: "Auction Of America"
- *                       imageOid:
- *                         type: string
- *                         example: "BcA"
- *                       createdBy:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T02:59:57.000Z"
+ *               $ref: "#/components/schemas/AuctionListSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.post('/q', roleGuard('Admin'), auctionController.find);
+router.post(
+  "/q",
+  validateRequest(filterAuctionDto),
+  roleGuard("Admin"),
+  auctionController.find
+);
+
 /**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ * @openapi
  * /auction/{oid}:
  *   get:
- *     summary: Retrieve a auction entry by ID
- *     description: Fetches details of a specific auction using its UUID.
+ *     tags: [Auction]
+ *     summary: Get Auction By ID
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - name: oid
  *         in: path
  *         required: true
- *         description: The UUID of the auction to retrieve
  *         schema:
  *           type: string
- *           format: uuid
- *           example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
  *     responses:
  *       200:
- *         description: Auction entry retrieved successfully
+ *         description: Auction Detail
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "200"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "0191fdec-002f-7420-9d99-9dd58fbb9185"
- *                     title:
- *                       type: string
- *                       example: "B023"
- *                     description:
- *                       type: string
- *                       example: "Auction Of America"
- *                     imageOid:
- *                       type: string
- *                       example: "BcA"
- *                     createdBy:
- *                       type: string
- *                       nullable: true
- *                       example: null
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-17T02:59:57.000Z"
+ *               $ref: "#/components/schemas/AuctionSuccessResponse"
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ErrorResponse"
  */
-router.get('/:oid', roleGuard('Admin'), auctionController.findById);
+router.get(
+  "/:oid",
+  validateRequest(getAuctionDto),
+  roleGuard("Admin"),
+  auctionController.findById
+);
 
 module.exports = router;

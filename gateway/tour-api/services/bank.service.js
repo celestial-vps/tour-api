@@ -152,17 +152,18 @@ const deleted = async (oid) => {
     }
 
     const { result, err } = await bankRepository.remove(oid, { transaction });
-    if (err) {
+    if (err === null) {
+      const msgData = {
+        value: result.oid,
+        name: result.bankName
+      }
+      const bank = await messageMaps.toMessageResponse(msgData);
+      await transaction.commit();
+      return { bank, err: null };
+    } else {
       await transaction.rollback();
-      return { bank: null, err };
+      return { bank: {}, err: { message: "Transaction Failed" } };
     }
-
-    await transaction.commit();
-
-    const msgData = { value: resultFind.oid, name: resultFind.bankName };
-    const bank = await messageMaps.toMessageResponse(msgData);
-
-    return { bank, err: null };
 
   } catch (err) {
     if (transaction) await transaction.rollback();
@@ -252,10 +253,6 @@ const findPage = async (filters, options) => {
     };
   }
 };
-
-
-
-
 
 module.exports = {
   create,

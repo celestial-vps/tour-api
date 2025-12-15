@@ -15,15 +15,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: VehicleType
+ *   - name: Vehicle Type
  *     description: VehicleType management operations
  */
 
 /**
  * @swagger
- * /vehicletype/create:
+ * /vehicle-type/create:
  *   post:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Create a new vehicletype entry
  *     requestBody:
  *       required: true
@@ -44,9 +44,9 @@ router.post('/create', validateRequest(createVehicleTypeDto), roleGuard('Admin')
 
 /**
  * @swagger
- * /vehicletype/{oid}:
+ * /vehicle-type/{oid}:
  *   put:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Update an existing vehicletype entry
  *     parameters:
  *       - name: oid
@@ -71,9 +71,9 @@ router.put('/:oid', validateRequest(updateVehicleTypeDto), roleGuard('Admin'), v
 
 /**
  * @swagger
- * /vehicletype/delete/{oid}:
+ * /vehicle-type/delete/{oid}:
  *   delete:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Delete a vehicletype entry
  *     parameters:
  *       - name: oid
@@ -90,9 +90,9 @@ router.delete('/delete/:oid', validateRequest(deleteVehicleTypeDto), roleGuard('
 
 /**
  * @swagger
- * /vehicletype:
+ * /vehicle-type:
  *   get:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Get all vehicletypes with optional filters
  *     parameters:
  *       - in: query
@@ -113,9 +113,9 @@ router.get('/', validateRequest(filterVehicleTypeDto), roleGuard('Admin'), vehic
 
 /**
  * @swagger
- * /vehicletype/q:
+ * /vehicle-type/q:
  *   post:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Paginate vehicletypes with filters
  *     requestBody:
  *       required: true
@@ -143,9 +143,9 @@ router.get('/', validateRequest(filterVehicleTypeDto), roleGuard('Admin'), vehic
 router.post('/q', validateRequest(filterVehicleTypeDto), roleGuard('Admin'), vehicleTypeController.find);
 /**
  * @swagger
- * /vehicletype/{oid}:
+ * /vehicle-type/{oid}:
  *   get:
- *     tags: [Vehicletype]
+ *     tags: [Vehicle Type]
  *     summary: Get a single vehicletype by ID
  *     parameters:
  *       - name: oid

@@ -1,0 +1,10 @@
+go install github.com/swaggo/swag/cmd/swag@latest
+swag init -g main.go
+http://localhost:5302/swagger/index.html#
+
+
+MIGRATION DB
+    go run migrate/migrate.go
+    
+SEED DATA
+    go run cmd/seed.go

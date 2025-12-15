@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
   const session = await mongoose.startSession();
@@ -13,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+       _id: uuidv4(),
       itemOid: dto.itemOid ?? null,
       startTime: dto.startTime,
       endTime: dto.endTime,
@@ -24,34 +25,30 @@ const create = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await auctionRepository.save(data);
+    const { result, error } = await auctionRepository.save(data);
     await session.commitTransaction();
     session.endSession();
 
-    if (err) {
-      return { auction: null, err };
+    if (error) {
+      return { auction: null, error };
     }
     if (result) {
       const msgData = {
         value: data._id,
-        name: data.description
+        name: data.itemOid
       }
       const auction = await messageMaps.toMessageResponse(msgData);
-      return { auction, err: null };
+      return { auction, error: null };
     } else {
       return {
-        auction: {}, err: {
-          httpStatus: 500,
-        }
+        auction: {},  error: { httpStatus: 500, message: 'Failed to delete Auction' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      auction: null, err: {
-        httpStatus: 500,
-      }
+      auction: null, error: { httpStatus: 500, message: 'Failed to delete Auction' },
     };
   }
 };
@@ -63,13 +60,13 @@ const update = async (oid, dto, userOid) => {
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
 
-    const { result: resultFind, err: errAuction } = await auctionRepository.findById(oid);
+    const { result: resultFind, error: errAuction } = await auctionRepository.findById(oid);
     if (errAuction != null) {
-      return { auction: {}, err: errAuction }
+      return { auction: {}, error: errAuction }
     }
     if (resultFind == null) {
       return {
-        auction: {}, err: {
+        auction: {}, error: {
           httpStatus: 404,
         }
       }
@@ -82,11 +79,11 @@ const update = async (oid, dto, userOid) => {
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
-    const { result, err } = await auctionRepository.update(oid, resultFind);
+    const { result, error } = await auctionRepository.update(oid, resultFind);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { auction: result, err };
+    if (error) {
+      return { auction: result, error };
     }
     if (result) {
       const msgData = {
@@ -94,21 +91,17 @@ const update = async (oid, dto, userOid) => {
         name: resultFind.description
       }
       const auction = await messageMaps.toMessageResponse(msgData);
-      return { auction, err: null };
+      return { auction, error: null };
     } else {
       return {
-        auction: {}, err: {
-          httpStatus: 500,
-        }
+        auction: {}, eerror: { httpStatus: 500, message: 'Failed to delete Auction' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      auction: null, err: {
-        httpStatus: 500,
-      }
+      auction: null, error: { httpStatus: 500, message: 'Failed to delete Auction' },
     };
   }
 };
@@ -119,23 +112,23 @@ const deleted = async (oid) => {
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
-    const { result: resultFind, err: errAuction } = await auctionRepository.findById(oid);
+    const { result: resultFind, error: errAuction } = await auctionRepository.findById(oid);
     if (errAuction != null) {
-      return { auction: {}, err: errAuction }
+      return { auction: {}, error: errAuction }
     }
     if (resultFind == null) {
       return {
-        auction: {}, err: {
+        auction: {}, error: {
           httpStatus: 404,
         }
       }
     }
 
-    const { result, err } = await auctionRepository.deleted(oid);
+    const { result, error } = await auctionRepository.deleted(oid);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { result: null, err };
+    if (error) {
+      return { result: null, error };
     }
     if (result) {
       const msgData = {
@@ -143,64 +136,58 @@ const deleted = async (oid) => {
         name: resultFind.description
       }
       const auction = await messageMaps.toMessageResponse(msgData);
-      return { auction, err: null };
+      return { auction, error: null };
     } else {
       return {
-        auction: {}, err: {
-          httpStatus: 500,
-        }
+        auction: {}, error: { httpStatus: 500, message: 'Failed to delete Auction' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      auction: null, err: {
-        httpStatus: 500,
-      }
+      auction: null, error: { httpStatus: 500, message: 'Failed to delete Auction' },
     };
   }
 };
 
 const findAll = async () => {
   try {
-    const { result, err } = await auctionRepository.findAll();
+    const { result, error } = await auctionRepository.findAll();
     const auctions = await mappings.toAuctionResponses(result)
-    return { auctions, err: null }
-  } catch (err) {
-    return { auctions: [], err }
+    return { auctions, error: null }
+  } catch (error) {
+    return { auctions: [], error }
   }
 };
 
 const findById = async (oid) => {
   try {
-    const { result, err } = await auctionRepository.findById(oid);
-    if (err != null) {
-      return { auction: {}, err }
+    const { result, error } = await auctionRepository.findById(oid);
+    if (error != null) {
+      return { auction: {}, error }
     }
     if (result == null) {
       return {
-        auction: null, err: {
+        auction: null, error: {
           httpStatus: 404,
         }
       }
     }
     const auction = await mappings.toAuctionResponse(result)
-    return { auction, err: null }
-  } catch (err) {
+    return { auction, error: null }
+  } catch (error) {
     return {
-      auction: [], err: {
-        httpStatus: 500,
-      }
+      auction: [],error: { httpStatus: 500, message: 'Failed to delete Auction' },
     }
   }
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     const filterCondition = {
-      categoryName: condition.search
+      itemOid: condition.search
     };
 
 
@@ -208,17 +195,15 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { auctions: [], count: 0, errCount }
     }
-    const { auctions, err } = await auctionRepository.findByCriteria(filterCondition, page, pageSize);
-    if (err) {
+    const { result:auctions, error } = await auctionRepository.findByCriteria(filterCondition, options.pageIndex, options.pageSize);
+    if (error) {
       return { auctions: [], count: 0, errCount }
     }
     const auctionResponses = await mappings.toAuctionResponses(auctions)
-    return { auctions: auctionResponses, count, err: err };
-  } catch (err) {
+    return { auctions: auctionResponses, count, error: error };
+  } catch (error) {
     return {
-      auctions: [], count: 0, err: {
-        httpStatus: 500,
-      }
+      auctions: [], count: 0, error: { httpStatus: 500, message: 'Failed to delete Auction' },
     }
   }
 };

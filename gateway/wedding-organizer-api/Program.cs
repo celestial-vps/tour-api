@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     // });
     options.AddPolicy("AllowAngular", policy =>
 {
-    policy.WithOrigins("http://localhost:4200") // harus cocok protokol dan port
+    policy.WithOrigins("http://192.168.1.6:4200", "http://localhost:4200","http://192.168.1.6:4300", "http://localhost:4300") // harus cocok protokol dan port
           .AllowAnyHeader()
           .AllowAnyMethod();
     //    .AllowCredentials();

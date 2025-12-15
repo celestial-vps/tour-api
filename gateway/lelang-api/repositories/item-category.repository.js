@@ -8,8 +8,8 @@ const save = async (itemCategoryData) => {
         const result = new ItemCategory(itemCategoryData);
         await result.save();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error saving item category:', err);
+    } catch (error) {
+        console.error('Error saving item category:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to save item category' },
@@ -25,8 +25,8 @@ const update = async (oid, updateData) => {
             runValidators: true,
         });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error updating item category:', err);
+    } catch (error) {
+        console.error('Error updating item category:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to update item category' },
@@ -39,8 +39,8 @@ const deleted = async (oid) => {
     try {
         const result = await ItemCategory.deleteOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error deleting item category:', err);
+    } catch (error) {
+        console.error('Error deleting item category:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to delete item category' },
@@ -53,8 +53,8 @@ const findAll = async () => {
     try {
         const result = await ItemCategory.find();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving item categories:', err);
+    } catch (error) {
+        console.error('Error retrieving item categories:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve categories' },
@@ -66,19 +66,20 @@ const findAll = async () => {
 const findById = async (oid) => {
     try {
         const result = await ItemCategory.aggregate([
-            { $match: { _id: new ObjectId(oid) } },
+            // { $match: { _id: new ObjectId(oid) } },
+            { $match: { _id: oid } },
             {
                 $lookup: {
                     from: 'items', // Collection name (bukan model)
                     localField: '_id',
-                    foreignField: 'itemCategoryOid',
+                    foreignField: 'itemCategory',
                     as: 'items',
                 },
             },
         ]);
         return { result: result[0] || null, error: null };
-    } catch (err) {
-        console.error('Error retrieving item category by ID:', err);
+    } catch (error) {
+        console.error('Error retrieving item category by ID:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve category' },
@@ -104,8 +105,8 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .limit(pageSize);
 
         return { result, error: null };
-    } catch (err) {
-        console.error('Error filtering item categories:', err);
+    } catch (error) {
+        console.error('Error filtering item categories:', error);
         return {
             result: [],
             error: { httpStatus: 500, message: 'Failed to retrieve filtered data' },
@@ -127,8 +128,8 @@ const findCountByCriteria = async (filterCondition = {}) => {
 
         const count = await ItemCategory.countDocuments(whereConditions);
         return { count, error: null };
-    } catch (err) {
-        console.error('Error counting item categories:', err);
+    } catch (error) {
+        console.error('Error counting item categories:', error);
         return {
             count: 0,
             error: { httpStatus: 500, message: 'Failed to count filtered data' },

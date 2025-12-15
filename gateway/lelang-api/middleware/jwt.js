@@ -1,23 +1,24 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.SecreatKey || 'celestial'; // Replace with your secret key
+const SECRET_KEY = process.env.SECREATKEY || 'celestial-super-secret-key-should-be-longer-123!'; // Replace with your secret key
 
 class JwtMaker {
   constructor() {
     this.secretKey = SECRET_KEY;
   }
 
-  createToken(oid, emailName) {
+  createToken(oid, emailName,role) {
     const payload = {
       userOid: oid,
       username: emailName,
       level: 'application',
+      role:role,
       exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
     };
 
     return new Promise((resolve, reject) => {
-      jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {
-        if (err) return reject(err);
+      jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (error, token) => {
+        if (error) return reject(error);
         resolve(token);
       });
     });
@@ -25,8 +26,8 @@ class JwtMaker {
 
   verifyToken(accessToken) {
     return new Promise((resolve, reject) => {
-      jwt.verify(accessToken, this.secretKey, (err, decoded) => {
-        if (err) return reject(err);
+      jwt.verify(accessToken, this.secretKey, (error, decoded) => {
+        if (error) return reject(error);
         resolve(decoded);
       });
     });
@@ -34,8 +35,8 @@ class JwtMaker {
 
   // getClaims(tokenString) {
   //   return new Promise((resolve, reject) => {
-  //     jwt.decode(tokenString, { complete: true }, (err, decoded) => {
-  //       if (err) return reject(err);
+  //     jwt.decode(tokenString, { complete: true }, (error, decoded) => {
+  //       if (error) return reject(error);
   //       resolve(decoded ? decoded.payload : {});
   //     });
   //   });
@@ -62,7 +63,7 @@ const authenticateToken = async (req, res, next) => {
     const user = await jwtMaker.verifyToken(token);
     req.user = user; // Attach user info to the request object
     next();
-  } catch (err) {
+  } catch (error) {
     res.sendStatus(403); // Forbidden
   }
 };

@@ -6,8 +6,8 @@ const save = async (auctionData) => {
         const result = new Auction(auctionData);
         await result.save();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error saving auction:', err);
+    } catch (error) {
+        console.error('Error saving auction:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to save auction' },
@@ -23,8 +23,8 @@ const update = async (oid, updateData) => {
             runValidators: true,
         });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error updating auction:', err);
+    } catch (error) {
+        console.error('Error updating auction:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to update auction' },
@@ -37,8 +37,8 @@ const deleted = async (oid) => {
     try {
         const result = await Auction.deleteOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error deleting auction:', err);
+    } catch (error) {
+        console.error('Error deleting auction:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to delete auction' },
@@ -51,8 +51,8 @@ const findAll = async () => {
     try {
         const result = await Auction.find().sort({ createdAt: -1 });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving auctions:', err);
+    } catch (error) {
+        console.error('Error retrieving auctions:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve auctions' },
@@ -65,8 +65,8 @@ const findById = async (oid) => {
     try {
         const result = await Auction.findOne({ _id: oid }).populate('itemOid');
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving auction by ID:', err);
+    } catch (error) {
+        console.error('Error retrieving auction by ID:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve auction' },
@@ -91,7 +91,7 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .populate({
                 path: 'itemOid',
                 populate: {
-                    path: 'itemCategoryOid',
+                    path: 'itemCategory',
                     model: 'ItemCategory',
                     match: itemCategoryMatch,
                 },
@@ -101,8 +101,8 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .limit(pageSize);
 
         return { result, error: null };
-    } catch (err) {
-        console.error('Error filtering auctions:', err);
+    } catch (error) {
+        console.error('Error filtering auctions:', error);
         return {
             result: [],
             error: { httpStatus: 500, message: 'Failed to retrieve filtered data' },
@@ -129,8 +129,8 @@ const findCountByCriteria = async (filterCondition = {}) => {
 
         const count = await Auction.countDocuments(whereConditions);
         return { count, error: null };
-    } catch (err) {
-        console.error('Error counting auctions:', err);
+    } catch (error) {
+        console.error('Error counting auctions:', error);
         return {
             count: 0,
             error: { httpStatus: 500, message: 'Failed to count auctions' },
@@ -143,8 +143,8 @@ const advanceFilter = async () => {
     try {
         const result = await Auction.find();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving auctions (advanceFilter):', err);
+    } catch (error) {
+        console.error('Error retrieving auctions (advanceFilter):', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve auctions' },

@@ -4,6 +4,7 @@ const moment = require('moment');
 const messageMaps = require('../mappings/message.vm');
 const mongoose = require('mongoose');
 const buildBesponse = require('../common/build.response');
+const { v4: uuidv4 } = require('uuid');
 
 const create = async (dto, userOid) => {
   const session = await mongoose.startSession();
@@ -13,7 +14,7 @@ const create = async (dto, userOid) => {
   try {
 
     const data = {
-      _id: new mongoose.Types.ObjectId(),
+      _id: uuidv4(),//new mongoose.Types.ObjectId(),
       categoryName: dto.categoryName,
       createdBy: userOid,
       createdAt: now,
@@ -21,34 +22,30 @@ const create = async (dto, userOid) => {
       updatedAt: now,
     };
 
-    const { result, err } = await itemCategoryRepository.save(data);
+    const { result, error } = await itemCategoryRepository.save(data);
     await session.commitTransaction();
     session.endSession();
 
-    if (err) {
-      return { itemCategory: null, err };
+    if (error) {
+      return { itemCategory: null, error };
     }
     if (result) {
       const msgData = {
         value: data._id,
-        name: data.description
+        name: data.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
-      return { itemCategory, err: null };
+      return { itemCategory, error: null };
     } else {
       return {
-        itemCategory: {}, err: {
-          httpStatus: 500,
-        }
+        itemCategory: {}, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      itemCategory: null, err: {
-        httpStatus: 500,
-      }
+      itemCategory: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
@@ -60,13 +57,13 @@ const update = async (oid, dto, userOid) => {
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
 
-    const { result: resultFind, err: errItemCategory } = await itemCategoryRepository.findById(oid);
+    const { result: resultFind, error: errItemCategory } = await itemCategoryRepository.findById(oid);
     if (errItemCategory != null) {
-      return { itemCategory: {}, err: errItemCategory }
+      return { itemCategory: {}, error: errItemCategory }
     }
     if (resultFind == null) {
       return {
-        itemCategory: {}, err: {
+        itemCategory: {}, error: {
           httpStatus: 404,
         }
       }
@@ -76,33 +73,29 @@ const update = async (oid, dto, userOid) => {
     resultFind.lastModifiedBy = userOid ?? resultFind.lastModifiedBy
     resultFind.updatedAt = now
 
-    const { result, err } = await itemCategoryRepository.update(oid, resultFind);
+    const { result, error } = await itemCategoryRepository.update(oid, resultFind);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { itemCategory: result, err };
+    if (error) {
+      return { itemCategory: result, error };
     }
     if (result) {
       const msgData = {
         value: resultFind._id,
-        name: resultFind.description
+        name: resultFind.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
-      return { itemCategory, err: null };
+      return { itemCategory, error: null };
     } else {
       return {
-        itemCategory: {}, err: {
-          httpStatus: 500,
-        }
+        itemCategory: {}, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      itemCategory: null, err: {
-        httpStatus: 500,
-      }
+      itemCategory: null, error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
@@ -113,85 +106,79 @@ const deleted = async (oid) => {
 
   now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   try {
-    const { result: resultFind, err: errItemCategory } = await itemCategoryRepository.findById(oid);
+    const { result: resultFind, error: errItemCategory } = await itemCategoryRepository.findById(oid);
     if (errItemCategory != null) {
-      return { itemCategory: {}, err: errItemCategory }
+      return { itemCategory: {}, error: errItemCategory }
     }
     if (resultFind == null) {
       return {
-        itemCategory: {}, err: {
+        itemCategory: {}, error: {
           httpStatus: 404,
         }
       }
     }
 
-    const { result, err } = await itemCategoryRepository.deleted(oid);
+    const { result, error } = await itemCategoryRepository.deleted(oid);
     await session.commitTransaction();
     session.endSession();
-    if (err) {
-      return { result: null, err };
+    if (error) {
+      return { result: null, error };
     }
     if (result) {
       const msgData = {
         value: resultFind._id,
-        name: resultFind.description
+        name: resultFind.categoryName
       }
       const itemCategory = await messageMaps.toMessageResponse(msgData);
-      return { itemCategory, err: null };
+      return { itemCategory, error: null };
     } else {
       return {
-        itemCategory: {}, err: {
-          httpStatus: 500,
-        }
+        itemCategory: {},error: { httpStatus: 500, message: 'Failed to delete Immage File' },
       };
     }
-  } catch (err) {
+  } catch (error) {
     await session.abortTransaction();
     session.endSession();
     return {
-      itemCategory: null, err: {
-        httpStatus: 500,
-      }
+      itemCategory: null,error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     };
   }
 };
 
 const findAll = async () => {
   try {
-    const { result, err } = await itemCategoryRepository.findAll();
+    const { result, error } = await itemCategoryRepository.findAll();
     const itemCategorys = await mappings.toItemCategoryResponses(result)
-    return { itemCategorys, err: null }
-  } catch (err) {
-    return { itemCategorys: [], err }
+    return { itemCategorys, error: null }
+  } catch (error) {
+    return { itemCategorys: [], error }
   }
 };
 
 const findById = async (oid) => {
   try {
-    const { result, err } = await itemCategoryRepository.findById(oid);
-    if (err != null) {
-      return { itemCategory: {}, err }
+    const { result, error } = await itemCategoryRepository.findById(oid);
+    if (error != null) {
+      return { itemCategory: {}, error }
     }
     if (result == null) {
       return {
-        itemCategory: null, err: {
+        itemCategory: null, error: {
           httpStatus: 404,
         }
       }
     }
     const itemCategory = await mappings.toItemCategoryResponse(result)
-    return { itemCategory, err: null }
-  } catch (err) {
+    return { itemCategory, error: null }
+  } catch (error) {
     return {
-      itemCategory: [], err: {
-        httpStatus: 500,
-      }
+      itemCategory: [], error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     }
   }
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
 
     const filterCondition = {
@@ -203,17 +190,15 @@ const findPage = async (condition, page, pageSize) => {
     if (errCount) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const { itemCategorys, err } = await itemCategoryRepository.findByCriteria(filterCondition, page, pageSize);
-    if (err) {
+    const { result, error } = await itemCategoryRepository.findByCriteria(filterCondition, options.pageIndex, options.pageSize);
+    if (error) {
       return { itemCategorys: [], count: 0, errCount }
     }
-    const itemCategoryResponses = await mappings.toItemCategoryResponses(itemCategorys)
-    return { itemCategorys: itemCategoryResponses, count, err: err };
-  } catch (err) {
+    const itemCategoryResponses = await mappings.toItemCategoryResponses(result)
+    return { itemCategorys: itemCategoryResponses, count, error: error };
+  } catch (error) {
     return {
-      itemCategorys: [], count: 0, err: {
-        httpStatus: 500,
-      }
+      itemCategorys: [], count: 0,error: { httpStatus: 500, message: 'Failed to delete Immage File' },
     }
   }
 };

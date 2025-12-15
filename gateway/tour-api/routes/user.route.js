@@ -1,8 +1,16 @@
 const express = require('express');
-const userController = require('../controllers/user.controller'); // Adjust the path
+const userController = require('../controllers/user.controller');
 const { roleGuard } = require('../middleware/role-guard');
+const { validateRequest } = require('../misc/validation');
+const { 
+  createUserDto, 
+  updateUserDto, 
+  deleteUserDto, 
+  filterUserDto, 
+  getUserDto 
+} = require('../dtos/payload-user-dto');
 
-const router = express.Router(); 
+const router = express.Router();
 
 /**
  * @swagger
@@ -16,93 +24,50 @@ const router = express.Router();
  * /user/create:
  *   post:
  *     summary: Create a new user
+ *     tags: [User]
  *     description: Adds a new user to the database.
  *     security:
  *       - bearerAuth: []
  *     requestBody:
- *       description: User object that needs to be added
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 example: "aioria"
+ *             properties: 
  *               email:
  *                 type: string
- *                 format: email
- *                 example: "aioria@gmail.com"
+ *                 example: "john.doe@gmail.com"
  *               password:
  *                 type: string
- *                 example: "abcdefgh123"  
+ *                 example: "MyPassword123"
  *               androidToken:
  *                 type: string
- *                 example: "1234556666"
- *               isActive:
- *                 type: boolean
- *                 example: false
+ *                 example: "device-token-123"
  *               roleOid:
  *                 type: string
- *                 example: "ebb0475f-34ce-4057-8ba6-7579d58a284d"
- *               activatedAt:
- *                 type: string
- *                 format: date
- *                 example: "2024-08-16"
+ *                 example: "7c1c03b3-469d-4a0c-afeb-19d1c8a314c1"
  *     responses:
  *       200:
  *         description: User created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "0192273f-aa53-72db-a750-d3ba7bcada74"
- *                     name:
- *                       type: string
- *                       example: "aioria@gmail.com"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
  */
-router.post('/create',  userController.create); 
+router.post('/create', validateRequest(createUserDto), roleGuard('Admin'), userController.create);
+
 /**
  * @swagger
  * /user/{oid}:
  *   put:
  *     summary: Update user information
- *     description: Update the details of a specific user by their unique identifier (OID).
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: oid
- *         in: path
+ *       - in: path
+ *         name: oid
  *         required: true
- *         description: The unique identifier of the user
  *         schema:
  *           type: string
- *           example: "019200a7-faec-79c2-8428-77ff2242d829"
+ *         example: "2b58bfc7-0327-42d5-a7db-2aa2e5a57eae"
  *     requestBody:
  *       required: true
  *       content:
@@ -110,514 +75,145 @@ router.post('/create',  userController.create);
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *                 example: "aioria"
  *               email:
  *                 type: string
- *                 format: email
- *                 example: "aioria1@gmail.com"
+ *                 example: "updated.email@gmail.com"
  *               password:
  *                 type: string
- *                 example: "abcdefgh1"  
+ *                 example: "NewPassword123"
  *               androidToken:
  *                 type: string
- *                 example: "1234556666"
- *               isActive:
- *                 type: boolean
- *                 example: false
+ *                 example: "updated-device-token"
  *               roleOid:
  *                 type: string
- *                 example: "ebb0475f-34ce-4057-8ba6-7579d58a284d"
- *               activatedAt:
- *                 type: string
- *                 format: date
- *                 example: "2024-08-16"
+ *                 example: "1bbbaaf6-6f5e-4599-b869-44c3b6271c9c"
  *     responses:
  *       200:
- *         description: Successfully updated user information
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "019200a7-faec-79c2-8428-77ff2242d829"
- *                     name:
- *                       type: string
- *                       example: "aioria1@gmail.com"
- *       400:
- *         description: Bad Request
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40000"
- *                 httpStatus:
- *                   type: string
- *                   example: "400"
- *                 message:
- *                   type: string
- *                   example: "Invalid input"
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "User not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *         description: Successfully updated user
  */
+router.put('/:oid', validateRequest(updateUserDto), roleGuard('Admin'), userController.update);
 
-router.put('/:oid',  userController.update); 
 /**
  * @swagger
  * /user/delete/{oid}:
  *   delete:
  *     summary: Delete a user
- *     description: Remove a user from the system by their unique identifier (OID).
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: oid
- *         in: path
+ *       - in: path
+ *         name: oid
  *         required: true
- *         description: The unique identifier of the user to delete
  *         schema:
  *           type: string
- *           example: "019200a7-faec-79c2-8428-77ff2242d829"
+ *         example: "f9e3fb23-2d21-4b30-8f47-abf120bd1b52"
  *     responses:
  *       200:
- *         description: Successfully deleted the user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     value:
- *                       type: string
- *                       example: "019200a7-faec-79c2-8428-77ff2242d829"
- *                     name:
- *                       type: string
- *                       example: "aioria1@gmail.com"
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "User not found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *         description: User deleted
  */
-router.delete('/delete/:oid',  userController.remove); 
+router.delete('/delete/:oid', validateRequest(deleteUserDto), roleGuard('Admin'), userController.remove);
+
 /**
  * @swagger
- * /user/q:
+ * /user:
  *   get:
- *     summary: Query users with pagination
- *     description: Retrieves a list of users based on the specified pagination parameters.
+ *     summary: Get all users with pagination
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - name: pageIndex
  *         in: query
  *         required: true
- *         description: The index of the page to retrieve.
  *         schema:
  *           type: integer
- *           example: 1
+ *         example: 1
  *       - name: pageSize
  *         in: query
  *         required: true
- *         description: The number of records to retrieve per page.
  *         schema:
  *           type: integer
- *           example: 10
+ *         example: 10
+ *       - name: customerOid
+ *         in: query
+ *         schema:
+ *           type: string
+ *         example: ""
+ *     responses:
+ *       200:
+ *         description: List of users
+ */
+router.get('/', validateRequest(filterUserDto), roleGuard('Admin'), userController.findAll);
+
+/**
+ * @swagger
+ * /user/q:
+ *   post:
+ *     summary: Query users with pagination & filter
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: pageIndex
+ *         in: query
+ *         schema:
+ *           type: integer
+ *         example: 1
+ *       - name: pageSize
+ *         in: query
+ *         schema:
+ *           type: integer
+ *         example: 20
  *     requestBody:
- *       description: Optional filter for user email
  *       required: false
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               customerOid:
  *                 type: string
- *                 format: email
- *                 example: "weslyaioria1@gmail.com"
+ *                 example: ""
  *     responses:
  *       200:
- *         description: Users retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "019200a7-faec-79c2-8428-77ff2242d829"
- *                       name:
- *                         type: string
- *                         example: ""
- *                       email:
- *                         type: string
- *                         format: email
- *                         example: "weslyaioria1@gmail.com"  
- *                       androidToken:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       expiredTime:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       isActive:
- *                         type: integer
- *                         example: 0
- *                       activatedAt:
- *                         type: string
- *                         example: "Invalid date"
- *                       createdAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T15:44:21.000Z"
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T15:44:21.000Z"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
+ *         description: Query results
  */
-router.get('/',  userController.findAll); 
-/**
- * @swagger
- * /user/q:
- *   get:
- *     summary: Retrieve users with pagination and filter
- *     description: Get a list of users with optional email filtering and pagination.
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: pageIndex
- *         in: query
- *         required: true
- *         description: The page index for pagination
- *         schema:
- *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         required: true
- *         description: The number of users per page
- *         schema:
- *           type: integer
- *           example: 10
- *       - name: email
- *         in: query
- *         required: false
- *         description: Filter users by their email address
- *         schema:
- *           type: string
- *           example: "weslyaioria1@gmail.com"
- *     responses:
- *       200:
- *         description: Successfully retrieved user(s)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       oid:
- *                         type: string
- *                         format: uuid
- *                         example: "019200a7-faec-79c2-8428-77ff2242d829"
- *                       name:
- *                         type: string
- *                         example: ""
- *                       email:
- *                         type: string
- *                         format: email
- *                         example: "weslyaioria1@gmail.com"  
- *                       androidToken:
- *                         type: string
- *                         nullable: true
- *                         example: null
- *                       expiredTime:
- *                         type: string
- *                         format: date-time
- *                         nullable: true
- *                         example: null
- *                       isActive:
- *                         type: integer
- *                         example: 0
- *                       activatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "Invalid date"
- *                       createdAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T15:44:21.000Z"
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: "2024-09-17T15:44:21.000Z"
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40100"
- *                 httpStatus:
- *                   type: string
- *                   example: "401"
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       404:
- *         description: Users not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "40400"
- *                 httpStatus:
- *                   type: string
- *                   example: "404"
- *                 message:
- *                   type: string
- *                   example: "No users found"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- */
-router.post('/q',  userController.find); 
-/**
- * @swagger
- * /user/{id}:
- *   get:
- *     summary: Retrieve a user by ID
- *     description: Fetches the details of a specific user based on the provided user ID.
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: The ID of the user to retrieve.
- *         schema:
- *           type: string
- *           format: uuid
- *           example: "019224db-edbd-7d7b-8db9-bedbf516da2e"
- *     responses:
- *       200:
- *         description: User retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 resultCode:
- *                   type: string
- *                   example: "20000"
- *                 httpStatus:
- *                   type: string
- *                   example: "200"
- *                 message:
- *                   type: string
- *                   example: "success"
- *                 total:
- *                   type: integer
- *                   example: 1
- *                 data:
- *                   type: object
- *                   properties:
- *                     oid:
- *                       type: string
- *                       format: uuid
- *                       example: "019224db-edbd-7d7b-8db9-bedbf516da2e"
- *                     name:
- *                       type: string
- *                       example: "aioria"
- *                     email:
- *                       type: string
- *                       format: email
- *                       example: "weslyaioria@gmail.com"  
- *                     androidToken:
- *                       type: string
- *                       example: "1234556666"
- *                     expiredTime:
- *                       type: string
- *                       nullable: true
- *                       example: null
- *                     isActive:
- *                       type: integer
- *                       example: 0
- *                     activatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-08-16T00:00:00+07:00"
- *                     createdAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-24T16:27:26.000Z"
- *                     updatedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2024-09-24T16:27:26.000Z"
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- */
-router.get('/:oid',  userController.findById);
+router.post('/q', validateRequest(filterUserDto), roleGuard('Admin'), userController.find);
 
+/**
+ * @swagger
+ * /user/profile/me:
+ *   get:
+ *     summary: Get current authenticated user's profile
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile information
+ */
 router.get('/profile/me', roleGuard('Admin'), userController.getProfile);
 
+/**
+ * @swagger
+ * /user/{oid}:
+ *   get:
+ *     summary: Retrieve user by OID
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: oid
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "cb9f703f-3ad7-4afe-b48c-f32b87b14c1d"
+ *     responses:
+ *       200:
+ *         description: User found
+ */
+router.get('/:oid', validateRequest(getUserDto), roleGuard('Admin'), userController.findById);
 
 module.exports = router;

@@ -2,27 +2,26 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid'); // kalau memang perlu
 
 const itemSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true,
-    },
-    itemCategoryOid: {
-        type: mongoose.Schema.Types.ObjectId,
+    _id: { type: String, default: uuidv4 },
+    itemCategory: {
+        type: String,
         ref: 'ItemCategory',
         default: null
     },
     imageOid: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'ImageFile',
         required: false,    // tidak wajib
         default: null       // default null
     },
 
     itemName: { type: String, required: true },
-    description: { type: String },
     startingPrice: { type: Number, required: true },
-    owner: { type: String },
-
+    seller: {
+        type: String,      // Matches UserRole._id type (UUID)
+        ref: 'Seller',   // Reference to UserRole collection
+        default: null
+    },
     createdBy: {
         type: String,
         required: true,

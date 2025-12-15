@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Undangan Lucia & Wesly</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+    font-family: 'Roboto', sans-serif;
+    color:#fff;
+    background: linear-gradient(135deg, rgba(128,0,0,0.7), rgba(0,0,128,0.7));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    scroll-behavior: smooth;
+}
+
+/* Gradient Animasi */
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+/* HERO */
+.hero {
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:0 20px;
+    background: rgba(0,0,0,0.4);
+}
+
+.hero-photo {
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid #ffd700;
+    margin-bottom:20px;
+    box-shadow: 0 0 20px rgba(255,215,0,0.7);
+}
+
+.hero h1 { font-family:'Playfair Display', serif; font-size:36px; opacity:0; transform: translateY(-20px); animation: fadeInUp 1s forwards 0.3s; }
+.hero h2 { font-family:'Playfair Display', serif; font-size:50px; color:#ffd700; margin:10px 0; opacity:0; transform: translateY(-20px); animation: fadeInUp 1s forwards 0.6s; }
+.hero p { font-size:18px; margin:5px 0; opacity:0; transform: translateY(-20px); animation: fadeInUp 1s forwards 0.9s; }
+@keyframes fadeInUp { to {opacity:1; transform:translateY(0);} }
+
+.btn {
+    margin-top:20px;
+    padding:12px 28px;
+    border:2px solid #ffd700;
+    border-radius:30px;
+    text-decoration:none;
+    color:#ffd700;
+    font-weight:bold;
+    transition:0.3s;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+}
+.btn:hover { 
+    background:#ffd700; 
+    color:#000; 
+    box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+}
+
+/* SECTIONS */
+.section {
+    max-width:900px;
+    margin:50px auto;
+    background: rgba(255,255,255,0.1);
+    padding:30px;
+    border-radius:15px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    opacity:0;
+    transform: translateY(20px);
+    transition:0.8s;
+    border: 2px solid rgba(255,215,0,0.6);
+}
+.section.show {
+    opacity:1;
+    transform: translateY(0);
+}
+.section h3 {
+    font-family:'Playfair Display', serif;
+    font-size:24px;
+    color:#ffd700;
+    margin-bottom:15px;
+}
+
+/* GALLERY GRID */
+.gallery {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:15px;
+}
+.gallery img {
+    width:100%;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.gallery img:hover { transform: scale(1.05); }
+
+/* QUOTE */
+.quote { font-style:italic; text-align:center; margin:15px 0; }
+
+/* DIGITAL COUNTDOWN */
+#countdown {
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:20px 0;
+    font-weight:bold;
+}
+.countdown-box {
+    background: rgba(255, 215, 0, 0.8);
+    color:#000;
+    padding:15px 20px;
+    border-radius:10px;
+    font-family: 'Courier New', monospace;
+    font-size:24px;
+    min-width:80px;
+    text-align:center;
+    transition: transform 0.3s;
+}
+.countdown-box.change { transform: scale(1.2); }
+
+/* QRIS */
+.qris {
+    text-align:center;
+    margin-top:20px;
+}
+.qris img { max-width:200px; border-radius:15px; margin:10px 0; }
+.qris .bank-logo { max-width:150px; margin-top:10px; }
+
+/* LIGHTBOX */
+#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:1000; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; }
+
+/* RESPONSIVE */
+@media(max-width:600px){
+    .hero h2 { font-size:40px; }
+    .section { margin:30px 15px; padding:20px; }
+    #countdown { gap:10px; flex-wrap:wrap; }
+    .countdown-box { font-size:18px; min-width:60px; }
+    .hero-photo { width:150px; height:150px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <img src="https://images.unsplash.com/photo-1600038938045-b5fadbc55083?fm=jpg&w=400" 
+         alt="Lucia & Wesly" class="hero-photo">
+    <h1>Horas & Sugeng Rawuh</h1>
+    <h2>The Wedding of Lucia & Wesly</h2>
+    <p class="quote">“Kasih itu sabar, kasih itu murah hati…” — 1 Korintus 13:4</p>
+    <a href="#acara" class="btn">Buka Undangan</a>
+</div>
+
+<!-- SECTIONS -->
+<div id="acara" class="section">
+    <h3>Informasi Acara</h3>
+    <p><strong>Akad Nikah:</strong> 10 Januari 2026, Sopo Sulaksana, Bandung</p>
+    <p><strong>Resepsi:</strong> 18 Januari 2026, Casakhasa, Jakarta</p>
+</div>
+
+<div class="section">
+    <h3>Mempelai</h3>
+    <p><strong>Lucia Galuh Ajeng Mandra Dewi br. Tambunan, S.Aktr.</strong> – Putri Lukas Mardjono, S.T & Theresia Endra Edi, S.Sos</p>
+    <p><strong>Wesly Panjaitan, S.T.</strong> – Putra Bapak B. Panjaitan (+) & br. Tambunan</p>
+</div>
+
+<!-- DIGITAL COUNTDOWN -->
+<div class="section">
+    <h3>Hitung Mundur Menuju Hari H</h3>
+    <div id="countdown">
+        <div class="countdown-box" id="days">00</div>
+        <div class="countdown-box" id="hours">00</div>
+        <div class="countdown-box" id="minutes">00</div>
+        <div class="countdown-box" id="seconds">00</div>
+    </div>
+    <div style="text-align:center; margin-top:10px;">Hari &nbsp;&nbsp;Jam &nbsp;&nbsp;Menit &nbsp;&nbsp;Detik</div>
+</div>
+
+<!-- GALLERY -->
+<div class="section gallery">
+    <h3>Galeri Mempelai</h3>
+    <img src="https://images.unsplash.com/photo-1600038938045-b5fadbc55083?fm=jpg&w=1000" alt="Pasangan 1">
+    <img src="https://previews.123rf.com/images/andriikobryn/andriikobryn1604/andriikobryn160400716/56013502-beautiful-young-couple-bride-and-groom-the-european-appearance-posing-outdoors-in-the-sunshine.jpg" alt="Pasangan 2">
+</div>
+
+<!-- Ucapan & Doa -->
+<div class="section">
+    <h3>Ucapan & Doa</h3>
+    <p>Terima kasih atas doa dan kehadiran Anda untuk kami.</p>
+</div>
+
+<!-- QRIS & Bank -->
+<div class="section qris">
+    <h3>Donasi / Hadiah</h3>
+    <p>Scan QRIS di bawah untuk mengirimkan doa dan hadiah:</p>
+    <img src="https://www.nicepng.com/png/detail/851-8518258_qr-code-png-images-qr-code.png" alt="QRIS Sample">
+    <p>Atau transfer ke rekening:</p>
+    <p><strong>1234 5678 9012 3456</strong></p>
+    <img class="bank-logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/BCA_logo.svg" alt="BCA Logo">
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox"><img src="" alt="Lightbox Image"></div>
+
+<script>
+// Animasi fade-in saat scroll
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+    });
+}, { threshold: 0.2 });
+sections.forEach(section => observer.observe(section));
+
+// Countdown timer digital
+const weddingDate = new Date("January 10, 2026 00:00:00").getTime();
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if(distance < 0){
+        daysEl.innerHTML = hoursEl.innerHTML = minutesEl.innerHTML = secondsEl.innerHTML = "00";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    function animate(el, value){
+        if(el.innerHTML !== String(value).padStart(2,'0')){
+            el.classList.add('change');
+            setTimeout(()=> el.classList.remove('change'), 300);
+            el.innerHTML = String(value).padStart(2,'0');
+        }
+    }
+
+    animate(daysEl, days);
+    animate(hoursEl, hours);
+    animate(minutesEl, minutes);
+    animate(secondsEl, seconds);
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Gallery lightbox
+const galleryImages = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+
+galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+    });
+});
+
+lightbox.addEventListener('click', () => lightbox.style.display = 'none');
+</script>
+
+</body>
+</html>

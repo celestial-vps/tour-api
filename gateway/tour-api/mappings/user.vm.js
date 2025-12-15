@@ -7,11 +7,12 @@ async function toUserResponse(user) {
     name: user.name,
     email: user.email,
     // password: user.password,
-    age: user.age,  
+    roleOid: user.roleOid,
     androidToken: user.androidToken,
     expiredTime: user.expiredTime,
-    isActive: user.isActive,
-    activatedAt: moment(user.activatedAt).format(),
+    isActive: user.isActive ? true : false,
+    activatedAt: user.activatedAt ? moment(user.activatedAt).format('YYYY-MM-DD') : null,
+    userRole: user.userRole,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
   };
@@ -35,7 +36,8 @@ async function toUserTokenResponse(user, token, refreshToken) {
     email: user.email,
     token,
     refreshToken,
-    userRole :user.userRole ,
+    userRole: user.userRole,
+    roleOid: user.roleOid,
     isActive: user.isActive,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt
@@ -49,7 +51,7 @@ async function toUserResponses(users) {
 }
 
 // Export everything
-module.exports = {    
+module.exports = {
   toUserResponse,
   toUserRegisterResponse,
   toUserTokenResponse,

@@ -12,9 +12,12 @@ const helmet = require('helmet')
 // const bankRoutes = require('./routes/bank.route');  
 const authRoutes = require('./routes/auth.route');
 const bankRoutes = require('./routes/bank.route');  
+const bidRoutes = require('./routes/bid.route');  
+const bidderRoutes = require('./routes/bidder.route');  
 const itemRoutes = require('./routes/item.route');
 const auctionRoutes = require('./routes/auction.route');
 const itemCategoryRoutes = require('./routes/item-category.route');
+const sellerRoutes = require('./routes/seller.route');  
 const userRoleRoutes = require('./routes/user-role.route');
 const userRoutes = require('./routes/user.route');
 const imageFileRoutes = require('./routes/image-file.route');
@@ -39,7 +42,7 @@ app.use(helmet())
 app.use(bodyParser.json());
 // @ts-ignore
 app.use(cors({
-  origin:  ['http://localhost:4200', 'http://localhost:4300'], // Replace with your Angular app URL
+  origin:  ['http://192.168.1.6:4200', 'http://localhost:4200','http://192.168.1.6:4300', 'http://localhost:4300'], // Replace with your Angular app URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -62,9 +65,12 @@ app.use(limiter);
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGO_URL + "/" + process.env.DATABASE;
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.set('autoCreate', false);
+mongoose.set('autoIndex', false);
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(error => console.log(error));
 
 
 const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if BASE_PATH is not set
@@ -78,7 +84,10 @@ app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/item-category`, itemCategoryRoutes);  
 app.use(`${basePath}/auction`, auctionRoutes);  
 app.use(`${basePath}/item`, itemRoutes);  
+app.use(`${basePath}/bid`, bidRoutes);
+app.use(`${basePath}/bidder`, bidderRoutes);
 app.use(`${basePath}/bank`, bankRoutes);
+app.use(`${basePath}/seller`, sellerRoutes);
 app.use(`${basePath}/user-role`, userRoleRoutes);
 app.use(`${basePath}/user`, userRoutes);
  

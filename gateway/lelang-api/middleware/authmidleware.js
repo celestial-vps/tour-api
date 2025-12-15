@@ -82,10 +82,10 @@ const JWTMiddleware = () => {
         // return res.status(401).json({ error: 'Invalid token payload' });
       }
 
-    } catch (err) {
-      console.log("Invalid token", err);
+    } catch (error) {
+      console.log("Invalid token", error);
 
-      const response = responseUnauthorized(err);
+      const response = responseUnauthorized(error);
       return res.status(401).json(response);
       // return res.status(401).json({ error: 'Invalid token' });
     }

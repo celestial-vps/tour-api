@@ -6,8 +6,8 @@ const save = async (bankData) => {
         const result = new Bank(bankData);
         await result.save();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error saving bank:', err);
+    } catch (error) {
+        console.error('Error saving bank:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to save bank' },
@@ -23,8 +23,8 @@ const update = async (oid, updateData) => {
             runValidators: true,
         });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error updating bank:', err);
+    } catch (error) {
+        console.error('Error updating bank:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to update bank' },
@@ -37,8 +37,8 @@ const deleted = async (oid) => {
     try {
         const result = await Bank.deleteOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error deleting bank:', err);
+    } catch (error) {
+        console.error('Error deleting bank:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to delete bank' },
@@ -51,8 +51,8 @@ const findAll = async () => {
     try {
         const result = await Bank.find().sort({ createdAt: -1 });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving banks:', err);
+    } catch (error) {
+        console.error('Error retrieving banks:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve banks' },
@@ -65,8 +65,8 @@ const findById = async (oid) => {
     try {
         const result = await Bank.findOne({ _id: oid });
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving bank by ID:', err);
+    } catch (error) {
+        console.error('Error retrieving bank by ID:', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve bank' },
@@ -99,8 +99,8 @@ const findByCriteria = async (filterCondition = {}, page = 1, pageSize = 10) => 
             .limit(pageSize);
 
         return { result, error: null };
-    } catch (err) {
-        console.error('Error filtering banks:', err);
+    } catch (error) {
+        console.error('Error filtering banks:', error);
         return {
             result: [],
             error: { httpStatus: 500, message: 'Failed to retrieve filtered data' },
@@ -129,8 +129,8 @@ const findCountByCriteria = async (filterCondition = {}) => {
 
         const count = await Bank.countDocuments(whereConditions);
         return { count, error: null };
-    } catch (err) {
-        console.error('Error counting banks:', err);
+    } catch (error) {
+        console.error('Error counting banks:', error);
         return {
             count: 0,
             error: { httpStatus: 500, message: 'Failed to count filtered data' },
@@ -143,8 +143,8 @@ const advanceFilter = async () => {
     try {
         const result = await Bank.find();
         return { result, error: null };
-    } catch (err) {
-        console.error('Error retrieving banks (advance filter):', err);
+    } catch (error) {
+        console.error('Error retrieving banks (advance filter):', error);
         return {
             result: null,
             error: { httpStatus: 500, message: 'Failed to retrieve banks' },

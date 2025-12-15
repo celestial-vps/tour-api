@@ -14,15 +14,15 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   - name: district
+ *   - name: District Cache
  *     description: district read-only operations
  */
 
 /**
  * @swagger
- * /district:
+ * /district-cache:
  *   get:
- *     tags: [district]
+ *     tags: [District Cache]
  *     summary: Get all countries with optional filters
  *     parameters:
  *       - in: query
@@ -43,9 +43,9 @@ router.get('/', validateRequest(filterDistrictDto), roleGuard('Admin'), district
 
 /**
  * @swagger
- * /district/q:
+ * /district-cache/q:
  *   post:
- *     tags: [district]
+ *     tags: [District Cache]
  *     summary: Paginate countries with filters
  *     requestBody:
  *       required: true
@@ -74,9 +74,9 @@ router.post('/q',   roleGuard('Admin'), districtController.find);
 
 /**
  * @swagger
- * /district/{oid}:
+ * /district-cache/{oid}:
  *   get:
- *     tags: [district]
+ *     tags: [District Cache]
  *     summary: Get a single district by ID
  *     parameters:
  *       - name: oid

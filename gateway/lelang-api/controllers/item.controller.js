@@ -7,22 +7,22 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => { 
+const create = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
-    const { item, err } = await itemService.create(req.body, userJwt.userOid);
+    const { item, error } = await itemService.create(req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("CREATE", "items", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "insert");
+    if (error) {
+      await recordAuditTrail("CREATE", "items", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "insert");
     }
     await recordAuditTrail("CREATE", "items", item, req, 'SUCCESS', 'Create Items success');
     return buildResponse.createOk(res, item, 1);
 
-  } catch (err) {
-    await recordAuditTrail("CREATE", "items", err, req, 'ERROR', err.message);
-    console.error('Controller Create Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("CREATE", "items", error, req, 'ERROR', error.message);
+    console.error('Controller Create Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
@@ -30,58 +30,58 @@ const update = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
 
-    const { item, err } = await itemService.update(req.params.oid, req.body, userJwt.userOid);
+    const { item, error } = await itemService.update(req.params.oid, req.body, userJwt.userOid);
 
-    if (err) {
-      await recordAuditTrail("UPDATE", "items", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "update");
+    if (error) {
+      await recordAuditTrail("UPDATE", "items", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "update");
     }
     await recordAuditTrail("UPDATE", "items", item, req, 'SUCCESS', 'Update Items success');
     return buildResponse.updateOk(res, item, 1);
-  } catch (err) {
-    console.error('Controller Update Error:', err);
-    await recordAuditTrail("UPDATE", "items", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    console.error('Controller Update Error:', error);
+    await recordAuditTrail("UPDATE", "items", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const remove = async (req, res) => {
   try {
-    const { item, err } = await itemService.deleted(req.params.oid);
+    const { item, error } = await itemService.deleted(req.params.oid);
 
-    if (err) {
-      await recordAuditTrail("DELETE", "items", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message || err, "delete");
+    if (error) {
+      await recordAuditTrail("DELETE", "items", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message || error, "delete");
     }
     await recordAuditTrail("DELETE", "items", item, req, 'SUCCESS', 'Delete Items success');
     return buildResponse.sendDeleteOk(res, item);
-  } catch (err) {
-    await recordAuditTrail("DELETE", "items", err, req, 'ERROR', err.message);
-    console.error('Controller Delete Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("DELETE", "items", error, req, 'ERROR', error.message);
+    console.error('Controller Delete Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const findAll = async (req, res) => {
   try {
-    const { items, err } = await itemService.findAll();
+    const { items, error } = await itemService.findAll();
 
-    if (err) {
-      await recordAuditTrail("READ", "items", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get all");
+    if (error) {
+      await recordAuditTrail("READ", "items", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get all");
     }
     await recordAuditTrail("READ", "items", items, req, 'SUCCESS', 'Get all Itemss success');
     return buildResponse.findOk(res, items, items.length);
-  } catch (err) {
-    await recordAuditTrail("READ", "items", err, req, 'ERROR', err.message);
-    console.error('Controller Find All Error:', err);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "items", error, req, 'ERROR', error.message);
+    console.error('Controller Find All Error:', error);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 
 const find = async (req, res) => {
   try {
-    const filters = pick(req.body, ['title', 'description', 'search']);
+    const filters = pick(req.body, ['itemName', 'search']);
 
     const options = {
       sortBy: req.query.sortBy,
@@ -92,9 +92,9 @@ const find = async (req, res) => {
 
     const result = await itemService.findPage(filters, options);
 
-    if (result.err) {
-      await recordAuditTrail("READ", "items", result.err, req, 'FAILED', result.err.message);
-      return buildResponse.sendInternalServerError(res, result.err.message);
+    if (result.error) {
+      await recordAuditTrail("READ", "items", result.error, req, 'FAILED', result.error.message);
+      return buildResponse.sendInternalServerError(res, result.error.message);
     }
     await recordAuditTrail("READ", "items", result.items, req, 'SUCCESS', 'Get Itemss with filters success');
     return buildResponse.sendPagination(res, result.items, result.count, options.pageIndex, options.pageSize);
@@ -106,24 +106,25 @@ const find = async (req, res) => {
 };
 
 const findById = async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
   try {
     const options = {
       include: [], // bisa ditambahkan jika ada relasi
     };
 
-    const { item, err } = await itemService.findById(req.params.oid, options);
+    const { item, error } = await itemService.findById(req.params.oid, token, options);
 
-    if (err) {
-      await recordAuditTrail("READ", "items", err, req, 'FAILED', err.message);
-      return buildResponse.sendQueryError(res, err.message, "get by id");
+    if (error) {
+      await recordAuditTrail("READ", "items", error, req, 'FAILED', error.message);
+      return buildResponse.sendQueryError(res, error.message, "get by id");
     }
 
     if (!item) return buildResponse.sendDataNotFound(res);
     await recordAuditTrail("READ", "items", item, req, 'SUCCESS', 'Get Items by ID success');
     return buildResponse.findOk(res, item);
-  } catch (err) {
-    await recordAuditTrail("READ", "items", err, req, 'ERROR', err.message);
-    return buildResponse.sendInternalServerError(res, err.message);
+  } catch (error) {
+    await recordAuditTrail("READ", "items", error, req, 'ERROR', error.message);
+    return buildResponse.sendInternalServerError(res, error.message);
   }
 };
 

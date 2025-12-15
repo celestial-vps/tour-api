@@ -15,9 +15,9 @@ async function toAuctionResponse(auction) {
             description: auction.itemOid.description,
             startingPrice: auction.itemOid.startingPrice,
         };
-        if (auction.itemOid.itemCategoryOid) {
+        if (auction.itemOid.itemCategory) {
             response.item.itemCategory = {
-                categoryName: auction.itemOid.itemCategoryOid.categoryName
+                categoryName: auction.itemOid.itemCategory.categoryName
             };
         }
     }
