@@ -2,7 +2,7 @@
 async function toBedResponse(bed) {
     const response = {
         oid: bed.oid,
-        name: bed.name,
+        bedNumber: bed.bedNumber,
         roomOid: bed.roomOid,
         status: bed.status,
         createdBy: bed.createdBy,
@@ -10,6 +10,12 @@ async function toBedResponse(bed) {
         lastModifiedBy: bed.lastModifiedBy,
         updatedAt: bed.updatedAt
     };
+    if (bed.roomOid) {
+        response.room = {
+            oid: bed.roomOid,
+            roomName: bed.name 
+        };
+    }
     return response;
 }
 

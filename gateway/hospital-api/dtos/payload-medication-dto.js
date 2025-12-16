@@ -13,8 +13,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null, '').example('Paracetamol'),
-    categoryOid: Joi.string().uuid().optional().example('category-uuid-123')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({

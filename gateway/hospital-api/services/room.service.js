@@ -15,9 +15,9 @@ const create = async (dto, userOid) => {
 
     const data = {
       oid: uuidv7(),
-      roomNumber: dto.roomNumber,
-      type: dto.type,
-      description: dto.description ?? null,
+      name: dto.name,
+      departementOid: dto.departementOid,
+      // description: dto.description ?? null,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -29,7 +29,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { room: null, err };
-    const msgData = { value: data.oid, name: `Room ${data.roomNumber}` };
+    const msgData = { value: data.oid, name: `Room ${data.name}` };
     const room = await messageMaps.toMessageResponse(msgData);
     return { room, err: null };
 
@@ -49,9 +49,9 @@ const update = async (oid, dto, userOid) => {
     if (err) return { room: null, err };
     if (!findResult) return { room: null, err: { httpStatus: 404 } };
 
-    findResult.roomNumber = dto.roomNumber ?? findResult.roomNumber;
-    findResult.type = dto.type ?? findResult.type;
-    findResult.description = dto.description ?? findResult.description;
+    findResult.name = dto.name ?? findResult.name;
+    // findResult.type = dto.type ?? findResult.type;
+    // findResult.description = dto.description ?? findResult.description;
     findResult.lastModifiedBy = userOid;
     findResult.updatedAt = now;
 
@@ -60,7 +60,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err: errUpdate } = await withTransaction(funcs, connection, findResult);
 
     if (errUpdate) return { room: null, err: errUpdate };
-    const msgData = { value: result.oid, name: `Room ${result.roomNumber}` };
+    const msgData = { value: result.oid, name: `Room ${result.name}` };
     const room = await messageMaps.toMessageResponse(msgData);
     return { room, err: null };
 
@@ -84,7 +84,7 @@ const deleted = async (oid) => {
     const { result, err: errDelete } = await withTransaction(funcs, connection, findResult);
 
     if (errDelete) return { room: null, err: errDelete };
-    const msgData = { value: findResult.oid, name: `Room ${findResult.roomNumber}` };
+    const msgData = { value: findResult.oid, name: `Room ${findResult.name}` };
     const room = await messageMaps.toMessageResponse(msgData);
     return { room, err: null };
 
@@ -120,16 +120,16 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await roomRepository.findCountByCriteria(condition, connection);
     if (errCount) return { rooms: [], count: 0, err: errCount };
-    const { result, err } = await roomRepository.findByCriteria(condition, page, pageSize, connection);
+    const { rooms, err } = await roomRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { rooms: [], count: 0, err };
-    const rooms = await mappings.toRoomResponses(result);
-    return { rooms, count, err: null };
+    const roomResponses = await mappings.toRoomResponses(rooms);
+    return { rooms:roomResponses, count, err: null };
   } catch (err) {
     return { rooms: [], count: 0, err: { httpStatus: 500 } };
   }

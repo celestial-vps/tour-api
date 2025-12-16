@@ -15,10 +15,8 @@ const create = async (dto, userOid) => {
     await connection.beginTransaction();
 
     const data = {
-      oid: uuidv7(),
-      diseaseCode: dto.diseaseCode,
-      diseaseName: dto.diseaseName,
-      description: dto.description ?? null,
+      oid: uuidv7(), 
+      name: dto.name, 
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -30,7 +28,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { disease: null, err };
-    const msgData = { value: data.oid, name: data.diseaseName };
+    const msgData = { value: data.oid, name: data.name };
     const disease = await messageMaps.toMessageResponse(msgData);
     return { disease, err: null };
 
@@ -52,8 +50,7 @@ const update = async (oid, dto, userOid) => {
     if (!diseaseData) return { disease: {}, err: { httpStatus: 404 } };
 
     diseaseData.diseaseCode = dto.diseaseCode ?? diseaseData.diseaseCode;
-    diseaseData.diseaseName = dto.diseaseName ?? diseaseData.diseaseName;
-    diseaseData.description = dto.description ?? diseaseData.description;
+    diseaseData.name = dto.name ?? diseaseData.name; 
     diseaseData.lastModifiedBy = userOid ?? diseaseData.lastModifiedBy;
     diseaseData.updatedAt = now;
 
@@ -62,7 +59,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, diseaseData);
 
     if (err) return { disease: result, err };
-    const msgData = { value: diseaseData.oid, name: diseaseData.diseaseName };
+    const msgData = { value: diseaseData.oid, name: diseaseData.name };
     const disease = await messageMaps.toMessageResponse(msgData);
     return { disease, err: null };
 
@@ -86,7 +83,7 @@ const deleted = async (oid) => {
     const { result, err } = await withTransaction(funcs, connection, diseaseData);
 
     if (err) return { disease: null, err };
-    const msgData = { value: diseaseData.oid, name: diseaseData.diseaseName };
+    const msgData = { value: diseaseData.oid, name: diseaseData.name };
     const disease = await messageMaps.toMessageResponse(msgData);
     return { disease, err: null };
 
@@ -115,24 +112,24 @@ const findById = async (oid) => {
     if (err) return { disease: {}, err };
     if (!result) return { disease: null, err: { httpStatus: 404 } };
 
-    const disease = await mappings.toDiseasesResponse(result);
+    const disease = await mappings.toDiseaseResponse(result);
     return { disease, err: null };
   } catch (err) {
     return { disease: [], err: { httpStatus: 500 } };
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await diseasesRepository.findCountByCriteria(condition, connection);
     if (errCount) return { diseases: [], count: 0, errCount };
 
-    const { diseases, err } = await diseasesRepository.findByCriteria(condition, page, pageSize, connection);
+    const { diseases, err } = await diseasesRepository.findByCriteria(condition, options.pageIndex, options.pageSize,connection);
     if (err) return { diseases: [], count: 0, errCount };
 
-    const diseaseResponses = await mappings.toDiseasesResponses(diseases);
+    const diseaseResponses = await mappings.toDiseaseResponses(diseases);
     return { diseases: diseaseResponses, count, err: err };
   } catch (err) {
     return { diseases: [], count: 0, err: { httpStatus: 500 } };

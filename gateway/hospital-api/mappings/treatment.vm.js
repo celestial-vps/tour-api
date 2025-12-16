@@ -2,7 +2,7 @@ async function toTreatmentResponse(treatment) {
     return {
         oid: treatment.oid,
         name: treatment.name,
-        description: treatment.description,
+        price: treatment.price,
         createdAt: treatment.createdAt,
         updatedAt: treatment.updatedAt
     };

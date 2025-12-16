@@ -4,6 +4,7 @@ module.exports = {
       CREATE TABLE IF NOT EXISTS treatments (
         oid CHAR(36) NOT NULL PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,
+        price DECIMAL(10,2) DEFAULT 0,
         description TEXT DEFAULT NULL,
         createdBy CHAR(36) DEFAULT NULL,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -3,7 +3,7 @@ const save = async (data, options) => {
     try {
         const query = `
             INSERT INTO treatments (
-                oid, name, description,
+                oid, name, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt
             ) VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
@@ -11,7 +11,7 @@ const save = async (data, options) => {
         const [result] = await connection.execute(query, [
             data.oid,
             data.name,
-            data.description,
+            data.price,
             data.createdBy,
             data.createdAt,
             data.lastModifiedBy,
@@ -31,7 +31,7 @@ const update = async (oid, data, options) => {
         const query = `
             UPDATE treatments SET
                 name = ?,
-                description = ?,
+                price = ?,
                 lastModifiedBy = ?,
                 updatedAt = ?
             WHERE oid = ?;
@@ -39,7 +39,7 @@ const update = async (oid, data, options) => {
 
         const [result] = await connection.execute(query, [
             data.name,
-            data.description,
+            data.price,
             data.lastModifiedBy,
             data.updatedAt,
             oid
@@ -68,7 +68,7 @@ const findAll = async (connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, description,
+                oid, name, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM treatments;
@@ -86,7 +86,7 @@ const findById = async (oid, connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, description,
+                oid, name, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM treatments
@@ -105,7 +105,7 @@ const advanceFilter = async (filterCondition, connection) => {
     try {
         let query = `
             SELECT 
-                oid, name, description,
+                oid, name, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM treatments
@@ -119,10 +119,10 @@ const advanceFilter = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.description) {
-            whereConditions.push("description LIKE ?");
-            queryParams.push(`%${filterCondition.description}%`);
-        }
+        // if (filterCondition.description) {
+        //     whereConditions.push("description LIKE ?");
+        //     queryParams.push(`%${filterCondition.description}%`);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -147,10 +147,10 @@ const findCountByCriteria = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.description) {
-            whereConditions.push("description LIKE ?");
-            queryParams.push(`%${filterCondition.description}%`);
-        }
+        // if (filterCondition.description) {
+        //     whereConditions.push("description LIKE ?");
+        //     queryParams.push(`%${filterCondition.description}%`);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -170,7 +170,7 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
     try {
         let query = `
             SELECT 
-                oid, name, description,
+                oid, name, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM treatments
@@ -184,10 +184,10 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.description) {
-            whereConditions.push("description LIKE ?");
-            queryParams.push(`%${filterCondition.description}%`);
-        }
+        // if (filterCondition.description) {
+        //     whereConditions.push("description LIKE ?");
+        //     queryParams.push(`%${filterCondition.description}%`);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");

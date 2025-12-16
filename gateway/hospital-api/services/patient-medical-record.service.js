@@ -121,13 +121,13 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await medicineRepository.findCountByCriteria(condition, connection);
     if (errCount) return { medicines: [], count: 0, err: errCount };
-    const { result, err } = await medicineRepository.findByCriteria(condition, page, pageSize, connection);
+    const { result, err } = await medicineRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { medicines: [], count: 0, err };
 
     const medicines = await mappings.toMedicineResponses(result);

@@ -139,7 +139,7 @@ router.put(
  * /medication-category/delete/{oid}:
  *   delete:
  *     tags: [Medication Category]
- *     summary: Delete Medication Category
+ *     summary: Delete MedicationCategory
  *     parameters:
  *       - name: oid
  *         in: path
@@ -178,7 +178,7 @@ router.delete(
  * /medication-category:
  *   get:
  *     tags: [Medication Category]
- *     summary: Get All Medication Categorys
+ *     summary: Get All MedicationCategorys
  *     responses:
  *       200:
  *         description: List of MedicationCategorys
@@ -208,7 +208,7 @@ router.get(
 
 /**
  * @openapi
- * /medication-category/q:
+ * /medicationCategory/q:
  *   post:
  *     tags: [Medication Category]
  *     summary: Paginated Medication Categorys

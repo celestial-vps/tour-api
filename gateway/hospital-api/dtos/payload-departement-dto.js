@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { authSchema } = require('./base-dto');
+const { search } = require('../app');
 
 const params = Joi.object({
     oid: Joi.string().uuid().required().example('dept-uuid-123')
@@ -12,8 +13,14 @@ const query = Joi.object({
     sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
 });
 
+const querySearch = Joi.object({ 
+    sortBy: Joi.string().valid('name').optional().default('name'),
+    sortOrder: Joi.string().valid('asc', 'desc').insensitive().default('asc')
+});
+
+
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null, '').example('Cardiology')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({
@@ -24,29 +31,33 @@ const updateDto = Joi.object({
     name: Joi.string().required().example('Cardiology')
 });
 
-const filterDepartmentDto = Joi.object({
+const filterDepartementQueryDto = Joi.object({
+    headers: authSchema,
+    querySearch,
+});
+
+const filterDepartementDto = Joi.object({
     headers: authSchema,
     query,
     body: filterDto
 });
 
-const getDepartmentDto = Joi.object({
+const getDepartementDto = Joi.object({
     headers: authSchema,
     params
 });
 
-const deleteDepartmentDto = Joi.object({
+const deleteDepartementDto = Joi.object({
     headers: authSchema,
     params
 });
 
-const updateDepartmentDto = Joi.object({
+const updateDepartementDto = Joi.object({
     headers: authSchema,
     params,
     body: updateDto
-});
-
-const createDepartmentDto = Joi.object({
+}); 
+const createDepartementDto = Joi.object({
     headers: authSchema,
     body: createDto
 });
@@ -54,6 +65,7 @@ const createDepartmentDto = Joi.object({
  
 const departementResponseDto = Joi.object({
     oid: Joi.string().required(),
+    departementOid: Joi.string().required().allow(null).example('678e4567-e89b-12d3-a456-426614174abc'),
     name: Joi.string().optional().allow(null, '').example('Cardiology'),
     createdBy: Joi.string().required(),
     updatedAt: Joi.date().iso().required(),
@@ -61,11 +73,11 @@ const departementResponseDto = Joi.object({
 
 
 module.exports = {
-    createDepartmentDto,
-    updateDepartmentDto,
-    deleteDepartmentDto,
-    filterDepartmentDto,
-    getDepartmentDto,
+    createDepartementDto, 
+    updateDepartementDto,
+    deleteDepartementDto,
+    filterDepartementDto,filterDepartementQueryDto,
+    getDepartementDto,
     departementResponseDto,
     createDto, updateDto, filterDto, params
 };

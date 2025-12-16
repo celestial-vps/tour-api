@@ -209,14 +209,14 @@ const findById = async (oid) => {
 
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await userRoleRepository.findCountByCriteria(condition, connection);
     if (errCount) {
       return { userRoles: [], count: 0, errCount }
     }
-    const { userRoles, err } = await userRoleRepository.findByCriteria(condition, page, pageSize, connection);
+    const { userRoles, err } = await userRoleRepository.findByCriteria(condition,options.pageIndex, options.pageSize, connection);
     if (err) {
       return { userRoles: [], count: 0, errCount }
     }

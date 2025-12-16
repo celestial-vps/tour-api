@@ -1,17 +1,17 @@
 const express = require("express");
 const { roleGuard } = require("../middleware/role-guard");
 const { validateRequest } = require("../misc/validation");
-const diseasesController = require("../controllers/diseases.controller");
+const diseaseController = require("../controllers/disease.controller");
 const j2s = require("joi-to-swagger");
 const Joi = require("joi");
 
 // Payload DTO
 const {
-  createDiseasesDto,
-  updateDiseasesDto,
-  deleteDiseasesDto,
-  getDiseasesDto, filterDiseasesDto, diseasesResponseDto, createDto, updateDto, filterDto, params
-} = require("../dtos/payload-diseases-dto");
+  createDiseaseDto,
+  updateDiseaseDto,
+  deleteDiseaseDto,
+  getDiseaseDto, filterDiseaseDto, diseaseResponseDto, createDto, updateDto, filterDto, params
+} = require("../dtos/payload-disease-dto");
  
 // Response DTO
 const { successResponse, errorResponse } = require("../dtos/response-dto");
@@ -20,54 +20,54 @@ const { successResponse, errorResponse } = require("../dtos/response-dto");
 const { messageDto } = require("../dtos/message-dto");
 
 // ---- Convert Joi to Swagger ----
-const { swagger: CreateDiseasesPayloadSchema } = j2s(createDto);
-const { swagger: UpdateDiseasesPayloadSchema } = j2s(updateDto);
-const { swagger: DeleteDiseasesPayloadSchema } = j2s(params);
-const { swagger: FilterDiseasesPayloadSchema } = j2s(filterDto);
-const { swagger: DiseasesSuccessSchema } = j2s(successResponse(diseasesResponseDto));
-const { swagger: DiseasesListSuccessSchema } = j2s(
-  successResponse(Joi.array().items(diseasesResponseDto))
+const { swagger: CreateDiseasePayloadSchema } = j2s(createDto);
+const { swagger: UpdateDiseasePayloadSchema } = j2s(updateDto);
+const { swagger: DeleteDiseasePayloadSchema } = j2s(params);
+const { swagger: FilterDiseasePayloadSchema } = j2s(filterDto);
+const { swagger: DiseaseSuccessSchema } = j2s(successResponse(diseaseResponseDto));
+const { swagger: DiseaseListSuccessSchema } = j2s(
+  successResponse(Joi.array().items(diseaseResponseDto))
 );
 
 
 // Response Schema (success + error)
 
-const { swagger: DiseasesSuccessCRUDSchema } = j2s(successResponse(messageDto));
+const { swagger: DiseaseSuccessCRUDSchema } = j2s(successResponse(messageDto));
 const { swagger: ErrorSchema } = j2s(errorResponse);
 
 // ---- Register to components (global) ----
 global.swaggerComponents ??= {};
-global.swaggerComponents.CreateDiseasesPayloadDto = CreateDiseasesPayloadSchema;
-global.swaggerComponents.FilterDiseasesPayloadDto = FilterDiseasesPayloadSchema;
-global.swaggerComponents.UpdateDiseasesPayloadDto = UpdateDiseasesPayloadSchema;
-global.swaggerComponents.DeleteDiseasesPayloadDto = DeleteDiseasesPayloadSchema;
-global.swaggerComponents.DiseasesListSuccessResponse = DiseasesListSuccessSchema;
-global.swaggerComponents.DiseasesSuccessResponse = DiseasesSuccessSchema;
-global.swaggerComponents.DiseasesSuccessCRUDResponse = DiseasesSuccessCRUDSchema;
+global.swaggerComponents.CreateDiseasePayloadDto = CreateDiseasePayloadSchema;
+global.swaggerComponents.FilterDiseasePayloadDto = FilterDiseasePayloadSchema;
+global.swaggerComponents.UpdateDiseasePayloadDto = UpdateDiseasePayloadSchema;
+global.swaggerComponents.DeleteDiseasePayloadDto = DeleteDiseasePayloadSchema;
+global.swaggerComponents.DiseaseListSuccessResponse = DiseaseListSuccessSchema;
+global.swaggerComponents.DiseaseSuccessResponse = DiseaseSuccessSchema;
+global.swaggerComponents.DiseaseSuccessCRUDResponse = DiseaseSuccessCRUDSchema;
 global.swaggerComponents.ErrorResponse = ErrorSchema;
 
 const router = express.Router();
 
 /**
  * @openapi
- * /diseases/create:
+ * /disease/create:
  *   post:
  *     tags:
- *       - Diseases
- *     summary: Create Diseases
+ *       - Disease
+ *     summary: Create Disease
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/CreateDiseasesPayloadDto"
+ *             $ref: "#/components/schemas/CreateDiseasePayloadDto"
  *     responses:
  *       201:
  *         description: Created Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesSuccessCRUDResponse"
+ *               $ref: "#/components/schemas/DiseaseSuccessCRUDResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -83,18 +83,18 @@ const router = express.Router();
  */
 router.post(
   "/create",
-  validateRequest(createDiseasesDto),
+  validateRequest(createDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.create
+  diseaseController.create
 );
 
 
 /**
  * @openapi
- * /diseases/{oid}:
+ * /disease/{oid}:
  *   put:
- *     tags: [Diseases]
- *     summary: Update Diseases
+ *     tags: [Disease]
+ *     summary: Update Disease
  *     parameters:
  *       - name: oid
  *         in: path
@@ -106,14 +106,14 @@ router.post(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/UpdateDiseasesPayloadDto"
+ *             $ref: "#/components/schemas/UpdateDiseasePayloadDto"
  *     responses:
  *       200:
- *         description: Diseases Updated Successfully
+ *         description: Disease Updated Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesSuccessCRUDResponse"
+ *               $ref: "#/components/schemas/DiseaseSuccessCRUDResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -129,17 +129,17 @@ router.post(
  */
 router.put(
   "/:oid",
-  validateRequest(updateDiseasesDto),
+  validateRequest(updateDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.update
+  diseaseController.update
 );
 
 /**
  * @openapi
- * /diseases/delete/{oid}:
+ * /disease/delete/{oid}:
  *   delete:
- *     tags: [Diseases]
- *     summary: Delete Diseases
+ *     tags: [Disease]
+ *     summary: Delete Disease
  *     parameters:
  *       - name: oid
  *         in: path
@@ -148,11 +148,11 @@ router.put(
  *           type: string
  *     responses:
  *       200:
- *         description: Diseases Deleted Successfully
+ *         description: Disease Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesSuccessCRUDResponse"
+ *               $ref: "#/components/schemas/DiseaseSuccessCRUDResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -168,24 +168,24 @@ router.put(
  */
 router.delete(
   "/delete/:oid",
-  validateRequest(deleteDiseasesDto),
+  validateRequest(deleteDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.remove
+  diseaseController.remove
 );
 
 /**
  * @openapi
- * /diseases:
+ * /disease:
  *   get:
- *     tags: [Diseases]
- *     summary: Get All Diseasess
+ *     tags: [Disease]
+ *     summary: Get All Diseases
  *     responses:
  *       200:
- *         description: List of Diseasess
+ *         description: List of Diseases
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesListSuccessResponse"
+ *               $ref: "#/components/schemas/DiseaseListSuccessResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -201,30 +201,30 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterDiseasesDto),
+  validateRequest(filterDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.findAll
+  diseaseController.findAll
 );
 
 /**
  * @openapi
- * /diseases/q:
+ * /disease/q:
  *   post:
- *     tags: [Diseases]
- *     summary: Paginated Diseasess
+ *     tags: [Disease]
+ *     summary: Paginated Diseases
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/FilterDiseasesPayloadDto"
+ *             $ref: "#/components/schemas/FilterDiseasePayloadDto"
  *     responses:
  *       200:
- *         description: Paginated Diseasess List
+ *         description: Paginated Diseases List
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesListSuccessResponse"
+ *               $ref: "#/components/schemas/DiseaseListSuccessResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -240,17 +240,17 @@ router.get(
  */
 router.post(
   "/q",
-  validateRequest(filterDiseasesDto),
+  validateRequest(filterDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.find
+  diseaseController.find
 );
 
 /**
  * @openapi
- * /diseases/{oid}:
+ * /disease/{oid}:
  *   get:
- *     tags: [Diseases]
- *     summary: Get Diseases By ID
+ *     tags: [Disease]
+ *     summary: Get Disease By ID
  *     parameters:
  *       - name: oid
  *         in: path
@@ -259,11 +259,11 @@ router.post(
  *           type: string
  *     responses:
  *       200:
- *         description: Diseases Detail
+ *         description: Disease Detail
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/DiseasesSuccessResponse"
+ *               $ref: "#/components/schemas/DiseaseSuccessResponse"
  *       400:
  *         description: Bad Request
  *         content:
@@ -279,9 +279,9 @@ router.post(
  */
 router.get(
   "/:oid",
-  validateRequest(getDiseasesDto),
+  validateRequest(getDiseaseDto),
   roleGuard("Admin"),
-  diseasesController.findById
+  diseaseController.findById
 );
 
 

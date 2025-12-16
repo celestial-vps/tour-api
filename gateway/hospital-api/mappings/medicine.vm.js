@@ -1,7 +1,7 @@
 async function toMedicineResponse(medicine) {
-    return {
+    const response = {
         oid: medicine.oid,
-        medicationOid: medicine.medicationOid,
+        categoryOid : medicine.categoryOid ,
         name: medicine.name,
         dosage: medicine.dosage,
         unit: medicine.unit,
@@ -11,6 +11,13 @@ async function toMedicineResponse(medicine) {
         lastModifiedBy: medicine.lastModifiedBy,
         updatedAt: medicine.updatedAt
     };
+    if (medicine.categoryOid ) {
+        response.category = {
+            oid: medicine.categoryOid ,
+            categoryName: medicine.categoryName
+        };
+    }
+    return response;
 }
 
 async function toMedicineResponses(medicines) {

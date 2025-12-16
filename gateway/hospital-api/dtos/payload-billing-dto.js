@@ -13,7 +13,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    status: Joi.string().valid('Pending', 'Paid', 'Cancelled').optional().example('Pending')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({

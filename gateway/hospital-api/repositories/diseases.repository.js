@@ -3,15 +3,14 @@ const save = async (data, options) => {
     try {
         const query = `
             INSERT INTO diseases (
-                oid, name, description,
+                oid, name,  
                 createdBy, createdAt, lastModifiedBy, updatedAt
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?)
         `;
 
         const [result] = await connection.execute(query, [
             data.oid,
-            data.name,
-            data.description,
+            data.name, 
             data.createdBy,
             data.createdAt,
             data.lastModifiedBy,
@@ -30,16 +29,14 @@ const update = async (oid, data, options) => {
     try {
         const query = `
             UPDATE diseases SET
-                name = ?,
-                description = ?,
+                name = ?, 
                 lastModifiedBy = ?,
                 updatedAt = ?
             WHERE oid = ?;
         `;
 
         const [result] = await connection.execute(query, [
-            data.name,
-            data.description,
+            data.name, 
             data.lastModifiedBy,
             data.updatedAt,
             oid
@@ -179,15 +176,15 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.name) {
+        if (filterCondition.search) {
             whereConditions.push("name LIKE ?");
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.description) {
-            whereConditions.push("description LIKE ?");
-            queryParams.push(`%${filterCondition.description}%`);
-        }
+        // if (filterCondition.description) {
+        //     whereConditions.push("description LIKE ?");
+        //     queryParams.push(`%${filterCondition.description}%`);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");

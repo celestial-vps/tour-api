@@ -17,9 +17,7 @@ const query = Joi.object({
 
 // Body schemas
 const filterDto = Joi.object({
-    search: Joi.string().optional().allow(null, '').example('BCA'),
-    bankCode: Joi.string().optional().allow(null, '').example('BCA001'),
-    bankName: Joi.string().optional().allow(null, '').example('Bank Central Asia')
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({

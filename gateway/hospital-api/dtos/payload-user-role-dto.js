@@ -14,7 +14,7 @@ const query = Joi.object({
 
 // Filter (Body)
 const filterDto = Joi.object({
-    roleName: Joi.string().allow(null, '').required().example('Administrator'),
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 // Page DTO (Body)

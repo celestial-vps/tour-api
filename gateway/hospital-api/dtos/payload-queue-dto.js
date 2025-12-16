@@ -22,9 +22,7 @@ const query = Joi.object({
 // Filter DTO
 // --------------------
 const filterDto = Joi.object({
-  patientOid: Joi.string().uuid({ version: 'uuidv4' }).optional().example('patient-uuid-123'),
-  doctorOid: Joi.string().uuid({ version: 'uuidv4' }).optional().example('doctor-uuid-123'),
-  status: Joi.string().valid('Scheduled', 'Completed', 'Cancelled').optional().example('Scheduled')
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 // --------------------

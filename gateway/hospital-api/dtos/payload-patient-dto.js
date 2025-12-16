@@ -13,8 +13,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    fullName: Joi.string().optional().allow(null, '').example('John Doe'),
-    gender: Joi.string().valid('Male', 'Female', 'Other').optional().example('Male')
+     search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({

@@ -29,10 +29,7 @@ const query = Joi.object({
 // FILTER DTO (body for POST /q)
 // ----------------------------------------------------
 const filterDto = Joi.object({
-    patientOid: Joi.string().uuid().optional().example('patient-uuid-123'),
-    doctorOid: Joi.string().uuid().optional().example('doctor-uuid-123'),
-    diagnosis: Joi.string().optional().example('Flu'),
-    search: Joi.string().optional().example('fever')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 // ----------------------------------------------------

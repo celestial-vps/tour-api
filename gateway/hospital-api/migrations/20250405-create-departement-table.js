@@ -1,7 +1,7 @@
 module.exports = {
   up: async (pool) => {
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS departments (
+      CREATE TABLE IF NOT EXISTS departements (
         oid CHAR(36) NOT NULL PRIMARY KEY,
         name VARCHAR(100) NOT NULL UNIQUE,
         createdBy CHAR(36) DEFAULT NULL,
@@ -14,6 +14,6 @@ module.exports = {
     `);
   },
   down: async (pool) => {
-    await pool.query(`DROP TABLE IF EXISTS departments;`);
+    await pool.query(`DROP TABLE IF EXISTS departements;`);
   }
 };

@@ -14,10 +14,8 @@ const create = async (dto, userOid) => {
     await connection.beginTransaction();
 
     const data = {
-      oid: uuidv7(),
-      categoryCode: dto.categoryCode,
-      categoryName: dto.categoryName,
-      description: dto.description ?? null,
+      oid: uuidv7(), 
+      name: dto.name, 
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -29,7 +27,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { category: null, err };
-    const msgData = { value: data.oid, name: data.categoryName };
+    const msgData = { value: data.oid, name: data.name };
     const category = await messageMaps.toMessageResponse(msgData);
     return { category, err: null };
 
@@ -48,10 +46,8 @@ const update = async (oid, dto, userOid) => {
     const { result: findResult, err } = await medicationCategoryRepository.findById(oid, connection);
     if (err) return { category: null, err };
     if (!findResult) return { category: null, err: { httpStatus: 404 } };
-
-    findResult.categoryCode = dto.categoryCode ?? findResult.categoryCode;
-    findResult.categoryName = dto.categoryName ?? findResult.categoryName;
-    findResult.description = dto.description ?? findResult.description;
+ 
+    findResult.name = dto.name ?? findResult.name; 
     findResult.lastModifiedBy = userOid;
     findResult.updatedAt = now;
 
@@ -60,7 +56,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err: errUpdate } = await withTransaction(funcs, connection, findResult);
 
     if (errUpdate) return { category: null, err: errUpdate };
-    const msgData = { value: result.oid, name: result.categoryName };
+    const msgData = { value: result.oid, name: result.name };
     const category = await messageMaps.toMessageResponse(msgData);
     return { category, err: null };
 
@@ -85,7 +81,7 @@ const deleted = async (oid) => {
     const { result, err: errDelete } = await withTransaction(funcs, connection, findResult);
 
     if (errDelete) return { category: null, err: errDelete };
-    const msgData = { value: findResult.oid, name: findResult.categoryName };
+    const msgData = { value: findResult.oid, name: findResult.name };
     const category = await messageMaps.toMessageResponse(msgData);
     return { category, err: null };
 
@@ -121,13 +117,13 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await medicationCategoryRepository.findCountByCriteria(condition, connection);
     if (errCount) return { categories: [], count: 0, err: errCount };
-    const { result, err } = await medicationCategoryRepository.findByCriteria(condition, page, pageSize, connection);
+    const { medicationCategories:result, err } = await medicationCategoryRepository.findByCriteria(condition,options.pageIndex, options.pageSize,connection);
     if (err) return { categories: [], count: 0, err };
 
     const categories = await mappings.toMedicationCategoryResponses(result);

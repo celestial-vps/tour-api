@@ -7,7 +7,7 @@ const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail
 
 const jwtMaker = new JwtMaker();
 
-const create = async (req, res) => { 
+const create = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;
     const { bank, error } = await bankService.create(req.body, userJwt.userOid);
@@ -80,6 +80,8 @@ const findAll = async (req, res) => {
 };
 
 const find = async (req, res) => {
+  console.log('req.body =', req.body);
+  console.log('req.query =', req.query);
   try {
     const filters = pick(req.body, ['bankCode', 'bankName', 'search']);
 

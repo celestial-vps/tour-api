@@ -16,9 +16,7 @@ const query = Joi.object({
 
 // Filter Bed DTO untuk pencarian/pagination
 const filterDto = Joi.object({
-    roomOid: Joi.string().uuid().optional().example('room-uuid-123'),
-    status: Joi.string().valid('Available', 'Occupied', 'Maintenance').optional().example('Available'),
-    bedNumber: Joi.string().optional().example('B-101')
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 // DTO untuk create Bed

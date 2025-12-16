@@ -5,6 +5,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 5103;
 const BASE_PATH = process.env.BASE_PATH || '/api/v1';
 
+
 // Define the Swagger configuration
 const swaggerDefinition = {
   openapi: '3.0.0',
@@ -15,7 +16,14 @@ const swaggerDefinition = {
   },
 
   components: {
-    schemas: global.swaggerComponents || {}
+    schemas: global.swaggerComponents || {},
+    securitySchemes: {
+    BearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },
+  },
   },
   servers: [
     {

@@ -16,15 +16,12 @@ const query = Joi.object({
 
 // Body schemas
 const filterDto = Joi.object({
-    search: Joi.string().optional().allow(null, '').example('Paracetamol'),
-    name: Joi.string().optional().allow(null, '').example('Paracetamol'),
-    category: Joi.string().optional().allow(null, '').example('Painkiller')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({
     name: Joi.string().required().example('Paracetamol'),
-    category: Joi.string().optional().example('Painkiller'),
-    description: Joi.string().optional().example('Used to reduce fever and pain'),
+    categoryOid: Joi.string().optional().example('123e4567-e89b-12d3-a456-426614174000'), 
     stock: Joi.number().integer().min(0).optional().default(0),
     price: Joi.number().precision(2).min(0).optional().default(0),
     createdBy: Joi.string().uuid().optional()
@@ -32,7 +29,7 @@ const createDto = Joi.object({
 
 const updateDto = Joi.object({
     name: Joi.string().required().example('Paracetamol'),
-    category: Joi.string().optional().example('Painkiller'),
+    categoryOid: Joi.string().optional().example('123e4567-e89b-12d3-a456-426614174000'),
     description: Joi.string().optional().example('Used to reduce fever and pain'),
     stock: Joi.number().integer().min(0).optional(),
     price: Joi.number().precision(2).min(0).optional(),

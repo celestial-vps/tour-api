@@ -3,16 +3,15 @@ const save = async (data, options) => {
     try {
         const query = `
             INSERT INTO medications (
-                oid, name, categoryOid, description,
+                oid, name, categoryOid,
                 createdBy, createdAt, lastModifiedBy, updatedAt
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
 
         const [result] = await connection.execute(query, [
             data.oid,
             data.name,
             data.categoryOid,
-            data.description,
             data.createdBy,
             data.createdAt,
             data.lastModifiedBy,
@@ -32,8 +31,7 @@ const update = async (oid, data, options) => {
         const query = `
             UPDATE medications SET
                 name = ?,
-                categoryOid = ?,
-                description = ?,
+                categoryOid = ?, 
                 lastModifiedBy = ?,
                 updatedAt = ?
             WHERE oid = ?;
@@ -41,8 +39,7 @@ const update = async (oid, data, options) => {
 
         const [result] = await connection.execute(query, [
             data.name,
-            data.categoryOid,
-            data.description,
+            data.categoryOid, 
             data.lastModifiedBy,
             data.updatedAt,
             oid
@@ -92,7 +89,7 @@ const findById = async (oid, connection) => {
                 oid, name, categoryOid, description,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM medications
+            FROM medications 
             WHERE oid = ?;
         `;
 
@@ -122,10 +119,10 @@ const advanceFilter = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.categoryOid) {
-            whereConditions.push("categoryOid = ?");
-            queryParams.push(filterCondition.categoryOid);
-        }
+        // if (filterCondition.categoryOid) {
+        //     whereConditions.push("categoryOid = ?");
+        //     queryParams.push(filterCondition.categoryOid);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -150,10 +147,10 @@ const findCountByCriteria = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.categoryOid) {
-            whereConditions.push("categoryOid = ?");
-            queryParams.push(filterCondition.categoryOid);
-        }
+        // if (filterCondition.categoryOid) {
+        //     whereConditions.push("categoryOid = ?");
+        //     queryParams.push(filterCondition.categoryOid);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -173,24 +170,24 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
     try {
         let query = `
             SELECT 
-                oid, name, categoryOid, description,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM medications
+                m.oid, m.name, m.categoryOid,mc.name as categoryName, m.description,
+                m.createdBy, m.createdAt, m.lastModifiedBy, m.updatedAt,
+                m.deletedBy, m.deletedAt
+            FROM medications m  left join medication_categories mc on m.categoryOid=mc.oid
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
         if (filterCondition.name) {
-            whereConditions.push("name LIKE ?");
+            whereConditions.push("m.name LIKE ?");
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.categoryOid) {
-            whereConditions.push("categoryOid = ?");
-            queryParams.push(filterCondition.categoryOid);
-        }
+        // if (filterCondition.categoryOid) {
+        //     whereConditions.push("categoryOid = ?");
+        //     queryParams.push(filterCondition.categoryOid);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");

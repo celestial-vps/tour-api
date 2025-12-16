@@ -7,10 +7,10 @@ const Joi = require("joi");
 
 // Payload DTO
 const {
-  createBMedicineDto,
-  updateBMedicineDto,
-  deleteBMedicineDto,
-  getBMedicineDto, filterBMedicineDto, medicineResponseDto, createDto, updateDto, filterDto, params
+  createMedicineDto,
+  updateMedicineDto,
+  deleteMedicineDto,
+  getMedicineDto, filterMedicineDto, medicineResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-medicine-dto");
  
 // Response DTO
@@ -53,8 +53,8 @@ const router = express.Router();
  * /medicine/create:
  *   post:
  *     tags:
- *       - BMedicine
- *     summary: Create BMedicine
+ *       - Medicine
+ *     summary: Create Medicine
  *     requestBody:
  *       required: true
  *       content:
@@ -83,7 +83,7 @@ const router = express.Router();
  */
 router.post(
   "/create",
-  validateRequest(createBMedicineDto),
+  validateRequest(createMedicineDto),
   roleGuard("Admin"),
   medicineController.create
 );
@@ -93,8 +93,8 @@ router.post(
  * @openapi
  * /medicine/{oid}:
  *   put:
- *     tags: [BMedicine]
- *     summary: Update BMedicine
+ *     tags: [Medicine]
+ *     summary: Update Medicine
  *     parameters:
  *       - name: oid
  *         in: path
@@ -109,7 +109,7 @@ router.post(
  *             $ref: "#/components/schemas/UpdateBMedicinePayloadDto"
  *     responses:
  *       200:
- *         description: BMedicine Updated Successfully
+ *         description: Medicine Updated Successfully
  *         content:
  *           application/json:
  *             schema:
@@ -129,7 +129,7 @@ router.post(
  */
 router.put(
   "/:oid",
-  validateRequest(updateBMedicineDto),
+  validateRequest(updateMedicineDto),
   roleGuard("Admin"),
   medicineController.update
 );
@@ -138,8 +138,8 @@ router.put(
  * @openapi
  * /medicine/delete/{oid}:
  *   delete:
- *     tags: [BMedicine]
- *     summary: Delete BMedicine
+ *     tags: [Medicine]
+ *     summary: Delete Medicine
  *     parameters:
  *       - name: oid
  *         in: path
@@ -148,7 +148,7 @@ router.put(
  *           type: string
  *     responses:
  *       200:
- *         description: BMedicine Deleted Successfully
+ *         description: Medicine Deleted Successfully
  *         content:
  *           application/json:
  *             schema:
@@ -168,7 +168,7 @@ router.put(
  */
 router.delete(
   "/delete/:oid",
-  validateRequest(deleteBMedicineDto),
+  validateRequest(deleteMedicineDto),
   roleGuard("Admin"),
   medicineController.remove
 );
@@ -177,7 +177,7 @@ router.delete(
  * @openapi
  * /medicine:
  *   get:
- *     tags: [BMedicine]
+ *     tags: [Medicine]
  *     summary: Get All BMedicines
  *     responses:
  *       200:
@@ -201,7 +201,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterBMedicineDto),
+  validateRequest(filterMedicineDto),
   roleGuard("Admin"),
   medicineController.findAll
 );
@@ -210,7 +210,7 @@ router.get(
  * @openapi
  * /medicine/q:
  *   post:
- *     tags: [BMedicine]
+ *     tags: [Medicine]
  *     summary: Paginated BMedicines
  *     requestBody:
  *       required: true
@@ -240,7 +240,7 @@ router.get(
  */
 router.post(
   "/q",
-  validateRequest(filterBMedicineDto),
+  validateRequest(filterMedicineDto),
   roleGuard("Admin"),
   medicineController.find
 );
@@ -249,8 +249,8 @@ router.post(
  * @openapi
  * /medicine/{oid}:
  *   get:
- *     tags: [BMedicine]
- *     summary: Get BMedicine By ID
+ *     tags: [Medicine]
+ *     summary: Get Medicine By ID
  *     parameters:
  *       - name: oid
  *         in: path
@@ -259,7 +259,7 @@ router.post(
  *           type: string
  *     responses:
  *       200:
- *         description: BMedicine Detail
+ *         description: Medicine Detail
  *         content:
  *           application/json:
  *             schema:
@@ -279,7 +279,7 @@ router.post(
  */
 router.get(
   "/:oid",
-  validateRequest(getBMedicineDto),
+  validateRequest(getMedicineDto),
   roleGuard("Admin"),
   medicineController.findById
 );

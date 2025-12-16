@@ -122,14 +122,14 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await billingRepository.findCountByCriteria(condition, connection);
     if (errCount) return { billings: [], count: 0, errCount };
 
-    const { billings, err } = await billingRepository.findByCriteria(condition, page, pageSize, connection);
+    const { billings, err } = await billingRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { billings: [], count: 0, errCount };
 
     const billingResponses = await mappings.toBillingResponses(billings);

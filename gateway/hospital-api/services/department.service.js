@@ -15,10 +15,8 @@ const create = async (dto, userOid) => {
     await connection.beginTransaction();
 
     const data = {
-      oid: uuidv7(),
-      departmentCode: dto.departmentCode,
-      departmentName: dto.departmentName,
-      description: dto.description ?? null,
+      oid: uuidv7(), 
+      name: dto.name, 
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -30,7 +28,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { department: null, err };
-    const msgData = { value: data.oid, name: data.departmentName };
+    const msgData = { value: data.oid, name: data.name };
     const department = await messageMaps.toMessageResponse(msgData);
     return { department, err: null };
 
@@ -51,9 +49,7 @@ const update = async (oid, dto, userOid) => {
     if (errDept) return { department: {}, err: errDept };
     if (!deptData) return { department: {}, err: { httpStatus: 404 } };
 
-    deptData.departmentCode = dto.departmentCode ?? deptData.departmentCode;
-    deptData.departmentName = dto.departmentName ?? deptData.departmentName;
-    deptData.description = dto.description ?? deptData.description;
+    deptData.name = dto.name ?? deptData.name;
     deptData.lastModifiedBy = userOid ?? deptData.lastModifiedBy;
     deptData.updatedAt = now;
 
@@ -62,7 +58,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, deptData);
 
     if (err) return { department: result, err };
-    const msgData = { value: deptData.oid, name: deptData.departmentName };
+    const msgData = { value: deptData.oid, name: deptData.name };
     const department = await messageMaps.toMessageResponse(msgData);
     return { department, err: null };
 
@@ -86,7 +82,7 @@ const deleted = async (oid) => {
     const { result, err } = await withTransaction(funcs, connection, deptData);
 
     if (err) return { department: null, err };
-    const msgData = { value: deptData.oid, name: deptData.departmentName };
+    const msgData = { value: deptData.oid, name: deptData.name };
     const department = await messageMaps.toMessageResponse(msgData);
     return { department, err: null };
 
@@ -122,14 +118,14 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await departmentRepository.findCountByCriteria(condition, connection);
     if (errCount) return { departments: [], count: 0, errCount };
 
-    const { departments, err } = await departmentRepository.findByCriteria(condition, page, pageSize, connection);
+    const { departments, err } = await departmentRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { departments: [], count: 0, errCount };
 
     const departmentResponses = await mappings.toDepartmentResponses(departments);

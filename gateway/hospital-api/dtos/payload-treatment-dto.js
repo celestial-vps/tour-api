@@ -15,9 +15,9 @@ const query = Joi.object({
     pageIndex: Joi.number().integer().min(1).default(1).example(1),
     pageSize: Joi.number().integer().min(1).max(100).default(10).example(10),
     sortBy: Joi.string()
-        .valid('treatmentName', 'departmentOid')
-        .default('treatmentName')
-        .example('treatmentName'),
+        .valid('name')
+        .default('name')
+        .example('name'),
     sortOrder: Joi.string()
         .valid('asc', 'desc')
         .insensitive()
@@ -29,18 +29,14 @@ const query = Joi.object({
 // FILTER DTO (body for POST /q)
 // ----------------------------------------------------
 const filterDto = Joi.object({
-    treatmentName: Joi.string().optional().example('Physiotherapy'),
-    departmentOid: Joi.string().uuid().optional().example('dept-uuid-123'),
-    search: Joi.string().optional().example('therapy')
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 // ----------------------------------------------------
 // CREATE DTO
 // ----------------------------------------------------
 const createDto = Joi.object({
-    treatmentName: Joi.string().required().example('Physiotherapy'),
-    departmentOid: Joi.string().uuid().required().example('dept-uuid-123'),
-    description: Joi.string().optional().allow(null).example('Rehabilitation therapy for patients'),
+    name: Joi.string().required().example('Physiotherapy'),  
     price: Joi.number().required().example(150000)
 });
 
@@ -48,9 +44,7 @@ const createDto = Joi.object({
 // UPDATE DTO
 // ----------------------------------------------------
 const updateDto = Joi.object({
-    treatmentName: Joi.string().optional().example('Advanced Physiotherapy'),
-    departmentOid: Joi.string().uuid().optional().example('dept-uuid-456'),
-    description: Joi.string().optional().allow(null).example('Updated description for therapy'),
+    name: Joi.string().optional().example('Advanced Physiotherapy'),  
     price: Joi.number().optional().example(175000)
 });
 
@@ -92,9 +86,7 @@ const createTreatmentDto = Joi.object({
 
 const treatmentResponseDto = Joi.object({
     oid: Joi.string().required(),
-    treatmentName: Joi.string().required().example('Physiotherapy'),
-    departmentOid: Joi.string().uuid().required().example('dept-uuid-123'),
-    description: Joi.string().optional().allow(null).example('Rehabilitation therapy for patients'),
+    name: Joi.string().required().example('Physiotherapy'),   
     price: Joi.number().required().example(150000),
     createdBy: Joi.string().required(),
     updatedAt: Joi.date().iso().required(),

@@ -10,7 +10,7 @@ const {
   createDepartementDto,
   updateDepartementDto,
   deleteDepartementDto,
-  getDepartementDto, filterDepartementDto, departementResponseDto, createDto, updateDto, filterDto, params
+  getDepartementDto, filterDepartementDto, filterDepartementQueryDto,departementResponseDto, createDto, updateDto, filterDto, params
 } = require("../dtos/payload-departement-dto");
  
 // Response DTO
@@ -201,7 +201,7 @@ router.delete(
  */
 router.get(
   "/",
-  validateRequest(filterDepartementDto),
+  validateRequest(filterDepartementQueryDto),
   roleGuard("Admin"),
   departementController.findAll
 );

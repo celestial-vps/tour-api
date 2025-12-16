@@ -102,6 +102,10 @@ const findAll = async (req, res) => {
  * Paginated Search
  */
 const find = async (req, res) => {
+    console.log('--- Incoming request ---');
+    console.log('req.query =', req.query);
+    console.log('req.body  =', req.body);
+    
   try {
     const filters = pick(req.body, ['name', 'search']);
 

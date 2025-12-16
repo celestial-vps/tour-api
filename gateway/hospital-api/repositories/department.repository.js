@@ -2,7 +2,7 @@ const save = async (data, options) => {
     const connection = options.transaction;
     try {
         const query = `
-            INSERT INTO departments (
+            INSERT INTO departements (
                 oid, name,
                 createdBy, createdAt, lastModifiedBy, updatedAt
             ) VALUES (?, ?, ?, ?, ?, ?)
@@ -28,7 +28,7 @@ const update = async (oid, data, options) => {
     const connection = options.transaction;
     try {
         const query = `
-            UPDATE departments SET
+            UPDATE departements SET
                 name = ?,
                 lastModifiedBy = ?,
                 updatedAt = ?
@@ -52,7 +52,7 @@ const update = async (oid, data, options) => {
 const deleted = async (oid, options) => {
     const connection = options.transaction;
     try {
-        const query = `DELETE FROM departments WHERE oid = ?`;
+        const query = `DELETE FROM departements WHERE oid = ?`;
         const [result] = await connection.execute(query, [oid]);
         return { result, err: null };
     } catch (err) {
@@ -68,7 +68,7 @@ const findAll = async (connection) => {
                 oid, name,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM departments;
+            FROM departements;
         `;
 
         const [result] = await connection.execute(query);
@@ -86,7 +86,7 @@ const findById = async (oid, connection) => {
                 oid, name,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM departments
+            FROM departements
             WHERE oid = ?;
         `;
 
@@ -105,7 +105,7 @@ const advanceFilter = async (filterCondition, connection) => {
                 oid, name,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM departments
+            FROM departements
         `;
 
         const queryParams = [];
@@ -121,22 +121,22 @@ const advanceFilter = async (filterCondition, connection) => {
         }
 
         const [rows] = await connection.execute(query, queryParams);
-        return { departments: rows, err: null };
+        return { departements: rows, err: null };
     } catch (error) {
-        return { departments: [], err: { httpStatus: 500 } };
+        return { departements: [], err: { httpStatus: 500 } };
     }
 };
 
 
 const findCountByCriteria = async (filterCondition, connection) => {
     try {
-        let query = `SELECT COUNT(oid) AS count FROM departments`;
+        let query = `SELECT COUNT(oid) AS count FROM departements`;
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.name) {
+        if (filterCondition.search) {
             whereConditions.push("name LIKE ?");
-            queryParams.push(`%${filterCondition.name}%`);
+            queryParams.push(`%${filterCondition.search }%`);
         }
 
         if (whereConditions.length > 0) {
@@ -160,15 +160,15 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
                 oid, name,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM departments
+            FROM departements
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.name) {
+        if (filterCondition.search) {
             whereConditions.push("name LIKE ?");
-            queryParams.push(`%${filterCondition.name}%`);
+            queryParams.push(`%${filterCondition.search}%`);
         }
 
         if (whereConditions.length > 0) {
@@ -179,9 +179,9 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
         query += " LIMIT " + offset + ", " + pageSize;
 
         const [rows] = await connection.execute(query, queryParams);
-        return { departments: rows, err: null };
+        return { departements: rows, err: null };
     } catch (error) {
-        return { departments: [], err: { httpStatus: 500 } };
+        return { departements: [], err: { httpStatus: 500 } };
     }
 };
 

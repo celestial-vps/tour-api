@@ -74,7 +74,7 @@ const findAll = async (connection) => {
                 oid, roomOid, bedNumber, status,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
-            FROM beds;
+            FROM beds b left join rooms r on b.roomoid = b.oid ;
         `;
 
         const [result] = await connection.execute(query);
@@ -108,19 +108,19 @@ const advanceFilter = async (filterCondition, connection) => {
     try {
         let query = `
             SELECT 
-                oid, roomOid, bedNumber, status,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM beds
+                b.oid, b.roomOid,r.name, b.bedNumber, b.status,
+                b.createdBy, b.createdAt, b.lastModifiedBy, b.updatedAt,
+                b.deletedBy, b.deletedAt
+            FROM beds b left join rooms r on b.roomoid = b.oid
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.roomOid) {
-            whereConditions.push("roomOid = ?");
-            queryParams.push(filterCondition.roomOid);
-        }
+        // if (filterCondition.roomOid) {
+        //     whereConditions.push("roomOid = ?");
+        //     queryParams.push(filterCondition.roomOid);
+        // }
 
         if (filterCondition.status) {
             whereConditions.push("status = ?");
@@ -182,20 +182,20 @@ const findCountByCriteria = async (filterCondition, connection) => {
 const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connection) => {
     try {
         let query = `
-            SELECT 
-                oid, roomOid, bedNumber, status,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM beds
+             SELECT 
+                b.oid, b.roomOid,r.name, b.bedNumber, b.status,
+                b.createdBy, b.createdAt, b.lastModifiedBy, b.updatedAt,
+                b.deletedBy, b.deletedAt
+            FROM beds b left join rooms r on b.roomoid = r.oid
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.roomOid) {
-            whereConditions.push("roomOid = ?");
-            queryParams.push(filterCondition.roomOid);
-        }
+        // if (filterCondition.roomOid) {
+        //     whereConditions.push("roomOid = ?");
+        //     queryParams.push(filterCondition.roomOid);
+        // }
 
         if (filterCondition.status) {
             whereConditions.push("status = ?");

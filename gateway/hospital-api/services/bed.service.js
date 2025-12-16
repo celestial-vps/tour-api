@@ -16,10 +16,9 @@ const create = async (dto, userOid) => {
 
     const data = {
       oid: uuidv7(),
-      bedCode: dto.bedCode,
-      bedName: dto.bedName,
-      roomOid: dto.roomOid ?? null,
-      description: dto.description ?? null,
+      status: dto.status,
+      bedNumber: dto.bedNumber,
+      roomOid: dto.roomOid ?? null, 
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -35,7 +34,7 @@ const create = async (dto, userOid) => {
 
     if (err) return { bed: null, err };
 
-    const msgData = { value: data.oid, name: data.bedName };
+    const msgData = { value: data.oid, name: data.bedNumber };
     const bed = await messageMaps.toMessageResponse(msgData);
     return { bed, err: null };
 
@@ -56,10 +55,9 @@ const update = async (oid, dto, userOid) => {
     if (errBed) return { bed: {}, err: errBed };
     if (!bedData) return { bed: {}, err: { httpStatus: 404 } };
 
-    bedData.bedCode = dto.bedCode ?? bedData.bedCode;
-    bedData.bedName = dto.bedName ?? bedData.bedName;
-    bedData.roomOid = dto.roomOid ?? bedData.roomOid;
-    bedData.description = dto.description ?? bedData.description;
+    bedData.status = dto.status ?? bedData.status;
+    bedData.bedNumber = dto.bedNumber ?? bedData.bedNumber;
+    bedData.roomOid = dto.roomOid ?? bedData.roomOid; 
     bedData.lastModifiedBy = userOid ?? bedData.lastModifiedBy;
     bedData.updatedAt = now;
 
@@ -71,7 +69,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, bedData);
     if (err) return { bed: result, err };
 
-    const msgData = { value: bedData.oid, name: bedData.bedName };
+    const msgData = { value: bedData.oid, name: bedData.bedNumber };
     const bed = await messageMaps.toMessageResponse(msgData);
     return { bed, err: null };
 
@@ -100,7 +98,7 @@ const deleted = async (oid) => {
     const { result, err } = await withTransaction(funcs, connection, bedData);
     if (err) return { bed: null, err };
 
-    const msgData = { value: bedData.oid, name: bedData.bedName };
+    const msgData = { value: bedData.oid, name: bedData.bedNumber };
     const bed = await messageMaps.toMessageResponse(msgData);
     return { bed, err: null };
 
@@ -136,14 +134,14 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await bedRepository.findCountByCriteria(condition, connection);
     if (errCount) return { beds: [], count: 0, errCount };
 
-    const { beds, err } = await bedRepository.findByCriteria(condition, page, pageSize, connection);
+    const { beds, err } = await bedRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { beds: [], count: 0, errCount };
 
     const bedResponses = await mappings.toBedResponses(beds);

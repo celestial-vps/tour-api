@@ -3,16 +3,15 @@ const save = async (data, options) => {
     try {
         const query = `
             INSERT INTO medicines (
-                oid, name, category, description, stock, price,
+                oid, name, categoryOid,  stock, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const [result] = await connection.execute(query, [
             data.oid,
             data.name,
-            data.category,
-            data.description,
+            data.categoryOid,
             data.stock,
             data.price,
             data.createdBy,
@@ -34,8 +33,7 @@ const update = async (oid, data, options) => {
         const query = `
             UPDATE medicines SET
                 name = ?,
-                category = ?,
-                description = ?,
+                categoryOid = ?, 
                 stock = ?,
                 price = ?,
                 lastModifiedBy = ?,
@@ -45,8 +43,7 @@ const update = async (oid, data, options) => {
 
         const [result] = await connection.execute(query, [
             data.name,
-            data.category,
-            data.description,
+            data.categoryOid, 
             data.stock,
             data.price,
             data.lastModifiedBy,
@@ -77,7 +74,7 @@ const findAll = async (connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, category, description, stock, price,
+                oid, name, categoryOid, description, stock, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM medicines;
@@ -95,7 +92,7 @@ const findById = async (oid, connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, category, description, stock, price,
+                oid, name, categoryOid, description, stock, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM medicines
@@ -114,7 +111,7 @@ const advanceFilter = async (filterCondition, connection) => {
     try {
         let query = `
             SELECT 
-                oid, name, category, description, stock, price,
+                oid, name, categoryOid, description, stock, price,
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM medicines
@@ -128,9 +125,9 @@ const advanceFilter = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.category) {
-            whereConditions.push("category LIKE ?");
-            queryParams.push(`%${filterCondition.category}%`);
+        if (filterCondition.categoryOid) {
+            whereConditions.push("categoryOid LIKE ?");
+            queryParams.push(`%${filterCondition.categoryOid}%`);
         }
 
         if (whereConditions.length > 0) {
@@ -156,9 +153,9 @@ const findCountByCriteria = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.category) {
-            whereConditions.push("category LIKE ?");
-            queryParams.push(`%${filterCondition.category}%`);
+        if (filterCondition.categoryOid) {
+            whereConditions.push("categoryOid LIKE ?");
+            queryParams.push(`%${filterCondition.categoryOid}%`);
         }
 
         if (whereConditions.length > 0) {
@@ -179,24 +176,24 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
     try {
         let query = `
             SELECT 
-                oid, name, category, description, stock, price,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM medicines
+                m.oid, m.name, m.categoryOid,mc.name as categoryName, m.description, m.stock, m.price,
+                m.createdBy, m.createdAt, m.lastModifiedBy, m.updatedAt,
+                m.deletedBy, m.deletedAt
+            FROM medicines m left join medication_categories mc on m.categoryOid=mc.oid
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
         if (filterCondition.name) {
-            whereConditions.push("name LIKE ?");
+            whereConditions.push("m.name LIKE ?");
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.category) {
-            whereConditions.push("category LIKE ?");
-            queryParams.push(`%${filterCondition.category}%`);
-        }
+        // if (filterCondition.categoryOid) {
+        //     whereConditions.push("categoryOid LIKE ?");
+        //     queryParams.push(`%${filterCondition.categoryOid}%`);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");

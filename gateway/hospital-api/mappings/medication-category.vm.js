@@ -1,18 +1,17 @@
-async function toMedicalCategoryResponse(category) {
+async function toMedicationCategoryResponse(category) {
     return {
         oid: category.oid,
-        name: category.name,
-        description: category.description,
+        name: category.name, 
         createdAt: category.createdAt,
         updatedAt: category.updatedAt
     };
 }
 
-async function toMedicalCategoryResponses(categories) {
-    return await Promise.all(categories.map(toMedicalCategoryResponse));
+async function toMedicationCategoryResponses(categories) {
+    return await Promise.all(categories.map(toMedicationCategoryResponse));
 }
 
 module.exports = {
-    toMedicalCategoryResponse,
-    toMedicalCategoryResponses
+    toMedicationCategoryResponse,
+    toMedicationCategoryResponses
 };

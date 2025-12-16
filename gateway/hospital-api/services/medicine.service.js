@@ -15,9 +15,10 @@ const create = async (dto, userOid) => {
 
     const data = {
       oid: uuidv7(),
-      medicineCode: dto.medicineCode,
-      medicineName: dto.medicineName,
-      description: dto.description ?? null,
+      name: dto.name,
+      categoryOid: dto.categoryOid,
+      price: dto.price ?? null,
+      stock: dto.stock ?? null,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -29,7 +30,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { medicine: null, err };
-    const msgData = { value: data.oid, name: data.medicineName };
+    const msgData = { value: data.oid, name: data.categoryOid };
     const medicine = await messageMaps.toMessageResponse(msgData);
     return { medicine, err: null };
 
@@ -49,9 +50,10 @@ const update = async (oid, dto, userOid) => {
     if (err) return { medicine: null, err };
     if (!findResult) return { medicine: null, err: { httpStatus: 404 } };
 
-    findResult.medicineCode = dto.medicineCode ?? findResult.medicineCode;
-    findResult.medicineName = dto.medicineName ?? findResult.medicineName;
-    findResult.description = dto.description ?? findResult.description;
+    findResult.name = dto.name ?? findResult.name;
+    findResult.categoryOid = dto.categoryOid ?? findResult.categoryOid;
+    findResult.price = dto.price ?? findResult.price;
+    findResult.stock = dto.stock ?? findResult.stock;
     findResult.lastModifiedBy = userOid;
     findResult.updatedAt = now;
 
@@ -60,7 +62,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err: errUpdate } = await withTransaction(funcs, connection, findResult);
 
     if (errUpdate) return { medicine: null, err: errUpdate };
-    const msgData = { value: result.oid, name: result.medicineName };
+    const msgData = { value: result.oid, name: result.categoryOid };
     const medicine = await messageMaps.toMessageResponse(msgData);
     return { medicine, err: null };
 
@@ -85,7 +87,7 @@ const deleted = async (oid) => {
     const { result, err: errDelete } = await withTransaction(funcs, connection, findResult);
 
     if (errDelete) return { medicine: null, err: errDelete };
-    const msgData = { value: findResult.oid, name: findResult.medicineName };
+    const msgData = { value: findResult.oid, name: findResult.categoryOid };
     const medicine = await messageMaps.toMessageResponse(msgData);
     return { medicine, err: null };
 
@@ -121,13 +123,13 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await medicineRepository.findCountByCriteria(condition, connection);
     if (errCount) return { medicines: [], count: 0, err: errCount };
-    const { result, err } = await medicineRepository.findByCriteria(condition, page, pageSize, connection);
+    const { medicines:result, err } = await medicineRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { medicines: [], count: 0, err };
 
     const medicines = await mappings.toMedicineResponses(result);

@@ -2,7 +2,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 5103;
+const PORT = process.env.PORT || 5102;
 const BASE_PATH = process.env.BASE_PATH || '/api/v1';
 
 // Define the Swagger configuration

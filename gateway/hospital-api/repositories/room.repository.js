@@ -3,17 +3,15 @@ const save = async (data, options) => {
     try {
         const query = `
             INSERT INTO rooms (
-                oid, name, departmentOid, type, description,
+                oid, name, departementOid,
                 createdBy, createdAt, lastModifiedBy, updatedAt
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
 
         const [result] = await connection.execute(query, [
             data.oid,
             data.name,
-            data.departmentOid,
-            data.type,
-            data.description,
+            data.departementOid,  
             data.createdBy,
             data.createdAt,
             data.lastModifiedBy,
@@ -33,9 +31,7 @@ const update = async (oid, data, options) => {
         const query = `
             UPDATE rooms SET
                 name = ?,
-                departmentOid = ?,
-                type = ?,
-                description = ?,
+                departementOid = ?,  
                 lastModifiedBy = ?,
                 updatedAt = ?
             WHERE oid = ?;
@@ -43,9 +39,7 @@ const update = async (oid, data, options) => {
 
         const [result] = await connection.execute(query, [
             data.name,
-            data.departmentOid,
-            data.type,
-            data.description,
+            data.departementOid, 
             data.lastModifiedBy,
             data.updatedAt,
             oid
@@ -74,7 +68,7 @@ const findAll = async (connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, departmentOid, type, description,
+                oid, name, departementOid, 
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM rooms;
@@ -92,7 +86,7 @@ const findById = async (oid, connection) => {
     try {
         const query = `
             SELECT 
-                oid, name, departmentOid, type, description,
+                oid, name, departementOid,  
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM rooms
@@ -111,7 +105,7 @@ const advanceFilter = async (filterCondition, connection) => {
     try {
         let query = `
             SELECT 
-                oid, name, departmentOid, type, description,
+                oid, name, departementOid, 
                 createdBy, createdAt, lastModifiedBy, updatedAt,
                 deletedBy, deletedAt
             FROM rooms
@@ -125,15 +119,15 @@ const advanceFilter = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.departmentOid) {
-            whereConditions.push("departmentOid = ?");
-            queryParams.push(filterCondition.departmentOid);
-        }
+        // if (filterCondition.departementOid) {
+        //     whereConditions.push("departementOid = ?");
+        //     queryParams.push(filterCondition.departementOid);
+        // }
 
-        if (filterCondition.type) {
-            whereConditions.push("type = ?");
-            queryParams.push(filterCondition.type);
-        }
+        // if (filterCondition.type) {
+        //     whereConditions.push("type = ?");
+        //     queryParams.push(filterCondition.type);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -158,15 +152,15 @@ const findCountByCriteria = async (filterCondition, connection) => {
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.departmentOid) {
-            whereConditions.push("departmentOid = ?");
-            queryParams.push(filterCondition.departmentOid);
-        }
+        // if (filterCondition.departementOid) {
+        //     whereConditions.push("departementOid = ?");
+        //     queryParams.push(filterCondition.departementOid);
+        // }
 
-        if (filterCondition.type) {
-            whereConditions.push("type = ?");
-            queryParams.push(filterCondition.type);
-        }
+        // if (filterCondition.type) {
+        //     whereConditions.push("type = ?");
+        //     queryParams.push(filterCondition.type);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");
@@ -186,29 +180,29 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
     try {
         let query = `
             SELECT 
-                oid, name, departmentOid, type, description,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM rooms
+                r.oid, r.name, r.departementOid, d.name as departementName, 
+                r.createdBy, r.createdAt, r.lastModifiedBy, r.updatedAt,
+                r.deletedBy, r.deletedAt
+            FROM rooms r left join departements d  on r.departementOid=d.oid 
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.name) {
-            whereConditions.push("name LIKE ?");
+        if (filterCondition.search) {
+            whereConditions.push("r.name LIKE ?");
             queryParams.push(`%${filterCondition.name}%`);
         }
 
-        if (filterCondition.departmentOid) {
-            whereConditions.push("departmentOid = ?");
-            queryParams.push(filterCondition.departmentOid);
-        }
+        // if (filterCondition.departementOid) {
+        //     whereConditions.push("departementOid = ?");
+        //     queryParams.push(filterCondition.departementOid);
+        // }
 
-        if (filterCondition.type) {
-            whereConditions.push("type = ?");
-            queryParams.push(filterCondition.type);
-        }
+        // if (filterCondition.type) {
+        //     whereConditions.push("type = ?");
+        //     queryParams.push(filterCondition.type);
+        // }
 
         if (whereConditions.length > 0) {
             query += " WHERE " + whereConditions.join(" AND ");

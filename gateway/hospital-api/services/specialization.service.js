@@ -118,13 +118,13 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await specializationRepository.findCountByCriteria(condition, connection);
     if (errCount) return { specializations: [], count: 0, err: errCount };
-    const { result, err } = await specializationRepository.findByCriteria(condition, page, pageSize, connection);
+    const { specializations:result, err } = await specializationRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { specializations: [], count: 0, err };
     const specializations = await mappings.toSpecializationResponses(result);
     return { specializations, count, err: null };

@@ -1,13 +1,18 @@
 async function toRoomResponse(room) {
-    return {
+    const response = {
         oid: room.oid,
         name: room.name,
-        floor: room.floor,
-        type: room.type,
-        description: room.description,
+        departementOid: room.departementOid,
         createdAt: room.createdAt,
         updatedAt: room.updatedAt
     };
+    if (room.departementOid ) {
+        response.departement = {
+            oid: room.departementOid,
+            departementName: room.departementName
+        };
+    }
+    return response;
 }
 
 async function toRoomResponses(rooms) {

@@ -16,8 +16,7 @@ const create = async (dto, userOid) => {
     const data = {
       oid: uuidv7(),
       name: dto.name,
-      description: dto.description ?? null,
-      cost: dto.cost ?? 0,
+      price: dto.price ?? 0,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -50,8 +49,7 @@ const update = async (oid, dto, userOid) => {
     if (!findResult) return { treatment: null, err: { httpStatus: 404 } };
 
     findResult.name = dto.name ?? findResult.name;
-    findResult.description = dto.description ?? findResult.description;
-    findResult.cost = dto.cost ?? findResult.cost;
+    findResult.price = dto.price ?? findResult.price;
     findResult.lastModifiedBy = userOid;
     findResult.updatedAt = now;
 
@@ -120,16 +118,16 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await treatmentRepository.findCountByCriteria(condition, connection);
     if (errCount) return { treatments: [], count: 0, err: errCount };
-    const { result, err } = await treatmentRepository.findByCriteria(condition, page, pageSize, connection);
+    const { treatments, err } = await treatmentRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { treatments: [], count: 0, err };
-    const treatments = await mappings.toTreatmentResponses(result);
-    return { treatments, count, err: null };
+    const treatmentResponse = await mappings.toTreatmentResponses(treatments);
+    return { treatments: treatmentResponse, count, err: null };
   } catch (err) {
     return { treatments: [], count: 0, err: { httpStatus: 500 } };
   }

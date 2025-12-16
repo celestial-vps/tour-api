@@ -13,6 +13,8 @@ const router = express.Router();
  * @swagger
  * /auth/login:
  *   post:
+ *     tags:
+ *       - Auth
  *     summary: User login
  *     description: Authenticates a user and returns an access token.
  *     requestBody:
@@ -114,6 +116,8 @@ router.post('/login',  authController.login);
  * @swagger
  * /auth/register:
  *   post:
+ *     tags:
+ *       - Auth
  *     summary: Register a new user
  *     description: Allows a new user to register by providing an email and password.
  *     requestBody:

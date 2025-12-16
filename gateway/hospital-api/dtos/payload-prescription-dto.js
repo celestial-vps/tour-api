@@ -11,8 +11,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    medicalRecordOid: Joi.string().uuid().optional().example('medicalrecord-uuid-123'),
-    medicineOid: Joi.string().uuid().optional().example('medication-uuid-123')
+    search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({

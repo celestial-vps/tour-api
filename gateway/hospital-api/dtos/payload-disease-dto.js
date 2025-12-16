@@ -13,7 +13,7 @@ const query = Joi.object({
 });
 
 const filterDto = Joi.object({
-    name: Joi.string().optional().allow(null, '').example('Diabetes')
+   search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
 const createDto = Joi.object({
@@ -51,7 +51,7 @@ const createDiseaseDto = Joi.object({
     body: createDto
 });
 
-const diseasesResponseDto = Joi.object({
+const diseaseResponseDto = Joi.object({
     oid: Joi.string().required(),
     name: Joi.string().required().example('Diabetes'),
     createdBy: Joi.string().required(),
@@ -65,6 +65,6 @@ module.exports = {
     deleteDiseaseDto,
     filterDiseaseDto,
     getDiseaseDto,
-    diseasesResponseDto,
+    diseaseResponseDto,
     createDto, updateDto, filterDto, params
 };

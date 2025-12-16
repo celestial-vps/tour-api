@@ -124,14 +124,14 @@ const findById = async (oid) => {
   }
 };
 
-const findPage = async (condition, page, pageSize) => {
+const findPage = async (condition, options) => {
   let connection;
   try {
     connection = await pool.getConnection();
     const { count, errCount } = await doctorRepository.findCountByCriteria(condition, connection);
     if (errCount) return { doctors: [], count: 0, errCount };
 
-    const { doctors, err } = await doctorRepository.findByCriteria(condition, page, pageSize, connection);
+    const { doctors, err } = await doctorRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { doctors: [], count: 0, errCount };
 
     const doctorResponses = await mappings.toDoctorResponses(doctors);
