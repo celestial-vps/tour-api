@@ -14,8 +14,7 @@ const filterDto = Joi.object({
      search: Joi.string().optional().allow(null, '').example('Cardiology')
 });
 
-const createDto = Joi.object({
-    userOid: Joi.string().uuid().required().example('user-uuid-123'),
+const createDto = Joi.object({ 
     specializationOid: Joi.string().uuid().optional().example('specialization-uuid-123'),
     phone: Joi.string().optional().example('081234567890')
 });

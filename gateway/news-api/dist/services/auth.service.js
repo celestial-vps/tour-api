@@ -115,6 +115,7 @@ let AuthService = class AuthService {
                 const payload = {
                     userOid: users[0].oid,
                     username: users[0].email,
+                    role: users[0].role.roleName,
                     level: 'application',
                     expiresIn: '1h',
                 };

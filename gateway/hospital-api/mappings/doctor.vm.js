@@ -1,5 +1,5 @@
 async function toDoctorResponse(doctor) {
-    return {
+    const response = {
         oid: doctor.oid,
         userOid: doctor.userOid,
         specializationOid: doctor.specializationOid,
@@ -9,6 +9,14 @@ async function toDoctorResponse(doctor) {
         lastModifiedBy: doctor.lastModifiedBy,
         updatedAt: doctor.updatedAt
     };
+
+    if (doctor.specializationOid) {
+        response.specialization = {
+            oid: doctor.specializationOid,
+            specializationName: doctor.specializationName
+        };
+    }
+    return response;
 }
 
 async function toDoctorResponses(doctors) {

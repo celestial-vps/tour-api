@@ -21,6 +21,8 @@ const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
 const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
+const error_response_dto_1 = require("../dtos/base/error-response.dto");
+const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
 let BankController = class BankController {
     bankService;
     responseService;
@@ -59,7 +61,11 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
     async update(oid, updateBankDto, req) {
@@ -91,21 +97,24 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
     async deleted(oid, req) {
         try {
             const userOid = req.user?.oid;
             const bankResponse = await this.bankService.deleted(oid, userOid);
-            ;
             const response = this.responseService.responseOk(bankResponse, 1);
             await this.auditTrailService.recordPost({
                 tableName: 'banks',
                 recordOid: bankResponse?.value ?? 'unknown',
                 action: 'DELETE',
                 status: 'SUCCESS',
-                message: 'Update Bank success',
+                message: 'Delete Bank success',
                 userOid: userOid,
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
@@ -124,7 +133,11 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
     async findAll(req) {
@@ -137,7 +150,7 @@ let BankController = class BankController {
                 recordOid: 'unknown',
                 action: 'READ',
                 status: 'SUCCESS',
-                message: 'Update Bank success',
+                message: 'Read all banks success',
                 userOid: userOid,
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
@@ -156,21 +169,24 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
     async findOne(oid, req) {
         try {
             const userOid = req.user?.oid;
             const bank = await this.bankService.findById(oid);
-            ;
             const response = this.responseService.responseOk(bank, 1);
             await this.auditTrailService.recordPost({
                 tableName: 'banks',
                 recordOid: 'unknown',
                 action: 'READ',
                 status: 'SUCCESS',
-                message: 'Update Bank success',
+                message: 'Read bank by OID success',
                 userOid: userOid,
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
@@ -189,7 +205,11 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
     async find(pageIndex = 1, pageSize = 10, filterBankDto, req) {
@@ -202,14 +222,15 @@ let BankController = class BankController {
                 size: pageSize,
                 totalItem: count,
                 totalPage: totalPage,
+                data: banks,
             };
-            const response = this.responseService.responseOkWithPagination(banks, pagging);
+            const response = this.responseService.responseOkWithPagination(pagging, totalPage);
             await this.auditTrailService.recordPost({
                 tableName: 'banks',
                 recordOid: 'unknown',
                 action: 'READ',
                 status: 'SUCCESS',
-                message: 'Update Bank success',
+                message: 'Paginated bank search success',
                 userOid: userOid,
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
@@ -228,7 +249,11 @@ let BankController = class BankController {
                 ipAddress: req.ip,
                 userAgent: req.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            throw new common_1.BadRequestException({
+                code: 400,
+                status: 400,
+                message: error.message,
+            });
         }
     }
 };
@@ -238,8 +263,9 @@ __decorate([
     (0, common_1.Post)('create'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new Bank' }),
     (0, swagger_1.ApiBody)({ type: payload_bank_dto_1.CreateBankDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The bank has been successfully created.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Create banks', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ description: 'Internal Server Error', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -252,8 +278,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update a Bank' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the bank to be updated' }),
     (0, swagger_1.ApiBody)({ type: payload_bank_dto_1.UpdateBankDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The bank has been successfully updated.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Update banks', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ description: 'Internal Server Error', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -263,11 +290,12 @@ __decorate([
 ], BankController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Bank' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the bank to be deleted' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The bank has been successfully deleted.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
-    (0, common_1.Delete)('/delete/:oid'),
+    (0, swagger_1.ApiOkResponse)({ description: 'Delete banks', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ description: 'Internal Server Error', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -278,8 +306,9 @@ __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all banks' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of all banks', type: [payload_bank_dto_1.CreateBankDto] }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get all banks', type: payload_bank_dto_1.SuccessBankResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ description: 'Internal Server Error', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -290,8 +319,9 @@ __decorate([
     (0, common_1.Get)(':oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a specific bank by OID' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the bank to retrieve' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The bank details', type: payload_bank_dto_1.CreateBankDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Create banks', type: payload_bank_dto_1.SuccessBankObjectResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -305,8 +335,9 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' }),
     (0, swagger_1.ApiQuery)({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' }),
     (0, swagger_1.ApiBody)({ type: payload_bank_dto_1.FilterBankDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of filtered banks with pagination', type: payload_bank_dto_1.CreateBankDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get all banks', type: payload_bank_dto_1.SuccessBankPaginatedResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
+    (0, swagger_1.ApiInternalServerErrorResponse)({ description: 'Internal Server Error', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Query)('pageIndex')),
     __param(1, (0, common_1.Query)('pageSize')),
     __param(2, (0, common_1.Body)()),
@@ -316,9 +347,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BankController.prototype, "find", null);
 exports.BankController = BankController = __decorate([
-    (0, common_1.Controller)('bank'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('Bank'),
-    __metadata("design:paramtypes", [bank_service_1.BankService, build_response_1.ResponseService, audit_trail_midleware_service_1.AuditTrailService])
+    (0, common_1.Controller)('bank'),
+    __metadata("design:paramtypes", [bank_service_1.BankService,
+        build_response_1.ResponseService,
+        audit_trail_midleware_service_1.AuditTrailService])
 ], BankController);
 //# sourceMappingURL=bank.controller.js.map

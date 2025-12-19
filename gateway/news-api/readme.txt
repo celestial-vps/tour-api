@@ -12,7 +12,7 @@ src/db/migrations/CreateBankTable
      npx ts-node src/db/seeds/index.ts
 
 3. link swaggger 
-    http://localhost:5010/api/v1/#/Bank/BankController_create
+    http://localhost:5201/api/v1/#/Bank/BankController_create
 
 
 jalankan migration menggunakan git bash

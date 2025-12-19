@@ -1,30 +1,43 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Res, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Query, UseGuards } from '@nestjs/common';
 import { BankService } from '../services/bank.service';
-import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateBankDto, FilterBankDto, SuccessBankObjectResponseDto, SuccessBankPaginatedResponseDto, SuccessBankResponseDto, UpdateBankDto } from '../dtos/payload-bank-dto';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags, ApiInternalServerErrorResponse } from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 
-@Controller('bank')
+// Optional: DTO pagination wrapper for Swagger
+import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { ErrorResponseDto } from '../dtos/base/error-response.dto';
+import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
+
+
+
+// @ApiExtraModels( ErrorResponseDto, BankVm, PaginationDto)
 @ApiBearerAuth()
 @ApiTags('Bank')
+@Controller('bank')
 export class BankController {
-  constructor(private readonly bankService: BankService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
+  constructor(
+    private readonly bankService: BankService,
+    private readonly responseService: ResponseService,
+    private readonly auditTrailService: AuditTrailService,
+  ) { }
 
-
+  // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Bank' })
-  @ApiBody({ type: CreateBankDto })  // Document the body DTO used for creation
-  @ApiOkResponse({ description: 'The bank has been successfully created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiBody({ type: CreateBankDto })
+  @ApiOkResponse({ description: 'Create banks', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error', type: ErrorResponseDto })
   async create(@Body() createBankDto: CreateBankDto, @Request() req: any): Promise<any> {
-    try {      
-      const userOid = req.user?.oid;  // userId sesuai payload di JwtStrategy validate()
+    try {
+      const userOid = req.user?.oid;
       const bankResponse = await this.bankService.create(createBankDto, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
+
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.value ?? 'unknown',
@@ -36,7 +49,7 @@ export class BankController {
         userAgent: req.headers['user-agent'],
         newData: bankResponse,
       });
-      return response;  
+      return response;
     } catch (error) {
       await this.auditTrailService.recordPost({
         tableName: 'banks',
@@ -48,22 +61,29 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
   }
 
+  // ---------------- UPDATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a Bank' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be updated' })  // Document the OID parameter
-  @ApiBody({ type: UpdateBankDto })  // Document the body DTO used for updating
-  @ApiOkResponse({ description: 'The bank has been successfully updated.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be updated' })
+  @ApiBody({ type: UpdateBankDto })
+  @ApiOkResponse({ description: 'Update banks', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateBankDto: UpdateBankDto, @Request() req: any): Promise<any> {
     try {
-      const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
+      const userOid = req.userOid || req.user?.oid;
       const bankResponse = await this.bankService.update(oid, updateBankDto, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
+
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.value ?? 'unknown',
@@ -87,27 +107,34 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
   }
 
+  // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @ApiOperation({ summary: 'Delete a Bank' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })  // Document the OID parameter
-  @ApiOkResponse({ description: 'The bank has been successfully deleted.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
   @Delete('/delete/:oid')
+  @ApiOperation({ summary: 'Delete a Bank' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })
+  @ApiOkResponse({ description: 'Delete banks', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     try {
       const userOid = req.user?.oid;
-      const bankResponse = await this.bankService.deleted(oid,userOid);;
+      const bankResponse = await this.bankService.deleted(oid, userOid);
       const response = this.responseService.responseOk(bankResponse, 1);
+
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: bankResponse?.value ?? 'unknown',
         action: 'DELETE',
         status: 'SUCCESS',
-        message: 'Update Bank success',
+        message: 'Delete Bank success',
         userOid: userOid,
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
@@ -125,15 +152,21 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
   }
 
+  // ---------------- FIND ALL ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all banks' })
-  @ApiOkResponse({ description: 'List of all banks', type: [CreateBankDto] })  // Document the response type
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiOkResponse({ description: 'Get all banks', type: SuccessBankResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
     try {
       const userOid = req.user?.oid;
@@ -145,7 +178,7 @@ export class BankController {
         recordOid: 'unknown',
         action: 'READ',
         status: 'SUCCESS',
-        message: 'Update Bank success',
+        message: 'Read all banks success',
         userOid: userOid,
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
@@ -153,7 +186,7 @@ export class BankController {
       });
       return response;
     } catch (error) {
-     await this.auditTrailService.recordPost({
+      await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: 'unknown',
         action: 'READ',
@@ -163,29 +196,34 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
-
   }
 
+  // ---------------- FIND ONE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific bank by OID' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to retrieve' })  // Document the OID parameter
-  @ApiOkResponse({ description: 'The bank details', type: CreateBankDto })  // Document the response type
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to retrieve' })
+  @ApiOkResponse({ description: 'Create banks', type: SuccessBankObjectResponseDto })
+  @ApiBadRequestResponse({ type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
-
     try {
       const userOid = req.user?.oid;
-      const bank = await this.bankService.findById(oid);;
+      const bank = await this.bankService.findById(oid);
+
       const response = this.responseService.responseOk(bank, 1);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: 'unknown',
         action: 'READ',
         status: 'SUCCESS',
-        message: 'Update Bank success',
+        message: 'Read bank by OID success',
         userOid: userOid,
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
@@ -203,22 +241,30 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
   }
 
+  // ---------------- FIND WITH PAGINATION ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find banks with pagination and filters' })
-  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
-  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })  // Document the pageSize query parameter
-  @ApiBody({ type: FilterBankDto })  // Document the filter criteria used in the body
-  @ApiOkResponse({ description: 'List of filtered banks with pagination', type: CreateBankDto })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  async find(@Query('pageIndex') pageIndex: number = 1,  // Get pageIndex query param
-    @Query('pageSize') pageSize: number = 10,   // Get pageSize query param    
+  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })
+  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })
+  @ApiBody({ type: FilterBankDto })
+  @ApiOkResponse({ description: 'Get all banks', type: SuccessBankPaginatedResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error', type: ErrorResponseDto })
+  async find(
+    @Query('pageIndex') pageIndex: number = 1,
+    @Query('pageSize') pageSize: number = 10,
     @Body() filterBankDto: FilterBankDto,
-    @Request() req: any): Promise<any> {
+    @Request() req: any,
+  ): Promise<any> {
     try {
       const userOid = req.user?.oid;
       const { banks, count } = await this.bankService.findPage(pageIndex, pageSize, filterBankDto);
@@ -228,15 +274,17 @@ export class BankController {
         page: pageIndex,
         size: pageSize,
         totalItem: count,
-        totalPage: totalPage, // Correctly calculates total pages			
+        totalPage: totalPage,
+        data: banks,
       };
-      const response = this.responseService.responseOkWithPagination(banks, pagging);
+
+      const response = this.responseService.responseOkWithPagination(pagging, totalPage);
       await this.auditTrailService.recordPost({
         tableName: 'banks',
         recordOid: 'unknown',
         action: 'READ',
         status: 'SUCCESS',
-        message: 'Update Bank success',
+        message: 'Paginated bank search success',
         userOid: userOid,
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
@@ -254,8 +302,11 @@ export class BankController {
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
       });
-      throw new BadRequestException(error.message);
+      throw new BadRequestException({
+        code: 400,
+        status: 400,
+        message: error.message,
+      });
     }
   }
-
 }

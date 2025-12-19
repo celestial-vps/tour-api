@@ -39,7 +39,7 @@ const login = async (req, res) => {
 		if (err) {
 			return buildResponse.sendQueryError(res, err.message, "insert");
 		}
-		const { userRole, err: errUpdate } = await userService.update(user.oid, req.body, user.oid);
+		const { _user, err: errUpdate } = await userService.update(user.oid, req.body, user.oid);
 		if (errUpdate) {
 			return buildResponse.sendQueryError(res, err.message, "insert");
 		}

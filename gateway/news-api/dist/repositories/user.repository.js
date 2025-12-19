@@ -84,15 +84,15 @@ let UserRepository = class UserRepository {
         }
     }
     async advanceFilter(condition) {
-        const queryBuilder = this.userRepository.createQueryBuilder('user');
-        if (condition.email) {
-            queryBuilder.andWhere('user.email LIKE :email', {
-                email: `%${condition.email}%`,
-            });
-        }
         try {
-            const users = await queryBuilder.getMany();
-            return users;
+            return await this.userRepository.find({
+                where: {
+                    ...(condition.email && {
+                        email: condition.email,
+                    }),
+                },
+                relations: ['role'],
+            });
         }
         catch (error) {
             throw new Error('Error fetching users: ' + error.message);
@@ -100,8 +100,10 @@ let UserRepository = class UserRepository {
     }
     async findById(oid) {
         try {
-            const user = await this.userRepository.findOne({ where: { oid },
-                relations: ['role'], });
+            const user = await this.userRepository.findOne({
+                where: { oid },
+                relations: ['role'],
+            });
             if (!user) {
                 throw new common_1.NotFoundException(`User with OID ${oid} not found`);
             }

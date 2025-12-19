@@ -183,27 +183,28 @@ const findByCriteria = async (filterCondition, page = 1, pageSize = 10, connecti
     try {
         let query = `
             SELECT 
-                oid, userOid, specializationOid, phone,
-                createdBy, createdAt, lastModifiedBy, updatedAt,
-                deletedBy, deletedAt
-            FROM doctors
+                d.oid, d.userOid, d.specializationOid,s.name as specializationName, d.phone,
+                d.createdBy, d.createdAt, d.lastModifiedBy, d.updatedAt,
+                d.deletedBy, d.deletedAt
+            FROM doctors d left join specializations s on d.specializationOid = s.oid
+
         `;
 
         const queryParams = [];
         const whereConditions = [];
 
-        if (filterCondition.userOid) {
-            whereConditions.push("userOid = ?");
-            queryParams.push(filterCondition.userOid);
-        }
+        // if (filterCondition.userOid) {
+        //     whereConditions.push("userOid = ?");
+        //     queryParams.push(filterCondition.userOid);
+        // }
 
-        if (filterCondition.specializationOid) {
-            whereConditions.push("specializationOid = ?");
-            queryParams.push(filterCondition.specializationOid);
-        }
+        // if (filterCondition.specializationOid) {
+        //     whereConditions.push("specializationOid = ?");
+        //     queryParams.push(filterCondition.specializationOid);
+        // }
 
         if (filterCondition.phone) {
-            whereConditions.push("phone LIKE ?");
+            whereConditions.push("d.phone LIKE ?");
             queryParams.push(`%${filterCondition.phone}%`);
         }
 

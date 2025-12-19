@@ -15,7 +15,7 @@ class JwtMaker {
       username: emailName,
       role: role,
       level: 'application',
-      exp: Math.floor(Date.now() / 1000) + (10) // ⏱️ 1 menit exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
+      exp: Math.floor(Date.now() / 1000) + (1 * 60 * 60) // 1 hours expiration
     };
 
     return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ class JwtMaker {
       username: emailName,
       role: role,
       type: 'refresh',
-      exp: Math.floor(Date.now() / 1000) + (1 * 20) // exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 hari
+      exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 hari
     };
     return new Promise((resolve, reject) => {
       jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {

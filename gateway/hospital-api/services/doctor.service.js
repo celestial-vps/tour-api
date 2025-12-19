@@ -16,10 +16,9 @@ const create = async (dto, userOid) => {
 
     const data = {
       oid: uuidv7(),
-      doctorCode: dto.doctorCode,
-      doctorName: dto.doctorName,
+      userOid: userOid, 
       specializationOid: dto.specializationOid,
-      description: dto.description ?? null,
+      phone: dto.phone ?? null,
       createdBy: userOid,
       createdAt: now,
       lastModifiedBy: userOid,
@@ -31,7 +30,7 @@ const create = async (dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, data);
 
     if (err) return { doctor: null, err };
-    const msgData = { value: data.oid, name: data.doctorName };
+    const msgData = { value: data.oid, name: data.phone  };
     const doctor = await messageMaps.toMessageResponse(msgData);
     return { doctor, err: null };
 
@@ -51,11 +50,10 @@ const update = async (oid, dto, userOid) => {
     const { result: doctorData, err: errDoctor } = await doctorRepository.findById(oid, connection);
     if (errDoctor) return { doctor: {}, err: errDoctor };
     if (!doctorData) return { doctor: {}, err: { httpStatus: 404 } };
-
-    doctorData.doctorCode = dto.doctorCode ?? doctorData.doctorCode;
-    doctorData.doctorName = dto.doctorName ?? doctorData.doctorName;
+ 
+    doctorData.userOid = dto.userOid ?? doctorData.userOid;
     doctorData.specializationOid = dto.specializationOid ?? doctorData.specializationOid;
-    doctorData.description = dto.description ?? doctorData.description;
+    doctorData.phone = dto.phone ?? doctorData.phone;
     doctorData.lastModifiedBy = userOid ?? doctorData.lastModifiedBy;
     doctorData.updatedAt = now;
 
@@ -64,7 +62,7 @@ const update = async (oid, dto, userOid) => {
     const { result, err } = await withTransaction(funcs, connection, doctorData);
 
     if (err) return { doctor: result, err };
-    const msgData = { value: doctorData.oid, name: doctorData.doctorName };
+    const msgData = { value: doctorData.oid, name: doctorData.userOid };
     const doctor = await messageMaps.toMessageResponse(msgData);
     return { doctor, err: null };
 
@@ -88,7 +86,7 @@ const deleted = async (oid) => {
     const { result, err } = await withTransaction(funcs, connection, doctorData);
 
     if (err) return { doctor: null, err };
-    const msgData = { value: doctorData.oid, name: doctorData.doctorName };
+    const msgData = { value: doctorData.oid, name: doctorData.userOid };
     const doctor = await messageMaps.toMessageResponse(msgData);
     return { doctor, err: null };
 
