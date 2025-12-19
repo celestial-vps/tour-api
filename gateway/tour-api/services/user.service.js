@@ -56,13 +56,13 @@ const create = async (dto, userOid) => {
 };
 
 const register = async (dto) => {
-    const transaction = await sequelize.transaction(); 
+    const transaction = await sequelize.transaction();
 
     try {
         const hashedPassword = await hashPassword(dto.password);
         dto.createdBy = dto.email
         const data = {
-            email: dto.email, 
+            email: dto.email,
             password: hashedPassword,
             roleOid: dto.roleOid,
             createdBy: dto.createdBy
@@ -125,9 +125,9 @@ const login = async (condition) => {
         }
         const oid = result[0].oid
         const token = await jwtMaker.createToken(oid, condition.email, result[0].userRole.roleName);
+        const refreshToken = await jwtMaker.createRefreshToken(oid);
 
-
-        const user = await mappings.toUserTokenResponse(result[0], token, "")
+        const user = await mappings.toUserTokenResponse(result[0], token, refreshToken)
         return { user, err: err }
     } catch (err) {
         return { result: null, err }
@@ -373,7 +373,7 @@ const findByMe = async (oid, options = {}) => {
 
 module.exports = {
     create,
-    register,registerAdmin,
+    register, registerAdmin,
     login,
     update,
     deleted,

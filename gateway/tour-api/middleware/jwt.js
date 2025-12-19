@@ -3,20 +3,36 @@ const jwt = require('jsonwebtoken');
 const { roleGuard } = require('./role-guard');
 const SECRET_KEY = process.env.SECREATKEY || 'celestial-super-secret-key-should-be-longer-123!'; // Replace with your secret key
 
+
 class JwtMaker {
   constructor() {
     this.secretKey = SECRET_KEY;
   }
 
-  createToken(oid, emailName,role) {
+  createToken(oid, emailName, role) {
     const payload = {
       userOid: oid,
       username: emailName,
-      role:role,
+      role: role,
       level: 'application',
-      exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
+      exp: Math.floor(Date.now() / 1000) + (10) // ⏱️ 1 menit exp: Math.floor(Date.now() / 1000) + (72 * 60 * 60) // 72 hours expiration
     };
 
+    return new Promise((resolve, reject) => {
+      jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {
+        if (err) return reject(err);
+        resolve(token);
+      });
+    });
+  }
+
+  // Refresh token
+  createRefreshToken(oid) {
+    const payload = {
+      userOid: oid,
+      type: 'refresh',
+     exp: Math.floor(Date.now() / 1000) + (2*60) // exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 hari
+    };
     return new Promise((resolve, reject) => {
       jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {
         if (err) return reject(err);
@@ -33,6 +49,22 @@ class JwtMaker {
       });
     });
   }
+
+  verifyRefreshToken(token) {
+    const payload = jwt.verify(token, this.secretKey);
+
+    // Pastikan payload adalah object
+    if (!payload || typeof payload !== 'object') {
+      throw new Error('Invalid token payload');
+    }
+
+    if (payload.type !== 'refresh') {
+      throw new Error('Invalid refresh token');
+    }
+
+    return payload;
+  }
+
 
   // getClaims(tokenString) {
   //   return new Promise((resolve, reject) => {

@@ -1,6 +1,5 @@
 const Joi = require('joi');
-const { authSchema } = require('./base-dto');
-const { search } = require('../app');
+const { authSchema } = require('./base-dto'); 
 
 const params = Joi.object({
     oid: Joi.string().uuid().required().example('dept-uuid-123')

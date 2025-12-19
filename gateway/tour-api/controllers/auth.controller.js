@@ -4,6 +4,7 @@ const buildResponse = require('../common/build.response');
 const validateRequest = require('../misc/validation');
 const { loginDto, registerDto } = require('../dtos/payload-user-dto');
 const { OAuth2Client } = require('google-auth-library');
+const { JwtMaker } = require('../middleware/jwt');
 
 // const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
@@ -100,8 +101,57 @@ const registerAdmin = async (req, res) => {
 	}
 };
 
+const refreshToken = async (req, res) => {
+	try {
+		const { refreshToken } = req.body;
+		if (!refreshToken) {
+			return buildResponse.sendQueryError(res, 'Refresh token missing', 'insert');
+		}
+
+		const jwtMaker = new JwtMaker();
+		const payload = await jwtMaker.verifyToken(refreshToken);
+
+		// Pastikan token benar-benar refresh token
+		if (payload.type !== 'refresh') {
+			return buildResponse.sendQueryError(res, 'Invalid token type', 'insert');
+		}
+
+		// Generate access token baru
+		const newAccessToken = await jwtMaker.createToken(
+			payload.userOid,
+			payload.username || '',
+			payload.role || ''
+		);
+
+		// Ambil data user terbaru (misal untuk update lastLogin atau info lain)
+		const { result: user, err: errUpdate } = await userService.update(
+			payload.userOid,
+			{}, // body update bisa dikosongkan atau diisi sesuai kebutuhan
+			payload.userOid
+		);
+
+		if (errUpdate) {
+			return buildResponse.sendQueryError(res, errUpdate.message, 'insert');
+		}
+
+		// Sertakan token baru dalam response user
+		const responseUser = {
+			...user,
+			token: newAccessToken
+		};
+
+		return buildResponse.findOk(res, responseUser, 1);
+
+	} catch (err) {
+		console.error('Refresh Token Error:', err);
+		return buildResponse.sendInternalServerError(res, err.message);
+	}
+};
+
+
 module.exports = {
 	login,
 	register,
-	registerAdmin
+	registerAdmin,
+	refreshToken
 };

@@ -16,7 +16,7 @@ const create = async (dto, userOid) => {
     const data = {
       oid: uuidv7(),
       fullName: dto.fullName,
-      dateOfBirth: dto.dateOfBirth,
+      birthDate: dto.birthDate,
       gender: dto.gender,
       address: dto.address ?? null,
       phone: dto.phone ?? null,
@@ -53,7 +53,7 @@ const update = async (oid, dto, userOid) => {
     if (!findResult) return { patient: null, err: { httpStatus: 404 } };
 
     findResult.fullName = dto.fullName ?? findResult.fullName;
-    findResult.dateOfBirth = dto.dateOfBirth ?? findResult.dateOfBirth;
+    findResult.birthDate = dto.birthDate ?? findResult.birthDate;
     findResult.gender = dto.gender ?? findResult.gender;
     findResult.address = dto.address ?? findResult.address;
     findResult.phone = dto.phone ?? findResult.phone;
@@ -132,7 +132,7 @@ const findPage = async (condition, options) => {
     connection = await pool.getConnection();
     const { count, errCount } = await patientRepository.findCountByCriteria(condition, connection);
     if (errCount) return { patients: [], count: 0, err: errCount };
-    const { result, err } = await patientRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
+    const { patients:result, err } = await patientRepository.findByCriteria(condition, options.pageIndex, options.pageSize, connection);
     if (err) return { patients: [], count: 0, err };
     const patients = await mappings.toPatientResponses(result);
     return { patients, count, err: null };

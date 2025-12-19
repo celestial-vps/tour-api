@@ -12,3 +12,4 @@ node runMigrations.js migrate down
 
 POWERSHELL => New-Item -Path .\migrations\20250409-create-users-table.js -ItemType File
 
+node --trace-warnings index.js

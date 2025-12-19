@@ -1,23 +1,23 @@
-async function toMedicineResponse(medicine) {
+async function toPatientResponse(patient) {
     return {
-        oid: medicine.oid,
-        medicationOid: medicine.medicationOid,
-        name: medicine.name,
-        dosage: medicine.dosage,
-        unit: medicine.unit,
-        stock: medicine.stock,
-        createdBy: medicine.createdBy,
-        createdAt: medicine.createdAt,
-        lastModifiedBy: medicine.lastModifiedBy,
-        updatedAt: medicine.updatedAt
+        oid: patient.oid,
+        fullName: patient.fullName,
+        gender: patient.gender,
+        birthDate: patient.birthDate,
+        phone: patient.phone,
+        address: patient.address,
+        createdBy: patient.createdBy,
+        createdAt: patient.createdAt,
+        lastModifiedBy: patient.lastModifiedBy,
+        updatedAt: patient.updatedAt
     };
 }
 
-async function toMedicineResponses(medicines) {
-    return await Promise.all(medicines.map(toMedicineResponse));
+async function toPatientResponses(patients) {
+    return await Promise.all(patients.map(toPatientResponse));
 }
 
 module.exports = {
-    toMedicineResponse,
-    toMedicineResponses
+    toPatientResponse,
+    toPatientResponses
 };
