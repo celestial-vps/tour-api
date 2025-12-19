@@ -125,7 +125,7 @@ const login = async (condition) => {
         }
         const oid = result[0].oid
         const token = await jwtMaker.createToken(oid, condition.email, result[0].userRole.roleName);
-        const refreshToken = await jwtMaker.createRefreshToken(oid);
+        const refreshToken = await jwtMaker.createRefreshToken(oid,condition.email, result[0].userRole.roleName);
 
         const user = await mappings.toUserTokenResponse(result[0], token, refreshToken)
         return { user, err: err }

@@ -27,11 +27,13 @@ class JwtMaker {
   }
 
   // Refresh token
-  createRefreshToken(oid) {
+  createRefreshToken(oid, emailName, role) {
     const payload = {
       userOid: oid,
+      username: emailName,
+      role: role,
       type: 'refresh',
-     exp: Math.floor(Date.now() / 1000) + (2*60) // exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 hari
+      exp: Math.floor(Date.now() / 1000) + (1 * 20) // exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 hari
     };
     return new Promise((resolve, reject) => {
       jwt.sign(payload, this.secretKey, { algorithm: 'HS256' }, (err, token) => {

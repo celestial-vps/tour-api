@@ -1,10 +1,8 @@
 const departmentService = require('../services/department.service');
-const buildResponse = require('../common/build.response');
-const { JwtMaker } = require('../middleware/jwt');
+const buildResponse = require('../common/build.response'); 
 const pick = require('../misc/pick');
 const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
-
-const jwtMaker = new JwtMaker();
+ 
 
 /**
  * Create Department

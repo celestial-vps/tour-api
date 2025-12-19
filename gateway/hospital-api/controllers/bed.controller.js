@@ -1,10 +1,8 @@
 const bedService = require('../services/bed.service');
-const buildResponse = require('../common/build.response');
-const { JwtMaker } = require('../middleware/jwt');
+const buildResponse = require('../common/build.response'); 
 const pick = require('../misc/pick');
 const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
-
-const jwtMaker = new JwtMaker();
+ 
 
 const create = async (req, res) => {
   try {

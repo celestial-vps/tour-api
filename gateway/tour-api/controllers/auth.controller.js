@@ -124,19 +124,18 @@ const refreshToken = async (req, res) => {
 		);
 
 		// Ambil data user terbaru (misal untuk update lastLogin atau info lain)
-		const { result: user, err: errUpdate } = await userService.update(
-			payload.userOid,
-			{}, // body update bisa dikosongkan atau diisi sesuai kebutuhan
-			payload.userOid
-		);
+		// const { result: user, err: errUpdate } = await userService.update(
+		// 	payload.userOid, 
+		// 	payload.userOid
+		// );
 
-		if (errUpdate) {
-			return buildResponse.sendQueryError(res, errUpdate.message, 'insert');
-		}
+		// if (errUpdate) {
+		// 	return buildResponse.sendQueryError(res, errUpdate.message, 'insert');
+		// }
 
 		// Sertakan token baru dalam response user
 		const responseUser = {
-			...user,
+			// ...user,
 			token: newAccessToken
 		};
 
