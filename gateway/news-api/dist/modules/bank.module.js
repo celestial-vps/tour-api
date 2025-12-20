@@ -18,6 +18,7 @@ const bank_vm_1 = require("../mappings/bank-vm");
 const user_module_1 = require("./user.module");
 const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const audit_trail_module_1 = require("./audit-trail.module");
+const request_handler_service_1 = require("../services/request-handler.service");
 let BankModule = class BankModule {
 };
 exports.BankModule = BankModule;
@@ -25,7 +26,7 @@ exports.BankModule = BankModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([bank_entity_1.Bank]), user_module_1.UserModule, audit_trail_module_1.AuditTrailModule],
         controllers: [bank_controller_1.BankController],
-        providers: [audit_trail_midleware_service_1.AuditTrailService, bank_service_1.BankService, build_response_1.ResponseService, bank_repository_1.BankRepository, bank_vm_1.BankMapping],
+        providers: [audit_trail_midleware_service_1.AuditTrailService, bank_service_1.BankService, request_handler_service_1.RequestHandlerService, build_response_1.ResponseService, bank_repository_1.BankRepository, bank_vm_1.BankMapping],
         exports: [audit_trail_midleware_service_1.AuditTrailService],
     })
 ], BankModule);

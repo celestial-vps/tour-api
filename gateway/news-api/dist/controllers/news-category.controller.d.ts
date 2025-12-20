@@ -1,13 +1,10 @@
 import { NewsCategoryService } from '../services/news-category.service';
 import { CreateNewsCategoryDto, FilterNewsCategoryDto, UpdateNewsCategoryDto } from '../dtos/payload-news-category-dto';
-import { ResponseService } from '../common/build.response';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { RequestHandlerService } from '../services/request-handler.service';
 export declare class NewsCategoryController {
     private readonly newsCategoryService;
-    private readonly responseService;
-    private readonly auditTrailService;
-    constructor(newsCategoryService: NewsCategoryService, responseService: ResponseService, auditTrailService: AuditTrailService);
-    private handleRequest;
+    private readonly requestHandler;
+    constructor(newsCategoryService: NewsCategoryService, requestHandler: RequestHandlerService);
     create(createNewsCategoryDto: CreateNewsCategoryDto, req: any): Promise<any>;
     update(oid: string, updateNewsCategoryDto: UpdateNewsCategoryDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

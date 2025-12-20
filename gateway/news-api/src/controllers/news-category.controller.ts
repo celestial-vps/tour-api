@@ -31,75 +31,22 @@ import {
   ApiQuery,
   ApiTags,
   ApiInternalServerErrorResponse,
-} from '@nestjs/swagger';
-import { ResponseService } from '../common/build.response';
+} from '@nestjs/swagger'; 
 import { JwtAuthGuard } from '../middleware/jwt-guard';
-import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard'; 
 import { ErrorResponseDto } from '../dtos/base/error-response.dto';
 import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @ApiBearerAuth()
-@ApiTags('NewsCategory')
-@Controller('newsCategory')
+@ApiTags('News Category')
+@Controller('news-category')
 export class NewsCategoryController {
   constructor(
     private readonly newsCategoryService: NewsCategoryService,
-    private readonly responseService: ResponseService,
-    private readonly auditTrailService: AuditTrailService,
+    private readonly requestHandler: RequestHandlerService,
   ) { }
 
-  // ---------------- HELPER FUNCTION ----------------
-  private async handleRequest(
-    fn: () => Promise<any>,
-    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
-    userOid: string,
-    recordOid?: string,
-    req?: any,
-    paginate?: boolean,
-  ) {
-    try {
-      const result = await fn();
-
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategorys',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'SUCCESS',
-        message: `${action} NewsCategory success`,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-        newData: result,
-      });
-      if (paginate) {
-        return this.responseService.responseOkWithPagination(result.data, {
-          page: result.page,
-          size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
-        });
-      }
-
-
-      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategorys',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'ERROR',
-        message: error.message,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-      });
-
-      if (error instanceof NotFoundException) throw error;
-
-      throw new BadRequestException({ code: 400, status: 400, message: error.message });
-    }
-  }
 
   // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
@@ -110,7 +57,17 @@ export class NewsCategoryController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createNewsCategoryDto: CreateNewsCategoryDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsCategoryService.create(createNewsCategoryDto, userOid), 'CREATE', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsCategoryService.create(createNewsCategoryDto, userOid),
+      {
+        action: 'CREATE',
+        tableName: 'news_categories',
+        userOid,
+        req,
+        successMessage: 'Create News Category success',
+      },
+    );
+
   }
 
   // ---------------- UPDATE ----------------
@@ -123,19 +80,41 @@ export class NewsCategoryController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateNewsCategoryDto: UpdateNewsCategoryDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid), 'UPDATE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid),
+      {
+        action: 'UPDATE',
+        tableName: 'news_categories',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Update News Category success',
+      },
+    );
+
   }
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a NewsCategory' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be deleted' })
   @ApiOkResponse({ description: 'Delete newsCategorys', type: SuccessResponseMessageDto })
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsCategoryService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsCategoryService.deleted(oid, userOid),
+      {
+        action: 'DELETE',
+        tableName: 'news_categories',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Delete News Category success',
+      },
+    );
+
   }
 
   // ---------------- FIND ALL ----------------
@@ -146,7 +125,17 @@ export class NewsCategoryController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsCategoryService.findAll(), 'READ', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsCategoryService.findAll(),
+      {
+        action: 'READ',
+        tableName: 'news_categories',
+        userOid,
+        req,
+        successMessage: 'Get all News Categories success',
+      },
+    );
+
   }
 
   // ---------------- FIND ONE ----------------
@@ -158,7 +147,18 @@ export class NewsCategoryController {
   @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsCategoryService.findById(oid), 'READ', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsCategoryService.findById(oid),
+      {
+        action: 'READ',
+        tableName: 'news_categories',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Get News Category success',
+      },
+    );
+
   }
 
   // ---------------- FIND WITH PAGINATION ----------------
@@ -181,24 +181,26 @@ export class NewsCategoryController {
     const page = Number(pageIndex) || 1;
     const size = Number(pageSize) || 10;
 
-    return this.handleRequest(
+    return this.requestHandler.handleRequest(
       async () => {
         const { newsCategories, count } = await this.newsCategoryService.findPage(page, size, filterNewsCategoryDto);
-        const totalPage = Math.ceil(count / size);
-       
-        return {  
-          page,   
+        return {
+          page,
           size,
           totalItem: count,
-          totalPage,
+          totalPage: Math.ceil(count / size),
           data: newsCategories,
         };
       },
-      'READ',
-      userOid,
-      undefined,
-      req,
-      true,
+      {
+        action: 'READ',
+        tableName: 'news_categories',
+        userOid,
+        req,
+        paginate: true,
+        successMessage: 'Get paginated News Categories success',
+      },
     );
+
   }
 }

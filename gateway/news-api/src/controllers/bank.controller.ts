@@ -38,69 +38,17 @@ import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { ErrorResponseDto } from '../dtos/base/error-response.dto';
 import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @ApiBearerAuth()
 @ApiTags('Bank')
 @Controller('bank')
 export class BankController {
   constructor(
-    private readonly bankService: BankService,
-    private readonly responseService: ResponseService,
-    private readonly auditTrailService: AuditTrailService,
+    private readonly bankService: BankService, 
+    private readonly requestHandler: RequestHandlerService,
   ) { }
-
-  // ---------------- HELPER FUNCTION ----------------
-  private async handleRequest(
-    fn: () => Promise<any>,
-    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
-    userOid: string,
-    recordOid?: string,
-    req?: any,
-    paginate?: boolean,
-  ) {
-    try {
-      const result = await fn();
-
-      await this.auditTrailService.recordPost({
-        tableName: 'banks',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'SUCCESS',
-        message: `${action} Bank success`,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-        newData: result,
-      });
-      if (paginate) {
-        return this.responseService.responseOkWithPagination(result.data, {
-          page: result.page,
-          size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
-        });
-      }
-
-
-      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'banks',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'ERROR',
-        message: error.message,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-      });
-
-      if (error instanceof NotFoundException) throw error;
-
-      throw new BadRequestException({ code: 400, status: 400, message: error.message });
-    }
-  }
-
+ 
   // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
@@ -110,7 +58,16 @@ export class BankController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createBankDto: CreateBankDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.bankService.create(createBankDto, userOid), 'CREATE', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.bankService.create(createBankDto, userOid),
+      {
+        action: 'CREATE',
+        tableName: 'banks',
+        userOid,
+        req,
+        successMessage: 'Create Bank success',
+      },
+    );
   }
 
   // ---------------- UPDATE ----------------
@@ -123,7 +80,18 @@ export class BankController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateBankDto: UpdateBankDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.bankService.update(oid, updateBankDto, userOid), 'UPDATE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.bankService.update(oid, updateBankDto, userOid),
+      {
+        action: 'UPDATE',
+        tableName: 'banks',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Update Bank success',
+      },
+    );
+
   }
 
   // ---------------- DELETE ----------------
@@ -135,7 +103,18 @@ export class BankController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.bankService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.bankService.deleted(oid, userOid),
+      {
+        action: 'DELETE',
+        tableName: 'banks',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Delete Bank success',
+      },
+    );
+
   }
 
   // ---------------- FIND ALL ----------------
@@ -146,7 +125,16 @@ export class BankController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.bankService.findAll(), 'READ', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.bankService.findAll(),
+      {
+        action: 'READ',
+        tableName: 'banks',
+        userOid,
+        req,
+      },
+    );
+
   }
 
   // ---------------- FIND ONE ----------------
@@ -158,7 +146,18 @@ export class BankController {
   @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.bankService.findById(oid), 'READ', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.bankService.findById(oid),
+      {
+        action: 'READ',
+        tableName: 'banks',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Get Bank success',
+      },
+    );
+
   }
 
   // ---------------- FIND WITH PAGINATION ----------------
@@ -181,24 +180,26 @@ export class BankController {
     const page = Number(pageIndex) || 1;
     const size = Number(pageSize) || 10;
 
-    return this.handleRequest(
+    return this.requestHandler.handleRequest(
       async () => {
         const { banks, count } = await this.bankService.findPage(page, size, filterBankDto);
-        const totalPage = Math.ceil(count / size);
-       
-        return {  
-          page,   
+        return {
+          page,
           size,
           totalItem: count,
-          totalPage,
+          totalPage: Math.ceil(count / size),
           data: banks,
         };
       },
-      'READ',
-      userOid,
-      undefined,
-      req,
-      true,
+      {
+        action: 'READ',
+        tableName: 'banks',
+        userOid,
+        req,
+        paginate: true,
+        successMessage: 'Get paginated banks success',
+      },
     );
+
   }
 }

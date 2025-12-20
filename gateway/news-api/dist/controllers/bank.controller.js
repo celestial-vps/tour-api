@@ -17,96 +17,91 @@ const common_1 = require("@nestjs/common");
 const bank_service_1 = require("../services/bank.service");
 const payload_bank_dto_1 = require("../dtos/payload-bank-dto");
 const swagger_1 = require("@nestjs/swagger");
-const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
-const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const error_response_dto_1 = require("../dtos/base/error-response.dto");
 const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
+const request_handler_service_1 = require("../services/request-handler.service");
 let BankController = class BankController {
     bankService;
-    responseService;
-    auditTrailService;
-    constructor(bankService, responseService, auditTrailService) {
+    requestHandler;
+    constructor(bankService, requestHandler) {
         this.bankService = bankService;
-        this.responseService = responseService;
-        this.auditTrailService = auditTrailService;
-    }
-    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
-        try {
-            const result = await fn();
-            await this.auditTrailService.recordPost({
-                tableName: 'banks',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'SUCCESS',
-                message: `${action} Bank success`,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-                newData: result,
-            });
-            if (paginate) {
-                return this.responseService.responseOkWithPagination(result.data, {
-                    page: result.page,
-                    size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
-                });
-            }
-            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'banks',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'ERROR',
-                message: error.message,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-            });
-            if (error instanceof common_1.NotFoundException)
-                throw error;
-            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
-        }
+        this.requestHandler = requestHandler;
     }
     async create(createBankDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.bankService.create(createBankDto, userOid), 'CREATE', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.bankService.create(createBankDto, userOid), {
+            action: 'CREATE',
+            tableName: 'banks',
+            userOid,
+            req,
+            successMessage: 'Create Bank success',
+        });
     }
     async update(oid, updateBankDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.bankService.update(oid, updateBankDto, userOid), 'UPDATE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.bankService.update(oid, updateBankDto, userOid), {
+            action: 'UPDATE',
+            tableName: 'banks',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Update Bank success',
+        });
     }
     async deleted(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.bankService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.bankService.deleted(oid, userOid), {
+            action: 'DELETE',
+            tableName: 'banks',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Delete Bank success',
+        });
     }
     async findAll(req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.bankService.findAll(), 'READ', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.bankService.findAll(), {
+            action: 'READ',
+            tableName: 'banks',
+            userOid,
+            req,
+        });
     }
     async findOne(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.bankService.findById(oid), 'READ', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.bankService.findById(oid), {
+            action: 'READ',
+            tableName: 'banks',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Get Bank success',
+        });
     }
     async find(pageIndex = 1, pageSize = 10, filterBankDto, req) {
         const userOid = req.user?.oid;
         const page = Number(pageIndex) || 1;
         const size = Number(pageSize) || 10;
-        return this.handleRequest(async () => {
+        return this.requestHandler.handleRequest(async () => {
             const { banks, count } = await this.bankService.findPage(page, size, filterBankDto);
-            const totalPage = Math.ceil(count / size);
             return {
                 page,
                 size,
                 totalItem: count,
-                totalPage,
+                totalPage: Math.ceil(count / size),
                 data: banks,
             };
-        }, 'READ', userOid, undefined, req, true);
+        }, {
+            action: 'READ',
+            tableName: 'banks',
+            userOid,
+            req,
+            paginate: true,
+            successMessage: 'Get paginated banks success',
+        });
     }
 };
 exports.BankController = BankController;
@@ -197,7 +192,6 @@ exports.BankController = BankController = __decorate([
     (0, swagger_1.ApiTags)('Bank'),
     (0, common_1.Controller)('bank'),
     __metadata("design:paramtypes", [bank_service_1.BankService,
-        build_response_1.ResponseService,
-        audit_trail_midleware_service_1.AuditTrailService])
+        request_handler_service_1.RequestHandlerService])
 ], BankController);
 //# sourceMappingURL=bank.controller.js.map

@@ -18,6 +18,7 @@ const news_category_controller_1 = require("../controllers/news-category.control
 const news_category_service_1 = require("../services/news-category.service");
 const news_category_repository_1 = require("../repositories/news-category.repository");
 const news_category_vm_1 = require("../mappings/news-category-vm");
+const request_handler_service_1 = require("../services/request-handler.service");
 let NewsCategoryModule = class NewsCategoryModule {
 };
 exports.NewsCategoryModule = NewsCategoryModule;
@@ -25,7 +26,7 @@ exports.NewsCategoryModule = NewsCategoryModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([news_category_entity_1.NewsCategory]), user_module_1.UserModule, audit_trail_module_1.AuditTrailModule],
         controllers: [news_category_controller_1.NewsCategoryController],
-        providers: [audit_trail_midleware_service_1.AuditTrailService, news_category_service_1.NewsCategoryService, build_response_1.ResponseService, news_category_repository_1.NewsCategoryRepository, news_category_vm_1.NewsCategoryMapping],
+        providers: [audit_trail_midleware_service_1.AuditTrailService, news_category_service_1.NewsCategoryService, request_handler_service_1.RequestHandlerService, build_response_1.ResponseService, news_category_repository_1.NewsCategoryRepository, news_category_vm_1.NewsCategoryMapping],
         exports: [audit_trail_midleware_service_1.AuditTrailService],
     })
 ], NewsCategoryModule);

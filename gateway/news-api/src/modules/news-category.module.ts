@@ -9,11 +9,12 @@ import { NewsCategoryController } from '../controllers/news-category.controller'
 import { NewsCategoryService } from '../services/news-category.service';
 import { NewsCategoryRepository } from '../repositories/news-category.repository';
 import { NewsCategoryMapping } from '../mappings/news-category-vm';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([NewsCategory]) ,UserModule,AuditTrailModule],
     controllers: [NewsCategoryController],
-    providers: [AuditTrailService ,NewsCategoryService,ResponseService, NewsCategoryRepository,NewsCategoryMapping],
+    providers: [AuditTrailService ,NewsCategoryService,RequestHandlerService,ResponseService, NewsCategoryRepository,NewsCategoryMapping],
      exports: [AuditTrailService],
 
 })

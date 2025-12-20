@@ -17,96 +17,92 @@ const common_1 = require("@nestjs/common");
 const news_category_service_1 = require("../services/news-category.service");
 const payload_news_category_dto_1 = require("../dtos/payload-news-category-dto");
 const swagger_1 = require("@nestjs/swagger");
-const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
-const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const error_response_dto_1 = require("../dtos/base/error-response.dto");
 const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
+const request_handler_service_1 = require("../services/request-handler.service");
 let NewsCategoryController = class NewsCategoryController {
     newsCategoryService;
-    responseService;
-    auditTrailService;
-    constructor(newsCategoryService, responseService, auditTrailService) {
+    requestHandler;
+    constructor(newsCategoryService, requestHandler) {
         this.newsCategoryService = newsCategoryService;
-        this.responseService = responseService;
-        this.auditTrailService = auditTrailService;
-    }
-    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
-        try {
-            const result = await fn();
-            await this.auditTrailService.recordPost({
-                tableName: 'newsCategorys',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'SUCCESS',
-                message: `${action} NewsCategory success`,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-                newData: result,
-            });
-            if (paginate) {
-                return this.responseService.responseOkWithPagination(result.data, {
-                    page: result.page,
-                    size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
-                });
-            }
-            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newsCategorys',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'ERROR',
-                message: error.message,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-            });
-            if (error instanceof common_1.NotFoundException)
-                throw error;
-            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
-        }
+        this.requestHandler = requestHandler;
     }
     async create(createNewsCategoryDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsCategoryService.create(createNewsCategoryDto, userOid), 'CREATE', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.newsCategoryService.create(createNewsCategoryDto, userOid), {
+            action: 'CREATE',
+            tableName: 'news_categories',
+            userOid,
+            req,
+            successMessage: 'Create News Category success',
+        });
     }
     async update(oid, updateNewsCategoryDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid), 'UPDATE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid), {
+            action: 'UPDATE',
+            tableName: 'news_categories',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Update News Category success',
+        });
     }
     async deleted(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsCategoryService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsCategoryService.deleted(oid, userOid), {
+            action: 'DELETE',
+            tableName: 'news_categories',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Delete News Category success',
+        });
     }
     async findAll(req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsCategoryService.findAll(), 'READ', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.newsCategoryService.findAll(), {
+            action: 'READ',
+            tableName: 'news_categories',
+            userOid,
+            req,
+            successMessage: 'Get all News Categories success',
+        });
     }
     async findOne(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsCategoryService.findById(oid), 'READ', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsCategoryService.findById(oid), {
+            action: 'READ',
+            tableName: 'news_categories',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Get News Category success',
+        });
     }
     async find(pageIndex = 1, pageSize = 10, filterNewsCategoryDto, req) {
         const userOid = req.user?.oid;
         const page = Number(pageIndex) || 1;
         const size = Number(pageSize) || 10;
-        return this.handleRequest(async () => {
+        return this.requestHandler.handleRequest(async () => {
             const { newsCategories, count } = await this.newsCategoryService.findPage(page, size, filterNewsCategoryDto);
-            const totalPage = Math.ceil(count / size);
             return {
                 page,
                 size,
                 totalItem: count,
-                totalPage,
+                totalPage: Math.ceil(count / size),
                 data: newsCategories,
             };
-        }, 'READ', userOid, undefined, req, true);
+        }, {
+            action: 'READ',
+            tableName: 'news_categories',
+            userOid,
+            req,
+            paginate: true,
+            successMessage: 'Get paginated News Categories success',
+        });
     }
 };
 exports.NewsCategoryController = NewsCategoryController;
@@ -140,7 +136,7 @@ __decorate([
 ], NewsCategoryController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a NewsCategory' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the newsCategory to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete newsCategorys', type: success_response_message_dto_1.SuccessResponseMessageDto }),
@@ -194,10 +190,9 @@ __decorate([
 ], NewsCategoryController.prototype, "find", null);
 exports.NewsCategoryController = NewsCategoryController = __decorate([
     (0, swagger_1.ApiBearerAuth)(),
-    (0, swagger_1.ApiTags)('NewsCategory'),
-    (0, common_1.Controller)('newsCategory'),
+    (0, swagger_1.ApiTags)('News Category'),
+    (0, common_1.Controller)('news-category'),
     __metadata("design:paramtypes", [news_category_service_1.NewsCategoryService,
-        build_response_1.ResponseService,
-        audit_trail_midleware_service_1.AuditTrailService])
+        request_handler_service_1.RequestHandlerService])
 ], NewsCategoryController);
 //# sourceMappingURL=news-category.controller.js.map
