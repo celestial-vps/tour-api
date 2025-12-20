@@ -1,151 +1,161 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
 import { Bank } from '../models/bank.entity';
-import { CreateBankDto, FilterBankDto, UpdateBankDto } from '../dtos/payload-bank-dto';
+import { FilterBankDto } from '../dtos/payload-bank-dto';
 
 @Injectable()
 export class BankRepository {
-    constructor(
-        @InjectRepository(Bank)
-        private readonly bankRepository: Repository<Bank>,
-    ) { }
+  constructor(
+    @InjectRepository(Bank)
+    private readonly repo: Repository<Bank>,
+  ) {}
 
-    async save(bank: Bank, queryRunner: QueryRunner): Promise<Bank> {
-        try {
-            const savedBank = await queryRunner.manager.save(Bank, bank);
-            return savedBank;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving bank: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(bank: Bank, queryRunner: QueryRunner): Promise<Bank> {
+    try {
+      return await queryRunner.manager.save(Bank, bank);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving bank: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    bank: Partial<Bank>,
+    queryRunner: QueryRunner,
+  ): Promise<Bank> {
+    try {
+      const result = await queryRunner.manager.update(
+        Bank,
+        { oid },
+        bank,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Bank with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(Bank, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating bank: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        Bank,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Bank with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting bank: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<Bank[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<Bank> {
+    const bank = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!bank) {
+      throw new NotFoundException(`Bank with OID ${oid} not found`);
     }
 
-    async update(oid: string, bank: Bank, queryRunner: QueryRunner): Promise<Bank> {
-        try {
-            await this.bankRepository.update(oid, bank)
-            return bank;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update bank: ' + error.message);
-        }
+    return bank;
+  }
+
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterBankDto,
+  ): Promise<{ banks: Bank[]; count: number }> {
+    const where = this.buildFilter(condition);
+
+    const [banks, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { bankName: 'ASC' },
+    });
+
+    return { banks, count };
+  }
+
+  async findCountByCriteria(
+    condition: FilterBankDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
+
+  async advanceFilter(
+    condition: FilterBankDto,
+  ): Promise<Bank[]> {
+    const where = this.buildFilter(condition);
+
+    return this.repo.find({
+      where,
+      order: { bankName: 'ASC' },
+    });
+  }
+
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
+
+  private buildFilter(
+    condition: FilterBankDto,
+  ): FindOptionsWhere<Bank> {
+    const where: FindOptionsWhere<Bank> = {};
+
+    if (condition.bankCode) {
+      where.bankCode = Like(`%${condition.bankCode}%`);
     }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
-
-        try {
-            await this.bankRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving bank: ' + error.message);
-        }
+    if (condition.bankName) {
+      where.bankName = Like(`%${condition.bankName}%`);
     }
 
-    async findAll(): Promise<Bank[]> {
-        return this.bankRepository.find();
-    }
-
-
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterBankDto,
-    ): Promise<{ banks: Bank[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-
-        // Apply filters based on the condition
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-
-        // Execute the query and return results
-        try {
-            const [banks, count] = await queryBuilder.getManyAndCount();
-            return { banks, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching banks: ' + error.message);
-        }
-    }
-
-    async findCountByCriteria(
-        condition: FilterBankDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-
-        // Apply filters based on the condition
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching bank count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterBankDto,
-    ): Promise<Bank[]> {
-        // Initialize the query builder
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-
-        // Apply filters based on the condition
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-
-        // Execute the query to retrieve the matching records
-        try {
-            const banks = await queryBuilder.getMany();
-            return banks;
-        } catch (error) {
-            throw new Error('Error fetching banks: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Bank> {
-        try {
-            // Try to find the bank by the given OID
-            const bank = await this.bankRepository.findOne({ where: { oid } });
-
-            // If no bank is found, throw a NotFoundException
-            if (!bank) {
-                throw new NotFoundException(`Bank with OID ${oid} not found`);
-            }
-
-            return bank;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching bank: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

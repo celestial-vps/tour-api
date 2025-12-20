@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const bank_entity_1 = require("../models/bank.entity");
 let BankRepository = class BankRepository {
-    bankRepository;
-    constructor(bankRepository) {
-        this.bankRepository = bankRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(bank, queryRunner) {
         try {
-            const savedBank = await queryRunner.manager.save(bank_entity_1.Bank, bank);
-            return savedBank;
+            return await queryRunner.manager.save(bank_entity_1.Bank, bank);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving bank: ' + error.message);
@@ -33,97 +32,77 @@ let BankRepository = class BankRepository {
     }
     async update(oid, bank, queryRunner) {
         try {
-            await this.bankRepository.update(oid, bank);
-            return bank;
+            const result = await queryRunner.manager.update(bank_entity_1.Bank, { oid }, bank);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Bank with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(bank_entity_1.Bank, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update bank: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating bank: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.bankRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(bank_entity_1.Bank, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Bank with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving bank: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting bank: ' + error.message);
         }
     }
     async findAll() {
-        return this.bankRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [banks, count] = await queryBuilder.getManyAndCount();
-            return { banks, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching banks: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching bank count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.bankRepository.createQueryBuilder('bank');
-        if (condition.bankCode) {
-            queryBuilder.andWhere('bank.bankCode LIKE :bankCode', {
-                bankCode: `%${condition.bankCode}%`,
-            });
-        }
-        if (condition.bankName) {
-            queryBuilder.orWhere('bank.bankName LIKE :bankName', {
-                bankName: `%${condition.bankName}%`,
-            });
-        }
-        try {
-            const banks = await queryBuilder.getMany();
-            return banks;
-        }
-        catch (error) {
-            throw new Error('Error fetching banks: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const bank = await this.bankRepository.findOne({ where: { oid } });
-            if (!bank) {
-                throw new common_1.NotFoundException(`Bank with OID ${oid} not found`);
-            }
-            return bank;
+        const bank = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!bank) {
+            throw new common_1.NotFoundException(`Bank with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching bank: ' + error.message);
+        return bank;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [banks, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { bankName: 'ASC' },
+        });
+        return { banks, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { bankName: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.bankCode) {
+            where.bankCode = (0, typeorm_2.Like)(`%${condition.bankCode}%`);
         }
+        if (condition.bankName) {
+            where.bankName = (0, typeorm_2.Like)(`%${condition.bankName}%`);
+        }
+        return where;
     }
 };
 exports.BankRepository = BankRepository;
