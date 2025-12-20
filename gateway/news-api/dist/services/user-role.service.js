@@ -11,21 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoleService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
-const config_1 = require("@nestjs/config");
-const user_role_vm_1 = require("../mappings/user-role-vm");
-const user_role_entity_1 = require("../models/user-role.entity");
 const user_role_repository_1 = require("../repositories/user-role.repository");
+const user_role_entity_1 = require("../models/user-role.entity");
+const typeorm_1 = require("typeorm");
+const user_role_vm_1 = require("../mappings/user-role-vm");
 let UserRoleService = class UserRoleService {
     userRoleRepository;
     userRoleMapping;
-    configService;
     dataSource;
-    constructor(userRoleRepository, userRoleMapping, configService, dataSource) {
+    constructor(userRoleRepository, userRoleMapping, dataSource) {
         this.userRoleRepository = userRoleRepository;
         this.userRoleMapping = userRoleMapping;
-        this.configService = configService;
         this.dataSource = dataSource;
     }
     async create(userRoledto, userOid) {
@@ -33,22 +29,14 @@ let UserRoleService = class UserRoleService {
         await queryRunner.startTransaction();
         try {
             const userRole = new user_role_entity_1.UserRole();
-            userRole.roleName = userRoledto.roleName;
             userRole.targetType = userRoledto.targetType;
+            userRole.roleName = userRoledto.roleName;
             userRole.isAdministrative = userRoledto.isAdministrative;
-            userRole.readState = userRoledto.readState;
-            userRole.writeState = userRoledto.writeState;
-            userRole.createState = userRoledto.createState;
-            userRole.deleteState = userRoledto.deleteState;
-            userRole.navigateState = userRoledto.navigateState;
-            userRole.createdAt = new Date();
             userRole.createdBy = userOid;
+            userRole.createdAt = new Date();
             const savedUserRole = await this.userRoleRepository.save(userRole, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedUserRole.oid;
-            messageVm.name = savedUserRole.roleName;
-            return messageVm;
+            return { value: savedUserRole.oid, name: savedUserRole.roleName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -63,50 +51,39 @@ let UserRoleService = class UserRoleService {
         await queryRunner.startTransaction();
         try {
             const userRole = await this.userRoleRepository.findById(oid);
-            if (!userRole) {
+            if (!userRole)
                 throw new common_1.NotFoundException('UserRole data not found');
-            }
-            userRole.roleName = userRoledto.roleName;
             userRole.targetType = userRoledto.targetType;
+            userRole.roleName = userRoledto.roleName;
             userRole.isAdministrative = userRoledto.isAdministrative;
-            userRole.readState = userRoledto.readState;
-            userRole.writeState = userRoledto.writeState;
-            userRole.createState = userRoledto.createState;
-            userRole.deleteState = userRoledto.deleteState;
-            userRole.navigateState = userRoledto.navigateState;
+            userRole.lastModifiedBy = userOid;
+            userRole.updatedAt = new Date();
             const savedUserRole = await this.userRoleRepository.update(oid, userRole, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedUserRole.oid;
-            messageVm.name = savedUserRole.roleName;
-            return messageVm;
+            return { value: savedUserRole.oid, name: savedUserRole.roleName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update userRole: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating userRole: ' + error.message);
         }
         finally {
             await queryRunner.release();
         }
     }
-    async deleted(oid) {
+    async deleted(oid, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const userRole = await this.userRoleRepository.findById(oid);
-            if (!userRole) {
+            if (!userRole)
                 throw new common_1.NotFoundException('UserRole data not found');
-            }
-            this.userRoleRepository.delete(oid, queryRunner);
+            await this.userRoleRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = userRole.oid;
-            messageVm.name = userRole.roleName;
-            return messageVm;
+            return { value: userRole.oid, name: userRole.roleName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete userRole: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting userRole: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -118,34 +95,35 @@ let UserRoleService = class UserRoleService {
             return this.userRoleMapping.toUserRoleResponses(userRoles);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find userRole: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching userRoles: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { userRoles, count } = await this.userRoleRepository.findByCriteriaPage(page, pageSize, condition);
-            const userRoleResponses = this.userRoleMapping.toUserRoleResponses(userRoles);
-            return { userRoles: userRoleResponses, count };
+            return { userRoles: this.userRoleMapping.toUserRoleResponses(userRoles), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find userRole: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated userRoles: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const userRole = await this.userRoleRepository.findById(oid);
+            if (!userRole)
+                throw new common_1.NotFoundException('UserRole not found');
             return this.userRoleMapping.toUserRoleResponse(userRole);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find userRole: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching userRole: ' + error.message);
         }
     }
 };
 exports.UserRoleService = UserRoleService;
 exports.UserRoleService = UserRoleService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_role_repository_1.UserRoleRepository, user_role_vm_1.UserRoleMapping,
-        config_1.ConfigService,
+    __metadata("design:paramtypes", [user_role_repository_1.UserRoleRepository,
+        user_role_vm_1.UserRoleMapping,
         typeorm_1.DataSource])
 ], UserRoleService);
 //# sourceMappingURL=user-role.service.js.map

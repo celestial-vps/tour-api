@@ -7,6 +7,7 @@ export declare class BannerController {
     private readonly responseService;
     private readonly auditTrailService;
     constructor(bannerService: BannerService, responseService: ResponseService, auditTrailService: AuditTrailService);
+    private handleRequest;
     create(createBannerDto: CreateBannerDto, req: any): Promise<any>;
     update(oid: string, updateBannerDto: UpdateBannerDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

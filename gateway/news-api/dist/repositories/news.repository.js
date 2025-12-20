@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const news_entity_1 = require("../models/news.entity");
 let NewsRepository = class NewsRepository {
-    newsRepository;
-    constructor(newsRepository) {
-        this.newsRepository = newsRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(news, queryRunner) {
         try {
-            const savedNews = await queryRunner.manager.save(news_entity_1.News, news);
-            return savedNews;
+            return await queryRunner.manager.save(news_entity_1.News, news);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving news: ' + error.message);
@@ -33,97 +32,74 @@ let NewsRepository = class NewsRepository {
     }
     async update(oid, news, queryRunner) {
         try {
-            await this.newsRepository.update(oid, news);
-            return news;
+            const result = await queryRunner.manager.update(news_entity_1.News, { oid }, news);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`News with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(news_entity_1.News, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update news: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating news: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.newsRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(news_entity_1.News, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`News with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving news: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting news: ' + error.message);
         }
     }
     async findAll() {
-        return this.newsRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.newsRepository.createQueryBuilder('news');
-        if (condition.title) {
-            queryBuilder.andWhere('news.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        if (condition.content) {
-            queryBuilder.orWhere('news.content LIKE :content', {
-                content: `%${condition.content}%`,
-            });
-        }
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [newss, count] = await queryBuilder.getManyAndCount();
-            return { newss, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching newss: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.newsRepository.createQueryBuilder('news');
-        if (condition.title) {
-            queryBuilder.andWhere('news.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        if (condition.content) {
-            queryBuilder.orWhere('news.content LIKE :content', {
-                content: `%${condition.content}%`,
-            });
-        }
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching news count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.newsRepository.createQueryBuilder('news');
-        if (condition.title) {
-            queryBuilder.andWhere('news.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        if (condition.content) {
-            queryBuilder.orWhere('news.content LIKE :content', {
-                content: `%${condition.content}%`,
-            });
-        }
-        try {
-            const newss = await queryBuilder.getMany();
-            return newss;
-        }
-        catch (error) {
-            throw new Error('Error fetching newss: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const news = await this.newsRepository.findOne({ where: { oid } });
-            if (!news) {
-                throw new common_1.NotFoundException(`News with OID ${oid} not found`);
-            }
-            return news;
+        const news = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!news) {
+            throw new common_1.NotFoundException(`News with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching news: ' + error.message);
+        return news;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [newss, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { title: 'ASC' },
+        });
+        return { newss, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { title: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.title) {
+            where.title = (0, typeorm_2.Like)(`%${condition.title}%`);
         }
+        return where;
     }
 };
 exports.NewsRepository = NewsRepository;

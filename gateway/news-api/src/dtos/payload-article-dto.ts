@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNotEmpty, IsEnum, IsUUID, IsInt } from 'class-validator';
+import { ApiBaseResponseProps } from './base/api-base-response.decorator';
+import { PaginationInfo } from './base/pagination-info-dto';
 
 export class FilterArticleDto {
     @IsOptional()
@@ -8,7 +10,7 @@ export class FilterArticleDto {
 
     @IsOptional()
     @IsUUID()
-    authorId?: string;
+    content?: string;
 
     @IsOptional()
     @IsUUID()
@@ -78,4 +80,51 @@ export class UpdateArticleDto {
 
     @IsEnum(['draft','published','deleted'])
     status: 'draft' | 'published' | 'deleted';
+}
+
+
+/** ---------------- Response DTO ---------------- */
+export class ResponseArticleVm {
+    @ApiProperty({ example: '1', description: 'OID bank' })
+    oid: string;
+
+    @ApiProperty({ example: 'B001', description: 'Article code' })
+    title: string;
+ 
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Created at' })
+    createdAt: Date;
+
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Updated at', required: false })
+    updatedAt?: Date;
+}
+
+/** ---------------- Success Response DTO for Article ---------------- */
+export class SuccessArticleResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: [ResponseArticleVm], description: 'List of banks' })
+    data: ResponseArticleVm[] = [];
+}
+
+
+export class SuccessArticleObjectResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: ResponseArticleVm, description: 'Article object' })
+    data: ResponseArticleVm;
+}
+
+
+export class SuccessArticlePaginatedResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiProperty({ type: PaginationInfo })
+    pagination: PaginationInfo;
+    @ApiProperty({ type: [ResponseArticleVm] })
+    data: ResponseArticleVm[];
 }

@@ -1,151 +1,160 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
-import { Like } from '../models/like.entity';
-import { CreateLikeDto, FilterLikeDto, UpdateLikeDto } from '../dtos/payload-like-dto';
+import {
+  FindOptionsWhere,
+  Like as ILike,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
+import { LikeEntity } from '../models/like.entity';
+import { FilterLikeDto } from '../dtos/payload-like-dto';
 
 @Injectable()
 export class LikeRepository {
-    constructor(
-        @InjectRepository(Like)
-        private readonly likeRepository: Repository<Like>,
-    ) { }
+  constructor(
+    @InjectRepository(LikeEntity)
+    private readonly repo: Repository<LikeEntity>,
+  ) {}
 
-    async save(like: Like, queryRunner: QueryRunner): Promise<Like> {
-        try {
-            const savedLike = await queryRunner.manager.save(Like, like);
-            return savedLike;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving like: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(
+    like: LikeEntity,
+    queryRunner: QueryRunner,
+  ): Promise<LikeEntity> {
+    try {
+      return await queryRunner.manager.save(LikeEntity, like);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error saving like: ${error.message}`,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    payload: Partial<LikeEntity>,
+    queryRunner: QueryRunner,
+  ): Promise<LikeEntity> {
+    try {
+      const result = await queryRunner.manager.update(
+        LikeEntity,
+        { oid },
+        payload,
+      );
+
+      if (!result.affected) {
+        throw new NotFoundException(`Like with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(LikeEntity, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) throw error;
+
+      throw new InternalServerErrorException(
+        `Error updating like: ${error.message}`,
+      );
+    }
+  }
+
+  async delete(
+    oid: string,
+    queryRunner: QueryRunner,
+  ): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        LikeEntity,
+        { oid },
+      );
+
+      if (!result.affected) {
+        throw new NotFoundException(`Like with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) throw error;
+
+      throw new InternalServerErrorException(
+        `Error deleting like: ${error.message}`,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<LikeEntity[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<LikeEntity> {
+    const like = await this.repo.findOne({
+      where: { oid },
+    });
+
+    if (!like) {
+      throw new NotFoundException(`Like with OID ${oid} not found`);
     }
 
-    async update(oid: string, like: Like, queryRunner: QueryRunner): Promise<Like> {
-        try {
-            await this.likeRepository.update(oid, like)
-            return like;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update like: ' + error.message);
-        }
-    }
+    return like;
+  }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterLikeDto,
+  ): Promise<{ likes: LikeEntity[]; count: number }> {
+    const where = this.buildFilter(condition);
 
-        try {
-            await this.likeRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving like: ' + error.message);
-        }
-    }
+    const [likes, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { createdAt: 'DESC' },
+    });
 
-    async findAll(): Promise<Like[]> {
-        return this.likeRepository.find();
-    }
+    return { likes, count };
+  }
 
+  async findCountByCriteria(
+    condition: FilterLikeDto,
+  ): Promise<number> {
+    return this.repo.count({
+      where: this.buildFilter(condition),
+    });
+  }
 
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterLikeDto,
-    ): Promise<{ likes: Like[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
+  async advanceFilter(
+    condition: FilterLikeDto,
+  ): Promise<LikeEntity[]> {
+    return this.repo.find({
+      where: this.buildFilter(condition),
+      order: { createdAt: 'DESC' },
+    });
+  }
 
-        // Apply filters based on the condition
-        // if (condition.likeCode) {
-        //     queryBuilder.andWhere('like.likeCode LIKE :likeCode', {
-        //         likeCode: `%${condition.likeCode}%`,
-        //     });
-        // }
-        // if (condition.likeName) {
-        //     queryBuilder.orWhere('like.likeName LIKE :likeName', {
-        //         likeName: `%${condition.likeName}%`,
-        //     });
-        // }
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
 
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
+  private buildFilter(
+    condition: FilterLikeDto,
+  ): FindOptionsWhere<LikeEntity> {
+    const where: FindOptionsWhere<LikeEntity> = {};
 
-        // Execute the query and return results
-        try {
-            const [likes, count] = await queryBuilder.getManyAndCount();
-            return { likes, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching likes: ' + error.message);
-        }
-    }
+    // if (condition?.title) {
+    //   // NOTE: hanya berlaku kalau LikeEntity punya kolom "title"
+    //   where['title'] = ILike(`%${condition.title}%`);
+    // }
 
-    async findCountByCriteria(
-        condition: FilterLikeDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
-
-        // Apply filters based on the condition
-        // if (condition.likeCode) {
-        //     queryBuilder.andWhere('like.likeCode LIKE :likeCode', {
-        //         likeCode: `%${condition.likeCode}%`,
-        //     });
-        // }
-        // if (condition.likeName) {
-        //     queryBuilder.orWhere('like.likeName LIKE :likeName', {
-        //         likeName: `%${condition.likeName}%`,
-        //     });
-        // }
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching like count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterLikeDto,
-    ): Promise<Like[]> {
-        // Initialize the query builder
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
-
-        // Apply filters based on the condition
-        // if (condition.likeCode) {
-        //     queryBuilder.andWhere('like.likeCode LIKE :likeCode', {
-        //         likeCode: `%${condition.likeCode}%`,
-        //     });
-        // }
-        // if (condition.likeName) {
-        //     queryBuilder.orWhere('like.likeName LIKE :likeName', {
-        //         likeName: `%${condition.likeName}%`,
-        //     });
-        // }
-
-        // Execute the query to retrieve the matching records
-        try {
-            const likes = await queryBuilder.getMany();
-            return likes;
-        } catch (error) {
-            throw new Error('Error fetching likes: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Like> {
-        try {
-            // Try to find the like by the given OID
-            const like = await this.likeRepository.findOne({ where: { oid } });
-
-            // If no like is found, throw a NotFoundException
-            if (!like) {
-                throw new NotFoundException(`Like with OID ${oid} not found`);
-            }
-
-            return like;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching like: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

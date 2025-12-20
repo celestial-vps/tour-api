@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const notification_entity_1 = require("../models/notification.entity");
 let NotificationRepository = class NotificationRepository {
-    notificationRepository;
-    constructor(notificationRepository) {
-        this.notificationRepository = notificationRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(notification, queryRunner) {
         try {
-            const savedNotification = await queryRunner.manager.save(notification_entity_1.Notification, notification);
-            return savedNotification;
+            return await queryRunner.manager.save(notification_entity_1.Notification, notification);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving notification: ' + error.message);
@@ -33,67 +32,74 @@ let NotificationRepository = class NotificationRepository {
     }
     async update(oid, notification, queryRunner) {
         try {
-            await this.notificationRepository.update(oid, notification);
-            return notification;
+            const result = await queryRunner.manager.update(notification_entity_1.Notification, { oid }, notification);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Notification with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(notification_entity_1.Notification, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update notification: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating notification: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.notificationRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(notification_entity_1.Notification, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Notification with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving notification: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting notification: ' + error.message);
         }
     }
     async findAll() {
-        return this.notificationRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.notificationRepository.createQueryBuilder('notification');
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [notifications, count] = await queryBuilder.getManyAndCount();
-            return { notifications, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching notifications: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.notificationRepository.createQueryBuilder('notification');
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching notification count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.notificationRepository.createQueryBuilder('notification');
-        try {
-            const notifications = await queryBuilder.getMany();
-            return notifications;
-        }
-        catch (error) {
-            throw new Error('Error fetching notifications: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const notification = await this.notificationRepository.findOne({ where: { oid } });
-            if (!notification) {
-                throw new common_1.NotFoundException(`Notification with OID ${oid} not found`);
-            }
-            return notification;
+        const notification = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!notification) {
+            throw new common_1.NotFoundException(`Notification with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching notification: ' + error.message);
+        return notification;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [notifications, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { title: 'ASC' },
+        });
+        return { notifications, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { title: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.title) {
+            where.title = (0, typeorm_2.Like)(`%${condition.title}%`);
         }
+        return where;
     }
 };
 exports.NotificationRepository = NotificationRepository;

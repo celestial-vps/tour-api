@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const tag_entity_1 = require("../models/tag.entity");
 let TagRepository = class TagRepository {
-    tagRepository;
-    constructor(tagRepository) {
-        this.tagRepository = tagRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(tag, queryRunner) {
         try {
-            const savedTag = await queryRunner.manager.save(tag_entity_1.Tag, tag);
-            return savedTag;
+            return await queryRunner.manager.save(tag_entity_1.Tag, tag);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving tag: ' + error.message);
@@ -33,67 +32,74 @@ let TagRepository = class TagRepository {
     }
     async update(oid, tag, queryRunner) {
         try {
-            await this.tagRepository.update(oid, tag);
-            return tag;
+            const result = await queryRunner.manager.update(tag_entity_1.Tag, { oid }, tag);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Tag with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(tag_entity_1.Tag, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update tag: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating tag: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.tagRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(tag_entity_1.Tag, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Tag with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving tag: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting tag: ' + error.message);
         }
     }
     async findAll() {
-        return this.tagRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [tags, count] = await queryBuilder.getManyAndCount();
-            return { tags, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching tags: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching tag count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-        try {
-            const tags = await queryBuilder.getMany();
-            return tags;
-        }
-        catch (error) {
-            throw new Error('Error fetching tags: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const tag = await this.tagRepository.findOne({ where: { oid } });
-            if (!tag) {
-                throw new common_1.NotFoundException(`Tag with OID ${oid} not found`);
-            }
-            return tag;
+        const tag = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!tag) {
+            throw new common_1.NotFoundException(`Tag with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching tag: ' + error.message);
+        return tag;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [tags, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { name: 'ASC' },
+        });
+        return { tags, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { name: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.name) {
+            where.name = (0, typeorm_2.Like)(`%${condition.name}%`);
         }
+        return where;
     }
 };
 exports.TagRepository = TagRepository;

@@ -1,261 +1,204 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Res, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Request,
+  BadRequestException,
+  Query,
+  UseGuards,
+  NotFoundException,
+} from '@nestjs/common';
 import { TagService } from '../services/tag.service';
-import { CreateTagDto, FilterTagDto, UpdateTagDto } from '../dtos/payload-tag-dto';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  CreateTagDto,
+  FilterTagDto,
+  UpdateTagDto,
+  SuccessTagObjectResponseDto,
+  SuccessTagPaginatedResponseDto,
+  SuccessTagResponseDto,
+} from '../dtos/payload-tag-dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { ErrorResponseDto } from '../dtos/base/error-response.dto';
+import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
 
-@Controller('tag')
 @ApiBearerAuth()
 @ApiTags('Tag')
+@Controller('tag')
 export class TagController {
-  constructor(private readonly tagService: TagService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
+  constructor(
+    private readonly tagService: TagService,
+    private readonly responseService: ResponseService,
+    private readonly auditTrailService: AuditTrailService,
+  ) { }
+
+  // ---------------- HELPER FUNCTION ----------------
+  private async handleRequest(
+    fn: () => Promise<any>,
+    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
+    userOid: string,
+    recordOid?: string,
+    req?: any,
+    paginate?: boolean,
+  ) {
+    try {
+      const result = await fn();
+
+      await this.auditTrailService.recordPost({
+        tableName: 'tags',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'SUCCESS',
+        message: `${action} Tag success`,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+        newData: result,
+      });
+      if (paginate) {
+        return this.responseService.responseOkWithPagination(result.data, {
+          page: result.page,
+          size: result.size,
+          totalItem: result.totalItem,
+          totalPage: result.totalPage,
+        });
+      }
 
 
+      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
+    } catch (error) {
+      await this.auditTrailService.recordPost({
+        tableName: 'tags',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'ERROR',
+        message: error.message,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+      });
+
+      if (error instanceof NotFoundException) throw error;
+
+      throw new BadRequestException({ code: 400, status: 400, message: error.message });
+    }
+  }
+
+  // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new Tag' })
-  @ApiBody({ type: CreateTagDto })  // Document the body DTO used for creation
-  @ApiOkResponse({ description: 'The tag has been successfully created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiBody({ type: CreateTagDto })
+  @ApiOkResponse({ description: 'Create tags', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createTagDto: CreateTagDto, @Request() req: any): Promise<any> {
-    try {      
-      const userOid = req.user?.oid;   
-      const tagResponse = await this.tagService.create(createTagDto, userOid);
-      const response = this.responseService.responseOk(tagResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: tagResponse?.value ?? 'unknown',
-        action: 'CREATE',
-        status: 'SUCCESS',
-        message: 'Create Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: tagResponse,
-      });
-      return response;  
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'CREATE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.tagService.create(createTagDto, userOid), 'CREATE', userOid, undefined, req);
   }
 
+  // ---------------- UPDATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a Tag' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to be updated' })   
-  @ApiBody({ type: UpdateTagDto })   
-  @ApiOkResponse({ description: 'The tag has been successfully updated.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to be updated' })
+  @ApiBody({ type: UpdateTagDto })
+  @ApiOkResponse({ description: 'Update tags', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateTagDto: UpdateTagDto, @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.userOid || req.user?.oid;   
-      const tagResponse = await this.tagService.update(oid, updateTagDto, userOid);
-      const response = this.responseService.responseOk(tagResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: tagResponse?.value ?? 'unknown',
-        action: 'UPDATE',
-        status: 'SUCCESS',
-        message: 'Update Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: tagResponse,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'UPDATE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.tagService.update(oid, updateTagDto, userOid), 'UPDATE', userOid, oid, req);
   }
 
+  // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Delete(':oid')
   @ApiOperation({ summary: 'Delete a Tag' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to be deleted' })   
-  @ApiOkResponse({ description: 'The tag has been successfully deleted.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Delete('/delete/:oid')
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to be deleted' })
+  @ApiOkResponse({ description: 'Delete tags', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const tagResponse = await this.tagService.deleted(oid,userOid);;
-      const response = this.responseService.responseOk(tagResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: tagResponse?.value ?? 'unknown',
-        action: 'DELETE',
-        status: 'SUCCESS',
-        message: 'Update Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: tagResponse,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'DELETE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.tagService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
   }
 
+  // ---------------- FIND ALL ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
   @ApiOperation({ summary: 'Get all tags' })
-  @ApiOkResponse({ description: 'List of all tags', type: [CreateTagDto] })   
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiOkResponse({ description: 'Get all tags', type: SuccessTagResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const tags = await this.tagService.findAll();
-
-      const response = this.responseService.responseOk(tags, tags.length);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-     await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
-
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.tagService.findAll(), 'READ', userOid, undefined, req);
   }
 
+  // ---------------- FIND ONE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific tag by OID' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to retrieve' })  
-  @ApiOkResponse({ description: 'The tag details', type: CreateTagDto })   
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to retrieve' })
+  @ApiOkResponse({ description: 'Get tag', type: SuccessTagObjectResponseDto })
+  @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
-
-    try {
-      const userOid = req.user?.oid;
-      const tag = await this.tagService.findById(oid);;
-      const response = this.responseService.responseOk(tag, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.tagService.findById(oid), 'READ', userOid, oid, req);
   }
 
+  // ---------------- FIND WITH PAGINATION ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
   @ApiOperation({ summary: 'Find tags with pagination and filters' })
-  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })   
-  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })   
-  @ApiBody({ type: FilterTagDto })   
-  @ApiOkResponse({ description: 'List of filtered tags with pagination', type: CreateTagDto })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  async find(@Query('pageIndex') pageIndex: number = 1,  // Get pageIndex query param
-    @Query('pageSize') pageSize: number = 10,    
+  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })
+  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })
+  @ApiBody({ type: FilterTagDto })
+  @ApiOkResponse({ description: 'Get paginated tags', type: SuccessTagPaginatedResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async find(
+    @Query('pageIndex') pageIndex: number = 1,
+    @Query('pageSize') pageSize: number = 10,
     @Body() filterTagDto: FilterTagDto,
-    @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const { tags, count } = await this.tagService.findPage(pageIndex, pageSize, filterTagDto);
-      const totalPage = Math.ceil(count / pageSize);
+    @Request() req: any,
+  ): Promise<any> {
+    const userOid = req.user?.oid;
 
-      const pagging = {
-        page: pageIndex,
-        size: pageSize,
-        totalItem: count,
-        totalPage: totalPage,  			
-      };
-      const response = this.responseService.responseOkWithPagination(tags, pagging);
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update Tag success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const page = Number(pageIndex) || 1;
+    const size = Number(pageSize) || 10;
+
+    return this.handleRequest(
+      async () => {
+        const { tags, count } = await this.tagService.findPage(page, size, filterTagDto);
+        const totalPage = Math.ceil(count / size);
+       
+        return {  
+          page,   
+          size,
+          totalItem: count,
+          totalPage,
+          data: tags,
+        };
+      },
+      'READ',
+      userOid,
+      undefined,
+      req,
+      true,
+    );
   }
-
 }

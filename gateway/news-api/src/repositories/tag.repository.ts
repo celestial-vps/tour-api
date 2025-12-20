@@ -1,151 +1,158 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
 import { Tag } from '../models/tag.entity';
-import { CreateTagDto, FilterTagDto, UpdateTagDto } from '../dtos/payload-tag-dto';
+import { FilterTagDto } from '../dtos/payload-tag-dto';
 
 @Injectable()
 export class TagRepository {
-    constructor(
-        @InjectRepository(Tag)
-        private readonly tagRepository: Repository<Tag>,
-    ) { }
+  constructor(
+    @InjectRepository(Tag)
+    private readonly repo: Repository<Tag>,
+  ) {}
 
-    async save(tag: Tag, queryRunner: QueryRunner): Promise<Tag> {
-        try {
-            const savedTag = await queryRunner.manager.save(Tag, tag);
-            return savedTag;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving tag: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(tag: Tag, queryRunner: QueryRunner): Promise<Tag> {
+    try {
+      return await queryRunner.manager.save(Tag, tag);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving tag: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    tag: Partial<Tag>,
+    queryRunner: QueryRunner,
+  ): Promise<Tag> {
+    try {
+      const result = await queryRunner.manager.update(
+        Tag,
+        { oid },
+        tag,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Tag with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(Tag, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating tag: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        Tag,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Tag with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting tag: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<Tag[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<Tag> {
+    const tag = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!tag) {
+      throw new NotFoundException(`Tag with OID ${oid} not found`);
     }
 
-    async update(oid: string, tag: Tag, queryRunner: QueryRunner): Promise<Tag> {
-        try {
-            await this.tagRepository.update(oid, tag)
-            return tag;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update tag: ' + error.message);
-        }
+    return tag;
+  }
+
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterTagDto,
+  ): Promise<{ tags: Tag[]; count: number }> {
+    const where = this.buildFilter(condition);
+
+    const [tags, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { name: 'ASC' },
+    });
+
+    return { tags, count };
+  }
+
+  async findCountByCriteria(
+    condition: FilterTagDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
+
+  async advanceFilter(
+    condition: FilterTagDto,
+  ): Promise<Tag[]> {
+    const where = this.buildFilter(condition);
+
+    return this.repo.find({
+      where,
+      order: { name: 'ASC' },
+    });
+  }
+
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
+
+  private buildFilter(
+    condition: FilterTagDto,
+  ): FindOptionsWhere<Tag> {
+    const where: FindOptionsWhere<Tag> = {};
+ 
+
+    if (condition.name) {
+      where.name = Like(`%${condition.name}%`);
     }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
-
-        try {
-            await this.tagRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving tag: ' + error.message);
-        }
-    }
-
-    async findAll(): Promise<Tag[]> {
-        return this.tagRepository.find();
-    }
-
-
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterTagDto,
-    ): Promise<{ tags: Tag[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-
-        // Apply filters based on the condition
-        // if (condition.tagCode) {
-        //     queryBuilder.andWhere('tag.tagCode LIKE :tagCode', {
-        //         tagCode: `%${condition.tagCode}%`,
-        //     });
-        // }
-        // if (condition.tagName) {
-        //     queryBuilder.orWhere('tag.tagName LIKE :tagName', {
-        //         tagName: `%${condition.tagName}%`,
-        //     });
-        // }
-
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-
-        // Execute the query and return results
-        try {
-            const [tags, count] = await queryBuilder.getManyAndCount();
-            return { tags, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching tags: ' + error.message);
-        }
-    }
-
-    async findCountByCriteria(
-        condition: FilterTagDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-
-        // Apply filters based on the condition
-        // if (condition.tagCode) {
-        //     queryBuilder.andWhere('tag.tagCode LIKE :tagCode', {
-        //         tagCode: `%${condition.tagCode}%`,
-        //     });
-        // }
-        // if (condition.tagName) {
-        //     queryBuilder.orWhere('tag.tagName LIKE :tagName', {
-        //         tagName: `%${condition.tagName}%`,
-        //     });
-        // }
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching tag count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterTagDto,
-    ): Promise<Tag[]> {
-        // Initialize the query builder
-        const queryBuilder = this.tagRepository.createQueryBuilder('tag');
-
-        // Apply filters based on the condition
-        // if (condition.tagCode) {
-        //     queryBuilder.andWhere('tag.tagCode LIKE :tagCode', {
-        //         tagCode: `%${condition.tagCode}%`,
-        //     });
-        // }
-        // if (condition.tagName) {
-        //     queryBuilder.orWhere('tag.tagName LIKE :tagName', {
-        //         tagName: `%${condition.tagName}%`,
-        //     });
-        // }
-
-        // Execute the query to retrieve the matching records
-        try {
-            const tags = await queryBuilder.getMany();
-            return tags;
-        } catch (error) {
-            throw new Error('Error fetching tags: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Tag> {
-        try {
-            // Try to find the tag by the given OID
-            const tag = await this.tagRepository.findOne({ where: { oid } });
-
-            // If no tag is found, throw a NotFoundException
-            if (!tag) {
-                throw new NotFoundException(`Tag with OID ${oid} not found`);
-            }
-
-            return tag;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching tag: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

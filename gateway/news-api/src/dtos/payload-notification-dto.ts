@@ -1,10 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNotEmpty, IsUUID, IsBoolean } from 'class-validator';
+import { ApiBaseResponseProps } from './base/api-base-response.decorator';
+import { PaginationInfo } from './base/pagination-info-dto';
 
 export class FilterNotificationDto {
     @IsOptional()
     @IsUUID()
-    userId?: string;
+    title?: string;
 
     @IsOptional()
     @IsBoolean()
@@ -42,4 +44,58 @@ export class UpdateNotificationDto {
 
     @IsBoolean()
     isRead: boolean;
+}
+
+
+
+/** ---------------- Response DTO ---------------- */
+export class ResponseNotificationVm {
+    @ApiProperty({ example: '1', description: 'OID bank' })
+    oid: string;
+
+    @ApiProperty({ example: 'B001', description: 'Notification code' })
+    title: string;
+
+    @ApiProperty({ example: 'Notification Mandiri', description: 'Notification name' })
+    message: string;
+
+    @ApiProperty({ example: 'Mandiri', description: 'Short name' })
+    isRead: string;
+
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Created at' })
+    createdAt: Date;
+
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Updated at', required: false })
+    updatedAt?: Date;
+}
+
+/** ---------------- Success Response DTO for Notification ---------------- */
+export class SuccessNotificationResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: [ResponseNotificationVm], description: 'List of banks' })
+    data: ResponseNotificationVm[] = [];
+}
+
+
+export class SuccessNotificationObjectResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: ResponseNotificationVm, description: 'Notification object' })
+    data: ResponseNotificationVm;
+}
+
+
+export class SuccessNotificationPaginatedResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiProperty({ type: PaginationInfo })
+    pagination: PaginationInfo;
+    @ApiProperty({ type: [ResponseNotificationVm] })
+    data: ResponseNotificationVm[];
 }

@@ -1,137 +1,161 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
 import { Article } from '../models/article.entity';
-import { CreateArticleDto, FilterArticleDto, UpdateArticleDto } from '../dtos/payload-article-dto';
+import { FilterArticleDto } from '../dtos/payload-article-dto';
 
 @Injectable()
 export class ArticleRepository {
-    constructor(
-        @InjectRepository(Article)
-        private readonly articleRepository: Repository<Article>,
-    ) { }
+  constructor(
+    @InjectRepository(Article)
+    private readonly repo: Repository<Article>,
+  ) {}
 
-    async save(article: Article, queryRunner: QueryRunner): Promise<Article> {
-        try {
-            const savedArticle = await queryRunner.manager.save(Article, article);
-            return savedArticle;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving article: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(article: Article, queryRunner: QueryRunner): Promise<Article> {
+    try {
+      return await queryRunner.manager.save(Article, article);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving article: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    article: Partial<Article>,
+    queryRunner: QueryRunner,
+  ): Promise<Article> {
+    try {
+      const result = await queryRunner.manager.update(
+        Article,
+        { oid },
+        article,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Article with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(Article, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating article: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        Article,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Article with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting article: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<Article[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<Article> {
+    const article = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!article) {
+      throw new NotFoundException(`Article with OID ${oid} not found`);
     }
 
-    async update(oid: string, article: Article, queryRunner: QueryRunner): Promise<Article> {
-        try {
-            await this.articleRepository.update(oid, article)
-            return article;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update article: ' + error.message);
-        }
+    return article;
+  }
+
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterArticleDto,
+  ): Promise<{ articles: Article[]; count: number }> {
+    const where = this.buildFilter(condition);
+
+    const [articles, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { content: 'ASC' },
+    });
+
+    return { articles, count };
+  }
+
+  async findCountByCriteria(
+    condition: FilterArticleDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
+
+  async advanceFilter(
+    condition: FilterArticleDto,
+  ): Promise<Article[]> {
+    const where = this.buildFilter(condition);
+
+    return this.repo.find({
+      where,
+      order: { content: 'ASC' },
+    });
+  }
+
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
+
+  private buildFilter(
+    condition: FilterArticleDto,
+  ): FindOptionsWhere<Article> {
+    const where: FindOptionsWhere<Article> = {};
+
+    if (condition.title) {
+      where.title = Like(`%${condition.title}%`);
     }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
-
-        try {
-            await this.articleRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving article: ' + error.message);
-        }
+    if (condition.content) {
+      where.content = Like(`%${condition.content}%`);
     }
 
-    async findAll(): Promise<Article[]> {
-        return this.articleRepository.find();
-    }
-
-
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterArticleDto,
-    ): Promise<{ articles: Article[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-
-        // Apply filters based on the condition
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        } 
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-
-        // Execute the query and return results
-        try {
-            const [articles, count] = await queryBuilder.getManyAndCount();
-            return { articles, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching articles: ' + error.message);
-        }
-    }
-
-    async findCountByCriteria(
-        condition: FilterArticleDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-
-        // Apply filters based on the condition
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-     
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching article count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterArticleDto,
-    ): Promise<Article[]> {
-        // Initialize the query builder
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-
-        // Apply filters based on the condition
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-     
-
-        // Execute the query to retrieve the matching records
-        try {
-            const articles = await queryBuilder.getMany();
-            return articles;
-        } catch (error) {
-            throw new Error('Error fetching articles: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Article> {
-        try {
-            // Try to find the article by the given OID
-            const article = await this.articleRepository.findOne({ where: { oid } });
-
-            // If no article is found, throw a NotFoundException
-            if (!article) {
-                throw new NotFoundException(`Article with OID ${oid} not found`);
-            }
-
-            return article;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching article: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

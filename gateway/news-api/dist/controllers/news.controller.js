@@ -21,6 +21,8 @@ const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
 const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
+const error_response_dto_1 = require("../dtos/base/error-response.dto");
+const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
 let NewsController = class NewsController {
     newsService;
     responseService;
@@ -30,206 +32,81 @@ let NewsController = class NewsController {
         this.responseService = responseService;
         this.auditTrailService = auditTrailService;
     }
-    async create(createNewsDto, req) {
+    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
         try {
-            const userOid = req.user?.oid;
-            const newsResponse = await this.newsService.create(createNewsDto, userOid);
-            const response = this.responseService.responseOk(newsResponse, 1);
+            const result = await fn();
             await this.auditTrailService.recordPost({
                 tableName: 'newss',
-                recordOid: newsResponse?.value ?? 'unknown',
-                action: 'CREATE',
+                recordOid: recordOid ?? 'unknown',
+                action,
                 status: 'SUCCESS',
-                message: 'Create News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: newsResponse,
+                message: `${action} News success`,
+                userOid,
+                ipAddress: req?.ip,
+                userAgent: req?.headers['user-agent'],
+                newData: result,
             });
-            return response;
+            if (paginate) {
+                return this.responseService.responseOkWithPagination(result.data, {
+                    page: result.page,
+                    size: result.size,
+                    totalItem: result.totalItem,
+                    totalPage: result.totalPage,
+                });
+            }
+            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
         }
         catch (error) {
             await this.auditTrailService.recordPost({
                 tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'CREATE',
+                recordOid: recordOid ?? 'unknown',
+                action,
                 status: 'ERROR',
                 message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
+                userOid,
+                ipAddress: req?.ip,
+                userAgent: req?.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
         }
+    }
+    async create(createNewsDto, req) {
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.newsService.create(createNewsDto, userOid), 'CREATE', userOid, undefined, req);
     }
     async update(oid, updateNewsDto, req) {
-        try {
-            const userOid = req.userOid || req.user?.oid;
-            const newsResponse = await this.newsService.update(oid, updateNewsDto, userOid);
-            const response = this.responseService.responseOk(newsResponse, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: newsResponse?.value ?? 'unknown',
-                action: 'UPDATE',
-                status: 'SUCCESS',
-                message: 'Update News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: newsResponse,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'UPDATE',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.newsService.update(oid, updateNewsDto, userOid), 'UPDATE', userOid, oid, req);
     }
     async deleted(oid, req) {
-        try {
-            const userOid = req.user?.oid;
-            const newsResponse = await this.newsService.deleted(oid, userOid);
-            ;
-            const response = this.responseService.responseOk(newsResponse, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: newsResponse?.value ?? 'unknown',
-                action: 'DELETE',
-                status: 'SUCCESS',
-                message: 'Update News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: newsResponse,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'DELETE',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.newsService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
     }
     async findAll(req) {
-        try {
-            const userOid = req.user?.oid;
-            const newss = await this.newsService.findAll();
-            const response = this.responseService.responseOk(newss, newss.length);
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.newsService.findAll(), 'READ', userOid, undefined, req);
     }
     async findOne(oid, req) {
-        try {
-            const userOid = req.user?.oid;
-            const news = await this.newsService.findById(oid);
-            ;
-            const response = this.responseService.responseOk(news, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.newsService.findById(oid), 'READ', userOid, oid, req);
     }
     async find(pageIndex = 1, pageSize = 10, filterNewsDto, req) {
-        try {
-            const userOid = req.user?.oid;
-            const { newss, count } = await this.newsService.findPage(pageIndex, pageSize, filterNewsDto);
-            const totalPage = Math.ceil(count / pageSize);
-            const pagging = {
-                page: pageIndex,
-                size: pageSize,
+        const userOid = req.user?.oid;
+        const page = Number(pageIndex) || 1;
+        const size = Number(pageSize) || 10;
+        return this.handleRequest(async () => {
+            const { newss, count } = await this.newsService.findPage(page, size, filterNewsDto);
+            const totalPage = Math.ceil(count / size);
+            return {
+                page,
+                size,
                 totalItem: count,
-                totalPage: totalPage,
+                totalPage,
+                data: newss,
             };
-            const response = this.responseService.responseOkWithPagination(newss, pagging);
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update News success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        }, 'READ', userOid, undefined, req, true);
     }
 };
 exports.NewsController = NewsController;
@@ -238,8 +115,8 @@ __decorate([
     (0, common_1.Post)('create'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new News' }),
     (0, swagger_1.ApiBody)({ type: payload_news_dto_1.CreateNewsDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The news has been successfully created.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Create newss', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -252,8 +129,8 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update a News' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the news to be updated' }),
     (0, swagger_1.ApiBody)({ type: payload_news_dto_1.UpdateNewsDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The news has been successfully updated.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Update newss', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -263,11 +140,11 @@ __decorate([
 ], NewsController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, common_1.Delete)(':oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a News' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the news to be deleted' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The news has been successfully deleted.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
-    (0, common_1.Delete)('/delete/:oid'),
+    (0, swagger_1.ApiOkResponse)({ description: 'Delete newss', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -278,8 +155,8 @@ __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all newss' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of all newss', type: [payload_news_dto_1.CreateNewsDto] }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get all newss', type: payload_news_dto_1.SuccessNewsResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -290,8 +167,8 @@ __decorate([
     (0, common_1.Get)(':oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a specific news by OID' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the news to retrieve' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The news details', type: payload_news_dto_1.CreateNewsDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get news', type: payload_news_dto_1.SuccessNewsObjectResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -305,8 +182,8 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' }),
     (0, swagger_1.ApiQuery)({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' }),
     (0, swagger_1.ApiBody)({ type: payload_news_dto_1.FilterNewsDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of filtered newss with pagination', type: payload_news_dto_1.CreateNewsDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get paginated newss', type: payload_news_dto_1.SuccessNewsPaginatedResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Query)('pageIndex')),
     __param(1, (0, common_1.Query)('pageSize')),
     __param(2, (0, common_1.Body)()),
@@ -316,9 +193,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], NewsController.prototype, "find", null);
 exports.NewsController = NewsController = __decorate([
-    (0, common_1.Controller)('news'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('News'),
-    __metadata("design:paramtypes", [news_service_1.NewsService, build_response_1.ResponseService, audit_trail_midleware_service_1.AuditTrailService])
+    (0, common_1.Controller)('news'),
+    __metadata("design:paramtypes", [news_service_1.NewsService,
+        build_response_1.ResponseService,
+        audit_trail_midleware_service_1.AuditTrailService])
 ], NewsController);
 //# sourceMappingURL=news.controller.js.map

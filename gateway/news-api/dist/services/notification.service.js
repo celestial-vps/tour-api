@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const notification_repository_1 = require("../repositories/notification.repository");
 const notification_entity_1 = require("../models/notification.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const notification_vm_1 = require("../mappings/notification-vm");
 let NotificationService = class NotificationService {
     notificationRepository;
@@ -31,14 +30,12 @@ let NotificationService = class NotificationService {
         try {
             const notification = new notification_entity_1.Notification();
             notification.title = notificationdto.title;
+            notification.message = notificationdto.message;
             notification.createdBy = userOid;
             notification.createdAt = new Date();
             const savedNotification = await this.notificationRepository.save(notification, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNotification.oid;
-            messageVm.name = savedNotification.title ?? '';
-            return messageVm;
+            return { value: savedNotification.oid, name: savedNotification.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +50,19 @@ let NotificationService = class NotificationService {
         await queryRunner.startTransaction();
         try {
             const notification = await this.notificationRepository.findById(oid);
-            if (!notification) {
+            if (!notification)
                 throw new common_1.NotFoundException('Notification data not found');
-            }
             notification.title = notificationdto.title;
+            notification.message = notificationdto.message;
+            notification.lastModifiedBy = userOid;
+            notification.updatedAt = new Date();
             const savedNotification = await this.notificationRepository.update(oid, notification, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNotification.oid;
-            messageVm.name = savedNotification.title ?? '';
-            return messageVm;
+            return { value: savedNotification.oid, name: savedNotification.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update notification: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating notification: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +73,15 @@ let NotificationService = class NotificationService {
         await queryRunner.startTransaction();
         try {
             const notification = await this.notificationRepository.findById(oid);
-            if (!notification) {
+            if (!notification)
                 throw new common_1.NotFoundException('Notification data not found');
-            }
-            this.notificationRepository.delete(oid, queryRunner);
+            await this.notificationRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = notification.oid;
-            messageVm.name = notification.title ?? '';
-            return messageVm;
+            return { value: notification.oid, name: notification.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete notification: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting notification: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +93,35 @@ let NotificationService = class NotificationService {
             return this.notificationMapping.toNotificationResponses(notifications);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find notification: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching notifications: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { notifications, count } = await this.notificationRepository.findByCriteriaPage(page, pageSize, condition);
-            const notificationResponses = this.notificationMapping.toNotificationResponses(notifications);
-            return { notifications: notificationResponses, count };
+            return { notifications: this.notificationMapping.toNotificationResponses(notifications), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find notification: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated notifications: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const notification = await this.notificationRepository.findById(oid);
+            if (!notification)
+                throw new common_1.NotFoundException('Notification not found');
             return this.notificationMapping.toNotificationResponse(notification);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find notification: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching notification: ' + error.message);
         }
     }
 };
 exports.NotificationService = NotificationService;
 exports.NotificationService = NotificationService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [notification_repository_1.NotificationRepository, notification_vm_1.NotificationMapping,
+    __metadata("design:paramtypes", [notification_repository_1.NotificationRepository,
+        notification_vm_1.NotificationMapping,
         typeorm_1.DataSource])
 ], NotificationService);
 //# sourceMappingURL=notification.service.js.map

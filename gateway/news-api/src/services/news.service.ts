@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { NewsRepository } from '../repositories/news.repository';
 import { News } from '../models/news.entity';
 import { CreateNewsDto, FilterNewsDto, UpdateNewsDto } from '../dtos/payload-news-dto';
@@ -8,41 +8,34 @@ import { NewsMapping, NewsVm } from '../mappings/news-vm';
 
 @Injectable()
 export class NewsService {
-  constructor(private readonly newsRepository: NewsRepository, private readonly newsMapping: NewsMapping,
+  constructor(
+    private readonly newsRepository: NewsRepository,
+    private readonly newsMapping: NewsMapping,
     private readonly dataSource: DataSource,
-  ) { }
+  ) {}
 
   async create(newsdto: CreateNewsDto, userOid: string): Promise<MessageVm> {
-
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
       const news = new News();
+      // news.newsCode = newsdto.newsCode;
       news.title = newsdto.title;
       news.content = newsdto.content;
-      news.summary = newsdto.summary;
-      news.author = newsdto.author;
-      news.status = newsdto.status ? newsdto.status : 'draft';
-      news.publishedAt = newsdto.publishedAt;
-      news.views = newsdto.views ? newsdto.views : 0;
-      news.tags = newsdto.tags;
-      news.language = newsdto.language;
       news.createdBy = userOid;
       news.createdAt = new Date();
+
       const savedNews = await this.newsRepository.save(news, queryRunner);
       await queryRunner.commitTransaction();
-      const messageVm = new MessageVm();
-      messageVm.value = savedNews.oid;
-      messageVm.name = savedNews.title ?? '';
-      return messageVm;
+
+      return { value: savedNews.oid, name: savedNews.title ?? '' } as MessageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new InternalServerErrorException('Error saving news: ' + error.message);
     } finally {
       await queryRunner.release();
     }
-
   }
 
   async update(oid: string, newsdto: UpdateNewsDto, userOid: string): Promise<MessageVm> {
@@ -50,52 +43,42 @@ export class NewsService {
     await queryRunner.startTransaction();
 
     try {
-      const news = await this.newsRepository.findById(oid)
-      if (!news) {
-        throw new NotFoundException('News data not found');
-      }
+      const news = await this.newsRepository.findById(oid);
+      if (!news) throw new NotFoundException('News data not found');
 
+      // news.newsCode = newsdto.newsCode;
       news.title = newsdto.title;
       news.content = newsdto.content;
-      news.summary = newsdto.summary;
-      news.author = newsdto.author;
-      news.status = newsdto.status ? newsdto.status : news.status;
-      news.publishedAt = newsdto.publishedAt;
-      news.views = newsdto.views ? newsdto.views : news.views;
-      news.tags = newsdto.tags;
-      news.language = newsdto.language;
+      news.lastModifiedBy = userOid;
+      news.updatedAt = new Date();
+
       const savedNews = await this.newsRepository.update(oid, news, queryRunner);
       await queryRunner.commitTransaction();
-      const messageVm = new MessageVm();
-      messageVm.value = savedNews.oid;
-      messageVm.name = savedNews.title ?? '';
-      return messageVm;
+
+      return { value: savedNews.oid, name: savedNews.title ?? '' } as MessageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw new InternalServerErrorException('Error update news: ' + error.message);
+      throw new InternalServerErrorException('Error updating news: ' + error.message);
     } finally {
       await queryRunner.release();
     }
   }
 
-  async deleted(oid: string,userOid:string): Promise<MessageVm> {
+  async deleted(oid: string, userOid: string): Promise<MessageVm> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
-      const news = await this.newsRepository.findById(oid)
-      if (!news) {
-        throw new NotFoundException('News data not found');
-      }
-      this.newsRepository.delete(oid, queryRunner)
+      const news = await this.newsRepository.findById(oid);
+      if (!news) throw new NotFoundException('News data not found');
+
+      await this.newsRepository.delete(oid, queryRunner); // <--- tambahkan await
       await queryRunner.commitTransaction();
-      const messageVm = new MessageVm();
-      messageVm.value = news.oid;
-      messageVm.name = news.title ?? '';
-      return messageVm;
+
+      return { value: news.oid, name: news.title ?? '' } as MessageVm;
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw new InternalServerErrorException('Error Delete news: ' + error.message);
+      throw new InternalServerErrorException('Error deleting news: ' + error.message);
     } finally {
       await queryRunner.release();
     }
@@ -106,29 +89,26 @@ export class NewsService {
       const newss = await this.newsRepository.findAll();
       return this.newsMapping.toNewsResponses(newss);
     } catch (error) {
-      throw new InternalServerErrorException('Error Find news: ' + error.message);
+      throw new InternalServerErrorException('Error fetching newss: ' + error.message);
     }
   }
 
-  async findPage(page: number, pageSize: number, condition: FilterNewsDto):
-    Promise<{ newss: NewsVm[]; count: number }> {
-
+  async findPage(page: number, pageSize: number, condition: FilterNewsDto): Promise<{ newss: NewsVm[]; count: number }> {
     try {
       const { newss, count } = await this.newsRepository.findByCriteriaPage(page, pageSize, condition);
-      const newsResponses = this.newsMapping.toNewsResponses(newss);
-      return { newss: newsResponses, count };
+      return { newss: this.newsMapping.toNewsResponses(newss), count };
     } catch (error) {
-      throw new InternalServerErrorException('Error Find news: ' + error.message);
+      throw new InternalServerErrorException('Error fetching paginated newss: ' + error.message);
     }
   }
 
   async findById(oid: string): Promise<NewsVm> {
     try {
       const news = await this.newsRepository.findById(oid);
+      if (!news) throw new NotFoundException('News not found');
       return this.newsMapping.toNewsResponse(news);
     } catch (error) {
-      throw new InternalServerErrorException('Error Find news: ' + error.message);
+      throw new InternalServerErrorException('Error fetching news: ' + error.message);
     }
   }
-
 }

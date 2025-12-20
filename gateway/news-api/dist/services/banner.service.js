@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const banner_repository_1 = require("../repositories/banner.repository");
 const banner_entity_1 = require("../models/banner.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const banner_vm_1 = require("../mappings/banner-vm");
 let BannerService = class BannerService {
     bannerRepository;
@@ -35,10 +34,7 @@ let BannerService = class BannerService {
             banner.createdAt = new Date();
             const savedBanner = await this.bannerRepository.save(banner, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedBanner.oid;
-            messageVm.name = savedBanner.title ?? '';
-            return messageVm;
+            return { value: savedBanner.oid, name: savedBanner.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +49,18 @@ let BannerService = class BannerService {
         await queryRunner.startTransaction();
         try {
             const banner = await this.bannerRepository.findById(oid);
-            if (!banner) {
+            if (!banner)
                 throw new common_1.NotFoundException('Banner data not found');
-            }
             banner.title = bannerdto.title;
+            banner.lastModifiedBy = userOid;
+            banner.updatedAt = new Date();
             const savedBanner = await this.bannerRepository.update(oid, banner, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedBanner.oid;
-            messageVm.name = savedBanner.title ?? '';
-            return messageVm;
+            return { value: savedBanner.oid, name: savedBanner.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update banner: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating banner: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +71,15 @@ let BannerService = class BannerService {
         await queryRunner.startTransaction();
         try {
             const banner = await this.bannerRepository.findById(oid);
-            if (!banner) {
+            if (!banner)
                 throw new common_1.NotFoundException('Banner data not found');
-            }
-            this.bannerRepository.delete(oid, queryRunner);
+            await this.bannerRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = banner.oid;
-            messageVm.name = banner.title ?? '';
-            return messageVm;
+            return { value: banner.oid, name: banner.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete banner: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting banner: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +91,35 @@ let BannerService = class BannerService {
             return this.bannerMapping.toBannerResponses(banners);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find banner: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching banners: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { banners, count } = await this.bannerRepository.findByCriteriaPage(page, pageSize, condition);
-            const bannerResponses = this.bannerMapping.toBannerResponses(banners);
-            return { banners: bannerResponses, count };
+            return { banners: this.bannerMapping.toBannerResponses(banners), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find banner: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated banners: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const banner = await this.bannerRepository.findById(oid);
+            if (!banner)
+                throw new common_1.NotFoundException('Banner not found');
             return this.bannerMapping.toBannerResponse(banner);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find banner: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching banner: ' + error.message);
         }
     }
 };
 exports.BannerService = BannerService;
 exports.BannerService = BannerService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [banner_repository_1.BannerRepository, banner_vm_1.BannerMapping,
+    __metadata("design:paramtypes", [banner_repository_1.BannerRepository,
+        banner_vm_1.BannerMapping,
         typeorm_1.DataSource])
 ], BannerService);
 //# sourceMappingURL=banner.service.js.map

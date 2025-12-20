@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const article_entity_1 = require("../models/article.entity");
 let ArticleRepository = class ArticleRepository {
-    articleRepository;
-    constructor(articleRepository) {
-        this.articleRepository = articleRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(article, queryRunner) {
         try {
-            const savedArticle = await queryRunner.manager.save(article_entity_1.Article, article);
-            return savedArticle;
+            return await queryRunner.manager.save(article_entity_1.Article, article);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving article: ' + error.message);
@@ -33,82 +32,77 @@ let ArticleRepository = class ArticleRepository {
     }
     async update(oid, article, queryRunner) {
         try {
-            await this.articleRepository.update(oid, article);
-            return article;
+            const result = await queryRunner.manager.update(article_entity_1.Article, { oid }, article);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Article with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(article_entity_1.Article, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update article: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating article: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.articleRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(article_entity_1.Article, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Article with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving article: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting article: ' + error.message);
         }
     }
     async findAll() {
-        return this.articleRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [articles, count] = await queryBuilder.getManyAndCount();
-            return { articles, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching articles: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching article count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.articleRepository.createQueryBuilder('article');
-        if (condition.title) {
-            queryBuilder.andWhere('article.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        try {
-            const articles = await queryBuilder.getMany();
-            return articles;
-        }
-        catch (error) {
-            throw new Error('Error fetching articles: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const article = await this.articleRepository.findOne({ where: { oid } });
-            if (!article) {
-                throw new common_1.NotFoundException(`Article with OID ${oid} not found`);
-            }
-            return article;
+        const article = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!article) {
+            throw new common_1.NotFoundException(`Article with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching article: ' + error.message);
+        return article;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [articles, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { content: 'ASC' },
+        });
+        return { articles, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { content: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.title) {
+            where.title = (0, typeorm_2.Like)(`%${condition.title}%`);
         }
+        if (condition.content) {
+            where.content = (0, typeorm_2.Like)(`%${condition.content}%`);
+        }
+        return where;
     }
 };
 exports.ArticleRepository = ArticleRepository;

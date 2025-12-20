@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const article_repository_1 = require("../repositories/article.repository");
 const article_entity_1 = require("../models/article.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const article_vm_1 = require("../mappings/article-vm");
 let ArticleService = class ArticleService {
     articleRepository;
@@ -25,21 +24,19 @@ let ArticleService = class ArticleService {
         this.articleMapping = articleMapping;
         this.dataSource = dataSource;
     }
-    async create(articledto, slugOid) {
+    async create(articledto, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const article = new article_entity_1.Article();
+            article.content = articledto.content;
             article.title = articledto.title;
             article.slug = articledto.slug;
-            article.createdBy = slugOid;
+            article.createdBy = userOid;
             article.createdAt = new Date();
             const savedArticle = await this.articleRepository.save(article, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedArticle.oid;
-            messageVm.name = savedArticle.slug ?? '';
-            return messageVm;
+            return { value: savedArticle.oid, name: savedArticle.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -49,49 +46,44 @@ let ArticleService = class ArticleService {
             await queryRunner.release();
         }
     }
-    async update(oid, articledto, slugOid) {
+    async update(oid, articledto, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const article = await this.articleRepository.findById(oid);
-            if (!article) {
+            if (!article)
                 throw new common_1.NotFoundException('Article data not found');
-            }
+            article.content = articledto.content;
             article.title = articledto.title;
             article.slug = articledto.slug;
+            article.lastModifiedBy = userOid;
+            article.updatedAt = new Date();
             const savedArticle = await this.articleRepository.update(oid, article, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedArticle.oid;
-            messageVm.name = savedArticle.slug ?? '';
-            return messageVm;
+            return { value: savedArticle.oid, name: savedArticle.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update article: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating article: ' + error.message);
         }
         finally {
             await queryRunner.release();
         }
     }
-    async deleted(oid, slugOid) {
+    async deleted(oid, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const article = await this.articleRepository.findById(oid);
-            if (!article) {
+            if (!article)
                 throw new common_1.NotFoundException('Article data not found');
-            }
-            this.articleRepository.delete(oid, queryRunner);
+            await this.articleRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = article.oid;
-            messageVm.name = article.slug ?? '';
-            return messageVm;
+            return { value: article.oid, name: article.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete article: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting article: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -103,33 +95,35 @@ let ArticleService = class ArticleService {
             return this.articleMapping.toArticleResponses(articles);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find article: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching articles: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { articles, count } = await this.articleRepository.findByCriteriaPage(page, pageSize, condition);
-            const articleResponses = this.articleMapping.toArticleResponses(articles);
-            return { articles: articleResponses, count };
+            return { articles: this.articleMapping.toArticleResponses(articles), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find article: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated articles: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const article = await this.articleRepository.findById(oid);
+            if (!article)
+                throw new common_1.NotFoundException('Article not found');
             return this.articleMapping.toArticleResponse(article);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find article: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching article: ' + error.message);
         }
     }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [article_repository_1.ArticleRepository, article_vm_1.ArticleMapping,
+    __metadata("design:paramtypes", [article_repository_1.ArticleRepository,
+        article_vm_1.ArticleMapping,
         typeorm_1.DataSource])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

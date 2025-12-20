@@ -1,131 +1,204 @@
-// import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Res, Query, UseGuards } from '@nestjs/common'; 
-// import { ResponseService } from '../common/build.response';
-// import { Response } from 'express';
-// import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'; 
-// import { CreateUserRoleDto, FilterUserRoleDto, UpdateUserRoleDto } from '../dtos/payload-user-role-dto';
-// import { UserRoleService } from '../services/user-role.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Request,
+  BadRequestException,
+  Query,
+  UseGuards,
+  NotFoundException,
+} from '@nestjs/common';
+import { UserRoleService } from '../services/user-role.service';
+import {
+  CreateUserRoleDto,
+  FilterUserRoleDto,
+  UpdateUserRoleDto,
+  SuccessUserRoleObjectResponseDto,
+  SuccessUserRolePaginatedResponseDto,
+  SuccessUserRoleResponseDto,
+} from '../dtos/payload-user-role-dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
+import { ResponseService } from '../common/build.response';
+import { JwtAuthGuard } from '../middleware/jwt-guard';
+import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
+import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { ErrorResponseDto } from '../dtos/base/error-response.dto';
+import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
 
-// @Controller('userRole')
-// @ApiBearerAuth()
-// @ApiTags('UserRole')
-// // @UseGuards(JwtAuthGuard)
-// export class UserRoleController {
-//   constructor(private readonly userRoleService: UserRoleService, private readonly responseService: ResponseService,) { }
- 
+@ApiBearerAuth()
+@ApiTags('UserRole')
+@Controller('userRole')
+export class UserRoleController {
+  constructor(
+    private readonly userRoleService: UserRoleService,
+    private readonly responseService: ResponseService,
+    private readonly auditTrailService: AuditTrailService,
+  ) { }
 
-//   @UseGuards(AdminRoleGuard)
-//   @Post('create')
-//   @ApiOperation({ summary: 'Create a new UserRole' })
-//   @ApiBody({ type: CreateUserRoleDto })  // Document the body DTO used for creation
-//   @ApiOkResponse({ description: 'The userRole has been successfully created.' })
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   async create(@Body() createUserRoleDto: CreateUserRoleDto, @Request() req: any, @Res() res: Response): Promise<any> {
-//     try {
-//       // const userOid = res.locals.userOid || res.locals.user?.oid;  // If you attached the full user object, use user.oid
-//       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid
-//       const userRoleResponse = await this.userRoleService.create(createUserRoleDto, userOid);
-//       const response = this.responseService.responseOk(userRoleResponse, 1);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
-//   }
+  // ---------------- HELPER FUNCTION ----------------
+  private async handleRequest(
+    fn: () => Promise<any>,
+    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
+    userOid: string,
+    recordOid?: string,
+    req?: any,
+    paginate?: boolean,
+  ) {
+    try {
+      const result = await fn();
 
-//   @UseGuards(AdminRoleGuard)
-//   @Put(':oid')
-//   @ApiOperation({ summary: 'Update a UserRole' })
-//   @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to be updated' })  // Document the OID parameter
-//   @ApiBody({ type: UpdateUserRoleDto })  // Document the body DTO used for updating
-//   @ApiOkResponse({ description: 'The userRole has been successfully updated.' })
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   async update(@Param('oid') oid: string, @Body() updateUserRoleDto: UpdateUserRoleDto, @Request() req: any,@Res() res: Response): Promise<any> {
-//     try {
-//       const userOid = req.userOid || req.user?.oid;  // If you attached the full user object, use req.user.oid 
-//       const userRoleResponse = await this.userRoleService.update(oid, updateUserRoleDto,userOid);
-//       const response = this.responseService.responseOk(userRoleResponse, 1);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
-//   }
+      await this.auditTrailService.recordPost({
+        tableName: 'userRoles',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'SUCCESS',
+        message: `${action} UserRole success`,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+        newData: result,
+      });
+      if (paginate) {
+        return this.responseService.responseOkWithPagination(result.data, {
+          page: result.page,
+          size: result.size,
+          totalItem: result.totalItem,
+          totalPage: result.totalPage,
+        });
+      }
 
-//   @UseGuards(AdminRoleGuard)
-//   @Delete('/delete/:oid')
-//   @ApiOperation({ summary: 'Delete a UserRole' })
-//   @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to be deleted' })  // Document the OID parameter
-//   @ApiOkResponse({ description: 'The userRole has been successfully deleted.' })
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   @Delete('/delete/:oid')
-//   async deleted(@Param('oid') oid: string, @Res() res: Response): Promise<any> {    
-//     try {
-//       const userRoleResponse = await this.userRoleService.deleted(oid);;
-//       const response = this.responseService.responseOk(userRoleResponse, 1);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
-//   }
 
-//   @UseGuards(AdminRoleGuard)
-//   @Get()
-//   @ApiOperation({ summary: 'Get all userRoles' })
-//   @ApiOkResponse({ description: 'List of all userRoles', type: [CreateUserRoleDto] })  // Document the response type
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   async findAll(@Res() res: Response): Promise<any> {
-//     try {
-//       const userRoles = await this.userRoleService.findAll();
-//       const response = this.responseService.responseOk(userRoles, userRoles.length);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
+      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
+    } catch (error) {
+      await this.auditTrailService.recordPost({
+        tableName: 'userRoles',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'ERROR',
+        message: error.message,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+      });
 
-//   }
+      if (error instanceof NotFoundException) throw error;
 
-//   @UseGuards(AdminRoleGuard)
-//   @Get(':oid')
-//   @ApiOperation({ summary: 'Get a specific userRole by OID' })
-//   @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to retrieve' })  // Document the OID parameter
-//   @ApiOkResponse({ description: 'The userRole details', type: CreateUserRoleDto })  // Document the response type
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   async findOne(@Param('oid') oid: string, @Res() res: Response): Promise<any> {
-//     // return this.userRoleService.findById(oid);
-//     try {
-//       const userRole = await this.userRoleService.findById(oid);;
-//       const response = this.responseService.responseOk(userRole, 1);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
-//   }
+      throw new BadRequestException({ code: 400, status: 400, message: error.message });
+    }
+  }
 
-//   @UseGuards(AdminRoleGuard)
-//   @Post('/q')
-//   @ApiOperation({ summary: 'Find userRoles with pagination and filters' })
-//   @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
-//   @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })  // Document the pageSize query parameter
-//   @ApiBody({ type: FilterUserRoleDto })  // Document the filter criteria used in the body
-//   @ApiOkResponse({ description: 'List of filtered userRoles with pagination', type: CreateUserRoleDto })
-//   @ApiResponse({ status: 400, description: 'Bad Request' })
-//   async find(@Query('pageIndex') pageIndex: number = 1,  // Get pageIndex query param
-//     @Query('pageSize') pageSize: number = 10,   // Get pageSize query param    
-//     @Body() filterUserRoleDto: FilterUserRoleDto, @Res() res: Response): Promise<any> {
-//     try {
+  // ---------------- CREATE ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Post('create')
+  @ApiOperation({ summary: 'Create a new UserRole' })
+  @ApiBody({ type: CreateUserRoleDto })
+  @ApiOkResponse({ description: 'Create userRoles', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async create(@Body() createUserRoleDto: CreateUserRoleDto, @Request() req: any): Promise<any> {
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.userRoleService.create(createUserRoleDto, userOid), 'CREATE', userOid, undefined, req);
+  }
 
-//       const { userRoles, count } = await this.userRoleService.findPage(pageIndex, pageSize, filterUserRoleDto);
-//       const totalPage = Math.ceil(count / pageSize);
+  // ---------------- UPDATE ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Put(':oid')
+  @ApiOperation({ summary: 'Update a UserRole' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to be updated' })
+  @ApiBody({ type: UpdateUserRoleDto })
+  @ApiOkResponse({ description: 'Update userRoles', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async update(@Param('oid') oid: string, @Body() updateUserRoleDto: UpdateUserRoleDto, @Request() req: any): Promise<any> {
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.userRoleService.update(oid, updateUserRoleDto, userOid), 'UPDATE', userOid, oid, req);
+  }
 
-//       const pagging = {
-//         page: pageIndex,
-//         size: pageSize,
-//         totalItem: count,
-//         totalPage: totalPage, // Correctly calculates total pages			
-//       };
-//       const response = this.responseService.responseOkWithPagination(userRoles, pagging);
-//       return res.status(200).json(response);  // Return JSON response with status 200
-//     } catch (error) {
-//       throw new BadRequestException(error.message);
-//     }
-//   }
+  // ---------------- DELETE ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Delete(':oid')
+  @ApiOperation({ summary: 'Delete a UserRole' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to be deleted' })
+  @ApiOkResponse({ description: 'Delete userRoles', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.userRoleService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+  }
 
-// }
+  // ---------------- FIND ALL ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Get()
+  @ApiOperation({ summary: 'Get all userRoles' })
+  @ApiOkResponse({ description: 'Get all userRoles', type: SuccessUserRoleResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async findAll(@Request() req: any): Promise<any> {
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.userRoleService.findAll(), 'READ', userOid, undefined, req);
+  }
+
+  // ---------------- FIND ONE ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Get(':oid')
+  @ApiOperation({ summary: 'Get a specific userRole by OID' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to retrieve' })
+  @ApiOkResponse({ description: 'Get userRole', type: SuccessUserRoleObjectResponseDto })
+  @ApiBadRequestResponse({ type: ErrorResponseDto })
+  async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.userRoleService.findById(oid), 'READ', userOid, oid, req);
+  }
+
+  // ---------------- FIND WITH PAGINATION ----------------
+  @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Post('/q')
+  @ApiOperation({ summary: 'Find userRoles with pagination and filters' })
+  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })
+  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })
+  @ApiBody({ type: FilterUserRoleDto })
+  @ApiOkResponse({ description: 'Get paginated userRoles', type: SuccessUserRolePaginatedResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async find(
+    @Query('pageIndex') pageIndex: number = 1,
+    @Query('pageSize') pageSize: number = 10,
+    @Body() filterUserRoleDto: FilterUserRoleDto,
+    @Request() req: any,
+  ): Promise<any> {
+    const userOid = req.user?.oid;
+
+    const page = Number(pageIndex) || 1;
+    const size = Number(pageSize) || 10;
+
+    return this.handleRequest(
+      async () => {
+        const { userRoles, count } = await this.userRoleService.findPage(page, size, filterUserRoleDto);
+        const totalPage = Math.ceil(count / size);
+       
+        return {  
+          page,   
+          size,
+          totalItem: count,
+          totalPage,
+          data: userRoles,
+        };
+      },
+      'READ',
+      userOid,
+      undefined,
+      req,
+      true,
+    );
+  }
+}

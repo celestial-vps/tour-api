@@ -7,6 +7,7 @@ export declare class TagController {
     private readonly responseService;
     private readonly auditTrailService;
     constructor(tagService: TagService, responseService: ResponseService, auditTrailService: AuditTrailService);
+    private handleRequest;
     create(createTagDto: CreateTagDto, req: any): Promise<any>;
     update(oid: string, updateTagDto: UpdateTagDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

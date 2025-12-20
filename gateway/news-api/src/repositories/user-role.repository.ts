@@ -1,138 +1,161 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm'; 
-import { UserRole } from '../models/user-role.entity'; 
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
+import { UserRole } from '../models/user-role.entity';
 import { FilterUserRoleDto } from '../dtos/payload-user-role-dto';
 
 @Injectable()
 export class UserRoleRepository {
-    constructor(
-        @InjectRepository(UserRole)
-        private readonly userRoleRepository: Repository<UserRole>,
-    ) { }
+  constructor(
+    @InjectRepository(UserRole)
+    private readonly repo: Repository<UserRole>,
+  ) {}
 
-    async save(userRole: UserRole, queryRunner: QueryRunner): Promise<UserRole> { 
-        try {           
-            const savedUserRole = await queryRunner.manager.save(userRole);            
-            return savedUserRole; 
-        } catch (error) {            
-            throw new InternalServerErrorException('Error saving userRole: ' + error.message);
-        }  
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(userRole: UserRole, queryRunner: QueryRunner): Promise<UserRole> {
+    try {
+      return await queryRunner.manager.save(UserRole, userRole);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving userRole: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    userRole: Partial<UserRole>,
+    queryRunner: QueryRunner,
+  ): Promise<UserRole> {
+    try {
+      const result = await queryRunner.manager.update(
+        UserRole,
+        { oid },
+        userRole,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`UserRole with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(UserRole, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating userRole: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        UserRole,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`UserRole with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting userRole: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<UserRole[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<UserRole> {
+    const userRole = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!userRole) {
+      throw new NotFoundException(`UserRole with OID ${oid} not found`);
     }
 
-    async update(oid:string,userRole: UserRole, queryRunner: QueryRunner): Promise<UserRole> {
-        try {                      
-            await this.userRoleRepository.update(oid, userRole)
-            return userRole;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update userRole: ' + error.message);
-        }  
+    return userRole;
+  }
+
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterUserRoleDto,
+  ): Promise<{ userRoles: UserRole[]; count: number }> {
+    const where = this.buildFilter(condition);
+
+    const [userRoles, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { roleName: 'ASC' },
+    });
+
+    return { userRoles, count };
+  }
+
+  async findCountByCriteria(
+    condition: FilterUserRoleDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
+
+  async advanceFilter(
+    condition: FilterUserRoleDto,
+  ): Promise<UserRole[]> {
+    const where = this.buildFilter(condition);
+
+    return this.repo.find({
+      where,
+      order: { roleName: 'ASC' },
+    });
+  }
+
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
+
+  private buildFilter(
+    condition: FilterUserRoleDto,
+  ): FindOptionsWhere<UserRole> {
+    const where: FindOptionsWhere<UserRole> = {};
+
+    if (condition.targetType) {
+      where.targetType = Like(`%${condition.targetType}%`);
     }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
-
-        try {                      
-            await this.userRoleRepository.softDelete({ oid })            
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving userRole: ' + error.message);
-        }     
+    if (condition.roleName) {
+      where.roleName = Like(`%${condition.roleName}%`);
     }
 
-    async findAll(): Promise<UserRole[]> {
-        return this.userRoleRepository.find();
-    }
-
-
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterUserRoleDto,
-    ): Promise<{ userRoles: UserRole[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-
-        // Apply filters based on the condition
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-        
-
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-
-        // Execute the query and return results
-        try {
-            const [userRoles, count]  = await queryBuilder.getManyAndCount();            
-            return { userRoles, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching userRoles: ' + error.message);
-        }
-    }
-
-    async findCountByCriteria(
-        condition: FilterUserRoleDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-
-        // Apply filters based on the condition
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-        
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching userRole count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterUserRoleDto,
-    ): Promise<UserRole[]> {
-        // Initialize the query builder
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-
-        // Apply filters based on the condition
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-      
-
-        // Execute the query to retrieve the matching records
-        try {
-            const userRoles = await queryBuilder.getMany();
-            return userRoles;
-        } catch (error) {
-            throw new Error('Error fetching userRoles: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<UserRole> {
-        try {
-            // Try to find the userRole by the given OID
-            const userRole = await this.userRoleRepository.findOne({ where: { oid } });
-
-            // If no userRole is found, throw a NotFoundException
-            if (!userRole) {
-                throw new NotFoundException(`UserRole with OID ${oid} not found`);
-            }
-
-            return userRole;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching userRole: ' + error.message);
-        }
-    }
+    return where;
+  }
 }
- 

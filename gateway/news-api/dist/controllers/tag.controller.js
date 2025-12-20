@@ -21,6 +21,8 @@ const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
 const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
+const error_response_dto_1 = require("../dtos/base/error-response.dto");
+const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
 let TagController = class TagController {
     tagService;
     responseService;
@@ -30,206 +32,81 @@ let TagController = class TagController {
         this.responseService = responseService;
         this.auditTrailService = auditTrailService;
     }
-    async create(createTagDto, req) {
+    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
         try {
-            const userOid = req.user?.oid;
-            const tagResponse = await this.tagService.create(createTagDto, userOid);
-            const response = this.responseService.responseOk(tagResponse, 1);
+            const result = await fn();
             await this.auditTrailService.recordPost({
                 tableName: 'tags',
-                recordOid: tagResponse?.value ?? 'unknown',
-                action: 'CREATE',
+                recordOid: recordOid ?? 'unknown',
+                action,
                 status: 'SUCCESS',
-                message: 'Create Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: tagResponse,
+                message: `${action} Tag success`,
+                userOid,
+                ipAddress: req?.ip,
+                userAgent: req?.headers['user-agent'],
+                newData: result,
             });
-            return response;
+            if (paginate) {
+                return this.responseService.responseOkWithPagination(result.data, {
+                    page: result.page,
+                    size: result.size,
+                    totalItem: result.totalItem,
+                    totalPage: result.totalPage,
+                });
+            }
+            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
         }
         catch (error) {
             await this.auditTrailService.recordPost({
                 tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'CREATE',
+                recordOid: recordOid ?? 'unknown',
+                action,
                 status: 'ERROR',
                 message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
+                userOid,
+                ipAddress: req?.ip,
+                userAgent: req?.headers['user-agent'],
             });
-            throw new common_1.BadRequestException(error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
         }
+    }
+    async create(createTagDto, req) {
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.tagService.create(createTagDto, userOid), 'CREATE', userOid, undefined, req);
     }
     async update(oid, updateTagDto, req) {
-        try {
-            const userOid = req.userOid || req.user?.oid;
-            const tagResponse = await this.tagService.update(oid, updateTagDto, userOid);
-            const response = this.responseService.responseOk(tagResponse, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: tagResponse?.value ?? 'unknown',
-                action: 'UPDATE',
-                status: 'SUCCESS',
-                message: 'Update Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: tagResponse,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'UPDATE',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.tagService.update(oid, updateTagDto, userOid), 'UPDATE', userOid, oid, req);
     }
     async deleted(oid, req) {
-        try {
-            const userOid = req.user?.oid;
-            const tagResponse = await this.tagService.deleted(oid, userOid);
-            ;
-            const response = this.responseService.responseOk(tagResponse, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: tagResponse?.value ?? 'unknown',
-                action: 'DELETE',
-                status: 'SUCCESS',
-                message: 'Update Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: tagResponse,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'DELETE',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.tagService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
     }
     async findAll(req) {
-        try {
-            const userOid = req.user?.oid;
-            const tags = await this.tagService.findAll();
-            const response = this.responseService.responseOk(tags, tags.length);
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.tagService.findAll(), 'READ', userOid, undefined, req);
     }
     async findOne(oid, req) {
-        try {
-            const userOid = req.user?.oid;
-            const tag = await this.tagService.findById(oid);
-            ;
-            const response = this.responseService.responseOk(tag, 1);
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        const userOid = req.user?.oid;
+        return this.handleRequest(() => this.tagService.findById(oid), 'READ', userOid, oid, req);
     }
     async find(pageIndex = 1, pageSize = 10, filterTagDto, req) {
-        try {
-            const userOid = req.user?.oid;
-            const { tags, count } = await this.tagService.findPage(pageIndex, pageSize, filterTagDto);
-            const totalPage = Math.ceil(count / pageSize);
-            const pagging = {
-                page: pageIndex,
-                size: pageSize,
+        const userOid = req.user?.oid;
+        const page = Number(pageIndex) || 1;
+        const size = Number(pageSize) || 10;
+        return this.handleRequest(async () => {
+            const { tags, count } = await this.tagService.findPage(page, size, filterTagDto);
+            const totalPage = Math.ceil(count / size);
+            return {
+                page,
+                size,
                 totalItem: count,
-                totalPage: totalPage,
+                totalPage,
+                data: tags,
             };
-            const response = this.responseService.responseOkWithPagination(tags, pagging);
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'SUCCESS',
-                message: 'Update Tag success',
-                userOid: userOid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-                newData: response,
-            });
-            return response;
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: 'unknown',
-                action: 'READ',
-                status: 'ERROR',
-                message: error.message,
-                userOid: req.user?.oid,
-                ipAddress: req.ip,
-                userAgent: req.headers['user-agent'],
-            });
-            throw new common_1.BadRequestException(error.message);
-        }
+        }, 'READ', userOid, undefined, req, true);
     }
 };
 exports.TagController = TagController;
@@ -238,8 +115,8 @@ __decorate([
     (0, common_1.Post)('create'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new Tag' }),
     (0, swagger_1.ApiBody)({ type: payload_tag_dto_1.CreateTagDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The tag has been successfully created.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Create tags', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -252,8 +129,8 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update a Tag' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the tag to be updated' }),
     (0, swagger_1.ApiBody)({ type: payload_tag_dto_1.UpdateTagDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The tag has been successfully updated.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Update tags', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -263,11 +140,11 @@ __decorate([
 ], TagController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, common_1.Delete)(':oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Tag' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the tag to be deleted' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The tag has been successfully deleted.' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
-    (0, common_1.Delete)('/delete/:oid'),
+    (0, swagger_1.ApiOkResponse)({ description: 'Delete tags', type: success_response_message_dto_1.SuccessResponseMessageDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -278,8 +155,8 @@ __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all tags' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of all tags', type: [payload_tag_dto_1.CreateTagDto] }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get all tags', type: payload_tag_dto_1.SuccessTagResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -290,8 +167,8 @@ __decorate([
     (0, common_1.Get)(':oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a specific tag by OID' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the tag to retrieve' }),
-    (0, swagger_1.ApiOkResponse)({ description: 'The tag details', type: payload_tag_dto_1.CreateTagDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get tag', type: payload_tag_dto_1.SuccessTagObjectResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Param)('oid')),
     __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
@@ -305,8 +182,8 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' }),
     (0, swagger_1.ApiQuery)({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' }),
     (0, swagger_1.ApiBody)({ type: payload_tag_dto_1.FilterTagDto }),
-    (0, swagger_1.ApiOkResponse)({ description: 'List of filtered tags with pagination', type: payload_tag_dto_1.CreateTagDto }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Bad Request' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Get paginated tags', type: payload_tag_dto_1.SuccessTagPaginatedResponseDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Bad Request', type: error_response_dto_1.ErrorResponseDto }),
     __param(0, (0, common_1.Query)('pageIndex')),
     __param(1, (0, common_1.Query)('pageSize')),
     __param(2, (0, common_1.Body)()),
@@ -316,9 +193,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TagController.prototype, "find", null);
 exports.TagController = TagController = __decorate([
-    (0, common_1.Controller)('tag'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('Tag'),
-    __metadata("design:paramtypes", [tag_service_1.TagService, build_response_1.ResponseService, audit_trail_midleware_service_1.AuditTrailService])
+    (0, common_1.Controller)('tag'),
+    __metadata("design:paramtypes", [tag_service_1.TagService,
+        build_response_1.ResponseService,
+        audit_trail_midleware_service_1.AuditTrailService])
 ], TagController);
 //# sourceMappingURL=tag.controller.js.map

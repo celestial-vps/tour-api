@@ -11,10 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NewsCategoryService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
-const news_category_entity_1 = require("../models/news-category.entity");
 const news_category_repository_1 = require("../repositories/news-category.repository");
+const news_category_entity_1 = require("../models/news-category.entity");
+const typeorm_1 = require("typeorm");
 const news_category_vm_1 = require("../mappings/news-category-vm");
 let NewsCategoryService = class NewsCategoryService {
     newsCategoryRepository;
@@ -35,10 +34,7 @@ let NewsCategoryService = class NewsCategoryService {
             newsCategory.createdAt = new Date();
             const savedNewsCategory = await this.newsCategoryRepository.save(newsCategory, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNewsCategory.oid;
-            messageVm.name = savedNewsCategory.categoryName ?? '';
-            return messageVm;
+            return { value: savedNewsCategory.oid, name: savedNewsCategory.categoryName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +49,18 @@ let NewsCategoryService = class NewsCategoryService {
         await queryRunner.startTransaction();
         try {
             const newsCategory = await this.newsCategoryRepository.findById(oid);
-            if (!newsCategory) {
+            if (!newsCategory)
                 throw new common_1.NotFoundException('NewsCategory data not found');
-            }
             newsCategory.categoryName = newsCategorydto.categoryName;
+            newsCategory.lastModifiedBy = userOid;
+            newsCategory.updatedAt = new Date();
             const savedNewsCategory = await this.newsCategoryRepository.update(oid, newsCategory, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNewsCategory.oid;
-            messageVm.name = savedNewsCategory.categoryName ?? '';
-            return messageVm;
+            return { value: savedNewsCategory.oid, name: savedNewsCategory.categoryName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update newsCategory: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating newsCategory: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +71,15 @@ let NewsCategoryService = class NewsCategoryService {
         await queryRunner.startTransaction();
         try {
             const newsCategory = await this.newsCategoryRepository.findById(oid);
-            if (!newsCategory) {
+            if (!newsCategory)
                 throw new common_1.NotFoundException('NewsCategory data not found');
-            }
-            this.newsCategoryRepository.delete(oid, queryRunner);
+            await this.newsCategoryRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = newsCategory.oid;
-            messageVm.name = newsCategory.categoryName ?? '';
-            return messageVm;
+            return { value: newsCategory.oid, name: newsCategory.categoryName ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete newsCategory: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting newsCategory: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +91,35 @@ let NewsCategoryService = class NewsCategoryService {
             return this.newsCategoryMapping.toNewsCategoryResponses(newsCategories);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find newsCategory: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching newsCategories: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { newsCategories, count } = await this.newsCategoryRepository.findByCriteriaPage(page, pageSize, condition);
-            const newsCategoryResponses = this.newsCategoryMapping.toNewsCategoryResponses(newsCategories);
-            return { newsCategories: newsCategoryResponses, count };
+            return { newsCategories: this.newsCategoryMapping.toNewsCategoryResponses(newsCategories), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find newsCategory: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated newsCategories: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const newsCategory = await this.newsCategoryRepository.findById(oid);
+            if (!newsCategory)
+                throw new common_1.NotFoundException('NewsCategory not found');
             return this.newsCategoryMapping.toNewsCategoryResponse(newsCategory);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find newsCategory: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching newsCategory: ' + error.message);
         }
     }
 };
 exports.NewsCategoryService = NewsCategoryService;
 exports.NewsCategoryService = NewsCategoryService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [news_category_repository_1.NewsCategoryRepository, news_category_vm_1.NewsCategoryMapping,
+    __metadata("design:paramtypes", [news_category_repository_1.NewsCategoryRepository,
+        news_category_vm_1.NewsCategoryMapping,
         typeorm_1.DataSource])
 ], NewsCategoryService);
 //# sourceMappingURL=news-category.service.js.map

@@ -1,8 +1,8 @@
+import { NewsCategoryRepository } from '../repositories/news-category.repository';
+import { CreateNewsCategoryDto, FilterNewsCategoryDto, UpdateNewsCategoryDto } from '../dtos/payload-news-category-dto';
 import { DataSource } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
-import { NewsCategoryRepository } from '../repositories/news-category.repository';
 import { NewsCategoryMapping, NewsCategoryVm } from '../mappings/news-category-vm';
-import { CreateNewsCategoryDto, FilterNewsCategoryDto, UpdateNewsCategoryDto } from '../dtos/payload-news-category-dto';
 export declare class NewsCategoryService {
     private readonly newsCategoryRepository;
     private readonly newsCategoryMapping;

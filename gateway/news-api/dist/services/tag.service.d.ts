@@ -8,9 +8,9 @@ export declare class TagService {
     private readonly tagMapping;
     private readonly dataSource;
     constructor(tagRepository: TagRepository, tagMapping: TagMapping, dataSource: DataSource);
-    create(tagdto: CreateTagDto, slugOid: string): Promise<MessageVm>;
-    update(oid: string, tagdto: UpdateTagDto, slugOid: string): Promise<MessageVm>;
-    deleted(oid: string, slugOid: string): Promise<MessageVm>;
+    create(tagdto: CreateTagDto, userOid: string): Promise<MessageVm>;
+    update(oid: string, tagdto: UpdateTagDto, userOid: string): Promise<MessageVm>;
+    deleted(oid: string, userOid: string): Promise<MessageVm>;
     findAll(): Promise<TagVm[]>;
     findPage(page: number, pageSize: number, condition: FilterTagDto): Promise<{
         tags: TagVm[];

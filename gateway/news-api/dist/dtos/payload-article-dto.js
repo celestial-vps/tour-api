@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateArticleDto = exports.CreateArticleDto = exports.FilterArticleDto = void 0;
+exports.SuccessArticlePaginatedResponseDto = exports.SuccessArticleObjectResponseDto = exports.SuccessArticleResponseDto = exports.ResponseArticleVm = exports.UpdateArticleDto = exports.CreateArticleDto = exports.FilterArticleDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
+const api_base_response_decorator_1 = require("./base/api-base-response.decorator");
+const pagination_info_dto_1 = require("./base/pagination-info-dto");
 class FilterArticleDto {
     title;
-    authorId;
+    content;
     categoryId;
     status;
 }
@@ -28,7 +30,7 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
-], FilterArticleDto.prototype, "authorId", void 0);
+], FilterArticleDto.prototype, "content", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsUUID)(),
@@ -130,4 +132,111 @@ __decorate([
     (0, class_validator_1.IsEnum)(['draft', 'published', 'deleted']),
     __metadata("design:type", String)
 ], UpdateArticleDto.prototype, "status", void 0);
+class ResponseArticleVm {
+    oid;
+    title;
+    createdAt;
+    updatedAt;
+}
+exports.ResponseArticleVm = ResponseArticleVm;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '1', description: 'OID bank' }),
+    __metadata("design:type", String)
+], ResponseArticleVm.prototype, "oid", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'B001', description: 'Article code' }),
+    __metadata("design:type", String)
+], ResponseArticleVm.prototype, "title", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2025-12-20T08:00:00.000Z', description: 'Created at' }),
+    __metadata("design:type", Date)
+], ResponseArticleVm.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2025-12-20T08:00:00.000Z', description: 'Updated at', required: false }),
+    __metadata("design:type", Date)
+], ResponseArticleVm.prototype, "updatedAt", void 0);
+class SuccessArticleResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    total;
+    data = [];
+}
+exports.SuccessArticleResponseDto = SuccessArticleResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticleResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessArticleResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticleResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessArticleResponseDto.prototype, "total", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [ResponseArticleVm], description: 'List of banks' }),
+    __metadata("design:type", Array)
+], SuccessArticleResponseDto.prototype, "data", void 0);
+class SuccessArticleObjectResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    total;
+    data;
+}
+exports.SuccessArticleObjectResponseDto = SuccessArticleObjectResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticleObjectResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessArticleObjectResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticleObjectResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessArticleObjectResponseDto.prototype, "total", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: ResponseArticleVm, description: 'Article object' }),
+    __metadata("design:type", ResponseArticleVm)
+], SuccessArticleObjectResponseDto.prototype, "data", void 0);
+class SuccessArticlePaginatedResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    pagination;
+    data;
+}
+exports.SuccessArticlePaginatedResponseDto = SuccessArticlePaginatedResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticlePaginatedResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessArticlePaginatedResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessArticlePaginatedResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: pagination_info_dto_1.PaginationInfo }),
+    __metadata("design:type", pagination_info_dto_1.PaginationInfo)
+], SuccessArticlePaginatedResponseDto.prototype, "pagination", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [ResponseArticleVm] }),
+    __metadata("design:type", Array)
+], SuccessArticlePaginatedResponseDto.prototype, "data", void 0);
 //# sourceMappingURL=payload-article-dto.js.map

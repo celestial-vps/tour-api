@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_role_entity_1 = require("../models/user-role.entity");
 let UserRoleRepository = class UserRoleRepository {
-    userRoleRepository;
-    constructor(userRoleRepository) {
-        this.userRoleRepository = userRoleRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(userRole, queryRunner) {
         try {
-            const savedUserRole = await queryRunner.manager.save(userRole);
-            return savedUserRole;
+            return await queryRunner.manager.save(user_role_entity_1.UserRole, userRole);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving userRole: ' + error.message);
@@ -33,82 +32,77 @@ let UserRoleRepository = class UserRoleRepository {
     }
     async update(oid, userRole, queryRunner) {
         try {
-            await this.userRoleRepository.update(oid, userRole);
-            return userRole;
+            const result = await queryRunner.manager.update(user_role_entity_1.UserRole, { oid }, userRole);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`UserRole with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(user_role_entity_1.UserRole, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update userRole: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating userRole: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.userRoleRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(user_role_entity_1.UserRole, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`UserRole with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving userRole: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting userRole: ' + error.message);
         }
     }
     async findAll() {
-        return this.userRoleRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [userRoles, count] = await queryBuilder.getManyAndCount();
-            return { userRoles, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching userRoles: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching userRole count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.userRoleRepository.createQueryBuilder('userRole');
-        if (condition.roleName) {
-            queryBuilder.andWhere('userRole.roleName LIKE :roleName', {
-                roleName: `%${condition.roleName}%`,
-            });
-        }
-        try {
-            const userRoles = await queryBuilder.getMany();
-            return userRoles;
-        }
-        catch (error) {
-            throw new Error('Error fetching userRoles: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const userRole = await this.userRoleRepository.findOne({ where: { oid } });
-            if (!userRole) {
-                throw new common_1.NotFoundException(`UserRole with OID ${oid} not found`);
-            }
-            return userRole;
+        const userRole = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!userRole) {
+            throw new common_1.NotFoundException(`UserRole with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching userRole: ' + error.message);
+        return userRole;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [userRoles, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { roleName: 'ASC' },
+        });
+        return { userRoles, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { roleName: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.targetType) {
+            where.targetType = (0, typeorm_2.Like)(`%${condition.targetType}%`);
         }
+        if (condition.roleName) {
+            where.roleName = (0, typeorm_2.Like)(`%${condition.roleName}%`);
+        }
+        return where;
     }
 };
 exports.UserRoleRepository = UserRoleRepository;

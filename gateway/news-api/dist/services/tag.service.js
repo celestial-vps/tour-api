@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const tag_repository_1 = require("../repositories/tag.repository");
 const tag_entity_1 = require("../models/tag.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const tag_vm_1 = require("../mappings/tag-vm");
 let TagService = class TagService {
     tagRepository;
@@ -25,21 +24,17 @@ let TagService = class TagService {
         this.tagMapping = tagMapping;
         this.dataSource = dataSource;
     }
-    async create(tagdto, slugOid) {
+    async create(tagdto, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const tag = new tag_entity_1.Tag();
             tag.name = tagdto.name;
-            tag.slug = tagdto.slug;
-            tag.createdBy = slugOid;
+            tag.createdBy = userOid;
             tag.createdAt = new Date();
             const savedTag = await this.tagRepository.save(tag, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedTag.oid;
-            messageVm.name = savedTag.slug ?? '';
-            return messageVm;
+            return { value: savedTag.oid, name: savedTag.name ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -49,49 +44,42 @@ let TagService = class TagService {
             await queryRunner.release();
         }
     }
-    async update(oid, tagdto, slugOid) {
+    async update(oid, tagdto, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const tag = await this.tagRepository.findById(oid);
-            if (!tag) {
+            if (!tag)
                 throw new common_1.NotFoundException('Tag data not found');
-            }
             tag.name = tagdto.name;
-            tag.slug = tagdto.slug;
+            tag.lastModifiedBy = userOid;
+            tag.updatedAt = new Date();
             const savedTag = await this.tagRepository.update(oid, tag, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedTag.oid;
-            messageVm.name = savedTag.slug ?? '';
-            return messageVm;
+            return { value: savedTag.oid, name: savedTag.name ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update tag: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating tag: ' + error.message);
         }
         finally {
             await queryRunner.release();
         }
     }
-    async deleted(oid, slugOid) {
+    async deleted(oid, userOid) {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
             const tag = await this.tagRepository.findById(oid);
-            if (!tag) {
+            if (!tag)
                 throw new common_1.NotFoundException('Tag data not found');
-            }
-            this.tagRepository.delete(oid, queryRunner);
+            await this.tagRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = tag.oid;
-            messageVm.name = tag.slug ?? '';
-            return messageVm;
+            return { value: tag.oid, name: tag.name ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete tag: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting tag: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -103,33 +91,35 @@ let TagService = class TagService {
             return this.tagMapping.toTagResponses(tags);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find tag: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching tags: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { tags, count } = await this.tagRepository.findByCriteriaPage(page, pageSize, condition);
-            const tagResponses = this.tagMapping.toTagResponses(tags);
-            return { tags: tagResponses, count };
+            return { tags: this.tagMapping.toTagResponses(tags), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find tag: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated tags: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const tag = await this.tagRepository.findById(oid);
+            if (!tag)
+                throw new common_1.NotFoundException('Tag not found');
             return this.tagMapping.toTagResponse(tag);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find tag: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching tag: ' + error.message);
         }
     }
 };
 exports.TagService = TagService;
 exports.TagService = TagService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [tag_repository_1.TagRepository, tag_vm_1.TagMapping,
+    __metadata("design:paramtypes", [tag_repository_1.TagRepository,
+        tag_vm_1.TagMapping,
         typeorm_1.DataSource])
 ], TagService);
 //# sourceMappingURL=tag.service.js.map

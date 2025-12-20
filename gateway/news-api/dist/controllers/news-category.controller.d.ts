@@ -7,6 +7,7 @@ export declare class NewsCategoryController {
     private readonly responseService;
     private readonly auditTrailService;
     constructor(newsCategoryService: NewsCategoryService, responseService: ResponseService, auditTrailService: AuditTrailService);
+    private handleRequest;
     create(createNewsCategoryDto: CreateNewsCategoryDto, req: any): Promise<any>;
     update(oid: string, updateNewsCategoryDto: UpdateNewsCategoryDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

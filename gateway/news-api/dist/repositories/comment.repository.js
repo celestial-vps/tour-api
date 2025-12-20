@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const comment_entity_1 = require("../models/comment.entity");
 let CommentRepository = class CommentRepository {
-    commentRepository;
-    constructor(commentRepository) {
-        this.commentRepository = commentRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(comment, queryRunner) {
         try {
-            const savedComment = await queryRunner.manager.save(comment_entity_1.Comment, comment);
-            return savedComment;
+            return await queryRunner.manager.save(comment_entity_1.Comment, comment);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving comment: ' + error.message);
@@ -33,67 +32,71 @@ let CommentRepository = class CommentRepository {
     }
     async update(oid, comment, queryRunner) {
         try {
-            await this.commentRepository.update(oid, comment);
-            return comment;
+            const result = await queryRunner.manager.update(comment_entity_1.Comment, { oid }, comment);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Comment with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(comment_entity_1.Comment, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update comment: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating comment: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.commentRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(comment_entity_1.Comment, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Comment with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving comment: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting comment: ' + error.message);
         }
     }
     async findAll() {
-        return this.commentRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [comments, count] = await queryBuilder.getManyAndCount();
-            return { comments, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching comments: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching comment count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
-        try {
-            const comments = await queryBuilder.getMany();
-            return comments;
-        }
-        catch (error) {
-            throw new Error('Error fetching comments: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const comment = await this.commentRepository.findOne({ where: { oid } });
-            if (!comment) {
-                throw new common_1.NotFoundException(`Comment with OID ${oid} not found`);
-            }
-            return comment;
+        const comment = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!comment) {
+            throw new common_1.NotFoundException(`Comment with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching comment: ' + error.message);
-        }
+        return comment;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [comments, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { oid: 'ASC' },
+        });
+        return { comments, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { oid: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        return where;
     }
 };
 exports.CommentRepository = CommentRepository;

@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const comment_repository_1 = require("../repositories/comment.repository");
 const comment_entity_1 = require("../models/comment.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const comment_vm_1 = require("../mappings/comment-vm");
 let CommentService = class CommentService {
     commentRepository;
@@ -30,15 +29,12 @@ let CommentService = class CommentService {
         await queryRunner.startTransaction();
         try {
             const comment = new comment_entity_1.Comment();
-            comment.article = { oid: commentdto.articleId };
+            comment.content = commentdto.content;
             comment.createdBy = userOid;
             comment.createdAt = new Date();
             const savedComment = await this.commentRepository.save(comment, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedComment.oid;
-            messageVm.name = savedComment.article ? savedComment.article.oid : '';
-            return messageVm;
+            return { value: savedComment.oid, name: savedComment.content ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +49,18 @@ let CommentService = class CommentService {
         await queryRunner.startTransaction();
         try {
             const comment = await this.commentRepository.findById(oid);
-            if (!comment) {
+            if (!comment)
                 throw new common_1.NotFoundException('Comment data not found');
-            }
-            comment.article = { oid: commentdto.articleId };
+            comment.content = commentdto.content;
+            comment.lastModifiedBy = userOid;
+            comment.updatedAt = new Date();
             const savedComment = await this.commentRepository.update(oid, comment, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedComment.oid;
-            messageVm.name = savedComment.article ? savedComment.article.oid : '';
-            return messageVm;
+            return { value: savedComment.oid, name: savedComment.content ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update comment: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating comment: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +71,15 @@ let CommentService = class CommentService {
         await queryRunner.startTransaction();
         try {
             const comment = await this.commentRepository.findById(oid);
-            if (!comment) {
+            if (!comment)
                 throw new common_1.NotFoundException('Comment data not found');
-            }
-            this.commentRepository.delete(oid, queryRunner);
+            await this.commentRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = comment.oid;
-            messageVm.name = comment.article ? comment.article.oid : '';
-            return messageVm;
+            return { value: comment.oid, name: comment.content ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete comment: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting comment: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +91,35 @@ let CommentService = class CommentService {
             return this.commentMapping.toCommentResponses(comments);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find comment: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching comments: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { comments, count } = await this.commentRepository.findByCriteriaPage(page, pageSize, condition);
-            const commentResponses = this.commentMapping.toCommentResponses(comments);
-            return { comments: commentResponses, count };
+            return { comments: this.commentMapping.toCommentResponses(comments), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find comment: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated comments: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const comment = await this.commentRepository.findById(oid);
+            if (!comment)
+                throw new common_1.NotFoundException('Comment not found');
             return this.commentMapping.toCommentResponse(comment);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find comment: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching comment: ' + error.message);
         }
     }
 };
 exports.CommentService = CommentService;
 exports.CommentService = CommentService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [comment_repository_1.CommentRepository, comment_vm_1.CommentMapping,
+    __metadata("design:paramtypes", [comment_repository_1.CommentRepository,
+        comment_vm_1.CommentMapping,
         typeorm_1.DataSource])
 ], CommentService);
 //# sourceMappingURL=comment.service.js.map

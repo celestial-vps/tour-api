@@ -1,261 +1,204 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Request, BadRequestException, Res, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  Request,
+  BadRequestException,
+  Query,
+  UseGuards,
+  NotFoundException,
+} from '@nestjs/common';
 import { NewsCategoryService } from '../services/news-category.service';
-import { CreateNewsCategoryDto, FilterNewsCategoryDto, UpdateNewsCategoryDto } from '../dtos/payload-news-category-dto';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  CreateNewsCategoryDto,
+  FilterNewsCategoryDto,
+  UpdateNewsCategoryDto,
+  SuccessNewsCategoryObjectResponseDto,
+  SuccessNewsCategoryPaginatedResponseDto,
+  SuccessNewsCategoryResponseDto,
+} from '../dtos/payload-news-category-dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
 import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { ErrorResponseDto } from '../dtos/base/error-response.dto';
+import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
 
-@Controller('news-category')
 @ApiBearerAuth()
-@ApiTags('News Category')
+@ApiTags('NewsCategory')
+@Controller('newsCategory')
 export class NewsCategoryController {
-  constructor(private readonly newsCategoryService: NewsCategoryService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
+  constructor(
+    private readonly newsCategoryService: NewsCategoryService,
+    private readonly responseService: ResponseService,
+    private readonly auditTrailService: AuditTrailService,
+  ) { }
+
+  // ---------------- HELPER FUNCTION ----------------
+  private async handleRequest(
+    fn: () => Promise<any>,
+    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
+    userOid: string,
+    recordOid?: string,
+    req?: any,
+    paginate?: boolean,
+  ) {
+    try {
+      const result = await fn();
+
+      await this.auditTrailService.recordPost({
+        tableName: 'newsCategorys',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'SUCCESS',
+        message: `${action} NewsCategory success`,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+        newData: result,
+      });
+      if (paginate) {
+        return this.responseService.responseOkWithPagination(result.data, {
+          page: result.page,
+          size: result.size,
+          totalItem: result.totalItem,
+          totalPage: result.totalPage,
+        });
+      }
 
 
+      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
+    } catch (error) {
+      await this.auditTrailService.recordPost({
+        tableName: 'newsCategorys',
+        recordOid: recordOid ?? 'unknown',
+        action,
+        status: 'ERROR',
+        message: error.message,
+        userOid,
+        ipAddress: req?.ip,
+        userAgent: req?.headers['user-agent'],
+      });
+
+      if (error instanceof NotFoundException) throw error;
+
+      throw new BadRequestException({ code: 400, status: 400, message: error.message });
+    }
+  }
+
+  // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
   @ApiOperation({ summary: 'Create a new NewsCategory' })
-  @ApiBody({ type: CreateNewsCategoryDto }) 
-  @ApiOkResponse({ description: 'The newsCategory has been successfully created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiBody({ type: CreateNewsCategoryDto })
+  @ApiOkResponse({ description: 'Create newsCategorys', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createNewsCategoryDto: CreateNewsCategoryDto, @Request() req: any): Promise<any> {
-    try {      
-      const userOid = req.user?.oid;   
-      const newsCategoryResponse = await this.newsCategoryService.create(createNewsCategoryDto, userOid);
-      const response = this.responseService.responseOk(newsCategoryResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: newsCategoryResponse?.value ?? 'unknown',
-        action: 'CREATE',
-        status: 'SUCCESS',
-        message: 'Create NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: newsCategoryResponse,
-      });
-      return response;  
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'CREATE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.newsCategoryService.create(createNewsCategoryDto, userOid), 'CREATE', userOid, undefined, req);
   }
 
+  // ---------------- UPDATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Put(':oid')
   @ApiOperation({ summary: 'Update a NewsCategory' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be updated' })   
-  @ApiBody({ type: UpdateNewsCategoryDto })   
-  @ApiOkResponse({ description: 'The newsCategory has been successfully updated.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be updated' })
+  @ApiBody({ type: UpdateNewsCategoryDto })
+  @ApiOkResponse({ description: 'Update newsCategorys', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateNewsCategoryDto: UpdateNewsCategoryDto, @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.userOid || req.user?.oid;  
-      const newsCategoryResponse = await this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid);
-      const response = this.responseService.responseOk(newsCategoryResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: newsCategoryResponse?.value ?? 'unknown',
-        action: 'UPDATE',
-        status: 'SUCCESS',
-        message: 'Update NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: newsCategoryResponse,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'UPDATE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.newsCategoryService.update(oid, updateNewsCategoryDto, userOid), 'UPDATE', userOid, oid, req);
   }
 
+  // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
+  @Delete(':oid')
   @ApiOperation({ summary: 'Delete a NewsCategory' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be deleted' })  // Document the OID parameter
-  @ApiOkResponse({ description: 'The newsCategory has been successfully deleted.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Delete('/delete/:oid')
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to be deleted' })
+  @ApiOkResponse({ description: 'Delete newsCategorys', type: SuccessResponseMessageDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const newsCategoryResponse = await this.newsCategoryService.deleted(oid,userOid);;
-      const response = this.responseService.responseOk(newsCategoryResponse, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: newsCategoryResponse?.value ?? 'unknown',
-        action: 'DELETE',
-        status: 'SUCCESS',
-        message: 'Update NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: newsCategoryResponse,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'DELETE',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.newsCategoryService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
   }
 
+  // ---------------- FIND ALL ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get()
-  @ApiOperation({ summary: 'Get all newsCategories' })
-  @ApiOkResponse({ description: 'List of all newsCategories', type: [CreateNewsCategoryDto] })  // Document the response type
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiOperation({ summary: 'Get all newsCategorys' })
+  @ApiOkResponse({ description: 'Get all newsCategorys', type: SuccessNewsCategoryResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const newsCategories = await this.newsCategoryService.findAll();
-
-      const response = this.responseService.responseOk(newsCategories, newsCategories.length);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-     await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
-
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.newsCategoryService.findAll(), 'READ', userOid, undefined, req);
   }
 
+  // ---------------- FIND ONE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Get(':oid')
   @ApiOperation({ summary: 'Get a specific newsCategory by OID' })
-  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to retrieve' })  // Document the OID parameter
-  @ApiOkResponse({ description: 'The newsCategory details', type: CreateNewsCategoryDto })  // Document the response type
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiParam({ name: 'oid', description: 'Unique identifier of the newsCategory to retrieve' })
+  @ApiOkResponse({ description: 'Get newsCategory', type: SuccessNewsCategoryObjectResponseDto })
+  @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
-
-    try {
-      const userOid = req.user?.oid;
-      const newsCategory = await this.newsCategoryService.findById(oid);;
-      const response = this.responseService.responseOk(newsCategory, 1);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const userOid = req.user?.oid;
+    return this.handleRequest(() => this.newsCategoryService.findById(oid), 'READ', userOid, oid, req);
   }
 
+  // ---------------- FIND WITH PAGINATION ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('/q')
-  @ApiOperation({ summary: 'Find newsCategories with pagination and filters' })
-  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })  // Document the pageIndex query parameter
-  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })  // Document the pageSize query parameter
-  @ApiBody({ type: FilterNewsCategoryDto })  // Document the filter criteria used in the body
-  @ApiOkResponse({ description: 'List of filtered newsCategories with pagination', type: CreateNewsCategoryDto })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  async find(@Query('pageIndex') pageIndex: number = 1,  
-    @Query('pageSize') pageSize: number = 10,    
+  @ApiOperation({ summary: 'Find newsCategorys with pagination and filters' })
+  @ApiQuery({ name: 'pageIndex', required: false, type: Number, description: 'Page index for pagination' })
+  @ApiQuery({ name: 'pageSize', required: false, type: Number, description: 'Page size for pagination' })
+  @ApiBody({ type: FilterNewsCategoryDto })
+  @ApiOkResponse({ description: 'Get paginated newsCategorys', type: SuccessNewsCategoryPaginatedResponseDto })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
+  async find(
+    @Query('pageIndex') pageIndex: number = 1,
+    @Query('pageSize') pageSize: number = 10,
     @Body() filterNewsCategoryDto: FilterNewsCategoryDto,
-    @Request() req: any): Promise<any> {
-    try {
-      const userOid = req.user?.oid;
-      const { newsCategories, count } = await this.newsCategoryService.findPage(pageIndex, pageSize, filterNewsCategoryDto);
-      const totalPage = Math.ceil(count / pageSize);
+    @Request() req: any,
+  ): Promise<any> {
+    const userOid = req.user?.oid;
 
-      const pagging = {
-        page: pageIndex,
-        size: pageSize,
-        totalItem: count,
-        totalPage: totalPage,  		
-      };
-      const response = this.responseService.responseOkWithPagination(newsCategories, pagging);
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'SUCCESS',
-        message: 'Update NewsCategory success',
-        userOid: userOid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        newData: response,
-      });
-      return response;
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newsCategories',
-        recordOid: 'unknown',
-        action: 'READ',
-        status: 'ERROR',
-        message: error.message,
-        userOid: req.user?.oid,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-      });
-      throw new BadRequestException(error.message);
-    }
+    const page = Number(pageIndex) || 1;
+    const size = Number(pageSize) || 10;
+
+    return this.handleRequest(
+      async () => {
+        const { newsCategories, count } = await this.newsCategoryService.findPage(page, size, filterNewsCategoryDto);
+        const totalPage = Math.ceil(count / size);
+       
+        return {  
+          page,   
+          size,
+          totalItem: count,
+          totalPage,
+          data: newsCategories,
+        };
+      },
+      'READ',
+      userOid,
+      undefined,
+      req,
+      true,
+    );
   }
-
 }

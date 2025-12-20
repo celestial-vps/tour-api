@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const like_repository_1 = require("../repositories/like.repository");
 const like_entity_1 = require("../models/like.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const like_vm_1 = require("../mappings/like-vm");
 let LikeService = class LikeService {
     likeRepository;
@@ -29,16 +28,12 @@ let LikeService = class LikeService {
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.startTransaction();
         try {
-            const like = new like_entity_1.Like();
-            like.article = { oid: likedto.articleId };
+            const like = new like_entity_1.LikeEntity();
             like.createdBy = userOid;
             like.createdAt = new Date();
             const savedLike = await this.likeRepository.save(like, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedLike.oid;
-            messageVm.name = savedLike.article ? savedLike.article.oid : '';
-            return messageVm;
+            return { value: savedLike.oid, name: savedLike.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +48,17 @@ let LikeService = class LikeService {
         await queryRunner.startTransaction();
         try {
             const like = await this.likeRepository.findById(oid);
-            if (!like) {
+            if (!like)
                 throw new common_1.NotFoundException('Like data not found');
-            }
-            like.article = { oid: likedto.articleId };
+            like.lastModifiedBy = userOid;
+            like.updatedAt = new Date();
             const savedLike = await this.likeRepository.update(oid, like, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedLike.oid;
-            messageVm.name = savedLike.article ? savedLike.article.oid : '';
-            return messageVm;
+            return { value: savedLike.oid, name: savedLike.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update like: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating like: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +69,15 @@ let LikeService = class LikeService {
         await queryRunner.startTransaction();
         try {
             const like = await this.likeRepository.findById(oid);
-            if (!like) {
+            if (!like)
                 throw new common_1.NotFoundException('Like data not found');
-            }
-            this.likeRepository.delete(oid, queryRunner);
+            await this.likeRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = like.oid;
-            messageVm.name = like.article ? like.article.oid : '';
-            return messageVm;
+            return { value: like.oid, name: like.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete like: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting like: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +89,35 @@ let LikeService = class LikeService {
             return this.likeMapping.toLikeResponses(likes);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find like: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching likes: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { likes, count } = await this.likeRepository.findByCriteriaPage(page, pageSize, condition);
-            const likeResponses = this.likeMapping.toLikeResponses(likes);
-            return { likes: likeResponses, count };
+            return { likes: this.likeMapping.toLikeResponses(likes), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find like: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated likes: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const like = await this.likeRepository.findById(oid);
+            if (!like)
+                throw new common_1.NotFoundException('Like not found');
             return this.likeMapping.toLikeResponse(like);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find like: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching like: ' + error.message);
         }
     }
 };
 exports.LikeService = LikeService;
 exports.LikeService = LikeService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [like_repository_1.LikeRepository, like_vm_1.LikeMapping,
+    __metadata("design:paramtypes", [like_repository_1.LikeRepository,
+        like_vm_1.LikeMapping,
         typeorm_1.DataSource])
 ], LikeService);
 //# sourceMappingURL=like.service.js.map

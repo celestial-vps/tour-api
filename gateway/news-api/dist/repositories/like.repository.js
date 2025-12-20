@@ -18,88 +18,89 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const like_entity_1 = require("../models/like.entity");
 let LikeRepository = class LikeRepository {
-    likeRepository;
-    constructor(likeRepository) {
-        this.likeRepository = likeRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(like, queryRunner) {
         try {
-            const savedLike = await queryRunner.manager.save(like_entity_1.Like, like);
-            return savedLike;
+            return await queryRunner.manager.save(like_entity_1.LikeEntity, like);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving like: ' + error.message);
+            throw new common_1.InternalServerErrorException(`Error saving like: ${error.message}`);
         }
     }
-    async update(oid, like, queryRunner) {
+    async update(oid, payload, queryRunner) {
         try {
-            await this.likeRepository.update(oid, like);
-            return like;
+            const result = await queryRunner.manager.update(like_entity_1.LikeEntity, { oid }, payload);
+            if (!result.affected) {
+                throw new common_1.NotFoundException(`Like with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(like_entity_1.LikeEntity, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update like: ' + error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.InternalServerErrorException(`Error updating like: ${error.message}`);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.likeRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(like_entity_1.LikeEntity, { oid });
+            if (!result.affected) {
+                throw new common_1.NotFoundException(`Like with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving like: ' + error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.InternalServerErrorException(`Error deleting like: ${error.message}`);
         }
     }
     async findAll() {
-        return this.likeRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [likes, count] = await queryBuilder.getManyAndCount();
-            return { likes, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching likes: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching like count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.likeRepository.createQueryBuilder('like');
-        try {
-            const likes = await queryBuilder.getMany();
-            return likes;
-        }
-        catch (error) {
-            throw new Error('Error fetching likes: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const like = await this.likeRepository.findOne({ where: { oid } });
-            if (!like) {
-                throw new common_1.NotFoundException(`Like with OID ${oid} not found`);
-            }
-            return like;
+        const like = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!like) {
+            throw new common_1.NotFoundException(`Like with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching like: ' + error.message);
-        }
+        return like;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [likes, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { createdAt: 'DESC' },
+        });
+        return { likes, count };
+    }
+    async findCountByCriteria(condition) {
+        return this.repo.count({
+            where: this.buildFilter(condition),
+        });
+    }
+    async advanceFilter(condition) {
+        return this.repo.find({
+            where: this.buildFilter(condition),
+            order: { createdAt: 'DESC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        return where;
     }
 };
 exports.LikeRepository = LikeRepository;
 exports.LikeRepository = LikeRepository = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(like_entity_1.Like)),
+    __param(0, (0, typeorm_1.InjectRepository)(like_entity_1.LikeEntity)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], LikeRepository);
 //# sourceMappingURL=like.repository.js.map

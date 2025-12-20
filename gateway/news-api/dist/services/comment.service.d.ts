@@ -1,7 +1,7 @@
 import { CommentRepository } from '../repositories/comment.repository';
+import { CreateCommentDto, FilterCommentDto, UpdateCommentDto } from '../dtos/payload-comment-dto';
 import { DataSource } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
-import { CreateCommentDto, FilterCommentDto, UpdateCommentDto } from '../dtos/payload-comment.dto';
 import { CommentMapping, CommentVm } from '../mappings/comment-vm';
 export declare class CommentService {
     private readonly commentRepository;

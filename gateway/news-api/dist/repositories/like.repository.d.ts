@@ -1,18 +1,19 @@
 import { QueryRunner, Repository } from 'typeorm';
-import { Like } from '../models/like.entity';
+import { LikeEntity } from '../models/like.entity';
 import { FilterLikeDto } from '../dtos/payload-like-dto';
 export declare class LikeRepository {
-    private readonly likeRepository;
-    constructor(likeRepository: Repository<Like>);
-    save(like: Like, queryRunner: QueryRunner): Promise<Like>;
-    update(oid: string, like: Like, queryRunner: QueryRunner): Promise<Like>;
+    private readonly repo;
+    constructor(repo: Repository<LikeEntity>);
+    save(like: LikeEntity, queryRunner: QueryRunner): Promise<LikeEntity>;
+    update(oid: string, payload: Partial<LikeEntity>, queryRunner: QueryRunner): Promise<LikeEntity>;
     delete(oid: string, queryRunner: QueryRunner): Promise<void>;
-    findAll(): Promise<Like[]>;
+    findAll(): Promise<LikeEntity[]>;
+    findById(oid: string): Promise<LikeEntity>;
     findByCriteriaPage(page: number, pageSize: number, condition: FilterLikeDto): Promise<{
-        likes: Like[];
+        likes: LikeEntity[];
         count: number;
     }>;
     findCountByCriteria(condition: FilterLikeDto): Promise<number>;
-    advanceFilter(condition: FilterLikeDto): Promise<Like[]>;
-    findById(oid: string): Promise<Like>;
+    advanceFilter(condition: FilterLikeDto): Promise<LikeEntity[]>;
+    private buildFilter;
 }

@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const banner_entity_1 = require("../models/banner.entity");
 let BannerRepository = class BannerRepository {
-    bannerRepository;
-    constructor(bannerRepository) {
-        this.bannerRepository = bannerRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(banner, queryRunner) {
         try {
-            const savedBanner = await queryRunner.manager.save(banner_entity_1.Banner, banner);
-            return savedBanner;
+            return await queryRunner.manager.save(banner_entity_1.Banner, banner);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving banner: ' + error.message);
@@ -33,82 +32,74 @@ let BannerRepository = class BannerRepository {
     }
     async update(oid, banner, queryRunner) {
         try {
-            await this.bannerRepository.update(oid, banner);
-            return banner;
+            const result = await queryRunner.manager.update(banner_entity_1.Banner, { oid }, banner);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Banner with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(banner_entity_1.Banner, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update banner: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating banner: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.bannerRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(banner_entity_1.Banner, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Banner with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving banner: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting banner: ' + error.message);
         }
     }
     async findAll() {
-        return this.bannerRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.bannerRepository.createQueryBuilder('banner');
-        if (condition.title) {
-            queryBuilder.andWhere('banner.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [banners, count] = await queryBuilder.getManyAndCount();
-            return { banners, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching banners: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.bannerRepository.createQueryBuilder('banner');
-        if (condition.title) {
-            queryBuilder.andWhere('banner.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching banner count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.bannerRepository.createQueryBuilder('banner');
-        if (condition.title) {
-            queryBuilder.andWhere('banner.title LIKE :title', {
-                title: `%${condition.title}%`,
-            });
-        }
-        try {
-            const banners = await queryBuilder.getMany();
-            return banners;
-        }
-        catch (error) {
-            throw new Error('Error fetching banners: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const banner = await this.bannerRepository.findOne({ where: { oid } });
-            if (!banner) {
-                throw new common_1.NotFoundException(`Banner with OID ${oid} not found`);
-            }
-            return banner;
+        const banner = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!banner) {
+            throw new common_1.NotFoundException(`Banner with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching banner: ' + error.message);
+        return banner;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [banners, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { title: 'ASC' },
+        });
+        return { banners, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { title: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        if (condition.title) {
+            where.title = (0, typeorm_2.Like)(`%${condition.title}%`);
         }
+        return where;
     }
 };
 exports.BannerRepository = BannerRepository;

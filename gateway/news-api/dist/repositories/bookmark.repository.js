@@ -18,14 +18,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const bookmark_entity_1 = require("../models/bookmark.entity");
 let BookmarkRepository = class BookmarkRepository {
-    bookmarkRepository;
-    constructor(bookmarkRepository) {
-        this.bookmarkRepository = bookmarkRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
     async save(bookmark, queryRunner) {
         try {
-            const savedBookmark = await queryRunner.manager.save(bookmark_entity_1.Bookmark, bookmark);
-            return savedBookmark;
+            return await queryRunner.manager.save(bookmark_entity_1.Bookmark, bookmark);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error saving bookmark: ' + error.message);
@@ -33,67 +32,71 @@ let BookmarkRepository = class BookmarkRepository {
     }
     async update(oid, bookmark, queryRunner) {
         try {
-            await this.bookmarkRepository.update(oid, bookmark);
-            return bookmark;
+            const result = await queryRunner.manager.update(bookmark_entity_1.Bookmark, { oid }, bookmark);
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Bookmark with OID ${oid} not found`);
+            }
+            return await queryRunner.manager.findOneOrFail(bookmark_entity_1.Bookmark, {
+                where: { oid },
+            });
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error update bookmark: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error updating bookmark: ' + error.message);
         }
     }
     async delete(oid, queryRunner) {
         try {
-            await this.bookmarkRepository.softDelete({ oid });
+            const result = await queryRunner.manager.softDelete(bookmark_entity_1.Bookmark, { oid });
+            if (result.affected === 0) {
+                throw new common_1.NotFoundException(`Bookmark with OID ${oid} not found`);
+            }
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error saving bookmark: ' + error.message);
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Error deleting bookmark: ' + error.message);
         }
     }
     async findAll() {
-        return this.bookmarkRepository.find();
-    }
-    async findByCriteriaPage(page, pageSize, condition) {
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
-        try {
-            const [bookmarks, count] = await queryBuilder.getManyAndCount();
-            return { bookmarks, count };
-        }
-        catch (error) {
-            throw new common_1.NotFoundException('Error fetching bookmarks: ' + error.message);
-        }
-    }
-    async findCountByCriteria(condition) {
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        }
-        catch (error) {
-            throw new Error('Error fetching bookmark count: ' + error.message);
-        }
-    }
-    async advanceFilter(condition) {
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
-        try {
-            const bookmarks = await queryBuilder.getMany();
-            return bookmarks;
-        }
-        catch (error) {
-            throw new Error('Error fetching bookmarks: ' + error.message);
-        }
+        return this.repo.find();
     }
     async findById(oid) {
-        try {
-            const bookmark = await this.bookmarkRepository.findOne({ where: { oid } });
-            if (!bookmark) {
-                throw new common_1.NotFoundException(`Bookmark with OID ${oid} not found`);
-            }
-            return bookmark;
+        const bookmark = await this.repo.findOne({
+            where: { oid },
+        });
+        if (!bookmark) {
+            throw new common_1.NotFoundException(`Bookmark with OID ${oid} not found`);
         }
-        catch (error) {
-            throw new Error('Error fetching bookmark: ' + error.message);
-        }
+        return bookmark;
+    }
+    async findByCriteriaPage(page, pageSize, condition) {
+        const where = this.buildFilter(condition);
+        const [bookmarks, count] = await this.repo.findAndCount({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            order: { oid: 'ASC' },
+        });
+        return { bookmarks, count };
+    }
+    async findCountByCriteria(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.count({ where });
+    }
+    async advanceFilter(condition) {
+        const where = this.buildFilter(condition);
+        return this.repo.find({
+            where,
+            order: { oid: 'ASC' },
+        });
+    }
+    buildFilter(condition) {
+        const where = {};
+        return where;
     }
 };
 exports.BookmarkRepository = BookmarkRepository;

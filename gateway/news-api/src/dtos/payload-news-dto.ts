@@ -1,5 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNotEmpty, IsDateString, IsInt, IsIn, IsUUID, IsNumber } from 'class-validator';
+import { ApiBaseResponseProps } from './base/api-base-response.decorator';
+import { PaginationInfo } from './base/pagination-info-dto';
 
 export class FilterNewsDto {
     @ApiPropertyOptional({ example: 'Breaking News', description: 'Filter berita berdasarkan judul (title) yang mengandung kata ini' })
@@ -126,4 +128,57 @@ export class UpdateNewsDto {
     @IsString()
     @IsOptional()
     language?: string;
+}
+
+
+/** ---------------- Response DTO ---------------- */
+export class ResponseNewsVm {
+    @ApiProperty({ example: '1', description: 'OID bank' })
+    oid: string;
+
+    @ApiProperty({ example: 'B001', description: 'News code' })
+    title: string;
+
+    @ApiProperty({ example: 'News Mandiri', description: 'News name' })
+    content: string;
+
+    @ApiProperty({ example: 'Mandiri', description: 'Short name' })
+    summary: string;
+
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Created at' })
+    createdAt: Date;
+
+    @ApiProperty({ example: '2025-12-20T08:00:00.000Z', description: 'Updated at', required: false })
+    updatedAt?: Date;
+}
+
+/** ---------------- Success Response DTO for News ---------------- */
+export class SuccessNewsResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: [ResponseNewsVm], description: 'List of banks' })
+    data: ResponseNewsVm[] = [];
+}
+
+
+export class SuccessNewsObjectResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiBaseResponseProps() total: number;
+    @ApiProperty({ type: ResponseNewsVm, description: 'News object' })
+    data: ResponseNewsVm;
+}
+
+
+export class SuccessNewsPaginatedResponseDto {
+    @ApiBaseResponseProps() resultCode: string;
+    @ApiBaseResponseProps() httpStatus: number;
+    @ApiBaseResponseProps() message: string;
+    @ApiProperty({ type: PaginationInfo })
+    pagination: PaginationInfo;
+    @ApiProperty({ type: [ResponseNewsVm] })
+    data: ResponseNewsVm[];
 }

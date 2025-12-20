@@ -4,7 +4,7 @@ import { Article } from './article.entity';
 import { User } from './user.entity';
 
 @Entity('likes')
-export class Like extends BaseEntity {
+export class LikeEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     oid: string;
 

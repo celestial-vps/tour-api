@@ -1,4 +1,4 @@
-import { Like } from '../models/like.entity';
+import { LikeEntity } from '../models/like.entity';
 import { UserMapping, UserVm } from './user-vm';
 export declare class LikeVm {
     oid: string;
@@ -9,6 +9,6 @@ export declare class LikeVm {
 export declare class LikeMapping {
     private readonly userMapping;
     constructor(userMapping: UserMapping);
-    toLikeResponse(like: Like): LikeVm;
-    toLikeResponses(likes: Like[]): LikeVm[];
+    toLikeResponse(like: LikeEntity): LikeVm;
+    toLikeResponses(likes: LikeEntity[]): LikeVm[];
 }

@@ -1,151 +1,158 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
 import { Bookmark } from '../models/bookmark.entity';
-import { CreateBookmarkDto, FilterBookmarkDto, UpdateBookmarkDto } from '../dtos/payload-bookmark-dto';
+import { FilterBookmarkDto } from '../dtos/payload-bookmark-dto';
 
 @Injectable()
 export class BookmarkRepository {
-    constructor(
-        @InjectRepository(Bookmark)
-        private readonly bookmarkRepository: Repository<Bookmark>,
-    ) { }
+  constructor(
+    @InjectRepository(Bookmark)
+    private readonly repo: Repository<Bookmark>,
+  ) {}
 
-    async save(bookmark: Bookmark, queryRunner: QueryRunner): Promise<Bookmark> {
-        try {
-            const savedBookmark = await queryRunner.manager.save(Bookmark, bookmark);
-            return savedBookmark;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving bookmark: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(bookmark: Bookmark, queryRunner: QueryRunner): Promise<Bookmark> {
+    try {
+      return await queryRunner.manager.save(Bookmark, bookmark);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving bookmark: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    bookmark: Partial<Bookmark>,
+    queryRunner: QueryRunner,
+  ): Promise<Bookmark> {
+    try {
+      const result = await queryRunner.manager.update(
+        Bookmark,
+        { oid },
+        bookmark,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Bookmark with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(Bookmark, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating bookmark: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        Bookmark,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Bookmark with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting bookmark: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<Bookmark[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<Bookmark> {
+    const bookmark = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!bookmark) {
+      throw new NotFoundException(`Bookmark with OID ${oid} not found`);
     }
 
-    async update(oid: string, bookmark: Bookmark, queryRunner: QueryRunner): Promise<Bookmark> {
-        try {
-            await this.bookmarkRepository.update(oid, bookmark)
-            return bookmark;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update bookmark: ' + error.message);
-        }
-    }
+    return bookmark;
+  }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterBookmarkDto,
+  ): Promise<{ bookmarks: Bookmark[]; count: number }> {
+    const where = this.buildFilter(condition);
 
-        try {
-            await this.bookmarkRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving bookmark: ' + error.message);
-        }
-    }
+    const [bookmarks, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { oid: 'ASC' },
+    });
 
-    async findAll(): Promise<Bookmark[]> {
-        return this.bookmarkRepository.find();
-    }
+    return { bookmarks, count };
+  }
 
+  async findCountByCriteria(
+    condition: FilterBookmarkDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
 
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterBookmarkDto,
-    ): Promise<{ bookmarks: Bookmark[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
+  async advanceFilter(
+    condition: FilterBookmarkDto,
+  ): Promise<Bookmark[]> {
+    const where = this.buildFilter(condition);
 
-        // Apply filters based on the condition
-        // if (condition.bookmarkCode) {
-        //     queryBuilder.andWhere('bookmark.bookmarkCode LIKE :bookmarkCode', {
-        //         bookmarkCode: `%${condition.bookmarkCode}%`,
-        //     });
-        // }
-        // if (condition.bookmarkName) {
-        //     queryBuilder.orWhere('bookmark.bookmarkName LIKE :bookmarkName', {
-        //         bookmarkName: `%${condition.bookmarkName}%`,
-        //     });
-        // }
+    return this.repo.find({
+      where,
+      order: { oid: 'ASC' },
+    });
+  }
 
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
 
-        // Execute the query and return results
-        try {
-            const [bookmarks, count] = await queryBuilder.getManyAndCount();
-            return { bookmarks, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching bookmarks: ' + error.message);
-        }
-    }
+  private buildFilter(
+    condition: FilterBookmarkDto,
+  ): FindOptionsWhere<Bookmark> {
+    const where: FindOptionsWhere<Bookmark> = {};
+ 
 
-    async findCountByCriteria(
-        condition: FilterBookmarkDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
+    // if (condition.title) {
+    //   where.title = Like(`%${condition.title}%`);
+    // }
 
-        // Apply filters based on the condition
-        // if (condition.bookmarkCode) {
-        //     queryBuilder.andWhere('bookmark.bookmarkCode LIKE :bookmarkCode', {
-        //         bookmarkCode: `%${condition.bookmarkCode}%`,
-        //     });
-        // }
-        // if (condition.bookmarkName) {
-        //     queryBuilder.orWhere('bookmark.bookmarkName LIKE :bookmarkName', {
-        //         bookmarkName: `%${condition.bookmarkName}%`,
-        //     });
-        // }
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching bookmark count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterBookmarkDto,
-    ): Promise<Bookmark[]> {
-        // Initialize the query builder
-        const queryBuilder = this.bookmarkRepository.createQueryBuilder('bookmark');
-
-        // Apply filters based on the condition
-        // if (condition.bookmarkCode) {
-        //     queryBuilder.andWhere('bookmark.bookmarkCode LIKE :bookmarkCode', {
-        //         bookmarkCode: `%${condition.bookmarkCode}%`,
-        //     });
-        // }
-        // if (condition.bookmarkName) {
-        //     queryBuilder.orWhere('bookmark.bookmarkName LIKE :bookmarkName', {
-        //         bookmarkName: `%${condition.bookmarkName}%`,
-        //     });
-        // }
-
-        // Execute the query to retrieve the matching records
-        try {
-            const bookmarks = await queryBuilder.getMany();
-            return bookmarks;
-        } catch (error) {
-            throw new Error('Error fetching bookmarks: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Bookmark> {
-        try {
-            // Try to find the bookmark by the given OID
-            const bookmark = await this.bookmarkRepository.findOne({ where: { oid } });
-
-            // If no bookmark is found, throw a NotFoundException
-            if (!bookmark) {
-                throw new NotFoundException(`Bookmark with OID ${oid} not found`);
-            }
-
-            return bookmark;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching bookmark: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

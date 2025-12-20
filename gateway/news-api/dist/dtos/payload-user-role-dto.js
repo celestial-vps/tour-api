@@ -9,10 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateUserRoleDto = exports.CreateUserRoleDto = exports.PageUserRoleDto = exports.FilterUserRoleDto = void 0;
+exports.SuccessUserRolePaginatedResponseDto = exports.SuccessUserRoleObjectResponseDto = exports.SuccessUserRoleResponseDto = exports.ResponseUserRoleVm = exports.UpdateUserRoleDto = exports.CreateUserRoleDto = exports.PageUserRoleDto = exports.FilterUserRoleDto = void 0;
 const class_validator_1 = require("class-validator");
+const api_base_response_decorator_1 = require("./base/api-base-response.decorator");
+const swagger_1 = require("@nestjs/swagger");
+const pagination_info_dto_1 = require("./base/pagination-info-dto");
 class FilterUserRoleDto {
     roleName;
+    targetType;
 }
 exports.FilterUserRoleDto = FilterUserRoleDto;
 __decorate([
@@ -20,6 +24,11 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], FilterUserRoleDto.prototype, "roleName", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], FilterUserRoleDto.prototype, "targetType", void 0);
 class PageUserRoleDto {
     roleName;
 }
@@ -119,4 +128,116 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], UpdateUserRoleDto.prototype, "navigateState", void 0);
+class ResponseUserRoleVm {
+    oid;
+    roleName;
+    targetType;
+    createdAt;
+    updatedAt;
+}
+exports.ResponseUserRoleVm = ResponseUserRoleVm;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '1', description: 'OID bank' }),
+    __metadata("design:type", String)
+], ResponseUserRoleVm.prototype, "oid", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'B001', description: 'UserRole code' }),
+    __metadata("design:type", String)
+], ResponseUserRoleVm.prototype, "roleName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'UserRole Mandiri', description: 'UserRole name' }),
+    __metadata("design:type", String)
+], ResponseUserRoleVm.prototype, "targetType", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2025-12-20T08:00:00.000Z', description: 'Created at' }),
+    __metadata("design:type", Date)
+], ResponseUserRoleVm.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '2025-12-20T08:00:00.000Z', description: 'Updated at', required: false }),
+    __metadata("design:type", Date)
+], ResponseUserRoleVm.prototype, "updatedAt", void 0);
+class SuccessUserRoleResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    total;
+    data = [];
+}
+exports.SuccessUserRoleResponseDto = SuccessUserRoleResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRoleResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessUserRoleResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRoleResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessUserRoleResponseDto.prototype, "total", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [ResponseUserRoleVm], description: 'List of banks' }),
+    __metadata("design:type", Array)
+], SuccessUserRoleResponseDto.prototype, "data", void 0);
+class SuccessUserRoleObjectResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    total;
+    data;
+}
+exports.SuccessUserRoleObjectResponseDto = SuccessUserRoleObjectResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRoleObjectResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessUserRoleObjectResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRoleObjectResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessUserRoleObjectResponseDto.prototype, "total", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: ResponseUserRoleVm, description: 'UserRole object' }),
+    __metadata("design:type", ResponseUserRoleVm)
+], SuccessUserRoleObjectResponseDto.prototype, "data", void 0);
+class SuccessUserRolePaginatedResponseDto {
+    resultCode;
+    httpStatus;
+    message;
+    pagination;
+    data;
+}
+exports.SuccessUserRolePaginatedResponseDto = SuccessUserRolePaginatedResponseDto;
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRolePaginatedResponseDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", Number)
+], SuccessUserRolePaginatedResponseDto.prototype, "httpStatus", void 0);
+__decorate([
+    (0, api_base_response_decorator_1.ApiBaseResponseProps)(),
+    __metadata("design:type", String)
+], SuccessUserRolePaginatedResponseDto.prototype, "message", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: pagination_info_dto_1.PaginationInfo }),
+    __metadata("design:type", pagination_info_dto_1.PaginationInfo)
+], SuccessUserRolePaginatedResponseDto.prototype, "pagination", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [ResponseUserRoleVm] }),
+    __metadata("design:type", Array)
+], SuccessUserRolePaginatedResponseDto.prototype, "data", void 0);
 //# sourceMappingURL=payload-user-role-dto.js.map

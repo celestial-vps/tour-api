@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const news_repository_1 = require("../repositories/news.repository");
 const news_entity_1 = require("../models/news.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const news_vm_1 = require("../mappings/news-vm");
 let NewsService = class NewsService {
     newsRepository;
@@ -32,21 +31,11 @@ let NewsService = class NewsService {
             const news = new news_entity_1.News();
             news.title = newsdto.title;
             news.content = newsdto.content;
-            news.summary = newsdto.summary;
-            news.author = newsdto.author;
-            news.status = newsdto.status ? newsdto.status : 'draft';
-            news.publishedAt = newsdto.publishedAt;
-            news.views = newsdto.views ? newsdto.views : 0;
-            news.tags = newsdto.tags;
-            news.language = newsdto.language;
             news.createdBy = userOid;
             news.createdAt = new Date();
             const savedNews = await this.newsRepository.save(news, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNews.oid;
-            messageVm.name = savedNews.title ?? '';
-            return messageVm;
+            return { value: savedNews.oid, name: savedNews.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -61,28 +50,19 @@ let NewsService = class NewsService {
         await queryRunner.startTransaction();
         try {
             const news = await this.newsRepository.findById(oid);
-            if (!news) {
+            if (!news)
                 throw new common_1.NotFoundException('News data not found');
-            }
             news.title = newsdto.title;
             news.content = newsdto.content;
-            news.summary = newsdto.summary;
-            news.author = newsdto.author;
-            news.status = newsdto.status ? newsdto.status : news.status;
-            news.publishedAt = newsdto.publishedAt;
-            news.views = newsdto.views ? newsdto.views : news.views;
-            news.tags = newsdto.tags;
-            news.language = newsdto.language;
+            news.lastModifiedBy = userOid;
+            news.updatedAt = new Date();
             const savedNews = await this.newsRepository.update(oid, news, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedNews.oid;
-            messageVm.name = savedNews.title ?? '';
-            return messageVm;
+            return { value: savedNews.oid, name: savedNews.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update news: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating news: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -93,19 +73,15 @@ let NewsService = class NewsService {
         await queryRunner.startTransaction();
         try {
             const news = await this.newsRepository.findById(oid);
-            if (!news) {
+            if (!news)
                 throw new common_1.NotFoundException('News data not found');
-            }
-            this.newsRepository.delete(oid, queryRunner);
+            await this.newsRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = news.oid;
-            messageVm.name = news.title ?? '';
-            return messageVm;
+            return { value: news.oid, name: news.title ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete news: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting news: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -117,33 +93,35 @@ let NewsService = class NewsService {
             return this.newsMapping.toNewsResponses(newss);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find news: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching newss: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { newss, count } = await this.newsRepository.findByCriteriaPage(page, pageSize, condition);
-            const newsResponses = this.newsMapping.toNewsResponses(newss);
-            return { newss: newsResponses, count };
+            return { newss: this.newsMapping.toNewsResponses(newss), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find news: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated newss: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const news = await this.newsRepository.findById(oid);
+            if (!news)
+                throw new common_1.NotFoundException('News not found');
             return this.newsMapping.toNewsResponse(news);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find news: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching news: ' + error.message);
         }
     }
 };
 exports.NewsService = NewsService;
 exports.NewsService = NewsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [news_repository_1.NewsRepository, news_vm_1.NewsMapping,
+    __metadata("design:paramtypes", [news_repository_1.NewsRepository,
+        news_vm_1.NewsMapping,
         typeorm_1.DataSource])
 ], NewsService);
 //# sourceMappingURL=news.service.js.map

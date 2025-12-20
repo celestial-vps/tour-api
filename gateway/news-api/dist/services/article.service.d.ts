@@ -8,9 +8,9 @@ export declare class ArticleService {
     private readonly articleMapping;
     private readonly dataSource;
     constructor(articleRepository: ArticleRepository, articleMapping: ArticleMapping, dataSource: DataSource);
-    create(articledto: CreateArticleDto, slugOid: string): Promise<MessageVm>;
-    update(oid: string, articledto: UpdateArticleDto, slugOid: string): Promise<MessageVm>;
-    deleted(oid: string, slugOid: string): Promise<MessageVm>;
+    create(articledto: CreateArticleDto, userOid: string): Promise<MessageVm>;
+    update(oid: string, articledto: UpdateArticleDto, userOid: string): Promise<MessageVm>;
+    deleted(oid: string, userOid: string): Promise<MessageVm>;
     findAll(): Promise<ArticleVm[]>;
     findPage(page: number, pageSize: number, condition: FilterArticleDto): Promise<{
         articles: ArticleVm[];

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Like } from '../models/like.entity'; 
+import { LikeEntity } from '../models/like.entity'; 
 import { UserMapping, UserVm } from './user-vm';
 
 export class LikeVm {
@@ -14,7 +14,7 @@ export class LikeMapping {
 
   constructor(private readonly userMapping: UserMapping) {}
 
-  toLikeResponse(like: Like): LikeVm {
+  toLikeResponse(like: LikeEntity): LikeVm {
     return {
       oid: like.oid,
       articleId: like.article.oid,
@@ -23,7 +23,7 @@ export class LikeMapping {
     };
   }
 
-  toLikeResponses(likes: Like[]): LikeVm[] {
+  toLikeResponses(likes: LikeEntity[]): LikeVm[] {
     return likes.map(l => this.toLikeResponse(l));
   }
 }

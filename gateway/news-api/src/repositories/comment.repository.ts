@@ -1,151 +1,158 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, QueryRunner, Repository } from 'typeorm';
+import {
+  FindOptionsWhere,
+  Like,
+  QueryRunner,
+  Repository,
+} from 'typeorm';
 import { Comment } from '../models/comment.entity';
-import { CreateCommentDto, FilterCommentDto, UpdateCommentDto } from '../dtos/payload-comment.dto';
+import { FilterCommentDto } from '../dtos/payload-comment-dto';
 
 @Injectable()
 export class CommentRepository {
-    constructor(
-        @InjectRepository(Comment)
-        private readonly commentRepository: Repository<Comment>,
-    ) { }
+  constructor(
+    @InjectRepository(Comment)
+    private readonly repo: Repository<Comment>,
+  ) {}
 
-    async save(comment: Comment, queryRunner: QueryRunner): Promise<Comment> {
-        try {
-            const savedComment = await queryRunner.manager.save(Comment, comment);
-            return savedComment;
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving comment: ' + error.message);
-        }
+  /* =======================
+   * WRITE (TRANSACTIONAL)
+   * ======================= */
+
+  async save(comment: Comment, queryRunner: QueryRunner): Promise<Comment> {
+    try {
+      return await queryRunner.manager.save(Comment, comment);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Error saving comment: ' + error.message,
+      );
+    }
+  }
+
+  async update(
+    oid: string,
+    comment: Partial<Comment>,
+    queryRunner: QueryRunner,
+  ): Promise<Comment> {
+    try {
+      const result = await queryRunner.manager.update(
+        Comment,
+        { oid },
+        comment,
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Comment with OID ${oid} not found`);
+      }
+
+      return await queryRunner.manager.findOneOrFail(Comment, {
+        where: { oid },
+      });
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error updating comment: ' + error.message,
+      );
+    }
+  }
+
+  async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+    try {
+      const result = await queryRunner.manager.softDelete(
+        Comment,
+        { oid },
+      );
+
+      if (result.affected === 0) {
+        throw new NotFoundException(`Comment with OID ${oid} not found`);
+      }
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Error deleting comment: ' + error.message,
+      );
+    }
+  }
+
+  /* =======================
+   * READ (NON TRANSACTION)
+   * ======================= */
+
+  async findAll(): Promise<Comment[]> {
+    return this.repo.find();
+  }
+
+  async findById(oid: string): Promise<Comment> {
+    const comment = await this.repo.findOne({
+      where: { oid },
+      // relations: { branches: true },
+    });
+
+    if (!comment) {
+      throw new NotFoundException(`Comment with OID ${oid} not found`);
     }
 
-    async update(oid: string, comment: Comment, queryRunner: QueryRunner): Promise<Comment> {
-        try {
-            await this.commentRepository.update(oid, comment)
-            return comment;
-        } catch (error) {
-            throw new InternalServerErrorException('Error update comment: ' + error.message);
-        }
-    }
+    return comment;
+  }
 
-    async delete(oid: string, queryRunner: QueryRunner): Promise<void> {
+  async findByCriteriaPage(
+    page: number,
+    pageSize: number,
+    condition: FilterCommentDto,
+  ): Promise<{ comments: Comment[]; count: number }> {
+    const where = this.buildFilter(condition);
 
-        try {
-            await this.commentRepository.softDelete({ oid })
-        } catch (error) {
-            throw new InternalServerErrorException('Error saving comment: ' + error.message);
-        }
-    }
+    const [comments, count] = await this.repo.findAndCount({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      order: { oid: 'ASC' },
+    });
 
-    async findAll(): Promise<Comment[]> {
-        return this.commentRepository.find();
-    }
+    return { comments, count };
+  }
 
+  async findCountByCriteria(
+    condition: FilterCommentDto,
+  ): Promise<number> {
+    const where = this.buildFilter(condition);
+    return this.repo.count({ where });
+  }
 
-    async findByCriteriaPage(
-        page: number,
-        pageSize: number,
-        condition: FilterCommentDto,
-    ): Promise<{ comments: Comment[]; count: number }> {
-        // Initialize the query builder
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
+  async advanceFilter(
+    condition: FilterCommentDto,
+  ): Promise<Comment[]> {
+    const where = this.buildFilter(condition);
 
-        // Apply filters based on the condition
-        // if (condition.commentCode) {
-        //     queryBuilder.andWhere('comment.commentCode LIKE :commentCode', {
-        //         commentCode: `%${condition.commentCode}%`,
-        //     });
-        // }
-        // if (condition.commentName) {
-        //     queryBuilder.orWhere('comment.commentName LIKE :commentName', {
-        //         commentName: `%${condition.commentName}%`,
-        //     });
-        // }
+    return this.repo.find({
+      where,
+      order: { oid: 'ASC' },
+    });
+  }
 
-        // Apply pagination
-        const skip = (page - 1) * pageSize;
-        queryBuilder.skip(skip).take(pageSize);
+  /* =======================
+   * PRIVATE HELPER
+   * ======================= */
 
-        // Execute the query and return results
-        try {
-            const [comments, count] = await queryBuilder.getManyAndCount();
-            return { comments, count };
-        } catch (error) {
-            throw new NotFoundException('Error fetching comments: ' + error.message);
-        }
-    }
+  private buildFilter(
+    condition: FilterCommentDto,
+  ): FindOptionsWhere<Comment> {
+    const where: FindOptionsWhere<Comment> = {};
+ 
 
-    async findCountByCriteria(
-        condition: FilterCommentDto,
-    ): Promise<number> {
-        // Initialize the query builder
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
+    // if (condition.title) {
+    //   where.title = Like(`%${condition.title}%`);
+    // }
 
-        // Apply filters based on the condition
-        // if (condition.commentCode) {
-        //     queryBuilder.andWhere('comment.commentCode LIKE :commentCode', {
-        //         commentCode: `%${condition.commentCode}%`,
-        //     });
-        // }
-        // if (condition.commentName) {
-        //     queryBuilder.orWhere('comment.commentName LIKE :commentName', {
-        //         commentName: `%${condition.commentName}%`,
-        //     });
-        // }
-
-        // Count total records matching the condition
-        try {
-            const count = await queryBuilder.getCount();
-            return count;
-        } catch (error) {
-            throw new Error('Error fetching comment count: ' + error.message);
-        }
-    }
-
-    async advanceFilter(
-        condition: FilterCommentDto,
-    ): Promise<Comment[]> {
-        // Initialize the query builder
-        const queryBuilder = this.commentRepository.createQueryBuilder('comment');
-
-        // Apply filters based on the condition
-        // if (condition.commentCode) {
-        //     queryBuilder.andWhere('comment.commentCode LIKE :commentCode', {
-        //         commentCode: `%${condition.commentCode}%`,
-        //     });
-        // }
-        // if (condition.commentName) {
-        //     queryBuilder.orWhere('comment.commentName LIKE :commentName', {
-        //         commentName: `%${condition.commentName}%`,
-        //     });
-        // }
-
-        // Execute the query to retrieve the matching records
-        try {
-            const comments = await queryBuilder.getMany();
-            return comments;
-        } catch (error) {
-            throw new Error('Error fetching comments: ' + error.message);
-        }
-    }
-
-    async findById(oid: string): Promise<Comment> {
-        try {
-            // Try to find the comment by the given OID
-            const comment = await this.commentRepository.findOne({ where: { oid } });
-
-            // If no comment is found, throw a NotFoundException
-            if (!comment) {
-                throw new NotFoundException(`Comment with OID ${oid} not found`);
-            }
-
-            return comment;
-        } catch (error) {
-            // You can throw any custom error here or handle the error differently
-            throw new Error('Error fetching comment: ' + error.message);
-        }
-    }
-
-
+    return where;
+  }
 }

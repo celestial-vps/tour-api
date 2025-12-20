@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const bookmark_repository_1 = require("../repositories/bookmark.repository");
 const bookmark_entity_1 = require("../models/bookmark.entity");
 const typeorm_1 = require("typeorm");
-const message_vm_1 = require("../mappings/message-vm");
 const bookmark_vm_1 = require("../mappings/bookmark-vm");
 let BookmarkService = class BookmarkService {
     bookmarkRepository;
@@ -30,15 +29,11 @@ let BookmarkService = class BookmarkService {
         await queryRunner.startTransaction();
         try {
             const bookmark = new bookmark_entity_1.Bookmark();
-            bookmark.article = { oid: bookmarkdto.articleId };
             bookmark.createdBy = userOid;
             bookmark.createdAt = new Date();
             const savedBookmark = await this.bookmarkRepository.save(bookmark, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedBookmark.oid;
-            messageVm.name = savedBookmark.article ? savedBookmark.article.oid : '';
-            return messageVm;
+            return { value: savedBookmark.oid, name: savedBookmark.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
@@ -53,20 +48,17 @@ let BookmarkService = class BookmarkService {
         await queryRunner.startTransaction();
         try {
             const bookmark = await this.bookmarkRepository.findById(oid);
-            if (!bookmark) {
+            if (!bookmark)
                 throw new common_1.NotFoundException('Bookmark data not found');
-            }
-            bookmark.article = { oid: bookmarkdto.articleId };
+            bookmark.lastModifiedBy = userOid;
+            bookmark.updatedAt = new Date();
             const savedBookmark = await this.bookmarkRepository.update(oid, bookmark, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = savedBookmark.oid;
-            messageVm.name = savedBookmark.article ? savedBookmark.article.oid : '';
-            return messageVm;
+            return { value: savedBookmark.oid, name: savedBookmark.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error update bookmark: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error updating bookmark: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -77,19 +69,15 @@ let BookmarkService = class BookmarkService {
         await queryRunner.startTransaction();
         try {
             const bookmark = await this.bookmarkRepository.findById(oid);
-            if (!bookmark) {
+            if (!bookmark)
                 throw new common_1.NotFoundException('Bookmark data not found');
-            }
-            this.bookmarkRepository.delete(oid, queryRunner);
+            await this.bookmarkRepository.delete(oid, queryRunner);
             await queryRunner.commitTransaction();
-            const messageVm = new message_vm_1.MessageVm();
-            messageVm.value = bookmark.oid;
-            messageVm.name = bookmark.article ? bookmark.article.oid : '';
-            return messageVm;
+            return { value: bookmark.oid, name: bookmark.oid ?? '' };
         }
         catch (error) {
             await queryRunner.rollbackTransaction();
-            throw new common_1.InternalServerErrorException('Error Delete bookmark: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error deleting bookmark: ' + error.message);
         }
         finally {
             await queryRunner.release();
@@ -101,33 +89,35 @@ let BookmarkService = class BookmarkService {
             return this.bookmarkMapping.toBookmarkResponses(bookmarks);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find bookmark: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching bookmarks: ' + error.message);
         }
     }
     async findPage(page, pageSize, condition) {
         try {
             const { bookmarks, count } = await this.bookmarkRepository.findByCriteriaPage(page, pageSize, condition);
-            const bookmarkResponses = this.bookmarkMapping.toBookmarkResponses(bookmarks);
-            return { bookmarks: bookmarkResponses, count };
+            return { bookmarks: this.bookmarkMapping.toBookmarkResponses(bookmarks), count };
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find bookmark: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching paginated bookmarks: ' + error.message);
         }
     }
     async findById(oid) {
         try {
             const bookmark = await this.bookmarkRepository.findById(oid);
+            if (!bookmark)
+                throw new common_1.NotFoundException('Bookmark not found');
             return this.bookmarkMapping.toBookmarkResponse(bookmark);
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Error Find bookmark: ' + error.message);
+            throw new common_1.InternalServerErrorException('Error fetching bookmark: ' + error.message);
         }
     }
 };
 exports.BookmarkService = BookmarkService;
 exports.BookmarkService = BookmarkService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [bookmark_repository_1.BookmarkRepository, bookmark_vm_1.BookmarkMapping,
+    __metadata("design:paramtypes", [bookmark_repository_1.BookmarkRepository,
+        bookmark_vm_1.BookmarkMapping,
         typeorm_1.DataSource])
 ], BookmarkService);
 //# sourceMappingURL=bookmark.service.js.map
