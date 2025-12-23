@@ -19,3 +19,7 @@ jalankan migration menggunakan git bash
 NODE_ENV=development npx typeorm-ts-node-commonjs migration:generate \
 -d src/db/data-source.ts \
 src/db/migrations/create-new-table
+
+NODE_ENV=development npx typeorm-ts-node-commonjs migration:generate \
+-d src/db/data-source.ts \
+src/db/migrations/create-new-table-news-detail
