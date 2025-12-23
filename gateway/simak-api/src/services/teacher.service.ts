@@ -20,6 +20,7 @@ export class TeacherService implements ITeacherService {
         const now = new Date();
         try {
             const teacher = new Teacher();
+            teacher.userOid = userOid;
             teacher.nidn = createTeacherDto.nidn;
             teacher.name = createTeacherDto.name;
 
@@ -37,7 +38,7 @@ export class TeacherService implements ITeacherService {
         }
     }
 
-    async update(oid: string,updateTeacherDto: UpdateTeacherDto,  userOid: string): Promise<{ teacher: TeacherVm | null; err: any }> {
+    async update(oid: string, updateTeacherDto: UpdateTeacherDto, userOid: string): Promise<{ teacher: TeacherVm | null; err: any }> {
         try {
             const lastModifiedBy = userOid; // assuming userOid is in UUID format                
             let { result: resultFind, err: errFind } = await this.teacherRepository.findById(oid);
@@ -62,9 +63,10 @@ export class TeacherService implements ITeacherService {
                     teacher: null, err: {}
                 }
             }
+            resultFind.userOid = userOid ?? resultFind.userOid;
             resultFind.nidn = updateTeacherDto.nidn ?? resultFind.nidn;
             resultFind.name = updateTeacherDto.name ?? resultFind.name;
-             // Save updated teacher details
+            // Save updated teacher details
             const { result, err } = await this.teacherRepository.update(oid, resultFind);
             if (err != null) {
                 return {
@@ -123,7 +125,7 @@ export class TeacherService implements ITeacherService {
                     teachers: null, err: err
                 }
             }
-            const teachers = result ?  toTeacherResponses(result) : null;
+            const teachers = result ? toTeacherResponses(result) : null;
             return { teachers, err: null }
         } catch (err) {
             return { teachers: null, err }
@@ -142,7 +144,7 @@ export class TeacherService implements ITeacherService {
 
     }
 
-    async findPage( page: number, pageSize: number,condition:FilterTeacherDto): Promise<{ teachers: TeacherVm[], total: number, err: any }> {
+    async findPage(page: number, pageSize: number, condition: FilterTeacherDto): Promise<{ teachers: TeacherVm[], total: number, err: any }> {
         try {
             const { result: resultCount, err: errCount } = await this.teacherRepository.findCountByCriteria(condition);
             if (errCount) {

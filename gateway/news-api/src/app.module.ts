@@ -17,6 +17,7 @@ import { ImageFileModule } from './modules/image-file.module';
 import { Tag } from './models/tag.entity';
 import { TagModule } from './modules/tag.module';
 import { BannerModule } from './modules/banner.module';
+import { NewsImageDetailModule } from './modules/news-image-detail.module';
 // Modules
 
 @Module({
@@ -28,7 +29,7 @@ import { BannerModule } from './modules/banner.module';
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     BankModule, AuthModule, CountryModule, NewsCategoryModule, NewsModule,
-    TagModule,
+    TagModule,NewsImageDetailModule,
     // BannerModule,
     ImageFileModule,
     GeoCacheModule // GeoCache module added here

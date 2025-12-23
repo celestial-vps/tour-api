@@ -9,6 +9,9 @@ export class TeacherDomain {
     id: string;
 
     @Expose()
+    userOid: string;
+
+    @Expose()
     nidn: string;
 
     @Expose()

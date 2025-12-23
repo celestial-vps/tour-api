@@ -9,11 +9,12 @@ import { TagMapping } from '../mappings/tag-vm';
 import { UserModule } from './user.module';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { AuditTrailModule } from './audit-trail.module';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Tag]) ,UserModule,AuditTrailModule],
     controllers: [TagController],
-    providers: [AuditTrailService ,TagService,ResponseService, TagRepository,TagMapping],
+    providers: [AuditTrailService ,TagService,RequestHandlerService,ResponseService, TagRepository,TagMapping],
      exports: [AuditTrailService],
 
 })

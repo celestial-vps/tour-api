@@ -1,7 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsNotEmpty, IsDateString, IsInt, IsIn, IsUUID, IsNumber } from 'class-validator';
+import { IsString, IsOptional, IsNotEmpty, IsDateString, IsInt, IsIn, IsUUID, IsNumber, ValidateNested } from 'class-validator';
 import { ApiBaseResponseProps } from './base/api-base-response.decorator';
 import { PaginationInfo } from './base/pagination-info-dto';
+import { Type } from 'class-transformer';
 
 export class FilterNewsDto {
     @ApiPropertyOptional({ example: 'Breaking News', description: 'Filter berita berdasarkan judul (title) yang mengandung kata ini' })
@@ -13,6 +14,24 @@ export class FilterNewsDto {
     @IsString()
     @IsOptional()
     content?: string;
+}
+
+export class NewsDetailDto {
+    @ApiProperty({ example: 'uuid-category', description: 'OID kategori berita' })
+    @IsUUID()
+    imageOid: string;
+
+    @ApiProperty({ example: 'uuid-category', description: 'OID kategori berita' })
+    @IsUUID()
+    newsOid: string;
+
+    @ApiPropertyOptional({ example: 'draft', description: 'Status berita', enum: ['draft', 'published', 'archived'] })
+    @IsString()
+    @IsOptional()
+    @IsIn(['cover', 'thumbnail', 'gallery'])
+    role?: string;
+
+
 }
 
 /** DTO untuk membuat berita */
@@ -71,7 +90,21 @@ export class CreateNewsDto {
     @IsString()
     @IsOptional()
     language?: string;
+
+    @ApiPropertyOptional({
+        type: [NewsDetailDto],
+        description: 'Detail gambar berita',
+        example: [{ imageOid: 'uuid-image', newsOid: 'uuid-news', role: 'cover' }]
+    })
+    @IsOptional()
+    @ValidateNested({ each: true })
+    @Type(() => NewsDetailDto)
+    nwsDetails?: NewsDetailDto[];
+
+
 }
+
+
 
 export class UpdateNewsDto {
     @ApiProperty({ example: 'Breaking News', description: 'Judul berita' })
@@ -182,3 +215,4 @@ export class SuccessNewsPaginatedResponseDto {
     @ApiProperty({ type: [ResponseNewsVm] })
     data: ResponseNewsVm[];
 }
+ 

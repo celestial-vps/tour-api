@@ -17,96 +17,91 @@ const common_1 = require("@nestjs/common");
 const news_service_1 = require("../services/news.service");
 const payload_news_dto_1 = require("../dtos/payload-news-dto");
 const swagger_1 = require("@nestjs/swagger");
-const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
-const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const error_response_dto_1 = require("../dtos/base/error-response.dto");
 const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
+const request_handler_service_1 = require("../services/request-handler.service");
 let NewsController = class NewsController {
     newsService;
-    responseService;
-    auditTrailService;
-    constructor(newsService, responseService, auditTrailService) {
+    requestHandler;
+    constructor(newsService, requestHandler) {
         this.newsService = newsService;
-        this.responseService = responseService;
-        this.auditTrailService = auditTrailService;
-    }
-    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
-        try {
-            const result = await fn();
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'SUCCESS',
-                message: `${action} News success`,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-                newData: result,
-            });
-            if (paginate) {
-                return this.responseService.responseOkWithPagination(result.data, {
-                    page: result.page,
-                    size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
-                });
-            }
-            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'newss',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'ERROR',
-                message: error.message,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-            });
-            if (error instanceof common_1.NotFoundException)
-                throw error;
-            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
-        }
+        this.requestHandler = requestHandler;
     }
     async create(createNewsDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsService.create(createNewsDto, userOid), 'CREATE', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.newsService.create(createNewsDto, userOid), {
+            action: 'CREATE',
+            tableName: 'news',
+            userOid,
+            req,
+            successMessage: 'Create News success',
+        });
     }
     async update(oid, updateNewsDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsService.update(oid, updateNewsDto, userOid), 'UPDATE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsService.update(oid, updateNewsDto, userOid), {
+            action: 'UPDATE',
+            tableName: 'news',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Update News success',
+        });
     }
     async deleted(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsService.deleted(oid, userOid), {
+            action: 'DELETE',
+            tableName: 'news',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Delete News success',
+        });
     }
     async findAll(req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsService.findAll(), 'READ', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.newsService.findAll(), {
+            action: 'READ',
+            tableName: 'news',
+            userOid,
+            req,
+            successMessage: 'Get all News success',
+        });
     }
     async findOne(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.newsService.findById(oid), 'READ', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.newsService.findAll(), {
+            action: 'READ',
+            tableName: 'news',
+            userOid,
+            req,
+            successMessage: 'Get all News success',
+        });
     }
     async find(pageIndex = 1, pageSize = 10, filterNewsDto, req) {
         const userOid = req.user?.oid;
         const page = Number(pageIndex) || 1;
         const size = Number(pageSize) || 10;
-        return this.handleRequest(async () => {
+        return this.requestHandler.handleRequest(async () => {
             const { newss, count } = await this.newsService.findPage(page, size, filterNewsDto);
-            const totalPage = Math.ceil(count / size);
             return {
                 page,
                 size,
                 totalItem: count,
-                totalPage,
+                totalPage: Math.ceil(count / size),
                 data: newss,
             };
-        }, 'READ', userOid, undefined, req, true);
+        }, {
+            action: 'READ',
+            tableName: 'news',
+            userOid,
+            req,
+            paginate: true,
+            successMessage: 'Get paginated News success',
+        });
     }
 };
 exports.NewsController = NewsController;
@@ -197,7 +192,6 @@ exports.NewsController = NewsController = __decorate([
     (0, swagger_1.ApiTags)('News'),
     (0, common_1.Controller)('news'),
     __metadata("design:paramtypes", [news_service_1.NewsService,
-        build_response_1.ResponseService,
-        audit_trail_midleware_service_1.AuditTrailService])
+        request_handler_service_1.RequestHandlerService])
 ], NewsController);
 //# sourceMappingURL=news.controller.js.map

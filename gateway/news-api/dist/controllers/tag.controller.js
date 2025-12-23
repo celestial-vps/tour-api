@@ -17,96 +17,91 @@ const common_1 = require("@nestjs/common");
 const tag_service_1 = require("../services/tag.service");
 const payload_tag_dto_1 = require("../dtos/payload-tag-dto");
 const swagger_1 = require("@nestjs/swagger");
-const build_response_1 = require("../common/build.response");
 const jwt_guard_1 = require("../middleware/jwt-guard");
 const admin_role_guard_1 = require("../middleware/guards/admin-role.guard");
-const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const error_response_dto_1 = require("../dtos/base/error-response.dto");
 const success_response_message_dto_1 = require("../dtos/base/success-response-message-dto");
+const request_handler_service_1 = require("../services/request-handler.service");
 let TagController = class TagController {
     tagService;
-    responseService;
-    auditTrailService;
-    constructor(tagService, responseService, auditTrailService) {
+    requestHandler;
+    constructor(tagService, requestHandler) {
         this.tagService = tagService;
-        this.responseService = responseService;
-        this.auditTrailService = auditTrailService;
-    }
-    async handleRequest(fn, action, userOid, recordOid, req, paginate) {
-        try {
-            const result = await fn();
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'SUCCESS',
-                message: `${action} Tag success`,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-                newData: result,
-            });
-            if (paginate) {
-                return this.responseService.responseOkWithPagination(result.data, {
-                    page: result.page,
-                    size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
-                });
-            }
-            return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-        }
-        catch (error) {
-            await this.auditTrailService.recordPost({
-                tableName: 'tags',
-                recordOid: recordOid ?? 'unknown',
-                action,
-                status: 'ERROR',
-                message: error.message,
-                userOid,
-                ipAddress: req?.ip,
-                userAgent: req?.headers['user-agent'],
-            });
-            if (error instanceof common_1.NotFoundException)
-                throw error;
-            throw new common_1.BadRequestException({ code: 400, status: 400, message: error.message });
-        }
+        this.requestHandler = requestHandler;
     }
     async create(createTagDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.tagService.create(createTagDto, userOid), 'CREATE', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.tagService.create(createTagDto, userOid), {
+            action: 'CREATE',
+            tableName: 'tags',
+            userOid,
+            req,
+            successMessage: 'Create Tag success',
+        });
     }
     async update(oid, updateTagDto, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.tagService.update(oid, updateTagDto, userOid), 'UPDATE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.tagService.update(oid, updateTagDto, userOid), {
+            action: 'UPDATE',
+            tableName: 'tags',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Update Tag success',
+        });
     }
     async deleted(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.tagService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.tagService.deleted(oid, userOid), {
+            action: 'DELETE',
+            tableName: 'tags',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Delete Tag success',
+        });
     }
     async findAll(req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.tagService.findAll(), 'READ', userOid, undefined, req);
+        return this.requestHandler.handleRequest(() => this.tagService.findAll(), {
+            action: 'READ',
+            tableName: 'tags',
+            userOid,
+            req,
+        });
     }
     async findOne(oid, req) {
         const userOid = req.user?.oid;
-        return this.handleRequest(() => this.tagService.findById(oid), 'READ', userOid, oid, req);
+        return this.requestHandler.handleRequest(() => this.tagService.findById(oid), {
+            action: 'READ',
+            tableName: 'tags',
+            recordOid: oid,
+            userOid,
+            req,
+            successMessage: 'Get Tag success',
+        });
     }
     async find(pageIndex = 1, pageSize = 10, filterTagDto, req) {
         const userOid = req.user?.oid;
         const page = Number(pageIndex) || 1;
         const size = Number(pageSize) || 10;
-        return this.handleRequest(async () => {
+        return this.requestHandler.handleRequest(async () => {
             const { tags, count } = await this.tagService.findPage(page, size, filterTagDto);
-            const totalPage = Math.ceil(count / size);
             return {
                 page,
                 size,
                 totalItem: count,
-                totalPage,
+                totalPage: Math.ceil(count / size),
                 data: tags,
             };
-        }, 'READ', userOid, undefined, req, true);
+        }, {
+            action: 'READ',
+            tableName: 'tags',
+            userOid,
+            req,
+            paginate: true,
+            successMessage: 'Get paginated tags success',
+        });
     }
 };
 exports.TagController = TagController;
@@ -197,7 +192,6 @@ exports.TagController = TagController = __decorate([
     (0, swagger_1.ApiTags)('Tag'),
     (0, common_1.Controller)('tag'),
     __metadata("design:paramtypes", [tag_service_1.TagService,
-        build_response_1.ResponseService,
-        audit_trail_midleware_service_1.AuditTrailService])
+        request_handler_service_1.RequestHandlerService])
 ], TagController);
 //# sourceMappingURL=tag.controller.js.map

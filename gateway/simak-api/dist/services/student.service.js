@@ -14,13 +14,10 @@ const common_1 = require("@nestjs/common");
 const student_1 = require("../models/student");
 const student_vm_1 = require("../mappings/student.vm");
 const student_repository_1 = require("../repositories/student.repository");
-const register_midleware_service_1 = require("../middleware/register/register-midleware-service");
 let StudentService = class StudentService {
     studentRepository;
-    registerService;
-    constructor(studentRepository, registerService) {
+    constructor(studentRepository) {
         this.studentRepository = studentRepository;
-        this.registerService = registerService;
     }
     async create(createStudentDto, userOid) {
         const now = new Date();
@@ -159,7 +156,6 @@ let StudentService = class StudentService {
 exports.StudentService = StudentService;
 exports.StudentService = StudentService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [student_repository_1.StudentRepository,
-        register_midleware_service_1.RegisterService])
+    __metadata("design:paramtypes", [student_repository_1.StudentRepository])
 ], StudentService);
 //# sourceMappingURL=student.service.js.map

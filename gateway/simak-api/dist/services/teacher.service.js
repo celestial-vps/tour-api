@@ -23,6 +23,7 @@ let TeacherService = class TeacherService {
         const now = new Date();
         try {
             const teacher = new teacher_1.Teacher();
+            teacher.userOid = userOid;
             teacher.nidn = createTeacherDto.nidn;
             teacher.name = createTeacherDto.name;
             const { result, err } = await this.teacherRepository.save(teacher);
@@ -61,6 +62,7 @@ let TeacherService = class TeacherService {
                     teacher: null, err: {}
                 };
             }
+            resultFind.userOid = userOid ?? resultFind.userOid;
             resultFind.nidn = updateTeacherDto.nidn ?? resultFind.nidn;
             resultFind.name = updateTeacherDto.name ?? resultFind.name;
             const { result, err } = await this.teacherRepository.update(oid, resultFind);

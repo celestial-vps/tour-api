@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, DeleteDateColumn } from 'typeorm';
-import { BaseEntity } from './base/base';
+// src/modules/news/entities/image-file.entity.ts
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'; 
 import { ImageOwnerTypeEnum } from '../enums/image-owner-type.enum';
- 
+import { BaseEntity } from './base/base';
+
 @Entity('image_files')
-export class ImageFile extends BaseEntity{
+export class ImageFile extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   oid: string;
 
@@ -21,7 +22,4 @@ export class ImageFile extends BaseEntity{
 
   @Column({ type: 'varchar', length: 50 })
   ownerType: ImageOwnerTypeEnum;
-
-  // @Column('uuid')
-  // ownerId: string; 
 }

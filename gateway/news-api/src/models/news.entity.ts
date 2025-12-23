@@ -1,14 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
-import { BaseEntity } from './base/base';
-import { NewsCategory } from './news-category.entity'; 
-import { ImageFile } from './image-file.entity';
+// src/modules/news/entities/news.entity.ts
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne, OneToMany } from 'typeorm';
+ 
+import { NewsCategory } from './news-category.entity'; // sesuaikan path
+import { ImageFile } from './image-file.entity'; 
+import { BaseEntity } from './base/base'; 
+import { NewsImageDetail } from './news-image-detail.entity';
 
 @Entity('news')
 export class News extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   oid: string;
 
-  @ManyToOne(() => NewsCategory, newsCategory => newsCategory.newss)
+  @ManyToOne(() => NewsCategory, category => category.newss, { nullable: false })
   @JoinColumn({ name: 'categoryOid' })
   newsCategory: NewsCategory;
 
@@ -43,4 +46,8 @@ export class News extends BaseEntity {
   @OneToOne(() => ImageFile, { cascade: true, eager: true, nullable: true })
   @JoinColumn({ name: 'imageOid' })
   image?: ImageFile;
+
+  /** List gambar detail berita */
+  @OneToMany(() => NewsImageDetail, imageDetail => imageDetail.news, { cascade: true, eager: true })
+  images: NewsImageDetail[];
 }

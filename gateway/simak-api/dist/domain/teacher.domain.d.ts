@@ -1,5 +1,6 @@
 export declare class TeacherDomain {
     id: string;
+    userOid: string;
     nidn: string;
     name: string;
     createdBy: string;

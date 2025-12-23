@@ -1,13 +1,10 @@
 import { TagService } from '../services/tag.service';
 import { CreateTagDto, FilterTagDto, UpdateTagDto } from '../dtos/payload-tag-dto';
-import { ResponseService } from '../common/build.response';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { RequestHandlerService } from '../services/request-handler.service';
 export declare class TagController {
     private readonly tagService;
-    private readonly responseService;
-    private readonly auditTrailService;
-    constructor(tagService: TagService, responseService: ResponseService, auditTrailService: AuditTrailService);
-    private handleRequest;
+    private readonly requestHandler;
+    constructor(tagService: TagService, requestHandler: RequestHandlerService);
     create(createTagDto: CreateTagDto, req: any): Promise<any>;
     update(oid: string, updateTagDto: UpdateTagDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

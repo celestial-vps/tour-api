@@ -3,6 +3,11 @@ export declare class FilterNewsDto {
     title?: string;
     content?: string;
 }
+export declare class NewsDetailDto {
+    imageOid: string;
+    newsOid: string;
+    role?: string;
+}
 export declare class CreateNewsDto {
     title: string;
     content: string;
@@ -15,6 +20,7 @@ export declare class CreateNewsDto {
     tags?: string;
     views?: number;
     language?: string;
+    nwsDetails?: NewsDetailDto[];
 }
 export declare class UpdateNewsDto {
     title: string;

@@ -9,11 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SuccessNewsPaginatedResponseDto = exports.SuccessNewsObjectResponseDto = exports.SuccessNewsResponseDto = exports.ResponseNewsVm = exports.UpdateNewsDto = exports.CreateNewsDto = exports.FilterNewsDto = void 0;
+exports.SuccessNewsPaginatedResponseDto = exports.SuccessNewsObjectResponseDto = exports.SuccessNewsResponseDto = exports.ResponseNewsVm = exports.UpdateNewsDto = exports.CreateNewsDto = exports.NewsDetailDto = exports.FilterNewsDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const api_base_response_decorator_1 = require("./base/api-base-response.decorator");
 const pagination_info_dto_1 = require("./base/pagination-info-dto");
+const class_transformer_1 = require("class-transformer");
 class FilterNewsDto {
     title;
     content;
@@ -31,6 +32,29 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], FilterNewsDto.prototype, "content", void 0);
+class NewsDetailDto {
+    imageOid;
+    newsOid;
+    role;
+}
+exports.NewsDetailDto = NewsDetailDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'uuid-category', description: 'OID kategori berita' }),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], NewsDetailDto.prototype, "imageOid", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'uuid-category', description: 'OID kategori berita' }),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], NewsDetailDto.prototype, "newsOid", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'draft', description: 'Status berita', enum: ['draft', 'published', 'archived'] }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsIn)(['cover', 'thumbnail', 'gallery']),
+    __metadata("design:type", String)
+], NewsDetailDto.prototype, "role", void 0);
 class CreateNewsDto {
     title;
     content;
@@ -43,6 +67,7 @@ class CreateNewsDto {
     tags;
     views;
     language;
+    nwsDetails;
 }
 exports.CreateNewsDto = CreateNewsDto;
 __decorate([
@@ -111,6 +136,17 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateNewsDto.prototype, "language", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        type: [NewsDetailDto],
+        description: 'Detail gambar berita',
+        example: [{ imageOid: 'uuid-image', newsOid: 'uuid-news', role: 'cover' }]
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => NewsDetailDto),
+    __metadata("design:type", Array)
+], CreateNewsDto.prototype, "nwsDetails", void 0);
 class UpdateNewsDto {
     title;
     content;

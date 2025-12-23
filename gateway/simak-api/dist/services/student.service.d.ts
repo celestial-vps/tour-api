@@ -3,11 +3,9 @@ import { IStudentService } from '../services/istudent.service';
 import { StudentVm } from '../mappings/student.vm';
 import { MessageVm } from '../mappings/message.vm';
 import { StudentRepository } from '../repositories/student.repository';
-import { RegisterService } from '../middleware/register/register-midleware-service';
 export declare class StudentService implements IStudentService {
     private readonly studentRepository;
-    private readonly registerService;
-    constructor(studentRepository: StudentRepository, registerService: RegisterService);
+    constructor(studentRepository: StudentRepository);
     create(createStudentDto: CreateStudentDto, userOid: string): Promise<{
         student: MessageVm | null;
         err: any;

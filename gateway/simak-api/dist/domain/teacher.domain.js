@@ -14,6 +14,7 @@ const class_transformer_1 = require("class-transformer");
 const mapper_1 = require("../misc/mapper");
 class TeacherDomain {
     id;
+    userOid;
     nidn;
     name;
     createdBy;
@@ -29,6 +30,10 @@ __decorate([
     (0, class_transformer_1.Transform)((params) => params.obj._id ? String(params.obj._id) : (0, mapper_1.ObjectIdToString)(params)),
     __metadata("design:type", String)
 ], TeacherDomain.prototype, "id", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], TeacherDomain.prototype, "userOid", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)

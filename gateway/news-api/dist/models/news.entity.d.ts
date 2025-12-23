@@ -1,6 +1,7 @@
-import { BaseEntity } from './base/base';
 import { NewsCategory } from './news-category.entity';
 import { ImageFile } from './image-file.entity';
+import { BaseEntity } from './base/base';
+import { NewsImageDetail } from './news-image-detail.entity';
 export declare class News extends BaseEntity {
     oid: string;
     newsCategory: NewsCategory;
@@ -14,4 +15,5 @@ export declare class News extends BaseEntity {
     tags?: string;
     language?: string;
     image?: ImageFile;
+    images: NewsImageDetail[];
 }

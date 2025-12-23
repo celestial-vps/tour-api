@@ -18,6 +18,7 @@ const tag_vm_1 = require("../mappings/tag-vm");
 const user_module_1 = require("./user.module");
 const audit_trail_midleware_service_1 = require("../middleware/audit-trail/audit-trail-midleware-service");
 const audit_trail_module_1 = require("./audit-trail.module");
+const request_handler_service_1 = require("../services/request-handler.service");
 let TagModule = class TagModule {
 };
 exports.TagModule = TagModule;
@@ -25,7 +26,7 @@ exports.TagModule = TagModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([tag_entity_1.Tag]), user_module_1.UserModule, audit_trail_module_1.AuditTrailModule],
         controllers: [tag_controller_1.TagController],
-        providers: [audit_trail_midleware_service_1.AuditTrailService, tag_service_1.TagService, build_response_1.ResponseService, tag_repository_1.TagRepository, tag_vm_1.TagMapping],
+        providers: [audit_trail_midleware_service_1.AuditTrailService, tag_service_1.TagService, request_handler_service_1.RequestHandlerService, build_response_1.ResponseService, tag_repository_1.TagRepository, tag_vm_1.TagMapping],
         exports: [audit_trail_midleware_service_1.AuditTrailService],
     })
 ], TagModule);

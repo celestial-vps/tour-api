@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber, IsOptional, IsNotEmpty } from 'class-validator';
 
-export class FilterStudyPlanDto {
+export class FilterKrsDto {
   @ApiProperty({ example: 'studentId', description: 'Student ID' })
   @IsOptional()
   @IsString()
@@ -13,7 +13,7 @@ export class FilterStudyPlanDto {
   semester?: number;
 }
 
-export class CreateStudyPlanDto {
+export class CreateKrsDto {
   @ApiProperty({ example: 'studentId', description: 'Student ID' })
   @IsString()
   @IsNotEmpty()
@@ -30,4 +30,4 @@ export class CreateStudyPlanDto {
   academicYear: string;
 }
 
-export class UpdateStudyPlanDto extends CreateStudyPlanDto {}
+export class UpdateKrsDto extends CreateKrsDto {}

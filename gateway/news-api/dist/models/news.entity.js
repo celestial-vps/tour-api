@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.News = void 0;
 const typeorm_1 = require("typeorm");
-const base_1 = require("./base/base");
 const news_category_entity_1 = require("./news-category.entity");
 const image_file_entity_1 = require("./image-file.entity");
+const base_1 = require("./base/base");
+const news_image_detail_entity_1 = require("./news-image-detail.entity");
 let News = class News extends base_1.BaseEntity {
     oid;
     newsCategory;
@@ -27,6 +28,7 @@ let News = class News extends base_1.BaseEntity {
     tags;
     language;
     image;
+    images;
 };
 exports.News = News;
 __decorate([
@@ -34,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], News.prototype, "oid", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => news_category_entity_1.NewsCategory, newsCategory => newsCategory.newss),
+    (0, typeorm_1.ManyToOne)(() => news_category_entity_1.NewsCategory, category => category.newss, { nullable: false }),
     (0, typeorm_1.JoinColumn)({ name: 'categoryOid' }),
     __metadata("design:type", news_category_entity_1.NewsCategory)
 ], News.prototype, "newsCategory", void 0);
@@ -79,6 +81,10 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'imageOid' }),
     __metadata("design:type", image_file_entity_1.ImageFile)
 ], News.prototype, "image", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => news_image_detail_entity_1.NewsImageDetail, imageDetail => imageDetail.news, { cascade: true, eager: true }),
+    __metadata("design:type", Array)
+], News.prototype, "images", void 0);
 exports.News = News = __decorate([
     (0, typeorm_1.Entity)('news')
 ], News);

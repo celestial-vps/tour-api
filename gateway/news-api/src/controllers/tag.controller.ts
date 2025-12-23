@@ -7,10 +7,8 @@ import {
   Put,
   Delete,
   Request,
-  BadRequestException,
   Query,
   UseGuards,
-  NotFoundException,
 } from '@nestjs/common';
 import { TagService } from '../services/tag.service';
 import {
@@ -30,14 +28,12 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
-  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { ResponseService } from '../common/build.response';
 import { JwtAuthGuard } from '../middleware/jwt-guard';
 import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { ErrorResponseDto } from '../dtos/base/error-response.dto';
 import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @ApiBearerAuth()
 @ApiTags('Tag')
@@ -45,62 +41,10 @@ import { SuccessResponseMessageDto } from '../dtos/base/success-response-message
 export class TagController {
   constructor(
     private readonly tagService: TagService,
-    private readonly responseService: ResponseService,
-    private readonly auditTrailService: AuditTrailService,
+  private readonly requestHandler: RequestHandlerService,
   ) { }
 
-  // ---------------- HELPER FUNCTION ----------------
-  private async handleRequest(
-    fn: () => Promise<any>,
-    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
-    userOid: string,
-    recordOid?: string,
-    req?: any,
-    paginate?: boolean,
-  ) {
-    try {
-      const result = await fn();
-
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'SUCCESS',
-        message: `${action} Tag success`,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-        newData: result,
-      });
-      if (paginate) {
-        return this.responseService.responseOkWithPagination(result.data, {
-          page: result.page,
-          size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
-        });
-      }
-
-
-      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'tags',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'ERROR',
-        message: error.message,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-      });
-
-      if (error instanceof NotFoundException) throw error;
-
-      throw new BadRequestException({ code: 400, status: 400, message: error.message });
-    }
-  }
-
+   
   // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
@@ -110,7 +54,16 @@ export class TagController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createTagDto: CreateTagDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.tagService.create(createTagDto, userOid), 'CREATE', userOid, undefined, req);
+       return this.requestHandler.handleRequest(
+      () => this.tagService.create(createTagDto, userOid),
+      {
+        action: 'CREATE',
+        tableName: 'tags',
+        userOid,
+        req,
+        successMessage: 'Create Tag success',
+      },
+    );
   }
 
   // ---------------- UPDATE ----------------
@@ -123,7 +76,17 @@ export class TagController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateTagDto: UpdateTagDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.tagService.update(oid, updateTagDto, userOid), 'UPDATE', userOid, oid, req);
+       return this.requestHandler.handleRequest(
+      () => this.tagService.update(oid, updateTagDto, userOid),
+      {
+        action: 'UPDATE',
+        tableName: 'tags',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Update Tag success',
+      },
+    );
   }
 
   // ---------------- DELETE ----------------
@@ -135,7 +98,17 @@ export class TagController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.tagService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+        return this.requestHandler.handleRequest(
+      () => this.tagService.deleted(oid, userOid),
+      {
+        action: 'DELETE',
+        tableName: 'tags',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Delete Tag success',
+      },
+    );
   }
 
   // ---------------- FIND ALL ----------------
@@ -146,7 +119,15 @@ export class TagController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.tagService.findAll(), 'READ', userOid, undefined, req);
+       return this.requestHandler.handleRequest(
+      () => this.tagService.findAll(),
+      {
+        action: 'READ',
+        tableName: 'tags',
+        userOid,
+        req,
+      },
+    );
   }
 
   // ---------------- FIND ONE ----------------
@@ -158,7 +139,17 @@ export class TagController {
   @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.tagService.findById(oid), 'READ', userOid, oid, req);
+       return this.requestHandler.handleRequest(
+      () => this.tagService.findById(oid),
+      {
+        action: 'READ',
+        tableName: 'tags',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Get Tag success',
+      },
+    );
   }
 
   // ---------------- FIND WITH PAGINATION ----------------
@@ -181,24 +172,25 @@ export class TagController {
     const page = Number(pageIndex) || 1;
     const size = Number(pageSize) || 10;
 
-    return this.handleRequest(
+    return this.requestHandler.handleRequest(
       async () => {
         const { tags, count } = await this.tagService.findPage(page, size, filterTagDto);
-        const totalPage = Math.ceil(count / size);
-       
-        return {  
-          page,   
+        return {
+          page,
           size,
           totalItem: count,
-          totalPage,
+          totalPage: Math.ceil(count / size),
           data: tags,
         };
       },
-      'READ',
-      userOid,
-      undefined,
-      req,
-      true,
+      {
+        action: 'READ',
+        tableName: 'tags',
+        userOid,
+        req,
+        paginate: true,
+        successMessage: 'Get paginated tags success',
+      },
     );
   }
 }

@@ -21,6 +21,7 @@ const configuration_1 = __importDefault(require("./config/configuration"));
 const course_module_1 = require("./modules/course.module");
 const teacher_module_1 = require("./modules/teacher.module");
 const student_module_1 = require("./modules/student.module");
+const krs_module_1 = require("./modules/krs.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,7 +34,9 @@ exports.AppModule = AppModule = __decorate([
                 load: [configuration_1.default],
             }),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/simakdb'), auth_module_1.AuthModule,
-            bank_module_1.BankModule, course_module_1.CourseModule, teacher_module_1.TeacherModule, student_module_1.StudentModule,
+            bank_module_1.BankModule, course_module_1.CourseModule, student_module_1.StudentModule,
+            teacher_module_1.TeacherModule,
+            krs_module_1.KrsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

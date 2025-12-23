@@ -38,6 +38,7 @@ import { AdminRoleGuard } from '../middleware/guards/admin-role.guard';
 import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
 import { ErrorResponseDto } from '../dtos/base/error-response.dto';
 import { SuccessResponseMessageDto } from '../dtos/base/success-response-message-dto';
+import { RequestHandlerService } from '../services/request-handler.service';
 
 @ApiBearerAuth()
 @ApiTags('News')
@@ -45,61 +46,60 @@ import { SuccessResponseMessageDto } from '../dtos/base/success-response-message
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly responseService: ResponseService,
-    private readonly auditTrailService: AuditTrailService,
+    private readonly requestHandler: RequestHandlerService,
   ) { }
 
   // ---------------- HELPER FUNCTION ----------------
-  private async handleRequest(
-    fn: () => Promise<any>,
-    action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
-    userOid: string,
-    recordOid?: string,
-    req?: any,
-    paginate?: boolean,
-  ) {
-    try {
-      const result = await fn();
+  // private async handleRequest(
+  //   fn: () => Promise<any>,
+  //   action: 'CREATE' | 'UPDATE' | 'DELETE' | 'READ',
+  //   userOid: string,
+  //   recordOid?: string,
+  //   req?: any,
+  //   paginate?: boolean,
+  // ) {
+  //   try {
+  //     const result = await fn();
 
-      await this.auditTrailService.recordPost({
-        tableName: 'newss',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'SUCCESS',
-        message: `${action} News success`,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-        newData: result,
-      });
-      if (paginate) {
-        return this.responseService.responseOkWithPagination(result.data, {
-          page: result.page,
-          size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
-        });
-      }
+  //     await this.auditTrailService.recordPost({
+  //       tableName: 'newss',
+  //       recordOid: recordOid ?? 'unknown',
+  //       action,
+  //       status: 'SUCCESS',
+  //       message: `${action} News success`,
+  //       userOid,
+  //       ipAddress: req?.ip,
+  //       userAgent: req?.headers['user-agent'],
+  //       newData: result,
+  //     });
+  //     if (paginate) {
+  //       return this.responseService.responseOkWithPagination(result.data, {
+  //         page: result.page,
+  //         size: result.size,
+  //         totalItem: result.totalItem,
+  //         totalPage: result.totalPage,
+  //       });
+  //     }
 
 
-      return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
-    } catch (error) {
-      await this.auditTrailService.recordPost({
-        tableName: 'newss',
-        recordOid: recordOid ?? 'unknown',
-        action,
-        status: 'ERROR',
-        message: error.message,
-        userOid,
-        ipAddress: req?.ip,
-        userAgent: req?.headers['user-agent'],
-      });
+  //     return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
+  //   } catch (error) {
+  //     await this.auditTrailService.recordPost({
+  //       tableName: 'newss',
+  //       recordOid: recordOid ?? 'unknown',
+  //       action,
+  //       status: 'ERROR',
+  //       message: error.message,
+  //       userOid,
+  //       ipAddress: req?.ip,
+  //       userAgent: req?.headers['user-agent'],
+  //     });
 
-      if (error instanceof NotFoundException) throw error;
+  //     if (error instanceof NotFoundException) throw error;
 
-      throw new BadRequestException({ code: 400, status: 400, message: error.message });
-    }
-  }
+  //     throw new BadRequestException({ code: 400, status: 400, message: error.message });
+  //   }
+  // }
 
   // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
@@ -110,7 +110,17 @@ export class NewsController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async create(@Body() createNewsDto: CreateNewsDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsService.create(createNewsDto, userOid), 'CREATE', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsService.create(createNewsDto, userOid),
+      {
+        action: 'CREATE',
+        tableName: 'news',
+        userOid,
+        req,
+        successMessage: 'Create News success',
+      },
+    );
+
   }
 
   // ---------------- UPDATE ----------------
@@ -123,7 +133,18 @@ export class NewsController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async update(@Param('oid') oid: string, @Body() updateNewsDto: UpdateNewsDto, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsService.update(oid, updateNewsDto, userOid), 'UPDATE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsService.update(oid, updateNewsDto, userOid),
+      {
+        action: 'UPDATE',
+        tableName: 'news',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Update News success',
+      },
+    );
+
   }
 
   // ---------------- DELETE ----------------
@@ -135,7 +156,18 @@ export class NewsController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async deleted(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsService.deleted(oid, userOid), 'DELETE', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsService.deleted(oid, userOid),
+      {
+        action: 'DELETE',
+        tableName: 'news',
+        recordOid: oid,
+        userOid,
+        req,
+        successMessage: 'Delete News success',
+      },
+    );
+
   }
 
   // ---------------- FIND ALL ----------------
@@ -146,7 +178,17 @@ export class NewsController {
   @ApiBadRequestResponse({ description: 'Bad Request', type: ErrorResponseDto })
   async findAll(@Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsService.findAll(), 'READ', userOid, undefined, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsService.findAll(),
+      {
+        action: 'READ',
+        tableName: 'news',
+        userOid,
+        req,
+        successMessage: 'Get all News success',
+      },
+    );
+
   }
 
   // ---------------- FIND ONE ----------------
@@ -158,7 +200,17 @@ export class NewsController {
   @ApiBadRequestResponse({ type: ErrorResponseDto })
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
-    return this.handleRequest(() => this.newsService.findById(oid), 'READ', userOid, oid, req);
+    return this.requestHandler.handleRequest(
+      () => this.newsService.findAll(),
+      {
+        action: 'READ',
+        tableName: 'news',
+        userOid,
+        req,
+        successMessage: 'Get all News success',
+      },
+    );
+
   }
 
   // ---------------- FIND WITH PAGINATION ----------------
@@ -181,24 +233,25 @@ export class NewsController {
     const page = Number(pageIndex) || 1;
     const size = Number(pageSize) || 10;
 
-    return this.handleRequest(
+    return this.requestHandler.handleRequest(
       async () => {
         const { newss, count } = await this.newsService.findPage(page, size, filterNewsDto);
-        const totalPage = Math.ceil(count / size);
-       
-        return {  
-          page,   
+        return {
+          page,
           size,
           totalItem: count,
-          totalPage,
+          totalPage: Math.ceil(count / size),
           data: newss,
         };
       },
-      'READ',
-      userOid,
-      undefined,
-      req,
-      true,
+      {
+        action: 'READ',
+        tableName: 'news',
+        userOid,
+        req,
+        paginate: true,
+        successMessage: 'Get paginated News success',
+      },
     );
   }
 }

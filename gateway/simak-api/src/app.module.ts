@@ -12,6 +12,7 @@ import configuration from './config/configuration';
 import { CourseModule } from './modules/course.module';
 import { TeacherModule } from './modules/teacher.module';
 import { StudentModule } from './modules/student.module';
+import { KrsModule } from './modules/krs.module';
 
 @Module({
   imports: [
@@ -23,8 +24,10 @@ import { StudentModule } from './modules/student.module';
     MongooseModule.forRoot(
       'mongodb://localhost:27017/simakdb',
     ), AuthModule,
-    BankModule, CourseModule, TeacherModule, StudentModule,
-    // KrsModule, KrsDetailModule, KhsModule, KhsDetailModule,
+    BankModule, CourseModule, StudentModule,
+    TeacherModule, 
+    KrsModule, 
+    // KrsDetailModule, KhsModule, KhsDetailModule,
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '/', 'uploads'),
     // }),

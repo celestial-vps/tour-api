@@ -15,7 +15,7 @@ import { RegisterService } from '../middleware/register/register-midleware-servi
 export class StudentService implements IStudentService {
 
     constructor(private readonly studentRepository: StudentRepository,
-        private readonly registerService: RegisterService,
+        // private readonly registerService: RegisterService,
     ) { }
 
     async create(createStudentDto: CreateStudentDto, userOid: string): Promise<{ student: MessageVm | null; err: any; }> {

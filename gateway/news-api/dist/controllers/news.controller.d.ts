@@ -1,13 +1,10 @@
 import { NewsService } from '../services/news.service';
 import { CreateNewsDto, FilterNewsDto, UpdateNewsDto } from '../dtos/payload-news-dto';
-import { ResponseService } from '../common/build.response';
-import { AuditTrailService } from '../middleware/audit-trail/audit-trail-midleware-service';
+import { RequestHandlerService } from '../services/request-handler.service';
 export declare class NewsController {
     private readonly newsService;
-    private readonly responseService;
-    private readonly auditTrailService;
-    constructor(newsService: NewsService, responseService: ResponseService, auditTrailService: AuditTrailService);
-    private handleRequest;
+    private readonly requestHandler;
+    constructor(newsService: NewsService, requestHandler: RequestHandlerService);
     create(createNewsDto: CreateNewsDto, req: any): Promise<any>;
     update(oid: string, updateNewsDto: UpdateNewsDto, req: any): Promise<any>;
     deleted(oid: string, req: any): Promise<any>;

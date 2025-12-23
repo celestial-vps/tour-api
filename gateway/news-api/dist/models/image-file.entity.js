@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageFile = void 0;
 const typeorm_1 = require("typeorm");
-const base_1 = require("./base/base");
 const image_owner_type_enum_1 = require("../enums/image-owner-type.enum");
+const base_1 = require("./base/base");
 let ImageFile = class ImageFile extends base_1.BaseEntity {
     oid;
     fileName;

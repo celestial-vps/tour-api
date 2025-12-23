@@ -9,51 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateStudyPlanDto = exports.CreateStudyPlanDto = exports.FilterStudyPlanDto = void 0;
+exports.UpdateKrsDto = exports.CreateKrsDto = exports.FilterKrsDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class FilterStudyPlanDto {
+class FilterKrsDto {
     student;
     semester;
 }
-exports.FilterStudyPlanDto = FilterStudyPlanDto;
+exports.FilterKrsDto = FilterKrsDto;
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'studentId', description: 'Student ID' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], FilterStudyPlanDto.prototype, "student", void 0);
+], FilterKrsDto.prototype, "student", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Semester' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], FilterStudyPlanDto.prototype, "semester", void 0);
-class CreateStudyPlanDto {
+], FilterKrsDto.prototype, "semester", void 0);
+class CreateKrsDto {
     student;
     semester;
     academicYear;
 }
-exports.CreateStudyPlanDto = CreateStudyPlanDto;
+exports.CreateKrsDto = CreateKrsDto;
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'studentId', description: 'Student ID' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateStudyPlanDto.prototype, "student", void 0);
+], CreateKrsDto.prototype, "student", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Semester' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], CreateStudyPlanDto.prototype, "semester", void 0);
+], CreateKrsDto.prototype, "semester", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '2024/2025', description: 'Academic year' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateStudyPlanDto.prototype, "academicYear", void 0);
-class UpdateStudyPlanDto extends CreateStudyPlanDto {
+], CreateKrsDto.prototype, "academicYear", void 0);
+class UpdateKrsDto extends CreateKrsDto {
 }
-exports.UpdateStudyPlanDto = UpdateStudyPlanDto;
+exports.UpdateKrsDto = UpdateKrsDto;
 //# sourceMappingURL=payload-krs-dto.js.map

@@ -1,11 +1,11 @@
-export declare class FilterStudyPlanDto {
+export declare class FilterKrsDto {
     student?: string;
     semester?: number;
 }
-export declare class CreateStudyPlanDto {
+export declare class CreateKrsDto {
     student: string;
     semester: number;
     academicYear: string;
 }
-export declare class UpdateStudyPlanDto extends CreateStudyPlanDto {
+export declare class UpdateKrsDto extends CreateKrsDto {
 }
