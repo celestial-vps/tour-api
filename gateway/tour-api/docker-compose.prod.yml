@@ -1,0 +1,46 @@
+services:
+  api-prod:
+    image: tour-api:latest
+    container_name: api-prod
+    ports:
+      - "5101:5101"
+    environment:
+        DATABASE_URL: postgres://postgres:Serverh5n&*#@postgres-prod:5432/tourdb
+        REDIS_URL: redis://:Serverh5n%26%2A%23@redis-prod:6379
+    depends_on:
+      - postgres-prod
+      - redis-prod
+    networks:
+      - backend-prod
+    restart: unless-stopped
+
+  postgres-prod:
+    image: postgres:15
+    container_name: postgres-prod
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Serverh5n&*#
+      POSTGRES_DB: tourdb
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    networks:
+      - backend-prod
+    restart: unless-stopped
+
+  redis-prod:
+    image: redis:7
+    container_name: redis-prod
+    command: redis-server --requirepass Serverh5n&*# --appendonly yes
+    volumes:
+      - redis_prod_data:/data
+    networks:
+      - backend-prod
+    restart: unless-stopped
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:
+
+networks:
+  backend-prod:
+    driver: bridge

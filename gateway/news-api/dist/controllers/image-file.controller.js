@@ -238,7 +238,7 @@ let ImageFileController = class ImageFileController {
 exports.ImageFileController = ImageFileController;
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)('upload'),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new ImageFile' }),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
@@ -354,7 +354,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ImageFileController.prototype, "find", null);
 exports.ImageFileController = ImageFileController = __decorate([
-    (0, common_1.Controller)('imageFile'),
+    (0, common_1.Controller)('image-file'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('ImageFile'),
     __metadata("design:paramtypes", [image_file_service_1.ImageFileService, build_response_1.ResponseService, audit_trail_midleware_service_1.AuditTrailService])

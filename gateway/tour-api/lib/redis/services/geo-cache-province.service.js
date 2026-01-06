@@ -1,9 +1,9 @@
-const Redis = require('ioredis');
-
+// const Redis = require('ioredis');
+const redis = require('../redis');
 class GeoCacheProvinceService {
     constructor() {
         // @ts-ignore
-        this.redisClient = new Redis(); // Sesuaikan konfigurasi jika perlu
+        this.redisClient = redis; // Sesuaikan konfigurasi jika perlu
         this.redisKey = 'geo:provinces';
     }
 
@@ -14,7 +14,7 @@ class GeoCacheProvinceService {
     async upsertProvince(province) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const provinces = data ? JSON.parse(data) : [];
+            const provinces = data ? JSON.parse(data.toString()) : [];
 
             const index = provinces.findIndex(c => c.id === province.id);
 
@@ -39,7 +39,7 @@ class GeoCacheProvinceService {
         try {
             console.log('Looking up Redis key:', this.redisKey);
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getProvinces):', err);
             return [];
@@ -53,7 +53,7 @@ class GeoCacheProvinceService {
     async deleteProvince(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            let provinces = data ? JSON.parse(data) : [];
+            let provinces = data ? JSON.parse(data.toString()) : [];
 
             provinces = provinces.filter(c => c.id !== id);
 
@@ -79,7 +79,7 @@ class GeoCacheProvinceService {
     async getAllProvinces() {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getAllProvinces):', err);
             return [];
@@ -89,7 +89,7 @@ class GeoCacheProvinceService {
     async getProvinceById(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const provinces = data ? JSON.parse(data) : [];
+            const provinces = data ? JSON.parse(data.toString()) : [];
             return provinces.find(c => c.id === id) || null;
         } catch (err) {
             console.error('Redis error (getProvinceById):', err);
@@ -100,7 +100,7 @@ class GeoCacheProvinceService {
     async searchProvincesByName(name) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const provinces = data ? JSON.parse(data) : [];
+            const provinces = data ? JSON.parse(data.toString()) : [];
             const lowerName = name.toLowerCase();
             return provinces.filter(c => c.provinceName.toLowerCase().includes(lowerName));
         } catch (err) {

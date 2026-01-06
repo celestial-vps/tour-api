@@ -27,6 +27,8 @@ const country_module_1 = require("./modules/country.module");
 const image_file_module_1 = require("./modules/image-file.module");
 const tag_module_1 = require("./modules/tag.module");
 const news_image_detail_module_1 = require("./modules/news-image-detail.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
     configure(consumer) {
     }
@@ -39,6 +41,10 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
                 envFilePath: `.env.${process.env.NODE_ENV}`,
                 load: [configuration_1.default],
+            }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'publics'),
+                serveRoot: '/publics',
             }),
             typeorm_1.TypeOrmModule.forRootAsync(type_orm_async_config_1.typeOrmAsyncConfig),
             bank_module_1.BankModule, auth_module_1.AuthModule, country_module_1.CountryModule, news_category_module_1.NewsCategoryModule, news_module_1.NewsModule,

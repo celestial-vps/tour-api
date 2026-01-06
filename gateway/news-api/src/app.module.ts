@@ -18,18 +18,24 @@ import { Tag } from './models/tag.entity';
 import { TagModule } from './modules/tag.module';
 import { BannerModule } from './modules/banner.module';
 import { NewsImageDetailModule } from './modules/news-image-detail.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 // Modules
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`, 
+      envFilePath: `.env.${process.env.NODE_ENV}`,
       load: [configuration],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'publics'),
+      serveRoot: '/publics', // URL prefix
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     BankModule, AuthModule, CountryModule, NewsCategoryModule, NewsModule,
-    TagModule,NewsImageDetailModule,
+    TagModule, NewsImageDetailModule,
     // BannerModule,
     ImageFileModule,
     GeoCacheModule // GeoCache module added here

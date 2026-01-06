@@ -50,12 +50,7 @@ const User = sequelize.define('user', {
         type: DataTypes.UUID,
         allowNull: true, // Set to true if role can be null
     },
-    description: {
-        type: DataTypes.TEXT,
-        allowNull: true,       // Allow NULL values (equivalent to *string in Go)
-        defaultValue: null,    // Explicitly set the default value to NULL
-        field: 'description',  // Column name in the database
-    },
+    
     lastModifiedBy: {
         type: DataTypes.UUID,
         allowNull: true, // Adjust based on your requirements

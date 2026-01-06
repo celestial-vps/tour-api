@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  audit-api:
+    build: .
+    container_name: audit-api
+    env_file:
+      - .env
+    ports:
+      - "5001:5001"
+    networks:
+      - shared-network
+    depends_on:
+      - audit-db
+      - audit-redis
+
+  audit-db:
+    image: postgres:15-alpine
+    container_name: audit-db
+    environment:
+      POSTGRES_DB: tourdb_audit_trail
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "Serverh5n&*#"
+    ports:
+      - "5433:5432"   # HostPort:ContainerPort
+    networks:
+      - shared-network
+    volumes:
+      - audit-db-data:/var/lib/postgresql/data
+
+  audit-redis:
+    image: redis:7-alpine
+    container_name: audit-redis
+    command: ["redis-server", "--requirepass", "Serverh5n"]
+    ports:
+      - "6380:6379"   # HostPort:ContainerPort
+    networks:
+      - shared-network
+    volumes:
+      - audit-redis-data:/data
+
+networks:
+  shared-network:
+    driver: bridge
+
+volumes:
+  audit-db-data:
+  audit-redis-data:

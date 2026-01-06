@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  tour-api:
+    container_name: tour-api
+    build: .
+    ports:
+      - "5101:5101"
+    env_file:
+      - .env.development
+    networks:
+      - shared-network
+    restart: unless-stopped
+
+networks:
+  shared-network:
+    external: true

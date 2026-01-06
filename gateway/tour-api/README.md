@@ -60,6 +60,12 @@ npx sequelize-cli db:migrate:undo
 
 1 run this in db for handle case sensitife in postgree  CREATE EXTENSION IF NOT EXISTS citext;
 
+chmod +x deploy.sh
+export NODE_ENV=development
+./deploy.sh
+
+
+
 Note
 1. change all atribut to variable
 
@@ -140,3 +146,17 @@ ini kalo bikin service nya
 
     npm install firebase-admin
     npm i google-auth-library
+
+
+# DOCKER
+docker exec -it tour-api sh
+    npx sequelize-cli db:migrate
+docker exec -it tour-api sh
+    npx sequelize-cli db:seed:all
+
+# Rebuild
+docker-compose down
+docker-compose build tour-api
+docker-compose up -d
+docker-compose logs -f tour-api
+

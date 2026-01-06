@@ -10,6 +10,7 @@ module.exports = {
     database: process.env.DATABASE || 'tourdb_audit_trail',
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.dialect || 'postgres',
+    dbport: process.env.DB_PORT || 5431,
   },
   test: {
     username: process.env.DB_USERNAME || 'postgres',
@@ -17,6 +18,7 @@ module.exports = {
     database: process.env.DATABASE || 'tourdb_audit_trail',
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.dialect || 'postgres',
+    dbport: process.env.DB_PORT || 5431,
   },
   production: {
     username: process.env.DB_USERNAME || 'postgres',
@@ -24,5 +26,6 @@ module.exports = {
     database: process.env.DATABASE || 'tourdb_audit_trail',
     host: process.env.DB_HOST || 'localhost',
     dialect: process.env.dialect || 'postgres',
+    dbport: process.env.DB_PORT || 5431,
   },
 }; 

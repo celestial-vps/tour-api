@@ -30,6 +30,7 @@ let TagService = class TagService {
         try {
             const tag = new tag_entity_1.Tag();
             tag.name = tagdto.name;
+            tag.slug = tagdto.slug;
             tag.createdBy = userOid;
             tag.createdAt = new Date();
             const savedTag = await this.tagRepository.save(tag, queryRunner);

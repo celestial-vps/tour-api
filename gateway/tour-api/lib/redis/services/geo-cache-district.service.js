@@ -1,9 +1,10 @@
-const Redis = require('ioredis');
+// const Redis = require('ioredis');
+const redis = require('../redis');
 
 class GeoCacheDistrictService {
     constructor() {
         // @ts-ignore
-        this.redisClient = new Redis(); // Sesuaikan konfigurasi jika perlu
+        this.redisClient =   redis; // Sesuaikan konfigurasi jika perlu
         this.redisKey = 'geo:districts';
     }
 
@@ -14,7 +15,7 @@ class GeoCacheDistrictService {
     async upsertDistrict(district) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const districts = data ? JSON.parse(data) : [];
+            const districts = data ? JSON.parse(data.toString()) : [];
 
             const index = districts.findIndex(c => c.id === district.id);
 
@@ -39,7 +40,7 @@ class GeoCacheDistrictService {
         try {
             console.log('Looking up Redis key:', this.redisKey);
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getDistricts):', err);
             return [];
@@ -53,7 +54,7 @@ class GeoCacheDistrictService {
     async deleteDistrict(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            let districts = data ? JSON.parse(data) : [];
+            let districts = data ? JSON.parse(data.toString()) : [];
 
             districts = districts.filter(c => c.id !== id);
 
@@ -79,7 +80,7 @@ class GeoCacheDistrictService {
     async getAllDistricts() {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getAllDistricts):', err);
             return [];
@@ -89,7 +90,7 @@ class GeoCacheDistrictService {
     async getDistrictById(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const districts = data ? JSON.parse(data) : [];
+            const districts = data ? JSON.parse(data.toString()) : [];
             return districts.find(c => c.id === id) || null;
         } catch (err) {
             console.error('Redis error (getDistrictById):', err);
@@ -100,7 +101,7 @@ class GeoCacheDistrictService {
     async searchDistrictsByName(name) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const districts = data ? JSON.parse(data) : [];
+            const districts = data ? JSON.parse(data.toString()) : [];
             const lowerName = name.toLowerCase();
             return districts.filter(c => c.districtName.toLowerCase().includes(lowerName));
         } catch (err) {

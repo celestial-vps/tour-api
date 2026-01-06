@@ -12,15 +12,16 @@ export class TagService {
     private readonly tagRepository: TagRepository,
     private readonly tagMapping: TagMapping,
     private readonly dataSource: DataSource,
-  ) {}
+  ) { }
 
   async create(tagdto: CreateTagDto, userOid: string): Promise<MessageVm> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
-      const tag = new Tag(); 
-      tag.name = tagdto.name; 
+      const tag = new Tag();
+      tag.name = tagdto.name;
+      tag.slug = tagdto.slug;
       tag.createdBy = userOid;
       tag.createdAt = new Date();
 
@@ -43,8 +44,8 @@ export class TagService {
     try {
       const tag = await this.tagRepository.findById(oid);
       if (!tag) throw new NotFoundException('Tag data not found');
- 
-      tag.name = tagdto.name; 
+
+      tag.name = tagdto.name;
       tag.lastModifiedBy = userOid;
       tag.updatedAt = new Date();
 

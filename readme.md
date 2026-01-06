@@ -12,3 +12,48 @@ docs/	Perubahan dokumentasi proyek	Saat update README, swagger, API contract, dl
 chore/	Tugas-tugas rutin non-feature/non-bug	Update config, dependency, CI/CD, lint, dll	chore/update-eslint-config
 ci/	Perubahan pada file CI/CD workflow	Saat update pipeline, action, docker config, dll	ci/update-deploy-workflow
 .pascalToKebab()
+
+# DEPLOY DOCKER DATABASE
+docker compose up -d
+
+# DEPLOY DOCKER MICROSERVICE API
+cd tour-api
+docker compose up -d --build
+
+cd ../news-api
+docker compose up -d --build
+
+cd ../hospital-api
+docker compose up -d --build
+
+
+# REBUILD DOCKER
+docker compose down
+docker compose up -d --build
+
+
+# TEST CONNECT KE REDIS
+PS D:\Startup\Tour\tour-api\gateway\tour-api> docker run -d --name tour-api 
+--network tour-network --env-file .env.development -p 5101:5101 tour-api-tour-api
+39f27f57516a00ab18d9fa1cfce0dc17a10c52469fccbcf8cec07671a3a8d944
+
+apk update
+apk add redis
+
+
+ping redis-server
+redis-cli -h redis-server -p 6379 -a Serverh5n ping
+
+docker logs -f tour-api
+
+
+docker inspect tour-api
+docker inspect redis-server
+
+
+docker exec -it postgres-db psql -U postgres -d tourdb
+\dt
+\l
+
+
+docker exec -it tour-api sh

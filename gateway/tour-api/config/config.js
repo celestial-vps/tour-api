@@ -9,6 +9,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || 'Serverh5n&*#', // Update with your actual password
     database: process.env.DATABASE || 'tourdb',
     host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
     dialect: process.env.dialect || 'postgres',
   },
   test: {
@@ -16,6 +17,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || 'Serverh5n&*#', // Update with your actual password
     database: process.env.DATABASE || 'tourdb',
     host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
     dialect: process.env.dialect || 'postgres',
   },
   production: {
@@ -23,6 +25,7 @@ module.exports = {
     password: process.env.DB_PASSWORD || 'Serverh5n&*#', // Update with your actual password
     database: process.env.DATABASE || 'tourdb',
     host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
     dialect: process.env.dialect || 'postgres',
   },
 }; 

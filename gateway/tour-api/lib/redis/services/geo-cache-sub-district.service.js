@@ -1,9 +1,9 @@
-const Redis = require('ioredis');
-
+// const Redis = require('ioredis');
+const redis = require('../redis');
 class GeoCacheSubDistrictService {
     constructor() {
         // @ts-ignore
-        this.redisClient = new Redis(); // Sesuaikan konfigurasi jika perlu
+        this.redisClient = redis; // Sesuaikan konfigurasi jika perlu
         this.redisKey = 'geo:subDistricts';
     }
 
@@ -14,7 +14,7 @@ class GeoCacheSubDistrictService {
     async upsertSubDistrict(country) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const subDistricts = data ? JSON.parse(data) : [];
+            const subDistricts = data ? JSON.parse(data.toString()) : [];
 
             const index = subDistricts.findIndex(c => c.id === country.id);
 
@@ -39,7 +39,7 @@ class GeoCacheSubDistrictService {
         try {
             console.log('Looking up Redis key:', this.redisKey);
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getSubDistricts):', err);
             return [];
@@ -53,7 +53,7 @@ class GeoCacheSubDistrictService {
     async deleteSubDistrict(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            let subDistricts = data ? JSON.parse(data) : [];
+            let subDistricts = data ? JSON.parse(data.toString()) : [];
 
             subDistricts = subDistricts.filter(c => c.id !== id);
 
@@ -79,7 +79,7 @@ class GeoCacheSubDistrictService {
     async getAllSubDistricts() {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            return data ? JSON.parse(data) : [];
+            return data ? JSON.parse(data.toString()) : [];
         } catch (err) {
             console.error('Redis error (getAllSubDistricts):', err);
             return [];
@@ -89,7 +89,7 @@ class GeoCacheSubDistrictService {
     async getSubDistrictById(id) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const subDistricts = data ? JSON.parse(data) : [];
+            const subDistricts = data ? JSON.parse(data.toString()) : [];
             return subDistricts.find(c => c.id === id) || null;
         } catch (err) {
             console.error('Redis error (getSubDistrictById):', err);
@@ -100,7 +100,7 @@ class GeoCacheSubDistrictService {
     async searchSubDistrictsByName(name) {
         try {
             const data = await this.redisClient.get(this.redisKey);
-            const subDistricts = data ? JSON.parse(data) : [];
+            const subDistricts = data ? JSON.parse(data.toString()) : [];
             const lowerName = name.toLowerCase();
             return subDistricts.filter(c => c.countryName.toLowerCase().includes(lowerName));
         } catch (err) {

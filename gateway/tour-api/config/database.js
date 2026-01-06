@@ -14,3 +14,4 @@ const sequelize = new Sequelize(sequelizeConfig.database, sequelizeConfig.userna
 });
 
 module.exports = sequelize;
+

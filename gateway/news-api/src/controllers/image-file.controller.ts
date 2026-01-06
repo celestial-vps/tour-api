@@ -10,14 +10,14 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
-@Controller('imageFile')
+@Controller('image-file')
 @ApiBearerAuth()
 @ApiTags('ImageFile')
 export class ImageFileController {
     constructor(private readonly imageFileService: ImageFileService, private readonly responseService: ResponseService, private readonly auditTrailService: AuditTrailService,) { }
 
     @UseGuards(JwtAuthGuard, AdminRoleGuard)
-    @Post('create')
+    @Post('upload')
     @ApiConsumes('multipart/form-data') // <- ini wajib!
     @ApiOperation({ summary: 'Create a new ImageFile' })
     @UseInterceptors(FileInterceptor('file', {

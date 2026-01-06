@@ -39,7 +39,7 @@ const travelScheduleRoutes = require('./routes/travel-schedule.route');
 const travelPromoRoutes = require('./routes/travel-promo.route');
 const travelBookingRoutes = require('./routes/travel-booking.route.js');
 const customerRoutes = require('./routes/customer.route');
- const userRoleRoutes = require('./routes/user-role.route');
+const userRoleRoutes = require('./routes/user-role.route');
 const userRoutes = require('./routes/user.route');
 
 const setupSwagger = require('./swagger'); // Adjust the path as needed
@@ -62,7 +62,7 @@ app.use(helmet())
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: ['http://192.168.1.6:4200', 'http://localhost:4200','http://192.168.1.6:4300', 'http://localhost:4300'], // Replace with your Angular app URL
+  origin: ['http://192.168.1.6:4200', 'http://localhost:4200', 'http://192.168.1.6:4300', 'http://localhost:4300'], // Replace with your Angular app URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -90,7 +90,8 @@ console.log(`Server running on basePath ${basePath}`);
 
 // @ts-ignore
 sequelize.logging = console.log;
-
+// Route Hello World
+app.get(basePath, (req, res) => res.send('Hello World di basePath!'));
 
 app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/user-role`, userRoleRoutes);

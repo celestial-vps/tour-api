@@ -7,6 +7,7 @@ const sequelizeConfig = config[environment];
 const sequelize = new Sequelize(sequelizeConfig.database, sequelizeConfig.username, sequelizeConfig.password, {
   logging: console.log, // Enable query logging
   host: sequelizeConfig.host,
+  port: sequelizeConfig.dbport,
   dialect: sequelizeConfig.dialect,
   define: {
     timestamps: false,

@@ -1,12 +1,13 @@
 'use strict';
 
 const { QueryTypes } = require('sequelize');
-const Redis = require('ioredis');
+// const redis = require('../../ /lib/redis');
 
+const redis = require('../lib/redis/redis');
 module.exports = {
   async up(queryInterface, Sequelize) {
     // @ts-ignore
-    const redis = new Redis();
+    // const redis = redis;
 
     // Ambil semua countries dari DB
     const countries = await queryInterface.sequelize.query(
@@ -60,16 +61,16 @@ module.exports = {
     await redis.set('geo:districts', JSON.stringify(cleanDistricts));
     // await redis.set('geo:subDistricts', JSON.stringify(cleanSubDistricts));
 
-    await redis.quit();
+    // await redis.quit();
   },
 
   async down(queryInterface, Sequelize) {
     // @ts-ignore
-    const redis = new Redis();
+    // const redis = new Redis();
     await redis.del('geo:countries');
     await redis.del('geo:provinces');
     await redis.del('geo:cities');
     await redis.del('geo:districts');
-    await redis.quit();
+    // await redis.quit();
   }
 };
