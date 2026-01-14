@@ -1,16 +1,19 @@
 module.exports = {
   apps: [
     {
-      name: "tour-api",
-      script: "server.js",   // sesuaikan kalau server ada di src/server.js
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: "512M",
+      name: 'tour-api',
+      script: 'server.js',          // file utama API
+      watch: true,                  // opsional, restart saat file berubah (dev mode)
+      autorestart: true,            // restart otomatis jika crash
+      max_restarts: 10,             // maksimal restart beruntun
       env: {
-        NODE_ENV: "production",
-        PORT: 5101,
+        NODE_ENV: 'production',     // default env
       },
+      env_development: {
+        NODE_ENV: 'development',
+        PORT: 5101,                 // bisa sesuai .env.development
+      }, 
     },
+     
   ],
 };

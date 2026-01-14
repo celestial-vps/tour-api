@@ -1,25 +1,26 @@
-# Gunakan Node.js official image ringan
-FROM node:18-alpine
+# Gunakan Node.js resmi yang ringan
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json & package-lock.json untuk install dependencies
+# Environment
+ENV NODE_ENV=development
+ENV PORT=5001
+
+# Copy dependency files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Install dependencies + pm2
+RUN npm install -g pm2 \
+    && npm install
 
-# Copy semua source code
+# Copy source code
 COPY . .
 
-# Set environment default, bisa di override saat run container
-ENV NODE_ENV=production
-ENV PORT=5101
-
-# Expose port (dokumentasi)
+# Expose port
 EXPOSE 5101
 
-# Jalankan aplikasi
-# Menggunakan variable environment, fleksibel antara dev & prod
-CMD ["sh", "-c", "npm run ${NODE_ENV}"]
+# Jalankan server: tunggu Kafka, buat topic, start pm2
+CMD ["sh", "-c", "pm2-runtime ecosystem.config.js --env development"]
+ 

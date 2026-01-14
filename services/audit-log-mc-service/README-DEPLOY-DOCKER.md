@@ -25,6 +25,10 @@ docker-compose -f docker-compose.yml up -d
     docker exec -it audit-api-dev sh
     npx sequelize-cli db:migrate
 
+# CEK TABLE AND DATA
+    \dt
+    SELECT * FROM audit_logs;
+
  
 
 

@@ -27,7 +27,7 @@ const subDistrictCacheRoutes = require('./routes/sub-district-cache.route');
 const vehicleTypeRoutes = require('./routes/vehicle-type.route');
 const vehicleRoutes = require('./routes/vehicle.route');
 const learningLevelRoutes = require('./routes/learning-level.route');
-
+const testRoute = require('./routes/test.route');   
 const hotelRoomRoutes = require('./routes/hotel-room.route');
 const hotelRoutes = require('./routes/hotel.route');
 const brandRoutes = require('./routes/brand.route');
@@ -92,7 +92,7 @@ console.log(`Server running on basePath ${basePath}`);
 sequelize.logging = console.log;
 // Route Hello World
 app.get(basePath, (req, res) => res.send('Hello World di basePath!'));
-
+app.use(`/test`, testRoute);
 app.use(`${basePath}/auth`, authRoutes);
 app.use(`${basePath}/user-role`, userRoleRoutes);
 app.use(`${basePath}/user`, userRoutes);
