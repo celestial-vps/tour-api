@@ -5,7 +5,9 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const helmet = require('helmet') 
 
+const testRoute = require('./routes/test.route');   
 const auditTrail = require('./routes/audit-log.route');   
+
 
 const setupSwagger = require('./swagger'); // Adjust the path as needed
 // @ts-ignore
@@ -44,7 +46,7 @@ const basePath = process.env.BASE_PATH || '/api/v1'; // Default to '/api/v1' if 
 console.log(`Server running on basePath ${basePath}`);
 // @ts-ignore
 sequelize.logging = console.log; 
-
+app.use(`/`, testRoute);  
 app.use(`${basePath}/audit-log`, auditTrail);  
 
 module.exports = app;

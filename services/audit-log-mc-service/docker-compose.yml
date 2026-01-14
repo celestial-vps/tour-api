@@ -1,43 +1,76 @@
-version: "3.9"
+# docker-compose.yml
 
 services:
-  audit-api:
+  audit-api-dev:
     build: .
-    container_name: audit-api
+    container_name: audit-api-dev
     env_file:
-      - .env
+      - .env.development
     ports:
       - "5001:5001"
     networks:
       - shared-network
     depends_on:
-      - audit-db
-      - audit-redis
+      - audit-db-dev
+      - audit-redis-dev
+      - kafka-dev
 
-  audit-db:
+  audit-db-dev:
     image: postgres:15-alpine
-    container_name: audit-db
+    container_name: audit-db-dev
     environment:
-      POSTGRES_DB: tourdb_audit_trail
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "Serverh5n&*#"
+      POSTGRES_DB: ${DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5433:5432"   # HostPort:ContainerPort
+      - "5433:5432"
     networks:
       - shared-network
     volumes:
       - audit-db-data:/var/lib/postgresql/data
 
-  audit-redis:
+  audit-redis-dev:
     image: redis:7-alpine
-    container_name: audit-redis
+    container_name: audit-redis-dev
     command: ["redis-server", "--requirepass", "Serverh5n"]
     ports:
-      - "6380:6379"   # HostPort:ContainerPort
+      - "6380:6379"
     networks:
       - shared-network
     volumes:
       - audit-redis-data:/data
+
+  zookeeper-dev:
+    image: confluentinc/cp-zookeeper:7.7.7
+    container_name: zookeeper-dev
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:22181"
+    networks:
+      - shared-network
+
+  kafka-dev:
+    image: confluentinc/cp-kafka:7.7.7
+    container_name: kafka-dev
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper-dev:2181"
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-dev:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+    networks:
+      - shared-network
+    depends_on:
+      - zookeeper-dev
+
+    healthcheck:
+      test: ["CMD", "nc", "-z", "kafka-dev", "9092"]
+      interval: 5s
+      retries: 10
 
 networks:
   shared-network:

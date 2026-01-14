@@ -1,20 +1,25 @@
 # Gunakan Node.js official image ringan
 FROM node:18-alpine
 
-# Set working directory di container
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json & package-lock.json
+# Copy package.json & package-lock.json untuk install dependencies
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
 
 # Copy semua source code
 COPY . .
 
-# Expose port API
-EXPOSE 5001
+# Set environment default, bisa di override saat run container
+ENV NODE_ENV=production
+ENV PORT=5101
 
-# Start API
-CMD ["npm", "run", "dev"]   
+# Expose port (dokumentasi)
+EXPOSE 5101
+
+# Jalankan aplikasi
+# Menggunakan variable environment, fleksibel antara dev & prod
+CMD ["sh", "-c", "npm run ${NODE_ENV}"]

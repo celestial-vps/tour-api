@@ -7,7 +7,7 @@ services:
     ports:
       - "5101:5101"
     env_file:
-      - .env.development
+      - .env.production
     networks:
       - shared-network
     restart: unless-stopped

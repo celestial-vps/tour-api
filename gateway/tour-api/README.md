@@ -160,3 +160,5 @@ docker-compose build tour-api
 docker-compose up -d
 docker-compose logs -f tour-api
 
+# MASUK DB DOCKER
+docker exec -it postgres-db psql -U postgres -d tourdb

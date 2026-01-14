@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  audit-api-prod:
+    build: .
+    container_name: audit-api-prod
+    env_file:
+      - .env.production
+    ports:
+      - "5001:5001"
+    networks:
+      - shared-network
+    depends_on:
+      - audit-db-prod
+      - audit-redis-prod
+    restart: always
+
+  audit-db-prod:
+    image: postgres:15-alpine
+    container_name: audit-db-prod
+    environment:
+      POSTGRES_DB: ${DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"   # HostPort:ContainerPort
+    networks:
+      - shared-network
+    volumes:
+      - audit-db-data:/var/lib/postgresql/data
+    restart: always
+
+  audit-redis-prod:
+    image: redis:7-alpine
+    container_name: audit-redis-prod
+    command: ["redis-server", "--requirepass", "Serverh5n"]
+    ports:
+      - "6379:6379"   # HostPort:ContainerPort
+    networks:
+      - shared-network
+    volumes:
+      - audit-redis-data:/data
+    restart: always
+
+networks:
+  shared-network:
+    driver: bridge
+
+volumes:
+  audit-db-data:
+  audit-redis-data:
