@@ -37,6 +37,11 @@ docker-compose -f docker-compose.yml up -d
 
 # CEK TABLE AND DATA
     \dt
+    \l
+    \c tourdb_dev
+    \dt
+    
+
     SELECT * FROM tour_logs;
 
  

@@ -5,14 +5,16 @@ import { CreateNewsDto, FilterNewsDto, UpdateNewsDto } from '../dtos/payload-new
 import { DataSource } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
 import { NewsMapping, NewsVm } from '../mappings/news-vm';
+import { NewsCategoryRepository } from '../repositories/news-category.repository';
 
 @Injectable()
 export class NewsService {
   constructor(
     private readonly newsRepository: NewsRepository,
+    private readonly newsCategoryRepository: NewsCategoryRepository,
     private readonly newsMapping: NewsMapping,
     private readonly dataSource: DataSource,
-  ) {}
+  ) { }
 
   async create(newsdto: CreateNewsDto, userOid: string): Promise<MessageVm> {
     const queryRunner = this.dataSource.createQueryRunner();
@@ -21,6 +23,8 @@ export class NewsService {
     try {
       const news = new News();
       // news.newsCode = newsdto.newsCode;
+      news.category = await this.newsCategoryRepository.findById(newsdto.categoryOid);
+       
       news.title = newsdto.title;
       news.content = newsdto.content;
       news.createdBy = userOid;

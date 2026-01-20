@@ -17,7 +17,7 @@ const base_1 = require("./base/base");
 const news_image_detail_entity_1 = require("./news-image-detail.entity");
 let News = class News extends base_1.BaseEntity {
     oid;
-    newsCategory;
+    category;
     title;
     content;
     summary;
@@ -39,7 +39,7 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => news_category_entity_1.NewsCategory, category => category.newss, { nullable: false }),
     (0, typeorm_1.JoinColumn)({ name: 'categoryOid' }),
     __metadata("design:type", news_category_entity_1.NewsCategory)
-], News.prototype, "newsCategory", void 0);
+], News.prototype, "category", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
     __metadata("design:type", String)

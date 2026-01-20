@@ -15,12 +15,15 @@ const news_repository_1 = require("../repositories/news.repository");
 const news_entity_1 = require("../models/news.entity");
 const typeorm_1 = require("typeorm");
 const news_vm_1 = require("../mappings/news-vm");
+const news_category_repository_1 = require("../repositories/news-category.repository");
 let NewsService = class NewsService {
     newsRepository;
+    newsCategoryRepository;
     newsMapping;
     dataSource;
-    constructor(newsRepository, newsMapping, dataSource) {
+    constructor(newsRepository, newsCategoryRepository, newsMapping, dataSource) {
         this.newsRepository = newsRepository;
+        this.newsCategoryRepository = newsCategoryRepository;
         this.newsMapping = newsMapping;
         this.dataSource = dataSource;
     }
@@ -29,6 +32,7 @@ let NewsService = class NewsService {
         await queryRunner.startTransaction();
         try {
             const news = new news_entity_1.News();
+            news.category = await this.newsCategoryRepository.findById(newsdto.categoryOid);
             news.title = newsdto.title;
             news.content = newsdto.content;
             news.createdBy = userOid;
@@ -121,6 +125,7 @@ exports.NewsService = NewsService;
 exports.NewsService = NewsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [news_repository_1.NewsRepository,
+        news_category_repository_1.NewsCategoryRepository,
         news_vm_1.NewsMapping,
         typeorm_1.DataSource])
 ], NewsService);

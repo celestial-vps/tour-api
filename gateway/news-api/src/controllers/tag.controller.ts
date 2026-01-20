@@ -91,7 +91,7 @@ export class TagController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Tag' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the tag to be deleted' })
   @ApiOkResponse({ description: 'Delete tags', type: SuccessResponseMessageDto })

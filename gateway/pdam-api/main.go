@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/pdam-api/go-pdam-api/cmd"
 	"github.com/pdam-api/go-pdam-api/common"
 	"github.com/pdam-api/go-pdam-api/controllers"
 	"github.com/pdam-api/go-pdam-api/database"
@@ -39,7 +38,7 @@ func main() {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	DB := database.GetConnection()
-	cmd.SeedUserRoles(DB)
+	// cmd.SeedUserRoles(DB)
 
 	validate := validator.New()
 
@@ -142,6 +141,8 @@ func main() {
 	{
 		auth := v2.Group("/auth")
 		routes.AuthRouter(authController, auth)
+
+		routes.TestRouter(v2)
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

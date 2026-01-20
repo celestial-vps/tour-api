@@ -135,7 +135,7 @@ __decorate([
 ], TagController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Tag' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the tag to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete tags', type: success_response_message_dto_1.SuccessResponseMessageDto }),

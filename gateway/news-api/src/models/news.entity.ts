@@ -13,7 +13,7 @@ export class News extends BaseEntity {
 
   @ManyToOne(() => NewsCategory, category => category.newss, { nullable: false })
   @JoinColumn({ name: 'categoryOid' })
-  newsCategory: NewsCategory;
+  category: NewsCategory;
 
   @Column({ type: 'varchar', length: 255 })
   title: string;

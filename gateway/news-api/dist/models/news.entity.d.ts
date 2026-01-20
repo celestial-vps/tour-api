@@ -4,7 +4,7 @@ import { BaseEntity } from './base/base';
 import { NewsImageDetail } from './news-image-detail.entity';
 export declare class News extends BaseEntity {
     oid: string;
-    newsCategory: NewsCategory;
+    category: NewsCategory;
     title: string;
     content: string;
     summary?: string;
