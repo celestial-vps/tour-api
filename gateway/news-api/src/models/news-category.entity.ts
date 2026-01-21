@@ -10,7 +10,7 @@ export class NewsCategory extends BaseEntity {
     @Column({ type: 'varchar', length: 40, nullable: true })
     categoryName?: string;
 
-    @OneToMany(() => News, news => news.newsCategory)
+    @OneToMany(() => News, news => news.category)
     newss: News[];
 
 }

@@ -4,12 +4,14 @@ import { DataSource } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
 import { NewsMapping, NewsVm } from '../mappings/news-vm';
 import { NewsCategoryRepository } from '../repositories/news-category.repository';
+import { ImageFileRepository } from '../repositories/image-file.repository';
 export declare class NewsService {
     private readonly newsRepository;
     private readonly newsCategoryRepository;
+    private readonly imageFileRepository;
     private readonly newsMapping;
     private readonly dataSource;
-    constructor(newsRepository: NewsRepository, newsCategoryRepository: NewsCategoryRepository, newsMapping: NewsMapping, dataSource: DataSource);
+    constructor(newsRepository: NewsRepository, newsCategoryRepository: NewsCategoryRepository, imageFileRepository: ImageFileRepository, newsMapping: NewsMapping, dataSource: DataSource);
     create(newsdto: CreateNewsDto, userOid: string): Promise<MessageVm>;
     update(oid: string, newsdto: UpdateNewsDto, userOid: string): Promise<MessageVm>;
     deleted(oid: string, userOid: string): Promise<MessageVm>;

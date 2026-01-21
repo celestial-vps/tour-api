@@ -23,7 +23,7 @@ export class NewsMapping {
     toNewsResponse(News: News): NewsVm {
         return {
             oid: News.oid,
-            newsCategory: News.newsCategory ? News.newsCategory.categoryName ?? '' : '',
+            newsCategory: News.category ? News.category.categoryName ?? '' : '',
             title: News.title ?? '',
             content: News.content ?? '',
             summary: News.summary ?? '',

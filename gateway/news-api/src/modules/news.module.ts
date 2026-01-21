@@ -12,11 +12,17 @@ import { AuditTrailModule } from './audit-trail.module';
 import { NewsImageDetailModule } from './news-image-detail.module';
 import { NewsImageDetail } from '../models/news-image-detail.entity';
 import { RequestHandlerService } from '../services/request-handler.service';
+import { NewsCategoryRepository } from '../repositories/news-category.repository';
+import { NewsCategory } from '../models/news-category.entity';
+import { ImageFileRepository } from '../repositories/image-file.repository';
+import { ImageFile } from '../models/image-file.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([News,NewsImageDetail]), UserModule, AuditTrailModule],
+    imports: [TypeOrmModule.forFeature([News, NewsImageDetail, NewsCategory, ImageFile]), UserModule, AuditTrailModule],
     controllers: [NewsController],
-    providers: [AuditTrailService, NewsService,RequestHandlerService, ResponseService, NewsRepository, NewsMapping],
+    providers: [AuditTrailService, NewsService, RequestHandlerService, ResponseService,
+        NewsRepository, NewsCategoryRepository, ImageFileRepository,
+        NewsMapping],
     exports: [AuditTrailService],
 
 })

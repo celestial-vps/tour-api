@@ -119,10 +119,15 @@ __decorate([
     __metadata("design:type", Date)
 ], CreateNewsDto.prototype, "publishedAt", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ example: 'tech,ai', description: 'Tags berita' }),
-    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiPropertyOptional)({
+        example: ['tech', 'ai'],
+        description: 'Tags berita',
+        type: [String]
+    }),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
 ], CreateNewsDto.prototype, "tags", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: 10, description: 'Tags berita' }),

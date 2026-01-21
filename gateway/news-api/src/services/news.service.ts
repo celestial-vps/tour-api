@@ -6,12 +6,14 @@ import { DataSource } from 'typeorm';
 import { MessageVm } from '../mappings/message-vm';
 import { NewsMapping, NewsVm } from '../mappings/news-vm';
 import { NewsCategoryRepository } from '../repositories/news-category.repository';
+import { ImageFileRepository } from '../repositories/image-file.repository';
 
 @Injectable()
 export class NewsService {
   constructor(
     private readonly newsRepository: NewsRepository,
     private readonly newsCategoryRepository: NewsCategoryRepository,
+    private readonly imageFileRepository: ImageFileRepository,
     private readonly newsMapping: NewsMapping,
     private readonly dataSource: DataSource,
   ) { }
@@ -24,9 +26,17 @@ export class NewsService {
       const news = new News();
       // news.newsCode = newsdto.newsCode;
       news.category = await this.newsCategoryRepository.findById(newsdto.categoryOid);
-       
+      if (newsdto.imageOid) {
+        news.image = await this.imageFileRepository.findById(newsdto.imageOid);
+      }
       news.title = newsdto.title;
       news.content = newsdto.content;
+      news.author = newsdto.author;
+      news.status = newsdto.status;
+      news.tags = newsdto.tags?.toString();
+      news.language = newsdto.language;
+      // news.image = newsdto.imageOid;
+      // news.images = newsdto.images;
       news.createdBy = userOid;
       news.createdAt = new Date();
 

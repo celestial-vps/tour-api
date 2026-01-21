@@ -17,7 +17,7 @@ export declare class CreateNewsDto {
     categoryOid: string;
     status?: string;
     publishedAt?: Date;
-    tags?: string;
+    tags?: string[];
     views?: number;
     language?: string;
     nwsDetails?: NewsDetailDto[];

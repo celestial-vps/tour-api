@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsNotEmpty, IsDateString, IsInt, IsIn, IsUUID, IsNumber, ValidateNested } from 'class-validator';
+import { IsString, IsOptional, IsNotEmpty, IsDateString, IsInt, IsIn, IsUUID, IsNumber, ValidateNested, IsArray } from 'class-validator';
 import { ApiBaseResponseProps } from './base/api-base-response.decorator';
 import { PaginationInfo } from './base/pagination-info-dto';
 import { Type } from 'class-transformer';
@@ -76,10 +76,20 @@ export class CreateNewsDto {
     @IsOptional()
     publishedAt?: Date;
 
-    @ApiPropertyOptional({ example: 'tech,ai', description: 'Tags berita' })
-    @IsString()
+    // @ApiPropertyOptional({ example: 'tech,ai', description: 'Tags berita' })
+    // @IsString()
+    // @IsOptional()
+    // tags?: string;
+
+    @ApiPropertyOptional({
+        example: ['tech', 'ai'],
+        description: 'Tags berita',
+        type: [String]
+    })
     @IsOptional()
-    tags?: string;
+    @IsArray()
+    @IsString({ each: true })
+    tags?: string[];
 
     @ApiPropertyOptional({ example: 10, description: 'Tags berita' })
     @IsNumber()
@@ -215,4 +225,3 @@ export class SuccessNewsPaginatedResponseDto {
     @ApiProperty({ type: [ResponseNewsVm] })
     data: ResponseNewsVm[];
 }
- 

@@ -9,7 +9,7 @@ export declare class News extends BaseEntity {
     content: string;
     summary?: string;
     author?: string;
-    status: string;
+    status?: string;
     publishedAt?: Date;
     views: number;
     tags?: string;

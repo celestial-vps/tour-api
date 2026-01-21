@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], NewsCategory.prototype, "categoryName", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => news_entity_1.News, news => news.newsCategory),
+    (0, typeorm_1.OneToMany)(() => news_entity_1.News, news => news.category),
     __metadata("design:type", Array)
 ], NewsCategory.prototype, "newss", void 0);
 exports.NewsCategory = NewsCategory = __decorate([

@@ -16,14 +16,17 @@ const news_entity_1 = require("../models/news.entity");
 const typeorm_1 = require("typeorm");
 const news_vm_1 = require("../mappings/news-vm");
 const news_category_repository_1 = require("../repositories/news-category.repository");
+const image_file_repository_1 = require("../repositories/image-file.repository");
 let NewsService = class NewsService {
     newsRepository;
     newsCategoryRepository;
+    imageFileRepository;
     newsMapping;
     dataSource;
-    constructor(newsRepository, newsCategoryRepository, newsMapping, dataSource) {
+    constructor(newsRepository, newsCategoryRepository, imageFileRepository, newsMapping, dataSource) {
         this.newsRepository = newsRepository;
         this.newsCategoryRepository = newsCategoryRepository;
+        this.imageFileRepository = imageFileRepository;
         this.newsMapping = newsMapping;
         this.dataSource = dataSource;
     }
@@ -33,8 +36,15 @@ let NewsService = class NewsService {
         try {
             const news = new news_entity_1.News();
             news.category = await this.newsCategoryRepository.findById(newsdto.categoryOid);
+            if (newsdto.imageOid) {
+                news.image = await this.imageFileRepository.findById(newsdto.imageOid);
+            }
             news.title = newsdto.title;
             news.content = newsdto.content;
+            news.author = newsdto.author;
+            news.status = newsdto.status;
+            news.tags = newsdto.tags?.toString();
+            news.language = newsdto.language;
             news.createdBy = userOid;
             news.createdAt = new Date();
             const savedNews = await this.newsRepository.save(news, queryRunner);
@@ -126,6 +136,7 @@ exports.NewsService = NewsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [news_repository_1.NewsRepository,
         news_category_repository_1.NewsCategoryRepository,
+        image_file_repository_1.ImageFileRepository,
         news_vm_1.NewsMapping,
         typeorm_1.DataSource])
 ], NewsService);

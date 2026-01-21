@@ -28,7 +28,7 @@ export class News extends BaseEntity {
   author?: string;
 
   @Column({ type: 'varchar', length: 20, default: 'draft' })
-  status: string;
+  status?: string;
 
   @Column({ type: 'timestamp', nullable: true })
   publishedAt?: Date;
