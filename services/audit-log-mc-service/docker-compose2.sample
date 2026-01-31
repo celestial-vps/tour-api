@@ -1,0 +1,59 @@
+# version: "3.9"
+
+services:
+  audit-log-mc-service:
+    build: .
+    container_name: audit-log-mc-service
+    env_file:
+      - .env
+    ports:
+      - "5001:5001"
+    depends_on:
+      audit-db:
+        condition: service_healthy
+      audit-redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - audit-network
+
+  # audit-db:
+  #   image: postgres:15
+  #   container_name: audit-db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: Serverh5n&*#
+  #     POSTGRES_DB: tourdb_audit_trail
+  #   volumes:
+  #     - audit_pgdata:/var/lib/postgresql/data
+  #   networks:
+  #     - audit-network
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres -d tourdb_audit_trail"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # audit-redis:
+  #   image: redis:7
+  #   container_name: audit-redis
+  #   command: redis-server --appendonly yes
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - audit-network
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+# volumes:
+#   audit_pgdata:
+#   redis_data:
+
+networks:
+  audit-network:
+    driver: bridge

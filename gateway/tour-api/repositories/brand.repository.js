@@ -1,0 +1,115 @@
+const Brand = require('../models/brand');
+
+// Save a new brand
+const save = async (data, options) => {
+    try {
+        const result = await Brand.create(data, options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Save Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Update an existing brand
+const update = async (oid, data, options) => {
+    try {
+        const [affectedCount] = await Brand.update(data, {
+            where: { oid },
+            ...options,
+        });
+
+        if (affectedCount === 0) {
+            return { result: null, err: new Error("No rows updated") };
+        }
+
+        const findOptions = { ...options };
+        delete findOptions.transaction;
+
+        const updated = await Brand.findByPk(oid, findOptions);
+        return { result: updated, err: null };
+    } catch (err) {
+        return { result: null, err };
+    }
+};
+
+// Delete a brand by ID
+const remove = async (oid, options = {}) => {
+    try {
+        const result = await Brand.destroy({
+            where: { oid },
+            transaction: options.transaction,
+        });
+
+        if (result <= 0) {
+            return { result: null, err: new Error('Failed to delete record') };
+        }
+
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository Delete Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Get all brands
+const findAll = async (options = {}) => {
+    try {
+        const result = await Brand.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Repository findAll Error:', err);
+        return { result: null, err };
+    }
+};
+
+// Find brand by ID
+const findById = async (oid, options = {}) => {
+    try {
+        const result = await Brand.findByPk(oid, options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('Error in findById:', err.message || err);
+        return { result: null, err };
+    }
+};
+
+// Find brands by criteria
+const findByCriteria = async (options = {}) => {
+    try {
+        const result = await Brand.findAll(options);
+        return { result, err: null };
+    } catch (err) {
+        console.error('findByCriteria error:', err);
+        return { result: [], err };
+    }
+};
+
+// Find and count brands
+const findAndCountByCriteria = async (findOptions) => {
+    try {
+        const result = await Brand.findAndCountAll(findOptions);
+        return {
+            data: result.rows,
+            count: result.count,
+            err: null,
+        };
+    } catch (err) {
+        console.error('findAndCountWithOptions error:', err);
+        return {
+            data: [],
+            count: 0,
+            err,
+        };
+    }
+};
+
+module.exports = {
+    save,
+    update,
+    remove,
+    findAll,
+    findById,
+    findAndCountByCriteria,
+    findByCriteria,
+};

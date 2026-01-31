@@ -1,0 +1,30 @@
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+migrate -path ./migrations -database "postgresql://postgres:Serverh5n%26%2A%23@localhost:5432/pdamdb?sslmode=disable" up
+
+mkdir cmd common controllers database docs dtos helper mappings middleware migrate misc models public repositories routes services
+
+migrate -path ./migrations -database "postgres://postgres:Serverh5n&*#@localhost:5432/pdamdb?sslmode=disable" up
+migrate -path ./migrations -database "postgres://postgres:Serverh5n&*#@localhost:5432/pdamdb?sslmode=disable" down
+
+D:\celestial\travel\tour-api\gateway\pdam-api\migrations>generate_migration.bat
+
+cd d/Startup/Tour/tour-api/gateway/pdam-api/migrations
+type .\generate_migration.bat
+
+
+
+Enter migration name (use underscore for spaces): bills
+
+go run seed.go
+
+go get firebase.google.com/go/v4
+
+# run menggunakan env dan sh
+
+    $env:APP_ENV="development"
+    go run main.go
+
+
+.\run.ps1 dev
+.\run.ps1 staging
+.\run.ps1 prod

@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  pdam-api-dev:
+    build: .
+    container_name: pdam-api-dev
+    env_file:
+      - .env.dev
+    ports:
+      - "5301:5301"
+    depends_on:
+      - pdam-db-dev
+      - pdam-redis-dev
+    networks:
+      - shared-network
+
+  pdam-db-dev:
+    image: postgres:15-alpine
+    container_name: pdam-db-dev
+    environment:
+      POSTGRES_DB: ${DBNAME}
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPASS}
+    ports:
+      - "5435:5432"
+    networks:
+      - shared-network
+    volumes:
+      - pdam-db-data:/var/lib/postgresql/data
+
+  pdam-redis-dev:
+    image: redis:7-alpine
+    container_name: pdam-redis-dev
+    command: ["redis-server", "--requirepass", "Serverh5n"]
+    ports:
+      - "6382:6379"
+    networks:
+      - shared-network
+    volumes:
+      - pdam-redis-data:/data
+
+networks:
+  shared-network:
+    driver: bridge
+
+volumes:
+  pdam-db-data:
+  pdam-redis-data:

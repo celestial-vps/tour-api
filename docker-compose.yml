@@ -1,37 +1,30 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  big-project:
-    build: ./big-project
+  postgres:
+    container_name: postgres-db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Serverh5n&*#
+      POSTGRES_DB: tourdb
     ports:
-      - "4000:4000"  # contoh port big project
-    env_file:
-      - ./big-project/.env
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
-  auth-service:
-    build: ./auth-service
+  redis:
+    container_name: redis-server
+    image: redis:7-alpine
+    command: redis-server --requirepass Serverh5n
     ports:
-      - "3001:3000"
-    env_file:
-      - ./auth-service/.env
+      - "6379:6379"
+    restart: unless-stopped
 
-  chat-service:
-    build: ./chat-service
-    ports:
-      - "3002:3000"
-    env_file:
-      - ./chat-service/.env
+networks:
+  default:
+    name: shared-network   # 👈 PENTING
 
-  payment-service:
-    build: ./payment-service
-    ports:
-      - "3003:3000"
-    env_file:
-      - ./payment-service/.env
-
-  notification-service:
-    build: ./notification-service
-    ports:
-      - "3004:3000"
-    env_file:
-      - ./notification-service/.env
+volumes:
+  postgres_data:

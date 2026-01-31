@@ -1,0 +1,20 @@
+# Gunakan Node LTS
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy seluruh source code
+COPY . .
+
+# Expose port aplikasi
+EXPOSE 5101
+
+# Jalankan app
+CMD ["npm", "run", "dev"]

@@ -1,0 +1,48 @@
+# docker-compose.yml
+
+services:
+  tour-api-dev:
+    build: .
+    container_name: tour-api-dev
+    env_file:
+      - .env.development
+    ports:
+      - "5101:5101"
+    networks:
+      - shared-network
+    depends_on:
+      - tour-db-dev
+      - tour-redis-dev 
+
+  tour-db-dev:
+    image: postgres:15-alpine
+    container_name: tour-db-dev
+    environment:
+      POSTGRES_DB: ${DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    networks:
+      - shared-network
+    volumes:
+      - tour-db-data:/var/lib/postgresql/data
+
+  tour-redis-dev:
+    image: redis:7-alpine
+    container_name: tour-redis-dev
+    command: ["redis-server", "--requirepass", "Serverh5n"]
+    ports:
+      - "6381:6379"
+    networks:
+      - shared-network
+    volumes:
+      - tour-redis-data:/data
+ 
+networks:
+  shared-network:
+    driver: bridge
+
+volumes:
+  tour-db-data:
+  tour-redis-data:

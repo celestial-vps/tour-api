@@ -1,0 +1,53 @@
+{
+  "name": "audit-trail-mc-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "staging": "cross-env NODE_ENV=staging node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "local": "cross-env NODE_ENV=local node server.js",
+    "start-kafka": "pm2 start ecosystem.config.js",
+    "stop-kafka": "pm2 stop ecosystem.config.js",
+    "restart-kafka": "pm2 restart ecosystem.config.js",
+    "test": "jest --detectOpenHandles --forceExit --coverage",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "axios-retry": "^4.5.0",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "multer": "^2.0.1",
+    "nodemailer": "^7.0.3",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7",
+    "sharp": "^0.34.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuidv7": "^1.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.3",
+    "nodemon": "^3.1.10"
+  }
+}
