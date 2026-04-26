@@ -76,8 +76,8 @@ export class BannerController {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 
@@ -128,7 +128,7 @@ export class BannerController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Banner' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the banner to be deleted' })
   @ApiOkResponse({ description: 'Delete banners', type: SuccessResponseMessageDto })
@@ -184,13 +184,13 @@ export class BannerController {
     return this.handleRequest(
       async () => {
         const { banners, count } = await this.bannerService.findPage(page, size, filterBannerDto);
-        const totalPage = Math.ceil(count / size);
+        const totalPages = Math.ceil(count / size);
        
         return {  
           page,   
           size,
-          totalItem: count,
-          totalPage,
+          total: count,
+          totalPages,
           data: banners,
         };
       },

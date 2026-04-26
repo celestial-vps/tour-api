@@ -1,7 +1,7 @@
 import { News } from '../models/news.entity';
 export declare class NewsVm {
     oid: string;
-    newsCategory: string;
+    category: string;
     title: string;
     content: string;
     summary: string;
@@ -11,6 +11,7 @@ export declare class NewsVm {
     views: number;
     tags: string;
     language: string;
+    image: any;
     createdAt: Date;
     updatedAt?: Date;
 }

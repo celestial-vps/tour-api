@@ -67,6 +67,7 @@ let NewsRepository = class NewsRepository {
     async findById(oid) {
         const news = await this.repo.findOne({
             where: { oid },
+            relations: ['category', 'image'],
         });
         if (!news) {
             throw new common_1.NotFoundException(`News with OID ${oid} not found`);

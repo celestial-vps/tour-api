@@ -10,7 +10,7 @@ export declare class DefaultResponseWithPagination<T> {
     resultCode: string;
     httpStatus: number;
     message: string;
-    pagging: any;
+    pagination: any;
     data: T;
-    constructor(resultCode: string, httpStatus: number, message: string, pagging: any, data: T);
+    constructor(resultCode: string, httpStatus: number, message: string, pagination: any, data: T);
 }

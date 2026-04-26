@@ -9,8 +9,8 @@ export class ResponseService {
     return new DefaultResponse("200", 200, "success", total, data);
   }
 
-  responseOkWithPagination<T>(data: T, pagging: any): DefaultResponseWithPagination<T> {
-    return new DefaultResponseWithPagination("200", 200, "success", pagging, data);
+  responseOkWithPagination<T>(data: T, pagination: any): DefaultResponseWithPagination<T> {
+    return new DefaultResponseWithPagination("200", 200, "success", pagination, data);
   }
 
   responseDeleteOk<T>(data: T): DefaultResponse<T> {

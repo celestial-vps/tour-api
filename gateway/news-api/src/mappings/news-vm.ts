@@ -3,7 +3,7 @@ import { News } from '../models/news.entity';
 
 export class NewsVm {
     oid: string;
-    newsCategory: string;
+    category: string;
     title: string;
     content: string;
     summary: string;
@@ -13,6 +13,7 @@ export class NewsVm {
     views: number;
     tags: string;
     language: string;
+    image: any;
     createdAt: Date;
     updatedAt?: Date;
 }
@@ -23,7 +24,7 @@ export class NewsMapping {
     toNewsResponse(News: News): NewsVm {
         return {
             oid: News.oid,
-            newsCategory: News.category ? News.category.categoryName ?? '' : '',
+            category: News.category ? News.category.categoryName ?? '' : '',
             title: News.title ?? '',
             content: News.content ?? '',
             summary: News.summary ?? '',
@@ -33,8 +34,11 @@ export class NewsMapping {
             views: News.views ?? '',
             tags: News.tags ?? '',
             language: News.language ?? '',
+            image: News.image,
             createdAt: News.createdAt,
             updatedAt: News.updatedAt,
+
+
         };
     }
 

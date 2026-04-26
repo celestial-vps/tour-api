@@ -50,8 +50,8 @@ let BookmarkController = class BookmarkController {
                 return this.responseService.responseOkWithPagination(result.data, {
                     page: result.page,
                     size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
+                    total: result.total,
+                    totalPages: result.totalPages,
                 });
             }
             return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
@@ -98,12 +98,12 @@ let BookmarkController = class BookmarkController {
         const size = Number(pageSize) || 10;
         return this.handleRequest(async () => {
             const { bookmarks, count } = await this.bookmarkService.findPage(page, size, filterBookmarkDto);
-            const totalPage = Math.ceil(count / size);
+            const totalPages = Math.ceil(count / size);
             return {
                 page,
                 size,
-                totalItem: count,
-                totalPage,
+                total: count,
+                totalPages,
                 data: bookmarks,
             };
         }, 'READ', userOid, undefined, req, true);
@@ -140,7 +140,7 @@ __decorate([
 ], BookmarkController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Bookmark' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the bookmark to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete bookmarks', type: success_response_message_dto_1.SuccessResponseMessageDto }),

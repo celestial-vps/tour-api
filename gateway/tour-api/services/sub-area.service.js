@@ -226,7 +226,7 @@ const findById = async (oid, options = {}) => {
 const findPage = async (filters, options) => {
   try {
     const { search, ...restFilters } = filters;
-    const normalizedFilters = search ? { ...restFilters, cityOid: search } : filters;
+    const normalizedFilters = search ? { ...restFilters, '$city.cityName$': search } : filters;
 
     const where = buildFilterConditions(sequelize, normalizedFilters, false);
     options.include = [

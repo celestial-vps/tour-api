@@ -91,8 +91,8 @@ let NewsCategoryController = class NewsCategoryController {
             return {
                 page,
                 size,
-                totalItem: count,
-                totalPage: Math.ceil(count / size),
+                total: count,
+                totalPages: Math.ceil(count / size),
                 data: newsCategories,
             };
         }, {

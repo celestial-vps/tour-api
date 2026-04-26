@@ -76,8 +76,8 @@ export class ArticleController {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 
@@ -128,7 +128,7 @@ export class ArticleController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Article' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the article to be deleted' })
   @ApiOkResponse({ description: 'Delete articles', type: SuccessResponseMessageDto })
@@ -184,13 +184,13 @@ export class ArticleController {
     return this.handleRequest(
       async () => {
         const { articles, count } = await this.articleService.findPage(page, size, filterArticleDto);
-        const totalPage = Math.ceil(count / size);
+        const totalPages = Math.ceil(count / size);
        
         return {  
           page,   
           size,
-          totalItem: count,
-          totalPage,
+          total: count,
+          totalPages,
           data: articles,
         };
       },

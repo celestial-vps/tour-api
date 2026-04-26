@@ -90,8 +90,8 @@ let BankController = class BankController {
             return {
                 page,
                 size,
-                totalItem: count,
-                totalPage: Math.ceil(count / size),
+                total: count,
+                totalPages: Math.ceil(count / size),
                 data: banks,
             };
         }, {
@@ -135,7 +135,7 @@ __decorate([
 ], BankController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Bank' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the bank to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete banks', type: success_response_message_dto_1.SuccessResponseMessageDto }),

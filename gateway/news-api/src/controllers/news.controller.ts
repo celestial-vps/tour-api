@@ -149,7 +149,7 @@ export class NewsController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a News' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the news to be deleted' })
   @ApiOkResponse({ description: 'Delete newss', type: SuccessResponseMessageDto })
@@ -201,7 +201,7 @@ export class NewsController {
   async findOne(@Param('oid') oid: string, @Request() req: any): Promise<any> {
     const userOid = req.user?.oid;
     return this.requestHandler.handleRequest(
-      () => this.newsService.findAll(),
+      () => this.newsService.findById(oid),
       {
         action: 'READ',
         tableName: 'news',
@@ -239,8 +239,8 @@ export class NewsController {
         return {
           page,
           size,
-          totalItem: count,
-          totalPage: Math.ceil(count / size),
+          total: count,
+          totalPages: Math.ceil(count / size),
           data: newss,
         };
       },

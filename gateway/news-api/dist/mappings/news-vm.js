@@ -10,7 +10,7 @@ exports.NewsMapping = exports.NewsVm = void 0;
 const common_1 = require("@nestjs/common");
 class NewsVm {
     oid;
-    newsCategory;
+    category;
     title;
     content;
     summary;
@@ -20,6 +20,7 @@ class NewsVm {
     views;
     tags;
     language;
+    image;
     createdAt;
     updatedAt;
 }
@@ -28,7 +29,7 @@ let NewsMapping = class NewsMapping {
     toNewsResponse(News) {
         return {
             oid: News.oid,
-            newsCategory: News.category ? News.category.categoryName ?? '' : '',
+            category: News.category ? News.category.categoryName ?? '' : '',
             title: News.title ?? '',
             content: News.content ?? '',
             summary: News.summary ?? '',
@@ -38,6 +39,7 @@ let NewsMapping = class NewsMapping {
             views: News.views ?? '',
             tags: News.tags ?? '',
             language: News.language ?? '',
+            image: News.image,
             createdAt: News.createdAt,
             updatedAt: News.updatedAt,
         };

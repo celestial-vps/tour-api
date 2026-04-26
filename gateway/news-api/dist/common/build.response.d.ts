@@ -1,7 +1,7 @@
 import { DefaultResponse, DefaultResponseWithPagination } from './response';
 export declare class ResponseService {
     responseOk<T>(data: T, total: number): DefaultResponse<T>;
-    responseOkWithPagination<T>(data: T, pagging: any): DefaultResponseWithPagination<T>;
+    responseOkWithPagination<T>(data: T, pagination: any): DefaultResponseWithPagination<T>;
     responseDeleteOk<T>(data: T): DefaultResponse<T>;
     responseDataNotFound<T>(data: T): DefaultResponse<T>;
     responseInternalServerError<T>(data: T): DefaultResponse<T>;

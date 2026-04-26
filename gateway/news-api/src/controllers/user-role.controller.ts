@@ -76,8 +76,8 @@ export class UserRoleController {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 
@@ -128,7 +128,7 @@ export class UserRoleController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a UserRole' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the userRole to be deleted' })
   @ApiOkResponse({ description: 'Delete userRoles', type: SuccessResponseMessageDto })
@@ -184,13 +184,13 @@ export class UserRoleController {
     return this.handleRequest(
       async () => {
         const { userRoles, count } = await this.userRoleService.findPage(page, size, filterUserRoleDto);
-        const totalPage = Math.ceil(count / size);
+        const totalPages = Math.ceil(count / size);
        
         return {  
           page,   
           size,
-          totalItem: count,
-          totalPage,
+          total: count,
+          totalPages,
           data: userRoles,
         };
       },

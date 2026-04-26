@@ -45,10 +45,10 @@ import { RequestHandlerService } from '../services/request-handler.service';
 @Controller('bank')
 export class BankController {
   constructor(
-    private readonly bankService: BankService, 
+    private readonly bankService: BankService,
     private readonly requestHandler: RequestHandlerService,
   ) { }
- 
+
   // ---------------- CREATE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
   @Post('create')
@@ -96,7 +96,7 @@ export class BankController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Bank' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the bank to be deleted' })
   @ApiOkResponse({ description: 'Delete banks', type: SuccessResponseMessageDto })
@@ -186,8 +186,8 @@ export class BankController {
         return {
           page,
           size,
-          totalItem: count,
-          totalPage: Math.ceil(count / size),
+          total: count,
+          totalPages: Math.ceil(count / size),
           data: banks,
         };
       },

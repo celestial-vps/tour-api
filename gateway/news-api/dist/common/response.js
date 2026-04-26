@@ -20,13 +20,13 @@ class DefaultResponseWithPagination {
     resultCode;
     httpStatus;
     message;
-    pagging;
+    pagination;
     data;
-    constructor(resultCode, httpStatus, message, pagging, data) {
+    constructor(resultCode, httpStatus, message, pagination, data) {
         this.resultCode = resultCode;
         this.httpStatus = httpStatus;
         this.message = message;
-        this.pagging = pagging;
+        this.pagination = pagination;
         this.data = data;
     }
 }

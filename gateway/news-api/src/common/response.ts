@@ -19,14 +19,14 @@ export class DefaultResponse<T> {
     resultCode: string;
     httpStatus: number;
     message: string;
-    pagging: any;
+    pagination: any;
     data: T;
   
-    constructor(resultCode: string, httpStatus: number, message: string, pagging: any, data: T) {
+    constructor(resultCode: string, httpStatus: number, message: string, pagination: any, data: T) {
       this.resultCode = resultCode;
       this.httpStatus = httpStatus;
       this.message = message;
-      this.pagging = pagging;
+      this.pagination = pagination;
       this.data = data;
     }
   }

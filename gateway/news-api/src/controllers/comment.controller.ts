@@ -76,8 +76,8 @@ export class CommentController {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 
@@ -128,7 +128,7 @@ export class CommentController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Comment' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the comment to be deleted' })
   @ApiOkResponse({ description: 'Delete comments', type: SuccessResponseMessageDto })
@@ -184,13 +184,13 @@ export class CommentController {
     return this.handleRequest(
       async () => {
         const { comments, count } = await this.commentService.findPage(page, size, filterCommentDto);
-        const totalPage = Math.ceil(count / size);
+        const totalPages = Math.ceil(count / size);
        
         return {  
           page,   
           size,
-          totalItem: count,
-          totalPage,
+          total: count,
+          totalPages,
           data: comments,
         };
       },

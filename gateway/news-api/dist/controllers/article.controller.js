@@ -50,8 +50,8 @@ let ArticleController = class ArticleController {
                 return this.responseService.responseOkWithPagination(result.data, {
                     page: result.page,
                     size: result.size,
-                    totalItem: result.totalItem,
-                    totalPage: result.totalPage,
+                    total: result.total,
+                    totalPages: result.totalPages,
                 });
             }
             return this.responseService.responseOk(result, Array.isArray(result) ? result.length : 1);
@@ -98,12 +98,12 @@ let ArticleController = class ArticleController {
         const size = Number(pageSize) || 10;
         return this.handleRequest(async () => {
             const { articles, count } = await this.articleService.findPage(page, size, filterArticleDto);
-            const totalPage = Math.ceil(count / size);
+            const totalPages = Math.ceil(count / size);
             return {
                 page,
                 size,
-                totalItem: count,
-                totalPage,
+                total: count,
+                totalPages,
                 data: articles,
             };
         }, 'READ', userOid, undefined, req, true);
@@ -140,7 +140,7 @@ __decorate([
 ], ArticleController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a Article' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the article to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete articles', type: success_response_message_dto_1.SuccessResponseMessageDto }),

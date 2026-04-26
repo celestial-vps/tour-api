@@ -54,8 +54,8 @@ export class RequestHandlerService {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 

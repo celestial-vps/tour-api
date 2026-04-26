@@ -13,8 +13,8 @@ let ResponseService = class ResponseService {
     responseOk(data, total) {
         return new response_1.DefaultResponse("200", 200, "success", total, data);
     }
-    responseOkWithPagination(data, pagging) {
-        return new response_1.DefaultResponseWithPagination("200", 200, "success", pagging, data);
+    responseOkWithPagination(data, pagination) {
+        return new response_1.DefaultResponseWithPagination("200", 200, "success", pagination, data);
     }
     responseDeleteOk(data) {
         return new response_1.DefaultResponse("200", 200, "success", 1, data);

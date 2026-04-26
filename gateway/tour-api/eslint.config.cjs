@@ -13,7 +13,8 @@ module.exports = [
         __filename: 'readonly'
       }
     },
-    rules: {
+    rules: { 
+      "@typescript-eslint/no-implicit-any": "off",
       'no-unused-vars': 'off', // warn | error | off
       'no-undef': 'off',
       'eqeqeq': 'off',

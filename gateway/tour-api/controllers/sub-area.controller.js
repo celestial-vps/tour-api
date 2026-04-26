@@ -7,7 +7,7 @@ const pick = require('../misc/pick');
 const { recordAuditTrail } = require('../middleware/audit-trail/with-audit-trail-midleware');
 
 const jwtMaker = new JwtMaker();
-
+ 
 const create = async (req, res) => {
   try {
     const userJwt = req.authorization_payload;

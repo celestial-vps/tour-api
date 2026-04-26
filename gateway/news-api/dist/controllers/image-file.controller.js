@@ -199,14 +199,14 @@ let ImageFileController = class ImageFileController {
         try {
             const userOid = req.user?.oid;
             const { imageFiles, count } = await this.imageFileService.findPage(pageIndex, pageSize, filterImageFileDto);
-            const totalPage = Math.ceil(count / pageSize);
-            const pagging = {
+            const totalPages = Math.ceil(count / pageSize);
+            const pagination = {
                 page: pageIndex,
                 size: pageSize,
-                totalItem: count,
-                totalPage: totalPage,
+                total: count,
+                totalPages: totalPages,
             };
-            const response = this.responseService.responseOkWithPagination(imageFiles, pagging);
+            const response = this.responseService.responseOkWithPagination(imageFiles, pagination);
             await this.auditTrailService.recordPost({
                 tableName: 'imageFiles',
                 recordOid: 'unknown',

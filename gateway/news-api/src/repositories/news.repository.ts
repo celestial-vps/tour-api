@@ -11,6 +11,7 @@ import {
   Repository,
 } from 'typeorm';
 import { News } from '../models/news.entity';
+import { NewsCategory } from '../models/news-category.entity';
 import { FilterNewsDto } from '../dtos/payload-news-dto';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class NewsRepository {
   constructor(
     @InjectRepository(News)
     private readonly repo: Repository<News>,
-  ) {}
+  ) { }
 
   /* =======================
    * WRITE (TRANSACTIONAL)
@@ -94,7 +95,8 @@ export class NewsRepository {
   async findById(oid: string): Promise<News> {
     const news = await this.repo.findOne({
       where: { oid },
-      // relations: { branches: true },
+      relations: ['category', 'image'],
+
     });
 
     if (!news) {
@@ -147,7 +149,7 @@ export class NewsRepository {
     condition: FilterNewsDto,
   ): FindOptionsWhere<News> {
     const where: FindOptionsWhere<News> = {};
- 
+
 
     if (condition.title) {
       where.title = Like(`%${condition.title}%`);

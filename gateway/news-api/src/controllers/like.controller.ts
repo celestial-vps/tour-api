@@ -76,8 +76,8 @@ export class LikeController {
         return this.responseService.responseOkWithPagination(result.data, {
           page: result.page,
           size: result.size,
-          totalItem: result.totalItem,
-          totalPage: result.totalPage,
+          total: result.total,
+          totalPages: result.totalPages,
         });
       }
 
@@ -128,7 +128,7 @@ export class LikeController {
 
   // ---------------- DELETE ----------------
   @UseGuards(JwtAuthGuard, AdminRoleGuard)
-  @Delete(':oid')
+  @Delete('/delete/:oid')
   @ApiOperation({ summary: 'Delete a Like' })
   @ApiParam({ name: 'oid', description: 'Unique identifier of the like to be deleted' })
   @ApiOkResponse({ description: 'Delete likes', type: SuccessResponseMessageDto })
@@ -184,13 +184,13 @@ export class LikeController {
     return this.handleRequest(
       async () => {
         const { likes, count } = await this.likeService.findPage(page, size, filterLikeDto);
-        const totalPage = Math.ceil(count / size);
+        const totalPages = Math.ceil(count / size);
        
         return {  
           page,   
           size,
-          totalItem: count,
-          totalPage,
+          total: count,
+          totalPages,
           data: likes,
         };
       },

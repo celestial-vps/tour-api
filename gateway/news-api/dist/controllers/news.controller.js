@@ -73,7 +73,7 @@ let NewsController = class NewsController {
     }
     async findOne(oid, req) {
         const userOid = req.user?.oid;
-        return this.requestHandler.handleRequest(() => this.newsService.findAll(), {
+        return this.requestHandler.handleRequest(() => this.newsService.findById(oid), {
             action: 'READ',
             tableName: 'news',
             userOid,
@@ -90,8 +90,8 @@ let NewsController = class NewsController {
             return {
                 page,
                 size,
-                totalItem: count,
-                totalPage: Math.ceil(count / size),
+                total: count,
+                totalPages: Math.ceil(count / size),
                 data: newss,
             };
         }, {
@@ -135,7 +135,7 @@ __decorate([
 ], NewsController.prototype, "update", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, admin_role_guard_1.AdminRoleGuard),
-    (0, common_1.Delete)(':oid'),
+    (0, common_1.Delete)('/delete/:oid'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a News' }),
     (0, swagger_1.ApiParam)({ name: 'oid', description: 'Unique identifier of the news to be deleted' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Delete newss', type: success_response_message_dto_1.SuccessResponseMessageDto }),
